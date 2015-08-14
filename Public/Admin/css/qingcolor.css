@@ -1,0 +1,15 @@
+body{background:#fff;}
+/***顶部样式***/
+.header{border-top:4px solid #04E6AD;border-bottom:1px solid #c3c3c3;border-left:4px solid #04E6AD;}
+.mainnav li a:hover,.tool li a:hover{border-bottom:solid 4px #04E6AD;color:#000;}
+/******左边样式*****/
+.left{border-left: 4px solid #04E6AD;}
+/****按钮颜色*****/
+.btn{background:#5cb85c;color:#fff;}
+.btn:hover{background-color:#80CA80;}
+.btn-warning{background:#ed9c28;}
+.btn-warning:hover{background:#F7AE45;}
+.btn-success{background:#4bbd00;}
+.btn-success:hover{background:#83EF3B;}
+.btn-danger{background:#d2322d;}
+.btn-danger:hover{background:#D85A56;}

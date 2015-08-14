@@ -1,0 +1,8 @@
+@charset "utf-8";/* CSS Document */
+*{margin:0px;padding:0px;list-style:none;}
+body{background:url("../images/bg_common.jpg") repeat scroll 0 0 transparent;font:12px/1.7 microsoft yahei,Consolas,"Andale Mono","Lucida Console","Lucida Sans Typewriter",Monaco,"Courier New",monospace;}
+a{color:#0563c3;text-decoration:none;}
+.fl{float:left;_display:inline;}
+.fr{float:right;_display:inline;}
+.container{ width:1000px; margin:0px auto;}
+
