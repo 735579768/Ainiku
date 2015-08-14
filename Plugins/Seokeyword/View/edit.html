@@ -1,0 +1,8 @@
+<form class="autosubmit" action="{:UP('Seokeyword/add')}" method="post">
+{:getForm($fieldarr,$data)}
+<div class="form-group">
+<input type="hidden" name="id" value="{$data['id']}" />
+<a href="javascript:;" id="submitbtn" class="btn btn-parmary btn-large ajax-post"><empty name="data.id">确定添加<else />确定更新</empty></a>
+<a href="javascript:window.history.go(-1);" class="btn btn-warning btn-large return">返回</a>
+</div>
+</form>

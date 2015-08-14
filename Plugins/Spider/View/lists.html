@@ -1,0 +1,47 @@
+<div class="btn-tool">
+<a href="{:UP('Spider/delall')}" class="btn btn-danger ajax-href">清空记录</a>
+<a href="{:UP('Spider/set')}" class="btn">设置</a>
+<form method="post" id="spiders" action="{:UP('Spider/lists')}">
+<div class="form-group-h">
+{:getForm($fieldarr,$data)}
+<div class="form-group">
+	<div class="form-label">蜘蛛:</div>
+    <select class="form-control" name="spider_name" id="spidername" onChange="spiders.submit();">
+    <option value="">全部</option>
+    <volist name="spinfo" id="vo">
+    	<option value="{$vo.name}">{$vo.title}</option>
+    </volist>
+    </select>
+    </div>
+    <div class="form-group">
+    	<a href="javascript:;" onClick="spiders.submit();" class="btn">搜索</a>
+    </div>
+</div>
+<script>
+$(function(){
+	$('#spidername').val("{:I('spider_name')}");
+	});
+</script>
+</form>
+</div>
+<table class="leftalign image-set" width="100%" border="0">
+        <tr class="th">
+		<th width="30">序号</th>
+        <th>蜘蛛名称</th>
+        <th>访问地址</th>
+        <th>蜘蛛IP</th>
+        <th>蜘蛛物理地址</th>
+        <th>访问时间</th>
+        </tr>
+<volist name="_list" id="vo">
+  <tr>
+    <td>{$key+1}</td>
+    <td>{$vo.spider_name}</td>
+    <td style="text-align:left;"><span class="el">{$vo.url}</span></td>
+    <td style="text-align:left;">{$vo.ip}</td>
+    <td style="text-align:left;">{$vo.location}</td>
+  	<td style="text-align:left;">{$vo.create_time|time_format}</td>
+  </tr>
+</volist>
+</table>
+<div class="page">{$_page}</div>

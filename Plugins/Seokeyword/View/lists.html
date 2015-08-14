@@ -1,0 +1,40 @@
+<div class="btn-tool">
+<a href="{:UP('Seokeyword/delall')}" class="btn btn-danger ajax-href">清空记录</a>
+<a href="{:UP('Seokeyword/set')}" class="btn">设置</a>
+<a href="{:UP('Seokeyword/add')}" class="btn">添加关键字</a>
+<form method="post" id="Seokeywords" action="{:UP('Seokeyword/lists')}">
+<div class="form-group-h">
+{:getForm($fieldarr,$data)}
+    <div class="form-group">
+    	<a href="javascript:;" onClick="Seokeywords.submit();" class="btn">搜索</a>
+    </div>
+</div>
+<script>
+$(function(){
+	$('#Seokeywordname').val("{:I('Seokeyword_name')}");
+	});
+</script>
+</form>
+</div>
+<table class="leftalign image-set" width="100%" border="0">
+        <tr class="th">
+		<th width="30">序号</th>
+        <th>关键字</th>
+        <th>地址</th>
+        <th>时间</th>
+        <th>操作</th>
+        </tr>
+<volist name="_list" id="vo">
+  <tr>
+    <td>{$key+1}</td>
+    <td>{$vo.keyword}</td>
+    <td style="text-align:left;"><span class="el">{$vo.url}</span></td>
+  	<td style="text-align:left;">{$vo.create_time|time_format}</td>
+    <td>
+    <a href="{:UP('Seokeyword/add?id='.$vo['id'])}" class="btn">编辑</a>
+    <a href="{:UP('Seokeyword/del?id='.$vo['id'])}" class="btn btn-danger ajax-href-del">删除</a>
+    </td>
+  </tr>
+</volist>
+</table>
+<div class="page">{$_page}</div>

@@ -1,0 +1,56 @@
+    <div class="bjbox" style="width:400px;">
+    <div class="title">系统路径信息</div>
+    <div class="con">
+    <table>
+<tr>
+	<td>缓存目录</td>
+    <td>{$Think.const.RUNTIME_PATH}</td>
+    <td>          <eq name="runtimestatus" value="1">
+              <span style="color:green;">可写</span>
+          <else />
+              <span style="color:red;">不可写</span>
+          </eq>
+          </td>
+</tr>
+<tr>
+	<td>附件目录</td>
+    <td>{:C('DOWNLOAD_UPLOAD.rootPath')}</td>
+    <td>          <eq name="downloadstatus" value="1">
+              <span style="color:green;">可写</span>
+          <else />
+              <span style="color:red;">不可写</span>
+          </eq></td>
+</tr>
+<tr>
+	<td>图片目录</td>
+    <td>{:C('FILE_UPLOAD.rootPath')}</td>
+    <td>          <eq name="picturestatus" value="1">
+              <span style="color:green;">可写</span>
+          <else />
+              <span style="color:red;">不可写</span>
+          </eq></td>
+</tr>
+<tr>
+	<td>缓存目录</td>
+    <td colspan="2">{$runsize.size} 时间:{$runsize['time']|time_format} </notempty> <a target="_blank" class="checksize" href="{:UP('PathInfo/setrunsize')}">查询</a></td>
+</tr>
+<tr>
+	<td>上传目录</td>
+    <td colspan="2"><notempty name="uploadssize">{$uploadssize.size} 时间:{$uploadssize['time']|time_format} </notempty> <a target="_blank" class="checksize" href="{:UP('PathInfo/setuploadssize')}">查询</a></td>
+</tr>
+</table>
+</div>
+</div>
+    <script>
+    $(function(){
+		//查询上传目录大小
+		$('.checksize').bind('click',function(){
+			$.ajax({
+				url:$(this).attr('href')
+				});
+			var da={status:1,url:'',norefresh:1,info:'请求已经发送请稍后刷新查看'};
+			topmsg(da);
+			return false;
+			});
+		});
+    </script>

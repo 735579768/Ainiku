@@ -1,0 +1,39 @@
+<form action="{:UP('Alipay/set')}" method="post" class="form-horizontal">
+  <div class="form-group cl">
+    <div class="form-label">支付宝账号<span class="form-tip">（。标识:ALIPAYUNAME）</span> </div>
+    <input type="text" class="form-control input-large" name="ALIPAYUNAME" value="{$info.account}">
+  </div>
+    <div class="form-group cl">
+    <div class="form-label">合作者身份ID<span class="form-tip">（。标识:ALIPAYSAFEID）</span> </div>
+    <input type="password" class="form-control input-large" name="ALIPAYSAFEID" value="{$info.appid}">
+  </div>
+  <div class="form-group cl">
+    <div class="form-label">支付宝检验码<span class="form-tip">（。标识:ALIPAYVERIFY）</span> </div>
+    <input type="password" class="form-control input-large" name="ALIPAYVERIFY" value="{$info.appkey}">
+  </div>
+
+  <div class="form-group cl">
+    <div class="form-label">选择接口类型<span class="form-tip">（。标识:ALIPAYAPI）</span> </div>
+    <select name="ALIPAYAPI" class="form-control input-middle">
+      <option value="shuang">使用标准双接口</option>
+      <option value="danbao" selected="">使用担保交易接口</option>
+      <option value="jishi">使用即时到帐交易接口</option>
+    </select>
+  </div>
+    <div class="form-group cl">
+    <div class="form-label">通知路径<span class="form-tip">(异步通知用，网站域名带http://，如http://www.59vip.cn/******）</span> </div>
+    <input type="text" class="form-control input-large" name="notify_url" value="{$info.notify_url}">
+  </div>
+  
+      <div class="form-group cl">
+    <div class="form-label">跳转页面<span class="form-tip">(支付成功后跳转页面，网站域名带http://，如http://www.59vip.cn/*******全路径）</span> </div>
+    <input type="text" class="form-control input-large" name="return_url" value="{$info.return_url}">
+  </div>
+  <div class="form-group center"> <a href="javascript:;" class="btn btn-parmary btn-large ajax-post">保存配置</a> </div>
+  </div>
+  <script>
+  $(function(){
+	  $('select[name="ALIPAYAPI"]').val('{$info.api}');
+	  });
+  </script>
+</form>
