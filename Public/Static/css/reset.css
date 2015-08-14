@@ -66,10 +66,10 @@ select.form-control{display:inline-block;width:auto;height:30px;}
 .btn-danger{background:#d2322d;}
 .btn-danger:hover{background:#D85A56;}
 /****谷歌黄色背景问题***/
-input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill,input:hover,textarea:hover,select:hover{
+/*input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill,input:hover,textarea:hover,select:hover{
   background-color: #fff;
   -webkit-box-shadow: 0 0 0 1000px white inset!important;
-}
+}*/
 body{background:#fff;color:#666;/*overflow-y:scroll;*/}
 .cl:after{content:"";visibility:hidden;display:block;font-size:0;content:'';clear:both;height:0;}
 * html .cl{zoom:1;}
