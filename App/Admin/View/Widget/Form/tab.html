@@ -103,6 +103,9 @@ $(function(){
           <case value="textarea">
             <textarea class="form-control input-large" placeholder="请输入{$field['title']}"  name="{$field['name']}">{$field['data']}</textarea>
           </case>
+           <case value="bigtextarea">
+            <textarea class="form-control" placeholder="请输入{$field['title']}"  name="{$field['name']}">{$field['data']}</textarea>
+          </case>
           <case value="datetime">
             <input name="{$field['name']}" type="text" readonly class="form-control input-middle time" style="width:145px;" value="<empty name="field['data']">{:date('Y-m-d')}<else />{$field['data']|time_format}</empty>" placeholder="请选择时间" /> 
             </case>

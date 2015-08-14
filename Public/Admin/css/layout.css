@@ -65,7 +65,7 @@ body{   overflow-x:hidden; overflow-y:hidden;padding:62px 0px 0px 179px;}
 /****右边表格列表样式*****/
 .right .th,.right .th th{ height:30px; line-height:30px; font-weight:bolder; background:#f6f6f6; color:#67ad03; overflow:hidden; text-align:center;}
 .right table{border-collapse:collapse;border:none;}
-.right th,.right td{ padding:1px; text-align:center;  border: solid 1px #ededed; white-space:nowrap;   max-width: 150px;text-overflow: ellipsis; padding:0px 5px; font-size:12px; height:30px;}
+.right th,.right td{ padding:1px;/* text-align:center*/;  border: solid 1px #ededed; white-space:nowrap;   max-width: 150px;text-overflow: ellipsis; padding:0px 5px; font-size:12px; height:30px;}
 .right td:last-child{ text-align:left;}
 /***右边搜索框*****/
 .searchform{float:right;margin:0px 10px 0px 0px;padding:0px 10px;border-radius:5px;}
