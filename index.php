@@ -1,7 +1,7 @@
 <?php
 // 检测PHP环境
 if(version_compare(PHP_VERSION,'5.3.0','<'))  die('require PHP > 5.3.0 !');
-ini_set('session.cookie_domain', ".ainiku.com");//跨域访问Session
+//ini_set('session.cookie_domain', ".ainiku.com");//跨域访问Session
 // 定义应用目录
 define('APP_PATH','./App/');
 if(!file_exists(APP_PATH . 'Install/Data/install.lock')){
