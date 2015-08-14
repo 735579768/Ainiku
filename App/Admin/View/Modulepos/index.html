@@ -1,0 +1,64 @@
+<extend name="Public:base" />
+<block name="right">
+<!--tool start-->
+<div class="btn-tool">
+<a href="{:U('modulepos/add')}" class="btn btn-parmary">添加模块位置</a>
+
+<div class="searchform">
+<form class="form-h form-group-h" action="{:U('')}" method="post">
+<div class="form-group">
+<input name="title" type="text" value="{:I('title')}" class="form-control input-mid" placeholder="请输入模块位置置标题" /></div>
+<div class="form-group">
+<a class="sch-btn" href="javascript:;" id="search" ><i class="btn-search"></i></a>
+</div>
+</form>
+</div>
+
+
+</div>
+
+<!--tool end-->
+<!--content start -->
+<div class="content">
+<table class="leftalign" width="100%" border="1" bordercolor="#ededed">
+        <tr class="th">
+        <th width="80" class="center">模块ID</th>
+		<th width="50" class="center">排序</th>
+		<th>模块标识</th>
+        <th>模块位置名称</th>
+		<th width="350" style=" text-align:center;">操作</th>
+		</tr>
+<volist name="_list" id="vo">
+  <tr>
+    <TD width="80" class="center">{$vo.modulepos_id}</TD>
+    <td>
+    <neq name="vo.modulepos_id" value="1">
+    <input  data-table="modulepos" data-id="{$vo.modulepos_id}" data-field="sort"  type="text" class="form-control input-mini  ajax-blur" name="sort" value="{$vo.sort}" />
+    </neq>
+    </td>
+    <td>{$vo.name}</td>
+    <td>{$vo.title}</td>
+    <td>
+<a href="{:U('Module/add',array('modulepos_id'=>$vo['modulepos_id']))}" class="btn btn-parmary">添加模块信息</a> 
+    <a href="{:U('Module/index?modulepos_id='.$vo['modulepos_id'])}" class="btn">模块信息列表</a>
+        <neq name="vo.modulepos_id" value="1"> <a href="{:U('modulepos/edit?modulepos_id='.$vo['modulepos_id'])}" class="btn btn-primary">编辑</a>
+    
+      <a href="{:U('modulepos/del?modulepos_id='.$vo['modulepos_id'])}" class="btn btn-danger ajax-href-del">删除</a>
+      </neq>
+    </td>
+  </tr>
+</volist>
+</table>
+<div id="page" class="page">{$_page}</div>
+</div>
+<script>
+	//表格着色
+	$('tr:even').css('background','#f7f7f7');
+	//分类过滤
+	$('select[name="cat_id"]').change(function(e) {
+        $(this).parents('form').submit();
+    });
+	$('select[name="cat_id"]').val("{:I('cat_id',0)}");
+</script>
+<!--content end-->
+</block>

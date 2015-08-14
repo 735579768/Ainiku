@@ -1,0 +1,21 @@
+<extend name="Public/base" />
+<block name="right">
+<div class="tab cl">
+<form action="{:U('Config/save',array('id'=>I('id')))}" method="post">
+<ul class="tabnavblock cl">
+    <volist name="group" id="vo">
+    <li class="tabnav <if condition="$id eq $key">hover</if>"><a  href="{:U('group',array('id'=>$key))}">{$vo}</a></li>
+    </volist>
+</ul>
+<div class="tabdiv">
+{:getForm($data)}
+    <div class="form-group center">
+    <input name="id" value="{$id}" type="hidden" />
+    <a href="javascript:;" class="btn btn-parmary btn-large ajax-post">保存配置</a>
+    <a href="javascript:;" class="btn btn-warning btn-large return">返回</a>
+    </div>
+</div>
+</form>
+</div>
+
+</block>

@@ -1,0 +1,52 @@
+<extend name="Public:base" />
+<block name="right">
+<!--tool start-->
+<div class="btn-tool">
+<a href="{:U('Member/dellog')}" class="btn btn-danger klbatch">批量删除</a>
+<div class="searchform">
+<form class="hform" action="{:U('')}" method="post">
+
+<input name="title" type="text" value="{:I('title')}" class="form-control input-middle" placeholder="请输入用户名" />
+
+<a class="sch-btn" href="javascript:;" id="search" ><i class="btn-search"></i></a>
+</form>
+</div>
+
+
+</div>
+
+<!--tool end-->
+<!--content start -->
+<div class="content">
+<table class="leftalign" width="100%" border="1" bordercolor="#ededed">
+        <tr class="th">
+		<th width="50" style="text-align:center;"><input class="check-all" type="checkbox"   /></th>
+		<th width="30">序号</th>
+		<th>用户名</th>
+        <th>用户组</th>
+        <th>登陆IP</th>
+        <th>地址</th>
+        <th>登陆时间</th>
+		<th width="120" style=" text-align:center;">操作</th>
+		</tr>
+<volist name="_list" id="vo">
+  <tr>
+    <td style="text-align:center;">
+    <input class="check-item" type="checkbox" name="id[]" value="{$vo.member_log_id}"/>
+    </td>
+    <td>{$key+1}</td>
+    <td>{$vo.username}</td>
+    <td>{$vo.grouptitle}</td>
+    <td>{$vo.ip}</td>
+    <td class="center">{$vo.adr}</td>
+    <td class="center">{$vo.create_time|time_format}</td>
+    <td class="center">
+       <a href="{:U('Member/dellog?member_log_id='.$vo['member_log_id'])}" class="btn btn-danger ajax-href-del">删除</a>
+    </td>
+  </tr>
+</volist>
+</table>
+<div id="page" class="page">{$_page}</div>
+</div>
+<!--content end-->
+</block>

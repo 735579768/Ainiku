@@ -1,0 +1,31 @@
+<extend name="Public/base" />
+<block name="left">
+<div class="arccon">
+<h2 class="a-title">{$info.title}</h2>
+<div class="a-note cl">
+<span>浏览:{$info.views}</span>
+<span>来源:<a href="http://www.ainiku.com">http://www.ainiku.com</a></span>
+<span>时间:{$info.create_time|time_format}</span>
+<span>作者:爱你酷</span>
+
+</div>
+<div class="a-con">{$info.content}</div>
+ </div>
+ </block>
+ 
+ 
+ <block name="right">
+ <dl class="list">
+	<dt class="l-title"><a href="javascript:;">爱情说说</a></dt>
+    <article:list category_id="1454" rows="10">
+    <dd class="l-item"><a target="_blank" href="{:U('detail/'.$vo['article_id'])}" title="{$vo.title}"><span class="xinico">♥</span>{$vo.title}</a></dd>
+    </article:list>
+</dl>
+
+<dl class="list">
+	<dt class="l-title"><a href="javascript:;">伤感说说</a></dt>
+    <article:list category_id="85" rows="10">
+    <dd class="l-item"><a target="_blank" href="{:U('detail/'.$vo['article_id'])}" title="{$vo.title}"><span class="xinico">♥</span>{$vo.title}</a></dd>
+    </article:list>
+</dl>
+ </block>

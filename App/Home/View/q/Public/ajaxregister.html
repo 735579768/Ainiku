@@ -1,0 +1,109 @@
+<form class="form-h"  action="__SELF__">
+<div class="form-group">
+<div class="form-label">地址</div>
+<input type="hidden" id="ssq{$field['name']}" name="{$field['name']}"  value="{$field['data']}" />
+ <select id="Province{$field['name']}" class="form-control"><option value="0">请选择--</option></select>
+<select id="city{$field['name']}" class="form-control"><option value="0">请选择--</option></select>
+<select id="area1{$field['name']}" class="form-control"><option value="0">请选择--</option></select>
+<select id="area11{$field['name']}" class="form-control"><option value="0">请选择--</option></select>
+</div>
+<div class="form-group">
+<div class="form-label">用户名</div>
+<input  name="username" class="form-control input-middle" type="text" value=""  />
+</div>
+
+<div class="form-group">
+<div class="form-label">密码</div>
+<input name="password" class="form-control input-middle" type="text" value=""  />
+</div>
+
+<div class="form-group">
+<div class="form-label">重复密码</div>
+<input name="repassword" class="form-control input-middle" type="text" value=""  />
+</div>
+
+<div class="form-group">
+<div class="form-label">邮箱</div>
+<input name="email" class="form-control input-middle" type="text" value=""  />
+</div>
+
+<div class="form-group">
+<div class="form-label">手机</div>
+<input name="mobile"  class="form-control input-middle" type="text" value=""  />
+</div>
+
+<div class="form-group">
+	<a href="javascript:;" class="btn btn-large ajax-post">注册</a>
+</div>
+</form>
+
+
+                <script>
+                $(function(){
+                   var arr=$('#ssq{$field['name']}').val();
+				   arr=arr.split(',');
+                    $.ajax({
+                    type:'post',
+                    url:"{:U('Region/index')}",
+                    data:{id:0,selid:arr[0]},
+                    success: function(da){
+                        $('#Province{$field['name']}').html(da);
+                        $('#Province{$field['name']}').change();
+						setssq{$field['name']}();
+                        }
+                    });	
+					$('#Province{$field['name']}').change(function(e) {
+							var idd=$(this).val();
+								$.ajax({
+									type:'post',
+									url:"{:U('Region/index')}",
+									data:{id:idd,selid:arr[1]},
+									success: function(da){
+										$('#city{$field['name']}').html(da);
+										$('#city{$field['name']}').change();
+										setssq{$field['name']}();
+										}
+								});		
+                    });
+                    
+                    $('#city{$field['name']}').change(function(e) {
+                        var idd=$(this).val();
+                            $.ajax({
+                                type:'post',
+                                url:"{:U('Region/index')}",
+                                data:{id:idd,selid:arr[2]},
+                                success: function(da){
+                                    $('#area1{$field['name']}').html(da);
+									$('#area1{$field['name']}').change();
+									setssq{$field['name']}();
+                                    }
+                            });
+                    });
+                    $('#area1{$field['name']}').change(function(e) {
+                        var idd=$(this).val();
+                            $.ajax({
+                                type:'post',
+                                url:"{:U('Region/index')}",
+                                data:{id:idd,selid:arr[3]},
+                                success: function(da){
+                                    $('#area11{$field['name']}').html(da);
+									$('#area11{$field['name']}').change();
+									setssq{$field['name']}();
+                                    }
+                            });
+                    });
+                    $('#area11{$field['name']}').change(function(e) {
+									setssq{$field['name']}();
+                    });
+
+                   window.setssq{$field['name']}=function(){
+					    var idd='{$field['name']}';
+					   var str1=$('#Province'+idd).val();
+					   var str2=$('#city'+idd).val();
+					   var str3=$('#area1'+idd).val();
+					   var str4=$('#area11'+idd).val();
+					   	$('#ssq'+idd).val(str1+','+str2+','+str3+','+str3);
+					   } 
+                });
+                </script>         
+

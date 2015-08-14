@@ -1,0 +1,213 @@
+            <volist name="fieldarr" id="field">
+             <neq name='is_show' value='0'>
+              <div class="form-group cl">
+                    <label class="form-label">{$field['title']}<span class="check-tips"><notempty name="field['note']">（{$field['note']}）</notempty></span></label>
+                    <div class="controls">
+                        <switch name="field['type']">
+                            <case value="num">
+                                <input type="text" class="form-control input-small" name="{$field['name']}" value="{$field['data']}">
+                            </case>
+                            <case value="string">
+                                <input type="text" class="form-control input-large" name="{$field['name']}" value="{$field['data']}">
+                            </case>
+                            <case value="textarea">
+                               
+                                <textarea class="form-control input-large" name="{$field['name']}">{$field['data']}</textarea>
+                                
+                            </case>
+                            <case value="datetime">
+                                <input type="text" name="{$field['name']}" class="form-control input-large time" value="<empty name="field['data']">{:date('Y-m-d H:i:s')}<else />{$field['data']|time_format}</empty>" placeholder="请选择时间" />
+                            </case>
+                            <case value="bool">
+                                <select name="{$field['name']}" class="form-control input-middle">
+                                    <volist name="field['extra']" id="vo">
+                                        <option value="{$key}" <eq name="field['data']" value="$key">selected</eq>>{$vo}</option>
+                                    </volist>
+                                </select>
+                            </case>
+                            <case value="select">
+                                <select name="{$field['name']}" class="form-control input-middle">
+                                    <volist name="field['extra']" id="vo">
+                                        <option value="{$key}" <eq name="field['data']" value="$key">selected</eq>>{$vo}</option>
+                                    </volist>
+                                </select>
+                            </case>
+                            <case value="radio">
+                                <volist name="field['extra']" id="vo">
+                                	 <div class="checkbox">
+                                    <input type="radio" value="{$key}" name="{$field['name']}" <eq name="field['data']" value="$key">checked="checked"</eq>>{$vo}
+                                	</div>
+                                </volist>
+                            </case>
+                            <case value="checkbox">
+                                <volist name="field['extra']" id="vo">
+                                <div class="checkbox">
+                                    <input type="checkbox" value="{$key}" name="{$field['name']}" <eq name="field['data']" value="$key">checked="checked"</eq>>{$vo}
+                                    </div>
+                                </volist>
+                            </case>
+                            <case value="editor">
+                                <label class="w100">
+                            
+                                {:hook('Editor',array($formname,$formval))}
+                                </label>
+                            </case>
+                            <case value="batchpicture">
+                                <div class="controls">
+									<input type="file" id="upload_picture_{$field['name']}">
+									<input type="hidden" name="{$field['name']}" id="cover_id_{$field['name']}" value="{$field['data']} "/>
+									<div id="uploadimg_{$field['name']}">
+									<notempty name="field['data']">
+										
+                                        <php>
+        $arr=explode('|',$formval);
+        foreach($arr as $a){
+         echo "<div class='imgblock'><div class='upload-img-box'><div class='upload-pre-item'><img src='".get_cover($a,'path')."'\/></div></div><a href='javascript:;' class='btn btn-danger' dataid='".$a."' >删除</a></div>";
+		}
+                                        </php>
+                                        
+									</notempty>
+                                    </div>
+									
+								</div>
+								<script type="text/javascript">
+								
+								//上传图片
+							    /* 初始化上传插件 */
+								$("#upload_picture_{$field['name']}").uploadify({
+							        "height"          : 30,
+							        "swf"             : "__STATIC__/uploadify/uploadify.swf",
+							        "fileObjName"     : "download",
+							        "buttonText"      : "上传图片",
+							        "uploader"        : "{:U('File/uploadPicture',array('session_id'=>session_id()))}",
+							        "width"           : 120,
+							        'removeTimeout'	  : 1,
+							        'fileTypeExts'	  : '*.jpg; *.png; *.gif;',
+							        "onUploadSuccess" : uploadPicture{$field['name']},
+							        'onFallback' : function() {
+							            alert('未检测到兼容版本的Flash.');
+							        }
+							    });
+								function uploadPicture{$field['name']}(file, data){
+							    	var data = $.parseJSON(data);
+							    	var src = '';
+							        if(data.status){
+										var a=$("#cover_id_{$field['name']}").val();
+										if(a==''){a=data.id;}else{a=data.id+'|'+a}
+							        	$("#cover_id_{$field['name']}").val(a);
+							        	src = data.url || '__ROOT__' + data.path
+							        	$("#uploadimg_{$field['name']}").append(
+							        		"<div class='imgblock'><div class='upload-img-box'><div class='upload-pre-item'><img src='__ROOT__" + src + "' /></div></div><a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
+							        	);
+										$(function(){binddel();});
+							        } else {
+							        	topmsg(data);
+							        	setTimeout(function(){
+							                $('#top-alert').find('button').click();
+							                $(that).removeClass('disabled').prop('disabled',false);
+							            },1500);
+							        }
+							    }
+								</script>
+                            </case>
+                            <case value="picture">
+                                <div class="controls">
+									<input type="file" id="upload_picture_{$field['name']}">
+									<input type="hidden" name="{$field['name']}" id="cover_id_{$field['name']}" value="{$field['data']}"/>
+									<div id="uploadimg_{$field['name']}">
+									<notempty name="field['data']">
+                                    <div class='imgblock'><div class="upload-img-box">
+										<div class="upload-pre-item"><img src="__ROOT__{$field['data']|get_cover='path'}"/></div></div><a href='javascript:;' class='btn btn-danger'  dataid='{$field['data']}'>删除</a></div>
+									</notempty>
+									</div>
+								</div>
+								<script type="text/javascript">
+								//上传图片
+							    /* 初始化上传插件 */
+								$("#upload_picture_{$field['name']}").uploadify({
+							        "height"          : 30,
+							        "swf"             : "__STATIC__/uploadify/uploadify.swf",
+							        "fileObjName"     : "download",
+							        "buttonText"      : "上传图片",
+							        "uploader"        : "{:U('File/uploadPicture',array('session_id'=>session_id()))}",
+							        "width"           : 120,
+							        'removeTimeout'	  : 1,
+							        'fileTypeExts'	  : '*.jpg; *.png; *.gif;',
+							        "onUploadSuccess" : uploadPicture{$field['name']},
+							        'onFallback' : function() {
+							            alert('未检测到兼容版本的Flash.');
+							        }
+							    });
+								function uploadPicture{$field['name']}(file, data){
+							    	var data = $.parseJSON(data);
+							    	var src = '';
+							        if(data.status){
+							        	$("#cover_id_{$field['name']}").val(data.id);
+							        	src = data.url || '__ROOT__' + data.path
+							        	$("#cover_id_{$field['name']}").parent().find('.upload-img-box').html(
+							        		"<div class='imgblock'><div class='upload-img-box'><div class='upload-pre-item'><img src='__ROOT__" + src + "' /></div></div><a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
+							        	);
+										$(function(){binddel();});
+							        } else {
+							        	topmsg(data);
+							        	setTimeout(function(){
+							                $('#top-alert').find('button').click();
+							               // $(that).removeClass('disabled').prop('disabled',false);
+							            },1500);
+							        }
+							    }
+								</script>
+                            </case>
+                            <case value="file">
+								<div class="controls">
+									<input type="file" id="upload_file_{$field['name']}">
+									<input type="hidden" name="{$field['name']}" value="{:ainiku_encrypt(json_encode(get_table_field($formval,'id','','File')))}"/>
+									<div class="upload-img-box">
+										<present name="$formval">
+											<div class="upload-pre-file"><span class="upload_icon_all"></span>{$field['data']|get_table_field=###,'id','name','File'}</div>
+										</present>
+									</div>
+								</div>
+								<script type="text/javascript">
+								//上传图片
+							    /* 初始化上传插件 */
+								$("#upload_file_{$field['name']}").uploadify({
+							        "height"          : 30,
+							        "swf"             : "__STATIC__/uploadify/uploadify.swf",
+							        "fileObjName"     : "download",
+							        "buttonText"      : "上传附件",
+							        "uploader"        : "{:U('File/upload',array('session_id'=>session_id()))}",
+							        "width"           : 120,
+							        'removeTimeout'	  : 1,
+							        "onUploadSuccess" : uploadFile{$field['name']},
+							        'onFallback' : function() {
+							            alert('未检测到兼容版本的Flash.');
+							        }
+							    });
+								function uploadFile{$field['name']}(file, data){
+									var data = $.parseJSON(data);
+							        if(data.status){
+							        	var name = "{$field['name']}";
+							        	$("input[name="+name+"]").val(data.data);
+							        	$("input[name="+name+"]").parent().find('.upload-img-box').html(
+							        		"<div class=\"upload-pre-file\"><span class=\"upload_icon_all\"></span>" + data.info + "</div>"
+							        	);
+							        } else {
+							        	topmsg(data);
+							        	setTimeout(function(){
+							                $('#top-alert').find('button').click();
+							                $(that).removeClass('disabled').prop('disabled',false);
+							            },1500);
+							        }
+							    }
+								</script>
+                            </case>
+                            <case value="custom">
+                            {:W('CustomForm/'.$form['extra'],array($formname,$formval))}
+                            </case>
+                            <default/>
+                            <input type="text" class="form-control input-large" name="{$field['name']}" value="{$field['data']}">
+                        </switch>
+                        </div></div>
+                        </neq>
+</volist>

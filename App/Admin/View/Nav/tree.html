@@ -1,0 +1,22 @@
+
+    <volist name="_TREE_" id="vo">
+    <dl class="cate-item">
+    <!--cate start-->
+      <dt class="cl">
+        <div class="btn-toolbar opt-btn cl"> <a title="编辑" class="btn btn-primary" href="{:u('Nav/edit?nav_id='.$vo['nav_id'])}">编辑</a> <a title="删除" class="btn btn-danger ajax-href-del"  href="{:u('Nav/del?nav_id='.$vo['nav_id'])}">删除</a> </div>
+        <div class="fold"><i></i></div>
+        <div class="order"><input  data-table="nav" data-id="{$vo.nav_id}" data-field="sort"  type="text" class="form-control input-mini  ajax-blur" name="sort" value="{$vo.sort}" /></div>
+        <div class="order"><span data-table="Nav" data-id="{$vo.nav_id}" data-field="status"  data-value="{$vo.status}" class="yn"></span></div>
+         <div class="order"><span data-table="Nav" data-id="{$vo.nav_id}" data-field="target"  data-value="{$vo.target}" class="yn"></span></div>
+        <div class="name"> <span class="tab-sign"></span> <a class="add-sub-cate" title="添加子导航" href="{:u('Nav/add?pid='.$vo['nav_id'])}"> <i class="icon-add"></i></a><span class="catetitle"><input class="form-control ajax-blur" data-id="{$vo.nav_id}" data-table="nav" data-field="title"  type="text" value="{$vo.title}" /></span> 
+         <span class="catetitle">地址:<input class="form-control ajax-blur" data-id="{$vo.nav_id}" data-table="nav" data-field="url"  type="text" value="{$vo.url}" /></span> </div>
+      </dt>
+    <!--cate end-->
+    
+    	<notempty name="vo['_']">
+			<dd>
+				{:R('Nav/tree', array($vo['_']))}
+			</dd>
+		</notempty>
+    </dl>
+    </volist>

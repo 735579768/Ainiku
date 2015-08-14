@@ -1,0 +1,61 @@
+<extend name="Public/base" />
+<block name="right">
+
+<!--tool start-->
+<div class="btn-tool">
+<a href="{:U('Article/huifu')}" class="btn btn-parmary klbatch">批量恢复</a>
+<a href="{:U('Article/dele')}" class="btn btn-danger klbatch">批量删除</a>
+<a href="{:U('Article/delall')}" class="btn btn-danger ajax-href">全部清空</a>
+
+<div class="searchform">
+<form class="form-group-h" action="{:U('')}" method="post">
+<div class="form-group">
+<input name="title" type="text" value="{:I('title')}" class="form-control input-mid" placeholder="请输入标题" />
+</div>
+<a class="sch-btn" href="javascript:;" id="search" ><i class="btn-search"></i></a>
+</form>
+</div>
+
+
+</div>
+
+<!--tool end-->
+
+<!--content start -->
+<div class="content">
+<table class="leftalign" width="100%" border="1" bordercolor="#ededed">
+        <tr class="th">
+		<th width="30" style="text-align:center;"><input class="check-all" type="checkbox" /></th>
+		<th width="30">序号</th>
+        <th>标题</th>
+		<th>分类</th>
+		<th>状态</th>
+		<th width="120" style=" text-align:center;">操作</th>
+		</tr>
+<volist name="_list" id="vo">
+  <tr>
+    <td style="text-align:center;"><input class="check-item" type="checkbox" name="id[]" value="{$vo.article_id}"/></td>
+    <td>{$key+1}</td>
+    <td>{$vo.title}</td>
+    <td>{$vo.category_id|getCategoryTitle}</td>
+    <td>{$vo.status|totext}</td>
+    <td>
+    	<a href="{:U('Article/huifu?article_id='.$vo['article_id'])}"  class="btn btn-primary ajax-href">恢复</a>
+        <a href="{:U('Article/dele?article_id='.$vo['article_id'])}" class="btn btn-danger ajax-href-del">删除</a>
+    </td>
+  </tr>
+</volist>
+</table>
+<div id="page" class="page">{$_page}</div>
+</div>
+<script>
+	//表格着色
+	$('tr:even').css('background','#f7f7f7');
+	//分类过滤
+	$('select[name="cat_id"]').change(function(e) {
+        $(this).parents('form').submit();
+    });
+	$('select[name="cat_id"]').val("{:I('cat_id',0)}");
+</script>
+<!--content end-->
+</block>

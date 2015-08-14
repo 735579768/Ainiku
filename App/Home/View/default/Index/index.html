@@ -1,0 +1,81 @@
+<extend name="Public/base" />
+<block name="content">
+ <ank:get table="GoodsCat" field="ico" id="1" pic='true'/> 
+ <article:pagelist  rows="20" catid="65"  name="vo">
+ {$key+1}->{$vo.title}
+ </article:pagelist>
+ 
+ <article:page rows="20" catid="65" />
+ 
+ <ank:nav name="vo">
+<a href="{$vo.url}">{$vo.title}</a>
+ </ank:nav>
+ 
+ 
+  <ank:link name="vo">
+ <a href="{$vo.url}">{$vo.title}</a>
+ </ank:link>
+ 
+ 
+ <article:single id="18" name="data">
+标题:{$data.title}文章
+ </article:single>
+ 
+ 
+ <ank:module posid="3" name="vo">
+ 
+ 这个是模块：{$vo.title}
+ </ank:module>
+ 
+ {:UP('Alipay/pay')}
+ 
+ {:W('Modulepos/index',array('3'))}
+ 
+ <ank:query name="vo" sql="select * from __DB_PREFIX__menu">
+ {$vo.title}
+ </ank:query>
+ 
+ 
+ <select id="city1"><option>请选择--</option></select>
+<select id="city2"><option>请选择--</option></select>
+<select id="city3"><option>请选择--</option></select>
+ <img src="{:UP('Erweima/create',array('content'=>'http://www.zhaokeli.com'))}"/>
+<script>
+$(function(){
+	$.ajax({
+	type:'post',
+	url:"{:U('Region/index')}",
+	data:{id:1},
+	success: function(da){
+		$('#city1').html(da);
+		$('#city1').click();
+		}
+	});	
+	
+	$('#city1').click(function(e) {
+        var idd=$(this).val();
+			$.ajax({
+				type:'post',
+				url:"{:U('Region/index')}",
+				data:{id:idd,},
+				success: function(da){
+					$('#city2').html(da);
+					$('#city2').click();
+					}
+			});
+    });
+	
+	$('#city2').click(function(e) {
+        var idd=$(this).val();
+			$.ajax({
+				type:'post',
+				url:"{:U('Region/index')}",
+				data:{id:idd,},
+				success: function(da){
+					$('#city3').html(da);
+					}
+			});
+    });
+});
+</script>
+ </block>

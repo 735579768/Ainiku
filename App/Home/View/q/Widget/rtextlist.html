@@ -1,0 +1,6 @@
+<dl class="list bd">
+	<dt class="l-title"><a href="javascript:;">{$info.title}</a></dt>
+   <volist name="list" id="vo">
+    <dd class="l-item"><a target="_blank" href="{:U('detail/'.$vo['article_id'])}" title="{$vo.title}"><span class="xinico">♥</span>{$vo.title}</a></dd>
+     </volist>
+</dl>

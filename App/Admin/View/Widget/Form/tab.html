@@ -1,0 +1,708 @@
+<!--要引入的角本文件 start-->
+<eq name="formjs.dandu" value="0">
+<script type="text/javascript" src="__STATIC__/js/tab.js"></script>
+</eq>
+
+<eq name="formjs.color" value="1">
+<script type="text/javascript" src="__STATIC__/jscolor/jscolor.js"></script>
+</eq>
+<eq name="formjs.datetime" value="1">
+<php>$GLOBALS['formjs']['datetime']++</php>
+<!--日期js start-->
+<link href="__STATIC__/datetimepicker/css/datetimepicker.css" rel="stylesheet" type="text/css">
+<link href="__STATIC__/datetimepicker/css/dropdown.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="__STATIC__/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="__STATIC__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<script>
+$(function(){
+    $('.time').datetimepicker({
+        format: 'yyyy-mm-dd hh:ii',
+        language:"zh-CN",
+        minView:2,
+        autoclose:true
+    });
+});	
+</script>
+<!--日期js end-->
+</eq>
+
+<eq name="formjs.picture" value="1">
+<php>$GLOBALS['formjs']['picture']++</php>
+<!--上传图片js start-->
+
+ <link rel="stylesheet" href="__STATIC__/html5Upload/css/zyUpload.css" type="text/css">
+ <script src="__STATIC__/html5Upload/js/uploadFile.js"></script>
+          
+<link href="__STATIC__/css/lightbox.css" type="text/css" rel="stylesheet" />
+<link href="__STATIC__/uploadify/uploadify.css" rel="stylesheet" type="text/css">
+<script src="__STATIC__/js/lightbox.js" type="text/javascript"></script>
+<script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script> 
+<!--上传图片js end-->
+</eq>
+
+
+<eq name="formjs.editor" value="1">
+<php>$GLOBALS['formjs']['editor']++</php>
+<!--ue编辑器js start-->
+<script>
+	window.UEDITOR_HOME_URL='__STATIC__/ueditor/';
+</script> 
+<script type="text/javascript" charset="utf-8" src="__STATIC__/ueditor/ueditor.config.js"></script> 
+<script type="text/javascript" charset="utf-8" src="__STATIC__/ueditor/ueditor.all.min.js"></script> 
+ <script type="text/javascript" charset="utf-8" src="__STATIC__/ueditor/lang/zh-cn/zh-cn.js"></script>
+ <!--ue编辑器js end-->
+ </eq>
+ 
+ <eq name="formjs.umeditor" value="1">
+ <!--um编辑器js start-->
+ <script>
+	window.UMEDITOR_HOME_URL='__STATIC__/umeditor/';
+</script> 
+<link href="__STATIC__/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" src="__STATIC__/umeditor/umeditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="__STATIC__/umeditor/umeditor.js"></script>
+<script type="text/javascript" src="__STATIC__/umeditor/lang/zh-cn/zh-cn.js"></script>
+
+ <!--um编辑器js end-->
+</eq>
+<!--要引入的角本文件 end-->
+<eq name="formjs.dandu" value="0">
+<div class="tab">
+<ul class="tabnavblock cl">
+	<li class="tabnav hover"><a href="javascript:;">基础</a></li>
+    <li class="tabnav"><a href="javascript:;">扩展</a></li>
+</ul>
+<div class="tabdivblock">
+</eq>
+
+<volist name="fiearr" id="fieldarr0">
+<eq name="formjs.dandu" value="0">
+ <div class="tabdiv">
+ </eq>
+<volist name="fieldarr0" id="field">
+  <if condition="(($actionstatus eq 'add') and ($field['is_show'] eq '1')) or (($actionstatus eq 'edit') and ($field['is_show'] eq '2')) or (($field['is_show'] eq '3'))">
+  <!--is_show   1 add   2 edit   3  other-->
+    <div class="form-group cl">
+      <div class="form-label">{$field['title']}<notempty name="field['note']"><span class="form-tip">（{$field['note']}）</span>
+      </notempty>
+      <eq name="field['is_require']" value="1"><span style="color:red;">(必填)</span></eq>
+        </div>
+        <switch name="field['type']">
+          <case value="number">
+            <input type="text" class="form-control input-mini" placeholder="请输入{$field['title']}" name="{$field['name']}" value="{$field['data']}">
+          </case>
+           <case value="double">
+            <input type="text" class="form-control input-mini" placeholder="请输入{$field['title']}"  name="{$field['name']}" value="{$field['data']}">
+          </case>
+          <case value="string">
+            <input type="text" class="form-control input-large" placeholder="请输入{$field['title']}"  name="{$field['name']}" value="{$field['data']}">
+          </case>
+          <case value="password">
+            <input type="password" class="form-control input-large" placeholder="请输入{$field['title']}"  name="{$field['name']}" value="{$field['data']}">
+          </case>
+          <case value="textarea">
+            <textarea class="form-control input-large" placeholder="请输入{$field['title']}"  name="{$field['name']}">{$field['data']}</textarea>
+          </case>
+          <case value="datetime">
+            <input name="{$field['name']}" type="text" readonly class="form-control input-middle time" style="width:145px;" value="<empty name="field['data']">{:date('Y-m-d')}<else />{$field['data']|time_format}</empty>" placeholder="请选择时间" /> 
+            </case>
+              <case value="color">
+				 <input name="{$field['name']}"  type="text" class="selectcolor form-control input-small" value="{$field['data']|default='#ffffff'}">
+            </case>
+          <case value="bool">
+            <select name="{$field['name']}" class="form-control input-middle">
+              <volist name="field['extra']" id="vo"> 
+              <option value="{$key}"<eq name="field['data']" value="$key">selected</eq>>{$vo}
+                </option>
+              </volist>
+            </select>
+          </case>
+          <case value="select">
+            <select name="{$field['name']}" class="form-control input-middle">
+            <php>
+            	 foreach($field['extra'] as $key=>$val){
+                 	$sel='';	
+            		if($field['data']==$key){
+                    	$sel='selected';
+                    }
+                    if(isset($_REQUEST[$field['name']])){
+                        $se=I($field['name']);
+                        if($se==$key){
+                            $sel='selected';
+                        }                    
+                    }
+            	echo "<option value='$key' $sel >".trim($val)."</option>";
+                }
+            </php>
+            </select>
+          </case>
+          <case value="radio">
+          <div class="controls">
+            <volist name="field['extra']" id="vo">
+              <input type="radio" value="{$key}" name="{$field['name']}" <eq name="field['data']" value="$key">checked="checked"</eq> >{$vo} 
+            </volist>
+            </div>
+          </case>
+          <case value="checkbox">
+            <php>echo '<div class="controls">';
+            echo '<input type="hidden" value="0" name="'.$field['name'].'[]"  />';
+             foreach($field['extra'] as $key=>$val){
+                if(strpos($field['data'],$key.'')!==false){
+                echo '<span class="form-checkbox"><input type="checkbox" value="'.$key.'" name="'.$field['name'].'[]"  checked="checked" > <b title="'.$val.'">'.$val.'</b></span>';
+                }else{
+                echo '<span class="form-checkbox"> <input type="checkbox" value="'.$key.'" name="'.$field['name'].'[]"   ><b title="'.$val.'"> '.$val.'</b></span>';
+                }
+                
+              }
+              echo '</div>'; </php>
+          </case>
+          <case value="editor">  
+            
+ <!--style给定宽度可以影响编辑器的最终宽度--> 
+<script type="text/plain" id="{$field['name']}" name="{$field['name']}" style="width:99%;height:150px;">
+    {$field['data']}
+</script> 
+<script>
+	//保存编辑器初始化数据
+	var uescr{$field['name']}=null;
+    var ue{$field['name']} = UE.getEditor("{$field['name']}",{
+		    serverUrl:ainiku.ueupload,
+			initialFrameHeight:300,
+			//serverUrl:serverPath+"php/controller.php",
+            imagePath:'',
+            focus: true
+
+		});    
+		ue{$field['name']}.addListener('focus',function(editor){
+			uescr{$field['name']}=ue{$field['name']}.getContent();
+			});     
+		ue{$field['name']}.addListener('blur',function(editor){
+			delEditorImg(uescr{$field['name']},ue{$field['name']}.getContent());
+			});                      
+</script> 
+          </case>
+          <case value="umeditor">
+<!--style给定宽度可以影响编辑器的最终宽度-->
+<script type="text/plain"  id="{$field['name']}" name="{$field['name']}"  style="width:99%;height:150px;">
+    {$field['data']}
+</script>
+<script>
+	//保存编辑器初始化数据
+	var umscr{$field['name']}=null;
+    var um{$field['name']} = UM.getEditor("{$field['name']}",{
+			initialFrameHeight:100,
+		    imageUrl:ainiku.umeupload	
+			});
+		um{$field['name']}.addListener('focus',function(editor){
+			umscr{$field['name']}=um{$field['name']}.getContent();
+			});
+		um{$field['name']}.addListener('blur',function(editor){
+			delEditorImg(umscr{$field['name']},um{$field['name']}.getContent());
+			});
+</script>
+          </case>
+          <case value="batchpicture">
+            <div class="controls">
+              <input type="file" id="upload_picture_{$field['name']}"   style="display:none;">
+              <a  id="demohtml5upload{$field['name']}btn" class="btn" style="margin-bottom:10px;" href="javascript:;">展开</a> 
+              <div id="demohtml5upload{$field['name']}" class="demo"></div>
+              <input type="hidden" name="{$field['name']}" id="cover_id_{$field['name']}" value="{$field['data']} "/>
+              <div id="uploadimg_{$field['name']}" class="image-set">
+                <php> if(!empty($field['data'])){
+                  $arr=explode('|',$field['data']);
+                  foreach($arr as $a){
+                  echo "
+                  <div class='imgblock'>
+                    <div class='upload-img-box uploadimg'>
+                      <div class='upload-pre-item'><a  href='".getPicture($a,'path')."' data-lightbox='example-set' data-title='".getPicture($a,'destname')."'><img src='".getPicture($a,'thumbpath')."'\/></a></div>
+                    </div>
+                    <a href='javascript:;' class='btn btn-danger' dataid='".$a."' >删除</a></div>
+                  ";
+                  }
+                  echo '<script>$(function(){binddel();});</script>';
+                  } </php>
+              </div>
+            </div>
+            <script type="text/javascript">
+								
+////上传图片
+///* 初始化上传插件 */
+//$("#upload_picture_{$field['name']}").uploadify({
+//	"height"          : 30,
+//	"swf"             : "__STATIC__/uploadify/uploadify.swf",
+//	"fileObjName"     : "filelist",
+//	"buttonText"      : "上传图片",
+//	"uploader"        : "{:U('File/uploadpic',array('session_id'=>session_id()))}",
+//	"width"           : 120,
+//	'removeTimeout'	  : 1,
+//	'fileTypeExts'	  : '*.jpg; *.png; *.gif;',
+//	"onUploadSuccess" : uploadPicture{$field['name']},
+//	'onFallback' : function() {
+//		alert('未检测到兼容版本的Flash.');
+//	}
+//});
+
+
+            if (window.applicationCache) {
+  $(function(){
+	 // 把原来的上传按钮去掉
+	$('#upload_picture_{$field['name']}').remove();
+	$('#demohtml5upload{$field['name']}btn').click(function(e) {
+        var aaa=$(this).text();
+    	if(aaa=='展开'){
+			$('#demohtml5upload{$field['name']}').slideDown();
+			$(this).html('收缩');
+			}else{
+				$(this).html('展开');
+			$('#demohtml5upload{$field['name']}').slideUp();	
+				}
+	});
+	// 初始化插件
+	$("#demohtml5upload{$field['name']}").zyUpload({
+		parentsel		:'#demohtml5upload{$field['name']}',
+		width            :   "80%",                 // 宽度
+		height           :   "auto",                 // 宽度
+		itemWidth        :   "120px",                 // 文件项的宽度
+		itemHeight       :   "100px",                 // 文件项的高度
+		url              :   "{:U('File/uploadpic',array('session_id'=>session_id()))}",  // 上传文件的路径
+		data             :{myname:'your name'},
+		multiple         :   true,                    // 是否可以多个文件上传
+		dragDrop         :   true,                    // 是否可以拖动上传文件
+		del              :   true,                    // 是否可以删除文件
+		finishDel        :   true,  				  // 是否在上传文件完成后删除预览
+		/* 外部获得的回调接口 */
+		onSelect: function(files, allFiles){                    // 选择文件的回调方法
+
+		},
+		onDelete: function(file, surplusFiles){                     // 删除一个文件的回调方法
+
+		},
+		onSuccess: function(file,response){                    // 文件上传成功的回调方法
+		uploadPicture{$field['name']}(file,response);
+
+		},
+		onFailure: function(file){                    // 文件上传失败的回调方法
+},
+		onComplete: function(responseInfo){           // 上传完成的回调方法
+
+		}
+	});
+});   
+            } else {
+              //  alert("你的浏览器不支持HTML5");
+	$('#demohtml5upload{$field['name']}btn').remove();
+	$('#demohtml5upload{$field['name']}').remove();
+    //上传图片
+    /* 初始化上传插件 */
+    $("#upload_picture_{$field['name']}").uploadify({
+        "height"          : 30,
+        "swf"             : "__STATIC__/uploadify/uploadify.swf",
+        "fileObjName"     : "filelist",
+        "buttonText"      : "上传图片",
+        "uploader"        : "{:U('File/uploadpic',array('session_id'=>session_id()))}",
+        "width"           : 120,
+        'removeTimeout'	  : 1,
+        'fileTypeExts'	  : '*.jpg; *.png; *.gif;*.bmp;',
+        "onUploadSuccess" : uploadPicture{$field['name']},
+        'onFallback' : function() {
+            alert('未检测到兼容版本的Flash.');
+        }
+    });
+			}
+
+
+function uploadPicture{$field['name']}(file, data){
+	var data = $.parseJSON(data);
+	var src = '';
+	if(data.status){
+		var a=$("#cover_id_{$field['name']}").val();
+		a=a.replace(/\s+/g,'');
+		if(a==''){a=data.id;}else{a+='|'+data.id}
+		$("#cover_id_{$field['name']}").val(a);
+		src = data.url || '__ROOT__' + data.path
+		$("#uploadimg_{$field['name']}").append(
+			"<div class='imgblock'><div class='upload-img-box uploadimg'><div class='upload-pre-item'><img src='__ROOT__" + src + "' /></div></div><a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
+		);
+		$(function(){binddel();});
+	} else {
+		topmsg(data);
+		setTimeout(function(){
+			$('#top-alert').find('button').click();
+			$(that).removeClass('disabled').prop('disabled',false);
+		},1500);
+	}
+}
+</script> 
+          </case>
+          <case value="picture">
+            <div class="controls">
+<input type="file" name="file" id="upload_picture_{$field['name']}"  style="display:none;">
+<a  id="demohtml5upload{$field['name']}btn" class="btn" style="margin-bottom:10px;"  href="javascript:;">展开</a> 
+<div id="demohtml5upload{$field['name']}" class="demo"></div>
+<input type="hidden" name="{$field['name']}" id="cover_id_{$field['name']}" value="{$field['data']}"/>
+<div id="uploadimg_{$field['name']}" class="cl">
+<notempty name="field['data']">
+<div class='imgblock'>
+<div class="upload-img-box  uploadimg">
+<div class="upload-pre-item"> <a class="" href="{:getPicture($field['data'],'path')}" data-lightbox="example-{$field['data']}" data-title="{:getPicture($field['data'],'destname')}"> <img class="example-image" src="{:getPicture($field['data'],'thumbpath')}"/></a> </div>
+</div>
+<a href='javascript:;' class='btn btn-danger'  dataid='{$field['data']}'>删除</a> </div>
+<script>$(function(){binddel();});</script> 
+</notempty>
+</div>
+</div>
+<script type="text/javascript">
+
+
+            if (window.applicationCache) {
+  $(function(){
+	 // 把原来的上传按钮去掉
+	$('#upload_picture_{$field['name']}').remove();
+	$('#demohtml5upload{$field['name']}btn').click(function(e) {
+        var aaa=$(this).text();
+    	if(aaa=='展开'){
+			$('#demohtml5upload{$field['name']}').slideDown();
+			$(this).html('收缩');
+			}else{
+				$(this).html('展开');
+			$('#demohtml5upload{$field['name']}').slideUp();	
+				}
+	});
+	// 初始化插件
+	$("#demohtml5upload{$field['name']}").zyUpload({
+		parentsel		:'#demohtml5upload{$field['name']}',
+		width            :   "80%",                 // 宽度
+		height           :   "auto",                 // 宽度
+		itemWidth        :   "120px",                 // 文件项的宽度
+		itemHeight       :   "100px",                 // 文件项的高度
+		url              :   "{:U('File/uploadpic',array('session_id'=>session_id()))}",  // 上传文件的路径
+		data             :{myname:'your name'},
+		multiple         :  false,                    // 是否可以多个文件上传
+		dragDrop         :   true,                    // 是否可以拖动上传文件
+		del              :   true,                    // 是否可以删除文件
+		finishDel        :   true,  				  // 是否在上传文件完成后删除预览
+		/* 外部获得的回调接口 */
+		onSelect: function(files, allFiles){                    // 选择文件的回调方法
+
+		},
+		onDelete: function(file, surplusFiles){                     // 删除一个文件的回调方法
+
+		},
+		onSuccess: function(file,response){                    // 文件上传成功的回调方法
+		uploadPicture{$field['name']}(file,response);
+
+		},
+		onFailure: function(file){                    // 文件上传失败的回调方法
+},
+		onComplete: function(responseInfo){           // 上传完成的回调方法
+
+		}
+	});
+});   
+            } else {
+              //  alert("你的浏览器不支持HTML5");
+	$('#demohtml5upload{$field['name']}').remove();
+    //上传图片
+    /* 初始化上传插件 */
+    $("#upload_picture_{$field['name']}").uploadify({
+        "height"          : 30,
+        "swf"             : "__STATIC__/uploadify/uploadify.swf",
+        "fileObjName"     : "filelist",
+        "buttonText"      : "上传图片",
+        "uploader"        : "{:U('File/uploadpic',array('session_id'=>session_id()))}",
+        "width"           : 120,
+        'removeTimeout'	  : 1,
+        'fileTypeExts'	  : '*.jpg; *.png; *.gif;*.bmp;',
+        "onUploadSuccess" : uploadPicture{$field['name']},
+        'onFallback' : function() {
+            alert('未检测到兼容版本的Flash.');
+        }
+    });
+			}
+
+
+    function uploadPicture{$field['name']}(file, data){
+        var data = $.parseJSON(data);
+        var src = '';
+        if(data.status){
+            var sid=$("#cover_id_{$field['name']}").val();
+		    if(sid!=""){$.get(ainiku.delimg,{id:sid})}
+			$("#cover_id_{$field['name']}").val(data.id);
+            src = data.url || '__ROOT__' + data.path
+            $("#uploadimg_{$field['name']}").html(
+                "<div class='imgblock'><div class='upload-img-box uploadimg'><div class='upload-pre-item'><img src='__ROOT__" + src + "' /></div></div><a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
+            );
+            $(function(){binddel();});
+        } else {
+            topmsg(data);
+            setTimeout(function(){
+                $('#top-alert').find('button').click();
+               // $(that).removeClass('disabled').prop('disabled',false);
+            },1500);
+        }
+    }
+    </script> 
+          </case>
+          <case value="file">
+            <div class="controls">
+             <a  id="demohtml5upload_file_{$field['name']}btn" class="btn" style="margin-bottom:10px;"  href="javascript:;">展开</a> 
+            <div id="demohtml5upload_file_{$field['name']}" class="demo"></div>
+           
+              <input type="file" id="upload_file_{$field['name']}" style="display:none;">
+              <input type="hidden" name="{$field['name']}" value="{$field['data']}"/>
+              <div class="upload-img-box">
+                <notempty name="field['data']">
+                  <div class="upload-pre-file"><span class="upload_icon_all"></span>{$field['data']|getFile=###,'srcname'}<a href='javascript:;' class='btn btn-danger' dataid='{$field['data']}' >删除</a></div>
+                </notempty>
+              </div>
+            </div>
+            <script type="text/javascript">
+			var sessionid="{:session_id()}";
+			$(function(){binddelattach();});
+
+
+           if (window.applicationCache) {
+
+  $(function(){
+	 // 把原来的上传按钮去掉
+	$('upload_file_{$field['name']}').remove();
+		$('#demohtml5upload_file_{$field['name']}btn').click(function(e) {
+        var aaa=$(this).text();
+    	if(aaa=='展开'){
+			$('#demohtml5upload_file_{$field['name']}').slideDown();
+			$(this).html('收缩');
+			}else{
+				$(this).html('展开');
+			$('#demohtml5upload_file_{$field['name']}').slideUp();	
+				}
+	});
+	// 初始化插件
+	$("#demohtml5upload_file_{$field['name']}").zyUpload({
+		parentsel		:'#demohtml5upload_file_{$field['name']}',
+		width            :   "80%",                 // 宽度
+		height           :   "auto",                 // 宽度
+		itemWidth        :   "120px",                 // 文件项的宽度
+		itemHeight       :   "100px",                 // 文件项的高度
+		url              :   "{:U('File/uploadfile',array('session_id'=>session_id()))}",  // 上传文件的路径
+		data             :{'session_id':"'"+sessionid+"'",'type':'attach'},
+		multiple         :  false,                    // 是否可以多个文件上传
+		dragDrop         :   true,                    // 是否可以拖动上传文件
+		del              :   true,                    // 是否可以删除文件
+		finishDel        :   true,  				  // 是否在上传文件完成后删除预览
+		/* 外部获得的回调接口 */
+		onSelect: function(files, allFiles){                    // 选择文件的回调方法
+
+		},
+		onDelete: function(file, surplusFiles){                     // 删除一个文件的回调方法
+
+		},
+		onSuccess: function(file,response){                    // 文件上传成功的回调方法
+		 uploadFile{$field['name']}(file,response);
+
+		},
+		onFailure: function(file){                    // 文件上传失败的回调方法
+},
+		onComplete: function(responseInfo){           // 上传完成的回调方法
+
+		}
+	});
+});   
+            } else {
+              //  alert("你的浏览器不支持HTML5");
+	$('#demohtml5upload_file_{$field['name']}').remove();
+    //上传图片
+    /* 初始化上传插件 */
+/* 初始化上传插件 */
+
+$("#upload_file_{$field['name']}").uploadify({
+	"formData"		  :{'session_id':"'"+sessionid+"'",'type':'attach'},
+	"height"          : 30,
+	"swf"             : "__STATIC__/uploadify/uploadify.swf",
+	"fileObjName"     : "filelist",
+	"buttonText"      : "上传附件",
+	"uploader"        : "{:U('File/uploadfile',array('session_id'=>session_id()))}",
+	"width"           : 120,
+	'removeTimeout'	  : 1,
+	"onUploadSuccess" : uploadFile{$field['name']},
+	'onFallback' : function() {
+		alert('未检测到兼容版本的Flash.');
+	}
+});
+			}
+
+
+//上传附件
+
+function uploadFile{$field['name']}(file, data){
+	var data = $.parseJSON(data);
+	if(data.status){
+		var name = "{$field['name']}";
+		var sid=$("input[name="+name+"]").val();
+		if(sid!=""){$.get(ainiku.delattach,{id:sid})}
+		$("input[name="+name+"]").val(data.id);
+		
+		$("input[name="+name+"]").parent().find('.upload-img-box').html(
+			"<div class=\"upload-pre-file\"><span class=\"upload_icon_all\"></span>" + data.info + "<a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
+		);
+		binddelattach();
+	} else {
+		topmsg(data);
+		setTimeout(function(){
+			$('#top-alert').find('button').click();
+			$(that).removeClass('disabled').prop('disabled',false);
+		},1500);
+	}
+}
+</script> 
+          </case>
+            <case value="liandong">
+            <style>select.selarea{ width:150px; overflow:hidden;}</style>
+<input type="hidden" id="ssq{$field['name']}"  name="{$field['name']}"  value="{$field['data']}" />
+ <select id="Province{$field['name']}" class="form-control selarea"><option value="0">请选择--</option></select>
+<select id="city{$field['name']}" class="form-control selarea"><option value="0">请选择--</option></select>
+<select id="area1{$field['name']}" class="form-control selarea"><option value="0">请选择--</option></select>
+<select id="area11{$field['name']}" class="form-control selarea"><option value="0">请选择--</option></select>
+                <script>
+                $(function(){
+                   var arr=$('#ssq{$field['name']}').val();
+				   arr=arr.split(',');
+                    $.ajax({
+                    type:'post',
+                    url:"{:U('Region/index')}",
+                    data:{id:0,selid:arr[0]},
+                    success: function(da){
+                        $('#Province{$field['name']}').html(da);
+						if($('#Province{$field['name']}').val()!=0){
+                        $('#Province{$field['name']}').change();
+						}
+						setssq{$field['name']}();
+                        }
+                    });	
+					$('#Province{$field['name']}').change(function(e) {
+							var idd=$(this).val();
+							if(idd!=0){
+								$.ajax({
+									type:'post',
+									url:"{:U('Region/index')}",
+									data:{id:idd,selid:arr[1]},
+									success: function(da){	
+										$('#city{$field['name']}').html(da);
+										$('#city{$field['name']}').change();
+										setssq{$field['name']}();
+										}
+								});
+							}else{	
+						$('#city{$field['name']}').html('<option value="0">请选择--</option></select>');
+						$('#city{$field['name']}').change();
+						setssq{$field['name']}();
+										}	
+                    });
+                    
+                    $('#city{$field['name']}').change(function(e) {
+                        var idd=$(this).val();
+							if(idd!=0){
+                            $.ajax({
+                                type:'post',
+                                url:"{:U('Region/index')}",
+                                data:{id:idd,selid:arr[2]},
+                                success: function(da){
+                                    $('#area1{$field['name']}').html(da);
+									$('#area1{$field['name']}').change();
+									setssq{$field['name']}();
+                                    }
+                            });
+							}else{
+								$('#area1{$field['name']}').html('<option value="0">请选择--</option></select>');
+										$('#area1{$field['name']}').change();
+									setssq{$field['name']}();
+							}
+                    });
+                    $('#area1{$field['name']}').change(function(e) {
+                        var idd=$(this).val();
+						if(idd!=0){
+                            $.ajax({
+                                type:'post',
+                                url:"{:U('Region/index')}",
+                                data:{id:idd,selid:arr[3]},
+                                success: function(da){
+                                    $('#area11{$field['name']}').html(da);
+									$('#area11{$field['name']}').change();
+									setssq{$field['name']}();
+                                    }
+                            });
+						}else{
+$('#area11{$field['name']}').html('<option value="0">请选择--</option></select>');
+								$('#area11{$field['name']}').change();
+									setssq{$field['name']}();							
+							}
+                    });
+                    $('#area11{$field['name']}').change(function(e) {
+									setssq{$field['name']}();
+                    });
+
+                   window.setssq{$field['name']}=function(){
+					    var idd='{$field['name']}';
+					   var str1=$('#Province'+idd).val();
+					   var str2=$('#city'+idd).val();
+					   var str3=$('#area1'+idd).val();
+					   var str4=$('#area11'+idd).val();
+					   	$('#ssq'+idd).val(str1+','+str2+','+str3+','+str4);
+					   } 
+                });
+                </script>         
+          </case>
+          <case value="attribute">
+          		<select class="form-control" id="goodstype_form" name="goods_type_id">
+                		<option value="0">请选择--</option>
+                	<volist name=":getGoodsTypeList()" id="vo">
+                    	<option value="{$vo.goods_type_id}">{$vo.title}</option>                    
+                    </volist>
+                </select>
+                <div id="goodsattribute" style="  padding: 20px 0px 0px 20px;" class="form-h">
+
+                </div>
+                <script>
+                	$(function(){	
+						$('#goodstype_form').bind('propertychange change',function(){
+							var idd=$(this).val();
+							var productid=$('#productid').val();
+							//productid产品的id在编辑表单里面首先用js写上这个变量值为当前产品的id
+							$.ajax({
+								'type':'POST',
+								'url':"{:U('Goodstypeattribute/formlist')}",
+								'data':{goods_type_id:idd,mainid:productid},
+								'success': function(da){
+									$('#goodsattribute').html(da);
+									}
+								});
+							});
+							$('#goodstype_form').val('{$field['data']}');
+							$('#goodstype_form').change();
+						});
+                </script>
+
+          </case>
+          <case value="custom"> {:W('CustomForm/'.$field['extra'],array($field['name'],$field['data']))} </case>
+          <default/>
+          <input type="text" placeholder="请输入{$field['title']}"  class="form-control input-large" name="{$field['name']}" value="{$field['data']}">
+        </switch>
+    </div>
+</if>
+</volist>
+<eq name="formjs.dandu" value="0">
+</div>
+</eq>
+</volist>
+
+<eq name="formjs.dandu" value="0">
+</div>
+</eq>
+
+<eq name="formjs.dandu" value="0">
+</div>
+<script>
+$(function(){
+	   $('.tab').mytab({navcls:'.tabnav',divcls:'.tabdiv',effect:'show',ev:'click',navhovercls:'hover'});
+	});
+</script>
+</eq>

@@ -1,0 +1,51 @@
+<select id="city1"><option>请选择--</option></select>
+<select id="city2"><option>请选择--</option></select>
+<select id="city3"><option>请选择--</option></select>
+ <img src="{:UP('Erweima/create',array('content'=>'http://www.zhaokeli.com'))}"/>
+<script>
+$(function(){
+	$.ajax({
+	type:'post',
+	url:"{:U('Region/index')}",
+	data:{id:1},
+	success: function(da){
+		$('#city1').html(da);
+		$('#city1').click();
+		}
+	});	
+	
+	$('#city1').click(function(e) {
+        var idd=$(this).val();
+			$.ajax({
+				type:'post',
+				url:"{:U('Region/index')}",
+				data:{id:idd,},
+				success: function(da){
+					$('#city2').html(da);
+					$('#city2').click();
+					}
+			});
+    });
+	
+	$('#city2').click(function(e) {
+        var idd=$(this).val();
+			$.ajax({
+				type:'post',
+				url:"{:U('Region/index')}",
+				data:{id:idd,},
+				success: function(da){
+					$('#city3').html(da);
+					}
+			});
+    });
+});
+</script>
+
+<ul>
+<Article:pagelist id='pagelist1' category_id='' rows='4' name="vo">
+<li><a target="_blank" href="{:U('Article/'.$vo['article_id'])}">{$vo.title}</a></li>
+</Article:pagelist>
+</ul>
+<Article:pagenav id='pagelist1' />
+网站logo<img src="{:getPicture(C('SITE_LOGO'))}"/>
+

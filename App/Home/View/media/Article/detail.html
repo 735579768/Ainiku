@@ -1,0 +1,34 @@
+<extend name="Public/base" />
+<block name="right">
+<div class="about_banner">
+	<div class="width992 bai">
+		<div class="width960 bai_img">
+                <ank:module module_id='11'>
+        <img src="{$vo.pic|getPicture}" alt="{$vo.title}" width="959" height="311" />    
+        </ank:module>
+        </div>
+	</div>
+</div>
+
+<div class="width980 cont_bottom cl">
+	<div class="left fleft">
+		<div class="left_ttel"><img src="__IMG__/pic1.jpg" width="232" height="61" /></div>
+		
+		            {:W('Modulepos/index',array('hezuohuoban'))}
+		{:W('Modulepos/index',array('lianxiwomen'))}
+	</div>
+	
+	<div class="right fleft">
+		<div class="right_top"><img src="__IMG__/five_service.jpg" width="502" height="82" /></div>
+		<div class="guanyuwomen">
+        <h1 style="text-align:center; padding:5px;">{$info.title}</h1>
+        <p>{$info.content}</p>
+</div>
+{:hook('Articlefooter')}
+	</div>
+	
+</div>
+
+
+<div class="clear"></div>
+ </block>

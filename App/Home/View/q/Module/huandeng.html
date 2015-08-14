@@ -1,0 +1,21 @@
+<!---huan deng start--->
+<ank:insert type="js" name="jquery.SuperSlide.2.1.1" dir="__STATIC__/js"  />
+<script>
+$(function(){
+jQuery("#huandeng").slide({titCell:'.hnav', mainCell:".imglist",effect:"left",autoPlay:true,autoPage:true,delayTime:500 });	
+	});
+
+</script>
+<div id="huandeng">
+<ul class="hnav"></ul>
+<ul class="imglist cl">
+<article:list category_id="80" rows="6"  position="3"  >
+<li class="imgitem  shadow">
+<img class="preload"  src="{$vo.pic|getPicture='thumbpath'}" />
+<h1 class="stitle" ><a target="_blank" href="{:U('detail/'.$vo['article_id'])}">{$vo.title}</a></h1>
+<div class="scon">{$vo.content|removeHTML=0,150}</div>
+</li>
+</article:list>
+</ul>
+</div>
+<!---huan deng end--->

@@ -1,0 +1,36 @@
+<extend name="Public/base" />
+<block name="right">
+<div class="about_banner">
+	<div class="width992 bai">
+		<div class="width960 bai_img">
+        <ank:module module_id='10'>
+        <img src="{$vo.pic|getPicture}" alt="{$vo.title}" width="959" height="311" />    
+        </ank:module>
+        </div>
+	</div>
+</div>
+<div class="width980 cont_bottom cl">
+	<div class="left fleft">
+		<div class="left_ttel"><img src="__IMG__/pic1.jpg" width="232" height="61" /></div>
+	
+        {:W('Modulepos/index',array('hezuohuoban'))}
+		{:W('Modulepos/index',array('lianxiwomen'))}
+	</div>
+	
+	<div class="right fleft">
+     <article:pagelist id="pagelist1"  rows="20" category_id="I('category_id')"  name="vo">
+ 		<dl class="list_dl fleft">
+			<dt><a href="{:U('detail/'.$vo['article_id'])}"><img src="__IMG__/img5.jpg" width="295" height="147" /></a></dt>
+			<dd class="ddico">{$category.title}</dd>
+			<dd class="ddp"><a href="{:U('detail/'.$vo['article_id'])}">{$vo.title}</a></dd>
+		</dl>
+ </article:pagelist>
+		<div class="clear"></div>
+		
+		<div class="page">
+            <article:pagenav id="pagelist1" />
+		</div>
+	</div>
+</div>
+ 
+ </block>

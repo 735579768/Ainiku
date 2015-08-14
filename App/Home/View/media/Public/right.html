@@ -1,0 +1,55 @@
+<style type="text/css">		
+
+</style>
+
+<div class="fullSlide">
+	<div class="bd">
+		<ul>
+         <ank:module modulepos_id="3" name="vo">
+ <li _src="url({$vo.pic|getPicture})" style="background:#E2025E center 0 no-repeat;"><a href="{$vo.url}"></a></li>
+ </ank:module>
+		</ul>
+	</div>
+	<div class="hd"><ul></ul></div>
+	<span class="prev"></span>
+	<span class="next"></span>
+</div><!--fullSlide end-->
+ 
+<script src="__JS__/superslide.2.1.js" type="text/javascript" ></script>
+<script type="text/javascript">
+$(".fullSlide").hover(function(){
+    $(this).find(".prev,.next").stop(true, true).fadeTo("show", 0.5)
+},
+function(){
+    $(this).find(".prev,.next").fadeOut()
+});
+$(".fullSlide").slide({
+    titCell: ".hd ul",
+    mainCell: ".bd ul",
+    effect: "fold",
+    autoPlay: true,
+    autoPage: true,
+    trigger: "click",
+    startFun: function(i) {
+        var curLi = jQuery(".fullSlide .bd li").eq(i);
+        if ( !! curLi.attr("_src")) {
+            curLi.css("background-image", curLi.attr("_src")).removeAttr("_src")
+        }
+    }
+});
+</script>
+
+<div class="width966 content cl">
+
+<article:list position='1'  name='vo'>
+	<div class="diyi_div fleft">
+		<div class="diyi">
+			<div class="imgdiv"><img src="{$vo.pic|getPicture}" width="205" height="116" title="{$vo.title}" /></div>
+			<h1 class="htext"><a target="_blank" href="{:U('detail/'.$vo['article_id'])}">{$vo.title}</a></h1>
+			<p class="pp1">{$vo.content|removeHTML=0,30}</p>
+			<p class="more1"><a target="_blank" href="{:U('detail/'.$vo['article_id'])}"></a></p>
+		</div>
+	</div>
+</article:list>
+
+</div>

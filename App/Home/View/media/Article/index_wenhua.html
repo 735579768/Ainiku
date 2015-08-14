@@ -1,0 +1,27 @@
+<extend name="Public/base" />
+<block name="right">
+<div class="about_banner">
+	<div class="width992 bai">
+		<div class="width960 bai_img">
+        <ank:module module_id='10'>
+        <img src="{$vo.pic|getPicture}" alt="{$vo.title}" width="959" height="311" />    
+        </ank:module>
+        </div>
+	</div>
+</div>
+<div class="width980 cont_bottom cl">
+	<div class="left fleft">
+		<div class="left_ttel"><img src="__IMG__/pic1.jpg" width="232" height="61" /></div>
+	
+        {:W('Modulepos/index',array('hezuohuoban'))}
+		{:W('Modulepos/index',array('lianxiwomen'))}
+	</div>
+	
+	<div class="right fleft">
+<ank:single id="2" />
+		<div class="clear"></div>
+		
+	</div>
+</div>
+ 
+ </block>

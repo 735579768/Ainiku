@@ -1,0 +1,48 @@
+<script type="text/javascript">
+$(function(){
+	$("#Navxia .nav_ul li .xiala").hide();
+	$("#Navxia .nav_ul>li").hover(function(){
+		$(this).find(".xiala").show();
+		
+		},function(){
+			$("#Navxia .nav_ul li .xiala").hide();
+		});
+
+});
+</script>
+
+{:hook('Topnav')}
+
+
+<div class="width980 top">
+	<div class="logo fleft"><a href="/"><img src="{:getPicture(C('SITE_LOGO'))}" width="372" height="74" title="河南金木水火文化传播有限公司" /></a></div>
+	<div class="top_tel fright">
+    <ank:module module_id="5" name="vo">
+    <img src="{:getPicture($vo['pic'])}" width="273" height="23" />
+    </ank:module>
+    </div>
+</div>
+
+<div class="container_h">
+    <div class="w">
+		<div class="top_1">
+			<div id="mainnav" class="fl mainNav">
+				<ul>
+            <volist name=":F_getNavTree(0,true)" id="vo">
+			<li><a href="{$vo.url}" <eq name="vo.target" value="1"> target="_blank" </eq>>{$vo.title}</a>              
+             <notempty name="vo.child">
+         		<ul class="xiala">
+             <volist name="vo.child" id="voo">
+         <li class="nav-item top_1"><a href="{$voo.url}" <eq name="voo.target" value="1"> target="_blank" </eq>>{$voo.title}</a></li>                
+             </volist>
+               </ul>
+         </notempty>
+         </li>                                                                             
+                </volist>           
+             
+				</ul>
+			</div>
+			
+		</div>
+	</div>
+</div>

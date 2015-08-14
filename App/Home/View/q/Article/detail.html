@@ -1,0 +1,33 @@
+<extend name="Public/base" />
+<block name="left">
+<div class="left">
+<div class="arccon">
+<h2 class="a-title">{$info.title}</h2>
+<div class="a-note cl">
+<span>浏览:{$info.views}</span>
+<span>来源:<a href="http://www.ainiku.com">http://www.ainiku.com</a></span>
+<span>时间:{$info.create_time|time_format}</span>
+<span>作者:爱你酷</span>
+
+</div>
+<div class="a-con">{:plugin('Seokeyword/replace',array($info['content']))}
+<br>文章地址:<a href="http://www.ainiku.com{:U("detail/".$info['article_id'])}">http://www.ainiku.com{:U("detail/".$info['article_id'])}</a>
+</div>
+ </div>
+ <ank:insert name="ajax" type="js" />
+ {:plugin('Comments/add')}
+ </div>
+ </block>
+ <block name="right">
+ <div class="right">
+ {:W('Arclist/rtextlist',array($info['category_id'],10))}
+
+{:W('Arclist/rtextlist',array(84,9))}
+
+ <ul class="rimglist cl">
+  <article:list position="3" rows="14">
+  <li class="rimglistitem bd"><a target="_blank" href="{:U('detail/'.$vo['article_id'])}"><img src="{$vo.pic|getPicture='thumbpath','90_80'}" alt="{$vo.title}"  title="{$vo.title}"  /></a><a href="{:U('detail/'.$vo['article_id'])}" target="_blank" title="{$vo.title}" class="imgtitle">{$vo.title}</a></li>
+  </article:list>
+ </ul>
+ </div>
+ </block>

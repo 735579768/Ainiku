@@ -1,0 +1,15 @@
+<extend name="Public/base" />
+<block name="left">
+<div class="left">
+<ul class="imglist cl">
+<volist name="_list" id="vo">
+<li class="imgitem">
+<img src="{$vo.pic|getPicture='thumbpath'}" />
+<h1 class="stitle" ><a target="_blank" href="{:U('detail/'.$vo['article_id'])}">{$vo.title}</a></h1>
+<div class="scon">{$vo.content|removeHTML=0,150}</div>
+</li>
+</volist>
+</ul>
+<div class="page">{$_page}</div>
+ </div>
+ </block>

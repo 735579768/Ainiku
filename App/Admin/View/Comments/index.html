@@ -1,0 +1,68 @@
+<extend name="Public:base" />
+<block name="right">
+<!--tool start-->
+<div class="btn-tool">
+<a href="{:U('comments/del')}" class="btn btn-danger klbatch">批量删除</a>
+<a href="{:U('comments/delall')}" class="btn btn-danger ajax-href">全部清空</a>
+<div class="searchform">
+<form class="form-h form-group-h" action="{:U('')}" method="post">
+<div class="form-group">
+<input name="name" type="text" value="{:I('name')}" class="form-control input-mid" placeholder="请输入姓名" />
+</div>
+
+<a class="sch-btn" href="javascript:;" id="search" ><i class="btn-search"></i></a>
+</form>
+</div>
+
+
+</div>
+
+<!--tool end-->
+<!--content start -->
+<div class="content">
+<table class="leftalign" width="100%" border="1" bordercolor="#ededed">
+        <tr class="th">
+        <th width="30" style="text-align:center;"><input class="check-all" type="checkbox" /></th>
+		<th width="50" style="text-align:center;">序号</th>
+		<th>姓名</th>
+        <th>内容</th>
+        <th>IP</th>
+		<th>状态</th>
+        <th>时间</th>
+		<th width="120" style=" text-align:center;">操作</th>
+		</tr>
+<volist name="_list" id="vo">
+  <tr>
+  <td style="text-align:center;"><input class="check-item" type="checkbox" name="id[]" value="{$vo.comments_id}"/></td>
+    <td style="text-align:center;">{$key+1}</td>
+    <td>{$vo.name}</td>
+    <td>{$vo.content|msubstr=###,0,10}</td>
+    <td>{$vo.ip}</td>
+    <td><span data-table="Comments" data-id="{$vo.comments_id}" data-field="status"  data-value="{$vo.status}" class="yn"></span></td>
+ <td>{$vo.create_time|time_format}</td>
+    <td>
+      <a href="javascript:dialogAjax('{:U('Comments/check?comments_id='.$vo['comments_id'])}','查看留言');" class="btn btn-primary check">查看</a>
+      <a href="{:U('Comments/del?comments_id='.$vo['comments_id'])}" class="btn btn-danger ajax-href-del">删除</a>
+    </td>
+  </tr>
+</volist>
+</table>
+<div id="page" class="page">{$_page}</div>
+</div>
+<script>
+//$(function(){
+//	$('.check').click(function(e) {
+//        var url=$(this).attr('href');
+//	        $.myMsg.msg({
+//			title:'查看留言',
+//			iframe:url,
+//			width:500,
+//			height:300,
+//			button:false
+//			});	
+//		return false;	
+//    	});
+//	});
+</script>
+<!--content end-->
+</block>

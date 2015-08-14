@@ -1,0 +1,47 @@
+<extend name="Public:base" />
+<block name="right">
+<!--tool start-->
+<div class="btn-tool">
+<a href="{:U('Membergroup/add')}" class="btn btn-parmary">添加用户组</a>
+</div>
+
+<!--tool end-->
+   
+<!--content start -->
+<div class="content">
+<table class="leftalign" width="100%" border="1" bordercolor="#ededed">
+        <tr class="th">
+		<th width="50" style="text-align:center;">序号</th>
+		<th>组名称</th>
+		<th>状态</th>
+		<th width="300">操作</th>
+		</tr>
+<volist name="_list" id="vo">
+  <tr>
+    <td style="text-align:center;">{$key+1}</td>
+    <td class="center">{$vo.title}</td>
+    <td class="center">
+    <neq name="vo.member_group_id" value="22">
+    <span data-table="MemberGroup" data-id="{$vo.member_group_id}" data-field="status"  data-value="{$vo.status}" class="yn"></span>
+    </neq>
+    </td>
+    <td>
+    <a href="{:U('Member/index?member_group_id='.$vo['member_group_id'])}" class="btn btn-primary">用户列表</a>
+    <eq name="Think.const.IS_ADMIN" value="true">
+    <neq name="vo.member_group_id" value="22">
+     <a href="{:U('Membergroup/auth?member_group_id='.$vo['member_group_id'])}" class="btn btn-primary">权限分配</a>
+     <a href="{:U('Membergroup/edit?member_group_id='.$vo['member_group_id'])}" class="btn btn-primary">编辑</a>
+     </neq>
+      </eq>
+      
+      <neq name="vo.member_group_id" value="1">
+      <a href="{:U('Membergroup/del?member_group_id='.$vo['member_group_id'])}" class="btn btn-danger ajax-href-del">删除</a>
+      </neq>
+    </td>
+  </tr>
+</volist>
+</table>
+<div id="page" class="page">{$_page}</div>
+</div>
+<!--content end-->
+</block>

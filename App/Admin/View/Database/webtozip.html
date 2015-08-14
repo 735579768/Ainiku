@@ -1,0 +1,70 @@
+<extend name="Public/base" />
+<block name="right">
+<!--tool start-->
+<div class="btn-tool">
+        <a id="bakweb" class="btn" href="{:U('')}" autocomplete="off">立即备份网站</a>
+</div>
+
+<!--tool end-->
+
+
+
+    <!-- 应用列表 -->
+    <div class="data-table table-striped">
+            <table width="100%" border="0">
+                    <tr class="th">
+                    <th width="200">备份名称</th>
+                    <th width="40">卷数</th>
+                    <th width="80">压缩</th>
+                    <th width="80">数据大小</th>
+                    <th width="200">备份时间</th>
+                    <th>状态</th>
+                    <th width="170">操作</th>
+                </tr>
+                <volist name="list" id="data">
+                    <tr>
+                        <td align="center">{$data.time|date='Ymd-His',###}</td>
+                        <td class="center">{$data.part}</td>
+                        <td class="center">{$data.compress}</td>
+                        <td class="center">{$data.size|format_bytes}</td>
+                        <td class="center">{$key}</td>
+                        <td class="center">-</td>
+                        <td class="action center">
+                            <a class="ajax-href-del confirm btn btn-danger" href="{:U('delwebzip?time='.$data['time'])}">删除</a>
+                        </td>
+                    </tr>
+                </volist>
+            </tbody>
+        </table>
+    </div>
+    <!-- /应用列表 -->
+
+    <script type="text/javascript">
+$(function(){
+        $("#bakweb").click(function(){
+			$('body').append('<div id="bg" style="font-size:50px;text-align:center;" class="bg">(请不要关闭页面)正在备份网站请稍等...</div>');
+			var _this=$(this);
+			topmsg('网站已经开始备份请等待5分钟后再访问网站');
+			$.ajax({
+				type:'POST',
+				url:_this.attr('href'),
+				success: function(da){
+					$('#bg').html(da.info);
+					$('#bg').click(function(e) {
+                        $(this).remove();
+						window.location.reload();
+                    });;
+					topmsg(da.info);
+					},
+				error: function(){
+					$('#bg').remove();
+					topmsg('请求超时');						
+						}
+				});
+        return false;
+		});	
+	});
+
+		
+    </script>
+</block>

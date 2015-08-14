@@ -1,0 +1,23 @@
+
+    <volist name="_TREE_" id="vo">
+    <dl class="cate-item">
+    <!--cate start-->
+      <dt class="cl">
+        <div class="btn-toolbar opt-btn cl"> <a title="编辑" class="btn btn-primary" href="{:u('edit?node_id='.$vo['node_id'])}">编辑</a> <a title="删除" class="btn btn-danger ajax-href-del"  href="{:u('del?node_id='.$vo['node_id'])}">删除</a> </div>
+        <div class="fold"><i></i></div>
+        <div class="order">{$vo.node_id}</div>
+        <div class="order"><span data-table="Node" data-id="{$vo.node_id}" data-field="is_all"  data-value="{$vo.is_all}"  class="yn"></span></div>
+        <div class="order"><input  data-table="Node" data-id="{$vo.node_id}" data-field="sort"  type="text" class="form-control input-mini	 ajax-blur" name="sort" value="{$vo.sort}" /></div>
+
+        <div class="name"> <span class="tab-sign"></span> <a class="add-sub-cate" title="添加子菜单" href="{:u('add?pid='.$vo['node_id'])}"> <i class="icon-add"></i></a><span class="catetitle"><input class="form-control	ajax-blur" name="title" data-id="{$vo.node_id}" data-table="Node" data-field="title"   type="text" value="{$vo.title}" /><span>标识:</span><input class="form-control	input-mini ajax-blur" name="name" data-id="{$vo.node_id}" data-table="Node" data-field="name"   type="text" value="{$vo.name}" />
+</span>  </div>
+      </dt>
+    <!--cate end-->
+    
+    	<notempty name="vo['_']">
+			<dd>
+				{:R('Node/tree', array($vo['_']))}
+			</dd>
+		</notempty>
+    </dl>
+    </volist>

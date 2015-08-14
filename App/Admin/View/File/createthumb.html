@@ -1,0 +1,61 @@
+<extend name="Public/base" />
+<block name="right">
+
+ <!--title start-->
+<!--title end -->
+
+<!--tool start-->
+<div class="btn-tool">
+<div class="btnlist">
+
+</div>
+
+
+
+
+
+
+</div>
+
+<!--tool end-->
+
+<!--content start -->
+<div class="content">
+<form class="hform" action="{:U('')}" method="post">
+{:getForm($fieldarr1,$data)}
+{:getForm($fieldarr2,$data)}
+<a href="{:U('File/createthumb')}" id="createthumb" class="btn btn-parmary">批量生成缩略图</a>
+</form>
+<table id="promsg" width="100%">
+</table>
+
+</div>
+<script>
+$(function(){
+	$('#createthumb').click(function(e) {
+			$(this).addClass('disabled');
+			$('#promsg').html('');
+			createthumb();
+			return false;
+    });
+	function createthumb(){
+ 		var a=$('select[name="arccat_id"]').val();
+		var b=$('select[name="cat_id"]').val();
+		$.ajax({
+			url:"{:U('')}",
+			type:'POST',
+			data:{arccatid:a,catid:b},
+			success: function(da){
+				$('#promsg').append('<tr><td style="text-align:left;">'+da.info+'</td></tr>');
+				if(da.status!==1){
+					createthumb();
+					}else{
+					$('#createthumb').removeClass('disabled');	
+						}
+				}
+			});		
+		}
+	});
+</script>
+<!--content end-->
+</block>

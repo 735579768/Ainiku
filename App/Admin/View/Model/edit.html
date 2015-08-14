@@ -1,0 +1,11 @@
+<extend name="Public/base" />
+<block name="right">
+<form method="post" action="{:U('')}">
+{:getForm($fieldarr,$data)}
+<div class="form-group center">
+<input type="hidden" name="model_id" value="{$data['model_id']}" />
+<a href="javascript:;" class="btn btn-large ajax-post"><empty name="data.model_id">确定添加<else />确定更新</empty></a>
+<a href="javascript:window.history.go(-1);" class="btn btn-large btn-warning">返回</a>
+</div>
+</form>
+</block>

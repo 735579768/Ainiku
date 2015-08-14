@@ -1,0 +1,41 @@
+<extend name="Public/base" />
+<block name="right">
+{$info.content}
+ <ank:get table="Category" field="icon" id="1" pic='true'/> 
+ <article:pagelist id="page1"  rows="20" category_id="65"  name="vo">
+ {$key+1}->{$vo.title}
+ </article:pagelist>
+ 
+ <article:pagenav rows="20" id="page1" />
+ 
+ <ank:nav name="vo">
+<a href="{$vo.url}">{$vo.title}</a>
+ </ank:nav>
+ 
+ 
+  <ank:link name="vo">
+ <a href="{$vo.url}">{$vo.title}</a>
+ </ank:link>
+ 
+ 
+ <article:single id="18" name="data">
+标题:{$data.title}文章
+ </article:single>
+ 
+ 
+ <ank:module posid="3" name="vo">
+ 
+ 这个是模块：{$vo.title}
+ </ank:module>
+ 
+ {:UP('Alipay/pay')}
+ 
+ {:W('Modulepos/index',array('3'))}
+ 
+ <ank:query name="vo" sql="select * from __DB_PREFIX__menu">
+ {$vo.title}
+ </ank:query>
+ 
+ <script src="__STATIC__/ueditor/third-party/SyntaxHighlighter/shCore.js" type="text/javascript"></script>
+ <link href="__STATIC__/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css" type="text/css" rel="stylesheet" />
+ </block>

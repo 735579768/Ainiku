@@ -1,0 +1,93 @@
+<extend name="Public/base" />
+<block name="right">
+<!--tool start-->
+<div class="btn-tool">
+<a href="{:U('Nav/add')}" class="btn btn-parmary">添加顶级导航</a>
+<div class="searchform" style="display:none;">
+<form action="{:U('')}" method="post">
+<input name="title" type="tel" value="{:I('title')}" class="form-control input-mid" placeholder="请输入标题" />
+
+<a class="sch-btn" href="javascript:;" id="search" ><i class="btn-search"></i></a>
+</form>
+</div>
+
+
+</div>
+
+<!--tool end-->
+
+<!--content start -->
+<div class="content">
+  <div class="category cl">
+  
+  
+    <dl class="cate-item th" style="height:35px;">
+      <dt class="cl">
+        <div class="btn-toolbar opt-btn cl" style="width:112px; text-align:center;">操作</div>
+        <div class="fold">折叠</div>
+        <div class="order">排序</div>
+        <div class="order">显示</div>
+        <div class="order">新窗口</div>
+        <div class="name"> 导航名称</div>
+      </dt>
+    </dl>
+    {:R('Nav/tree', array($_TREE_))}
+  </div>
+
+</div>
+<script>
+$(function(){
+	/* 导航展开收起 */
+			$(".category dd").prev().find(".fold i").addClass("icon-unfold")
+				.click(function(){
+					var self = $(this);
+					if(self.hasClass("icon-unfold")){
+						self.closest("dt").next().slideUp("fast", function(){
+							self.removeClass("icon-unfold").addClass("icon-fold");
+						});
+					} else {
+						self.closest("dt").next().slideDown("fast", function(){
+							self.removeClass("icon-fold").addClass("icon-unfold");
+						});
+					}
+				});
+			/* 三级导航删除新增按钮 */
+			$(".category dd dd .add-sub").remove();
+			 //实时更新导航信息 
+			$(".category")
+				.on("submit", "form", function(){
+					var self = $(this);
+					$.post(
+						self.attr("action"),
+						self.serialize(),
+						function(data){
+							// 提示信息 
+							var name = data.status ? "success" : "error", msg;
+							msg = self.find(".msg").addClass(name).text(data.info)
+									  .css("display", "inline-block");
+							setTimeout(function(){
+								msg.fadeOut(function(){
+									msg.text("").removeClass(name);
+								});
+							}, 1000);
+						},
+						"json"
+					);
+					return false;
+				})
+                .on("focus","input",function(){
+                    $(this).data('param',$(this).closest("form").serialize());
+                })
+                .on("blur", "input", function(){
+                    if($(this).data('param')!=$(this).closest("form").serialize()){
+                        $(this).closest("form").submit();
+                    }
+                });
+		
+			$('.fold i').click();
+			});
+			
+
+</script>
+<!--content end-->
+</block>

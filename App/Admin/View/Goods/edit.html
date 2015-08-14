@@ -1,0 +1,50 @@
+<extend name="Public/base" />
+<block name="right">
+
+<!--tool start-->
+
+
+<!--tool end-->
+
+<!--content start -->
+<div class="content">
+<form class="autosubmit" action="{:U('')}" method="post">
+<input type="hidden" id="productid"  value="{$data.goods_id}" />
+{:getForm($fieldarr,$data)}
+<div class="form-group">
+<input type="hidden" name="goods_id" value="{$data.goods_id}" />
+<a href="javascript:;" id="submitbtn" class="btn btn-parmary btn-large ajax-post"><empty name="data.goods_id">确定添加<else />确定更新</empty></a>
+<a href="javascript:;" class="btn btn-warning btn-large return">返回</a>
+</div>
+</form>
+</div>
+
+<if condition="C('OPEN_DRAFTBOX') eq 1">
+<script>
+function _after_post(da){
+	var id=$('input[name="goods_id"]').val();
+	if(id===''){$('input[name="goods_id"]').val(da.goods_id)};
+	}
+if(typeof draftboxtimeid!=='undefined')clearInterval(draftboxtimeid);
+
+
+window.draftboxtimeid=setInterval(function(){
+var caogao=$('input[name="status"]:checked').val();
+if($('input[name="goods_id"]').val()==='' || caogao=='2'){
+	if($('select[name="cat_id"]').length>0){
+	var catid=$('select[name="cat_id"]').val();
+	var title=$('input[name="title"]').val();
+	if(catid!=0 && title!=''){
+		$('input[type="radio"][value="2"]').attr('checked','checked');
+		$('#submitbtn').click();		
+		}
+	}else{
+		if(typeof draftboxtimeid!=='undefined')clearInterval(draftboxtimeid);
+		}
+}
+	},{:C('DRAFTBOX_TIME')});
+
+</script>
+</if>
+<!--content end-->
+</block>

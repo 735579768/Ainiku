@@ -1,0 +1,5 @@
+ <ul class="smimglist cl">
+  <article:list position="3" category_id="$category['category_id']" rows="16">
+  <li class="smimglistitem bd"><a target="_blank" href="{:U('detail/'.$vo['article_id'])}"><img  class="preload"  alt="{$vo.title}"  title="{$vo.title}" src="{$vo.pic|getPicture='thumbpath','90_80'}" /></a><a href="{:U('detail/'.$vo['article_id'])}" target="_blank" title="{$vo.title}" class="imgtitle">{$vo.title}</a></li>
+  </article:list>
+ </ul>

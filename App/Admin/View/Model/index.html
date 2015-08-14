@@ -1,0 +1,45 @@
+<extend name="Public/base" />
+<block name="right">
+<div class="btn-tool">
+<a href="{:U('add')}" class="btn">添加表单模型</a>
+</div>
+<div class="content">
+<table class="" width="100%" >
+        <tr class="th">
+		<th width="50" style="text-align:center;">序号</th>
+        <th width="50" style="text-align:center;">ID</th>
+		<th class="center" width="50">排序</th>
+		<th>表单模型名字</th>
+        <th>标识</th>
+        <th>数据表</th>
+        <th>更新时间</th>
+		<th>状态</th>
+		<th width="300">操作</th>
+		</tr>
+<volist name="_list" id="vo">
+  <tr>
+    <td style="text-align:center;">{$key+1}</td>
+    <td class="center">{$vo.model_id}</td>
+    <td><input  data-table="Model" data-id="{$vo.model_id}" data-field="sort"  type="text" class="form-control input-mini  ajax-blur" name="sort" value="{$vo.sort}" /></td>
+    <td>{$vo.title}</td>
+    <td>{$vo.name}</td>
+    <td>{$vo.table}</td>
+     <td>{$vo.update_time|time_format}</td>
+    <td>
+    <span data-table="Model" data-id="{$vo.model_id}" data-field="status"  data-value="{$vo.status}" class="yn"></span>
+    </td>
+    <td class="center">     
+     <a href="{:U('Modelattr/add?model_id='.$vo['model_id'])}" class="btn btn-primary">添加表单</a>
+     <a href="{:U('Modelattr/index?model_id='.$vo['model_id'])}" class="btn btn-primary">表单列表</a>
+     
+     <a href="{:U('Model/edit?model_id='.$vo['model_id'])}" class="btn btn-primary">编辑</a>
+     <neq name="vo.modeltype" value="system">
+      <a href="{:U('Model/del?model_id='.$vo['model_id'])}" class="btn btn-danger ajax-href-del">删除</a>
+      </neq>
+    </td>
+  </tr>
+</volist>
+</table>
+<div id="page" class="page">{$_page}</div>
+</div>
+</block>
