@@ -147,7 +147,7 @@ function img2thumb($src_img, $dst_img, $width = 75, $height = 75,$createimg=true
 	
 	$cropped_image = imagecreatetruecolor($width, $height);
 	
-	if($width==$height && 2>$zfxbili && $zfxbili>=0.5){
+	if($width==$height && 1.2>$zfxbili && $zfxbili>=0.8){
 		$white = imagecolorallocate($cropped_image, 255, 255, 255);
 		imagefill($cropped_image, 0, 0, $white);
 		}else{
@@ -164,7 +164,7 @@ if($proportion){
 		//缩略图宽高一样的情况
 		if($width==$height){
 	 		//源图类似正方形2:1 比例 宽大于高 
-			if($zfxbili>1 && $zfxbili<2){
+			if($zfxbili>1 && $zfxbili<1.2){
 				//算出缩放的实际高度
 				$ah=$src_h*$width/$src_w;
 				//算出实际的y轴
@@ -176,7 +176,7 @@ if($proportion){
 				return true;
 			}
 			//源图类似正方形1:2 比例 高大于宽 
-			if($zfxbili>=0.5 && $zfxbili<1){
+			if($zfxbili>=0.8 && $zfxbili<1.2){
 				//算出缩放的实际宽度
 				$aw=$src_w*$height/$src_h;
 				//算出实际的x轴
