@@ -133,7 +133,7 @@ function getPicture($id=null, $field = null,$wh=null){
 						$revalue =substr($revalue, 0,strrpos($revalue, '.')).'_'.$wh.substr($revalue, strrpos($revalue, '.'));
 						//判断之前是不是已经生成
 						if(!file_exists('.'.$revalue)){
-						 $result=img2thumb('.'.$picture['path'], '.'.$revalue, $wharr[0], $wharr[1],$createimg=true,$proportion = true);						
+						 $result=img2thumb('.'.$picture['path'], '.'.$revalue, $wharr[0], $wharr[1],true,true);						
 							if($result!==true){
 								$revalue=$picture['path'];	
 									}
@@ -143,7 +143,7 @@ function getPicture($id=null, $field = null,$wh=null){
 						$revalue=$picture[$field];
 						if($field=='thumbpath'){
 							if(!file_exists('.'.$revalue)){
- 							$result=img2thumb('.'.$picture['path'], '.'.$revalue, C('THUMB_WIDTH'), C('THUMB_HEIGHT'),$createimg=true,$proportion = true);						
+ 							$result=img2thumb('.'.$picture['path'], '.'.$revalue, C('THUMB_WIDTH'), C('THUMB_HEIGHT'),true,true);						
 							if($result!==true){
 								$revalue=$picture['path'];	
 									}								

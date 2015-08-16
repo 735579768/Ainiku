@@ -102,11 +102,11 @@ function markimg($info=array(
  * @param string     目标图绝对完整地址{带文件名及后缀名}
  * @param int        缩略图宽{0:此时目标高度不能为0，目标宽度为源图宽*(目标高度/源图高)}
  * @param int        缩略图高{0:此时目标宽度不能为0，目标高度为源图高*(目标宽度/源图宽)}
- * @param bool proportion  剪切true  缩放false会有白边框
  * @param bool createimg  true输出到浏览器 false输出到文件
+ * @param bool proportion  剪切true  缩放false会有白边框
  * @return boolean
  */
-function img2thumb($src_img, $dst_img, $width = 75, $height = 75,$createimg=true,$proportion = true)
+function img2thumb($src_img, $dst_img, $width = 75, $height = 75,$createimg=true,$proportion = false)
 {
     if(!is_file($src_img))
     {
@@ -127,128 +127,269 @@ function img2thumb($src_img, $dst_img, $width = 75, $height = 75,$createimg=true
 	//if($src_h<intval(C('THUMB_HEIGHT')) || $src_w<intval(C('THUMB_WIDTH'))){return false;}
     $type  = strtolower(substr(image_type_to_extension($srcinfo[2]), 1));
     $createfun = 'imagecreatefrom' . ($type == 'jpg' ? 'jpeg' : $type);
- if(!$createimg)header('content-type:image/'.($type == 'jpg' ? 'jpeg' : $type));
+
+ 	if(!$createimg)header('content-type:image/'.($type == 'jpg' ? 'jpeg' : $type));
     $dst_h = $height;
     $dst_w = $width;
     $x = $y = 0;
-$src_image=$createfun($src_img);
-imagesavealpha($src_image,true);//这里很重要;
-$cropped_image = imagecreatetruecolor($width, $height);
-imagealphablending($cropped_image,false);//这里很重要,意思是不合并颜色,直接用$img图像颜色替换,包括透明色;
-imagesavealpha($cropped_image,true);//这里很重要,意思是不要丢了$thumb图像的透明色
 
-$white = imagecolorallocate($cropped_image, 255, 255, 255);
-$alpha= imagecolorallocatealpha($cropped_image,255,255,255,127);
-imagefill($cropped_image, 0, 0, $alpha);
- if($proportion && $src_w>$width && $src_h>$height){
-	 //源图比缩略图大的情况
-	 if($width==$height){
-		 //缩略图宽高一样的情况
-		 		//源图宽高一样
-				
-				if($src_h==$src_w){
-						   imagecopyresampled($cropped_image, $src_image,0,0, 0, 0, $width, $height, $src_w, $src_h);
-							 if($createimg){$otfunc($cropped_image, $dst_img);}else{$otfunc($cropped_image);}
-							imagedestroy($cropped_image);
-							imagedestroy($src_image);
-   							 return true;					 
-					}
-					
-				 if($src_w>$src_h){
-						 //如果源图大于缩略图
-						 $ww=$src_h;
-						 $_x=($src_w-$src_h)/2; 
-						   imagecopyresampled($cropped_image, $src_image,0,0, $_x, 0, $width, $height, $ww, $ww);
-							 if($createimg){$otfunc($cropped_image, $dst_img);}else{$otfunc($cropped_image);}
-							imagedestroy($cropped_image);
-							imagedestroy($src_image);
-   							 return true;					 
-					 }else{
-							 $ww=$src_w;
-							 $_y=($src_h-$src_w)/2; 
-						   imagecopyresampled($cropped_image, $src_image,0,0, 0, $_y, $width, $height, $ww, $ww);
-							 if($createimg){$otfunc($cropped_image, $dst_img);}else{$otfunc($cropped_image);}
-							imagedestroy($cropped_image);
-							imagedestroy($src_image);
-   							 return true;					 
-						 } 
-		 }else{
-			 //缩略图宽高不一样的情况
-			 if($width>$height){
+	$zfxbili=0.00;
+	//如果缩略图是正方形，算出源图的宽高比例如果接近正方形的话就生成正方形的图片
+	if($width==$height){
+		$zfxbili=doubleval($src_w)/doubleval($src_h);
+	}
+
+    //源图和缩略图一样大小的情况直接复制
+    if($src_w==$width && $src_h==$height){
+    	return copy($src_img,$dst_img);
+    }
+	$src_image=$createfun($src_img);
+	
+	$cropped_image = imagecreatetruecolor($width, $height);
+	
+	if($width==$height && 2>$zfxbili && $zfxbili>=0.5){
+		$white = imagecolorallocate($cropped_image, 255, 255, 255);
+		imagefill($cropped_image, 0, 0, $white);
+		}else{
+		imagesavealpha($src_image,true);//这里很重要;
+		$alpha= imagecolorallocatealpha($cropped_image,255,255,255,127);
+		imagealphablending($cropped_image,false);//这里很重要,意思是不合并颜色,直接用$img图像颜色替换,包括透明色;
+		imagesavealpha($cropped_image,true);//这里很重要,意思是不要丢了$thumb图像的透明色
+		imagefill($cropped_image, 0, 0, $alpha);
+		}
+//剪切图片(先从源图片中按缩略图的比例剪切出一个区域再缩放到缩略图中)
+if($proportion){
+	//源图比缩略图大的情况
+	if($src_w>$width && $src_h>$height){
+		//缩略图宽高一样的情况
+		if($width==$height){
+	 		//源图类似正方形2:1 比例 宽大于高 
+			if($zfxbili>1 && $zfxbili<2){
+				//算出缩放的实际高度
+				$ah=$src_h*$width/$src_w;
+				//算出实际的y轴
+				$ay=($height-$ah)/2;
+				imagecopyresampled($cropped_image, $src_image,0,$ay, 0, 0, $width,$ah, $src_w, $src_h);
+				if($createimg){$otfunc($cropped_image, $dst_img);}else{$otfunc($cropped_image);}
+				imagedestroy($cropped_image);
+				imagedestroy($src_image);
+				return true;
+			}
+			//源图类似正方形1:2 比例 高大于宽 
+			if($zfxbili>=0.5 && $zfxbili<1){
+				//算出缩放的实际宽度
+				$aw=$src_w*$height/$src_h;
+				//算出实际的x轴
+				$ax=($width-$aw)/2;
+				imagecopyresampled($cropped_image, $src_image,$ax,0, 0, 0, $aw, $height, $src_w, $src_h);
+				if($createimg){$otfunc($cropped_image, $dst_img);}else{$otfunc($cropped_image);}
+				imagedestroy($cropped_image);
+				imagedestroy($src_image);
+				return true;
+			}
+	 		//源图宽高一样
+			if($src_h==$src_w){
+				imagecopyresampled($cropped_image, $src_image,0,0, 0, 0, $width, $height, $src_w, $src_h);
+				if($createimg){$otfunc($cropped_image, $dst_img);}else{$otfunc($cropped_image);}
+				imagedestroy($cropped_image);
+				imagedestroy($src_image);
+				return true;
+			}
+			//源图宽大于高
+			if($src_w>$src_h){
+				$ww=$src_h;
+				$_x=($src_w-$src_h)/2; 
+				imagecopyresampled($cropped_image, $src_image,0,0, $_x, 0, $width, $height, $ww, $ww);
+				if($createimg){$otfunc($cropped_image, $dst_img);}else{$otfunc($cropped_image);}
+				imagedestroy($cropped_image);
+				imagedestroy($src_image);
+				return true;
+			}else{
+			//源图宽小于等于高
+				$ww=$src_w;
+				$_y=($src_h-$src_w)/2;
+				imagecopyresampled($cropped_image, $src_image,0,0, 0, $_y, $width, $height, $ww, $ww);
+				if($createimg){$otfunc($cropped_image, $dst_img);}else{$otfunc($cropped_image);}
+				imagedestroy($cropped_image);
+				imagedestroy($src_image);
+				return true;
+			}
+		}else{//缩略图宽高不一样的情况
+				//缩略图宽大于高
+				if($width>$height){
 				 	$bili=($width/$height);
 					$hh=$src_w/$bili;
 					$_y=($src_h-$hh)/2;
 				 	if($src_w>$src_h){
-							//查找合适剪切的高
-							$tem_w=$src_w;
-							$tem_h=0;
-							while(true){
-								$tem_h=($tem_w/$bili);
-								if($tem_h<$src_h){break;}else{$tem_w--;}
-								}
-							$_x=($src_w-$tem_w)/2;
-							$_y=($src_h-$tem_h)/2;
-						   imagecopyresampled($cropped_image, $src_image,0,0, $_x, $_y, $width, $height, $tem_w, $tem_h);
-							 if($createimg){$otfunc($cropped_image, $dst_img);}else{$otfunc($cropped_image);}
-							imagedestroy($cropped_image);
-							imagedestroy($src_image);
-   							 return true;						 
-						}else{						
-						   imagecopyresampled($cropped_image, $src_image,0,0, 0, $_y, $width, $height, $src_w, $hh);
-							 if($createimg){$otfunc($cropped_image, $dst_img);}else{$otfunc($cropped_image);}
-							imagedestroy($cropped_image);
-							imagedestroy($src_image);
-   							 return true;								
-							}
-				 }else{
-					 $bili=($height/$width);
+						//查找合适剪切的高
+						$tem_w=$src_w;
+						$tem_h=0;
+						while(true){
+							$tem_h=($tem_w/$bili);
+							if($tem_h<=$src_h){break;}else{$tem_w--;}
+						}
+						$_x=($src_w-$tem_w)/2;
+						$_y=($src_h-$tem_h)/2;
+						imagecopyresampled($cropped_image, $src_image,0,0, $_x, $_y, $width, $height, $tem_w, $tem_h);
+						if($createimg){$otfunc($cropped_image, $dst_img);}else{$otfunc($cropped_image);}
+						imagedestroy($cropped_image);
+						imagedestroy($src_image);
+						return true;
+					}else{
+						imagecopyresampled($cropped_image, $src_image,0,0, 0, $_y, $width, $height, $src_w, $hh);
+						if($createimg){$otfunc($cropped_image, $dst_img);}else{$otfunc($cropped_image);}
+						imagedestroy($cropped_image);
+						imagedestroy($src_image);
+						return true;
+					}
+				}else{
+				//缩略图宽小于等于高
+					$bili=($height/$width);
 					$ww=$src_h/$bili;
 					$_x=($src_w-$ww)/2;
-				 	if($src_h>$src_w){
+					 	if($src_h>$src_w){
 							//查找合适剪切的高
 							$tem_h=$src_h;
 							$tem_w=0;
 							while(true){
 								$tem_w=($tem_h/$bili);
-								if($tem_w<$src_w){break;}else{$tem_h--;}
-								}
+								if($tem_w<=$src_w){break;}else{$tem_h--;}
+							}
 							$_x=($src_w-$tem_w)/2;
 							$_y=($src_h-$tem_h)/2;
-						   imagecopyresampled($cropped_image, $src_image,0,0, $_x, 0, $width, $height, $tem_w, $tem_h);
-							 if($createimg){$otfunc($cropped_image, $dst_img);}else{$otfunc($cropped_image);}
+							imagecopyresampled($cropped_image, $src_image,0,0, $_x, 0, $width, $height, $tem_w, $tem_h);
+							if($createimg){$otfunc($cropped_image, $dst_img);}else{$otfunc($cropped_image);}
 							imagedestroy($cropped_image);
 							imagedestroy($src_image);
-   							 return true;		
-						}else{						
-						   imagecopyresampled($cropped_image, $src_image,0,0, $_x, 0, $width, $height, $ww, $src_h);
- 							if($createimg){$otfunc($cropped_image, $dst_img);}else{$otfunc($cropped_image);}
+							return true;
+						}else{
+							imagecopyresampled($cropped_image, $src_image,0,0, $_x, 0, $width, $height, $ww, $src_h);
+							if($createimg){$otfunc($cropped_image, $dst_img);}else{$otfunc($cropped_image);}
 							imagedestroy($cropped_image);
 							imagedestroy($src_image);
-   							 return true;								
-							}					 
-					 }
-			 }
-	 }else{
-		  //源图任意一个长度比缩略图小的情况
-		  if($src_h<$height && $src_w<$width){
-			  $_x=($width-$src_w)/2;
-			  $_y=($height-$src_h)/2;
-			  imagecopyresampled($cropped_image, $src_image,$_x, $_y,0, 0, $src_w, $src_h, $src_w, $src_h);
-			  }else if($src_h<$height){
-				   $hh=$width/($src_w/$src_h);
-				   $_y=($height-$hh)/2;
-				    imagecopyresampled($cropped_image, $src_image,0, $_y,0, 0, $width, $src_h, $src_w, $src_h);
-				  }else{
-				   $ww=$height/($src_h/$src_w);
-				   $_x=($width-$ww)/2;
-				    imagecopyresampled($cropped_image, $src_image,$_x, 0,0, 0, $src_w, $height,$src_w, $src_h);					  
-					  }				   
- 							if($createimg){$otfunc($cropped_image, $dst_img);}else{$otfunc($cropped_image);}
-							imagedestroy($cropped_image);
-							imagedestroy($src_image);
-   							 return true;								 
-		 }
+							return true;
+						}
+				}
+			}
+	}else{
+	//源图任意一个长度比缩略图小的情况
+		if($src_h<=$height && $src_w<=$width){
+			//源图宽高都比缩略图小
+			$_x=($width-$src_w)/2;
+			$_y=($height-$src_h)/2;
+			imagecopyresampled($cropped_image, $src_image,$_x, $_y,0, 0, $src_w, $src_h, $src_w, $src_h);
+			if($createimg){$otfunc($cropped_image, $dst_img);}else{$otfunc($cropped_image);}
+			imagedestroy($cropped_image);
+			imagedestroy($src_image);
+			return true;
+		}else if($src_h<=$height){
+			//源图高比缩略图小
+			$hh=$width/($src_w/$src_h);
+			$_y=($height-$hh)/2;
+			imagecopyresampled($cropped_image, $src_image,0, $_y,0, 0, $width, $src_h, $src_w, $src_h);
+			if($createimg){$otfunc($cropped_image, $dst_img);}else{$otfunc($cropped_image);}
+			imagedestroy($cropped_image);
+			imagedestroy($src_image);
+			return true;
+		}else{
+			//源图宽比缩略图小
+			$ww=$height/($src_h/$src_w);
+			$_x=($width-$ww)/2;
+			imagecopyresampled($cropped_image, $src_image,$_x, 0,0, 0, $src_w, $height,$src_w, $src_h);
+			if($createimg){$otfunc($cropped_image, $dst_img);}else{$otfunc($cropped_image);}
+			imagedestroy($cropped_image);
+			imagedestroy($src_image);
+			return true;
+		}
+	}
+}else{
+//缩放图片(把源图片完整的缩放到缩略图中)
+	//缩略图宽高一样
+	if($width==$height){
+		//源图宽大于高
+		if($src_w>$src_h){
+			$ah=$src_h*$width/$src_w;
+			$ay=($height-$ah)/2;
+			imagecopyresampled($cropped_image, $src_image,0,$ay, 0,0, $width, $ah,$src_w, $src_h);
+			if($createimg){$otfunc($cropped_image, $dst_img);}else{$otfunc($cropped_image);}
+			imagedestroy($cropped_image);
+			imagedestroy($src_image);
+			return true;
+		}
+		//源图宽小于高
+		if($src_w<$src_h){
+			$aw=$src_w*$height/$src_h;
+			$ax=($width-$aw)/2;
+			imagecopyresampled($cropped_image, $src_image,$ax,0, 0,0, $aw, $height,$src_w, $src_h);
+			if($createimg){$otfunc($cropped_image, $dst_img);}else{$otfunc($cropped_image);}
+			imagedestroy($cropped_image);
+			imagedestroy($src_image);
+			return true;
+		}
+		//源图宽等于高
+		if($src_w==$src_h){
+			imagecopyresampled($cropped_image, $src_image,0,0,0, 0, $width, $height,$src_w, $src_h);
+			if($createimg){$otfunc($cropped_image, $dst_img);}else{$otfunc($cropped_image);}
+			imagedestroy($cropped_image);
+			imagedestroy($src_image);
+			return true;
+		}
+	}
+	//缩略图宽大于高
+	if($width>$height){
+		//源图宽大于高
+		if($src_w>$src_h){
+			$ah=$src_h*$width/$src_w;
+			$ay=($height-$ah)/2;
+			imagecopyresampled($cropped_image, $src_image,0,$ay, 0,0, $width, $ah,$src_w, $src_h);
+			if($createimg){$otfunc($cropped_image, $dst_img);}else{$otfunc($cropped_image);}
+			imagedestroy($cropped_image);
+			imagedestroy($src_image);
+			return true;
+		}
+		//源图宽小于高
+		if($src_w<=$src_h){
+			$aw=$src_w*$height/$src_h;
+			$ax=($width-$aw)/2;
+			imagecopyresampled($cropped_image, $src_image,$ax,0, 0,0, $aw, $height,$src_w, $src_h);
+			if($createimg){$otfunc($cropped_image, $dst_img);}else{$otfunc($cropped_image);}
+			imagedestroy($cropped_image);
+			imagedestroy($src_image);
+			return true;
+		}
+		//源图宽等于高
+		//if($src_w==$src_h){
+		//	imagecopyresampled($cropped_image, $src_image,0,0,0, 0, $width, $height,$src_w, $src_h);
+		//}
+	}
+	//缩略图宽小于高
+	if($width<$height){
+		//源图宽小于高
+		if($src_w<=$src_h){
+			$aw=$src_w*$height/$src_h;
+			$ax=($width-$aw)/2;
+			imagecopyresampled($cropped_image, $src_image,$ax,0, 0,0, $aw, $height,$src_w, $src_h);
+			if($createimg){$otfunc($cropped_image, $dst_img);}else{$otfunc($cropped_image);}
+			imagedestroy($cropped_image);
+			imagedestroy($src_image);
+			return true;
+		}
+		//源图宽大于高
+		if($src_w>$src_h){
+			$ah=$src_h*$width/$src_w;
+			$ay=($height-$ah)/2;
+			imagecopyresampled($cropped_image, $src_image,0,$ay, 0,0, $width, $ah,$src_w, $src_h);
+			if($createimg){$otfunc($cropped_image, $dst_img);}else{$otfunc($cropped_image);}
+			imagedestroy($cropped_image);
+			imagedestroy($src_image);
+			return true;
+		}
+
+	}
 }
+	return true;
+}
+
 ///**
 // * 生成缩略图
 // * @author yangzhiguo0903@163.com
