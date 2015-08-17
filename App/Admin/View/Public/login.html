@@ -3,16 +3,13 @@
 <head>
 <meta charset="utf-8">
 <title>{:C('ADMIN_TITLE')}</title>
-<script src="__JS__/jquery-1.9.1.min.js" type="text/jscript"></script>
-<script src="__STATIC__/js/ajax.js" type="text/jscript"></script>
-<link href="__STATIC__/css/reset.css" type="text/css" rel="stylesheet" />
-<link href="__CSS__/login.css" type="text/css" rel="stylesheet" />
+<ank:insert name="reset,login" />
+<ank:insert type="js" name="jquery-1.9.1.min,ajax,bgline" />
 </head>
 
     <body id="login-page">
-        <div id="main-content">
-
-            <!-- 主体 -->
+      <div id="particles-js" style="position:relative;">
+                  <!-- 主体 -->
             <div class="login-body">
                 <div class="login-main pr">
                     <form action="{:U('')}" method="post" class="login-form">
@@ -60,7 +57,7 @@
                     </form>
                 </div>
             </div>
-        </div>
+      </div>
             <script>
 	$(function(){
 		$('.verifyimg').bind('click',function(){

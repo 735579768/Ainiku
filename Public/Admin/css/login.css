@@ -1,9 +1,9 @@
 /* CSS Document */
 /* 登陆页样式------------------------------------------ */
-body{ background:#0FB06D; }
-.login-main{margin:0 auto;width:960px;}
+body{ background: #2472b4; }
+/*.login-main{margin:0 auto;width:960px;}*/
 .login-header{height:50px;line-height:50px;background-color:#f3f3f3;}
-.login-body{margin-bottom:10px;height:448px;}
+.login-body{margin-top:-224px;height:448px; position:absolute; left:50%; top:40%; margin-left:-145px;}
 .login-body .pr{position:relative;height:448px;}
 .login-form{width:290px;margin:50px auto;padding:25px 30px 13px;background-color:#fff;box-shadow:0 0 26px #041A36;border-top:8px solid #42EC00; border-radius:32px;
 
