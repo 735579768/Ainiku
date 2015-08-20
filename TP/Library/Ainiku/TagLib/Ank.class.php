@@ -110,7 +110,7 @@ class Ank extends TagLib {
 		$id  = isset($tag['id'])?$tag['id']:'';
 		if(empty($id))return '';
 		$parse  = '<?php ';
-		$parse .='$skey=md5(\'_single'.$id.'\');';
+		$parse .='$skey=md5("_single'.$id.'");';
 		$parse .='$__SINGLE_LIST__=S($skey);';
 		$parse .='if(empty($__SINGLE_LIST__)||APP_DEBUG):';
 		$parse .= '$__SINGLE_LIST__ = M(\'Single\')->where(\'status=1\')->find('.$id.');';
@@ -134,7 +134,7 @@ class Ank extends TagLib {
 		$pic    = isset($tag['pic'])?($tag['pic']):'';
 		if(empty($table)||empty($id)||empty($field))return '';
 		$parse  = '<?php ';
-		$parse .='$skey=md5(\''.$table.$id.$field.$pic.'\');';
+		$parse .='$skey=md5("'.$table.$id.$field.$pic.'");';
 		$parse .='$__GET_LIST__=S($skey);';
 		$parse .='if(empty($__GET_LIST__)||APP_DEBUG):';
 		$parse .= '$__GET_LIST__ = M(\''.$table.'\')->field(\''.$field.'\')->find('.$id.');';
@@ -143,7 +143,11 @@ class Ank extends TagLib {
 		$parse .='if(\''.$pic.'\'==\'true\'):';
 		$parse .='echo getPicture($__GET_LIST__[\''.$field.'\']);';
 		$parse .='else:';
+		$parse .='if(empty($__GET_LIST__[\''.$field.'\'])):';
+		$parse .='echo "'.$empty.'";';
+		$parse .='else:';
 		$parse .= 'echo $__GET_LIST__[\''.$field.'\'];';
+		$parse .='endif;';
 		$parse .='endif;';
 		$parse .= ' ?>';
 		return $parse;  
@@ -162,7 +166,7 @@ class Ank extends TagLib {
 		$sql =str_replace('neq','<>',$sql);
 		if(empty($sql))return '';
 		$parse  = '<?php ';
-		$parse  .='$__QUERY_LIST__=S(md5(\''.md5($sql).'\'));';
+		$parse  .='$__QUERY_LIST__=S(md5("'.md5($sql).'"));';
 		$parse .='if(empty($__NAV_LIST__)  || APP_DEBUG):';
 		$parse .= '$__QUERY_LIST__ = M(\'\')->query("'.$sql.'");';
 		$parse .='S(md5(\''.md5($sql).'\'),$__QUERY_LIST__);';
@@ -184,7 +188,7 @@ class Ank extends TagLib {
         $name  = isset($tag['name'])?$tag['name']:'vo';
         $order    = isset($tag['order'])?($tag['order'].','):'';
 		$parse  = '<?php ';
-		$parse .='$__NAV_LIST__=F(md5(\'sys_navhome_list\'));';
+		$parse .='$__NAV_LIST__=F(md5("sys_navhome_list"));';
 		$parse .='if(empty($__NAV_LIST__)  || APP_DEBUG):';
 		$parse .= '$__NAV_LIST__ = M(\'nav\')->where(\'status>0 and pid=0\')->order(\''.$order.' sort asc,nav_id desc\')->select();';
 		$parse .='F(md5(\'sys_navhome_list\'),$__NAV_LIST__);';
@@ -205,7 +209,7 @@ class Ank extends TagLib {
 	 public function _link($tag,$content){
         $name  =    isset($tag['name'])?$tag['name']:'vo';
 		$parse  = '<?php ';
-		$parse .='$__LINK_LIST__=F(md5(\'sys_link_tree\'));';
+		$parse .='$__LINK_LIST__=F(md5("sys_link_tree"));';
 		$parse .='if(empty($__LINK_LIST__) || APP_DEBUG):';
 		$parse .= '$__LINK_LIST__ = M(\'link\')->where(\'status>0\')->order(\' sort asc,link_id desc\')->select();';
 		$parse .='F(md5(\'sys_link_tree\'),$__LINK_LIST__);';

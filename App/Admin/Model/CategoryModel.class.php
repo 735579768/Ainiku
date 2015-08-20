@@ -33,7 +33,7 @@ class CategoryModel extends BaseModel{
 		 array('reg_ip', 'get_client_ip', self::MODEL_INSERT, 'function', 1),
         array('create_time', NOW_TIME, self::MODEL_INSERT),
         array('update_time', NOW_TIME, self::MODEL_BOTH),
-        array('status', '1', self::MODEL_BOTH),
+        array('status', '1', self::MODEL_INSERT),
     );
 	function getname($name=null){
 		if(empty($name)){
