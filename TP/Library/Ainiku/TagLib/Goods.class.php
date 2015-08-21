@@ -68,7 +68,7 @@ class Goods extends TagLib {
 		$parse .='$map2[\'status\']=1;';
 		if(!empty($catid))$parse .='$map2[\'category_id\']=array(\'in\',getCategoryAllChild('.$catid.'));';
 		if(!empty($position))$parse .='$map2[\'_string\']=\'FIND_IN_SET(\\\''.$position.'\\\',position)\';';
-		$parse .='$skey=json_encode($map2).\''.$order.$rows.'\';';
+		$parse .='$skey=json_encode($map2).\''.$order.$rows.'\'.I(\'get.p\');';
 		$parse .='$__SHOW__=S($skey.\'pageshow\');';
 		$parse .='$__PAGE_LIST__=S($skey.\'pagelist\');';
 		$parse .='if(empty($__SHOW__) || empty($__PAGE_LIST__)  || APP_DEBUG):';
