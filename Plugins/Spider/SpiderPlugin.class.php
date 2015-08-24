@@ -124,7 +124,7 @@ class SpiderPlugin extends \Plugins\Plugin{
 		 return $this->fetch('lists');	
 		}
 	public function delall(){
-		$result=M('Spider')->where('1=1')>delete();
+		$result=M('Spider')->where('1=1')->delete();
 		if($result>0){
 			$this->success('清空成功');
 			}else{
