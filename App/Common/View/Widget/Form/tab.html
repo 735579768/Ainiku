@@ -834,12 +834,13 @@ var Cutpicture={
 </script>
 </div>
 <link href="__STATIC__/cutpicture/css/ShearPhoto.css" rel="stylesheet" type="text/css" media="all">
-<script  type="text/javascript" src="__STATIC__/cutpicture/js/ShearPhoto.js" ></script><!--拉伸，截图的核心文件-->
-<script  type="text/javascript"  src="__STATIC__/cutpicture/js/move.js" ></script><!--拖拽DIV JS文件 -->
-<script  type="text/javascript"  src="__STATIC__/cutpicture/js/processdata.js" ></script><!--与服务器交互数据JS文件 -->
-<script  type="text/javascript"  src="__STATIC__/cutpicture/js/UpImg.js" ></script>     <!--上传截图的JS文件 -->
-<script  type="text/javascript"  src="__STATIC__/cutpicture/js/webcam_ShearPhoto.js" ></script>   <!--在线拍照 -->
-<script  type="text/javascript"  src="__STATIC__/cutpicture/js/handle.js" ></script>    <!--设置和处理对象方法的文件，要修改设置，请进入这个文件 -->         
+<ank:insert type="js" name="ShearPhoto,move,processdata,UpImg,webcam_ShearPhoto,handle" dir="__STATIC__/cutpicture/js" />
+<!--<script  type="text/javascript" src="__STATIC__/cutpicture/js/ShearPhoto.js" ></script>
+<script  type="text/javascript"  src="__STATIC__/cutpicture/js/move.js" ></script>
+<script  type="text/javascript"  src="__STATIC__/cutpicture/js/processdata.js" ></script>
+<script  type="text/javascript"  src="__STATIC__/cutpicture/js/UpImg.js" ></script>     
+<script  type="text/javascript"  src="__STATIC__/cutpicture/js/webcam_ShearPhoto.js" ></script>
+<script  type="text/javascript"  src="__STATIC__/cutpicture/js/handle.js" ></script>-->
           </case>
           <case value="custom">{:getCustomForm($field['extra'],$field['name'],$field['data'])}</case>
           <default/>
