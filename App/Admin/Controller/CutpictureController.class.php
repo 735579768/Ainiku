@@ -16,15 +16,15 @@ class CutpictureController extends AdminController {
 			"width"=>array(
 						 //array(0,true),//此时的0   代表以用户取当时截取框的所截的大小为宽
 						 array(150,true),//@参数1要生成的宽 （高度不用设，系统会按比例做事），    @参数2：是否为该图加水印,water参数要有水印地址才有效true或false
-						 array(100,true),//@参数1要生成的宽 （高度不用设，系统会按比例做事），   @参数2：是否为该图加水印，water参数要有水印地址才有效true或false
-						 array(70,true)
+						// array(100,true),//@参数1要生成的宽 （高度不用设，系统会按比例做事），   @参数2：是否为该图加水印，water参数要有水印地址才有效true或false
+						// array(70,true)
 						 ),//你可以继续增加多张照片
 			"water"=>"../images/waterimg2.png",//只接受PNG水印，当然你对PHP熟练，你可以对主程序进行修改		   
 			"water_scope"=>100,       //图片少于多少不添加水印！没填水印地址，这里不起任何作用
 			"temp"=>DATA_DIR."cutpicturefile".DIRECTORY_SEPARATOR."temp",  //等待截图的大图文件。就是上传图片的临时目录，截图后，图片会被删除
 			"tempSaveTime"=>600,//临时图片（也就是temp内的图片）保存时间，需要永久保存请设为0。单位秒
-			"saveURL"=>"./Uploads/cutfile".DIRECTORY_SEPARATOR."shearphoto_file",//后面不要加斜杠，系统会自动给补上！不要使用中文
-			"filename"=>uniqid("shearphoto_")."_".mt_rand(100,999)."_"//文件名字定义！要生成多个文件时 系统会自动在后面补0 1 2  3.....;
+			"saveURL"=>"./Uploads/image/cutfile".DIRECTORY_SEPARATOR.date('Ymd'),//后面不要加斜杠，系统会自动给补上！不要使用中文
+			"filename"=>uniqid("cutpicture_")."_".mt_rand(100,999)."_"//文件名字定义！要生成多个文件时 系统会自动在后面补0 1 2  3.....;
 			);		
 $ShearPhoto["JSdate"]=isset($_POST["JSdate"])?json_decode(trim(stripslashes($_POST["JSdate"])),true):die('{"erro":"致命错误"}');	
 
@@ -39,6 +39,26 @@ else //切图成功时
 	 $dirname=pathinfo($ShearPhoto["JSdate"]["url"]);
 	 $ShearPhotodirname=$dirname["dirname"].DIRECTORY_SEPARATOR."shearphoto.lock";//认证删除的密钥
 	 file_exists($ShearPhotodirname) && @unlink($ShearPhoto["JSdate"]["url"]);//密钥存在，当然就删掉原图
+	 //保存数据到数据库
+	 foreach($result as $key=>$val){
+		  $result[$key]['status']=1;
+		  		$imgurl=str_replace(array('./','\\'),array('/','/'),$val['ImgUrl']);
+		  		$data['path']=$imgurl;
+				$data['sha1']=sha1_file();
+				$data['thumbpath']=$imgurl;
+				$data['destname']=$val['ImgName'];
+				$data['srcname']=$val['ImgName'];
+				$data['create_time']=time();
+				$data['uid']=UID;
+					$model=M('picture');
+					if($model->create($data)){
+						$re=$model->add($data);
+						if($re>0){
+							$result[$key]['id']=$re;
+						}
+					}
+		 }
+	
 	 $result = json_encode($result); 
 	  echo str_replace(array("\\\\","\/",ShearURL,"\\",'./'),array("\\","/","","/",'/'),$result);//去掉无用的字符修正URL地址，再把数据传弟给JS
       /*

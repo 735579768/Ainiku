@@ -685,7 +685,20 @@ $('#area11{$field['name']}').html('<option value="0">请选择--</option></selec
 
           </case>
           <case value="cutpicture">
-        <a  class="btn" onClick="$(this).next().show();" style="margin-bottom:10px;"  href="javascript:;">上传图片</a>
+        <a  class="btn" onClick="$('#cutpicture').show();" style="margin-bottom:10px;"  href="javascript:;">上传并剪切图片</a>
+
+<input type="hidden" name="{$field['name']}" id="cutpicture_id_{$field['name']}" value="{$field['data']}"/>
+<div id="uploadimg_{$field['name']}" class="cl">
+<notempty name="field['data']">
+<div class='imgblock'>
+<div class="upload-img-box  uploadimg">
+<div class="upload-pre-item"> <a class="" href="{:getPicture($field['data'],'path')}" data-lightbox="example-{$field['data']}" data-title="{:getPicture($field['data'],'destname')}"> <img class="example-image" src="{:getPicture($field['data'],'thumbpath')}"/></a> </div>
+</div>
+<a href='javascript:;' class='btn btn-danger'  dataid='{$field['data']}'>删除</a> </div>
+<script>$(function(){binddel();});</script> 
+</notempty>
+</div>
+
 <div id="cutpicture" style="display:none;">
 <!--主功能部份-->
 
@@ -697,7 +710,7 @@ $('#area11{$field['name']}').html('<option value="0">请选择--</option></selec
                      <a href="javascript:;" onClick="document.getElementById('selectImage2').click();" id="selectImage"></a> 
                         <a href="javascript:;" id="PhotoLoading"></a>
                         <a href="javascript:;" id="camerasImage"></a>
-                        <a href="javascript:;" class="btn btn-warning" onClick="$('#cutpicture').hide();">取消</a>
+                        
                 </div>
                 <!--没加载方法前结束-->
                 <div id="relat">
@@ -727,6 +740,7 @@ $('#area11{$field['name']}').html('<option value="0">请选择--</option></selec
                         <img src="images/default.png" class="BigImg" />
                 </div>
         </div>
+        <a href="javascript:;" style="margin:10px auto;" class="btn btn-warning" onClick="$('#cutpicture').hide();">取消</a>
         <div id="Shearbar">
                 <a id="LeftRotate" href="javascript:;">
                         <em>
@@ -778,11 +792,37 @@ $('#area11{$field['name']}').html('<option value="0">请选择--</option></selec
 </div>
 <!--拍照-->
 <script>
+
+    function uploadPicture{$field['name']}(data){
+        var src = '';
+        if(data.status){
+            var sid=$("#cutpicture_id_{$field['name']}").val();
+		    if(sid!=""){$.get(ainiku.delimg,{id:sid})}
+			$("#cutpicture_id_{$field['name']}").val(data.id);
+            src = data.ImgUrl || '__ROOT__' + data.path
+            $("#uploadimg_{$field['name']}").html(
+                "<div class='imgblock'><div class='upload-img-box uploadimg'><div class='upload-pre-item'><img src='__ROOT__" + src + "' /></div></div><a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
+            );
+            $(function(){binddel();});
+        } else {
+            topmsg(data);
+            setTimeout(function(){
+                $('#top-alert').find('button').click();
+               // $(that).removeClass('disabled').prop('disabled',false);
+            },1500);
+        }
+    }
+	
 var Cutpicture={
 	bili:1,
 	chuliurl:"{:U('Cutpicture/cutp')}",//后端处理地址
 	uploadurl:"{:U('Cutpicture/uploadf')}",
 	complete2:function(data){
+		document.getElementById("completeA").onclick=function(){
+			$('#cutpicture').hide();
+			 uploadPicture{$field['name']}(data[0]);
+			};
+		//$('#cutpicture').hide();
 		//截图成功后返回来的json值
 /*		document.getElementById("completeA").onclick=function(){
 			//绑定截图完成后的操作
