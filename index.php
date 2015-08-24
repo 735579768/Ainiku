@@ -12,6 +12,8 @@ define('ACCESS_ROOT',true);
 define('APP_DEBUG',true);
 if(!APP_DEBUG)define('BUILD_LITE_FILE',true);
 
+//自动生成的数据缓存目录
+define('DATA_DIR','./Data/');
 ////定义默认后台地址用小字字母
 //define('ADMIN_INDEX','kladmin');
 //$pathinfo=isset($_SERVER['PATH_INFO'])?$_SERVER['PATH_INFO']:'';

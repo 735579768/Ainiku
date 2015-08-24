@@ -684,6 +684,123 @@ $('#area11{$field['name']}').html('<option value="0">请选择--</option></selec
                 </script>
 
           </case>
+          <case value="cutpicture">
+        <a  class="btn" onClick="$(this).next().show();" style="margin-bottom:10px;"  href="javascript:;">上传图片</a>
+<div id="cutpicture" style="display:none;">
+<!--主功能部份-->
+
+        <div id="main">
+           <div class="point">
+                </div>
+                <!--没加载方法前-->
+                <div id="SelectBox">
+                     <a href="javascript:;" onClick="document.getElementById('selectImage2').click();" id="selectImage"></a> 
+                        <a href="javascript:;" id="PhotoLoading"></a>
+                        <a href="javascript:;" id="camerasImage"></a>
+                        <a href="javascript:;" class="btn btn-warning" onClick="$('#cutpicture').hide();">取消</a>
+                </div>
+                <!--没加载方法前结束-->
+                <div id="relat">
+                        <div id="black">
+                        </div>
+                        <div id="movebox">
+                                <div id="smallbox">
+                                        <img src="images/default.png" class="MoveImg" />
+                                </div>
+                                <i id="BottomRight">
+                                </i>
+                                <i id="TopRight">
+                                </i>
+                                <i id="Bottomleft">
+                                </i>
+                                <i id="Topleft">
+                                </i>
+                                <i id="Topmiddle">
+                                </i>
+                                <i id="leftmiddle">
+                                </i>
+                                <i id="Rightmiddle">
+                                </i>
+                                <i id="Bottommiddle">
+                                </i>
+                        </div>
+                        <img src="images/default.png" class="BigImg" />
+                </div>
+        </div>
+        <div id="Shearbar">
+                <a id="LeftRotate" href="javascript:;">
+                        <em>
+                        </em>
+                        向左旋转
+                </a>
+                <em class="hint L">
+                </em>
+                <div class="ZoomDist" id="ZoomDist">
+                        <div id="ZoomBar">
+                        </div>
+                        <span class="progress">
+                        </span>
+                </div>
+                <em class="hint R">
+                </em>
+                <a id="RightRotate" href="javascript:;">
+                        向右旋转
+                        <em>
+                        </em>
+                </a>
+                <p class="Psava">
+                        <a id="againIMG"  href="javascript:;">重新选择</a>
+                        <a id="saveShear" href="javascript:;">保存截图</a>
+                </p>
+        </div>
+
+<!--主功能部份-->
+ <!--相册-->
+<div id="photoalbum">
+<h1>假如：这是一个相册--------试试点击图片</h1>
+<i id="close"></i>
+<ul>
+<li></li>
+</ul>
+</div>
+<!--相册-->
+<!--拍照-->
+<div id="CamBox">
+<p class="lens"></p>
+<div id="CamFlash"></div>
+<p class="cambar">
+<a href="javascript:;" id="CamOk"  >拍照</a>
+<a href="javascript:;" id="setCam">设置</a>
+<a href="javascript:;" id="camClose">关闭</a>
+<div style="clear:both;"></div>
+</p>
+<div id="timing">3</div>
+</div>
+<!--拍照-->
+<script>
+var Cutpicture={
+	bili:1,
+	chuliurl:"{:U('Cutpicture/cutp')}",//后端处理地址
+	uploadurl:"{:U('Cutpicture/uploadf')}",
+	complete2:function(data){
+		//截图成功后返回来的json值
+/*		document.getElementById("completeA").onclick=function(){
+			//绑定截图完成后的操作
+			
+			};*/
+	console.log(data);
+	}
+	};
+</script>
+</div>
+<link href="__STATIC__/cutpicture/css/ShearPhoto.css" rel="stylesheet" type="text/css" media="all">
+<script  type="text/javascript" src="__STATIC__/cutpicture/js/ShearPhoto.js" ></script><!--拉伸，截图的核心文件-->
+<script  type="text/javascript"  src="__STATIC__/cutpicture/js/move.js" ></script><!--拖拽DIV JS文件 -->
+<script  type="text/javascript"  src="__STATIC__/cutpicture/js/processdata.js" ></script><!--与服务器交互数据JS文件 -->
+<script  type="text/javascript"  src="__STATIC__/cutpicture/js/UpImg.js" ></script>     <!--上传截图的JS文件 -->
+<script  type="text/javascript"  src="__STATIC__/cutpicture/js/webcam_ShearPhoto.js" ></script>   <!--在线拍照 -->
+<script  type="text/javascript"  src="__STATIC__/cutpicture/js/handle.js" ></script>    <!--设置和处理对象方法的文件，要修改设置，请进入这个文件 -->         
+          </case>
           <case value="custom">{:getCustomForm($field['extra'],$field['name'],$field['data'])}</case>
           <default/>
             <input type="text" <notempty name="field.data_reg">  class="form-control input-large autoyz" data-reg="{$field.data_reg}" data-ts="{$field.data_ts}" data-ok="{$field.data_ok}" data-err="{$field.data_err}"<else />  class="form-control input-large"</notempty>   placeholder="请输入{$field['title']}"  name="{$field['name']}" value="{$field['data']}" />
