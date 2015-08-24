@@ -1,4 +1,4 @@
-function  UPLOADFILE (){
+;function  UPLOADFILE (){
 		this.fileInput = null;             // 选择文件按钮dom对象
 		this.uploadInput =null;        // 上传文件按钮dom对象
 		this.dragDrop=null;				  //拖拽敏感区域
@@ -243,7 +243,7 @@ function  UPLOADFILE (){
 					onDelete		 : function(file, files){},     // 删除一个文件的回调方法 file:当前删除的文件  files:删除之后的文件
 					onSuccess		 : function(file){},            // 文件上传成功的回调方法
 					onFailure		 : function(file){},            // 文件上传失败的回调方法
-					onComplete		 : function(responseInfo){},    // 上传完成的回调方法
+					onComplete		 : function(responseInfo){}    // 上传完成的回调方法
 			};
 			
 			para = $.extend(defaults,options);
@@ -467,7 +467,7 @@ function  UPLOADFILE (){
 						var html = '', i = 0;
 						// 组织预览html
 						var funDealtPreviewHtml = function() {
-							file = selectFiles[i];
+							var file = selectFiles[i];
 							if (file) {
 								var reader = new FileReader()
 								reader.onload = function(e) {

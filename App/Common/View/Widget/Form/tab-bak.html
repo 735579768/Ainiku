@@ -1,18 +1,18 @@
 <!--要引入的角本文件 start-->
 <eq name="formjs.dandu" value="0">
-<ank:insert type="js" name="tab" />
+<script type="text/javascript" src="__STATIC__/js/tab.js"></script>
 </eq>
 
 <eq name="formjs.color" value="1">
-<ank:insert type="js" name="jscolor" dir="__STATIC__/jscolor" />
+<script type="text/javascript" src="__STATIC__/jscolor/jscolor.js"></script>
 </eq>
 <eq name="formjs.datetime" value="1">
 <php>$GLOBALS['formjs']['datetime']++</php>
 <!--日期js start-->
-<ank:insert  name="datetimepicker" dir="__STATIC__/datetimepicker/css" />
-<ank:insert  name="dropdown" dir="__STATIC__/datetimepicker/css" />
-<ank:insert type="js"  name="bootstrap-datetimepicker.min" dir="__STATIC__/datetimepicker/js" />
-<ank:insert type="js"  name="bootstrap-datetimepicker.zh-CN" dir="__STATIC__/datetimepicker/js/locales" />
+<link href="__STATIC__/datetimepicker/css/datetimepicker.css" rel="stylesheet" type="text/css">
+<link href="__STATIC__/datetimepicker/css/dropdown.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="__STATIC__/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="__STATIC__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 <script>
 $(function(){
     $('.time').datetimepicker({
@@ -29,13 +29,14 @@ $(function(){
 <eq name="formjs.picture" value="1">
 <php>$GLOBALS['formjs']['picture']++</php>
 <!--上传图片js start-->
-<ank:insert  name="zyUpload" dir="__STATIC__/html5Upload/css" />
-<ank:insert  name="lightbox" dir="__STATIC__/css/lightbox" />
-<ank:insert  name="uploadify" dir="__STATIC__/uploadify" />
 
-<script type="text/javascript" charset="utf-8" src="__STATIC__/html5Upload/js/uploadFile-min.js"></script> 
-<ank:insert type="js"  name="lightbox" dir="__STATIC__/js" />
-<ank:insert type="js"  name="jquery.uploadify.min" dir="__STATIC__/uploadify" />
+ <link rel="stylesheet" href="__STATIC__/html5Upload/css/zyUpload.css" type="text/css">
+ <script src="__STATIC__/html5Upload/js/uploadFile.js"></script>
+          
+<link href="__STATIC__/css/lightbox.css" type="text/css" rel="stylesheet" />
+<link href="__STATIC__/uploadify/uploadify.css" rel="stylesheet" type="text/css">
+<script src="__STATIC__/js/lightbox.js" type="text/javascript"></script>
+<script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script> 
 <!--上传图片js end-->
 </eq>
 
@@ -46,9 +47,6 @@ $(function(){
 <script>
 	window.UEDITOR_HOME_URL='__STATIC__/ueditor/';
 </script> 
-<ank:insert type="js"  name="ueditor.config,ueditor.all.min" dir="__STATIC__/ueditor" />
-<ank:insert type="js"  name="zh-cn" dir="__STATIC__/ueditor/lang/zh-cn" />
-
 <script type="text/javascript" charset="utf-8" src="__STATIC__/ueditor/ueditor.config.js"></script> 
 <script type="text/javascript" charset="utf-8" src="__STATIC__/ueditor/ueditor.all.min.js"></script> 
  <script type="text/javascript" charset="utf-8" src="__STATIC__/ueditor/lang/zh-cn/zh-cn.js"></script>
