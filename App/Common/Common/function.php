@@ -703,7 +703,7 @@ preg_match_all("/url\(\s*?[\'|\"]?(.*?)[\'|\"]?\)/",$str,$out);
 		if(strpos($v,'../images')!==false){
 		$src_new=str_replace("../images",$dirname."/images",$v);//源绝对路径
 		$src_new=str_replace('css/','',$src_new);
-		$new=str_replace("../images","./Uploads/datacache/".MODULE_NAME."/images",$v);//设置新路径
+		$new=str_replace("../images",STYLE_CACHE_DIR.MODULE_NAME."/images",$v);//设置新路径
 		createFolder(dirname($new));
 		if(file_exists($src_new)){//判断是否存在
 		copy($src_new,$new);//复制到新目录

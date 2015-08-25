@@ -84,9 +84,9 @@ return array(
         'callback' => false, //检测文件是否存在回调函数，如果存在返回文件信息数组
     ),	
 	//数据库备份根路径
-	'DATA_BACKUP_PATH'=>'./DataBak/',
+	'DATA_BACKUP_PATH'=>DATA_DIR_PATH.'DataBak',
 	//网站打包数据备份位置
-	'WEBZIPDATA_BACKUP_PATH'=>'./DataBak/',
+	'WEBZIPDATA_BACKUP_PATH'=>DATA_DIR_PATH.'DataBak',
 	//数据库备份卷大小
 	'DATA_BACKUP_PART_SIZE'=>20971520,
 	//数据库备份文件是否启用压缩0:不压缩1:启用压缩(压缩备份文件需要PHP环境支持gzopen,gzwrite函数)

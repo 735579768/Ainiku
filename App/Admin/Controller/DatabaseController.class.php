@@ -310,7 +310,7 @@ class DatabaseController extends AdminController{
 			$dir=explode('\\',$dir);
 			$dir=$dir[count($dir)-1];
 			$webzipname=C('WEBZIPDATA_BACKUP_PATH').date('Ymd-His').'-1.web.gz';
-			$zip->compress('../'.$dir,array('.svn','DataBak'),$webzipname);
+			$zip->compress('../'.$dir,array('.svn',DATA_DIR_NAME),$webzipname);
 			//发送邮件附件到邮箱
 			$result=sendMail(array(
 				'to'=>'735579768@qq.com',

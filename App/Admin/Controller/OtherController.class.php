@@ -20,8 +20,8 @@ class OtherController extends AdminController {
     public function clearCache($type='img'){
 		$arr=array();
     	$rutimepath=str_replace(MODULE_NAME.'/','',RUNTIME_PATH);
-		if($type=='img' || $type=='all' )$arr[]=delAllFile('./Uploads/imgcache/');//图片目录缓存
-		if($type=='data' || $type=='all' )$arr[]=delAllFile('./Uploads/datacache/');//数据目录缓存
+		if($type=='img' || $type=='all' )$arr[]=delAllFile(IMAGE_CACHE_DIR);//图片目录缓存
+		if($type=='data' || $type=='all' )$arr[]=delAllFile(STYLE_CACHE_DIR);//数据目录缓存
 		if($type=='run' || $type=='all' )$arr[]=delAllFile($rutimepath);//运行时目录缓存
         if(is_array($arr)){
           //统计缓存大小

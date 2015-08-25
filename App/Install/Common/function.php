@@ -68,7 +68,7 @@ function check_env(){
  */
 function check_dirfile(){
 	$items = array(
-		array('dir',  '可写', 'success', './DataBak'),
+		array('dir',  '可写', 'success', './'.DATA_DIR_NAME),
 		array('dir',  '可写', 'success', './Uploads/image'),
 		array('dir',  '可写', 'success', './Uploads/file'),
 		array('dir',  '可写', 'success', './Uploads/Runtime'),

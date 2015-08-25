@@ -129,10 +129,10 @@ function getPicture($id=null, $field = null,$wh=null){
 					$wharr=explode('_',$wh);
 					
 					if(count($wharr==2)){
-						$revalue=str_replace('Uploads/image','Uploads/imgcache',$picture['path']);
+						$revalue=str_replace('/Uploads/image/',IMAGE_CACHE_DIR,$picture['path']);
 						$revalue =substr($revalue, 0,strrpos($revalue, '.')).'_'.$wh.substr($revalue, strrpos($revalue, '.'));
 						//判断之前是不是已经生成
-						if(!file_exists('.'.$revalue)){
+						if(!file_exists($revalue)){
 						 $result=img2thumb('.'.$picture['path'], '.'.$revalue, $wharr[0], $wharr[1],true,true);						
 							if($result!==true){
 								$revalue=$picture['path'];	

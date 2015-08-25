@@ -9,45 +9,20 @@ if(!file_exists(APP_PATH . 'Install/Data/install.lock')){
 	exit;
 }
 define('ACCESS_ROOT',true);
-define('APP_DEBUG',true);
+define('APP_DEBUG',false);
 if(!APP_DEBUG)define('BUILD_LITE_FILE',true);
 
 //自动生成的数据缓存目录
-define('DATA_DIR','./Data/');
-////定义默认后台地址用小字字母
-//define('ADMIN_INDEX','kladmin');
-//$pathinfo=isset($_SERVER['PATH_INFO'])?$_SERVER['PATH_INFO']:'';
-//require_once './Plugins/MobileCheck.php';
-//$detect = new Mobile_Detect();
-//
-//
-//
-//$dominhost=$_SERVER['HTTP_HOST'];
-//if($dominhost=='app.xiadan.loc' || $dominhost=='app.0yuanwang.com'){
-//	    define('DEFAULTMODULE','Android');
-//		//define('BIND_MODULE','Android');	
-//	}
-//if(!defined('BIND_MODULE')){
-//if(preg_match('/^\/'.ADMIN_INDEX.'\/(.*?)$/',$pathinfo)){
-//		//转向到后台首页
-////		if('/'.ADMIN_INDEX.'/'==$pathinfo){
-////			header('location:/'.ADMIN_INDEX.'/Index/index');
-////			die();
-////			}
-//		define('DEFAULTMODULE',ADMIN_INDEX);
-//		//define ( 'RUNTIME_PATH', './Uploads/Runtime/Admin/' );
-//}else if($detect->isMobile()){
-//	    define('DEFAULTMODULE','Mobile');
-//		//define('DEFAULTMODULE','Mobile');
-//}else{
-//		define('DEFAULTMODULE','Home');
-//		//define('BIND_MODULE','Home');
-//		}
-//}
+define('DATA_DIR_PATH','./Data/');
+define('DATA_DIR_NAME','Data');
 
-define('DATA_PATH','./Uploads/Runtime/Data/');
-//defined( 'RUNTIME_PATH') or define ( 'RUNTIME_PATH', './Uploads/Runtime/'.DEFAULTMODULE.'/' );
-defined( 'RUNTIME_PATH') or define ( 'RUNTIME_PATH', './Uploads/Runtime/');	
+//图片缓存目录
+define('IMAGE_CACHE_DIR',DATA_DIR_PATH.'cache/imgcache/');
+//样式图片缓存
+define('STYLE_CACHE_DIR',DATA_DIR_PATH.'cache/scache/');
+
+define('DATA_PATH',DATA_DIR_PATH.'cache/Runtime/Data/');
+defined( 'RUNTIME_PATH') or define ( 'RUNTIME_PATH', DATA_DIR_PATH.'Runtime/');	
 if(file_exists(RUNTIME_PATH.'lite.php' && !APP_DEBUG)){
 	require RUNTIME_PATH.'lite.php';
 	}else{

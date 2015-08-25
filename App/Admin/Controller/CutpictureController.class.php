@@ -21,7 +21,7 @@ class CutpictureController extends AdminController {
 						 ),//你可以继续增加多张照片
 			"water"=>"../images/waterimg2.png",//只接受PNG水印，当然你对PHP熟练，你可以对主程序进行修改		   
 			"water_scope"=>100,       //图片少于多少不添加水印！没填水印地址，这里不起任何作用
-			"temp"=>DATA_DIR."cutpicturefile".DIRECTORY_SEPARATOR."temp",  //等待截图的大图文件。就是上传图片的临时目录，截图后，图片会被删除
+			"temp"=>DATA_DIR_PATH."cutpicturefile".DIRECTORY_SEPARATOR."temp",  //等待截图的大图文件。就是上传图片的临时目录，截图后，图片会被删除
 			"tempSaveTime"=>600,//临时图片（也就是temp内的图片）保存时间，需要永久保存请设为0。单位秒
 			"saveURL"=>"./Uploads/image/cutfile".DIRECTORY_SEPARATOR.date('Ymd'),//后面不要加斜杠，系统会自动给补上！不要使用中文
 			"filename"=>uniqid("cutpicture_")."_".mt_rand(100,999)."_"//文件名字定义！要生成多个文件时 系统会自动在后面补0 1 2  3.....;
@@ -87,7 +87,7 @@ else //切图成功时
 						 ),//你可以继续增加多张照片
 			"water"=>"../images/waterimg2.png",//只接受PNG水印，当然你对PHP熟练，你可以对主程序进行修改		   
 			"water_scope"=>100,       //图片少于多少不添加水印！没填水印地址，这里不起任何作用
-			"temp"=>DATA_DIR."cutpicturefile".DIRECTORY_SEPARATOR."temp",  //等待截图的大图文件。就是上传图片的临时目录，截图后，图片会被删除
+			"temp"=>DATA_DIR_PATH."cutpicturefile".DIRECTORY_SEPARATOR."temp",  //等待截图的大图文件。就是上传图片的临时目录，截图后，图片会被删除
 			"tempSaveTime"=>600,//临时图片（也就是temp内的图片）保存时间，需要永久保存请设为0。单位秒
 			"saveURL"=>"./Uploads/cutfile".DIRECTORY_SEPARATOR."shearphoto_file",//后面不要加斜杠，系统会自动给补上！不要使用中文
 			"filename"=>uniqid("shearphoto_")."_".mt_rand(100,999)."_"//文件名字定义！要生成多个文件时 系统会自动在后面补0 1 2  3.....;
