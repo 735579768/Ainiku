@@ -33,7 +33,7 @@ $(function(){
 <ank:insert  name="lightbox" dir="__STATIC__/css/lightbox" />
 <ank:insert  name="uploadify" dir="__STATIC__/uploadify" />
 
-<script type="text/javascript" charset="utf-8" src="__STATIC__/html5Upload/js/uploadFile-min.js"></script> 
+<ank:insert type="js"  name="uploadFile-min" dir="__STATIC__/html5Upload/js" />
 <ank:insert type="js"  name="lightbox" dir="__STATIC__/js" />
 <ank:insert type="js"  name="jquery.uploadify.min" dir="__STATIC__/uploadify" />
 <!--上传图片js end-->
@@ -46,6 +46,7 @@ $(function(){
 <script>
 	window.UEDITOR_HOME_URL='__STATIC__/ueditor/';
 </script> 
+
 <script type="text/javascript" charset="utf-8" src="__STATIC__/ueditor/ueditor.config.js"></script> 
 <script type="text/javascript" charset="utf-8" src="__STATIC__/ueditor/ueditor.all.min.js"></script> 
  <script type="text/javascript" charset="utf-8" src="__STATIC__/ueditor/lang/zh-cn/zh-cn.js"></script>
@@ -841,14 +842,8 @@ var Cutpicture={
 	};
 </script>
 </div>
-<link href="__STATIC__/cutpicture/css/ShearPhoto.css" rel="stylesheet" type="text/css" media="all">
-<!--<ank:insert type="js" name="ShearPhoto,move,processdata,UpImg,webcam_ShearPhoto,handle" dir="__STATIC__/cutpicture/js" />-->
-<script  type="text/javascript" src="__STATIC__/cutpicture/js/ShearPhoto.js" ></script>
-<script  type="text/javascript"  src="__STATIC__/cutpicture/js/move.js" ></script>
-<script  type="text/javascript"  src="__STATIC__/cutpicture/js/processdata.js" ></script>
-<script  type="text/javascript"  src="__STATIC__/cutpicture/js/UpImg.js" ></script>     
-<script  type="text/javascript"  src="__STATIC__/cutpicture/js/webcam_ShearPhoto.js" ></script>
-<script  type="text/javascript"  src="__STATIC__/cutpicture/js/handle.js" ></script>
+<ank:insert name="ShearPhoto" dir="__STATIC__/cutpicture/css"  />
+<ank:insert type="js" name="ShearPhoto,move,processdata,UpImg,webcam_ShearPhoto,handle" dir="__STATIC__/cutpicture/js" />
           </case>
           <case value="custom">{:getCustomForm($field['extra'],$field['name'],$field['data'])}</case>
           <default/>

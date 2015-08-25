@@ -22,7 +22,7 @@ define('IMAGE_CACHE_DIR',DATA_DIR_PATH.'cache/imgcache/');
 define('STYLE_CACHE_DIR',DATA_DIR_PATH.'cache/scache/');
 
 define('DATA_PATH',DATA_DIR_PATH.'cache/Runtime/Data/');
-defined( 'RUNTIME_PATH') or define ( 'RUNTIME_PATH', DATA_DIR_PATH.'Runtime/');	
+defined('RUNTIME_PATH') or define ( 'RUNTIME_PATH', DATA_DIR_PATH.'cache/Runtime/');	
 if(file_exists(RUNTIME_PATH.'lite.php' && !APP_DEBUG)){
 	require RUNTIME_PATH.'lite.php';
 	}else{

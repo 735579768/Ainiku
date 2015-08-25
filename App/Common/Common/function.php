@@ -715,9 +715,12 @@ preg_match_all("/url\(\s*?[\'|\"]?(.*?)[\'|\"]?\)/",$str,$out);
 }
 //压缩JS文件并替换JS嵌套include文件
 function compress_js($js){
-	import('Ainiku.JavaScriptPacker');
-    $packer = new JavaScriptPacker($js, 'Normal', true, false);  
-    return $packer->pack();
+//	import('Ainiku.JavaScriptPacker');
+//    $packer = new JavaScriptPacker($js, 'Normal', true, false);  
+//    return $packer->pack();
+	
+	import('Ainiku.JSMin');
+	return JSMin::minify($js);
 }
 function writetofile($filename,$str){
 	
