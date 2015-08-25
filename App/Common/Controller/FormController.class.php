@@ -34,7 +34,7 @@ class FormController extends Controller {
 					}
 		//缓存
 		$cacheform=sha1(json_encode($field).json_encode($da));
-		$formstr=F($cacheform);
+		$formstr=F('_dataform/'.$cacheform);
 		if(empty($formstr)|| APP_DEBUG){
 		$this->isvar();
 		//判断是不是数组不是的话组合成数组
@@ -76,7 +76,7 @@ class FormController extends Controller {
 		if(empty($data['kz'])|| empty($data['jc']))$GLOBALS['formjs']['dandu']++;
 		$this->assign('formjs',$GLOBALS['formjs']);
 		$formstr=$this->fetch('./App/Common/View/Widget/Form/tab.html');
-		F($cacheform,$formstr);
+		F('_dataform/'.$cacheform,$formstr);
 		}
 		return $formstr;
 		
