@@ -812,9 +812,17 @@ $('#area11{$field['name']}').html('<option value="0">请选择--</option></selec
             },1500);
         }
     }
-	
+	//剪切比例
+var bil="{$field['extra']['bili']}";
+var cutpictureW="{$field['extra']['width']}";
+var cutpictureH="{$field['extra']['Height']}";
+(cutpictureW=="")&&(cutpictureW=500);
+(cutpictureH=="")&&(cutpictureH=400);
+(bil=="")&&(bil=1);
 var Cutpicture={
-	bili:1,
+	bili:parseFloat(bil),
+	cwidth:cutpictureW,
+	cheight:cutpictureH,
 	chuliurl:"{:U('Cutpicture/cutp')}",//后端处理地址
 	uploadurl:"{:U('Cutpicture/uploadf')}",
 	complete2:function(data){
@@ -834,13 +842,13 @@ var Cutpicture={
 </script>
 </div>
 <link href="__STATIC__/cutpicture/css/ShearPhoto.css" rel="stylesheet" type="text/css" media="all">
-<ank:insert type="js" name="ShearPhoto,move,processdata,UpImg,webcam_ShearPhoto,handle" dir="__STATIC__/cutpicture/js" />
-<!--<script  type="text/javascript" src="__STATIC__/cutpicture/js/ShearPhoto.js" ></script>
+<!--<ank:insert type="js" name="ShearPhoto,move,processdata,UpImg,webcam_ShearPhoto,handle" dir="__STATIC__/cutpicture/js" />-->
+<script  type="text/javascript" src="__STATIC__/cutpicture/js/ShearPhoto.js" ></script>
 <script  type="text/javascript"  src="__STATIC__/cutpicture/js/move.js" ></script>
 <script  type="text/javascript"  src="__STATIC__/cutpicture/js/processdata.js" ></script>
 <script  type="text/javascript"  src="__STATIC__/cutpicture/js/UpImg.js" ></script>     
 <script  type="text/javascript"  src="__STATIC__/cutpicture/js/webcam_ShearPhoto.js" ></script>
-<script  type="text/javascript"  src="__STATIC__/cutpicture/js/handle.js" ></script>-->
+<script  type="text/javascript"  src="__STATIC__/cutpicture/js/handle.js" ></script>
           </case>
           <case value="custom">{:getCustomForm($field['extra'],$field['name'],$field['data'])}</case>
           <default/>

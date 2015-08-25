@@ -5,8 +5,8 @@ ShearPhoto.MINGGE(function() {
           Shear.config({
 			     	/*---------------用户设置部份开始-----------------------------------------------------------------------*/  
 			        url:Cutpicture.chuliurl,//后端处理地址
-			        scopeWidth:500,                 //可拖动范围宽  也就是"main"对象的初始大小  
-                    scopeHeight:400,                //可拖动范围高  也就是"main"对象的初始大小  
+			        scopeWidth:Cutpicture.cwidth,                 //可拖动范围宽  也就是"main"对象的初始大小  
+                    scopeHeight:Cutpicture.cheight,                //可拖动范围高  也就是"main"对象的初始大小  
                     relat:publicRelat,                //请查看 id:"relat"对象 
                     proportional:[Cutpicture.bili,               //截框的宽高比例（宽除以高的比例值，这个设置其实就是3/4,不设比例请设为0，注意更改比例后，后端也要进行相应设置，否则系统会给你抱出错误）
 					 100,                             //启动后的截框初始宽度

@@ -379,6 +379,7 @@ function getModel($model_id=null,$field=null,$attr=null){
 						}
 				
 				}else{
+				//如果是数组格式就转化成数组
 				$list[$key]['extra']=extraToArray($val['extra']);	
 					}
 		
@@ -399,6 +400,7 @@ function getModel($model_id=null,$field=null,$attr=null){
  */
 function extraToArray($extra){
 	$extra=str_replace(' ','',$extra);
+	if(preg_match('/[0-9a-zA-Z]+\:.+(\n?|\,)/i',$extra)){
 	$jg="\n";
 	if(strpos($extra,',')!==false)$jg=',';
 	$dest=array();
@@ -412,6 +414,9 @@ function extraToArray($extra){
 				}
 		}
 	return $dest;
+	}else{
+		return $extra;
+		}
 	}
 /**
  *取区域名字
