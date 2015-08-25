@@ -47,7 +47,7 @@ class Ank extends TagLib {
 			$parse .='$newname=\''.sha1($hname).'\';';
 			//$parse .='$newname=str_replace(",","_","'.$hname.'");';
 			if($htype=='js'){
-				if(APP_DEBUG){
+				if(!APP_DEBUG){
 				$parse .='foreach($temarr as $val):';
 				$parse .='$filepath="."."'.$dir.'/".$val.".js";';
 				$parse .='if(!file_exists($filepath)):$filepath=\'.__STATIC__/js/\'.$val.".js";endif;';

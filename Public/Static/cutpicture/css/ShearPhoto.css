@@ -1,4 +1,4 @@
-@charset "utf-8";img,div,i,em,a,body,p,H1,ul,li{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;border-style:none;font-size:12px;list-style-type:none;margin:0;padding:0;text-decoration:none}
+@charset "utf-8";
 #cutpicture{ width:500px; text-align:center; height:400px; position:fixed; top:10px; left:50%; margin-left:-250px;  box-shadow: 2px 2px 10px #ccc; border:solid 5px #ccc; }
 /*旋转*/
 #LeftRotate{margin-left:10px;margin-right:10px}

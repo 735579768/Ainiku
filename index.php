@@ -9,7 +9,7 @@ if(!file_exists(APP_PATH . 'Install/Data/install.lock')){
 	exit;
 }
 define('ACCESS_ROOT',true);
-define('APP_DEBUG',false);
+define('APP_DEBUG',true);
 if(!APP_DEBUG)define('BUILD_LITE_FILE',true);
 
 //自动生成的数据缓存目录
