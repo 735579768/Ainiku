@@ -35,7 +35,7 @@ class CategoryController extends AdminController {
     public function edit($category_id = null, $pid = 0){
 		$model=D('Category');
         if(IS_POST){ //提交表单
-			F(md5('sys_category_'.I('category_type').'_tree'),null);
+			F('sys_category_'.I('category_type').'_tree',null);
 			
 			if($model->create()){
 				$result=$model->save();
@@ -65,7 +65,7 @@ class CategoryController extends AdminController {
     public function add($pid = 0){
         $Category = D('Category');
         if(IS_POST){ //提交表单
-			F(md5('sys_category_'.I('category_type').'_tree'),null);
+			F('sys_category_'.I('category_type').'_tree',null);
             if(false !== $Category->update()){
                 $this->success('新增成功！', U('index',array('category_type'=>I('category_type'))));
             } else {
@@ -111,7 +111,7 @@ class CategoryController extends AdminController {
         //删除该分类信息
         $res = M('Category')->delete($category_id);
         if(0<$res){
-			F(md5('sys_category_'.I('category_type').'_tree'),null);
+			F('sys_category_'.I('category_type').'_tree',null);
             $this->success('删除分类成功！',U('index',array('category_type'=>I('category_type'))));
         }else{
             $this->error('删除分类失败！');

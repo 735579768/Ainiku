@@ -652,10 +652,10 @@ public function umeupload(){
 			
 		}else{
 		//文章分类树
-			$catelist=F(md5('sys_category_tree'));
+			$catelist=F('sys_category_tree');
 			if(empty($catelist)){
 				$catelist=F_getCatelist(true,'article');
-				F(md5('sys_category_tree'),$catelist);
+				F('sys_category_tree',$catelist);
 				}
 			$catelist[0]='全部分类';
 			$field=array(
@@ -672,10 +672,10 @@ public function umeupload(){
 		$this->assign('fieldarr1',$field);
 
 				//产品分类树
-			$catelist=F(md5('sys_goodscat_tree'));
+			$catelist=F('sys_goodscat_tree');
 			if(empty($catelist)){
 				$catelist=F_getCatelist(true,'goods');
-				F(md5('sys_goodscat_tree'),$catelist);
+				F('sys_goodscat_tree',$catelist);
 				}
 			$catelist[0]='全部分类';
 			$field=array(

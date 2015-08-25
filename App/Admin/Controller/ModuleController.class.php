@@ -10,10 +10,10 @@ if(!defined("ACCESS_ROOT"))die("Invalid access");
  */
 class ModuleController extends AdminController {
  public function index(){
-		$moduleposlist=F(md5('sys_modulepos_tree'));
+		$moduleposlist=F('sys_modulepos_tree');
 		if(empty($menulist)){
 			$moduleposlist=F_getmoduleposList();
-			F(md5('sys_modulepos_tree'),$moduleposlist);
+			F('sys_modulepos_tree',$moduleposlist);
 		}
 			$moduleposlist[0]='全部位置';
 			$field=array(

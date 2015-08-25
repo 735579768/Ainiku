@@ -13,12 +13,12 @@ class PublicController extends Controller {
 		 //定义数据表前缀
 		 defined('DBPREFIX') or define('DBPREFIX',C('DB_PREFIX'));
 		//先读取缓存配置
-        $config =   F(md5('DB_CONFIG_DATA'));
+        $config =   F('DB_CONFIG_DATA');
         if(!$config){
 			/* 读取数据库中的配置 */
             $config =   api('Config/lists');
 			//写入缓存
-            F(md5('DB_CONFIG_DATA'),$config);
+            F('DB_CONFIG_DATA',$config);
         }
         C($config); //添加配置
 		defined('__DB_PREFIX__')  or  define('__DB_PREFIX__',C('DB_PREFIX'));

@@ -42,10 +42,10 @@ class AdminController extends CommonController {
 			 defined('IS_ADMIN') or define('IS_ADMIN',true);	
 				}
 		//先读取缓存配置
-        $config =   F(md5('DB_CONFIG_DATA'));
+        $config =   F('DB_CONFIG_DATA');
         if(!$config || APP_DEBUG){
             $config =   api('Config/lists');
-            F(md5('DB_CONFIG_DATA'),$config);
+            F('DB_CONFIG_DATA',$config);
         }
         C($config); //添加配置
 	//C('SHOW_PAGE_TRACE',true);

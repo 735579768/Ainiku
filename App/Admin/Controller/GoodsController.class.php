@@ -245,10 +245,10 @@ class GoodsController extends AdminController {
 						}
 				}
 			//分类树
-			$catelist=F(md5('sys_category_tree'));
+			$catelist=F('sys_category_tree');
 			if(empty($catelist)){
 				$catelist=A_getCatelist();
-				F(md5('sys_category_tree'),$catelist);
+				F('sys_category_tree',$catelist);
 				}
 			unset($catelist[0]);
 			$field=array(

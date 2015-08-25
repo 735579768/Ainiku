@@ -30,7 +30,7 @@ class MenuController extends AdminController {
     }
 	function add($pid=''){
         if(IS_POST){
-			F(md5('sys_menu_tree'),null);
+			F('sys_menu_tree',null);
             $model = D('Menu');
             $data = $model->create();
             if($data){
@@ -60,7 +60,7 @@ class MenuController extends AdminController {
      */
     public function edit($id = 0){
         if(IS_POST){
-			F(md5('sys_menu_tree'),null);
+			F('sys_menu_tree',null);
             $Menu = D('Menu');
             $data = $Menu->create();
             if($data){
@@ -88,7 +88,7 @@ class MenuController extends AdminController {
      * @author yangweijie <yangweijiester@gmail.com>
      */
     public function del($id=null){
-		F(md5('sys_menu_tree'),null);
+		F('sys_menu_tree',null);
         $tem=M('menu')->where('pid='.$id)->find();
         if(!empty($tem)){
             $this->error('请删除子菜单后再操作');

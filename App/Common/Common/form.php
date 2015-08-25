@@ -56,10 +56,10 @@ function A_getSpace($num){
  *取后台菜单列表缓存
  */
 function F_getMenuList($first=true){
-	$menulist=F(md5('sys_menu_tree'));
+	$menulist=F('sys_menu_tree');
 	if(empty($menulist)){
 		$menulist=getMenuList();
-		F(md5('sys_menu_tree'),$menulist);
+		F('sys_menu_tree',$menulist);
 	}
 	if(!$first)unset($menulist[0]);
 	return $menulist;
@@ -96,10 +96,10 @@ function getMenuList($pid=0,$child=false){
  *取分类导航树缓存
  */
  function F_getNavlist(){
-	 $navlist=F(md5('sys_nav_tree'));
+	 $navlist=F('sys_nav_tree');
 	if(empty($catelist)){
 	$navlist=A_getNavList();
-	F(md5('sys_nav_tree'),$navlist);
+	F('sys_nav_tree',$navlist);
 	}
 	return $navlist;
 	 }
@@ -132,10 +132,10 @@ function A_getNavList($pid=0,$child=false){
  *取模块位置置列表带缓存
  */
  function F_getmoduleposList(){
-	$menulist=F(md5('sys_modulepos_tree'));
+	$menulist=F('sys_modulepos_tree');
 	if(empty($menulist)||APP_DEBUG){
 	 $menulist=getmoduleposList();
-	 F(md5('sys_modulepos_tree'),$menulist);
+	 F('sys_modulepos_tree',$menulist);
 	} 
 	 return $menulist;	 
 	 }
@@ -173,10 +173,10 @@ function F_getGoodsCatelist($first=true){
 function F_getCatelist($first=true,$type=null){
 	$catetype=I('category_type');
 	$category_type=empty($type)?(empty($catetype)?'article':$catetype):$type;
-	$catelist=F(md5('sys_category_'.$category_type.'_tree'));
+	$catelist=F('sys_category_'.$category_type.'_tree');
 	if(empty($catelist) || APP_DEBUG){
 		$catelist=A_getCatelist(0,false,$category_type);
-		F(md5('sys_category_'.$category_type.'_tree'),$catelist);
+		F('sys_category_'.$category_type.'_tree',$catelist);
 	}
 	if(!$first)unset($catelist[0]);
 	return $catelist;	

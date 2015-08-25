@@ -13,46 +13,46 @@ class PathInfoPlugin extends \Plugins\Plugin{
 	  $this->assign('a',$a);
 	  $this->assign('b',$b);
 	  //检测缓存目录
-	  $runtime=F(md5('runtimeauth'));
+	  $runtime=F('runtimeauth');
 	  if(empty($runtime)){
 	  $runtime=check_dir_iswritable(RUNTIME_PATH);
-	  F(md5('runtimeauth'),$runtime);
+	  F('runtimeauth',$runtime);
 	  }
 	  $this->assign('runtimestatus',$runtime);
 	  
-	  $download=F(md5('downloadauth'));
+	  $download=F('downloadauth');
 	  if(empty($download)){
 	  $download=check_dir_iswritable(C('DOWNLOAD_UPLOAD.rootPath'));
-	  F(md5('downloadauth'),$download);
+	  F('downloadauth',$download);
 	  }
 	  $this->assign('downloadstatus',$download);
 	  
-	  $picture=F(md5('pictureauth'));
+	  $picture=F('pictureauth');
 	  if(empty($picture)){
 	  $picture=check_dir_iswritable('.'.C('FILE_UPLOAD.rootPath').'/');
-	  F(md5('pictureauth'),$picture);
+	  F('pictureauth',$picture);
 	  }
 	  $this->assign('picturestatus',$picture);	  
 	  
-	  $edit=F(md5('editauth'));
+	  $edit=F('editauth');
 	  if(empty($edit)){
 	  $edit=check_dir_iswritable(C('EDITOR_UPLOAD.rootPath'));
-	  F(md5('editauth'),$edit);
+	  F('editauth',$edit);
 	  }
 	  $this->assign('editstatus',$edit);
 	  
 	  //取缓存目录大小
-	  $dirsize=F(md5('dirsize'));
+	  $dirsize=F('dirsize');
 	  if(empty($dirsize)){
 		  $dirsize=(getDirSize($rutimepath=str_replace(MODULE_NAME.'/','',RUNTIME_PATH))/1000).'k';
-	  	  F(md5('dirsize'),$dirsize);
+	  	  F('dirsize',$dirsize);
 	  }
-	  $runsize=F(md5('runtimecachesize'));
+	  $runsize=F('runtimecachesize');
 	  if(empty($runsize))$runsize='';
 	  $this->assign('runsize',$runsize);
 
 	  //取上传目录大小
-	  $data=F(md5('uploadssizecache'));
+	  $data=F('uploadssizecache');
 	  if(empty($data))$data='';
 	  $this->assign('uploadssize',$data); 
 	  $this->display('content');	
@@ -62,14 +62,14 @@ class PathInfoPlugin extends \Plugins\Plugin{
 		set_time_limit(0);
 		$data['size']=(getDirSize('./Uploads/')/1000).'k';
 		$data['time']=time();
-		F(md5('uploadssizecache'),$data);
+		F('uploadssizecache',$data);
 		}
 	//取缓存目录大小
 	public function setrunsize(){
 		set_time_limit(0);
 		$data['size']=(getDirSize(RUNTIME_PATH)/1000).'k';
 		$data['time']=time();
-		F(md5('runtimecachesize'),$data);
+		F('runtimecachesize',$data);
 		}
 	public function getConfig(){
 		return $this->config;

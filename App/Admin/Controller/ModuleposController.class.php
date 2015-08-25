@@ -22,7 +22,7 @@ class ModuleposController extends AdminController {
 	 }
  public function add(){
 	 if(IS_POST){
-		 F(md5('sys_modulepos_tree'),null);
+		 F('sys_modulepos_tree',null);
 		 $model=D('modulepos');
 		 if($model->create()){
 			 $result=$model->add();
@@ -46,7 +46,7 @@ class ModuleposController extends AdminController {
  public function edit($modulepos_id=null){
 	 $model=D('modulepos');
 	 if(IS_POST){
-		 F(md5('sys_modulepos_tree'),null);
+		 F('sys_modulepos_tree',null);
 		 if($model->create()){
 			 $result=$model->save();
 			 if($result!==false){

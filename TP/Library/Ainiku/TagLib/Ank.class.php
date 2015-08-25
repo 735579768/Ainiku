@@ -47,7 +47,7 @@ class Ank extends TagLib {
 			$parse .='$newname=\''.sha1($hname).'\';';
 			//$parse .='$newname=str_replace(",","_","'.$hname.'");';
 			if($htype=='js'){
-				if(!APP_DEBUG){
+				if(APP_DEBUG){
 				$parse .='foreach($temarr as $val):';
 				$parse .='$filepath="."."'.$dir.'/".$val.".js";';
 				$parse .='if(!file_exists($filepath)):$filepath=\'.__STATIC__/js/\'.$val.".js";endif;';
@@ -188,10 +188,10 @@ class Ank extends TagLib {
         $name  = isset($tag['name'])?$tag['name']:'vo';
         $order    = isset($tag['order'])?($tag['order'].','):'';
 		$parse  = '<?php ';
-		$parse .='$__NAV_LIST__=F(md5("sys_navhome_list"));';
+		$parse .='$__NAV_LIST__=F("sys_navhome_list");';
 		$parse .='if(empty($__NAV_LIST__)  || APP_DEBUG):';
 		$parse .= '$__NAV_LIST__ = M(\'nav\')->where(\'status>0 and pid=0\')->order(\''.$order.' sort asc,nav_id desc\')->select();';
-		$parse .='F(md5(\'sys_navhome_list\'),$__NAV_LIST__);';
+		$parse .='F(\'sys_navhome_list\',$__NAV_LIST__);';
 		$parse .='endif;';
 		$parse .= ' ?>';
 		$parse .= '<volist name="__NAV_LIST__" id="'. $name .'">';
@@ -209,10 +209,10 @@ class Ank extends TagLib {
 	 public function _link($tag,$content){
         $name  =    isset($tag['name'])?$tag['name']:'vo';
 		$parse  = '<?php ';
-		$parse .='$__LINK_LIST__=F(md5("sys_link_tree"));';
+		$parse .='$__LINK_LIST__=F("sys_link_tree");';
 		$parse .='if(empty($__LINK_LIST__) || APP_DEBUG):';
 		$parse .= '$__LINK_LIST__ = M(\'link\')->where(\'status>0\')->order(\' sort asc,link_id desc\')->select();';
-		$parse .='F(md5(\'sys_link_tree\'),$__LINK_LIST__);';
+		$parse .='F(\'sys_link_tree\',$__LINK_LIST__);';
 		$parse .='endif;';
 		$parse .= ' ?>';
 		$parse .= '<volist name="__LINK_LIST__" id="'. $name .'">';

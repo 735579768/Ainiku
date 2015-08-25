@@ -23,7 +23,7 @@ class LinkController extends AdminController {
 	 }
  public function add(){
 	 if(IS_POST){
-		 F(md5('sys_link_tree'),null);
+		 F('sys_link_tree',null);
 		 $model=D('Link');
 		 if($model->create()){
 			 $result=$model->add();
@@ -47,7 +47,7 @@ class LinkController extends AdminController {
  public function edit($link_id=null){
 	 $model=D('Link');
 	 if(IS_POST){
-		  F(md5('sys_link_tree'),null);
+		  F('sys_link_tree',null);
 		 if($model->create()){
 			 $result=$model->save();
 			 if($result!==false){

@@ -40,7 +40,7 @@ class NavController extends AdminController {
         $Nav = D('Nav');
 
         if(IS_POST){ //提交表单
-			F(md5('sys_nav_tree'),null);
+			F('sys_nav_tree',null);
 			F('sys_navhome_list',null);
             if(false !== $Nav->update()){
                 $this->success('更新成功！',U('index'));
@@ -66,7 +66,7 @@ class NavController extends AdminController {
         $Nav = D('Nav');
 
         if(IS_POST){ //提交表单
-			F(md5('sys_nav_tree'),null);
+			F('sys_nav_tree',null);
 			F('sys_navhome_list',null);
             if(false !== $Nav->update()){
                 $this->success('新增成功！', U('index'));
@@ -105,7 +105,7 @@ class NavController extends AdminController {
         //删除该导航信息
         $res = M('Nav')->delete($nav_id);
         if($res !== false){
-			 F(md5('sys_nav_tree'),null);
+			 F('sys_nav_tree',null);
             $this->success('删除导航成功！',U('index'));
         }else{
             $this->error('删除导航失败！');

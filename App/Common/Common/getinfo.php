@@ -9,7 +9,7 @@ function getCategoryTitle($id){
 *取当前分类的所有子类树
 */
 function getCategoryAllChild($id){
-		$restr=F(md5('cateallchild'.$id));
+		$restr=F('cateallchild'.$id);
 		if(empty($restr)||APP_DEBUG){
 			$restr=$id;
 			$map['pid']=$id;
@@ -26,7 +26,7 @@ function getCategoryAllChild($id){
 					
 					}
 			}
-			F(md5('cateallchild'.$id),$restr);
+			F('cateallchild'.$id,$restr);
 		}
 		return $restr.'';
 	}
@@ -121,8 +121,8 @@ function getPicture($id=null, $field = null,$wh=null){
         $revalue=false;
     }
 	if(is_numeric($id)){
-		$cakey=md5($id.$field.$wh);
-		$revalue=F(md5('picture').'/'.$cakey);
+		$cakey=$id.'_'.$field.'_'.$wh;
+		$revalue=F('_picture/'.$cakey);
 		if(empty($revalue)){	
 			$picture = M('Picture')->where(array('status'=>1))->getById($id);
 			if(!empty($field) && !empty($wh)){
@@ -153,7 +153,8 @@ function getPicture($id=null, $field = null,$wh=null){
 							$revalue=$picture['path'];
 							}
 			//$revalue=empty($field) ? $picture['path'] : $picture[$field];
-			F(md5('picture').'/'.$cakey,$revalue);
+			//F(md5('picture').'/'.$cakey,$revalue);
+			$revalue=F('_picture/'.$cakey,$revalue);
 		}
 	}else{
 		$revalue=$id;
@@ -174,12 +175,12 @@ $revalue=null;
         $revalue=false;
     }
 	if(is_numeric($id)){
-		$cakey=md5($id.$field);
-		$revalue=F(md5('file').'/'.$cakey);
+		$cakey=$id.'_'.$field;
+		$revalue=F('_file/'.$cakey);
 		if(empty($revalue)){	
 			$picture = M('File')->where(array('status'=>1))->getById($id);
 			$revalue=empty($field) ? $picture['path'] : $picture[$field];
-			F(md5('file').'/'.$cakey,$revalue);
+			F('_file/'.$cakey,$revalue);
 		}
 	}else{
 		$revalue=$id;
@@ -353,6 +354,10 @@ function getGoodsTypeAttributeList($id=null){
  *
  **/	
 function getModel($model_id=null,$field=null,$attr=null){
+	$skey=$model_id.'_'.$field.'_'.$attr;
+	$relist=F('_modelform/'.$skey);
+	if(empty($relist)||APP_DEBUG){
+	$list=array();
 	if(empty($model_id))return null;
 	$map['status']=1;
 	if(is_numeric($model_id)){
@@ -365,7 +370,6 @@ function getModel($model_id=null,$field=null,$attr=null){
 	$list=M('ModelAttr')->where("model_id=$model_id")->order('sort asc')->select();
 	$refield=null;
 	foreach($list as $key=>$val){
-
 		if(!empty($val['extra'])){
 			if($val['extranote']==='1' || $val['extranote']=='func'){
 				//支持传参数
@@ -378,22 +382,29 @@ function getModel($model_id=null,$field=null,$attr=null){
 					$list[$key]['extra']=call_user_func_array($func,explode(',',$para));	
 						}
 				
-				}else{
+			}else{
 				//如果是数组格式就转化成数组
 				$list[$key]['extra']=extraToArray($val['extra']);	
-					}
+			}
 		
 		}
-		if(!empty($field) and $val['field']===$field){
-			if(empty($attr)){
-				return $list[$key];
+			if(!empty($field) and $val['field']===$field){
+				if(empty($attr)){
+					$relist=$list[$key];
+					F('_modelform/'.$skey,$relist);
+					return $list[$key];
 				}else{
-				return $list[$key][$attr];	
-					}
-			
+					$relist=$list[$key][$attr];
+					F('_modelform/'.$skey,$relist);
+					return $list[$key][$attr];	
+				}
+				
 			}
 		}
-	return $list;
+		$relist=$list;
+		F('_modelform/'.$skey,$list);
+	}
+	return $relist;
 	}
 /**
  *解析extra字符串数据

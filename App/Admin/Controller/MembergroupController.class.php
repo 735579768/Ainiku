@@ -92,7 +92,7 @@ class MembergroupController extends AdminController {
 				);
 		  if($model->create($data)){
 		  		$result=$model->save();
-				F(md5('membegroupnodelist'.$member_group_id),null);
+				F('membegroupnodelist'.$member_group_id,null);
 			  if(0<$result){
 				   $this->success('更新成功',U('index'));
 				}else{

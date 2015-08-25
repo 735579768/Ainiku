@@ -8,7 +8,7 @@ class Auth{
  function __construct(){
 		$this->uid=UID;
 		$uinfo=session('uinfo');
-		$this->noaccessnodelist=F(md5('membegroupnodelist'.$uinfo['member_group_id']));
+		$this->noaccessnodelist=F('membegroupnodelist'.$uinfo['member_group_id']);
 		if(empty($this->noaccessnodelist) || APP_DEBUG){
 			$uinfoauth=M('MemberGroup')->field('auth')->find($uinfo['member_group_id']);
 			$node_idlist=implode(',',json_decode($uinfoauth['auth'],true));
@@ -18,7 +18,7 @@ class Auth{
 												'status'=>1,
 												'node_id'=>array('not in',$node_idlist)
 												))->select();
-			F(md5('membegroupnodelist'.$uinfo['member_group_id']),$this->noaccessnodelist);
+			F('membegroupnodelist'.$uinfo['member_group_id'],$this->noaccessnodelist);
 		}
 
 		}

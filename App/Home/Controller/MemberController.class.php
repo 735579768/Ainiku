@@ -6,10 +6,10 @@ if(!defined("ACCESS_ROOT"))die("Invalid access");
 class MemberController extends Controller {
     protected function _initialize(){
        /* 读取数据库中的配置 */
-        $config =   F(md5('DB_CONFIG_DATA'));
+        $config =   F('DB_CONFIG_DATA');
         if(!$config){
             $config =   api('Config/lists');
-            F(md5('DB_CONFIG_DATA'),$config);
+            F('DB_CONFIG_DATA',$config);
         }
 		//trace($config);
         C($config); //添加配置

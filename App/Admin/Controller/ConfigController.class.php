@@ -38,7 +38,7 @@ class ConfigController extends AdminController {
             $data = $Config->create();
             if($data){
                 if($Config->add()){
-                    F(md5('DB_CONFIG_DATA'),null);
+                    F('DB_CONFIG_DATA',null);
 					
                     $this->success('新增成功', U('index',array('group'=>I('group'))));
                 } else {
@@ -66,7 +66,7 @@ class ConfigController extends AdminController {
             if($data){
                 if(0<$Config->save()){
 					
-					F(md5('DB_CONFIG_DATA'),null);
+					F('DB_CONFIG_DATA',null);
                     $this->success('更新成功',U('index',array('group'=>I('group'))));
                 } else {
                     $this->error('没有更改');
@@ -142,7 +142,7 @@ class ConfigController extends AdminController {
                 $Config->where($map)->setField('value', $value);
             }
 							
-			F(md5('DB_CONFIG_DATA'),null);
+			F('DB_CONFIG_DATA',null);
 			$this->success('配置保存成功！',U('group',array('id'=>I('id'))));					
 			}else{
 			$this->error('非法访问');	
@@ -163,7 +163,7 @@ class ConfigController extends AdminController {
 		$map['no_del']=0;
 		$result=M('Config')->where($map)->delete();
         if(0<$result){
-			F(md5('DB_CONFIG_DATA'),null);
+			F('DB_CONFIG_DATA',null);
             $this->success('删除成功');
         } else {
             $this->error('删除失败！系统配置不允许删除！');

@@ -27,11 +27,11 @@ class CommonController extends Controller {
      */
     protected function _initialize(){
        /* 读取数据库中的配置 */
-        $config =   F(md5('DB_CONFIG_DATA'));
+        $config =   F('DB_CONFIG_DATA');
 		
         if(!$config || APP_DEBUG){
             $config =   api('Config/lists');
-            F(md5('DB_CONFIG_DATA'),$config);
+            F('DB_CONFIG_DATA',$config);
         }
         C($config); //添加配置
 		C('TMPL_PARSE_STRING',array(
