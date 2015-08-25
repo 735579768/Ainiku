@@ -16,6 +16,9 @@ if(!APP_DEBUG)define('BUILD_LITE_FILE',true);
 define('DATA_DIR_PATH','./Data/');
 define('DATA_DIR_NAME','Data');
 
+//定义静态文件目录
+define('__STATIC__','/Public/Static');
+
 //图片缓存目录
 define('IMAGE_CACHE_DIR',DATA_DIR_PATH.'cache/imgcache/');
 //样式图片缓存

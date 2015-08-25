@@ -4,8 +4,7 @@ use Think\Controller;
 if(!defined("ACCESS_ROOT"))die("Invalid access");
 class IndexController extends HomeController {
     public function index(){
-$Ip = new \Org\Net\IpLocation(); // 实例化类
-$location = $Ip->getlocation('127.0.0.1'); // 
+
 //var_dump($location);
 //trace(getNavTree());
   $this->display();

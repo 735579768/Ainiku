@@ -60,8 +60,9 @@ function is_login(){
 			
 			$uid=$info['member_id'];
 			$ip=get_client_ip();
-			$Ipp = new \Org\Net\IpLocation('UTFWry.dat'); // 实例化类
-			$location = $Ipp->getlocation($ip);
+//			$Ipp = new \Org\Net\IpLocation('UTFWry.dat'); // 实例化类
+//			$location = $Ipp->getlocation($ip);
+			$location=getIpLocation($ip);
 			$data = array(
 				'member_id'              => $uid,
 				'update_time' => NOW_TIME,

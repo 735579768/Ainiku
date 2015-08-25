@@ -406,7 +406,7 @@ class FileController extends AdminController {
 	
 	
 	public function ueupload(){
-$CONFIG = json_decode(preg_replace("/\/\*[\s\S]+?\*\//", "", file_get_contents(realpath(__ROOT__."./Public/Static/ueditor/php/config.json"))), true);
+$CONFIG = json_decode(preg_replace("/\/\*[\s\S]+?\*\//", "", file_get_contents(realpath(__ROOT__.".".__STATIC__."/ueditor/php/config.json"))), true);
 $action = $_GET['action'];
 
 switch ($action) {
@@ -422,21 +422,21 @@ switch ($action) {
     case 'uploadvideo':
     /* 上传文件 */
     case 'uploadfile':
-        $result = include(__ROOT__."./Public/Static/ueditor/php/action_upload.php");
+        $result = include(__ROOT__.".".__STATIC__."/ueditor/php/action_upload.php");
         break;
 
     /* 列出图片 */
     case 'listimage':
-        $result = include(__ROOT__."./Public/Static/ueditor/php/action_list.php");
+        $result = include(__ROOT__.".".__STATIC__."/ueditor/php/action_list.php");
         break;
     /* 列出文件 */
     case 'listfile':
-        $result = include(__ROOT__."./Public/Static/ueditor/php/action_list.php");
+        $result = include(__ROOT__.".".__STATIC__."/ueditor/php/action_list.php");
         break;
 
     /* 抓取远程文件 */
     case 'catchimage':
-        $result = include(__ROOT__."./Public/Static/ueditor/php/action_crawler.php");
+        $result = include(__ROOT__.".".__STATIC__."/ueditor/php/action_crawler.php");
         break;
 
     default:
@@ -509,7 +509,7 @@ switch ($action) {
 	}
 //umeditor编辑器上传图片
 public function umeupload(){
-    $result=include __ROOT__."./Public/Static/umeditor/php/imageUp.php";
+    $result=include __ROOT__.".".__STATIC__."/umeditor/php/imageUp.php";
 	//保存到数据库
 	//$result=json_decode($result,true);
 	//var_dump($result);

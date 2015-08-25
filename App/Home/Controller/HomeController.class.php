@@ -49,7 +49,7 @@ class HomeController extends CommonController {
 			}
 		if(C('SITE_PRELOAD')){
 	 $patterns[]='/<img(.*?preload.*?)\s{1}src=["|\']([^\'|\"]+?)["|\'](.*?)>/';
-	 $replacements[]='<img$1 data-original="$2" src="/Public/Static/images/preload.png"$3>';
+	 $replacements[]='<img$1 data-original="$2" src="'.__STATIC__.'/images/preload.png"$3>';
 			}
 		 $patterns[]='/<img(.*?)src=["|\']["|\'](.*?)>/';
 		 $replacements[]='<img$1src="'.C('DEFAULT_IMG').'"$2>';

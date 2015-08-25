@@ -4,8 +4,8 @@ use Think\Controller;
 if(!defined("ACCESS_ROOT"))die("Invalid access");
 class GoodsController extends HomeController {
     public function index(){
-$Ip = new \Org\Net\IpLocation(); // 实例化类
-$location = $Ip->getlocation('127.0.0.1'); // 
+//$Ip = new \Org\Net\IpLocation(); // 实例化类
+//$location = $Ip->getlocation('127.0.0.1'); // 
   $this->display();
     }
 	function detail($goods_id){

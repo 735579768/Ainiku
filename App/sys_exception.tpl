@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>页面找不到喽</title>
-<link rel="stylesheet" type="text/css" href="/Public/Static/css/404.css" media="all">
+<link rel="stylesheet" type="text/css" href="__STATIC__/404.css" media="all">
 </head>
 <body class="body-bg">
 <div class="main">
