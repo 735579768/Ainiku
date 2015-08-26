@@ -71,6 +71,7 @@ else //切图成功时
       */
      //ShearPhoto 作者:明哥先生 QQ399195513		
   }		
+  die();
 		}
 		
 		
@@ -158,7 +159,7 @@ else //切图成功时
 		来到这里时，已经代表上传成功，你可以在这里尽情写的你逻辑
 		*/
 		echo('{"success":"'.str_replace(array("\\\\","\/",ShearURL,"\\",'./'),array("\\","/","","/",'/'),$UpFile['file_url']).'"}');		
-			
+			die();
 			}
 		function errobug() {
 			$e = error_get_last();

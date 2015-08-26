@@ -2,6 +2,12 @@ window.ShearPhoto = function() {
 		var fdiv=document.createElement('div');
 	fdiv.id='catpictureform';
 	fdiv.innerHTML='<form style="display:none;"   name="CUTPICTUREFORM" enctype="multipart/form-data" method="post"  target="POSTiframe"><input name="shearphoto" type="hidden" value="我要在这里传参数" /><a href="javascript:;"><input id="selectImage2" type="file"  name="UpFile" /></a></form>';
+			//设置容器宽高
+		  var objcut=document.getElementById('cutpicture');
+		  objcut.style.width=Cutpicture.cwidth+'px';
+		  objcut.style.height=Cutpicture.cheight+'px';
+		  objcut.style.marginLeft=-(Cutpicture.cwidth/2)+'px';
+		  objcut.style.marginTop=-(Cutpicture.cheight/2)+'px';
           document.body.appendChild(fdiv);
           this.transform = this.DomMoveEve = this.DomUpEve = this.MoveDivEve = this.zoomEve = this.eveMold = false;
           this.DivDownEVe = {};
