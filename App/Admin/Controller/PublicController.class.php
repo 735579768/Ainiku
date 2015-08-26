@@ -9,6 +9,9 @@ class PublicController extends Controller {
 		//后台统一的404页面
 			$this->display('Public:404');
 		}
+	public function index(){
+		$this->redirect('login');
+		}
 	protected function _initialize(){
 		 //定义数据表前缀
 		 defined('DBPREFIX') or define('DBPREFIX',C('DB_PREFIX'));
@@ -64,7 +67,7 @@ class PublicController extends Controller {
             }
         } else {
             if(is_login()){
-                redirect(U('Index'));
+                redirect(U('Index/index'));
             }else{
                 //判断cookie是否过期
 				$u=cookie('__uid__');

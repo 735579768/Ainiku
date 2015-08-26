@@ -1,5 +1,9 @@
 .fl{ float:left!important;}
 .fr{ float:right!important;}
+.pdl10{padding-left:10px;}
+.pdr10{padding-right:10px;}
+.pdt10{padding-top:10px;}
+.pdb10{padding-bottom:10px;}
 .a-left{ text-align:left!important;}
 .a-center{ text-align:center!important;}
 .el{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; display:inline-block; width:100%;}
