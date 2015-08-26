@@ -29,7 +29,7 @@ class AdminController extends CommonController {
 			$forward[]= $_SERVER['HTTP_REFERER'];
 			  cookie('__forward__',$forward);  
 		   }
-		  define('__FORWARD__',$forward[0]);
+		  defined('__FORWARD__')||define('__FORWARD__',$forward[0]);
 		 $this->meta_title='首页';
 		 //定义数据表前缀
 		 defined('DBPREFIX') or define('DBPREFIX',C('DB_PREFIX'));
