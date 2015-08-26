@@ -104,7 +104,7 @@ public function del($model_id=null){
 		 //删除数据表	
 		 $tablename=getTable($table_name);
 			$sql = "DROP TABLE IF EXISTS `{$tablename}`";
-			$res = M()->query($sql);		 
+			$res = M()->execute($sql);		 
 		 $this->success('删除成功',U('index'));
 	 }else{
 		$this->error('删除失败，未知错误');	 

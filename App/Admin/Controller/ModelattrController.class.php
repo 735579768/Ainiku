@@ -114,7 +114,7 @@ public function del($model_attr_id=null){
 	 if($res!=null){	 
 	//删除数据表中的字段
 		 $sql="alter table {$table_name} drop `{$Modelattr['field']}` ";
-		 $res=M()->query($sql);	
+		 $res=M()->execute($sql);	
 		 }	 
 
 		 
