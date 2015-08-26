@@ -17,7 +17,7 @@ class CategoryController extends AdminController {
     public function index(){
 		$tree = D('Category')->getTree(0,true);
         $this->assign('_TREE_', $tree);
-        $this->meta_title = '分类管理';
+        $this->meta_title = '文档分类管理';
         $this->display();
     }
 

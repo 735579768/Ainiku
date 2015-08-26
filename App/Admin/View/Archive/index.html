@@ -3,7 +3,7 @@
 
 <!--tool start-->
 <div class="btn-tool">
-<form id="moveform" class="form-h form-group-h" action="{:U('Article/move')}" method="post">
+<form id="moveform" class="form-h form-group-h cl" action="{:U('Article/move')}" method="post">
 <a href="{:U('Archive/add',array('model_id'=>$model['model_id']))}" class="btn btn-parmary">添加{$model['title']}</a>
 <if condition="ACTION_NAME eq 'recycle'">
 <a href="{:U('Archive/huifu',array('model_id'=>$model['model_id']))}" class="btn btn-danger Abatch">批量恢复</a>
@@ -19,15 +19,18 @@
 
 </form>
 
-<div class="searchform">
-<form class="form-h form-group-h" action="{:U('')}" method="post">
-<div class="form-group">
-<input name="title" type="text" value="{:I('title')}" class="form-control input-mid" placeholder="请输入标题" />
+<notempty name="search_format">
+<form class="form-h form-group-h searchform cl" action="{:U('')}" method="post">
+<div class="form-group cl fl">
+<div class="form-label fl">搜索{$search_format.title}:</div>
+<div class="fl">
+<input name="model_id" type="hidden" value="{:I('model_id')}" />
+<input name="title" type="text" value="{:I('title')}" class="form-control input-mid" placeholder="请输入{$search_format.title}" />
 </div>
-
-<a class="sch-btn" href="javascript:;" id="search" ><i class="btn-search"></i></a>
+</div>
+<a class="sch-btn fl" href="javascript:;" style="margin-top:10px;" id="search" ><i class="btn-search"></i></a>
 </form>
-</div>
+</notempty>
 
 
 </div>
@@ -36,13 +39,10 @@
 
 <!--content start -->
 <div class="content">
-<style>
-.right table td,.right table th{ text-align:left;}
-</style>
 <table class="leftalign" width="100%" border="0">
              <!-- 表头 -->
             <thead>
-                <tr>
+                <tr class="th">
                     <th class="row-selected row-selected">
                         <input class="check-all" type="checkbox">
                     </th>
@@ -55,7 +55,7 @@
             <tbody>
                 <volist name="_list" id="data">
                     <tr>
-                        <td><input class="check-item" type="checkbox" value="{$data[$preid]}" name="ids[]"></td>
+                        <td  class="center"><input class="check-item" type="checkbox" value="{$data[$preid]}" name="ids[]"></td>
                         <volist name="list_grids" id="grid">
                             <td>{:get_list_field($data,$grid,$model_list)}</td>
                         </volist>

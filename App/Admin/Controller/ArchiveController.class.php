@@ -27,7 +27,8 @@ class ArchiveController extends AdminController {
 	 *存档列表
 	 */
 	public  function index(){
-        //解析列表规则
+
+		//解析列表规则
         $fields = array();
         $grids  = preg_split('/[;\r\n]+/s', $this->m_info['list_format']);
         foreach ($grids as &$value) {
@@ -51,6 +52,14 @@ class ArchiveController extends AdminController {
                 $fields[] = $array[0];
             }
         }
+		$map=array();
+		 //解析搜索字段
+		 if(!empty($this->m_info['search_format'])){
+		 $search_format=explode(':',$this->m_info['search_format']);
+		 $this->assign('search_format',array('title'=>$search_format[1],'field'=>$search_format[0]));
+		 $map[$search_format[0]]=array('like','%'.I($search_format[0]).'%');
+		 }
+		 
         // 过滤重复字段信息 TODO: 传入到查询方法
         $fields = array_unique($fields);
 		$this->assign('field',$fields);
@@ -58,11 +67,12 @@ class ArchiveController extends AdminController {
 		$this->assign('model_list',$this->m_info);
 		$map['status']=1;
 		$this->pages(array(
-											'where'=>$map,
-		 									'model'=>$this->m_info['table'],
-											'order'=>getTable($this->m_info['table'],false).'_id  desc'
+						'where'=>$map,
+						'model'=>$this->m_info['table'],
+						'order'=>getTable($this->m_info['table'],false).'_id  desc'
 		 ));
 		 $this->meta_title =$this->m_info['title'].'列表';
+
 		 $this->display('index');
 		}
 	/**
