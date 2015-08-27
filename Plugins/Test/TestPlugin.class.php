@@ -1,6 +1,6 @@
 <?php
 namespace  Plugins\Test;
-require_once __ROOT__.'./Plugins/Plugin.class.php';
+require_once __ROOT_PATH__.'/Plugins/Plugin.class.php';
 class TestPlugin extends \Plugins\Plugin{
 	protected   $config=array(
             		'version'=>'1.0',

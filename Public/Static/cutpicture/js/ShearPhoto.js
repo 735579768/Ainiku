@@ -680,7 +680,7 @@ ShearPhoto.prototype = {
                               }
                     }
                     var SendArry = {};
-                    SendArry.url = "." + this.ImgUrl;
+                    SendArry.url = this.ImgUrl;
                     var R = {
                               1:90,
                               2:180,

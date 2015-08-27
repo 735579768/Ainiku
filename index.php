@@ -13,6 +13,11 @@ if(!file_exists(APP_PATH . 'Install/Data/install.lock')){
 define('ACCESS_ROOT',true);
 define('APP_DEBUG',true);
 APP_DEBUG or define('BUILD_LITE_FILE',true);
+
+define('__ROOT__','');//站点根目录,没有子目录的话就留空,子目录以'/子目录'形式
+define('__SITE_ROOT__',$_SERVER['DOCUMENT_ROOT']);//站点根目录
+define('__ROOT_PATH__',__SITE_ROOT__.__ROOT__);//程序根路径
+
 define('DATA_DIR_PATH','./Data/');//系统自动生成的数据缓存目录
 define('DATA_DIR_NAME','Data');
 define('__STATIC__','/Public/Static');//定义静态文件目录

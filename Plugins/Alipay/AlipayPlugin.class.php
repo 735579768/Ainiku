@@ -24,7 +24,7 @@ $trade_status = $_POST['trade_status'];//交易状态
 		}
 **/
 namespace  Plugins\Alipay;
-require_once __ROOT__.'./Plugins/Plugin.class.php';
+require_once __ROOT_PATH__.'/Plugins/Plugin.class.php';
 class AlipayPlugin extends \Plugins\Plugin{
 	protected   $config=array(
             		'version'=>'1.0',

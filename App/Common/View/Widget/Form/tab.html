@@ -322,9 +322,9 @@ function uploadPicture{$field['name']}(file, data){
 		a=a.replace(/\s+/g,'');
 		if(a==''){a=data.id;}else{a+='|'+data.id}
 		$("#cover_id_{$field['name']}").val(a);
-		src = data.url || '__ROOT__' + data.path
+		src = data.url ||data.path
 		$("#uploadimg_{$field['name']}").append(
-			"<div class='imgblock'><div class='upload-img-box uploadimg'><div class='upload-pre-item'><img src='__ROOT__" + src + "' /></div></div><a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
+			"<div class='imgblock'><div class='upload-img-box uploadimg'><div class='upload-pre-item'><img src='" + src + "' /></div></div><a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
 		);
 		$(function(){binddel();});
 	} else {
@@ -431,9 +431,9 @@ function uploadPicture{$field['name']}(file, data){
             var sid=$("#cover_id_{$field['name']}").val();
 		    if(sid!=""){$.get(ainiku.delimg,{id:sid})}
 			$("#cover_id_{$field['name']}").val(data.id);
-            src = data.url || '__ROOT__' + data.path
+            src = data.url ||  + data.path
             $("#uploadimg_{$field['name']}").html(
-                "<div class='imgblock'><div class='upload-img-box uploadimg'><div class='upload-pre-item'><img src='__ROOT__" + src + "' /></div></div><a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
+                "<div class='imgblock'><div class='upload-img-box uploadimg'><div class='upload-pre-item'><img src='" + src + "' /></div></div><a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
             );
             $(function(){binddel();});
         } else {
@@ -719,7 +719,7 @@ $('#area11{$field['name']}').html('<option value="0">请选择--</option></selec
                         </div>
                         <div id="movebox">
                                 <div id="smallbox">
-                                        <img src="images/default.png" class="MoveImg" />
+                                        <img src="__STATIC__/cutpicture/images/default.png" class="MoveImg" />
                                 </div>
                                 <i id="BottomRight">
                                 </i>
@@ -738,7 +738,7 @@ $('#area11{$field['name']}').html('<option value="0">请选择--</option></selec
                                 <i id="Bottommiddle">
                                 </i>
                         </div>
-                        <img src="images/default.png" class="BigImg" />
+                        <img src="__STATIC__/cutpicture/images/default.png" class="BigImg" />
                 </div>
         </div>
         <a href="javascript:;" style="position:absolute; z-index:101; top:5px; right:5px;" class="btn btn-warning" onClick="$('#cutpicture').hide();">取消</a>
@@ -802,7 +802,7 @@ $('#area11{$field['name']}').html('<option value="0">请选择--</option></selec
 			$("#cutpicture_id_{$field['name']}").val(data.id);
             src = data.ImgUrl || '__ROOT__' + data.path
             $("#uploadimg_{$field['name']}").html(
-                "<div class='imgblock'><div class='upload-img-box uploadimg'><div class='upload-pre-item'><img src='__ROOT__" + src + "' /></div></div><a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
+                "<div class='imgblock'><div class='upload-img-box uploadimg'><div class='upload-pre-item'><img src='" + src + "' /></div></div><a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
             );
             $(function(){binddel();});
         } else {

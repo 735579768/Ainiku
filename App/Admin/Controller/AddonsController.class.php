@@ -3,7 +3,7 @@ namespace Admin\Controller;
 class AddonsController extends AdminController {
     public function index(){
 	  $this->meta_title='插件管理';
-      $dirlist=getDirList($_SERVER['DOCUMENT_ROOT'].__ROOT__.'/Plugins/');
+      $dirlist=getDirList(__ROOT_PATH__.'/Plugins/');
       $dirlist=str_replace('Plugin', '', $dirlist);
       $addoninfo=array();
       foreach ($dirlist as $a){

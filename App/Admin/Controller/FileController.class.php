@@ -301,8 +301,8 @@ class FileController extends AdminController {
 
 				/* 返回标准数据 */
 		$return  = array('status' => 1, 'info' => '上传成功','path'=>'','id'=>'','url'=>'','data' => '');
-		$SITE_PATH=str_replace('\\','/',$_SERVER['DOCUMENT_ROOT']);//网站根目录
-		$targetFolder = C('FILE_UPLOAD.rootPath'); //保存图片的根目录
+		$SITE_PATH=__SITE_ROOT__;//网站根目录
+		$targetFolder = __ROOT_PATH__.C('FILE_UPLOAD.rootPath'); //保存图片的根目录
 		if (!empty($_FILES)) {
 			$tempFile = $_FILES['filelist']['tmp_name'];
 			//生成的文件名字
@@ -320,33 +320,46 @@ class FileController extends AdminController {
 				case 'mp4': $targetFolder.='/file/video'; break;
 				default: $targetFolder.='/file/other'; break;
 				}
-			$thumbPath=$targetFolder.$foldertype;
-
-
-
-			//原图和缩略图的相对路径到文件名字
-			//原图和缩略图的相对路径到文件名字
-			$XDtargetPath=$targetFolder.'/'.date('Ymd');
-			$XDthumbPath=$thumbPath.'/'.date('Ymd');
-			if(!createFolder($XDtargetPath)){
-					$return['info']='创建目录错误：'.$XDtargetPath;
+			$imgpath=$targetFolder.'/'.date('Ymd');
+			if(!createFolder($imgpath)){
+					$return['info']='创建目录错误：'.$imgpath;
 					 $return['status']=0;
 					 $this->ajaxreturn($return);	
-				}
-			if(!createFolder($XDthumbPath)){
-					$return['info']='创建目录错误：'.$XDthumbPath;
+			}			
+			$imgpath2=$targetFolder.$foldertype.'/'.date('Ymd');
+			if(!createFolder($imgpath)){
+					$return['info']='创建目录错误：'.$imgpath;
 					 $return['status']=0;
-					 $this->ajaxreturn($return);				
-				}
-			$XDtargetPath=$targetFolder.'/'.date('Ymd').'/'.$filename;
-			$XDthumbPath=$thumbPath.'/'.date('Ymd').'/'.$filename;	
-			//原图和缩略图的绝对路径目录
-			$targetPath = $SITE_PATH .$targetFolder.'/'.date('Ymd');//保存原文件的绝对路径
-			$thumbPath = $SITE_PATH .$thumbPath.'/'.date('Ymd');//保存缩略图的绝对路径
+					 $this->ajaxreturn($return);	
+			}				
+			
+//			$thumbPath=$targetFolder.$foldertype;
+//
+//
+//
+//			//原图和缩略图的相对路径到文件名字
+//			//原图和缩略图的相对路径到文件名字
+//			$XDtargetPath=$targetFolder.'/'.date('Ymd');
+//			$XDthumbPath=$thumbPath.'/'.date('Ymd');
+//			if(!createFolder($XDtargetPath)){
+//					$return['info']='创建目录错误：'.$XDtargetPath;
+//					 $return['status']=0;
+//					 $this->ajaxreturn($return);	
+//				}
+//			if(!createFolder($XDthumbPath)){
+//					$return['info']='创建目录错误：'.$XDthumbPath;
+//					 $return['status']=0;
+//					 $this->ajaxreturn($return);				
+//				}
+			$JDtargetPath=$targetFolder.'/'.date('Ymd').'/'.$filename;
+//			$JDthumbPath=$targetFolder.$foldertype.'/'.date('Ymd').'/'.$filename;	
+//			//原图和缩略图的绝对路径目录
+//			$targetPath = $SITE_PATH .$targetFolder.'/'.date('Ymd');//保存原文件的绝对路径
+//			$thumbPath = $SITE_PATH .$thumbPath.'/'.date('Ymd');//保存缩略图的绝对路径
 
-			//原图和缩略图的绝对路径到文件名字
-			$JDtargetPath=$targetPath.'/'. $filename;
-			$JDthumbPath =$thumbPath.'/'. $filename;
+//			//原图和缩略图的绝对路径到文件名字
+//			$JDtargetPath=$targetPath.'/'. $filename;
+//			$JDthumbPath =$thumbPath.'/'. $filename;
 			
 			// Validate the file type
 			$fileTypes = array('jpg','jpeg','gif','png','rar','mp4'); // File extensions
@@ -364,7 +377,7 @@ class FileController extends AdminController {
 						$re=img2thumb($JDtargetPath,$JDthumbPath,C('THUMB_WIDTH'),C('THUMB_HEIGHT'));
 						if($re===false)$JDthumbPath=$JDtargetPath;
 					}
-						$return['path']=str_replace($SITE_PATH,'',$JDthumbPath);
+						$return['path']=str_replace(__SITE_ROOT__,'',$JDthumbPath);
 				}else{
 					  $return['info']='上传错误'.$tempFile.'->'.$JDtargetPath;
 					  $return['status']=0;	
@@ -380,10 +393,10 @@ class FileController extends AdminController {
 				
 				
 				//保存文件信息到数据库
-				$cupath=str_replace($SITE_PATH,'',$JDtargetPath);
+				$cupath=str_replace(__ROOT_PATH__,'',$JDtargetPath);
 				$data['path']=$cupath;
 				$data['sha1']=sha1_file('.'.$cupath);
-				$data['thumbpath']=str_replace($SITE_PATH,'',$JDthumbPath);
+				$data['thumbpath']=str_replace(__ROOT_PATH__,'',$JDthumbPath);
 				$data['destname']=$filename;
 				$data['srcname']=$_FILES['filelist']['name'];
 				$data['create_time']=time();
@@ -406,7 +419,7 @@ class FileController extends AdminController {
 	
 	
 	public function ueupload(){
-$CONFIG = json_decode(preg_replace("/\/\*[\s\S]+?\*\//", "", file_get_contents(realpath(__ROOT__.".".__STATIC__."/ueditor/php/config.json"))), true);
+$CONFIG = json_decode(preg_replace("/\/\*[\s\S]+?\*\//", "", file_get_contents(__ROOT_PATH__.__STATIC__."/ueditor/php/config.json")), true);
 $action = $_GET['action'];
 
 switch ($action) {
@@ -422,21 +435,21 @@ switch ($action) {
     case 'uploadvideo':
     /* 上传文件 */
     case 'uploadfile':
-        $result = include(__ROOT__.".".__STATIC__."/ueditor/php/action_upload.php");
+        $result = include(__ROOT_PATH__.__STATIC__."/ueditor/php/action_upload.php");
         break;
 
     /* 列出图片 */
     case 'listimage':
-        $result = include(__ROOT__.".".__STATIC__."/ueditor/php/action_list.php");
+        $result = include(__ROOT_PATH__.__STATIC__."/ueditor/php/action_list.php");
         break;
     /* 列出文件 */
     case 'listfile':
-        $result = include(__ROOT__.".".__STATIC__."/ueditor/php/action_list.php");
+        $result = include(__ROOT_PATH__.__STATIC__."/ueditor/php/action_list.php");
         break;
 
     /* 抓取远程文件 */
     case 'catchimage':
-        $result = include(__ROOT__.".".__STATIC__."/ueditor/php/action_crawler.php");
+        $result = include(__ROOT_PATH__.__STATIC__."/ueditor/php/action_crawler.php");
         break;
 
     default:
@@ -509,7 +522,7 @@ switch ($action) {
 	}
 //umeditor编辑器上传图片
 public function umeupload(){
-    $result=include __ROOT__.".".__STATIC__."/umeditor/php/imageUp.php";
+    $result=include __ROOT_PATH__.__STATIC__."/umeditor/php/imageUp.php";
 	//保存到数据库
 	//$result=json_decode($result,true);
 	//var_dump($result);

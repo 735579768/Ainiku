@@ -123,8 +123,9 @@ function getPicture($id=null, $field = null,$wh=null){
 	if(is_numeric($id)){
 		$cakey=$id.'_'.$field.'_'.$wh;
 		$revalue=F('_picture/'.$cakey);
-		if(empty($revalue)){	
+//		if(empty($revalue) || APP_DEBUG){	
 			$picture = M('Picture')->where(array('status'=>1))->getById($id);
+//return __ROOT__.$picture['path'];
 			if(!empty($field) && !empty($wh)){
 					$wharr=explode('_',$wh);
 					
@@ -142,24 +143,24 @@ function getPicture($id=null, $field = null,$wh=null){
 				}else if(!empty($field)){
 						$revalue=$picture[$field];
 						if($field=='thumbpath'){
-							if(!file_exists('.'.$revalue)){
- 							$result=img2thumb('.'.$picture['path'], '.'.$revalue, C('THUMB_WIDTH'), C('THUMB_HEIGHT'),true,true);						
+							if(!file_exists(__ROOT_PATH__.$revalue)){
+ 							$result=img2thumb('.'.__ROOT__.$picture['path'], '.'.__ROOT__.$revalue, C('THUMB_WIDTH'), C('THUMB_HEIGHT'),true,true);						
 							if($result!==true){
 								$revalue=$picture['path'];	
 									}								
-								}
 							}
+						}
 				}else{
 							$revalue=$picture['path'];
 							}
 			//$revalue=empty($field) ? $picture['path'] : $picture[$field];
 			//F(md5('picture').'/'.$cakey,$revalue);
-			$revalue=F('_picture/'.$cakey,$revalue);
-		}
+//			$revalue=F('_picture/'.$cakey,$revalue);
+//		}
 	}else{
 		$revalue=$id;
 		}
-		return $revalue;
+		return empty($revalue)?'':__ROOT__.$revalue;
 }
 /**
  * 获取附件
