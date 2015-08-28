@@ -55,14 +55,13 @@ $(function(){
  
  <eq name="formjs.umeditor" value="1">
  <!--um编辑器js start-->
- <script>
-	window.UMEDITOR_HOME_URL='__STATIC__/umeditor/';
+<script>
+	window.UEDITOR_HOME_URL='__STATIC__/ueditor/';
 </script> 
-<ank:insert   name="umeditor" dir="__STATIC__/umeditor/themes/default/css" />
-<ank:insert  type="js"  name="umeditor.config" dir="__STATIC__/umeditor" />
-<script type="text/javascript" charset="utf-8" src="__STATIC__/umeditor/umeditor.min.js"></script>
-<ank:insert  type="js" name="zh-cn" dir="__STATIC__/umeditor/lang/zh-cn" />
+<ank:insert type="js"  name="umeditor.config" dir="__STATIC__/ueditor" />
 
+<script type="text/javascript" charset="utf-8" src="__STATIC__/ueditor/ueditor.all.min.js"></script> 
+ <ank:insert type="js"  name="zh-cn" dir="__STATIC__/ueditor/lang/zh-cn" />
  <!--um编辑器js end-->
 </eq>
 <!--要引入的角本文件 end-->
@@ -185,24 +184,29 @@ $(function(){
 </script> 
           </case>
           <case value="umeditor">
-<!--style给定宽度可以影响编辑器的最终宽度-->
-<script type="text/plain"  id="{$field['name']}" name="{$field['name']}"  style="width:99%;height:150px;">
+            
+ <!--style给定宽度可以影响编辑器的最终宽度--> 
+<script type="text/plain" id="{$field['name']}" name="{$field['name']}" style="width:99%;height:150px;">
     {$field['data']}
-</script>
+</script> 
 <script>
 	//保存编辑器初始化数据
-	var umscr{$field['name']}=null;
-    var um{$field['name']} = UM.getEditor("{$field['name']}",{
-			initialFrameHeight:100,
-		    imageUrl:ainiku.umeupload	
-			});
-		um{$field['name']}.addListener('focus',function(editor){
-			umscr{$field['name']}=um{$field['name']}.getContent();
-			});
-		um{$field['name']}.addListener('blur',function(editor){
-			delEditorImg(umscr{$field['name']},um{$field['name']}.getContent());
-			});
-</script>
+	var uescr{$field['name']}=null;
+    var ue{$field['name']} = UE.getEditor("{$field['name']}",{
+		    serverUrl:ainiku.ueupload,
+			initialFrameHeight:300,
+			//serverUrl:serverPath+"php/controller.php",
+            imagePath:'',
+            focus: true
+
+		});    
+		ue{$field['name']}.addListener('focus',function(editor){
+			uescr{$field['name']}=ue{$field['name']}.getContent();
+			});     
+		ue{$field['name']}.addListener('blur',function(editor){
+			delEditorImg(uescr{$field['name']},ue{$field['name']}.getContent());
+			});                      
+</script> 
           </case>
           <case value="batchpicture">
             <div class="controls">
@@ -431,7 +435,7 @@ function uploadPicture{$field['name']}(file, data){
             var sid=$("#cover_id_{$field['name']}").val();
 		    if(sid!=""){$.get(ainiku.delimg,{id:sid})}
 			$("#cover_id_{$field['name']}").val(data.id);
-            src = data.url ||  + data.path
+            src = data.url ||  data.path
             $("#uploadimg_{$field['name']}").html(
                 "<div class='imgblock'><div class='upload-img-box uploadimg'><div class='upload-pre-item'><img src='" + src + "' /></div></div><a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
             );
