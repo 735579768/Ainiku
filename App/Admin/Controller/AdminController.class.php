@@ -20,6 +20,8 @@ class AdminController extends CommonController {
 		echo $str;
 		}
 	 protected function _initialize(){
+		 	//不让蜘蛛抓取
+			get_naps_bot()!==false&&die('');
 		   // 记录当前列表页的cookie
 		   $forward=cookie('__forward__');
 		   if(!IS_AJAX  && !IS_POST){
