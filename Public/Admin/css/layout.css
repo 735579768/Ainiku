@@ -24,7 +24,7 @@ body{   overflow-x:hidden; overflow-y:hidden;padding:62px 0px 0px 179px;}
 }
 .page a:hover{text-decoration:none;background-color:#387C0B;color:#fff;}
 .page .current{border-top:1px solid #387C0B;background-color:#387C0B;color:#fff;}
-.page .next,.page .prev{font-family:"microsoft yahei";font-weight:bold;}
+.page .next,.page .prev{font-family:"microsoft yahei";}
 .page .rows{}
 .page div{ display:inline-block;}
 /**主导航**/
