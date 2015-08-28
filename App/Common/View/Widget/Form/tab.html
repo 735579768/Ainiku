@@ -39,31 +39,25 @@ $(function(){
 <!--上传图片js end-->
 </eq>
 
-
+<eq name="formjs.editornum" value="1">
+<script>
+	window.UEDITOR_HOME_URL='__STATIC__/ueditor/';
+</script> 
+<!--ue编辑器js start-->
 <eq name="formjs.editor" value="1">
 <php>$GLOBALS['formjs']['editor']++</php>
-<!--ue编辑器js start-->
-<script>
-	window.UEDITOR_HOME_URL='__STATIC__/ueditor/';
-</script> 
 <ank:insert type="js"  name="ueditor.config" dir="__STATIC__/ueditor" />
-
-<script type="text/javascript" charset="utf-8" src="__STATIC__/ueditor/ueditor.all.min.js"></script> 
- <ank:insert type="js"  name="zh-cn" dir="__STATIC__/ueditor/lang/zh-cn" />
-<!--ue编辑器js end-->
- </eq>
- 
- <eq name="formjs.umeditor" value="1">
- <!--um编辑器js start-->
-<script>
-	window.UEDITOR_HOME_URL='__STATIC__/ueditor/';
-</script> 
-<ank:insert type="js"  name="umeditor.config" dir="__STATIC__/ueditor" />
-
-<script type="text/javascript" charset="utf-8" src="__STATIC__/ueditor/ueditor.all.min.js"></script> 
- <ank:insert type="js"  name="zh-cn" dir="__STATIC__/ueditor/lang/zh-cn" />
- <!--um编辑器js end-->
 </eq>
+<!--ue编辑器js end-->
+ <!--um编辑器js start-->
+<eq name="formjs.umeditor" value="1">
+<ank:insert type="js"  name="umeditor.config" dir="__STATIC__/ueditor" />
+</eq>
+ <!--um编辑器js end-->
+<script type="text/javascript" charset="utf-8" src="__STATIC__/ueditor/ueditor.all.min.js"></script> 
+ <ank:insert type="js"  name="zh-cn" dir="__STATIC__/ueditor/lang/zh-cn" />
+</eq>
+
 <!--要引入的角本文件 end-->
 <eq name="formjs.dandu" value="0">
 <div class="tab">

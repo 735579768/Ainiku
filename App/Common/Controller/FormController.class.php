@@ -65,6 +65,7 @@ class FormController extends Controller {
 			}
 		if($pic)$GLOBALS['formjs']['picture']++;
 		if($dtm)$GLOBALS['formjs']['datetime']++;
+		if($edr || $umedr)$GLOBALS['formjs']['editornum']++;
 		if($edr)$GLOBALS['formjs']['editor']++;
 		if($umedr)$GLOBALS['formjs']['umeditor']++;
 		if($colo)$GLOBALS['formjs']['color']++;
