@@ -35,6 +35,13 @@ class ModelattrController extends AdminController {
 	 if(IS_POST){
 		 $Modelattr=D('ModelAttr');
 		 if($Modelattr->create()){
+			 			 //为必填项时设置默认正则
+			 if($Modelattr->is_require=='1'){
+				 if(empty($Modelattr->data_ts))$Modelattr->data_ts="请输入内容!";
+				 if(empty($Modelattr->data_ok))$Modelattr->data_ok="格式正确!";
+				 if(empty($Modelattr->data_err))$Modelattr->data_err="内容不能为空!";
+				 if(empty($Modelattr->data_reg))$Modelattr->data_reg=".*";
+				 }
 			 $result=$Modelattr->add();
 			 	 if(0<$result){
 					$atype=I('type');
@@ -77,6 +84,13 @@ class ModelattrController extends AdminController {
 	 $Modelattr=D('ModelAttr');
 	 if(IS_POST){
 		 if($Modelattr->create()){
+			 			 //为必填项时设置默认正则
+			 if($Modelattr->is_require=='1'){
+				 if(empty($Modelattr->data_ts))$Modelattr->data_ts="请输入内容!";
+				 if(empty($Modelattr->data_ok))$Modelattr->data_ok="格式正确!";
+				 if(empty($Modelattr->data_err))$Modelattr->data_err="内容不能为空!";
+				 if(empty($Modelattr->data_reg))$Modelattr->data_reg=".*";
+				 }
 			 $result=$Modelattr->save();
 			 if(0<$result){
 					$atype=I('type');
