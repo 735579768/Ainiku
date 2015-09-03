@@ -302,7 +302,7 @@ class FileController extends AdminController {
 				/* 返回标准数据 */
 		$return  = array('status' => 1, 'info' => '上传成功','path'=>'','id'=>'','url'=>'','data' => '');
 		$SITE_PATH=__SITE_ROOT__;//网站根目录
-		$targetFolder = __ROOT_PATH__.C('FILE_UPLOAD.rootPath'); //保存图片的根目录
+		$targetFolder = __SITE_ROOT__.C('FILE_UPLOAD.rootPath'); //保存图片的根目录
 		if (!empty($_FILES)) {
 			$tempFile = $_FILES['filelist']['tmp_name'];
 			//生成的文件名字
@@ -393,10 +393,10 @@ class FileController extends AdminController {
 				
 				
 				//保存文件信息到数据库
-				$cupath=str_replace(__ROOT_PATH__,'',$JDtargetPath);
+				$cupath=str_replace(__SITE_ROOT__,'',$JDtargetPath);
 				$data['path']=$cupath;
 				$data['sha1']=sha1_file('.'.$cupath);
-				$data['thumbpath']=str_replace(__ROOT_PATH__,'',$JDthumbPath);
+				$data['thumbpath']=str_replace(__SITE_ROOT__,'',$JDthumbPath);
 				$data['destname']=$filename;
 				$data['srcname']=$_FILES['filelist']['name'];
 				$data['create_time']=time();
@@ -487,12 +487,12 @@ switch ($action) {
 			if(!empty($result['url'])){
 				if($action=='uploadimage'){
 					$thumb=str_replace("/Uploads/image/","/Uploads/image/thumb/",$result['url']);
-					$JDthumb=__ROOT_PATH__.$thumb;
+					$JDthumb=__SITE_ROOT__.$thumb;
 					$temarr=explode('.',$JDthumb);
 					$JDthumbdir=str_replace($temarr[count($temarr)-1],'',$JDthumb);
 					createFolder($JDthumbdir);
 					//生成缩略图
-					$srcpath=__ROOT_PATH__.$result['url'];
+					$srcpath=__SITE_ROOT__.$result['url'];
 					$srcpath=str_replace('\\','/',$srcpath);
 					$re=img2thumb($srcpath,$JDthumb,C('THUMB_WIDTH'),C('THUMB_HEIGHT'));
 					$thumb=file_exists('.'.$thumb)?$thumb:$result['url'];

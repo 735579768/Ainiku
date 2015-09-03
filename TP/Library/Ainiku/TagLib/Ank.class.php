@@ -47,7 +47,7 @@ class Ank extends TagLib {
 			$parse .='$newname=\''.sha1($hname).'\';';
 			//$parse .='$newname=str_replace(",","_","'.$hname.'");';
 			if($htype=='js'){
-				if(APP_DEBUG){
+				if(!APP_DEBUG){
 				$parse .='foreach($temarr as $val):';
 				$parse .='$filepath="'.$dir.'/".$val.".js";';
 				$parse .='if(!file_exists(__SITE_ROOT__.$filepath)):$filepath=\'__STATIC__/js/\'.$val.".js";endif;';
@@ -57,32 +57,31 @@ class Ank extends TagLib {
 				$parse .='if(!file_exists(__SITE_ROOT__.STYLE_CACHE_DIR.MODULE_NAME.\'/\'.$newname.".js")):';
 				$parse .='$compressstr=\'\';';
 				$parse .='foreach($temarr as $val):';
-				//$parse .='$jscss.=\'<link href="'.$dir.'/\'.$val.\'.css" type="text/css" rel="stylesheet" />\'."\r\n";';
 				$parse .='$filepath="."."'.$dir.'/".$val.".js";';
-				$parse .='if(!file_exists(__ROOT_PATH__.$filepath)):$filepath=\'.__STATIC__/js/\'.$val.".js";endif;';
-				$parse .='$compressstr.=file_get_contents($filepath);';
+				$parse .='if(!file_exists(realpath($filepath))):$filepath=\'.__STATIC__/js/\'.$val.".js";endif;';
+				$parse .='$compressstr.=compress_js($filepath);';
 				$parse .='endforeach;';
-				$parse .='writetofile(STYLE_CACHE_DIR.MODULE_NAME.\'/\'.$newname.".js",compress_js($compressstr));';
+				$parse .='writetofile(STYLE_CACHE_DIR.MODULE_NAME.\'/\'.$newname.".js",$compressstr);';
 				$parse .='endif;';
 				$parse .='$jscss.=\'<script src="\'.str_replace("./","/",STYLE_CACHE_DIR).MODULE_NAME.\'/\'.$newname.\'.js" type="text/javascript" ></script>\'."\r\n";';							
 				}
 	
 			}else{
 		//$parse .='if(APP_DEBUG):';
-			if(APP_DEBUG){
+			if(!APP_DEBUG){
 				$parse .='foreach($temarr as $val):';
 				$parse .='$filepath="'.$dir.'/".$val.".css";';
 				$parse .='if(!file_exists(__SITE_ROOT__.$filepath)):$filepath=\'__STATIC__/css/\'.$val.".css";endif;';
 				$parse .='$jscss.=\'<link href="\'.$filepath.\'" type="text/css" rel="stylesheet" />\'."\r\n";';
 				$parse .='endforeach;';			
 				}else{
-				$parse .='if(!file_exists(__ROOT_PATH__.STYLE_CACHE_DIR.MODULE_NAME.\'/\'.$newname.".css")):';
+				$parse .='if(!file_exists(__SITE_ROOT__.str_replace("./","/",STYLE_CACHE_DIR).MODULE_NAME.\'/\'.$newname.".css")):';
 				$parse .='$compressstr=\'\';';
 				$parse .='foreach($temarr as $val):';
 				//$parse .='$jscss.=\'<link href="'.$dir.'/\'.$val.\'.css" type="text/css" rel="stylesheet" />\'."\r\n";';
-				$parse .='$filepath="."."'.$dir.'/".$val.".css";';
+				$parse .='$filepath="'.$dir.'/".$val.".css";';
 				$parse .='if(!file_exists(__SITE_ROOT__.$filepath)):$filepath=\'.__STATIC__/css/\'.$val.".css";endif;';
-				$parse .='$compressstr.=compress_css($filepath);';
+				$parse .='$compressstr.=compress_css(__SITE_ROOT__.$filepath);';
 				$parse .='endforeach;';
 				$parse .='writetofile(STYLE_CACHE_DIR.MODULE_NAME.\'/\'.$newname.".css",$compressstr);';
 				$parse .='endif;';

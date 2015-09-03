@@ -138,7 +138,7 @@ class CutpictureController extends AdminController {
 		
 		file_exists($ini_set['list']) or @mkdir($ini_set['list'], 511,true);
 		
-		if (!move_uploaded_file($_FILES['UpFile']['tmp_name'],  __ROOT_PATH__.$UpFile['file_url'])) {
+		if (!move_uploaded_file($_FILES['UpFile']['tmp_name'],  __SITE_ROOT__.$UpFile['file_url'])) {
 			HandleError('文件保存失败');
 		}
 		/*

@@ -143,7 +143,7 @@ function getPicture($id=null, $field = null,$wh=null){
 				}else if(!empty($field)){
 						$revalue=$picture[$field];
 						if($field=='thumbpath'){
-							if(!file_exists(__ROOT_PATH__.$revalue)){
+							if(!file_exists(__SITE_ROOT__.$revalue)){
  							$result=img2thumb('.'.__ROOT__.$picture['path'], '.'.__ROOT__.$revalue, C('THUMB_WIDTH'), C('THUMB_HEIGHT'),true,true);						
 							if($result!==true){
 								$revalue=$picture['path'];	

@@ -232,20 +232,7 @@ function time_format2($time = NULL,$format='Y-m-d H:i:s'){
 }
 
 
-function createFolder($path){
-	//取文档根目录
-	//$path=str_replace('\\','/',$path);
-	
-	$rootp=$_SERVER['DOCUMENT_ROOT'];
-	if(strpos($path,$_SERVER['DOCUMENT_ROOT'])===false){
-		$path=$rootp.$path;
-		}
-	if(!is_dir($path)){
-	return mkdir($path,0777,true);//第三个参数为true即可以创建多极目录
-	}else{
-	return true;	
-		}
-}
+
 /*
 *功能：发送邮件
 *@param:$to     要发送的目标邮箱
@@ -685,26 +672,21 @@ function toUtf8($str=null){
 function compress_css($path){
  /* remove comments */
  $dirname=dirname($path);
- $str=file_get_contents($path);
- 
-// 		code=code.replace(g,'$1');
-//		code=code.replace(g,'$1');
-//		code=code.replace(g,'$1');
-
+$ipath=str_replace('./','/',$path);
+$str='';
+if($ipath){
+$str=file_get_contents($ipath);
 $arr=array('/(\n|\t|\s)*/i','/\n|\t|\s(\{|}|\,|\:|\;)/i','/(\{|}|\,|\:|\;)\s/i');
- $str=preg_replace($arr,'$1',$str);
- $str=preg_replace('/(\/\*.*?\*\/\n?)/i','',$str);
- //$str = preg_replace("!/\*[^*]*\*+([^/][^*]*\*+)*/!", "", $str) ;
- /* remove tabs, spaces, newlines, etc. */
-// $arr = array("\r\n", "\r", "\n", "\t", "  ", "    ", "    ") ;
-// $str = str_replace($arr, "", $str);
- 
+$str=preg_replace($arr,'$1',$str);
+$str=preg_replace('/(\/\*.*?\*\/\n?)/i','',$str);
+
 preg_match_all("/url\(\s*?[\'|\"]?(.*?)[\'|\"]?\)/",$str,$out);
 	foreach($out[1] as $v){
 		if(strpos($v,'../images')!==false){
 		$src_new=str_replace("../images",$dirname."/images",$v);//源绝对路径
 		$src_new=str_replace('css/','',$src_new);
 		$new=str_replace("../images",STYLE_CACHE_DIR.MODULE_NAME."/images",$v);//设置新路径
+		$new=__SITE_ROOT__.str_replace('./','/',$new);
 		createFolder(dirname($new));
 		if(file_exists($src_new)){//判断是否存在
 		copy($src_new,$new);//复制到新目录
@@ -712,23 +694,42 @@ preg_match_all("/url\(\s*?[\'|\"]?(.*?)[\'|\"]?\)/",$str,$out);
 		}
 	}
  $str=str_replace('../images','./images',$str);
+}else{
+die("path is not found:".$ipath);
+}
  return $str;
 }
 //压缩JS文件并替换JS嵌套include文件
-function compress_js($js){
+function compress_js($jspath){
 //	import('Ainiku.JavaScriptPacker');
 //    $packer = new JavaScriptPacker($js, 'Normal', true, false);  
 //    return $packer->pack();
-	
+	$js=file_get_contents($jspath);
 	import('Ainiku.JSMin');
 	return JSMin::minify($js);
 }
 function writetofile($filename,$str){
-	
-	createFolder(dirname($filename));
-	return file_put_contents($filename,$str);
+	$fpath=$filename;
+	if(createFolder(dirname(str_replace('./','/',$fpath)))){
+		return file_put_contents($fpath,$str);
+	}else{
+	//\Think\Log::write("mkdir err: ".$dirname($fpath));
+	die($dirname($fpath));	
 	}
-
+	
+	}
+function createFolder($path){
+	//取文档根目录
+	$path=str_replace('\\','/',$path);
+	if(strpos($path,__SITE_ROOT__)===false){
+		$path=__SITE_ROOT__.$path;
+		}
+	if(!is_dir($path)){
+	return mkdir($path,0777,true);//第三个参数为true即可以创建多极目录
+	}else{
+	return true;	
+		}
+}
 	/**
 	 *判断是不是蜘蛛访问
 	 */

@@ -26,7 +26,7 @@ class ModelattrController extends AdminController {
 					'field'=>$field,
 					'join'=>$join,
 					'where'=>$map,
-					'order'=>__DB_PREFIX__.'model_attr.sort asc,'.__DB_PREFIX__.'model_attr.status asc,'.__DB_PREFIX__.'model_attr.model_attr_id desc'
+					'order'=>__DB_PREFIX__.'model_attr.sort asc,'.__DB_PREFIX__.'model_attr.status asc,'.__DB_PREFIX__.'model_attr.model_attr_id asc'
 					));
 	$this->meta_title='表单模型>'.getModelTitle($model_id);
 	 $this->display();

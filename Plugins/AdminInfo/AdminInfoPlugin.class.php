@@ -1,6 +1,6 @@
 <?php
 namespace  Plugins\AdminInfo;
-require_once __ROOT_PATH__.'/Plugins/Plugin.class.php';
+require_once __SITE_ROOT__.'/Plugins/Plugin.class.php';
 class AdminInfoPlugin extends \Plugins\Plugin{
 	protected   $config=array(
             		'version'=>'1.0',
