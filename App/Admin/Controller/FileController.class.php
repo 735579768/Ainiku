@@ -210,7 +210,7 @@ class FileController extends AdminController {
 
 				/* 返回标准数据 */
 		$return  = array('status' => 1, 'info' => '上传成功','path'=>'','id'=>'','url'=>'','data' => '');
-		$SITE_PATH=str_replace('\\','/',__SITE_ROOT__);//网站根目录
+		$SITE_PATH=__SITE_ROOT__;//网站根目录
 		$targetFolder = C('FILE_UPLOAD.rootPath'); //保存图片的根目录
 		if (!empty($_FILES)) {
 			$tempFile = $_FILES['filelist']['tmp_name'];
@@ -302,7 +302,7 @@ class FileController extends AdminController {
 				/* 返回标准数据 */
 		$return  = array('status' => 1, 'info' => '上传成功','path'=>'','id'=>'','url'=>'','data' => '');
 		$SITE_PATH=__SITE_ROOT__;//网站根目录
-		$targetFolder = __SITE_ROOT__.C('FILE_UPLOAD.rootPath'); //保存图片的根目录
+		$targetFolder = pathA(C('FILE_UPLOAD.rootPath')); //保存图片的根目录
 		if (!empty($_FILES)) {
 			$tempFile = $_FILES['filelist']['tmp_name'];
 			//生成的文件名字
@@ -377,7 +377,7 @@ class FileController extends AdminController {
 						$re=img2thumb($JDtargetPath,$JDthumbPath,C('THUMB_WIDTH'),C('THUMB_HEIGHT'));
 						if($re===false)$JDthumbPath=$JDtargetPath;
 					}
-						$return['path']=str_replace(__SITE_ROOT__,'',$JDthumbPath);
+						$return['path']=pathR($JDthumbPath);
 				}else{
 					  $return['info']='上传错误'.$tempFile.'->'.$JDtargetPath;
 					  $return['status']=0;	
@@ -393,10 +393,10 @@ class FileController extends AdminController {
 				
 				
 				//保存文件信息到数据库
-				$cupath=str_replace(__SITE_ROOT__,'',$JDtargetPath);
+				$cupath=pathR($JDtargetPath);
 				$data['path']=$cupath;
 				$data['sha1']=sha1_file('.'.$cupath);
-				$data['thumbpath']=str_replace(__SITE_ROOT__,'',$JDthumbPath);
+				$data['thumbpath']=pathR($JDthumbPath);
 				$data['destname']=$filename;
 				$data['srcname']=$_FILES['filelist']['name'];
 				$data['create_time']=time();
@@ -419,7 +419,7 @@ class FileController extends AdminController {
 	
 	
 	public function ueupload(){
-$CONFIG = json_decode(preg_replace("/\/\*[\s\S]+?\*\//", "", file_get_contents(__SITE_ROOT__.__STATIC__."/ueditor/php/config.json")), true);
+$CONFIG = json_decode(preg_replace("/\/\*[\s\S]+?\*\//", "", file_get_contents(pathA(__STATIC__."/ueditor/php/config.json"))), true);
 //"imagePathFormat": "/Uploads/image/{yyyy}{mm}{dd}/{time}{rand:6}",
 $CONFIG['imagePathFormat']	   =__ROOT__."/Uploads/image/{yyyy}{mm}{dd}/{time}{rand:6}";
 $CONFIG['scrawlPathFormat']    =__ROOT__."/Uploads/image/{yyyy}{mm}{dd}/{time}{rand:6}";
@@ -444,21 +444,21 @@ switch ($action) {
     case 'uploadvideo':
     /* 上传文件 */
     case 'uploadfile':
-        $result = include(__SITE_ROOT__.__STATIC__."/ueditor/php/action_upload.php");
+        $result = include(pathA(__STATIC__."/ueditor/php/action_upload.php"));
         break;
 
     /* 列出图片 */
     case 'listimage':
-        $result = include(__SITE_ROOT__.__STATIC__."/ueditor/php/action_list.php");
+        $result = include(pathA(__STATIC__."/ueditor/php/action_list.php"));
         break;
     /* 列出文件 */
     case 'listfile':
-        $result = include(__SITE_ROOT__.__STATIC__."/ueditor/php/action_list.php");
+        $result = include(pathA(__STATIC__."/ueditor/php/action_list.php"));
         break;
 
     /* 抓取远程文件 */
     case 'catchimage':
-        $result = include(__SITE_ROOT__.__STATIC__."/ueditor/php/action_crawler.php");
+        $result = include(pathA(__STATIC__."/ueditor/php/action_crawler.php"));
         break;
 
     default:
@@ -487,12 +487,12 @@ switch ($action) {
 			if(!empty($result['url'])){
 				if($action=='uploadimage'){
 					$thumb=str_replace("/Uploads/image/","/Uploads/image/thumb/",$result['url']);
-					$JDthumb=__SITE_ROOT__.$thumb;
+					$JDthumb=pathA($thumb);
 					$temarr=explode('.',$JDthumb);
 					$JDthumbdir=str_replace($temarr[count($temarr)-1],'',$JDthumb);
 					createFolder($JDthumbdir);
 					//生成缩略图
-					$srcpath=__SITE_ROOT__.$result['url'];
+					$srcpath=pathA($result['url']);
 					$srcpath=str_replace('\\','/',$srcpath);
 					$re=img2thumb($srcpath,$JDthumb,C('THUMB_WIDTH'),C('THUMB_HEIGHT'));
 					$thumb=file_exists('.'.$thumb)?$thumb:$result['url'];
@@ -638,7 +638,7 @@ switch ($action) {
 						$spath=getPicture($thumbpath[$i],'path');
 						$thupath=str_replace('image/','image/thumb/',$spath);
 						
-						$spath=str_replace('\\','/',__SITE_ROOT__.$spath);
+						$spath=pathA($spath);
 						
 						$dpath=str_replace('image/','image/thumb/',$spath);
 							if(file_exists($spath)){

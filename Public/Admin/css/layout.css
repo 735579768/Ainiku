@@ -3,7 +3,7 @@
 .fl{ float:left;}
 .fr{ float:right;}
 .center{ text-align:center;}
-body{   overflow-x:hidden; overflow-y:hidden;padding:62px 0px 0px 179px;}
+body{   overflow-x:hidden; overflow-y:auto;padding:62px 0px 0px 179px;}
 /****页面整体布局****/
 .layout-north,.layout-south,.layout-center{background:#fff;/*border:solid 1px #ccc;*/padding:10px; padding-bottom:0px;}
 .layout-north{position:fixed;z-index:99;left:0px;top:0px;height:35px;width:100%;padding:10px 0px;border-left:none;border-right:none;}
