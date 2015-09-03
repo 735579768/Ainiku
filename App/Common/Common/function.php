@@ -670,23 +670,24 @@ function toUtf8($str=null){
  *压缩css
  **/
 function compress_css($path){
- /* remove comments */
- $dirname=dirname($path);
-$ipath=str_replace('./','/',$path);
+ $dirname=dirname($path);//当前css文件的路径目录
+$ipath=$path;
 $str='';
 if($ipath){
 $str=file_get_contents($ipath);
+//把文件压缩
 $arr=array('/(\n|\t|\s)*/i','/\n|\t|\s(\{|}|\,|\:|\;)/i','/(\{|}|\,|\:|\;)\s/i');
 $str=preg_replace($arr,'$1',$str);
 $str=preg_replace('/(\/\*.*?\*\/\n?)/i','',$str);
 
+//查找出样式文件中的图片
 preg_match_all("/url\(\s*?[\'|\"]?(.*?)[\'|\"]?\)/",$str,$out);
 	foreach($out[1] as $v){
 		if(strpos($v,'../images')!==false){
 		$src_new=str_replace("../images",$dirname."/images",$v);//源绝对路径
 		$src_new=str_replace('css/','',$src_new);
 		$new=str_replace("../images",STYLE_CACHE_DIR.MODULE_NAME."/images",$v);//设置新路径
-		$new=__SITE_ROOT__.str_replace('./','/',$new);
+		$new=__SITE_ROOT__.__ROOT__.str_replace('./','/',$new);
 		createFolder(dirname($new));
 		if(file_exists($src_new)){//判断是否存在
 		copy($src_new,$new);//复制到新目录
@@ -709,9 +710,8 @@ function compress_js($jspath){
 	return JSMin::minify($js);
 }
 function writetofile($filename,$str){
-	$fpath=$filename;
-	if(createFolder(dirname(str_replace('./','/',$fpath)))){
-		return file_put_contents($fpath,$str);
+	if(createFolder(dirname($filename))){
+		return file_put_contents($filename,$str);
 	}else{
 	//\Think\Log::write("mkdir err: ".$dirname($fpath));
 	die($dirname($fpath));	
@@ -719,11 +719,12 @@ function writetofile($filename,$str){
 	
 	}
 function createFolder($path){
-	//取文档根目录
-	$path=str_replace('\\','/',$path);
-	if(strpos($path,__SITE_ROOT__)===false){
-		$path=__SITE_ROOT__.$path;
-		}
+//	//取文档根目录
+//	$path=str_replace('\\','/',$path);
+//	if(strpos($path,__SITE_ROOT__)===false){
+//		$path=__SITE_ROOT__.$path;
+//		}
+	$path=pathA($path);
 	if(!is_dir($path)){
 	return mkdir($path,0777,true);//第三个参数为true即可以创建多极目录
 	}else{
@@ -764,3 +765,17 @@ function createFolder($path){
 				return $restr;
 			
 	}	
+/**
+ *把路径格式化为本地文件的绝对路径
+ */
+ function pathA($path){
+	 $path=str_replace(array('\\','./',__SITE_ROOT__.__ROOT__,__SITE_ROOT__,__ROOT__),array('/','/','','',''),$path);
+	 return __SITE_ROOT__.__ROOT__.$path;
+	 }
+/**
+ *把路径格式化为相对于网站根目录的路径
+ */
+ function pathR($path){
+	 $path=str_replace(array('\\','./',__SITE_ROOT__.__ROOT__,__SITE_ROOT__,__ROOT__),array('/','/','','',''),$path);
+	 return __ROOT__.$path;
+	 }

@@ -14,8 +14,8 @@ define('ACCESS_ROOT',true);
 define('APP_DEBUG',true);
 APP_DEBUG or define('BUILD_LITE_FILE',true);
 
+define('__SITE_ROOT__',str_replace('\\','/',$_SERVER['DOCUMENT_ROOT']));//站点根目录
 define('__ROOT__','');//站点目录,没有子目录的话就留空,子目录以'/子目录'形式
-define('__SITE_ROOT__',str_replace('\\','/',$_SERVER['DOCUMENT_ROOT']).__ROOT__);//站点根目录
 
 define('DATA_DIR_PATH','./Data/');//系统自动生成的数据缓存目录
 define('DATA_DIR_NAME','Data');
