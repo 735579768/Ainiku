@@ -115,17 +115,15 @@ function getCategory($id=null, $field = null){
  * @author huajie <banhuajie@163.com>
  */
 function getPicture($id=null, $field = null,$wh=null){
-	$revalue=null;
+	$revalue='';
 	$id=trim($id);
     if(empty($id)){
         $revalue=false;
     }
 	if(is_numeric($id)){
 		$cakey=$id.'_'.$field.'_'.$wh;
-		$revalue=F('_picture/'.$cakey);
-//		if(empty($revalue) || APP_DEBUG){	
+		//$revalue=F('_picture/'.$cakey);
 			$picture = M('Picture')->where(array('status'=>1))->getById($id);
-//return __ROOT__.$picture['path'];
 			if(!empty($field) && !empty($wh)){
 					$wharr=explode('_',$wh);
 					
@@ -133,8 +131,8 @@ function getPicture($id=null, $field = null,$wh=null){
 						$revalue=str_replace('/Uploads/image/',IMAGE_CACHE_DIR,$picture['path']);
 						$revalue =substr($revalue, 0,strrpos($revalue, '.')).'_'.$wh.substr($revalue, strrpos($revalue, '.'));
 						//判断之前是不是已经生成
-						if(!file_exists($revalue)){
-						 $result=img2thumb('.'.$picture['path'], '.'.$revalue, $wharr[0], $wharr[1],true,true);						
+						if(!file_exists(pathA($revalue))){
+						 $result=img2thumb(pathA($picture['path']),pathA($revalue), $wharr[0], $wharr[1],true,true);						
 							if($result!==true){
 								$revalue=$picture['path'];	
 									}
@@ -143,8 +141,8 @@ function getPicture($id=null, $field = null,$wh=null){
 				}else if(!empty($field)){
 						$revalue=$picture[$field];
 						if($field=='thumbpath'){
-							if(!file_exists(__SITE_ROOT__.$revalue)){
- 							$result=img2thumb('.'.__ROOT__.$picture['path'], '.'.__ROOT__.$revalue, C('THUMB_WIDTH'), C('THUMB_HEIGHT'),true,true);						
+							if(!file_exists(pathA($revalue))){
+ 							$result=img2thumb(pathA($picture['path']), pathA($revalue), C('THUMB_WIDTH'), C('THUMB_HEIGHT'),true,true);						
 							if($result!==true){
 								$revalue=$picture['path'];	
 									}								
@@ -153,14 +151,10 @@ function getPicture($id=null, $field = null,$wh=null){
 				}else{
 							$revalue=$picture['path'];
 							}
-			//$revalue=empty($field) ? $picture['path'] : $picture[$field];
-			//F(md5('picture').'/'.$cakey,$revalue);
-//			$revalue=F('_picture/'.$cakey,$revalue);
-//		}
 	}else{
 		$revalue=$id;
 		}
-		return empty($revalue)?'':__ROOT__.$revalue;
+		return empty($revalue)?'':pathR($revalue);
 }
 /**
  * 获取附件

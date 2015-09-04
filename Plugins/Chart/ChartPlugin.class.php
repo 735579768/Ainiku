@@ -1,6 +1,6 @@
 <?php
 namespace  Plugins\Chart;
-require_once __SITE_ROOT__.'/Plugins/Plugin.class.php';
+require_once pathA('/Plugins/Plugin.class.php');
 class ChartPlugin extends \Plugins\Plugin{
 	protected   $config=array(
             		'version'=>'1.0',
