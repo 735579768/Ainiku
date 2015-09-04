@@ -59,7 +59,7 @@ class Ank extends TagLib {
 				$parse .='foreach($temarr as $val):';
 				$parse .='$filepath="."."'.$dir.'/".$val.".js";';
 				$parse .='if(!file_exists(pathA($filepath))):$filepath=\'.__STATIC__/js/\'.$val.".js";endif;';
-				$parse .='$compressstr.=compress_js($filepath);';
+				$parse .='$compressstr.=compress_js(pathA($filepath));';
 				$parse .='endforeach;';
 				$parse .='writetofile(pathA(STYLE_CACHE_DIR.MODULE_NAME.\'/\'.$newname.".js"),$compressstr);';
 				$parse .='endif;';
