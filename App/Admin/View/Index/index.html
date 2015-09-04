@@ -16,10 +16,18 @@
 body{ padding:0px;}
 </style>
 <!--header end-->
-<div id="south" class="layout-south">{:C('ADMIN_TITLE')}</div>
+<div id="south" class="layout-south hide">{:C('ADMIN_TITLE')}</div>
 <!--导航标题位置--->
-<div class="index-center">
+<div class="index-center" id="index-center">
 {:hook('Admininfo')}
 </div>
+<script>
+$(function(){
+	$(window).bind('resize load',function(){
+		var hh=$(this).height()-60;
+		$('#index-center').height(hh);
+		});
+});
+</script>
 </body>
 </html>

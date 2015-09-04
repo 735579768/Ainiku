@@ -32,11 +32,11 @@
 <!--left end-->
 
 <!--south start-->
-<div id="south" class="layout-south">{:C('ADMIN_TITLE')}</div>
+<div id="south" class="layout-south hide">{:C('ADMIN_TITLE')}</div>
 <!--left end-->
 
 <!--center start-->
-<div id="center" style="padding-bottom:40px;" class="layout-center right">
+<div id="center" style="padding-bottom:40px; overflow:hidden; overflow-y:scroll;" class="layout-center right">
 <!--导航标题位置--->
 <div class="title-tool cl"><div class="tico"></div><div class="title">
 <block name="maintitle">
@@ -59,6 +59,10 @@ $(function(){
 	$('.return').click(function(e) {
         window.history.go(-1);
     });
+	$(window).bind('resize load',function(){
+		var hh=$(this).height()-60-50;
+		$('#center').height(hh);
+		});
 });
 </script>
 <!--script end-->
