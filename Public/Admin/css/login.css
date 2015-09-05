@@ -9,12 +9,12 @@ body{ background: #2472b4; }
 
 border-radius:32px;
   border: 1px solid transparent;
-  background: rgba(0,0,0,.4);
+  background: rgba(0,0,0,0);
   _background: 0;
   _border: 0;
   filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr='#66000000', EndColorStr='#66000000');
 }
-.login-form h3{font-size:26px;font-weight:bolder;margin:0 0 20px;padding:0;line-height:44px;text-align:center;color:#fff;*line-height:50px;}
+.login-form h3{font-size:26px;margin:0 0 20px;padding:0;line-height:44px;text-align:center;color:#fff;*line-height:50px;}
 .login-logo{display:inline-block;margin-right:12px;width:23px;height:23px;vertical-align:middle;background:url(../images/icowhite.png) -75px -123px no-repeat;}
 .login-form .check-tips{color:#ff0000;margin-top:10px;}
 .login-form .item-box{/* box-shadow:0 1px 3px rgba(170,170,170,0.8) inset;*/
