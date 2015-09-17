@@ -121,8 +121,13 @@ function getPicture($id=null, $field = null,$wh=null){
         $revalue=false;
     }
 	if(is_numeric($id)){
-		$cakey=$id.'_'.$field.'_'.$wh;
+		$cakey=md5($id.'_'.$field.'_'.$wh);
 		//$revalue=F('_picture/'.$cakey);
+		$pkey='_picture/'.($id%100);
+		$picarr=F($pkey);
+		$revalue=$picarr[$cakey];
+		if(empty($revalue)||APP_DEBUG){
+		
 			$picture = M('Picture')->where(array('status'=>1))->getById($id);
 			if(!empty($field) && !empty($wh)){
 					$wharr=explode('_',$wh);
@@ -151,6 +156,10 @@ function getPicture($id=null, $field = null,$wh=null){
 				}else{
 							$revalue=$picture['path'];
 							}
+							
+			$picarr[$cakey]=$revalue;
+			F($pkey,$picarr);		
+		}
 	}else{
 		$revalue=$id;
 		}
