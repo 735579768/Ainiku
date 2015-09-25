@@ -306,7 +306,7 @@ class FileController extends AdminController {
 		if (!empty($_FILES)) {
 			$tempFile = $_FILES['filelist']['tmp_name'];
 			//生成的文件名字
-			$extend = explode("." , $_FILES['filelist']['name']);
+			$extend = explode("." , strtolower($_FILES['filelist']['name']));
 			$va=count($extend)-1;
 			$filename=time().mt_rand(10000,99999).".".$extend[$va];	
 			//文件类型文件夹
