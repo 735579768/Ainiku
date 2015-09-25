@@ -124,6 +124,8 @@ class ArchiveController extends AdminController {
 		$Document = D($this->m_info['table']);
 		if(IS_POST){
 				if($Document->create()){
+					$Document->create_time=NOW_TIME;
+					$Document->update_time=NOW_TIME;
 					$result=$Document->add();
 					if($result>0){
 						$this->success('添加成功',__FORWARD__);
