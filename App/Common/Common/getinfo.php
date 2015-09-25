@@ -380,6 +380,7 @@ function getModel($model_id=null,$field=null,$attr=null){
 				preg_match('/([a-zA-Z0-9_]+)(\=(.+))?/i',$val['extra'],$out);
 				$func=$out[1];
 				$para=isset($out[3])?$out[3]:'';
+				$para=str_replace("'",'',$para);
 				if(empty($para)){
 					$list[$key]['extra']=$func();
 					}else{
