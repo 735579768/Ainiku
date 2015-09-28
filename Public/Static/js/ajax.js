@@ -319,6 +319,7 @@ $(function() {
         });
     });
 	    window.msgDialog = function(opts) {
+		$('#dialog-wrap').length&&$('#dialog-wrap').remove();
 		var defaults={oktitle:'确定',canceltitle:'取消',title:'提示信息',content:'啊哦没有信息',url:null,btn:false,ok:function(da){},cancel:function(da){}};
 		var types=typeof(opts);
 		if(types==='object'){
