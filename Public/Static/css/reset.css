@@ -41,7 +41,7 @@ select.form-control{display:inline-block;width:auto;height:30px;}
 .form-tip{display:inline-block;margin:0px 5px;color:#aaa;font-weight:lighter;}
 .form-h .form-control,.form-h .form-label{display:inline-block;}
 .form-h .form-label{min-width:50px;}
-.form-group-h .form-group{display:inline-block; margin:0px;}
+.form-h .form-group{display:inline-block; margin:0px;}
 .form-checkbox{ display:inline-block; width:100px; cursor:pointer;overflow:hidden; white-space:nowrap; text-overflow:ellipsis;}
 /***表单长度***/
 .input-large{width:390px;}
