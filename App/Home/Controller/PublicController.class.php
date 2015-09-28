@@ -139,4 +139,15 @@ class PublicController extends Controller {
 		);
 
     }
+	/**
+     * 注销当前用户
+     * @return void
+     */
+    public function logout(){
+        session('user_auth', null);
+        session('user_auth_sign', null);
+		session(null);
+		loginout();
+		redirect('/');
+    }
 }

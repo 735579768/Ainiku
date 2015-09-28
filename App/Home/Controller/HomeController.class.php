@@ -25,10 +25,17 @@ class HomeController extends CommonController {
 		if(C('WEB_SITE_CLOSE') &&  UID!=1){$this->show('网站维护中请稍后访问');die();}
 		$str=runPluginMethod('Spider','addinfo');
 		//var_dump($config);
-//		if(!UID){
-//			//没有登陆的情况
-//			 $this->redirect(U('Member/login'));
-//		 }
+		if(UID){
+			//登陆的情况
+			 //赋值当前登陆用户信息
+			$uinfo=session('uinfo');
+			$map[getAccountType($uinfo['username'])]=$uinfo['username'];
+			$jin=__DB_PREFIX__."member_group as a on ".__DB_PREFIX__."member.member_group_id=a.member_group_id";
+			$field="*,".__DB_PREFIX__."member.status as status";
+			$user = D('Member')->field($field)->where($map)->join($jin)->find();
+			session('uinfo',$user);
+			$this->assign('uinfo',$user);
+		 }
 	}
 	 //重写输出模板
 	protected function display($templateFile='',$charset='',$contentType='',$content='',$prefix=''){
