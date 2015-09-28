@@ -13,12 +13,14 @@ return array(
 	//'COOKIE_DOMAIN'=>  '.ainiku.loc',      // Cookie有效域名
 	'APP_SUB_DOMAIN_DEPLOY'   =>    1, // 开启子域名或者IP配置
     'APP_SUB_DOMAIN_RULES'    =>    array( 
-       'ainiku.loc'  => 'Home',
+       'ainiku.lix'  => 'Home',
+	   'ainiku.loc'  => 'Home',
 	   'ainiku.com'  => 'Home', 
 	   'www.ainiku.com'  => 'Home', 
 	   'm.ainiku.loc'  => 'Mobile',
 	   'm.ainiku.com'  => 'Mobile', 
 	   'user.ainiku.loc'  => 'Admin',
+	   'user.ainiku.lix'  => 'Admin',
 	   'user.ainiku.com'  => 'Admin', 
     ),
 );
