@@ -3,6 +3,7 @@
 function ainiku(){}
 //给ainiku添加原型方法
 
+
 /**拖动功能***/
 //jquery拖动插件
 (function($) {
@@ -61,7 +62,8 @@ function ainiku(){}
 })(jQuery);
 
 /**对话框**/
-ainiku.prototype.msgDialog=function(opts){
+var fn={
+msgDialog:function(opts){
 	var setdialog=function(){
 		   var dialog = $("#dialog");
 			dialog.kldrag();
@@ -121,10 +123,10 @@ ainiku.prototype.msgDialog=function(opts){
 				}
 				opts.width&&opts.height&&($('#dialog-con').children().eq(0).css({width:opts.width,height:opts.height}));
 				setdialog();
-};
+},
 
 /**表单提交**/
-ainiku.prototype.ajaxform=function(opts) {
+ajaxform:function(opts) {
 		var defaults={
 			_this:thisobj,
 			_before_post:function(){},
@@ -158,20 +160,20 @@ ainiku.prototype.ajaxform=function(opts) {
         } catch (e) {
             alert(e.name + ": " + e.message);
         }
-    };
+    },
 
 /**写入cookies**/
-ainiku.prototype.writeCookie=function (name, value, hours) {
+writeCookie:function (name, value, hours) {
     var expire = "";
     if (hours != null) {
         expire = new Date(new Date().getTime() + hours * 36e5);
         expire = "; expires=" + expire.toGMTString();
     }
     document.cookie = name + "=" + escape(value) + expire;
-};
+},
 
 /**读取cookies**/
-ainiku.prototype.readCookie=function(name) {
+readCookie:function(name) {
     var cookieValue = "";
     var search = name + "=";
     if (document.cookie.length > 0) {
@@ -184,8 +186,10 @@ ainiku.prototype.readCookie=function(name) {
         }
     }
     return cookieValue;
-};
+}
 
+};
+ainiku.prototype=fn;
 //把ainiku设置到全局变量
 window.ainiku=ainiku;
 //ainiku结束
