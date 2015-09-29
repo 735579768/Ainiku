@@ -61,7 +61,7 @@ function ainiku(){}
 })(jQuery);
 
 /**对话框**/
-var msgDialog=function(opts){
+ainiku.prototype.msgDialog=function(opts){
 	var setdialog=function(){
 		   var dialog = $("#dialog");
 			dialog.kldrag();
@@ -124,7 +124,7 @@ var msgDialog=function(opts){
 };
 
 /**表单提交**/
-var ajaxform=function(opts) {
+ainiku.prototype.ajaxform=function(opts) {
 		var defaults={
 			_this:thisobj,
 			_before_post:function(){},
@@ -161,7 +161,7 @@ var ajaxform=function(opts) {
     };
 
 /**写入cookies**/
-var writeCookie=function (name, value, hours) {
+ainiku.prototype.writeCookie=function (name, value, hours) {
     var expire = "";
     if (hours != null) {
         expire = new Date(new Date().getTime() + hours * 36e5);
@@ -171,7 +171,7 @@ var writeCookie=function (name, value, hours) {
 };
 
 /**读取cookies**/
-var readCookie=function(name) {
+ainiku.prototype.readCookie=function(name) {
     var cookieValue = "";
     var search = name + "=";
     if (document.cookie.length > 0) {
@@ -186,12 +186,7 @@ var readCookie=function(name) {
     return cookieValue;
 };
 
-//把对外开放的方法设置到全局变量
-window.ainiku=function(){return {
-								msgDialog:msgDialog,
-								ajaxform:ajaxform,
-								writeCookie:writeCookie,
-								readCookie:readCookie
-								};};
+//把ainiku设置到全局变量
+window.ainiku=ainiku;
 //ainiku结束
 })($,undefined);
