@@ -1,45 +1,57 @@
 // JavaScript Document
 //jquery拖动插件
 (function($) {
-    var data = {
-        _x:0,
-        _y:0
-    };
     $.fn.kldrag = function(options) {
+	var _t=this;
+    var a = {
+		xxx:0,//元素到左边的距离
+		yyy:0,//元素到顶边的距离
+        _x:0,//鼠标到元素左边距离
+        _y:0,//鼠标到元素顶边距离
+		_mouseDown:false
+    };
         var defaults = {
             titleheight:50,
             space:false,
             spacestyle:""
         };
         var opts = $.extend(defaults, options);
-        this.bind("mousedown", function(e) {
-            var xxx = $(this).offset().left;
-            var yyy = $(this).offset().top;
+		var setxy=function(e){
+            a.xxx = _t.offset().left;
+            a.yyy = _t.offset().top;
+            a._x = e.pageX - a.xxx;
+            a._y = e.pageY - a.yyy;			
+			};
+		var ismove=function(e){
+				if (opts.titleheight === 0 || opts.titleheight >= e.pageY-_t.offset().top) {
+					 _t.css("cursor", "move");
+					return true;
+					}else{
+					_t.css("cursor", "auto");
+					return false;	
+						}
+			};
+        _t.bind("mousedown", function(e) {
+			a._mouseDown=true;
+			setxy(e);
 			var scryyy=$(document).scrollTop();
-            data._x = e.pageX - xxx;
-            data._y = e.pageY - yyy;
-            if (opts.titleheight === 0 || opts.titleheight >= data._y) {
-                $(this).css({
+            if (opts.titleheight === 0 || opts.titleheight >= a._y) {
+                _t.css({
                     zIndex:999999999,
                     position:"fixed",
-                    left:xxx + "px",
-                    top:yyy-scryyy + "px",
+                    left:a.xxx + "px",
+                    top:a.yyy-scryyy + "px",
                     margin:"0px"
                 });
-                if (opts.space) {
-                    $("#divspace").remove();
-                    $(this).after('<div id="divspace" style="z-index:999;position:fixed;left:' + xxx + "px;top:" + yyy-scryyy + "px;width:" + $(this).outerWidth() + "px;height:" + $(this).outerHeight() + "px;border:dashed 1px #f00;" + opts.spacestyle + '"></div>');
-                }
-                $(this).css("cursor", "move");
             }
         });
-        this.bind("mousemove", function(e) {
-            if (opts.titleheight === 0 || opts.titleheight >= data._y) {
-                if (e.which === 1) {
+        _t.bind("mousemove", function(e) {
+            if (ismove(e)) {
+                if (a._mouseDown) {
 					var scryyy=$(document).scrollTop();
-                    xx = e.pageX - data._x;
-                    yy = e.pageY - data._y-scryyy;
-                    $(this).css({
+                    xx = e.pageX - a._x;
+                    yy = e.pageY - a._y-scryyy;
+                    _t.css({
                         zIndex:999999,
                         position:"fixed",
                         left:xx + "px",
@@ -48,9 +60,8 @@
                 }
             }
         });
-        this.bind("mouseup", function() {
-            $(this).css("cursor", "auto");
-            $("#divspace").remove();
+        _t.bind("mouseup", function() {
+			a._mouseDown=false;
         });
     };
 })(jQuery);

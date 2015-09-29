@@ -1,9 +1,10 @@
 (function($) {
+    $.fn.kldrag = function(options) {
     var data = {
         _x:0,
-        _y:0
+        _y:0,
+		_mouseDown:false
     };
-    $.fn.kldrag = function(options) {
         var defaults = {
             titleheight:50,
             space:false,
@@ -11,6 +12,7 @@
         };
         var opts = $.extend(defaults, options);
         this.bind("mousedown", function(e) {
+			_mouseDown=true;
             var xxx = $(this).offset().left;
             var yyy = $(this).offset().top;
 			var scryyy=$(document).scrollTop();
@@ -33,7 +35,7 @@
         });
         this.bind("mousemove", function(e) {
             if (opts.titleheight === 0 || opts.titleheight >= data._y) {
-                if (e.which === 1) {
+                if (_mouseDown) {
 					var scryyy=$(document).scrollTop();
                     xx = e.pageX - data._x;
                     yy = e.pageY - data._y-scryyy;
@@ -47,6 +49,7 @@
             }
         });
         this.bind("mouseup", function() {
+			_mouseDown=false;
             $(this).css("cursor", "auto");
             $("#divspace").remove();
         });
