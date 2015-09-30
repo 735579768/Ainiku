@@ -1,0 +1,115 @@
+<!DOCTYPE html> 
+<html>
+<head>
+<meta charset="utf-8">
+<title>{$meta_title}_{:C('ADMIN_TITLE')}{:C('DEFAULT_THEME')}</title>
+<include file="Public:head" />
+<ank:insert name="jquery-1.9.1.min,msg,ajax,tabclose,jquery.resizableColumns,init,autoyz" type="js"/>
+<ank:insert name="reset,common,layout" />
+<link href="__CSS__/{:C('DEFAULT_COLOR')}color.css" type="text/css" rel="stylesheet" />
+</head>
+
+<body>
+<if condition="(I('mainmenu') eq 'true')">
+<!--header start-->
+<i class="closewest" title="点击打开/关闭侧栏" id="closewest"></i>
+<include file="Public:header" />
+<!--header end-->
+<!--left start-->
+
+<div id="west" class="layout-west left">
+<block name="left">
+<volist name="_GROUPLIST_" id="vo">
+<dl class="menu">
+        	<dt class="mt"><a href="javascript:;"><i class="menuopenico"></i>{$vo.group|default='默认'}</a></dt>
+            <volist name="_CHILDNNAV_" id="v">
+                <if condition="$v['group'] eq $vo['group']">
+          	  <dd class="mitem"><a class=""  href="{:U($v['url'])}">{$v.title}</a></dd>
+              </if>
+            </volist>
+</dl>
+</volist>
+</block>
+</div>
+<!--left end-->
+
+<!--south start-->
+<div id="south" class="layout-south hide">{:C('ADMIN_TITLE')}</div>
+</if>
+<!--left end-->
+<if condition="(I('mainmenu') neq 'true')">
+<style>
+.index-center, .layout-center{ margin-left:0px; margin-top:0px;}
+#center{ padding-left:0px;}
+body{ padding:0px; overflow-y:auto;}
+</style>
+</if>
+<!--center start-->
+<div id="center" class="layout-center right">
+<!--tab qiehuan start-->
+<if condition="(I('mainmenu') eq 'true')">
+
+<script>
+$(function(){
+	$('#center').height($(window).outerHeight()-73);
+	$(window).resize(function(e) {
+        $('iframe').height($(window).outerHeight()-88);
+		$('#center').height($(window).outerHeight()-73);
+    });
+	});
+function setIframeHeight(iframe) {
+if (iframe) {
+var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
+iframe.height=$(window).outerHeight()-88;
+//if (iframeWin.document.body) {
+//iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
+//}
+}
+};
+</script>
+
+
+
+<div class="kl-tab cl">
+<!--tabnav start-->
+<ul id="nav-block" class="kl-tab-nav-block cl">
+	<li class="kl-tab-nav">{$meta_title}<span class="close">X</span></li>
+</ul>
+<!--tabnav end-->
+    <div id="div-block" class="kl-tab-div-block cl">
+        <div class="kl-tab-div"><iframe class="con-iframe" marginWidth=0 frameSpacing=0 marginHeight=0  onload="setIframeHeight(this);" frameborder="0" border="0" src="{:str_replace(array('&mainmenu=true','/mainmenu/true'),'','__SELF__')}" noResize width="100%" scrolling=auto  vspale="0"></iframe></div>
+    </div>
+</div>
+</if>
+<!--tab qiehuan end-->
+<if condition="(I('mainmenu') neq 'true')">
+<!--导航标题位置--->
+<div class="title-tool cl"><div class="tico"></div><div class="title">
+<block name="maintitle">
+{$meta_title}
+</block>
+</div>
+<span style="float:left; font-size:17px; font-weight:bolder;">></span><a href="javascript:window.history.go(-1);" class="title fl" style="float:left;">返回</a>
+</div>
+</if>
+
+<if condition="(I('mainmenu') neq 'true')">
+<block name="right">
+	<include file="Public:right" />
+</block>
+</if>
+</div>
+<!--center end-->
+
+
+<!--script start-->
+<block name="script">
+</block>
+<script>
+$(function(){
+	$("table").resizableColumns({});
+});
+</script>
+<!--script end-->
+</body>
+</html>
