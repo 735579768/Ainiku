@@ -1,14 +1,31 @@
-;(function($,b){
-//ainiku声明
-function ainiku(){}
-//给ainiku添加原型方法
-
-
+;(function($,window){
 /**拖动功能***/
-//jquery拖动插件
-(function($) {
-    $.fn.kldrag = function(options) {
-	var _t=this;
+//ainiku声明
+//给ainiku添加原型方法
+var ainiku={};
+ainiku.fn=ainiku.prototype={
+//一些公共的配置项
+config:{
+	zindex:9999,
+	animate:false,
+	version:'1.0.0'
+	},
+//初始化对象
+init:function(config){
+	this.extend(config,this.config);
+	return this;
+	},
+//拖动函数
+drag:function(options){
+	//配置项
+	var conf = {
+		obj:null,//拖动对象
+		titleheight:50,
+		space:false,
+		spacestyle:""
+	};
+	var _this=this;
+	var doc=$(document);
     var a = {
 		xxx:0,//元素到左边的距离
 		yyy:0,//元素到顶边的距离
@@ -16,12 +33,9 @@ function ainiku(){}
         _y:0,//鼠标到元素顶边距离
 		_mouseDown:false
     };
-        var defaults = {
-            titleheight:50,
-            space:false,
-            spacestyle:""
-        };
-        var opts = $.extend(defaults, options);
+
+        var opts = this.extend(options,conf);
+		var _t=opts.obj;
 		var setxy=function(e){
             a.xxx = _t.offset().left;
             a.yyy = _t.offset().top;
@@ -29,7 +43,7 @@ function ainiku(){}
             a._y = e.pageY - a.yyy;			
 			};
 		var ismove=function(e){
-				if (opts.titleheight === 0 || opts.titleheight >= e.pageY-_t.offset().top) {
+				if (_t.offset().top>=0&&(opts.titleheight === 0 || opts.titleheight >= e.pageY-_t.offset().top)) {
 					 _t.css("cursor", "move");
 					return true;
 					}else{
@@ -40,81 +54,133 @@ function ainiku(){}
         _t.bind("mousedown", function(e) {
 			a._mouseDown=true;
 			setxy(e);
-			var scryyy=$(document).scrollTop();
-            if (opts.titleheight === 0 || opts.titleheight >= a._y) {
-                _t.css({
-                    zIndex:999999999,
-                    position:"fixed",
-                    left:a.xxx + "px",
-                    top:a.yyy-scryyy + "px",
-                    margin:"0px"
-                });
-            }
         });
         _t.bind("mousemove", function(e) {
             if (ismove(e)) {
                 if (a._mouseDown) {
-					var scryyy=$(document).scrollTop();
+					var scryyy=doc.scrollTop();
                     xx = e.pageX - a._x;
                     yy = e.pageY - a._y-scryyy;
                     _t.css({
-                        zIndex:999999,
+                        zIndex:_this.config.zindex+1,
                         position:"fixed",
-                        left:xx + "px",
-                        top:yy + "px"
+                        left:xx,
+                        top:(yy>0)?yy:0,
+						margin:0
                     });
                 }
             }
+			return false;
         });
-        _t.bind("mouseup", function() {
+        _t.bind("mouseup mouseout", function() {
 			a._mouseDown=false;
         });
-    };
-})(jQuery);
-/**对话框**/
-var fn={
+	},
+//特效函数
+show:function(obj,callback){
+	if(this.animate){
+	var w=obj.width();
+	var h=obj.height();
+	var ww=obj.outerWidth()/2;
+	var hh=obj.outerHeight()/2;
+	obj.css({
+		display:'block',
+		opacity:0,
+		width:10,
+		height:10,
+		marginLeft:-5,
+		marginTop:-5
+		});
+	obj.animate({
+		opacity:1,
+		width:w,
+		height:h,
+		marginLeft:-ww,
+		marginTop:-hh
+		},300,function(){});
+  }else{
+		(typeof(callback)==='function')&&callback(obj);	
+	  }
+	},
+hide:function(obj,callback){
+	if(this.animate){
+	var w=obj.width();
+	var h=obj.height();
+	var ww=obj.outerWidth()/2;
+	var hh=obj.outerHeight()/2;
+	obj.css({
+		top:'45%',
+		left:'50%',
+		marginLeft:-ww,
+		marginTop:-hh
+		});
+	obj.animate({
+		opacity:0,
+		width:0,
+		height:0,
+		marginLeft:0,
+		marginTop:0
+		},200,function(){
+			obj.remove();
+			(typeof(callback)==='function')&&callback(obj);
+		});	
+	}else{
+		obj.remove();
+		(typeof(callback)==='function')&&callback(obj);		
+		}
+	},
+//对话框 
 msgDialog:function(opts){
+	var _this=this;
+	var conf={
+		width:0,
+		height:0,
+		oktitle:'确定',
+		canceltitle:'取消',
+		title:'提示信息',
+		content:'啊哦没有信息',
+		url:null,
+		btn:false,
+		iframe:null,
+		ok:function(da){},
+		cancel:function(da){}
+		};
 	var setdialog=function(){
 		   var dialog = $("#dialog");
-			dialog.kldrag();
+			_this.drag({obj:dialog});
 			$("#dialog-close").click(function(e) {
-				$("#dialog-wrap").remove();
+				_this.hide(dialog,function(){
+					$("#dialog-wrap").remove();
+					});	
 			});
 			$("#dialog-ok").click(function(e) {
 				opts.ok();
-				$("#dialog-wrap").remove();
+				_this.hide(dialog,function(){
+					$("#dialog-wrap").remove();
+					});	
 				
 			});
 			$("#dialog-cancel").click(function(e) {
-				$("#dialog-wrap").remove();
+				_this.hide(dialog,function(){
+					$("#dialog-wrap").remove();
+					});	
 				opts.cancel();
 			});
-			var w = dialog.width();
-			var h = dialog.height();
+			var w = dialog.outerWidth();
+			var h = dialog.outerHeight();
 			dialog.css({
 				marginTop:"-" + h / 2 + "px",
 				marginLeft:"-" + w / 2 + "px"
-			});				
+			});
+			_this.show(dialog);				
 		};
 		$('#dialog-wrap').length&&$('#dialog-wrap').remove();
-		var defaults={
-			width:0,
-			height:0,
-			oktitle:'确定',
-			canceltitle:'取消',
-			title:'提示信息',
-			content:'啊哦没有信息',
-			url:null,
-			btn:false,
-			iframe:null,
-			ok:function(da){},
-			cancel:function(da){}
-			};
-		(typeof(opts)==='object')&&(opts=$.extend(defaults,opts));
-		(typeof(opts)==='string')&&(defaults.content=opts);
-        opts=defaults;
+
+		(typeof(opts)==='object')&&(opts=$.extend(conf,opts));
+		(typeof(opts)==='string')&&(conf.content=opts);
+        opts=conf;
 			var btn='<div class="dialog-btn cl fr" style="margin:5px 5px 5px 100px;"><a class="btn" id="dialog-ok" href="javascript:;">'+opts.oktitle+'</a><a class="btn" id="dialog-cancel" href="javascript:;">'+opts.canceltitle+'</a></div>';
-			var style="<style>#dialog-wrap *{margin:0px;padding:0px;font-family:Microsoft Yahei;}#dialog-wrap a{text-decoration:none;color:#000;}#dialog{overflow:hidden;position:fixed;z-index:9991;top:40%;left:50%;font-size:14px;color:#333;opacity:1;_position:absolute;_width:expression((this.clientWidth<100)?'100px':'auto');_height:expression((this.clientHidth<50)?'50px':'auto');_bottom:auto;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight-this.offsetHeight)/2));_padding-bottom:10px;}#dialog h2{font-size:14px;line-height:31px;white-space:nowrap;overflow:hidden;padding:0 10px;height:31px;font-weight:bolder;}#dialog .t_l,#dialog .t_c,#dialog .t_r,#dialog .m_l,#dialog .m_r,#dialog .b_l,#dialog .b_c,#dialog .b_r{overflow:hidden;background:#000;opacity:0.2;filter:alpha(opacity=20);}#dialog .t_l,#dialog .t_r,#dialog .b_l,#dialog .b_r{width:6px;height:6px;}#dialog .t_c,#dialog .b_c{height:6px;}#dialog .m_l,#dialog .m_r{width:6px;}#dialog .t_l{-moz-border-radius:6px 0 0 0;-webkit-border-radius:6px 0 0 0;border-radius:6px 0 0 0;}#dialog .t_r{-moz-border-radius:0 6px 0 0;-webkit-border-radius:0 6px 0 0;border-radius:0 6px 0 0;}#dialog .b_l{-moz-border-radius:0 0 0 6px;-webkit-border-radius:0 0 0 6px;border-radius:0 0 0 6px;}#dialog .b_r{-moz-border-radius:0 0 6px 0;-webkit-border-radius:0 0 6px 0;border-radius:0 0 6px 0;}#dialog .m_c{background:#FFF;}#dialog .m_c .tb{margin:0 0 10px;padding:0 10px;}#dialog .m_c .c{padding:0;}#dialog .m_c .o{padding:8px 6px 8px 20px;height:26px;text-align:right;border-top:1px solid #ededed;background:#F7F7F7;}#dialog .m_c .el{width:420px;}#dialog .m_c .el li{padding:0;border:none;}#dialog .flbc{float:right;margin:3px;font-size:16px;font-weight:bolder;position:relative;right:0px;display:inline-block;overflow:hidden;margin-right:10px;}#dialog .flbc:hover{color:#f00;}#dialog .bm_h{background:#fdfdfd;border-bottom:1px solid #ededed;}#dialog #dialog-con{padding:10px 20px;}#dialog .bm_h{border-bottom:1px solid #CDCDCD;}</style>";
+			var style="<style>.bg{position:fixed;_position:absolute;z-index:"+(this.config.zindex-1)+";top:0px;left:0px;width:100%;_width:expression(document.documentElement.scrollWidth);height:100%;_height:expression(document.documentElement.scrollHeight);background:rgb(0,0,0);background:url(../images/loading.gif) center center no-repeat rgba(0,0,0,0.1);filter:alpha(opacity=0.1);}#dialog-wrap *{margin:0px;padding:0px;font-family:Microsoft Yahei;}#dialog-wrap a{text-decoration:none;color:#000;}#dialog{overflow:hidden;position:fixed;z-index:"+this.config.zindex+";top:45%;left:50%;font-size:14px;color:#333;opacity:1;_position:absolute;_width:expression((this.clientWidth<100)?'100px':'auto');_height:expression((this.clientHidth<50)?'50px':'auto');_bottom:auto;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight-this.offsetHeight)/2));_padding-bottom:10px;}#dialog h2{font-size:14px;line-height:31px;white-space:nowrap;overflow:hidden;padding:0 10px;height:31px;font-weight:bolder;}#dialog .t_l,#dialog .t_c,#dialog .t_r,#dialog .m_l,#dialog .m_r,#dialog .b_l,#dialog .b_c,#dialog .b_r{overflow:hidden;background:#000;opacity:0.2;filter:alpha(opacity=20);}#dialog .t_l,#dialog .t_r,#dialog .b_l,#dialog .b_r{width:6px;height:6px;}#dialog .t_c,#dialog .b_c{height:6px;}#dialog .m_l,#dialog .m_r{width:6px;}#dialog .t_l{-moz-border-radius:6px 0 0 0;-webkit-border-radius:6px 0 0 0;border-radius:6px 0 0 0;}#dialog .t_r{-moz-border-radius:0 6px 0 0;-webkit-border-radius:0 6px 0 0;border-radius:0 6px 0 0;}#dialog .b_l{-moz-border-radius:0 0 0 6px;-webkit-border-radius:0 0 0 6px;border-radius:0 0 0 6px;}#dialog .b_r{-moz-border-radius:0 0 6px 0;-webkit-border-radius:0 0 6px 0;border-radius:0 0 6px 0;}#dialog .m_c{background:#FFF;}#dialog .m_c .tb{margin:0 0 10px;padding:0 10px;}#dialog .m_c .c{padding:0;}#dialog .m_c .o{padding:8px 6px 8px 20px;height:26px;text-align:right;border-top:1px solid #ededed;background:#F7F7F7;}#dialog .m_c .el{width:420px;}#dialog .m_c .el li{padding:0;border:none;}#dialog .flbc{float:right;margin:3px;font-size:16px;font-weight:bolder;position:relative;right:0px;display:inline-block;overflow:hidden;margin-right:10px;}#dialog .flbc:hover{color:#f00;}#dialog .bm_h{background:#fdfdfd;border-bottom:1px solid #ededed;}#dialog #dialog-con{padding:10px 20px;}#dialog .bm_h{border-bottom:1px solid #CDCDCD;}</style>";
 			opts.btn||(btn='');
            $("body").append('<div id="dialog-wrap">'+style+'<div class="bg" style="background-image:none;"></div><table class="dialog" id="dialog" cellpadding="0" cellspacing="0"><tr><td class="t_l"></td><td class="t_c"></td><td class="t_r"></td></tr><tr><td class="m_l"></td><td class="m_c">		<div class="bm">				<div class="bm_h cl"><span><a href="javascript:;" class="flbc" id="dialog-close" title="关闭">X</a></span><h2 class="dialogh2">' + opts.title + '</h2></div><div class="bm_c" id="dialog-con"><div id="dialog-conn"></div></div>' +btn +'</div></td><td class="m_r"></td></tr><tr><td class="b_l"></td><td class="b_c"></td><td class="b_r"></td></tr></table></div>');
 		    
@@ -137,13 +203,13 @@ msgDialog:function(opts){
 
 /**表单提交**/
 ajaxform:function(opts) {
-		var defaults={
+		var conf={
 			_this:thisobj,
 			_before_post:function(){},
 			_after_post:function(){},
 			success:function(){}
 			};
-		 opts=$.extend(defaults,opts)
+		 opts=$.extend(conf,opts)
       //  if (typeof arguments[2] != "undefined") reloadbool = arguments[2];
         //if (typeof arguments[1] != "undefined") msgtime = arguments[1];
         try {
@@ -171,7 +237,7 @@ ajaxform:function(opts) {
             alert(e.name + ": " + e.message);
         }
     },
-
+	
 /**写入cookies**/
 writeCookie:function (name, value, hours) {
     var expire = "";
@@ -196,11 +262,118 @@ readCookie:function(name) {
         }
     }
     return cookieValue;
-}
+},
 
+//弹出消息框并自己消失
+msg:function(options,callback){
+($('#kl-msg-wrap').length>=1)&&$('#kl-msg-wrap').remove();
+var _this=this;
+var conf={
+	content:'没有消息哦！',
+	style:'',//算定义样式
+	delay:2
+	};
+if(arguments[0]&&arguments[1]){
+	conf.content=arguments[0],conf.delay=parseInt(arguments[1]);
+}else{
+	typeof(options) === 'string'&&(conf.content=options);
+	typeof(options) === 'object'&&(conf=this.extend(options,conf));
+}
+var style="<style>#kl-msg-wrap *{margin:0px;padding:0px;font:14px/1.5 'microsoft yahei';}#kl-msg{position:fixed;top:45%;left:50%;border:solid 2px #BDBDBD;z-index:"+this.config.zindex+";background:#fff;padding:10px 20px;}"+conf.style+"</style>";
+var html='<div id="kl-msg-wrap">'+style+'<div id="kl-msg">'+conf.content+'</div></div>';
+$('body').append(html);
+var obj=$('#kl-msg');
+obj.css({
+		marginLeft:-obj.outerWidth()/2,
+		marginTop:-obj.outerHeight()/2
+	});
+setTimeout(function(){
+	typeof(callback)==='function'&&callback();
+	$('#kl-msg-wrap').remove();
+	},conf.delay*1000);
+},
+
+//冒泡信息提示
+maopao: function(options) {
+    var conf = {
+        'effect': 'fade',
+        'title': '提示',
+        'content': '',
+        'button': false,
+        'autohidden': false,
+        'iframe': null,
+        'width': null,
+        'height': null,
+        'shijian': 10
+    };
+	var msgHidden=function() {
+		$('.klmpmsg').animate({
+			bottom: '-' + $('.klmpmsg').outerHeight()
+		},2000,function() {
+			$('.klmpmsg').remove();
+			$('#dialogstyle').remove();
+			window.clearInterval(window.maopaoid);
+		});
+	 };
+    var dialogstyle = "<style id='dialogstyle'>.klmpmsg{border-radius:5px;box-shadow:2px 2px 5px #cecece;font-family:Microsoft Yahei;overflow:hidden;position:fixed;z-index:"+this.config.zindex+";bottom:10px;right:10px;min-height:50px;min-width:100px;background-color:#FFF;border:5px solid #999;font-family:Microsoft Yahei;font-size:14px;color:#333;opacity:1;border:5px solid rgba(0,0,0,0.3);_position:absolute;_bottom:auto;_top:expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-(parseInt(this.currentStyle.marginTop,10)||0)-(parseInt(this.currentStyle.marginBottom,10)||0)));}.klmpmsg .klmpmsgbar{height:20px;padding:5px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-weight:bold;border-bottom:solid 1px #cecece;}.klmpmsg .klmpmsgbar .klmptitle{color:red;float:left;padding:0px 10px 0px 0px;}.klmpmsg .klmpmsgbar .klclose{float:right;padding:0px 10px;font-weight:bolder;cursor:pointer;color:#f00;}.klmpmsg .klmpmsgc iframe{border:none;width:100%;height:100%;}.klmpmsg .klmpmsgc{width:100%;height:100%;padding:10px;}.klmpmsg .klmpmsgbtn{float:right;display:block;padding:10px;}.klmpmsg .klmpmsgbtn a{color:#ffffff;background-color:#FE8431;border-color:#FE8431;text-decoration:none;width:auto;padding:3px 15px;font-size:16px;text-align:center;cursor:pointer;}</style>";
+    $('#dialogstyle').remove();
+    $('.klmpmsg').remove();
+    window.clearInterval(window.maopaoid);
+    $('body').append(dialogstyle);
+    if (typeof(options) !== 'string') {
+        conf = $.extend(options, conf);
+    } else {
+        conf.content = options;
+    }
+    var msgbtn = '<div class="klmpmsgbtn"><a href="javascript:;">确定</a></div>';
+    if (!conf.button) msgbtn = '';
+    if (conf.iframe != null) {
+        conf.content = '<iframe src="' + conf.iframe + '"></iframe>';
+    }
+    var divstr = '<div class="klmpmsg"><div class="klmpmsgbar"><div class="klmptitle">' + conf.title + '</div><div class="klclose" title="点击关闭">X</div></div><div class="klmpmsgc">' + conf.content + '</div>' + msgbtn + '</div>';
+    $('body').append(divstr);
+    $('.klmpmsg').width($('.klmpmsg').outerWidth());
+    $('.klmpmsg .klmpmsgbtn a,.klmpmsg .klmpmsgbar .klclose').bind('click',
+    function() {
+        msgHidden();
+    });
+    $('.klmpmsg').css('bottom', '-' + $('.klmpmsg').outerHeight() + 'px');
+    $('.klmpmsg').animate({
+        bottom: '20px'
+    },1000,function() {
+        $('.klmpmsg').animate({
+            bottom: '10px'
+        },
+        300);
+    });
+    if (conf.autohidden) {
+        setTimeout(function() {
+            $.maopaoMsg.msgHidden();
+        },
+        conf.shijian * 1000);
+    }
+    window.maopaoid = window.setInterval(function() {
+        var a = $('.klmptitle').html();
+        if (a == conf.title) {
+            $('.klmptitle').html('');
+        } else {
+            $('.klmptitle').html(conf.title);
+        }
+    },
+    1000);
+},
+
+/**实现功能扩展**/
+extend:function() {
+	var arg0=arguments[0]||{};
+	var target=arguments[1]||this;
+	for(var name in arg0){
+		target[name]=arg0[name];
+		}
+	return target;	
+}
 };
-ainiku.prototype=fn;
 //把ainiku设置到全局变量
-window.ainiku=ainiku;
+window.ank=ainiku.fn.init({});
 //ainiku结束
-})($,undefined);
+})($,window);
