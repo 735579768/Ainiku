@@ -28,7 +28,8 @@ class PublicController extends Controller {
 		 //主题默认为空
 		 C('DEFAULT_THEME','');
 	}
-	public function login($username=null,$password=null,$verify=null){
+	public function login($username=null,$password=null,$verify=null,$autologin=false){
+		$this->autologin=$autologin;
       if(IS_POST ||$this->autologin){
             /* 检测验证码 TODO: */
 			if(!check_verify($verify) && !($this->autologin)){
@@ -51,11 +52,13 @@ class PublicController extends Controller {
 						}
 					cookie('__uid__',$u,$b);
 					if($this->autologin){
-					 redirect(U('Index'));
+					 return true;
 					}else{
 					$this->success('登录成功！', U('Index/index'));                 
 					}
-            } else { //登录失败
+            } else { 
+			   //登录失败
+				return ($this->autologin)&&false;
 				//清空cookie
 				cookie('__uid__',null);
                 switch($uid) {
@@ -69,20 +72,16 @@ class PublicController extends Controller {
             if(is_login()){
                 redirect(U('Index/index'));
             }else{
-                //判断cookie是否过期
-				$u=cookie('__uid__');
-				if(!empty($u)){
-						$this->autologin=true;
-						$this->login(ainiku_decrypt($u['u']),ainiku_decrypt($u['p']));
-					}else{
 					$this->display();	
-						}
                 
             }
         }
     }
 	public function autologin(){
-		
+		$u=cookie('__uid__');
+		if(!empty($u)){
+		return $this->login(ainiku_decrypt($u['u']),ainiku_decrypt($u['p']),null,true);
+		}
 		}
 //    /* 退出登录 */
 //    public function logout(){

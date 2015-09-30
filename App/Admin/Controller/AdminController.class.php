@@ -21,13 +21,11 @@ class AdminController extends CommonController {
 		}
 	 protected function _initialize(){
 		 	//不让蜘蛛抓取
-			get_naps_bot()!==false&&die('');
+			(get_naps_bot()!==false)&&die('');
 		   // 记录当前列表页的cookie
 		   $forward=cookie('__forward__');
 		   if(!IS_AJAX  && !IS_POST){
 		  if(count($forward)>=2)array_shift($forward);
-//			  $forward[]=$_SERVER['REQUEST_URI'];
-			 //$forward=$_SERVER['REQUEST_URI'];
 			$forward[]= $_SERVER['HTTP_REFERER'];
 			  cookie('__forward__',$forward);  
 		   }
@@ -37,7 +35,11 @@ class AdminController extends CommonController {
 		 defined('DBPREFIX') or define('DBPREFIX',C('DB_PREFIX'));
 		 // 获取当前用户ID
          defined('UID') or define('UID',is_login());
-		 if(!UID) $this->redirect('Public/login');
+		 if(!UID){
+			 $login=A('Public');
+			 $result=$login->autologin();
+		 	if(!$result){redirect(U('Public/login'));}
+		 }
 		 if(UID!=1){
 			 defined('IS_ADMIN') or define('IS_ADMIN',false);
 			 }else{

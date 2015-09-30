@@ -371,8 +371,49 @@ extend:function() {
 		target[name]=arg0[name];
 		}
 	return target;	
-}
+},
+/**AJAX请求**/
+ajax:function(a){
+	var a=a||{};
+	var b={
+		type:'POST',
+		url:"",
+		data:{},
+		success: function(data){},
+		timeout:function(data){}
+		};
+	b=this.extend(a,b);
+	$.ajax(b);
+	},
+get:function(uri,da,callback){
+	this.ajax({
+		type:'GET',
+		url:uri,
+		data:da,
+		success: callback
+		});
+	},
+loadhtml:function(uri,da,obj){
+	obj.html('正在加载数据...');
+	this.ajax({
+		type:'GET',
+		url:uri,
+		data:da,
+		success:function(data){
+			obj.html(data);
+			}
+		});	
+	},
+post:function(url,da,callback){
+	this.ajax({
+		type:'POST',
+		url:uri,
+		data:da,
+		success: callback
+		});	
+	}
 };
+
 //把ainiku设置到全局变量
 window.ank=ainiku.fn.init({});
 //ainiku结束
