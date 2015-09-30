@@ -3,7 +3,7 @@
 body{ background: #2472b4; }
 /*.login-main{margin:0 auto;width:960px;}*/
 .login-header{height:50px;line-height:50px;background-color:#f3f3f3;}
-.login-body{margin-top:-224px;height:448px; position:absolute; left:50%; top:40%; margin-left:-145px;}
+.login-body{margin-top:-224px;height:448px; position:fixed; left:50%; top:40%; margin-left:-176px;}
 .login-body .pr{position:relative;height:448px;}
 .login-form{width:290px;margin:50px auto;padding:25px 30px 13px;background-color:#fff;box-shadow:0 0 26px #041A36;border-top:8px solid #42EC00; border-radius:32px;
 
@@ -27,7 +27,7 @@ border-radius:32px;
 .login-form .icon-login-user{background-position:0 0;}
 .login-form .icon-login-pwd{background-position:-48px 0;}
 .login-form .icon-login-verifycode{background-position:-24px 0;}
-.login-form input{padding:8px;width:200px;height:22px;line-height:22px;font-size:20px;font-family:consolas,arial,sans-serif;vertical-align:middle;border:0 none;background-color:#fff;outline:0;resize:none;color:#686868;*padding:7px 0;font-weight:bolder;}
+.login-form input{padding:8px;width:200px;height:22px;line-height:22px;font-size:20px;font-family:consolas,arial,sans-serif;vertical-align:middle;border:0 none;background-color:#fff;outline:0;resize:none;color:#686868;*padding:7px 0;}
 #itemBox{position:relative;}
 .placeholder_copy{display:none;position:absolute;left:48px;font-size:16px;color:#ADADAD;}
 .placeholder_un{top:13px;}
