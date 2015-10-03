@@ -68,12 +68,12 @@
 				//$(this).parents('#west').find('dd').slideUp('fast');
 				obj.removeClass('menuopenico');
 				obj.addClass('menucloseico');
-				obj.parents('dl').find('dd').slideUp('fast');
+				obj.parents('dl').find('dd').hide();
 				}else{
 				$(this).parents('#west').find('i.menuopenico').click();
 				obj.removeClass('menucloseico');
 				obj.addClass('menuopenico');
-				obj.parents('dl').find('dd').slideDown('fast');			
+				obj.parents('dl').find('dd').show();			
 					}
 			
 		});
