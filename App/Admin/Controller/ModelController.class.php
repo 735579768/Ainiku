@@ -60,7 +60,7 @@ $sql = <<<sql
 		`create_time`  int(10) UNSIGNED NULL DEFAULT 0 ,
 		`update_time`  int(10) UNSIGNED NULL DEFAULT 0 ,
 		 PRIMARY KEY (`{$table_name}_id`)
-	 );
+	 )ENGINE=MyISAM DEFAULT CHARSET=utf8;;
 sql;
         $res = M()->execute($sql);
 				}		
