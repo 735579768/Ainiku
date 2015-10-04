@@ -22,17 +22,7 @@ class AdminController extends CommonController {
 	 protected function _initialize(){
 		 	//不让蜘蛛抓取
 			(get_naps_bot()!==false)&&die('');
-		   // 记录当前列表页的cookie
-		   $forward=cookie('__forward__');
-		   if(!IS_AJAX  && !IS_POST){
-		  if(count($forward)>=2)array_shift($forward);
-			$forward[]= $_SERVER['HTTP_REFERER'];
-			  cookie('__forward__',$forward);  
-		   }
-		  defined('__FORWARD__')||define('__FORWARD__',$forward[0]);
-		 $this->meta_title='首页';
-		 //定义数据表前缀
-		 defined('DBPREFIX') or define('DBPREFIX',C('DB_PREFIX'));
+
 		 // 获取当前用户ID
          defined('UID') or define('UID',is_login());
 		 if(!UID){
@@ -45,6 +35,18 @@ class AdminController extends CommonController {
 			 }else{
 			 defined('IS_ADMIN') or define('IS_ADMIN',true);	
 				}
+
+		   // 记录当前列表页的cookie
+		   $forward=cookie('__forward__');
+		   if(!IS_AJAX  && !IS_POST){
+		  if(count($forward)>=2)array_shift($forward);
+			$forward[]= $_SERVER['HTTP_REFERER'];
+			  cookie('__forward__',$forward);  
+		   }
+		  defined('__FORWARD__')||define('__FORWARD__',$forward[0]);
+		 $this->meta_title='首页';
+		 //定义数据表前缀
+		 defined('DBPREFIX') or define('DBPREFIX',C('DB_PREFIX'));
 		//先读取缓存配置
         $config =   F('DB_CONFIG_DATA');
         if(!$config || APP_DEBUG){
