@@ -65,6 +65,11 @@
 			verurl=verurl.replace('suiji',Math.random);
 			$('#verifyimg').attr('src',verurl);
 			});
+	$('#youmenu').hover(function(){
+			$('#youmenu').show();
+			},function(){
+			$('#youmenu').hide();	
+		}); 
 
 		});
 		function _before_func(){
@@ -76,6 +81,22 @@
 			$('#loginbtn .in').hide();
 			$('#verifyimg').click();
 			}
+
+
+document.oncontextmenu=function(e){ 
+console.log(e);
+$('#youmenu').css({left:e.pageX,top:e.pageY});
+$('#youmenu').show();
+return false; 
+};
 		</script>
+<ul id="youmenu" class="youmenu">
+<li class="menuitem"><a href="javascript:window.location.reload();">刷新页面</a></li>
+<li class="menuitem"><a href="javascript:$('.verifyimg').click();">刷新验证码</a></li>
+</ul>
+<style>
+.youmenu{ display:none;position:fixed;background:#fff; padding:10px; border:solid 1px #ccc;}
+.youmenu .menuitem a{ font-size:12px; padding:5px 10px; text-align:left; border-bottom:solid 1px #ccc; display:inline-block;}
+</style>
 </body>
 </html>

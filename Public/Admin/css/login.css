@@ -6,7 +6,20 @@ body{background:#2472b4;}
 .login-header{height:50px;line-height:50px;background-color:#f3f3f3;}
 .login-body{margin-top:-224px;height:448px;position:fixed;left:50%;top:40%;margin-left:-176px;}
 .login-body .pr{position:relative;height:448px;}
-.login-form{width:290px;margin:50px auto;padding:25px 30px 13px;background-color:#fff;box-shadow:0 0 26px #041A36;border-top:8px solid #42EC00;border-radius:32px;border-radius:32px;border:1px solid transparent;background:rgba(0,0,0,0);_background:0;_border:0;filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr='#66000000',EndColorStr='#66000000');}
+.login-form{width:290px;margin:50px auto;padding:25px 30px 13px;background-color:#fff;box-shadow:0 0 26px #041A36;border-top:8px solid #42EC00;border-radius:32px;border-radius:32px;border:1px solid transparent;background:rgba(0,0,0,0);_background:0;_border:0;}
+
+@media \0screen\,screen\9 {/* 只支持IE6、7、8 */
+  .login-form{
+    background-color:#000000;
+    filter:Alpha(opacity=50);
+    position:static; /* IE6、7、8只能设置position:static(默认属性) ，否则会导致子元素继承Alpha值 */
+    *zoom:1; /* 激活IE6、7的haslayout属性，让它读懂Alpha */
+  }
+  .dlogin-form *{
+    position: relative;/* 设置子元素为相对定位，可让子元素不继承Alpha值 */
+  }  
+}
+
 .login-form h3{font-size:26px;margin:0 0 20px;padding:0;line-height:44px;text-align:center;color:#fff;*line-height:50px;}
 .login-logo{display:inline-block;margin-right:12px;width:23px;height:23px;vertical-align:middle;background:url(../images/icowhite.png) -75px -123px no-repeat;}
 .login-form .check-tips{color:#ff0000;margin-top:10px;}
