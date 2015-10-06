@@ -84,9 +84,11 @@
 
 
 document.oncontextmenu=function(e){ 
-console.log(e);
-$('#youmenu').css({left:e.pageX,top:e.pageY});
+try{
+$('#youmenu').css({left:e.x||e.pageX,top:e.y||e.pageY});
 $('#youmenu').show();
+}catch(e){
+	}
 return false; 
 };
 		</script>

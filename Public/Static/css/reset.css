@@ -20,6 +20,7 @@ blockquote,q{quotes:none}
 blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}
 body{font:14px/1.7 microsoft yahei,Cambria,"Hoefler Text","Liberation Serif",Times,"Times New Roman",serif;}
 body{background:#f6f6f6;color:#666;/*overflow-y:scroll;*/}
+.clie8,
 .cl:after{content:"";visibility:hidden;display:block;font-size:0;content:'';clear:both;height:0;}
 * html .cl{zoom:1;}
 .bg{position:fixed;_position:absolute;z-index:999;top:0px;left:0px;width:100%;_width:expression(document.documentElement.scrollWidth);height:100%;_height:expression(document.documentElement.scrollHeight);background:rgb(0,0,0);background:url(../images/loading.gif) center center no-repeat rgba(0,0,0,0.1);filter:alpha(opacity=0.1);}

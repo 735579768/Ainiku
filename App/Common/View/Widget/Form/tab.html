@@ -402,6 +402,7 @@ function uploadPicture{$field['name']}(file, data){
 });   
             } else {
               //  alert("你的浏览器不支持HTML5");
+	$('#demohtml5upload{$field['name']}btn').remove();
 	$('#demohtml5upload{$field['name']}').remove();
     //上传图片
     /* 初始化上传插件 */
@@ -511,6 +512,7 @@ function uploadPicture{$field['name']}(file, data){
             } else {
               //  alert("你的浏览器不支持HTML5");
 	$('#demohtml5upload_file_{$field['name']}').remove();
+	$('#demohtml5upload_file_{$field['name']}btn').remove();
     //上传图片
     /* 初始化上传插件 */
 /* 初始化上传插件 */
