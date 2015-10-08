@@ -1,5 +1,5 @@
 // JavaScript Document
-console||(console={},console.log=function(){});
+(typeof console === "undefined")||(console={},console.log=function(){});
 ;$(function(){
 	//主导航单击后保存状态
 	$('.mainnav li a').click(function(e) {
