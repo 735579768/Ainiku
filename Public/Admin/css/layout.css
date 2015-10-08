@@ -71,7 +71,7 @@ body{overflow:hidden;padding:62px 0px 0px 179px;}
 .searchform{float:right;margin:0px 10px 0px 0px;padding:0px 10px;border-radius:5px;}
 .searchform input{display:inline-block; margin:0px  10px;}
 .btn-search{display:inline-block;width:16px;height:16px;background:url(../images/bg_icon.png) no-repeat -50px 0;}
-.sch-btn{vertical-align:middle;display:inline-block;}
+.sch-btn{vertical-align:middle;display:inline-block; margin-top:4px;}
 /****插件*****/
 .y{ cursor:pointer;background:url('../images/yn.png') 0px 0px no-repeat ; width:18px; height:18px; display:inline-block}
 .n{ cursor:pointer; background:url('../images/yn.png') 0px -20px; width:20px; height:20px; display:inline-block}
@@ -220,3 +220,9 @@ border-color: #44b549 #e0e0e0 #f6f6f6;
 .rc-handle-container{position:relative;}
 .rc-handle{position:absolute;width:7px;cursor:ew-resize;*cursor:pointer;margin-left:-3px;}
 
+
+.searchform form{ /*border:solid 1px #d8d8d8; border-radius:5px; padding-right:10px;*/}
+.searchform form .form-group{ margin-right:-5px;}
+.searchform form input.form-control{/* border:none; box-shadow:none;*/}
+.searchform form input.form-control:focus,
+.searchform form input.form-control:hover{/* border:none;*/}

@@ -1,5 +1,9 @@
 ;(function($,window){
-/**拖动功能***/
+/*********************私有方法*******************************/
+//判断一个变量的类型
+var _gtype=function(options){
+	return typeof(options);	
+	};
 //ainiku声明
 //给ainiku添加原型方法
 var ainiku={};
@@ -10,6 +14,7 @@ config:{
 	animate:false,
 	version:'1.0.0'
 	},
+
 //初始化对象
 init:function(config){
 	this.extend(config,this.config);
@@ -268,16 +273,25 @@ readCookie:function(name) {
 msg:function(options,callback){
 ($('#kl-msg-wrap').length>=1)&&$('#kl-msg-wrap').remove();
 var _this=this;
+var args=arguments;
 var conf={
 	content:'没有消息哦！',
 	style:'',//算定义样式
-	delay:2
+	delay:2,
+	success:function(){}
 	};
-if(arguments[0]&&arguments[1]){
-	conf.content=arguments[0],conf.delay=parseInt(arguments[1]);
+
+if(args[0]&&args[1]&&args[2]){
+	conf.content=args[0],conf.success=args[1],conf.delay=parseInt(args[2]);
+	_gtype(args[1]) === 'number' &&(conf.delay=parseInt(args[1]));
+	_gtype(args[1]) === 'function' &&(conf.success=args[1]);
+}else if(args[0]&&args[1]){
+	conf.content=args[0];
+	_gtype(args[1]) === 'number' &&(conf.delay=parseInt(args[1]));
+	_gtype(args[1]) === 'function' &&(conf.success=args[1]);
 }else{
-	typeof(options) === 'string'&&(conf.content=options);
-	typeof(options) === 'object'&&(conf=this.extend(options,conf));
+	_gtype(options) === 'string'&&(conf.content=options);
+	_gtype(options) === 'object'&&(conf=this.extend(options,conf));
 }
 var style="<style>#kl-msg-wrap *{margin:0px;padding:0px;font:14px/1.5 'microsoft yahei';}#kl-msg{position:fixed;top:45%;left:50%;border:solid 2px #BDBDBD;z-index:"+this.config.zindex+";background:#fff;padding:10px 20px;}"+conf.style+"</style>";
 var html='<div id="kl-msg-wrap">'+style+'<div id="kl-msg">'+conf.content+'</div></div>';

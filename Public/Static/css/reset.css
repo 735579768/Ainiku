@@ -72,7 +72,7 @@ select.form-control{display:inline-block;width:auto;height:30px;}
   -webkit-box-shadow: 0 0 0 1000px white inset!important;
 }*/
 body{background:#fff;color:#666;/*overflow-y:scroll;*/}
-.cl:after{content:"";visibility:hidden;display:block;font-size:0;content:'';clear:both;height:0;}
+.cl:after{visibility:hidden;display:block;font-size:0;content:'';clear:both;height:0;}
 * html .cl{zoom:1;}
 a{color:#666;transition:all .3s;-webkit-transition:all .3s;-moz-transition:all .3s;-o-transition:all .3s;text-decoration:none;}
 a:hover{color:#000;}
