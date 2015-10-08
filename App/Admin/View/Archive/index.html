@@ -5,14 +5,14 @@
 <div class="btn-tool">
 <form id="moveform" class="form-h form-group-h cl" action="{:U('Article/move')}" method="post">
 <a href="{:U('Archive/add',array('model_id'=>$model['model_id']))}" class="btn btn-parmary">添加{$model['title']}</a>
-<if condition="ACTION_NAME eq 'recycle'">
+<eq name="ACTION_NAME" value="recycle">
 <a href="{:U('Archive/huifu',array('model_id'=>$model['model_id']))}" class="btn btn-danger Abatch">批量恢复</a>
 <a href="{:U('Archive/dele',array('model_id'=>$model['model_id']))}" class="btn btn-danger Abatch">批量删除</a>
 <a href="{:U('Archive/index',array('model_id'=>$model['model_id']))}" id="movearticle" class="btn btn-paimary">{$model['title']}列表</a>
-<else/>
+<else />
 <a href="{:U('Archive/del',array('model_id'=>$model['model_id']))}" class="btn btn-danger Abatch">批量移到回收站</a>
 <a href="{:U('Archive/recycle',array('model_id'=>$model['model_id']))}" id="movearticle" class="btn btn-paimary">回收站</a>
-</if>
+</eq>
 
 <input name="arcid" id="arcid" type="hidden" value="" />
 <a href="javascript:;" id="movearticle" class="btn btn-paimary hide">移动选中{$model['title']}</a>
