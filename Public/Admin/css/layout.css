@@ -226,3 +226,4 @@ border-color: #44b549 #e0e0e0 #f6f6f6;
 .searchform form input.form-control{/* border:none; box-shadow:none;*/}
 .searchform form input.form-control:focus,
 .searchform form input.form-control:hover{/* border:none;*/}
+.iframeloading{ position:fixed; top:45%; left:50%; z-index:99; margin-left:-33px; margin-top:-11px;}
