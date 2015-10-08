@@ -3,7 +3,7 @@ window.onload = function () {
         emotionLocalization:false
     });
 
-    emotion.SmileyPath = editor.options.emotionLocalization === true ? 'images/' : "http://img.baidu.com/hi/";
+    emotion.SmileyPath = editor.options.emotionLocalization === true ? '/Public/Static/images/emotion/' : "http://img.baidu.com/hi/";
     emotion.SmileyBox = createTabList( emotion.tabNum );
     emotion.tabExist = createArr( emotion.tabNum );
 
@@ -46,7 +46,8 @@ function initEvtHandler( conId ) {
 
 function InsertSmiley( url, evt ) {
     var obj = {
-        src:editor.options.emotionLocalization ? editor.options.UEDITOR_HOME_URL + "dialogs/emotion/" + url : url
+       // src:editor.options.emotionLocalization ? editor.options.UEDITOR_HOME_URL + "dialogs/emotion/" + url : url
+		src:url
     };
     obj._src = obj.src;
     editor.execCommand( 'insertimage', obj );
