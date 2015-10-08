@@ -779,3 +779,28 @@ function createFolder($path){
 	 $path=str_replace(array('\\','./',__SITE_ROOT__.__ROOT__,__SITE_ROOT__,__ROOT__),array('/','/','','',''),$path);
 	 return __ROOT__.$path;
 	 }
+/**
+ *判断文件是否已经被修改
+ */
+function file_ismod($filepath){
+	$filearr=array();
+	if(is_array($filepath)){
+		$filearr=$filepath;
+	}else{
+		$filearr[]=$filepath;
+		}
+	foreach($filearr as $val){
+		$sval=pathA($val);
+		$modtime=date('Y-m-d h:i:s',filemtime($sval));
+		if($modtime){
+		$path=str_replace(array('/','\\'),array('_'),$val);
+		$modstime=F('_modfile/'.$path);
+		if($modtime!==$modstime){
+			F('_modfile/'.$path,$modtime);
+			return true;
+			}
+		}	
+		}
+		return false;
+
+	}
