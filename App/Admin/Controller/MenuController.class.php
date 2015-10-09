@@ -28,6 +28,16 @@ class MenuController extends AdminController {
         $this->assign('_TREE_', $tree);
         $this->display('tree');
     }
+	function sorts(){
+		$map['pid']=0;
+		$list=M('Menu')->where($map)->field('id,title,pid,sort')->select();
+		foreach($list as $key=>$val){
+			$map['pid']=$val['id'];
+			$list[$key]['child']=M('Menu')->where($map)->field('id,title,pid,sort')->select();
+			}
+		$this->assign('_list',$list);
+		$this->display();
+		}
 	function add($pid=''){
         if(IS_POST){
 			F('sys_menu_tree',null);

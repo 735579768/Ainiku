@@ -42,7 +42,7 @@ class AdminController extends CommonController {
 		   $forward=cookie('__forward__');
 		   if(!IS_AJAX  && !IS_POST){
 		  if(count($forward)>=2)array_shift($forward);
-			$forward[]= isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:'';
+			isset($_SERVER['HTTP_REFERER'])?($forward[] = $_SERVER['HTTP_REFERER']):'';
 			  cookie('__forward__',$forward);  
 		   }
 		  defined('__FORWARD__')||define('__FORWARD__',$forward[0]);
