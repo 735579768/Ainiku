@@ -4,7 +4,6 @@ namespace Admin\Controller;
 use Think\Controller;
 if(!defined("ACCESS_ROOT"))die("Invalid access");
 class PublicController extends Controller {
-	private $autologin=false;//自动登陆
  	protected function _empty(){
 		//后台统一的404页面
 			$this->display('Public:404');
@@ -29,36 +28,34 @@ class PublicController extends Controller {
 		 C('DEFAULT_THEME','');
 	}
 	public function login($username=null,$password=null,$verify=null,$autologin=false){
-		$this->autologin=$autologin;
-      if(IS_POST ||$this->autologin){
+      if(IS_POST ||$autologin){
             /* 检测验证码 TODO: */
-			if(!check_verify($verify) && !($this->autologin)){
+			if(!check_verify($verify) && !($autologin)){
 				$this->error('验证码输入错误！');
 			}
             $uid = D('Member')->login($username, $password);
             if(0 < $uid){ 
 					//UC登录成功//把用户密码加密保存到cookie中
-					$u['u']=ainiku_encrypt($username);
-					$u['p']=ainiku_encrypt($password);
 					
-					//如果有验证码的话就再次设置记录时间cookie
-					$a=I('post.remember');
-					$b=0;
-					switch($a){
-						case 1: $b=24*3600; break;
-						case 2: $b=24*3600*7;break;
-						case 3: $b=24*3600*30; break;
-						default:$b=-1;							   							
-						}
-					cookie('__uid__',$u,$b);
-					if($this->autologin){
-					 return true;
-					}else{
-					$this->success('登录成功！', U('Index/index'));                 
+					if(!$autologin){
+						$u['u']=ainiku_encrypt($username);
+						$u['p']=ainiku_encrypt($password);
+						
+						//如果有验证码的话就再次设置记录时间cookie
+						$a=I('post.remember');
+						$b=0;
+						switch($a){
+							case 1: $b=24*3600; break;
+							case 2: $b=24*3600*7;break;
+							case 3: $b=24*3600*30; break;
+							default:$b=-1;							   							
+							}
+						cookie('__uid__',$u,$b);
 					}
+					return $autologin?$uid:($this->success('登录成功！', U('Index/index')));
             } else { 
 			   //登录失败
-				return ($this->autologin)&&false;
+				
 				//清空cookie
 				cookie('__uid__',null);
                 switch($uid) {
@@ -66,7 +63,7 @@ class PublicController extends Controller {
                     case -2: $error = '密码错误！'; break;
                     default: $error = '未知错误！'; break; // 0-接口参数错误（调试阶段使用）
                 }
-                $this->error($error);
+				return $autologin?(false):$this->error($error);
             }
         } else {
             if(is_login()){

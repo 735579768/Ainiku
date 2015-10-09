@@ -20,15 +20,17 @@ class AdminController extends CommonController {
 		echo $str;
 		}
 	 protected function _initialize(){
-		 	//不让蜘蛛抓取
-			(get_naps_bot()!==false)&&die('');
+		 	
+		 (get_naps_bot()!==false)&&die('');//不让蜘蛛抓取
 
 		 // 获取当前用户ID
-         defined('UID') or define('UID',is_login());
-		 if(!UID){
+		 $uid=is_login();
+		 if($uid){
+			 define('UID',$uid);
+		 }else{
 			 $login=A('Public');
-			 $result=$login->autologin();
-		 	if(!$result){redirect(U('Public/login'));}
+			 $uid=$login->autologin();
+			 $uid>0?define('UID',$uid):redirect(U('Public/login'));
 		 }
 		 if(UID!=1){
 			 defined('IS_ADMIN') or define('IS_ADMIN',false);
@@ -40,7 +42,7 @@ class AdminController extends CommonController {
 		   $forward=cookie('__forward__');
 		   if(!IS_AJAX  && !IS_POST){
 		  if(count($forward)>=2)array_shift($forward);
-			$forward[]= $_SERVER['HTTP_REFERER'];
+			$forward[]= isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:'';
 			  cookie('__forward__',$forward);  
 		   }
 		  defined('__FORWARD__')||define('__FORWARD__',$forward[0]);
@@ -54,7 +56,6 @@ class AdminController extends CommonController {
             F('DB_CONFIG_DATA',$config);
         }
         C($config); //添加配置
-	//C('SHOW_PAGE_TRACE',true);
 		if(I('get.mainmenu')=='true')C('SHOW_PAGE_TRACE',false);
 		defined('__DB_PREFIX__')  or  define('__DB_PREFIX__',C('DB_PREFIX'));
 		 //设置开发模式
@@ -73,7 +74,6 @@ class AdminController extends CommonController {
 			import('Ainiku.Auth');
 			$this->auth = new \Ainiku\Auth;
 			if(!$this->auth->check()){
-				//die('not access');
 				$this->error('啊哦,没有此权限,请联系管理员！',U($user['admin_index']));
 				}
 
@@ -86,20 +86,8 @@ class AdminController extends CommonController {
 	  */
 	 public function getMainNav(){
 		 	$menu_id=I('menu_id');
-			//if(empty($menu_id))die('no access');
-		    //$authmenu=$this->getUserMenuId();
 			$where="pid=0 and hide=0";
-//			if(!APP_DEBUG){
-//				$where.=" and is_dev=0";
-//				}
 		 	$nav=M('menu')->where($where)->order('sort asc')->select();
-//			if(!IS_ADMIN){
-//				foreach($nav as $key=>$val){
-//					if(!in_array($val['id'],$authmenu)){
-//						unset($nav[$key]);
-//						}
-//					}
-//				}
 		 	$this->assign('_MAINNAV_',$nav);
 			
 			//查到当前页面地址
@@ -119,34 +107,19 @@ class AdminController extends CommonController {
 			$curid=null;
 			 if($current['pid']!=0){
 				$curid=$current['pid'];
-				//$current  = M('Menu')->where("hide=0 and id={$current['pid']}")->find();
 				 }else{
 				$curid=$current['id'];	 
 					 }
 				 
 			 //取当前分组列表
-			//$where="hide=0 and pid=$curid";
 			$map['hide']=0;
 			$map['pid']=$curid;
-			//if(!APP_DEBUG)$map['url']=array('like',"%menu/%");
-			//$strid=implode(',',$authmenu);
-			//if(!IS_ADMIN)$map['id']=array('IN',$strid);
+
 			$model=M('menu');
 			 $grouplist=$model->where($map)->group('`group`')->order('sort asc,`group` asc')->select();
 			 $this->assign('_GROUPLIST_',$grouplist);
-			 //trace($grouplist);
-			 //取当前后台的子菜单
-			 //$map="hide=0 and pid=$curid";
-			//if(!APP_DEBUG)$map['url']=array('not like','%menu/%');
-			//if(!IS_ADMIN)$map['id']=array('IN',$strid);
 			$childnav=M('menu')->where($map)->order('sort asc')->select();
-//			if(!IS_ADMIN){
-//				foreach($childnav as $key=>$val){
-//					if(!in_array($val['id'],$authmenu)){
-//						unset($childnav[$key]);
-//						}
-//					}
-//				}
+
 		 	$this->assign('_CHILDNNAV_',$childnav); 
 		 }
 	/**

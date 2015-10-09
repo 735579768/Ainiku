@@ -63,26 +63,22 @@ class Auth{
 			//正则替换链接
 			$are='([^<|^>]*?)';
 			foreach($this->noaccessnodelist as $val){
-				$pattern=null;
+				$pattern='/';
 				$url=U($val['name']);
 				$url=str_replace('.'.C('URL_HTML_SUFFIX' ),'',$url);
 				$url.='\/';
 				//把链接按钮(带有btn的操作)替换掉
 				if($val['is_all']==1){
 						$url=preg_replace('/(\?)|(\=)|(\/)|(\.)/i','\\\$1$2$3$4',$url);
-						$pattern='/<[tag]'.$url.'[tag]>[tag]<[tag]>';
+						$pattern.='<[tag]'.$url.'[tag]>[tag]<[tag]>';
 						//$pattern.='|<[tag]\"'.$url.'\"[tag]btn[tag]>[tag]<[tag]>';
-						$pattern.='|<([^<|^>|^\/]*?)>[tag]<[tag]'.$url.'[tag]>[tag]<\/[tag]>[tag]<\/[tag]>';
-						$pattern.='/i';					
+						$pattern.='|<([^<|^>|^\/]*?)>[tag]<[tag]'.$url.'[tag]>[tag]<\/[tag]>[tag]<\/[tag]>';				
 					}else{
 						$url=preg_replace('/(\?)|(\=)|(\/)|(\.)/i','\\\$1$2$3$4',$url);
-						$pattern='/<[tag]'.$url.'[tag]>[tag]<[tag]>';
-						$pattern.='|<([^<|^>|^\/]*?)>[tag]<[tag]'.$url.'[tag]>[tag]<\/[tag]>[tag]<\/[tag]>';
-						$pattern.='/i';						
+						$pattern.='<[tag]'.$url.'[tag]>[tag]<[tag]>';
+						$pattern.='|<([^<|^>|^\/]*?)>[tag]<[tag]'.$url.'[tag]>[tag]<\/[tag]>[tag]<\/[tag]>';					
 						}
-						
-				//echo U($val['name'])."\n";
-				//echo $pattern."\n";
+				$pattern.='/i';			
 				$pattern=str_replace('[tag]','([^<|^>]*?)',$pattern);
 				$str=preg_replace($pattern,'',$str);
 			}

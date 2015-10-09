@@ -1392,7 +1392,7 @@ function cookie($name='', $value='', $option=null) {
         if(isset($_COOKIE[$name])){
             $value =    $_COOKIE[$name];
             if(0===strpos($value,'ainiku:')){
-                $value  =   substr($value,6);
+                $value  =   substr($value,7);
                 return array_map('urldecode',json_decode(MAGIC_QUOTES_GPC?stripslashes($value):$value,true));
             }else{
                 return $value;
@@ -1449,8 +1449,9 @@ function load_ext_file($path) {
  * @param boolean $adv 是否进行高级模式获取（有可能被伪装） 
  * @return mixed
  */
-function get_client_ip($type = 0,$adv=false) {
+function get_client_ip($type = false,$adv=false) {
     $type       =  $type ? 1 : 0;
+	$type=0;
     static $ip  =   NULL;
     if ($ip !== NULL) return $ip[$type];
     if($adv){

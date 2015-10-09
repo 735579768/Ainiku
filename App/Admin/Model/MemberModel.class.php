@@ -129,7 +129,6 @@ class MemberModel extends BaseModel {
 		$jin=__DB_PREFIX__."member_group as a on ".__DB_PREFIX__."member.member_group_id=a.member_group_id";
 		$field="*,".__DB_PREFIX__."member.status as status";
         $user = $this->field($field)->where($map)->join($jin)->find();
-		//echo($this->getlastsql());
         if(is_array($user) && $user['status']==='1' &&  $user['is_adminlogin']==='1'){
             /* 验证用户密码 */
           $md5pas=ainiku_ucenter_md5($password);
@@ -139,7 +138,7 @@ class MemberModel extends BaseModel {
                 $auth = array(
                     'uid'             => $user['member_id'],
                     'username'        => $user['username'],
-                    'last_login_time' => $user['last_login_time'],
+                    'last_login_time' => $user['update_time'],
                 );
                 session('user_auth', $auth);
 				session('uinfo',$user);
@@ -160,8 +159,6 @@ class MemberModel extends BaseModel {
      */
     protected function updateLogin($uid){
 		$ip=get_client_ip();
-//		$Ipp = new \Org\Net\IpLocation('UTFWry.dat'); // 实例化类
-//		$location = $Ipp->getlocation($ip);
 		$location=getIpLocation($ip);
         $data = array(
             'member_id'              => $uid,
