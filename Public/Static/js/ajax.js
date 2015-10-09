@@ -106,9 +106,15 @@ $(function() {
 						url:url,
 						success:function(da) {
 							da.status=='1'&&_this.parent().parent().remove();
-							ank.msg(da.info);
-							_this.removeClass("disabled");
-							$('#klbg').remove();
+							ank.msg({
+								content:da.info,
+								info:da,
+								success:function(da){
+									if(da.info.url!='')window.location=da.info.url;
+									}
+								});
+								_this.removeClass("disabled");
+								$('#klbg').remove();	
 						},
 						dataType:"JSON"
 					});

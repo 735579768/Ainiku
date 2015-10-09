@@ -8,7 +8,7 @@
 <a href="{:U('Article/delall')}" class="btn btn-danger ajax-href">全部清空</a>
 
 <div class="searchform">
-<form class="form-group-h" action="{:U('')}" method="post">
+<form class="form-h form-group-h" action="{:U('')}" method="post">
 <div class="form-group">
 <input name="title" type="text" value="{:I('title')}" class="form-control input-mid" placeholder="请输入标题" />
 </div>
@@ -40,8 +40,8 @@
     <td>{$vo.category_id|getCategoryTitle}</td>
     <td>{$vo.status|totext}</td>
     <td>
-    	<a href="{:U('Article/huifu?article_id='.$vo['article_id'])}"  class="btn btn-primary ajax-href">恢复</a>
-        <a href="{:U('Article/dele?article_id='.$vo['article_id'])}" class="btn btn-danger ajax-href-del">删除</a>
+    	<a href="{:U('Article/huifu?article_id='.$vo['article_id'])}"  class="btn btn-primary ajax-list-del">恢复</a>
+        <a href="{:U('Article/dele?article_id='.$vo['article_id'])}" class="btn btn-danger ajax-list-del">删除</a>
     </td>
   </tr>
 </volist>

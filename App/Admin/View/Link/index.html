@@ -39,7 +39,7 @@
     <span data-table="Link" data-id="{$vo.link_id}" data-field="status"  data-value="{$vo.status}" class="yn"></span>
     </td>
     <td>      <a href="{:U('Link/edit?link_id='.$vo['link_id'])}" class="btn btn-primary">编辑</a>
-      <a href="{:U('Link/del?link_id='.$vo['link_id'])}" class="btn btn-danger ajax-href-del">删除</a>
+      <a href="{:U('Link/del?link_id='.$vo['link_id'])}" class="btn btn-danger ajax-list-del">删除</a>
     </td>
   </tr>
 </volist>

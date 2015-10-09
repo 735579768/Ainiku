@@ -183,7 +183,7 @@ class ArchiveController extends AdminController {
 				if(empty($id))$this->error('请先进行选择');
 				$preid=getTable($this->m_info['table'],false).'_id';
 				$result=M($this->m_info['table'])->where("{$preid} in($id)")->save(array('status'=>-1));  
-			    $result>0?$this->success('已经移到回收站',U('recycle')):$this->error('操作失败');	
+			    $result>0?$this->success('已经移到回收站',U('recycle',array('model_id'=>I('model_id')))):$this->error('操作失败');	
 		}
 	/**
 	 *从回收站删除文档
@@ -193,7 +193,7 @@ class ArchiveController extends AdminController {
 		if(empty($id))$this->error('请先进行选择');
 		$preid=getTable($this->m_info['table'],false).'_id';
     	$result=M($this->m_info['table'])->where("{$preid} in ($id)")->delete();
-		$result>0?$this->success('已经彻底删除',U('recycle')):$this->error('操作失败');
+		$result>0?$this->success('已经彻底删除',U('recycle',array('model_id'=>I('model_id')))):$this->error('操作失败');
     }
 	function huifu(){
 		  $id=I("id");
@@ -201,7 +201,7 @@ class ArchiveController extends AdminController {
 		  $preid=getTable($this->m_info['table'],false).'_id';
 		  $uid=M($this->m_info['table'])->where("{$preid} in($id)")->save(array('status'=>1));
 		  if(0<$uid){
-			$this->success('已经成功恢复',U('index'));
+			$this->success('已经成功恢复',U('index',array('model_id'=>I('model_id'))));
 		  }else{
 			$this->error('操作失败');
 		  }
@@ -209,7 +209,7 @@ class ArchiveController extends AdminController {
 	function delall(){
 			$result=M($this->m_info['table'])->where("status=-1")->delete();
 			if(result){
-			  $this->success('回收站已经清空',U('recycle'));
+			  $this->success('回收站已经清空',U('recycle',array('model_id'=>I('model_id'))));
 			}else{
 			  $this->error('操作失败');
 			}		

@@ -302,7 +302,7 @@ obj.css({
 		marginTop:-obj.outerHeight()/2
 	});
 setTimeout(function(){
-	typeof(callback)==='function'&&callback();
+	typeof(conf.success)==='function'&&conf.success(conf);
 	$('#kl-msg-wrap').remove();
 	},conf.delay*1000);
 },

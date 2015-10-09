@@ -53,7 +53,7 @@
     <td><span data-table="Goods" data-id="{$vo.goods_id}" data-field="status"  data-value="{$vo.status}" class="yn"></span></td>
     <td>
     	<a href="{:U('Goods/edit?goods_id='.$vo['goods_id'])}"  class="btn btn-primary">编辑</a>
-        <a href="{:U('Goods/del?goods_id='.$vo['goods_id'])}" class="btn btn-danger ajax-href-del">移到回收站</a>
+        <a href="{:U('Goods/del?goods_id='.$vo['goods_id'])}" class="btn btn-danger ajax-list-del">移到回收站</a>
     </td>
   </tr>
 </volist>

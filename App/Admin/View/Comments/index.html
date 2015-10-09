@@ -42,7 +42,7 @@
  <td>{$vo.create_time|time_format}</td>
     <td>
       <a href="javascript:dialogAjax('{:U('Comments/check?comments_id='.$vo['comments_id'])}','查看留言');" class="btn btn-primary check">查看</a>
-      <a href="{:U('Comments/del?comments_id='.$vo['comments_id'])}" class="btn btn-danger ajax-href-del">删除</a>
+      <a href="{:U('Comments/del?comments_id='.$vo['comments_id'])}" class="btn btn-danger ajax-list-del">删除</a>
     </td>
   </tr>
 </volist>

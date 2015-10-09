@@ -44,7 +44,7 @@
     <td><a target="_blank" href="{$vo.url}">{$vo.url}</a></td>
     <td>    <span data-table="Module" data-id="{$vo.module_id}" data-field="status"  data-value="{$vo.status}" class="yn"></span></td>
     <td>      <a href="{:U('Module/edit?module_id='.$vo['module_id'])}" class="btn btn-primary">编辑</a>
-      <a href="{:U('Module/del?module_id='.$vo['module_id'])}" class="btn btn-danger ajax-href-del">删除</a>
+      <a href="{:U('Module/del?module_id='.$vo['module_id'])}" class="btn btn-danger ajax-list-del">删除</a>
     </td>
   </tr>
 </volist>
