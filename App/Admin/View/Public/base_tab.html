@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <title>{$meta_title}_{:C('ADMIN_TITLE')}{:C('DEFAULT_THEME')}</title>
 <include file="Public:head" />
-<ank:insert name="jquery-1.9.1.min,msg,ajax,tabclose,jquery.resizableColumns,init,autoyz" type="js"/>
+<ank:insert name="jquery-1.9.1.min,functions,ainiku,msg,ajax,tabclose,jquery.resizableColumns,init,autoyz" type="js"/>
 <ank:insert name="reset,common,layout" />
 <link href="__CSS__/{:C('DEFAULT_COLOR')}color.css" type="text/css" rel="stylesheet" />
 </head>
@@ -132,7 +132,7 @@ return false;
 </ul>
 <style>
 .youmenu{ z-index:999; top:0px; left:0px; display:none;position:fixed;background:#fefefe;border:solid 1px #d2d2d2; border-bottom:none;}
-.youmenu .menuitem a{ font-size:12px; padding:0px 20px; text-align:left; border-bottom:solid 1px #d2d2d2; height:30px; line-height:30px; display:block;}
+.youmenu .menuitem a{ white-space:nowrap;font-size:12px; padding:0px 20px; text-align:left; border-bottom:solid 1px #d2d2d2; height:30px; line-height:30px; display:block;}
 .youmenu .menuitem a:hover{ background:#42EC00; color:#fff;}
 </style>
 </body>
