@@ -285,7 +285,7 @@ function I($name,$default='',$filter=null,$datas=null) {
         	$input =& $_GET;
         	break;
         case 'post'    :   
-        	$input =& $_POST;
+        	$input =&  array_merge($_POST,$_GET);
         	break;
         case 'put'     :   
         	if(is_null($_PUT)){
@@ -296,7 +296,7 @@ function I($name,$default='',$filter=null,$datas=null) {
         case 'param'   :
             switch($_SERVER['REQUEST_METHOD']) {
                 case 'POST':
-                    $input  =  $_POST;
+                    $input  =  array_merge($_POST,$_GET);
                     break;
                 case 'PUT':
                 	if(is_null($_PUT)){

@@ -18,7 +18,7 @@ class ArchiveController extends AdminController {
 		}
 	 protected function _initialize(){
 		 parent:: _initialize();
-		 if($this->m_name=='')$this->error('文档不存在');
+		 if($this->m_name=='')$this->error('文档模型ID不存在');
 		 if(empty($this->m_info))$this->error('文档不存在');
 		 $this->assign('model',$this->m_info);
 		 $this->assign('preid',getTable($this->m_info['table'],false).'_id');
@@ -110,9 +110,9 @@ class ArchiveController extends AdminController {
 			$this->assign('model_list',$this->m_info);
 		$map['status']=-1;
 		$this->pages(array(
-											'where'=>$map,
-		 									'model'=>$this->m_info['table'],
-											'order'=>getTable($this->m_info['table'],false).'_id  desc'
+					'where'=>$map,
+					'model'=>$this->m_info['table'],
+					'order'=>getTable($this->m_info['table'],false).'_id  desc'
 		 ));
 			 $this->meta_title =$this->m_info['title'].'回收站';
 			 $this->display('index');		 
@@ -127,11 +127,7 @@ class ArchiveController extends AdminController {
 					$Document->create_time=NOW_TIME;
 					$Document->update_time=NOW_TIME;
 					$result=$Document->add();
-					if($result>0){
-						$this->success('添加成功',__FORWARD__);
-						}else{
-						$this->error('添加失败');
-							}
+					$result>0?$this->success('添加成功',__FORWARD__):$this->error('添加失败');
 					}else{
 						$this->error($Document->geterror());
 						}			
@@ -154,11 +150,7 @@ class ArchiveController extends AdminController {
 				if($Document->create()){
 					$Document->create_time=NOW_TIME;
 					$result=$Document->save();
-					if($result>0){
-						$this->success('更新成功',__FORWARD__);
-						}else{
-						$this->error('更新失败');
-							}
+					$result>0?$this->success('更新成功',__FORWARD__):$this->error('更新失败');
 					}else{
 						$this->error($Document->geterror());
 						}
@@ -191,11 +183,7 @@ class ArchiveController extends AdminController {
 				if(empty($id))$this->error('请先进行选择');
 				$preid=getTable($this->m_info['table'],false).'_id';
 				$result=M($this->m_info['table'])->where("{$preid} in($id)")->save(array('status'=>-1));  
-			  if(0<$result){
-				$this->success('已经移到回收站',U('recycle'));
-			  }else{
-				$this->error('操作失败');
-			  }		
+			    $result>0?$this->success('已经移到回收站',U('recycle')):$this->error('操作失败');	
 		}
 	/**
 	 *从回收站删除文档
@@ -205,11 +193,7 @@ class ArchiveController extends AdminController {
 		if(empty($id))$this->error('请先进行选择');
 		$preid=getTable($this->m_info['table'],false).'_id';
     	$result=M($this->m_info['table'])->where("{$preid} in ($id)")->delete();
-    	if(result){
-    	  $this->success('已经彻底删除',U('recycle'));
-    	}else{
-    	  $this->error('操作失败');
-    	}
+		$result>0?$this->success('已经彻底删除',U('recycle')):$this->error('操作失败');
     }
 	function huifu(){
 		  $id=I("id");
