@@ -108,8 +108,32 @@ $(iframe).prev().remove();
 <script>
 $(function(){
 	$("table").resizableColumns({});
+	$('#youmenu').hover(function(){
+		$('#youmenu').show();
+		},function(){
+		$('#youmenu').hide();	
+	}); 
 });
+//右键菜单
+document.oncontextmenu=function(e){ 
+try{
+ if(window.event) e = window.event;
+$('#youmenu').css({left:e.clientX-5,top:e.clientY-5});
+$('#youmenu').show();
+}catch(e){
+	}
+return false; 
+};
 </script>
 <!--script end-->
+<ul id="youmenu" class="youmenu">
+<li class="menuitem"><a href="javascript:;" onClick="javascript:window.location.reload();">刷新页面</a></li>
+<li class="menuitem"><a href="javascript:;" onClick="window.history.go(-1);">返回上一页</a></li>
+</ul>
+<style>
+.youmenu{ z-index:999; top:0px; left:0px; display:none;position:fixed;background:#fefefe;border:solid 1px #d2d2d2; border-bottom:none;}
+.youmenu .menuitem a{ font-size:12px; padding:0px 20px; text-align:left; border-bottom:solid 1px #d2d2d2; height:30px; line-height:30px; display:block;}
+.youmenu .menuitem a:hover{ background:#42EC00; color:#fff;}
+</style>
 </body>
 </html>

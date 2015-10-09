@@ -85,7 +85,7 @@
 document.oncontextmenu=function(e){ 
 try{
  if(window.event) e = window.event;
-$('#youmenu').css({left:e.clientX,top:e.clientY});
+$('#youmenu').css({left:e.clientX-5,top:e.clientY-5});
 $('#youmenu').show();
 }catch(e){
 	}
