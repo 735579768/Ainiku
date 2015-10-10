@@ -116,10 +116,15 @@ class AdminController extends CommonController {
 			$map['pid']=$curid;
 
 			$model=M('menu');
-			 $grouplist=$model->where($map)->group('`group`')->order('sort asc,`group` asc')->select();
+			 $grouplist=$model->where($map)->group('`group`')->order('`group` asc')->select();
+			 foreach($grouplist as $key=>$val){
+				 $grouplist[$key]['group']=preg_replace('/\d*/','',$val['group']);
+				 }
 			 $this->assign('_GROUPLIST_',$grouplist);
 			$childnav=M('menu')->where($map)->order('sort asc')->select();
-
+			 foreach($childnav as $key=>$val){
+				 $childnav[$key]['group']=preg_replace('/\d*/','',$val['group']);
+				 }
 		 	$this->assign('_CHILDNNAV_',$childnav); 
 		 }
 	/**

@@ -285,7 +285,7 @@ function I($name,$default='',$filter=null,$datas=null) {
         	$input =& $_GET;
         	break;
         case 'post'    :   
-        	$input =&  array_merge($_POST,$_GET);
+        	$input =  array_merge($_POST,$_GET);
         	break;
         case 'put'     :   
         	if(is_null($_PUT)){

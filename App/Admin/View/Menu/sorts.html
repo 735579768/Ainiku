@@ -21,7 +21,7 @@ ul,li{list-style:none;}
 .dragblock ul{float:left; margin:10px; width:150px; height:400px; overflow:auto; overflow-y:scroll; border:solid 1px #ccc;}
 .dragblock ul .menutitle{    border: none;font-weight: bolder;background-color: #ededed;}
 </style>
-<ank:insert type="js" name="drag-sort" />
+<ank:insert type="js" name="drag-sort,json2" />
 <script>
 $(function(){
 	$('.dragblock').kldrag({
@@ -29,6 +29,7 @@ $(function(){
 			   'dragitem':'.dragitem',
                'draggroup':'ul',
 			   'success':function(da){
+				   	//$('.dragblock .dragitem'){}
 						var strid=new Array();
 						$('.dragblock .menutitle').each(function(index, element) {
                             var tem={ 
@@ -39,13 +40,20 @@ $(function(){
 							$(this).parent().find('.dragitem').each(function(index, element) {
                                 arr.push({
 										id:$(this).attr('data-id'),
-										sorts:$(this).attr('dragid') 									
+										sorts:index 									
 									});
                             });
 							tem.child=arr;
 							strid.push(tem);
                         });
-						console.log(strid);
+					$.ajax({
+						type:'POST',
+						url:"{:U('Ajax/menusort')}",
+						data:{sortda:JSON.stringify(strid)},
+						success:function(da){
+							ank.msg(da.info);
+							}
+						});
 						}
 	});
 	});

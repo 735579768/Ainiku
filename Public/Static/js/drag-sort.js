@@ -231,7 +231,7 @@ this.init=function() {
 			
 			
 				var obj=_pt.find(selstr);
-				var _top=obj.offset().top-(_pt.offset().top||0);
+				var _top=(obj.offset().top||0)-_pt.offset().top;
 				var _left=obj.offset().left-_pt.offset().left;
 				tt.animate({left:_left,top:_top},100,function(){
 					obj.before(tt);

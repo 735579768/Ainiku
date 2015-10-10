@@ -30,10 +30,11 @@ class MenuController extends AdminController {
     }
 	function sorts(){
 		$map['pid']=0;
+		$map['hide']=0;
 		$list=M('Menu')->where($map)->field('id,title,pid,sort')->select();
 		foreach($list as $key=>$val){
 			$map['pid']=$val['id'];
-			$list[$key]['child']=M('Menu')->where($map)->field('id,title,pid,sort')->select();
+			$list[$key]['child']=M('Menu')->where($map)->field('id,title,pid,sort,`group`')->order('`group` asc,sort asc')->select();
 			}
 		$this->assign('_list',$list);
 		$this->display();
