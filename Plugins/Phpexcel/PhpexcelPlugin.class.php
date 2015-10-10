@@ -1,13 +1,14 @@
 <?php
 /**
 使用方法
-		$field="'diqu,name,chudanyg";
-		$fieldtitle='市场,姓名,出单人员';
-		export(array(
-						$list,数据列表
-		 				'baodan-tongji',文件名字
-						array($field,$fieldtitle))对应每条数据的键名和标题
-						);
+		$field="'diqu,goods_id,num,create_time";
+		$fieldtitle="市场,产品名字,数量,下单时间";
+		$str=runPluginMethod('Phpexcel','export',array($list,
+		 											'shichang-tongji',
+													array($field,$fieldtitle)
+													)
+													
+													);
 ****/
 namespace  Plugins\Phpexcel;
 require_once pathA('/Plugins/Plugin.class.php');

@@ -12,6 +12,7 @@ class MemberController extends AdminController {
 		$map=array();
 		if(!empty($title))$map['username']=array('like','%'.$title.'%');
 		$map['status']=array('egt',0);
+		$map['member_id']=array('NEQ',1);
 		if(!empty($groupid))$map['member_group_id']=$groupid;
     	$this->pages(array(
 					'model'=>'Member',

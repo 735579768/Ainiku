@@ -104,7 +104,7 @@ class AdminController extends CommonController {
 				}
 			
 			if(empty($current))return false;
-			$curid=null;
+			$curid='';
 			 if($current['pid']!=0){
 				$curid=$current['pid'];
 				 }else{
@@ -112,19 +112,25 @@ class AdminController extends CommonController {
 					 }
 				 
 			 //取当前分组列表
-			$map['hide']=0;
-			$map['pid']=$curid;
-
-			$model=M('menu');
-			 $grouplist=$model->where($map)->group('`group`')->order('`group` asc')->select();
-			 foreach($grouplist as $key=>$val){
-				 $grouplist[$key]['group']=preg_replace('/\d*/','',$val['group']);
-				 }
-			 $this->assign('_GROUPLIST_',$grouplist);
-			$childnav=M('menu')->where($map)->order('sort asc')->select();
-			 foreach($childnav as $key=>$val){
-				 $childnav[$key]['group']=preg_replace('/\d*/','',$val['group']);
-				 }
+			 $grouplist=F('sys_grouplist');
+			 $childnav=F('sys_childnavlist'.$curid);
+			 if(APP_DEBUG||empty($grouplist)||empty($childnav)){
+				$map['hide']=0;
+				$map['pid']=$curid;
+				$model=M('menu');
+				 $grouplist=$model->where($map)->group('`group`')->order('`group` asc')->select();
+				 foreach($grouplist as $key=>$val){
+					 $grouplist[$key]['group']=preg_replace('/\d*/','',$val['group']);
+					 }
+				 
+				$childnav=M('menu')->where($map)->order('sort asc')->select();
+				 foreach($childnav as $key=>$val){
+					 $childnav[$key]['group']=preg_replace('/\d*/','',$val['group']);
+					 }
+				 F('sys_grouplist',$grouplist);
+				 F('sys_childnavlist'.$curid,$childnav);
+			 }
+			$this->assign('_GROUPLIST_',$grouplist);
 		 	$this->assign('_CHILDNNAV_',$childnav); 
 		 }
 	/**
@@ -138,13 +144,8 @@ class AdminController extends CommonController {
 			$field=>$value,
 			'update_time'=>NOW_TIME
 		);
-	//$result=M($table)->where($this->primarykey."=$id")->save($data);
 	$result=M($table)->where(M($table)->getPk()."=$id")->save($data);
-	if(0<$result){
-		$this->success('更新成功');	
-		}else{
-		$this->error('更新失败');
-			}
+	(0<$result)?$this->success('更新成功'):$this->error('更新失败');
 	}
 	 function setposition($table=null,$id=null,$field=null,$value=null){
 		  if(IS_POST){

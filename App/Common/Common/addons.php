@@ -108,7 +108,7 @@ function runPluginMethod($pn=null,$pm=null,$param=array()){
     require_once  ADDONS_PATH.$pn.'/'.$pn.'Plugin.class.php';
     $str="\\".ADDONS_DIR_NAME."\\$pn\\".$pn.'Plugin';
     $temobj=new $str();
-    return call_user_func_array(array($temobj,$pm),array($param));
+    return call_user_func_array(array($temobj,$pm),$param);
   }
  function plugin($name,$param=array()){
 	 try{
