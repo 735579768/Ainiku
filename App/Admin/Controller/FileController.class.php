@@ -101,7 +101,7 @@ class FileController extends AdminController {
 						'title'=>'开始时间',
 						'note'=>'',
 						'extra'=>null,
-						'is_show'=>1,
+						'is_show'=>3,
 						'value'=>$starttime
 					),
 					'end'=>array(
@@ -111,7 +111,7 @@ class FileController extends AdminController {
 						'title'=>'结束时间',
 						'note'=>'',
 						'extra'=>null,
-						'is_show'=>1,
+						'is_show'=>3,
 						'value'=>$endtime
 					)
 			);
