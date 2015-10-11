@@ -31,23 +31,15 @@ class Auth{
 			//正则匹配
 			$tembool=false;
 			foreach($this->noaccessnodelist as $val){
-				$pattern=null;
-				$url=str_replace('.'.C('URL_HTML_SUFFIX' ),'',U('/'.$val['name']));
+				$pattern='';
+				$url=str_replace('.'.C('URL_HTML_SUFFIX' ),'',U($val['name']));
 				$url=preg_quote($url);
 				$url=preg_replace('/\//i','\/',$url);
-				$url.='\/';
 				if($val['is_all']==1){
-				//$url=preg_replace('/(\?)|(\=)|(\/)|(\.)/i','\\\$1$2$3$4',);
 				$pattern='/^'.$url.'$/i';				
 				}else{
-				//$url=
 				$pattern='/(.*)'.$url.'(.*)/i';					
 					}
-
-				//echo U($val['name'])."\n";
-				//echo $pattern.'--->'.__SELF__."\n";
-				//trace($pattern);
-			//trace($pattern);
 				$tembool=preg_match($pattern,__SELF__);
 				if($tembool){$rebool=false;break;}
 			}
@@ -63,24 +55,27 @@ class Auth{
 			//正则替换链接
 			$are='([^<|^>]*?)';
 			foreach($this->noaccessnodelist as $val){
+				$url=trim($val['name']);
+				if(!empty($url)){
 				$pattern='/';
-				$url=U($val['name']);
-				$url=str_replace('.'.C('URL_HTML_SUFFIX' ),'',$url);
-				$url.='\/';
+				$url=U($url);
+				$url=str_replace(array('.'.C('URL_HTML_SUFFIX' )),array(''),$url);
+				$url=preg_quote($url);
+				$url=str_replace('/','\/',$url);
 				//把链接按钮(带有btn的操作)替换掉
 				if($val['is_all']==1){
-						$url=preg_replace('/(\?)|(\=)|(\/)|(\.)/i','\\\$1$2$3$4',$url);
 						$pattern.='<[tag]'.$url.'[tag]>[tag]<[tag]>';
-						//$pattern.='|<[tag]\"'.$url.'\"[tag]btn[tag]>[tag]<[tag]>';
 						$pattern.='|<([^<|^>|^\/]*?)>[tag]<[tag]'.$url.'[tag]>[tag]<\/[tag]>[tag]<\/[tag]>';				
 					}else{
-						$url=preg_replace('/(\?)|(\=)|(\/)|(\.)/i','\\\$1$2$3$4',$url);
+						//$url=preg_replace('/(\?)|(\=)|(\/)|(\.)/i','\\\$1$2$3$4',$url);
 						$pattern.='<[tag]'.$url.'[tag]>[tag]<[tag]>';
 						$pattern.='|<([^<|^>|^\/]*?)>[tag]<[tag]'.$url.'[tag]>[tag]<\/[tag]>[tag]<\/[tag]>';					
 						}
 				$pattern.='/i';			
 				$pattern=str_replace('[tag]','([^<|^>]*?)',$pattern);
+				//echo $pattern.'--<br>';
 				$str=preg_replace($pattern,'',$str);
+				}	
 			}
 			//移除后台左边空的菜单项目
 			$matchs=array();

@@ -227,6 +227,6 @@ border-color: #44b549 #e0e0e0 #f6f6f6;
 .searchform form input.form-control:focus,
 .searchform form input.form-control:hover{/* border:none;*/}
 .iframeloading{ position:fixed; top:45%; left:50%; z-index:99; margin-left:-33px; margin-top:-11px;}
-.youmenu{ z-index:999; top:0px; left:0px; display:none;position:fixed;background:#fefefe;border:solid 1px #d2d2d2; border-bottom:none;}
+.youmenu{ z-index:999; top:0px; left:0px; display:none;position:fixed;background:#fefefe;border:solid 1px #d2d2d2; border-bottom:none;    box-shadow: 2px 2px 7px #ccc;}
 .youmenu .menuitem a{ font-size:12px; padding:0px 20px; text-align:left; border-bottom:solid 1px #d2d2d2; height:30px; line-height:30px; display:block;}
 .youmenu .menuitem a:hover{ background:#e2e2e2;}
