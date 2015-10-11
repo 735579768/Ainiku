@@ -7,7 +7,7 @@
     </ul>
     
     <ul class="tool">
-    	<li><a href="javascript:;" title="({$uinfo.member_group_id|getMemberGroup=###,'title'}),登陆地址:({$uinfo['last_login_ip']}){$uinfo['last_login_adr']}" style="color:green;">您好:{$uinfo['username']}</a></li>
+    	<li><a href="javascript:;" title="({$uinfo.member_group_id|getMemberGroup=###,'title'}),登陆地址:({$uinfo['last_login_ip']}){$uinfo['last_login_adr']}" style="color:green;">您好::<notempty name="uinfo.nickname">{$uinfo['nickname']}<else />{$uinfo['username']}</notempty></a></li>
     	<li><a href="{:C('WEBDOMIN')}" target="_blank"></i>查看网站</a></li>
     	<li style="position:relative;" class="downmenu"><a href="javascript:;">清理系统缓存</a>
         	<ul class="pwdinfo">
