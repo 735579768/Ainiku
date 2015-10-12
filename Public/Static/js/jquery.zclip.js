@@ -96,7 +96,7 @@
 					_o.wrap('<span style="position:relative; z-index:1;display:inline-block;"></span>');
                     clip.glue(o[0], o.parent()[0]);
 					
-		    $(window).bind('load resize',function(){clip.reposition();});
+		   // $(window).bind('load resize',function(){clip.reposition();});
 					
 
                 }
@@ -280,8 +280,8 @@ ZeroClipboard.Client.prototype = {
 
         // find X/Y position of domElement
         var box = ZeroClipboard.getDOMObjectPosition(this.domElement, appendElem);
-		box.width=105;
-		box.height=31;
+		//box.width=105;
+		//box.height=31;
         // create floating DIV above element
         this.div = document.createElement('div');
         this.div.className = "zclip";
