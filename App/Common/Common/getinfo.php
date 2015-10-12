@@ -415,12 +415,9 @@ function getModel($model_id=null,$field=null,$attr=null){
  *解析extra字符串数据
  */
 function extraToArray($extra){
-	$extra=str_replace(' ','',$extra);
-	if(preg_match('/[0-9a-zA-Z]+\:.+(\n?|\,)/i',$extra)){
-	$jg="\n";
-	if(strpos($extra,',')!==false)$jg=',';
+	$extra=preg_replace(array('/\n/i','/\s/i'),array(',',''),$extra);
 	$dest=array();
-	$tema=explode($jg,$extra);
+	$tema=explode(',',$extra);
 	foreach($tema as $val){
 			if(strpos($extra,':')!==false){
 				$temb=explode(':',$val);
@@ -430,9 +427,6 @@ function extraToArray($extra){
 				}
 		}
 	return $dest;
-	}else{
-		return $extra;
-		}
 	}
 /**
  *取区域名字
