@@ -93,7 +93,7 @@
 
                     });
 					var _o=$(o[0]);
-					_o.wrap('<span style="position:relative; z-index:1;display:inline-block;"></span>');
+					_o.wrap('<span style="position:relative; z-index:1;display:block;"></span>');
                     clip.glue(o[0], o.parent()[0]);
 					
 		   // $(window).bind('load resize',function(){clip.reposition();});

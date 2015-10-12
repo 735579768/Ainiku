@@ -125,6 +125,7 @@ $(function(){
 		},
 		afterCopy:function(){
 			ank.msg('复制成功');
+			$('#youmenu').hide();
         }
 	});		
 
@@ -145,7 +146,7 @@ return false;
 <li class="menuitem"><a href="javascript:;" onClick="window.history.go(-1);">返回上一页</a></li>
 <li class="menuitem"><a href="javascript:;" onClick="window.history.go(1);">转到下一页</a></li>
 <li class="menuitem"><a href="javascript:;" onClick="javascript:window.location.reload();">刷新页面</a></li>
-<li class="menuitem"><a id="copybtn" href="javascript:;">CTL+C,复制</a></li>
+<li class="menuitem"><a id="copybtn" href="javascript:;">复制</a></li>
 
 </ul>
 </body>
