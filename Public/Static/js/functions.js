@@ -1,4 +1,15 @@
 $(function(){
+ window.getSelect=function()
+    {
+        if(window.getSelection)
+        {
+            return window.getSelection();
+        }
+        else
+        {
+            return document.selection.createRange().text;
+        } 
+    };
     window.ajaxhref = function(obj) {
         obj.addClass("disabled");
         if (typeof arguments[2] != "undefined") reloadbool = arguments[2];

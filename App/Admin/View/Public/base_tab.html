@@ -113,6 +113,20 @@ $(function(){
 		},function(){
 		$('#youmenu').hide();	
 	}); 
+    $("#copybtn").zclip({
+		path: "__STATIC__/js/ZeroClipboard.swf",
+		copy: function(){
+		var tex=getSelect().toString();
+		(typeof tex === 'string')||(tex='');
+		return tex;
+		},
+		beforeCopy:function(){
+
+		},
+		afterCopy:function(){
+			ank.msg('复制成功');
+        }
+	});
 });
 //右键菜单
 document.oncontextmenu=function(e){ 
