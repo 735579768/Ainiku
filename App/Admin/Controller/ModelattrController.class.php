@@ -89,7 +89,7 @@ class ModelattrController extends AdminController {
 				 if(empty($Modelattr->data_ts))$Modelattr->data_ts="请输入内容!";
 				 if(empty($Modelattr->data_ok))$Modelattr->data_ok="格式正确!";
 				 if(empty($Modelattr->data_err))$Modelattr->data_err="内容不能为空!";
-				 if(empty($Modelattr->data_reg))$Modelattr->data_reg=".*";
+				 if(empty($Modelattr->data_reg))$Modelattr->data_reg=".+";
 				 }
 			 $result=$Modelattr->save();
 			 if(0<$result){
