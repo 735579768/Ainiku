@@ -6,7 +6,7 @@ if(version_compare(PHP_VERSION,'5.3.0','<'))  die('require PHP > 5.3.0 !');
 define('APP_PATH','./App/');
 //常量定义
 define('ACCESS_ROOT',true);
-define('APP_DEBUG',false);
+define('APP_DEBUG',true);
 APP_DEBUG or define('BUILD_LITE_FILE',true);
 
 define('__SITE_ROOT__',str_replace('\\','/',$_SERVER['DOCUMENT_ROOT']));//站点根目录

@@ -388,7 +388,7 @@ extend:function() {
 },
 /**AJAX请求**/
 ajax:function(a){
-	var a=a||{};
+	a=a||{};
 	var b={
 		type:'POST',
 		url:"",
@@ -408,7 +408,7 @@ get:function(uri,da,callback){
 		});
 	},
 loadhtml:function(uri,da,obj,tpe){
-	(typeof tpe==='undefined')&&tpe='GET';
+	(typeof tpe==='undefined')&&(tpe='GET');
 	tpe=tpe.toUpperCase();
 	obj.html('正在加载数据...');
 	this.ajax({
