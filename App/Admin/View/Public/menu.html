@@ -7,6 +7,20 @@
 <script>
 
 $(function(){
+FlashCopy.setSwfPath('__STATIC__/js/flashcopy.swf');
+FlashCopy.init('copybtn').onCopy({
+	alias:'FlashCopy',
+	setText:function(obj){
+		var tex=getSelect().toString();
+		(typeof tex === 'string')||(tex='');
+		return tex;
+		},
+	success:function(obj,args){
+			ank.msg('复制成功');
+			$('#youmenu').hide();
+		}
+	});
+	
 $('#youmenu').hover(function(){
 $('#youmenu').show();
 },function(){
@@ -22,20 +36,5 @@ $('#youmenu').show();
 	}
 return false; 
 };
-  $("#copybtn").zclip({
-		path: "__STATIC__/js/ZeroClipboard.swf",
-		copy: function(){
-		var tex=getSelect().toString();
-		(typeof tex === 'string')||(tex='');
-		return tex;
-		},
-		beforeCopy:function(){
-
-		},
-		afterCopy:function(){
-			ank.msg('复制成功');
-			$('#youmenu').hide();
-        }
-	});		
 });
 </script>
