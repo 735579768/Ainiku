@@ -61,7 +61,7 @@ class PublicController extends Controller {
                 switch($uid) {
                     case -1: $error = '用户不存在或被禁用！'; break; //系统级别禁用
                     case -2: $error = '密码错误！'; break;
-                    default: $error = '未知错误！'; break; // 0-接口参数错误（调试阶段使用）
+                    default: $error = L('_UNKNOWN_ERROR_'); break; // 0-接口参数错误（调试阶段使用）
                 }
 				return $autologin?(false):$this->error($error);
             }

@@ -42,10 +42,10 @@ class GoodstypeattributeController extends AdminController {
 			F('sys_GoodsTypeAttribute_tree',null);
             if(false !== $GoodsTypeAttribute->create()){
 				$GoodsTypeAttribute->save();
-                $this->success('更新成功！',__FORWARD__);
+                $this->success(L('_UPDATE_SUCCESS_'),__FORWARD__);
             } else {
                 $error = $GoodsTypeAttribute->getError();
-                $this->error(empty($error) ? '未知错误！' : $error);
+                $this->error(empty($error) ? L('_UNKNOWN_ERROR_') : $error);
             }
 			
         } else {
@@ -68,10 +68,10 @@ class GoodstypeattributeController extends AdminController {
 			F('sys_GoodsTypeAttribute_tree',null);
             if(false !== $GoodsTypeAttribute->create()){
 				$GoodsTypeAttribute->add();
-                $this->success('新增成功！', U('index'));
+                $this->success(L('_ADD_SUCCESS_'), U('index'));
             } else {
                 $error = $GoodsTypeAttribute->getError();
-                $this->error(empty($error) ? '未知错误！' : $error);
+                $this->error(empty($error) ? L('_UNKNOWN_ERROR_') : $error);
             }
 			
         } else {
@@ -94,7 +94,7 @@ class GoodstypeattributeController extends AdminController {
 		if($result){
 			$this->success('删除成功',U('index',array('goods_type_id'=>$goods_type_id)));
 			}else{
-			$this->error('删除失败');	
+			$this->error(L('_DELETE_FAIL_'));	
 			}
 		$this->display();
 		}

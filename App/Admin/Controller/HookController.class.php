@@ -12,7 +12,7 @@ class HookController extends AdminController {
       	$model=D('Hooks');
       	if($model->create()){
       		$model->add();
-      		$this->success('添加成功',U('Hook/index'));
+      		$this->success(L('_ADD_SUCCESS_'),U('Hook/index'));
       	}else{
       		$this->error($model->getError());
       	}
@@ -29,7 +29,7 @@ class HookController extends AdminController {
     	if(D('Hooks')->jinyong($id)){
     		$this->success('禁用成功',U('index'));
     	}else{
-    	  $this->error('操作失败');
+    	  $this->error(L('_CAOZUO_FAIL_'));
     	}
     }
     /*
@@ -39,7 +39,7 @@ class HookController extends AdminController {
         if(D('Hooks')->qiyong($id)){
     	  $this->success('启用成功',U('index'));
     	}else{
-    	  $this->error('操作失败');
+    	  $this->error(L('_CAOZUO_FAIL_'));
     	}
     }
     /*
@@ -101,7 +101,7 @@ class HookController extends AdminController {
     	$rows=$model->where("id=$id")->find();
     	if(empty($rows['pluginid'])){
     		$model->where("id=$id")->delete();
-    		$this->success('删除成功');
+    		$this->success(L('_DELETE_SUCCESS_'));
     	}else{
     		$this->error('钩子上面有插件挂载不能删除',U('Hook/manage?id='.$id));
     	}

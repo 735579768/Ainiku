@@ -20,10 +20,10 @@ class GoodstypeController extends AdminController {
 			F('sys_GoodsType_tree',null);
             if(false !== $GoodsType->create()){
 				$GoodsType->save();
-                $this->success('更新成功！');
+                $this->success(L('_UPDATE_SUCCESS_'));
             } else {
                 $error = $GoodsType->getError();
-                $this->error(empty($error) ? '未知错误！' : $error);
+                $this->error(empty($error) ? L('_UNKNOWN_ERROR_') : $error);
             }
 			
         } else {
@@ -46,10 +46,10 @@ class GoodstypeController extends AdminController {
 			F('sys_GoodsType_tree',null);
             if(false !== $GoodsType->create()){
 				$GoodsType->add();
-                $this->success('新增成功！', U('index'));
+                $this->success(L('_ADD_SUCCESS_'), U('index'));
             } else {
                 $error = $GoodsType->getError();
-                $this->error(empty($error) ? '未知错误！' : $error);
+                $this->error(empty($error) ? L('_UNKNOWN_ERROR_') : $error);
             }
 			
         } else {
@@ -63,7 +63,7 @@ class GoodstypeController extends AdminController {
         }
     }
 	public function del($goods_type_id=''){
-		if(empty($goods_type_id))$this->error('id不能为空');
+		if(empty($goods_type_id))$this->error(L('_ID_NOT_NULL_'));
 		if($goods_type_id==='4')$this->error('系统默认类型不能删除');
 		//查找有没有分类使用这个类型
 		$rows=M('GoodsCat')->where("goods_type_id=$goods_type_id")->select();
@@ -73,9 +73,9 @@ class GoodstypeController extends AdminController {
 		if(!empty($rows))$this->error('请删除此类型下的属性再操作');
 		$result=M('GoodsType')->delete($goods_type_id);
 		if($result){
-			$this->success('删除成功');
+			$this->success(L('_DELETE_SUCCESS_'));
 			}else{
-			$this->error('删除失败');	
+			$this->error(L('_DELETE_FAIL_'));	
 			}
 		}
  

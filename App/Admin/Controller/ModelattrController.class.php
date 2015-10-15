@@ -46,9 +46,9 @@ class ModelattrController extends AdminController {
 			 	 if(0<$result){
 					$atype=I('type');
 					if($atype!='custom')$this->addmodelfield($result);
-				 	$this->success('添加成功',U('Modelattr/index',array('model_id'=>I('model_id'))));
+				 	$this->success(L('_ADD_SUCCESS_'),U('Modelattr/index',array('model_id'=>I('model_id'))));
 				 }else{
-					$this->error('添加失败,未知错误');	 
+					$this->error(L('_UNKNOWN_ERROR_'));	 
 					 }
 			 }else{
 			$this->error($Modelattr->geterror());	 
@@ -95,16 +95,16 @@ class ModelattrController extends AdminController {
 			 if(0<$result){
 					$atype=I('type');
 					if($atype!='custom')$this->addmodelfield($model_attr_id);
-				 	$this->success('更新成功',U('Modelattr/index',array('model_id'=>I('model_id'))));
+				 	$this->success(L('_UPDATE_SUCCESS_'),U('Modelattr/index',array('model_id'=>I('model_id'))));
 				 }else{
-					$this->error('更新失败，未知错误');	 
+					$this->error(L('_UNKNOWN_ERROR_'));	 
 					 }
 			 
 			 }else{
 			$this->error($Modelattr->geterror());	 
 				 }		 
 		 }else{
-		if(empty($model_attr_id))$this->error('id不能为空');
+		if(empty($model_attr_id))$this->error(L('_ID_NOT_NULL_'));
 		$data=D('ModelAttr')->where("model_attr_id=$model_attr_id")->find();
 		
 		//$field=Api('Model/ModeattrlModel');
@@ -135,12 +135,12 @@ public function del($model_attr_id=null){
 	$result=D('ModelAttr')->where("model_attr_id=$model_attr_id")->delete();
 	 if($result!==false){
 		  F('sys_Modelattr_tree',null);
-		 $this->success('删除成功',U('Modelattr/index?model_id='.I('get.model_id')));
+		 $this->success(L('_DELETE_SUCCESS_'),U('Modelattr/index?model_id='.I('get.model_id')));
 	 }else{
-		$this->error('删除失败，未知错误');	 
+		$this->error(L('_UNKNOWN_ERROR_'));	 
 	 }
 	}else{
-		$this->success('删除成功');
+		$this->success(L('_DELETE_SUCCESS_'));
 		}
 }
 }

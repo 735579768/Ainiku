@@ -61,9 +61,9 @@ class ModuleController extends AdminController {
 		 if($model->create()){
 			 $result=$model->add();
 			 	 if(0<$result){
-				 	$this->success('添加成功',U('index',array('modulepos_id'=>I('modulepos_id'))));
+				 	$this->success(L('_ADD_SUCCESS_'),U('index',array('modulepos_id'=>I('modulepos_id'))));
 				 }else{
-					$this->error('添加失败,未知错误');	 
+					$this->error(L('_UNKNOWN_ERROR_'));	 
 					 }
 			 }else{
 			$this->error($model->geterror());	 
@@ -84,16 +84,16 @@ class ModuleController extends AdminController {
 		 if($model->create()){
 			 $result=$model->save();
 			 if($result!==false){
-				 	$this->success('更新成功',U('Module/index',array('modulepos_id'=>I('modulepos_id'))));
+				 	$this->success(L('_UPDATE_SUCCESS_'),U('Module/index',array('modulepos_id'=>I('modulepos_id'))));
 				 }else{
-					$this->error('更新失败，未知错误');	 
+					$this->error(L('_UNKNOWN_ERROR_'));	 
 					 }
 			 
 			 }else{
 			$this->error($model->geterror());	 
 				 }		 
 		 }else{
-		if(empty($module_id))$this->error('模块信息id不能为空');
+		if(empty($module_id))$this->error(L('_ID_NOT_NULL_'));
 		$data=M('Module')->where("module_id=$module_id")->find();
 		
 		//$field=Api('Model/AdModel');
@@ -108,9 +108,9 @@ class ModuleController extends AdminController {
 public function del($module_id){
 	$result=M('Module')->where("module_id=$module_id")->delete();
 	 if($result!==false){
-		 $this->success('删除成功',U('Module/index'));
+		 $this->success(L('_DELETE_SUCCESS_'),U('Module/index'));
 	 }else{
-		$this->error('删除失败，未知错误');	 
+		$this->error(L('_UNKNOWN_ERROR_'));	 
 		 }
 
 	}

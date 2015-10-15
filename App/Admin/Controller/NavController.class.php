@@ -43,10 +43,10 @@ class NavController extends AdminController {
 			F('sys_nav_tree',null);
 			F('sys_navhome_list',null);
             if(false !== $Nav->update()){
-                $this->success('更新成功！',U('index'));
+                $this->success(L('_UPDATE_SUCCESS_'),U('index'));
             } else {
                 $error = $Nav->getError();
-                $this->error(empty($error) ? '未知错误！' : $error);
+                $this->error(empty($error) ? L('_UNKNOWN_ERROR_') : $error);
             }
 			
         } else {
@@ -69,10 +69,10 @@ class NavController extends AdminController {
 			F('sys_nav_tree',null);
 			F('sys_navhome_list',null);
             if(false !== $Nav->update()){
-                $this->success('新增成功！', U('index'));
+                $this->success(L('_ADD_SUCCESS_'), U('index'));
             } else {
                 $error = $Nav->getError();
-                $this->error(empty($error) ? '未知错误！' : $error);
+                $this->error(empty($error) ? L('_UNKNOWN_ERROR_') : $error);
             }
 			
         } else {

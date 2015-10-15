@@ -148,14 +148,14 @@ class AdminController extends CommonController {
 	 **/
 	public function updatefield($table='',$id='',$field='',$value=''){
 		if(empty($table) || empty($id) || empty($field)){
-			$this->error('参数不能为空');
+			$this->error(L('_PARAM_NOT_NULL_'));
 		}
 		$data=array(
 			$field=>$value,
 			'update_time'=>NOW_TIME
 		);
 	$result=M($table)->where(M($table)->getPk()."=$id")->save($data);
-	(0<$result)?$this->success('更新成功'):$this->error('更新失败');
+	(0<$result)?$this->success(L('_UPDATE_SUCCESS_')):$this->error(L('_UPDATE_FAIL_'));
 	}
 	 function setposition($table=null,$id=null,$field=null,$value=null){
 		  if(IS_POST){

@@ -68,9 +68,9 @@ class MemberController extends AdminController {
     	$id=I('get.member_log_id');
     	$idd=M('Member_log')->where("member_log_id in ($member_log_id)")->delete();
     	if(0<$idd){
-    	  $this->success('删除成功');
+    	  $this->success(L('_DELETE_SUCCESS_'));
     	}else{
-    	  $this->error('操作失败');
+    	  $this->error(L('_CAOZUO_FAIL_'));
     	}		
 		}
 //	public function delactionlog(){
@@ -79,7 +79,7 @@ class MemberController extends AdminController {
 //    	if(0<$idd){
 //    	  $this->success('已经全部清空',U('Member/actionlog'));
 //    	}else{
-//    	  $this->error('操作失败');
+//    	  $this->error(L('_CAOZUO_FAIL_'));
 //    	}		
 //		}
     public function add($member_group_id='',$username = '', $password = '', $repassword = '', $email = ''){
@@ -93,7 +93,7 @@ class MemberController extends AdminController {
             $User   = D('Member');
             $uid    =   $User->register($member_group_id,$username, $password, $email);
             if(0 < $uid){ //注册成功
-              $this->success('添加用户成功',U('index'));
+              $this->success(L('_ADD_SUCCESS_'),U('index'));
             } else { //注册失败，显示错误信息
                 $this->error($this->showRegError($uid));
             }
@@ -109,16 +109,16 @@ class MemberController extends AdminController {
 	//编辑用户信息
 	function edit($member_id=null){
 		if($member_id===null)$member_id=I('post.member_id');
-		if(empty($member_id))$this->error('用户id不能为空');
+		if(empty($member_id))$this->error(L('_ID_NOT_NULL_'));
 		if(IS_POST){
 			//先保存主用户表中的数据
 			$model=D('Member');
 			if($model->create()){
 				$result=$model->save();
 				if(0<$result){
-					$this->success('更新成功');
+					$this->success(L('_UPDATE_SUCCESS_'));
 					}else{
-					$this->error('更新失败');	
+					$this->error(L('_UPDATE_FAIL_'));	
 						}
 				}else{
 				$this->error($this->showRegError($model->geterror()));	
@@ -145,7 +145,7 @@ class MemberController extends AdminController {
 				$model->password=ainiku_ucenter_md5($model->password);
 				$result=$model->save();
 				if(0<$result){
-					$this->success('更新成功');
+					$this->success(L('_UPDATE_SUCCESS_'));
 					}else{
 					$this->error('密码相同,没有更改');	
 						}
@@ -178,7 +178,7 @@ class MemberController extends AdminController {
             case -9:  $error = '手机格式不正确！'; break;
             case -10: $error = '手机被禁止注册！'; break;
             case -11: $error = '手机号被占用！'; break;
-            default:  $error = '未知错误';
+            default:  $error = L('_UNKNOWN_ERROR_');
         }
         return $error;
     }
@@ -188,9 +188,9 @@ class MemberController extends AdminController {
         if($member_id=='1')$this->error('超级管理员不能删除');
         $uid=M('Member')->where("member_id in($member_id)")->save(array('status'=>-1));        
       if(0<$uid){
-      	$this->success('已经移到回收站',U('recycling'));
+      	$this->success(L('_TO_RECYCLE_'),U('recycling'));
       }else{
-      	$this->error('操作失败');
+      	$this->error(L('_CAOZUO_FAIL_'));
       }
     }
     function dele($member_id){
@@ -200,18 +200,18 @@ class MemberController extends AdminController {
 		//删除用户扩展属性
 		M('MemberAttrvalue')->where("member_id=$member_id")->delete();
     	if(0<$uid){
-    	  $this->success('已经彻底删除');
+    	  $this->success(L('_CHEDI_DELETE_'));
     	}else{
-    	  $this->error('操作失败');
+    	  $this->error(L('_CAOZUO_FAIL_'));
     	}
     }
 	function huifu($member_id){
       $id=I('get.member_id');
       $uid=M('Member')->where("member_id in($member_id)")->save(array('status'=>1));
       if(0<$uid){
-        $this->success('已经成功恢复',U('Member/index'));
+        $this->success(L('_TO_HUIFU_'),U('Member/index'));
       }else{
-        $this->error('操作失败');
+        $this->error(L('_CAOZUO_FAIL_'));
       }
     }
 	

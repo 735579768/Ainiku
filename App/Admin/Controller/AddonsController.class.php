@@ -74,7 +74,7 @@ class AddonsController extends AdminController {
     	if(D('Addons')->jinyong($id)){
     		$this->success('禁用成功',U('index'));
     	}else{
-    	  $this->error('操作失败');
+    	  $this->error(L('_CAOZUO_FAIL_'));
     	}
     }
     /*
@@ -84,7 +84,7 @@ class AddonsController extends AdminController {
         if(D('Addons')->qiyong($id)){
     	  $this->success('启用成功',U('index'));
     	}else{
-    	  $this->error('操作失败');
+    	  $this->error(L('_CAOZUO_FAIL_'));
     	}
     }
     /*

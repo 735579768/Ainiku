@@ -86,7 +86,7 @@ class FileController extends AdminController {
 		if($result){
 			$this->success('删除成功',U('attach'));
 			}else{
-			$this->error('删除失败');	
+			$this->error(L('_DELETE_FAIL_'));	
 				}
 		}
 	//图片管理
@@ -164,13 +164,13 @@ class FileController extends AdminController {
 		}
 	//删除图片
 	public function delimg($id=''){
-		if(empty($id))$this->error('id不能为空');
+		if(empty($id))$this->error(L('_ID_NOT_NULL_'));
 		//删除本地文件
 		$result=delimage($id);
 		if($result!==false){
 			$this->success('删除成功');
 			}else{
-			$this->error('删除失败');	
+			$this->error(L('_DELETE_FAIL_'));	
 				}
 		}
    /**

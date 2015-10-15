@@ -40,13 +40,13 @@ class CategoryController extends AdminController {
 			if($model->create()){
 				$result=$model->save();
 				if(0<$result){
-					$this->success('更新成功！',U('index',array('category_type'=>I('category_type'))));
+					$this->success(L('_UPDATE_SUCCESS_'),U('index',array('category_type'=>I('category_type'))));
 					}else{
-					$this->success('更新失败！');	
+					$this->success(L('_UPDATE_FAIL_'));	
 						}
 				}else{
                 $error = $model->getError();
-                $this->error(empty($error) ? '未知错误！' : $error);					
+                $this->error(empty($error) ? L('_UNKNOWN_ERROR_') : $error);					
 					}
 			
         } else {
@@ -67,10 +67,10 @@ class CategoryController extends AdminController {
         if(IS_POST){ //提交表单
 			F('sys_category_'.I('category_type').'_tree',null);
             if(false !== $Category->update()){
-                $this->success('新增成功！', U('index',array('category_type'=>I('category_type'))));
+                $this->success(L('_ADD_SUCCESS_'), U('index',array('category_type'=>I('category_type'))));
             } else {
                 $error = $Category->getError();
-                $this->error(empty($error) ? '未知错误！' : $error);
+                $this->error(empty($error) ? L('_UNKNOWN_ERROR_') : $error);
             }
 			
         } else {

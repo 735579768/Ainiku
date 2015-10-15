@@ -26,9 +26,9 @@ class MembergroupController extends AdminController {
     	  $result=$model->add();
     	  if(0<$result){
 			F('sys_membergroup_list',null);
-		  $this->success('添加成功',U('index'));
+		  $this->success(L('_ADD_SUCCESS_'),U('index'));
 		  }else{
-			  $this->error('添加失败');
+			  $this->error(L('_ADD_FAIL_'));
 			  }
     	}else{
     	  $this->error($model->getError());
@@ -48,9 +48,9 @@ class MembergroupController extends AdminController {
      	$result=$model->save();
      	if(0<$result){
 		F('sys_membergroup_list',null);
-		$this->success('更新成功',U('index'));
+		$this->success(L('_UPDATE_SUCCESS_'),U('index'));
 		}else{
-		$this->error('更新失败');	
+		$this->error(L('_UPDATE_FAIL_'));	
 			}
 	 }else{
        $this->error($model->getError());  	
@@ -69,9 +69,9 @@ class MembergroupController extends AdminController {
  function del($member_group_id=null){
    if($member_group_id=='1' || $member_group_id=='2')$this->error('系统组不能删除');
    if($gid=M('MemberGroup')->where('member_group_id='.$member_group_id)->delete()){
-     $this->success('删除成功');
+     $this->success(L('_DELETE_SUCCESS_'));
    }else{
-     $this->error('删除失败');
+     $this->error(L('_DELETE_FAIL_'));
    }
  	
  }
@@ -94,9 +94,9 @@ class MembergroupController extends AdminController {
 		  		$result=$model->save();
 				F('membegroupnodelist'.$member_group_id,null);
 			  if(0<$result){
-				   $this->success('更新成功',U('index'));
+				   $this->success(L('_UPDATE_SUCCESS_'),U('index'));
 				}else{
-					$this->error('更新失败');	  
+					$this->error(L('_UPDATE_FAIL_'));	  
 				}
 		  }else{
 			  $this->error($model->geterror());

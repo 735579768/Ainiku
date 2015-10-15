@@ -28,9 +28,9 @@ class LinkController extends AdminController {
 		 if($model->create()){
 			 $result=$model->add();
 			 	 if($result!==false){
-				 	$this->success('添加成功',U('Link/index'));
+				 	$this->success(L('_ADD_SUCCESS_'),U('Link/index'));
 				 }else{
-					$this->error('添加失败,未知错误');	 
+					$this->error(L('_UNKNOWN_ERROR_'));	 
 					 }
 			 }else{
 			$this->error($model->geterror());	 
@@ -51,16 +51,16 @@ class LinkController extends AdminController {
 		 if($model->create()){
 			 $result=$model->save();
 			 if($result!==false){
-				 	$this->success('更新成功',U('Link/index'));
+				 	$this->success(L('_UPDATE_SUCCESS_'),U('Link/index'));
 				 }else{
-					$this->error('更新失败，未知错误');	 
+					$this->error(L('_UNKNOWN_ERROR_'));	 
 					 }
 			 
 			 }else{
 			$this->error($model->geterror());	 
 				 }		 
 		 }else{
-		if(empty($link_id))$this->error('链接id不能为空');
+		if(empty($link_id))$this->error(L('_ID_NOT_NULL_'));
 		$data=D('Link')->where("link_id=$link_id")->find();
 		$field=getModel('link');
 		$this->meta_title = '编辑友情链接';
@@ -74,9 +74,9 @@ public function del($link_id){
 	$result=D('Link')->where("link_id=$link_id")->delete();
 	 if($result!==false){
 		  F('sys_link_tree',null);
-		 $this->success('删除成功',U('Link/index'));
+		 $this->success(L('_DELETE_SUCCESS_'),U('Link/index'));
 	 }else{
-		$this->error('删除失败，未知错误');	 
+		$this->error(L('_UNKNOWN_ERROR_'));	 
 		 }
 
 	}

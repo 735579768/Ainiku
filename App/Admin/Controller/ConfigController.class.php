@@ -40,9 +40,9 @@ class ConfigController extends AdminController {
                 if($Config->add()){
                     F('DB_CONFIG_DATA',null);
 					
-                    $this->success('新增成功', U('index',array('group'=>I('group'))));
+                    $this->success(L('_ADD_SUCCESS_'), U('index',array('group'=>I('group'))));
                 } else {
-                    $this->error('新增失败');
+                    $this->error(L('_ADD_FAIL_'));
                 }
             } else {
                 $this->error($Config->getError());
@@ -67,7 +67,7 @@ class ConfigController extends AdminController {
                 if(0<$Config->save()){
 					
 					F('DB_CONFIG_DATA',null);
-                    $this->success('更新成功',U('index',array('group'=>I('group'))));
+                    $this->success(L('_UPDATE_SUCCESS_'),U('index',array('group'=>I('group'))));
                 } else {
                     $this->error('没有更改');
                 }
@@ -164,7 +164,7 @@ class ConfigController extends AdminController {
 		$result=M('Config')->where($map)->delete();
         if(0<$result){
 			F('DB_CONFIG_DATA',null);
-            $this->success('删除成功');
+            $this->success(L('_DELETE_SUCCESS_'));
         } else {
             $this->error('删除失败！系统配置不允许删除！');
         }

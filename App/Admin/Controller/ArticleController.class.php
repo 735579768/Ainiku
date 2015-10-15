@@ -132,9 +132,9 @@ class ArticleController extends AdminController {
             if($model->create()){
 				//$model->position=implode(',',I('position'));
                 if($model->save()){
-                      $this->success('更新成功',__FORWARD__);
+                      $this->success(L('_UPDATE_SUCCESS_'),__FORWARD__);
                 } else {
-                    $this->error('更新失败');
+                    $this->error(L('_UPDATE_FAIL_'));
                 }
             } else {
                 $this->error($model->getError());
@@ -207,9 +207,9 @@ class ArticleController extends AdminController {
 		if(empty($article_id))$this->error('请先进行选择');
         $result=M('Article')->where("article_id in($article_id)")->save(array('status'=>-1));        
       if(0<$result){
-      	$this->success('已经移到回收站',U('recycle'));
+      	$this->success(L('_TO_RECYCLE_'),U('recycle'));
       }else{
-      	$this->error('操作失败');
+      	$this->error(L('_CAOZUO_FAIL_'));
       }
     }
     function dele(){
@@ -218,9 +218,9 @@ class ArticleController extends AdminController {
 		$model=M('Article');
     	$result=$model->where("article_id in ($article_id)")->delete();
     	if(result){
-    	  $this->success('已经彻底删除',U('recycle'));
+    	  $this->success(L('_CHEDI_DELETE_'),U('recycle'));
     	}else{
-    	  $this->error('操作失败');
+    	  $this->error(L('_CAOZUO_FAIL_'));
     	}
     }
 	function huifu(){
@@ -229,17 +229,17 @@ class ArticleController extends AdminController {
 	  if(empty($article_id))$this->error('请先进行选择');
       $uid=M('Article')->where("article_id in($article_id)")->save(array('status'=>1));
       if(0<$uid){
-        $this->success('已经成功恢复',U('index'));
+        $this->success(L('_TO_HUIFU_'),U('index'));
       }else{
-        $this->error('操作失败');
+        $this->error(L('_CAOZUO_FAIL_'));
       }
     }
 	function delall(){
 		$result=M('Article')->where("status=-1")->delete();
     	if(result){
-    	  $this->success('回收站已经清空',U('recycle'));
+    	  $this->success(L('_CLEAR_NULL_'),U('recycle'));
     	}else{
-    	  $this->error('操作失败');
+    	  $this->error(L('_CAOZUO_FAIL_'));
     	}		
 		}
 }

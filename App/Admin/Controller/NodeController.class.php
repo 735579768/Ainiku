@@ -34,9 +34,9 @@ class NodeController extends AdminController {
             $data = $model->create();
             if($data){
                 if($model->add()){
-                    $this->success('新增成功', U('index'));
+                    $this->success(L('_ADD_SUCCESS_'), U('index'));
                 } else {
-                    $this->error('新增失败');
+                    $this->error(L('_ADD_FAIL_'));
                 }
             } else {
                 $this->error($model->getError());
@@ -64,9 +64,9 @@ class NodeController extends AdminController {
             $data = $Node->create();
             if($data){
                 if($Node->save()!== false){
-                    $this->success('更新成功',U('index'));
+                    $this->success(L('_UPDATE_SUCCESS_'),U('index'));
                 } else {
-                    $this->error('更新失败');
+                    $this->error(L('_UPDATE_FAIL_'));
                 }
             } else {
                 $this->error($Node->getError());
@@ -94,9 +94,9 @@ class NodeController extends AdminController {
         }else{
            $result=M('Node')->where("id=$node_id")->delete();
         	if($result){
-				$this->success('删除成功',U('Node/index'));
+				$this->success(L('_DELETE_SUCCESS_'),U('Node/index'));
 				}else{
-				$this->error('删除失败');	
+				$this->error(L('_DELETE_FAIL_'));	
 					}
 		}
     }

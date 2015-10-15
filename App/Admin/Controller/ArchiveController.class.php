@@ -127,7 +127,7 @@ class ArchiveController extends AdminController {
 					$Document->create_time=NOW_TIME;
 					$Document->update_time=NOW_TIME;
 					$result=$Document->add();
-					$result>0?$this->success('添加成功',__FORWARD__):$this->error('添加失败');
+					$result>0?$this->success(L('_ADD_SUCCESS_'),__FORWARD__):$this->error(L('_ADD_FAIL_'));
 					}else{
 						$this->error($Document->geterror());
 						}			
@@ -150,7 +150,7 @@ class ArchiveController extends AdminController {
 				if($Document->create()){
 					$Document->create_time=NOW_TIME;
 					$result=$Document->save();
-					$result>0?$this->success('更新成功',__FORWARD__):$this->error('更新失败');
+					$result>0?$this->success(L('_UPDATE_SUCCESS_'),__FORWARD__):$this->error(L('_UPDATE_FAIL_'));
 					}else{
 						$this->error($Document->geterror());
 						}
@@ -183,7 +183,7 @@ class ArchiveController extends AdminController {
 				if(empty($id))$this->error('请先进行选择');
 				$preid=getTable($this->m_info['table'],false).'_id';
 				$result=M($this->m_info['table'])->where("{$preid} in($id)")->save(array('status'=>-1));  
-			    $result>0?$this->success('已经移到回收站',U('recycle',array('model_id'=>I('model_id')))):$this->error('操作失败');	
+			    $result>0?$this->success(L('_TO_RECYCLE_'),U('recycle',array('model_id'=>I('model_id')))):$this->error(L('_CAOZUO_FAIL_'));	
 		}
 	/**
 	 *从回收站删除文档
@@ -193,7 +193,7 @@ class ArchiveController extends AdminController {
 		if(empty($id))$this->error('请先进行选择');
 		$preid=getTable($this->m_info['table'],false).'_id';
     	$result=M($this->m_info['table'])->where("{$preid} in ($id)")->delete();
-		$result>0?$this->success('已经彻底删除',U('recycle',array('model_id'=>I('model_id')))):$this->error('操作失败');
+		$result>0?$this->success(L('_CHEDI_DELETE_'),U('recycle',array('model_id'=>I('model_id')))):$this->error(L('_CAOZUO_FAIL_'));
     }
 	function huifu(){
 		  $id=I("id");
@@ -201,17 +201,17 @@ class ArchiveController extends AdminController {
 		  $preid=getTable($this->m_info['table'],false).'_id';
 		  $uid=M($this->m_info['table'])->where("{$preid} in($id)")->save(array('status'=>1));
 		  if(0<$uid){
-			$this->success('已经成功恢复',U('index',array('model_id'=>I('model_id'))));
+			$this->success(L('_TO_HUIFU_'),U('index',array('model_id'=>I('model_id'))));
 		  }else{
-			$this->error('操作失败');
+			$this->error(L('_CAOZUO_FAIL_'));
 		  }
     }
 	function delall(){
 			$result=M($this->m_info['table'])->where("status=-1")->delete();
 			if(result){
-			  $this->success('回收站已经清空',U('recycle',array('model_id'=>I('model_id'))));
+			  $this->success(L('_CLEAR_NULL_'),U('recycle',array('model_id'=>I('model_id'))));
 			}else{
-			  $this->error('操作失败');
+			  $this->error(L('_CAOZUO_FAIL_'));
 			}		
 		}
 }

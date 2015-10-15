@@ -27,9 +27,9 @@ class ModuleposController extends AdminController {
 		 if($model->create()){
 			 $result=$model->add();
 			 	 if($result!==false){
-				 	$this->success('添加成功',U('modulepos/index'));
+				 	$this->success(L('_ADD_SUCCESS_'),U('modulepos/index'));
 				 }else{
-					$this->error('添加失败,未知错误');	 
+					$this->error(L('_UNKNOWN_ERROR_'));	 
 					 }
 			 }else{
 			$this->error($model->geterror());	 
@@ -50,16 +50,16 @@ class ModuleposController extends AdminController {
 		 if($model->create()){
 			 $result=$model->save();
 			 if($result!==false){
-				 	$this->success('更新成功',U('modulepos/index'));
+				 	$this->success(L('_UPDATE_SUCCESS_'),U('modulepos/index'));
 				 }else{
-					$this->error('更新失败，未知错误');	 
+					$this->error(L('_UNKNOWN_ERROR_'));	 
 					 }
 			 
 			 }else{
 			$this->error($model->geterror());	 
 				 }		 
 		 }else{
-		if(empty($modulepos_id))$this->error('模块位置id不能为空');
+		if(empty($modulepos_id))$this->error(L('_ID_NOT_NULL_'));
 		$data=M('modulepos')->where("modulepos_id=$modulepos_id")->find();
 		
 		//$field=Api('Model/moduleposModel');
@@ -76,9 +76,9 @@ public function del($modulepos_id){
 	if(!empty($rows))$this->error('请删除此模块位置下的模块');
 	$result=M('modulepos')->where("modulepos_id=$modulepos_id")->delete();
 	 if($result!==false){
-		 $this->success('删除成功',U('modulepos/index'));
+		 $this->success(L('_DELETE_SUCCESS_'),U('modulepos/index'));
 	 }else{
-		$this->error('删除失败，未知错误');	 
+		$this->error(L('_UNKNOWN_ERROR_'));	 
 		 }
 
 	}

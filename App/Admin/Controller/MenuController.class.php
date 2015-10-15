@@ -46,9 +46,9 @@ class MenuController extends AdminController {
             $data = $model->create();
             if($data){
                 if($model->add()){
-                    $this->success('新增成功', U('index'));
+                    $this->success(L('_ADD_SUCCESS_'), U('index'));
                 } else {
-                    $this->error('新增失败');
+                    $this->error(L('_ADD_FAIL_'));
                 }
             } else {
                 $this->error($model->getError());
@@ -76,9 +76,9 @@ class MenuController extends AdminController {
             $data = $Menu->create();
             if($data){
                 if($Menu->save()!== false){
-                    $this->success('更新成功');
+                    $this->success(L('_UPDATE_SUCCESS_'));
                 } else {
-                    $this->error('更新失败');
+                    $this->error(L('_UPDATE_FAIL_'));
                 }
             } else {
                 $this->error($Menu->getError());
@@ -106,9 +106,9 @@ class MenuController extends AdminController {
         }else{
            $result=M('Menu')->where("id=$id")->delete();
         	if($result){
-				$this->success('删除成功',U('Menu/index'));
+				$this->success(L('_DELETE_SUCCESS_'),U('Menu/index'));
 				}else{
-				$this->error('删除失败');	
+				$this->error(L('_DELETE_FAIL_'));	
 					}
 		}
     }

@@ -32,9 +32,9 @@ class ModelController extends AdminController {
 			 $result=$model->add();
 			 	 if($result!==false){
 					 $this->addnewtable(I('post.table'));
-				 	$this->success('添加成功',U('Modelattr/index',array('model_id'=>$result)));
+				 	$this->success(L('_ADD_SUCCESS_'),U('Modelattr/index',array('model_id'=>$result)));
 				 }else{
-					$this->error('添加失败,未知错误');	 
+					$this->error(L('_UNKNOWN_ERROR_'));	 
 					 }
 			 }else{
 			$this->error($model->geterror());	 
@@ -72,16 +72,16 @@ sql;
 			 $result=$model->save();
 			 if(0<$result){
 				 	$this->addnewtable(I('post.table'));
-				 	$this->success('更新成功',__FORWARD__);			
+				 	$this->success(L('_UPDATE_SUCCESS_'),__FORWARD__);			
 				 }else{
-					$this->error('更新失败，未知错误');	 
+					$this->error(L('_UNKNOWN_ERROR_'));	 
 			 }
 			 
 			 }else{
 			$this->error($model->geterror());	 
 				 }		 
 		 }else{
-		if(empty($model_id))$this->error('模型ID不能为空');
+		if(empty($model_id))$this->error(L('_ID_NOT_NULL_'));
 		$data=D('Model')->where("model_id=$model_id")->find();
 		$field=getModel('model');
 		$this->meta_title = '编辑模型';
@@ -105,9 +105,9 @@ public function del($model_id=null){
 		 $tablename=getTable($table_name);
 			$sql = "DROP TABLE IF EXISTS `{$tablename}`";
 			$res = M()->execute($sql);		 
-		 $this->success('删除成功',U('index'));
+		 $this->success(L('_DELETE_SUCCESS_'),U('index'));
 	 }else{
-		$this->error('删除失败，未知错误');	 
+		$this->error(L('_UNKNOWN_ERROR_'));	 
 		 }
 
 	}

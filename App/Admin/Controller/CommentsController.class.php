@@ -32,17 +32,17 @@ public function check($comments_id=''){
 		$model=M('Comments');
     	$result=$model->where("comments_id in ($comments_id)")->delete();
     	if(result){
-    	  $this->success('已经彻底删除',U('index'));
+    	  $this->success(L('_CHEDI_DELETE_'),U('index'));
     	}else{
-    	  $this->error('操作失败');
+    	  $this->error(L('_CAOZUO_FAIL_'));
     	}
     }
 	function delall(){
 		$result=M('Comments')->where("1=1")->delete();
     	if(result){
-    	  $this->success('已经清空',U('index'));
+    	  $this->success(L('_CLEAR_NULL_'),U('index'));
     	}else{
-    	  $this->error('操作失败');
+    	  $this->error(L('_CAOZUO_FAIL_'));
     	}		
 		}
 }

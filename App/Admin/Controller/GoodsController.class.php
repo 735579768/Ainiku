@@ -144,7 +144,7 @@ class GoodsController extends AdminController {
 					}else{
 					$this->success($msg['info'],U('index',array('category_id'=>I('category_id'))));	
 						}	
-                  //  $this->success('更新成功',U('Goods/index'));
+                  //  $this->success(L('_UPDATE_SUCCESS_'),U('Goods/index'));
                 } else {
                     $this->error($model->geterror());
                 }
@@ -171,7 +171,7 @@ class GoodsController extends AdminController {
 	 */
 	function updateGoodsInfo($goods_id=null){
 			$msg=array(
-				'info'=>'操作成功',
+				'info'=>L('_CAOZUO_SUCCESS_'),
 				'status'=>1
 			);
 			
@@ -205,7 +205,7 @@ class GoodsController extends AdminController {
 					//添加					
 					$result=$model->add($map);			
 					if(0<$result){
-						$msg['info']='产品添加成功';
+						$msg['info']=L('_ADD_FAIL_');
 						$msg['status']=1;	
 						}else{
 						$msg['info']='添加字段时出错';
@@ -216,7 +216,7 @@ class GoodsController extends AdminController {
 					$whe['goods_attribute_id']=$temrow['goods_attribute_id'];
 					$result=$model->where($whe)->save($map);	
 					if(0<$result){
-						$msg['info']='产品更新成功';	
+						$msg['info']=L('_UPDATE_SUCCESS_');	
 						}else{
 						$msg['info']='更新附加属性时出错';
 						$msg['status']=0;							
@@ -278,9 +278,9 @@ class GoodsController extends AdminController {
 		if(empty($goods_id))$this->error('请先进行选择');
         $result=M('Goods')->where("goods_id in($goods_id)")->save(array('status'=>-1));        
       if(0<$result){
-      	$this->success('已经移到回收站',U('recycle'));
+      	$this->success(L('_TO_RECYCLE_'),U('recycle'));
       }else{
-      	$this->error('操作失败');
+      	$this->error(L('_CAOZUO_FAIL_'));
       }
     }
     function dele(){
@@ -290,9 +290,9 @@ class GoodsController extends AdminController {
     	$result=$model->where("goods_id in ($goods_id)")->delete();
     	if(result){
 			M('GoodsAttribute')->where('goods_id='.$goods_id)->delete();
-    	  $this->success('已经彻底删除',U('recycle'));
+    	  $this->success(L('_CHEDI_DELETE_'),U('recycle'));
     	}else{
-    	  $this->error('操作失败');
+    	  $this->error(L('_CAOZUO_FAIL_'));
     	}
     }
 	function huifu(){
@@ -301,9 +301,9 @@ class GoodsController extends AdminController {
 	  if(empty($goods_id))$this->error('请先进行选择');
       $uid=M('Goods')->where("goods_id in($goods_id)")->save(array('status'=>1));
       if(0<$uid){
-        $this->success('已经成功恢复',U('index'));
+        $this->success(L('_TO_HUIFU_'),U('index'));
       }else{
-        $this->error('操作失败');
+        $this->error(L('_CAOZUO_FAIL_'));
       }
     }
 	function delall(){
@@ -313,9 +313,9 @@ class GoodsController extends AdminController {
 			}
 		$result=M('Goods')->where("status=-1")->delete();
     	if(result){
-    	  $this->success('回收站已经清空',U('recycle'));
+    	  $this->success(L('_CLEAR_NULL_'),U('recycle'));
     	}else{
-    	  $this->error('操作失败');
+    	  $this->error(L('_CAOZUO_FAIL_'));
     	}		
 		}
 }
