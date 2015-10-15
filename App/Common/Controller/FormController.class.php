@@ -17,7 +17,7 @@ class FormController extends Controller {
 		}
 	private function isvar(){
 		if(!isset($GLOBALS['formjs'])){
-			$GLOBALS['formjs']=array('datetime'=>0,'picture'=>0,'editor'=>0,'umeditor'=>0,'color'=>0,'dandu'=>0);
+			$GLOBALS['formjs']=array('editornum'=>0,'datetime'=>0,'picture'=>0,'editor'=>0,'umeditor'=>0,'color'=>0,'dandu'=>0);
 		}
 		}
 	public function getData(){
