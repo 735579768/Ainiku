@@ -62,14 +62,14 @@ class AdminController extends CommonController {
 		  defined('ISDEV') or define('ISDEV',APP_DEBUG);
 		 //主题默认为空
 		 C('DEFAULT_THEME','');
-		//赋值当前登陆用户信息
-		$uinfo=session('uinfo');
-		$map[getAccountType($uinfo['username'])]=$uinfo['username'];
-		$jin=__DB_PREFIX__."member_group as a on ".__DB_PREFIX__."member.member_group_id=a.member_group_id";
-		$field="*,".__DB_PREFIX__."member.status as status";
-        $user = D('Member')->field($field)->where($map)->join($jin)->find();
-		session('uinfo',$user);
-		$this->assign('uinfo',$user);
+//		//赋值当前登陆用户信息
+//		$uinfo=session('uinfo');
+//		$map[getAccountType($uinfo['username'])]=$uinfo['username'];
+//		$jin=__DB_PREFIX__."member_group as a on ".__DB_PREFIX__."member.member_group_id=a.member_group_id";
+//		$field="*,".__DB_PREFIX__."member.status as status";
+//        $user = D('Member')->field($field)->where($map)->join($jin)->find();
+//		session('uinfo',$user);
+		$this->assign('uinfo',session('uinfo'));
 			//检查访问权限
 			import('Ainiku.Auth');
 			$this->auth = new \Ainiku\Auth;
@@ -86,8 +86,12 @@ class AdminController extends CommonController {
 	  */
 	 public function getMainNav(){
 		 	$menu_id=I('menu_id');
-			$where="pid=0 and hide=0";
-		 	$nav=M('menu')->where($where)->order('sort asc')->select();
+			$nav=F('sys_mainnav');
+			if(empty($nav)||APP_DEBUG){
+				$where="pid=0 and hide=0";
+				$nav=M('menu')->where($where)->order('sort asc')->select();
+				F('sys_mainnav',$nav);
+			}
 		 	$this->assign('_MAINNAV_',$nav);
 			
 			//查到当前页面地址
@@ -98,7 +102,14 @@ class AdminController extends CommonController {
 					$act=explode('\\',CONTROLLER_NAME);
 					$act=$act[1];
 					}
-			 	$current = M('Menu')->where(" url like '%".$act."/".ACTION_NAME."%'")->find();
+				$url=$act."/".ACTION_NAME;
+				$url_sha1=sha1($url);
+				$current=F('sys_current_url'.$url_sha1);
+				if(empty($current)||APP_DEBUG){
+
+					$current = M('Menu')->where(" url like '%".$url."%'")->find();
+					F('sys_current_url'.$url_sha1,$current);
+				}
 			}else{
 				$current=M('Menu')->find($menu_id);
 				}
