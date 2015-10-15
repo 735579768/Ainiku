@@ -14,5 +14,6 @@
  */
 return array(
     /* 核心语言变量 */  
-    '_CAOZUO_ERROR_'     => '操作错误',
+    '_CAOZUO_ERROR_'       => '操作错误',
+	'_CAOZUO_SUCCESS_'     => '操作成功',
 );
