@@ -74,133 +74,131 @@ $(function(){
             alert(e.name + ": " + e.message);
         }
     };
-    //网页上面弹出信息
-    window.topmsg2= function(da, callback) {
-        var str = typeof da === "string" ? da :da.info;
-        var uri = typeof da === "string" ? "" :da.url;
-        var data = {
-            url:uri,
-            info:str,
-            msgtime:2
-        };
-        var msgtime = data.msgtime;
-        //信息显示时间
-        $("body").css("posttion", "relative");
-        $("#topmsg").remove();
-        var xiaolian = da.status == "0" ? ">_<" :"o_0";
-        $("body").append('<div id="topmsg" style="z-index:99999;padding:15px 20px;font-weight:bolder;text-align:center; color:#f00;display:block;position:fixed;top:0px; background:#fff; left:50%;border-radius: 10px;-webkit-box-shadow: 0px 4px 13px rgba(0,0,0,0.30);-moz-box-shadow: 0px 4px 13px rgba(0,0,0,0.30);box-shadow: 0px 4px 13px rgba(0,0,0,0.30);_left:45%;_position:absolute;_bottom:auto;_top:expression(eval(document.documentElement.scrollTop));">' + xiaolian + " ，" + data.info + "<span>," + msgtime + "</span></div>");
-        $("#topmsg").css({
-            marginLeft:"-" + $("#topmsg").outerWidth() / 2 + "px",
-            top:"-" + $("#topmsg").outerHeight() + "px"
-        });
-        $("#topmsg").stop(true).animate({
-            top:$("#topmsg").outerHeight() / 2 + 20 + "px"
-        }, 200, function() {
-            $("#topmsg").stop(true).animate({
-                top:"20px"
-            }, 100);
-        });
-        if (da.status == "0") {
-            $("#topmsg").css({
-                background:"#ff6666",
-                color:"#ffffff"
-            });
-        } else {
-            $("#topmsg").css({
-                background:"#4bbd00",
-                color:"#ffffff"
-            });
-        }
-        //倒计时
-        window.msgtimeid = setInterval(function() {
-            if (msgtime > 1) {
-                $("#topmsg span").html("," + --msgtime);
-            } else {
-                clearInterval(msgtimeid);
-                $("#topmsg").stop(true).animate({
-                    top:$("#topmsg").outerHeight() / 2 + "px"
-                }, 100, function() {
-                    $("#topmsg").stop(true).animate({
-                        top:"-" + $("#topmsg").outerHeight() + "px",
-                        opacity:0
-                    }, 200, function() {
-                        $("#topmsg").remove();
-                        $("#klbg").remove();
-                        $(".disabled").removeClass("disabled");
-                        //如果返回的有地址的话就直接转向
-                        if (data.url != "" && data.url != "undefined") {
-                            window.location = data.url;
-                        }
-                        //最后处理代码在此添加(如果没有回调函数的话)
-                        if (typeof callback == "function") {
-                            callback(da);
-                        }
-                        //如果有后调函数的话调用
-                        if (typeof _after_post == "function") {
-                            _after_post(da);
-                        }
-                        if (typeof _after_func == "function") {
-                            _after_func(da);
-                        }
-                    });
-                });
-            }
-        }, 1e3);
-    };
+//    //网页上面弹出信息
+//    window.topmsg2= function(da, callback) {
+//        var str = typeof da === "string" ? da :da.info;
+//        var uri = typeof da === "string" ? "" :da.url;
+//        var data = {
+//            url:uri,
+//            info:str,
+//            msgtime:2
+//        };
+//        var msgtime = data.msgtime;
+//        //信息显示时间
+//        $("body").css("posttion", "relative");
+//        $("#topmsg").remove();
+//        var xiaolian = da.status == "0" ? ">_<" :"o_0";
+//        $("body").append('<div id="topmsg" style="z-index:99999;padding:15px 20px;font-weight:bolder;text-align:center; color:#f00;display:block;position:fixed;top:0px; background:#fff; left:50%;border-radius: 10px;-webkit-box-shadow: 0px 4px 13px rgba(0,0,0,0.30);-moz-box-shadow: 0px 4px 13px rgba(0,0,0,0.30);box-shadow: 0px 4px 13px rgba(0,0,0,0.30);_left:45%;_position:absolute;_bottom:auto;_top:expression(eval(document.documentElement.scrollTop));">' + xiaolian + " ，" + data.info + "<span>," + msgtime + "</span></div>");
+//        $("#topmsg").css({
+//            marginLeft:"-" + $("#topmsg").outerWidth() / 2 + "px",
+//            top:"-" + $("#topmsg").outerHeight() + "px"
+//        });
+//        $("#topmsg").stop(true).animate({
+//            top:$("#topmsg").outerHeight() / 2 + 20 + "px"
+//        }, 200, function() {
+//            $("#topmsg").stop(true).animate({
+//                top:"20px"
+//            }, 100);
+//        });
+//        if (da.status == "0") {
+//            $("#topmsg").css({
+//                background:"#ff6666",
+//                color:"#ffffff"
+//            });
+//        } else {
+//            $("#topmsg").css({
+//                background:"#4bbd00",
+//                color:"#ffffff"
+//            });
+//        }
+//        //倒计时
+//        window.msgtimeid = setInterval(function() {
+//            if (msgtime > 1) {
+//                $("#topmsg span").html("," + --msgtime);
+//            } else {
+//                clearInterval(msgtimeid);
+//                $("#topmsg").stop(true).animate({
+//                    top:$("#topmsg").outerHeight() / 2 + "px"
+//                }, 100, function() {
+//                    $("#topmsg").stop(true).animate({
+//                        top:"-" + $("#topmsg").outerHeight() + "px",
+//                        opacity:0
+//                    }, 200, function() {
+//                        $("#topmsg").remove();
+//                        $("#klbg").remove();
+//                        $(".disabled").removeClass("disabled");
+//                        //如果返回的有地址的话就直接转向
+//                        if (data.url != "" && data.url != "undefined") {
+//                            window.location = data.url;
+//                        }
+//                        //最后处理代码在此添加(如果没有回调函数的话)
+//                        if (typeof callback == "function") {
+//                            callback(da);
+//                        }
+//                        //如果有后调函数的话调用
+//                        if (typeof _after_post == "function") {
+//                            _after_post(da);
+//                        }
+//                        if (typeof _after_func == "function") {
+//                            _after_func(da);
+//                        }
+//                    });
+//                });
+//            }
+//        }, 1e3);
+//    };
 
     //网页上面弹出信息
     window.topmsg= function(da, callback) {
         var str = typeof da === "string" ? da :da.info;
-        var uri = typeof da === "string" ? "" :da.url;
+        var uri;
         var data = {
-            url:uri,
+            url:'',
             info:str,
             msgtime:2
         };
         var msgtime = data.msgtime;
         //信息显示时间
-        $("body").css("posttion", "relative");
+        $("body").css("position", "relative");
         $("#topmsg").remove();
         var xiaolian = da.status == "0" ? ">_<" :"o_0";
         $("body").append('<div id="topmsg" style="display:none;top:30%;z-index:99999;padding:15px 20px;font-weight:bolder;text-align:center; color:#f00;display:block;position:fixed; background:#fff; left:50%;border-radius: 10px;-webkit-box-shadow: 0px 4px 13px rgba(0,0,0,0.30);-moz-box-shadow: 0px 4px 13px rgba(0,0,0,0.30);box-shadow: 0px 4px 13px rgba(0,0,0,0.30);_left:45%;_position:absolute;_bottom:auto;_top:expression(eval(document.documentElement.scrollTop));">' + xiaolian + " ，" + data.info + "<span>," + msgtime + "</span></div>");
-        $("#topmsg").css({
-            marginLeft:"-" + $("#topmsg").outerWidth() / 2 + "px",
-            marginTop:"-" + $("#topmsg").outerHeight()*2 + "px",
+        var msgo=$("#topmsg");
+		msgo.css({
+            marginLeft:"-" + msgo.outerWidth() / 2 + "px",
+            marginTop:"-" + msgo.outerHeight()/2 + "px",
+			opaticy:0,
 			display:'block'
         });
-        $("#topmsg").stop(true).animate({
-            marginTop:'-'+$("#topmsg").outerHeight() / 2 + "px"
-        }, 200, function() {
-//            $("#topmsg").stop(true).animate({
-//                top:"20px"
-//            }, 100);
-        });
+
         if (da.status == "0") {
-            $("#topmsg").css({
+            msgo.css({
                 background:"#ff6666",
                 color:"#ffffff"
             });
         } else {
-            $("#topmsg").css({
+            msgo.css({
                 background:"#4bbd00",
                 color:"#ffffff"
             });
         }
+
+        msgo.stop(true).animate({
+           opacity:1,
+        }, 200, function() {
+        });
         //倒计时
         window.msgtimeid = setInterval(function() {
             if (msgtime > 1) {
                 $("#topmsg span").html("," + --msgtime);
             } else {
                 clearInterval(msgtimeid);
-                $("#topmsg").stop(true).animate({
+                msgo.stop(true).animate({
                  //   top:$("#topmsg").outerHeight() / 2 + "px",
-					marginTop:"-" + $("#topmsg").outerHeight() *2+ "px"
-                }, 200, function() {
-                    $("#topmsg").stop(true).animate({
-                        //top:"-" + $("#topmsg").outerHeight() + "px",
-                        opacity:0
-                    }, 200, function() {
-                        $("#topmsg").remove();
+				//	marginTop:"-" + msgo.outerHeight() *2+ "px"
+					opacity:0,
+                }, 300, function() {
+                        msgo.remove();
                         $("#klbg").remove();
                         $(".disabled").removeClass("disabled");
                         //如果返回的有地址的话就直接转向
@@ -218,7 +216,6 @@ $(function(){
                         if (typeof _after_func == "function") {
                             _after_func(da);
                         }
-                    });
                 });
             }
         }, 1e3);
