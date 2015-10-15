@@ -10,6 +10,10 @@ return array(
 				2=>'系统',
 				5=>'支付'
 		),
+	'TOKEN_ON'      =>    true,  // 是否开启令牌验证 默认关闭
+	'TOKEN_NAME'    =>    '__hash_vertify__',    // 令牌验证的表单隐藏字段名称，默认为__hash__
+	'TOKEN_TYPE'    =>    'md5',  //令牌哈希验证规则 默认为MD5
+	'TOKEN_RESET'   =>    true,  //令牌验证出错后是否重置令牌 默认为true
 	'URL_ROUTER_ON' 	=> true, //开启路由
 	'URL_ROUTE_RULES'	=> array( //定义路由规则
 		//后台多级目录映射
