@@ -20,7 +20,6 @@ class AdminController extends CommonController {
 		echo $str;
 		}
 	 protected function _initialize(){
-		 	
 		 (get_naps_bot()!==false)&&die('');//不让蜘蛛抓取
 
 		 // 获取当前用户ID

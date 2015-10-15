@@ -14,5 +14,5 @@
  */
 return array(
     /* 核心语言变量 */  
-    '_CAOZUO_ERROR_'     => '无法加载模块',
+    '_CAOZUO_ERROR_'     => '操作错误',
 );
