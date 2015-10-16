@@ -285,7 +285,7 @@ $temarr=array();
 		if(empty($data['title']) || empty($data['content']))die('发布失败');
 		
 		//取文章的标记自动添加标记
-		//$mark=getModel('Article','extra');
+		//$mark=getModelAttr('Article','extra');
 		$data1=M('ModelAttr')->field('extra')->find(11);
 		$posiarr=$this->extraToArray($data1['extra']);
 		foreach($posiarr as $key=>$val){

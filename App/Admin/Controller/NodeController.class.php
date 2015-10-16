@@ -43,7 +43,7 @@ class NodeController extends AdminController {
             }
         } else {
 			//$field=Api('Model/NodeModel');
-			$field=getModel('Node');
+			$field=getModelAttr('Node');
 			$this->assign('fieldarr',$field);
 			$data=array();
 			if(!empty($pid))$data['pid']=$pid;
@@ -75,7 +75,7 @@ class NodeController extends AdminController {
             $info = array();
             /* 获取数据 */
             $data = M('Node')->find($node_id);
-			$field=getModel('Node');
+			$field=getModelAttr('Node');
 			$this->assign('fieldarr',$field);
 			$this->assign('data',$data);
             $this->meta_title = '编辑节点';

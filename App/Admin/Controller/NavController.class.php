@@ -53,7 +53,7 @@ class NavController extends AdminController {
             /* 获取导航信息 */
             $data = $nav_id ? $Nav->info($nav_id) : '';
 			//$field=Api('Model/NavModel');
-			$field=getModel('nav');
+			$field=getModelAttr('nav');
 			$this->assign('fieldarr',$field);
 			$this->assign('data',$data);
             $this->meta_title = '编辑导航';
@@ -77,7 +77,7 @@ class NavController extends AdminController {
 			
         } else {
 			//$field=Api('Model/NavModel');
-			$field=getModel('nav');
+			$field=getModelAttr('nav');
 			$this->assign('fieldarr',$field);
 			$data=array('pid'=>$pid);
 			$this->assign('data',$data);

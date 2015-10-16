@@ -52,7 +52,7 @@ class GoodstypeattributeController extends AdminController {
             /* 获取分类信息 */
             $data = $goods_type_attribute_id ? $GoodsTypeAttribute->info($goods_type_attribute_id) : '';
 			//$field=Api('Model/goodstypeattrModel');
-			$field=getModel('goodstypeattr');
+			$field=getModelAttr('goodstypeattr');
 			$this->assign('fieldarr',$field);
 			$this->assign('data',$data);
             $this->meta_title = '类型>'.getField('goodsType',$data['goods_type_id'],'title').'>编辑属性>'.getField('goodsTypeAttribute',$goods_type_attribute_id,'title');
@@ -76,7 +76,7 @@ class GoodstypeattributeController extends AdminController {
 			
         } else {
 			//$field=Api('Model/goodstypeattrModel');
-			$field=getModel('goodstypeattr');
+			$field=getModelAttr('goodstypeattr');
 			$this->assign('fieldarr',$field);
 			$data=array('goods_type_id'=>$goods_type_id);
 			$this->assign('data',$data);

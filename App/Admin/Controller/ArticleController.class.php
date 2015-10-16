@@ -7,14 +7,14 @@ class ArticleController extends AdminController {
      * @author 枫叶 <735579768@qq.com>
      */
     public function index(){
-		$field=getModel('article','category_id');
+		$field=getModelAttr('article','category_id');
 		$field['title']='分类';
 		$this->assign('fieldarr',$field);
 		
 		
 		//附加属性
 		//$field1=Api('Model/articleModel');
-		$field1=getModel('article','position');
+		$field1=getModelAttr('article','position');
 		$field1['type']='select';
 		$field1['title']='位置';
 		$field1['extra'][0]='全部';
@@ -88,7 +88,7 @@ class ArticleController extends AdminController {
             }
         } else {
 			//$field=Api('Model/articleModel');
-			$field=getModel('article');
+			$field=getModelAttr('article');
  			$this->meta_title = '添加文章';
 			$this->assign('fieldarr',$field);
 			$this->assign('data',$data);
@@ -147,7 +147,7 @@ class ArticleController extends AdminController {
                 $this->error('获取文章信息错误');
             }
 			//$field=Api('Model/articleModel');
-			$field=getModel('article');
+			$field=getModelAttr('article');
             $this->assign('data', $info);
 			$this->assign('fieldarr',$field);
             $this->meta_title = '编辑文章';

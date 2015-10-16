@@ -5,7 +5,7 @@
 <ank:query sql="select * from __DB_PREFIX__category  where category_type='article' and pid neq 0" name="vo">
 <li ><a class="bd"target="_blank" title="{$vo.title}" href="{:U('cate/'.$vo['name'])}">{$vo.title}</a></li>
 </ank:query>
-<volist name=":getModel('article','position','extra')" id="vo">
+<volist name=":getModelAttr('article','position','extra')" id="vo">
 <li ><a class="bd"target="_blank" title="{$vo}" href="{:U('Sear/'.$key)}">{$vo}</a></li>
 </volist>
 </ul>

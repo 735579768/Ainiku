@@ -9,7 +9,7 @@
 	 }
 //把标记转成对应的文字
 function tomark($value,$model,$field,$html=false){
-	$arr=getModel($model,$field);
+	$arr=getModelAttr($model,$field);
 	$arr=$arr['extra'];
 	$restr='';
 	$temarr=explode(',',$value);

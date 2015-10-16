@@ -55,7 +55,7 @@ class ModelattrController extends AdminController {
 				 }
 	  }else{
 		//$field=Api('Model/ModeattrlModel');
-		$field=getModel('modelattr');
+		$field=getModelAttr('modelattr');
 		$this->meta_title ='表单模型>'.getModelTitle(I('model_id')).'>添加表单';
 		$this->assign('fieldarr',$field);
 		$this->display('edit');	 
@@ -108,7 +108,7 @@ class ModelattrController extends AdminController {
 		$data=D('ModelAttr')->where("model_attr_id=$model_attr_id")->find();
 		
 		//$field=Api('Model/ModeattrlModel');
-		$field=getModel('modelattr');
+		$field=getModelAttr('modelattr');
 		$this->meta_title ='表单模型>'.getModelTitle(I('model_id')).'>编辑表单';
 		$this->assign('fieldarr',$field);
 		$this->assign('data',$data); 

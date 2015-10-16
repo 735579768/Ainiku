@@ -350,6 +350,32 @@ function getGoodsTypeAttributeList($id=null){
 		 }
 	 return empty($field)?$rearr:$rearr[$field];
 	 }
+/** 
+ *取模型信息
+ */
+function getModel($model_id='',$field=''){
+   $map=array();
+	/* 非法分类ID */
+	$model_id=strtolower($model_id);
+    if(empty($model_id)){
+        return '';
+	}
+	if(!is_numeric($model_id)){
+		$map['name']=$model_id;
+		}else{
+		$map['model_id']=$model_id;	
+			}
+    /* 读取缓存数据 */
+      $data = F('sys_model_list'.$model_id);
+	if(empty($data)||APP_DEBUG){
+		$data = M('Model')->where($map)->find();
+        if(!$data || 1 != $data['status']){ 
+            return '';
+        }
+        F('sys_model_list'.$model_id, $data); //更新缓存
+	}
+		 return empty($field) ? $data: $data[$field];	
+	}
 /**
  *取表单模型数据数组
  *@param $model_id 模型id或标识
@@ -357,19 +383,14 @@ function getGoodsTypeAttributeList($id=null){
  *@param $attr 字段的属性值 如  title   note  name field  extra type......等  常用的有extra文章属性标记返回的是一个数组
  *
  **/	
-function getModel($model_id=null,$field=null,$attr=null){
+function getModelAttr($model_id=null,$field=null,$attr=null){
 	$skey=$model_id.'_'.$field.'_'.$attr;
 	$relist=F('_modelform/'.$skey);
 	if(empty($relist)||APP_DEBUG){
 	$list=array();
 	if(empty($model_id))return null;
-	$map['status']=1;
-	if(is_numeric($model_id)){
-		$map['model_id']=$model_id;	
-			}else{
-		$map['name']=$model_id;			
-				}
-	$data=M('Model')->where($map)->find();
+	$data=getModel($model_id);
+	if(empty($data))return null;
 	$model_id=$data['model_id'];
 	$list=M('ModelAttr')->where("model_id=$model_id")->order('sort asc')->select();
 	$refield=null;
@@ -405,7 +426,7 @@ function getModel($model_id=null,$field=null,$attr=null){
 				}
 				
 			}
-		}
+	}
 		$relist=$list;
 		F('_modelform/'.$skey,$list);
 	}

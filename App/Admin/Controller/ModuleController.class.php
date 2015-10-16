@@ -70,7 +70,7 @@ class ModuleController extends AdminController {
 				 }
 	  }else{
 		//$field=Api('Model/AdModel');
-		$field=getModel('Module');
+		$field=getModelAttr('Module');
 		$this->meta_title = '添加模块信息';
 		$this->assign('fieldarr',$field);
 		$this->assign('data',null);
@@ -97,7 +97,7 @@ class ModuleController extends AdminController {
 		$data=M('Module')->where("module_id=$module_id")->find();
 		
 		//$field=Api('Model/AdModel');
-		$field=getModel('Module');
+		$field=getModelAttr('Module');
 		$this->meta_title = '编辑模块信息';
 		$this->assign('fieldarr',$field);
 		$this->assign('data',$data); 

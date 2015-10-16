@@ -34,7 +34,7 @@ class MembergroupController extends AdminController {
     	  $this->error($model->getError());
     	}      	
       }else{
-		$field=getModel('memberGroup');
+		$field=getModelAttr('memberGroup');
 		$this->assign('fieldarr',$field);
 		$this->assign('data',null);
 		$this->assign('meta_title','添加用户组');
@@ -57,7 +57,7 @@ class MembergroupController extends AdminController {
      }   	
    }else{
     $data=$model->find(I('get.member_group_id'));
-	$field=getModel('memberGroup');
+	$field=getModelAttr('memberGroup');
 	$this->assign('fieldarr',$field);
  	$this->assign('data',$data);
 	$this->assign('meta_title','编辑用户组');

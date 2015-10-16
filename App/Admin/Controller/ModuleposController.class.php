@@ -36,7 +36,7 @@ class ModuleposController extends AdminController {
 				 }
 	  }else{
 		//$field=Api('Model/moduleposModel');
-		$field=getModel('modulepos');
+		$field=getModelAttr('modulepos');
 		$this->meta_title = '添加模块位置';
 		$this->assign('fieldarr',$field);
 		$this->display('edit');	 
@@ -63,7 +63,7 @@ class ModuleposController extends AdminController {
 		$data=M('modulepos')->where("modulepos_id=$modulepos_id")->find();
 		
 		//$field=Api('Model/moduleposModel');
-		$field=getModel('modulepos');
+		$field=getModelAttr('modulepos');
 		$this->meta_title = '编辑模块位置';
 		$this->assign('fieldarr',$field);
 		$this->assign('data',$data); 

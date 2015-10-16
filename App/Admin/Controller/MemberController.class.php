@@ -99,7 +99,7 @@ class MemberController extends AdminController {
             }
         } else {
 			//$field=Api('Model/memberModel',array('add'));
-			$field=getModel('member');
+			$field=getModelAttr('member');
 			$this->assign('fieldarr',$field);
 			//$this->assign('data',$data);
             $this->meta_title = '新增用户';
@@ -125,7 +125,7 @@ class MemberController extends AdminController {
 				}
 
 		}else{
-			$field=getModel('member');
+			$field=getModelAttr('member');
 			$data=M('Member')->find($member_id);
 			$this->assign('fieldarr',$field);
 			$this->assign('data',$data);

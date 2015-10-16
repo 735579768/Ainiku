@@ -9,7 +9,7 @@ class ArchiveController extends AdminController {
 			$model_id=I('model_id');
 			$this->m_name=$model_id;
 			if(is_numeric($model_id)){
-					$this->m_info=M('Model')->find($model_id);
+					$this->m_info=getModel($model_id);
 				}else{
 					$this->m_info=M('Model')->where("`table`='{$model_id}'")->find();
 					}
@@ -133,7 +133,7 @@ class ArchiveController extends AdminController {
 						}			
 			}else{
 					$this->assign('model_id',$this->m_info['model_id']);
-					$field=getModel($this->m_info['model_id']);
+					$field=getModelAttr($this->m_info['model_id']);
 					$this->assign('fieldarr',$field);
 					$this->assign('data',$data);
 					$this->meta_title = '添加'.$this->m_info['title'];
@@ -167,7 +167,7 @@ class ArchiveController extends AdminController {
 					$this->error($Document->getError());
 				}
 				$this->assign('model_id',$this->m_info['model_id']);
-				$field=getModel($this->m_info['model_id']);
+				$field=getModelAttr($this->m_info['model_id']);
 				$this->assign('fieldarr',$field);
 				$this->assign('data',$data);
 				$this->meta_title   =   '编辑'.$this->m_info['title'];

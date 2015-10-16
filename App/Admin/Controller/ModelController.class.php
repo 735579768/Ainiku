@@ -40,7 +40,7 @@ class ModelController extends AdminController {
 			$this->error($model->geterror());	 
 				 }
 	  }else{
-		$field=getModel('model');
+		$field=getModelAttr('model');
 		$this->meta_title = '添加模型';
 		$this->assign('fieldarr',$field);
 		$this->display('edit');	 
@@ -83,7 +83,7 @@ sql;
 		 }else{
 		if(empty($model_id))$this->error(L('_ID_NOT_NULL_'));
 		$data=D('Model')->where("model_id=$model_id")->find();
-		$field=getModel('model');
+		$field=getModelAttr('model');
 		$this->meta_title = '编辑模型';
 		$this->assign('fieldarr',$field);
 		$this->assign('data',$data); 
