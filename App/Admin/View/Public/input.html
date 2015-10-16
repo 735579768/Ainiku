@@ -19,14 +19,14 @@
                                 <input type="text" name="{$field['name']}" class="form-control input-large time" value="<empty name="field['data']">{:date('Y-m-d H:i:s')}<else />{$field['data']|time_format}</empty>" placeholder="请选择时间" />
                             </case>
                             <case value="bool">
-                                <select name="{$field['name']}" class="form-control input-middle">
+                                <select name="{$field['name']}" class="form-control input-middledle">
                                     <volist name="field['extra']" id="vo">
                                         <option value="{$key}" <eq name="field['data']" value="$key">selected</eq>>{$vo}</option>
                                     </volist>
                                 </select>
                             </case>
                             <case value="select">
-                                <select name="{$field['name']}" class="form-control input-middle">
+                                <select name="{$field['name']}" class="form-control input-middledle">
                                     <volist name="field['extra']" id="vo">
                                         <option value="{$key}" <eq name="field['data']" value="$key">selected</eq>>{$vo}</option>
                                     </volist>
