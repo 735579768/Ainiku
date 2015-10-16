@@ -60,6 +60,12 @@
       </div>
             <script>
 	$(function(){
+	//判断是不是在iframe中
+	var iframename=self.frameElement;
+	if(iframename!=null && iframename.tagName=="IFRAME"){
+	// 页面在iframe中时处理
+	window.parent.location.href='/';
+	}
 		$('.verifyimg').bind('click',function(){
 			var verurl="{:U('Public/verify',array('random'=>'suiji'))}";
 			verurl=verurl.replace('suiji',Math.random);
@@ -81,6 +87,7 @@
 			$('#loginbtn .in').hide();
 			$('#verifyimg').click();
 			}
+			
 		</script>
 <include file="Public:menu" />
 </body>

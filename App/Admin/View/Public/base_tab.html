@@ -108,6 +108,16 @@ $(iframe).prev().remove();
 <script>
 $(function(){
 	$("table").resizableColumns({});
+	//判断是不是在iframe中
+	var iframename=self.frameElement;
+	if(iframename==null){
+	// 页面不在iframe中时处理
+	if($('#closewest').length<=0){
+		var ifuri=window.location.href;
+		window.location.href=ifuri+'&mainmenu=true';
+		}
+	
+	}
 });
 </script>
 <!--script end-->
