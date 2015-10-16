@@ -125,7 +125,7 @@ $(function() {
         
     });
     //失去焦点提交事件
-    $(".ajax-blur").bind("blur", function() {
+    $(".ajax-blur").bind("change", function() {
         var id1 = $(this).attr("data-id");
         var table1 = $(this).attr("data-table");
         var field1 = $(this).attr("data-field");
