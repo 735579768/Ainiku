@@ -97,14 +97,14 @@ function getCategory($id=null, $field = null){
 		$map['category_id']=$id;	
 			}
     /* 读取缓存数据 */
-      $cate = S('sys_category_list'.$id);
+      $cate = F('sys_category_list'.$id);
 	if(empty($cate)||APP_DEBUG){
 		$cate = M('Category')->where($map)->find();
         if(!$cate || 1 != $cate['status']){ //不存在分类，或分类被禁用
             return '';
         }
-        S('sys_category_list'.$id, $cate); //更新缓存
-		}
+        F('sys_category_list'.$id, $cate); //更新缓存
+	}
 		 return is_null($field) ? $cate: $cate[$field];
 }
 /**
