@@ -150,13 +150,13 @@ $(function(){
 
     //网页上面弹出信息
     window.topmsg= function(da, callback) {
-        var str = typeof da === "string" ? da :da.info;
-        var uri;
+        var str = (typeof da === "string") ? da :da.info;
         var data = {
             url:'',
             info:str,
             msgtime:2
         };
+		(typeof da ==="object") && (data.url=da.url);
         var msgtime = data.msgtime;
         //信息显示时间
         $("body").css("position", "relative");
