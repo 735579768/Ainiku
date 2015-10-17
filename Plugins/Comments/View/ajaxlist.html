@@ -1,0 +1,11 @@
+<volist name="_list" id="vo">
+<dl>
+<dt>
+<span class="fl">
+<a href="javascript:;">{$vo.name}</a>
+<a href="javascript:;" class="huifu" onClick="huifuclick(this,{$vo.id});">回复</a>
+</span>
+<span class="fr ptime">时间:{$vo.create_time|time_format}</span></dt>
+<dd>{$vo.content}</dd>
+</dl>
+</volist>

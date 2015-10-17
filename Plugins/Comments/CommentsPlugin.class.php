@@ -12,6 +12,19 @@ class CommentsPlugin extends \Plugins\Plugin{
 	public function run(){
 	   $this->display('content');	
 	}
+   public function ajaxlist($arc_id=''){
+	  // empty($arc_id)&&die('没有评论');
+	   $map['status']=1;
+	   //$map['arc_id']=$arc_id;
+	   $list=M('Comments')->where($map)->order('create_time desc')->select();
+	   if(empty($list)){
+		die('没有评论');
+   		}else{
+	   $this->assign('_list',$list);
+	   echo $this->fetch('ajaxlist');		   
+		   }
+	   die();
+	   }
    public function add(){
 		if(IS_POST){
 			$verify=I('verify');
@@ -41,6 +54,8 @@ $sql = <<<sql
 				DROP TABLE IF EXISTS `{$prefix}comments`;
 				CREATE TABLE `{$prefix}comments` (
 				  `id` int(11) NOT NULL AUTO_INCREMENT,
+				  `pid` int(11)  NULL DEFAULT 0 ,
+				  `arc_id` int(11)  NULL DEFAULT 0 ,
 				  `title` varchar(255) DEFAULT NULL,
 				  `content` varchar(255) DEFAULT NULL,
 				  `name` varchar(255) DEFAULT NULL,
