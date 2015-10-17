@@ -71,17 +71,19 @@ class CommonController extends Controller {
 	   if(is_string($whe)){
 		   	 $whe=str_replace('__DB_PREFIX__',C('DB_PREFIX'),$whe);
 		   }else{
+			   if(is_array($whe)){
 			   $temarr=array();
 			   foreach($whe as $key=>$val){
 				   $temarr[str_replace('__DB_PREFIX__',C('DB_PREFIX'),$key)]=$val;
 				   }
 				$whe=$temarr;
 			   }
+		  }
 	   	 $field=str_replace('__DB_PREFIX__',C('DB_PREFIX'),$field);
 		 $order=str_replace('__DB_PREFIX__',C('DB_PREFIX'),$order);
        if(is_array($join)){
 		    $join[0]=str_replace('__DB_PREFIX__',C('DB_PREFIX'),$join[0]);
-		   $join[1]=str_replace('__DB_PREFIX__',C('DB_PREFIX'),$join[1]);
+		    $join[1]=str_replace('__DB_PREFIX__',C('DB_PREFIX'),$join[1]);
          $count      = $User->where($whe)->field($field)->order($order)->join($join[0])->join($join[1])->count();// 查询满足要求的总记录数
        }else{
 		   $join=str_replace('__DB_PREFIX__',C('DB_PREFIX'),$join);
