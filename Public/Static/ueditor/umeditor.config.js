@@ -34,12 +34,11 @@
 
         //工具栏上的所有的功能按钮和下拉框，可以在new编辑器的实例时选择自己需要的从新定义
         ,toolbars: [[
-            'fullscreen', 'source', '|', 'undo', 'redo', '|',
-            'bold', 'italic', 'underline',  'strikethrough', 'removeformat', '|', 'forecolor', 'backcolor', 'selectall','|',
-             'paragraph', 'fontfamily', 'fontsize', '|',
-            'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|',
-            'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
-            'simpleupload', 'insertimage', 'emotion',  'music', 'attachment', 'map', '|'
+            'fullscreen', 'source', '|', 'fontsize',
+            'bold', 'italic', 'underline',  'strikethrough', 'removeformat', '|', 'forecolor', 'backcolor',  '|',
+            'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify',
+            'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
+            'simpleupload', 'emotion'
         ]]
         //当鼠标放在工具栏上时显示的tooltip提示,留空支持自动多语言配置，否则以配置值为准
         //,labelMap:{
