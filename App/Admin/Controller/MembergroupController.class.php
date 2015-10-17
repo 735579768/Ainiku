@@ -104,7 +104,7 @@ class MembergroupController extends AdminController {
 		  }
 	
 	//分组信息
-	$data=M('MemberGroup')->where("member_group_id=$member_group_id")->find();
+	$data=getMemberGroup($member_group_id);
 	if(!empty($data['auth'])){
 		$data['auth']=json_decode($data['auth'],true);
 		$data['auth']='['.implode(',',$data['auth']).']';	

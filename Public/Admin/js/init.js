@@ -324,5 +324,5 @@ $('tr td:last-child').each(function(index, element) {
     });
 	wt>ww&&(ww=wt);
 });
-$('tr th:last-child').css('width',ww+20);
+$('tr th:last-child').css('width',ww+10);
 });

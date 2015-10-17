@@ -131,7 +131,7 @@ class AdminController extends CommonController {
 					 }
 				 
 			 //取当前分组列表
-			 $grouplist=F('sys_grouplist');
+			 $grouplist=F('sys_grouplist'.$curid);
 			 $childnav=F('sys_childnavlist'.$curid);
 			 if(APP_DEBUG||empty($grouplist)||empty($childnav)){
 				$map['hide']=0;
@@ -146,7 +146,7 @@ class AdminController extends CommonController {
 				 foreach($childnav as $key=>$val){
 					 $childnav[$key]['group']=preg_replace('/\d*/','',$val['group']);
 					 }
-				 F('sys_grouplist',$grouplist);
+				 F('sys_grouplist'.$curid,$grouplist);
 				 F('sys_childnavlist'.$curid,$childnav);
 			 }
 			$this->assign('_GROUPLIST_',$grouplist);
