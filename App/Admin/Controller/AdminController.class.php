@@ -17,6 +17,15 @@ class AdminController extends CommonController {
 			$pattern='/<\/html>(.+)/si';
 			$str=preg_replace($pattern,'</html>',$str);
 			}
+		if(!APP_DEBUG){
+		//如果不是调试模式
+			$pa=array(
+					'/<\!\-\-.*?\-\->/i',//去掉html注释
+					'/(\s*?\r?\n\s*?)+/i'//删除空白行
+					);
+			$pr=array('',"\n");
+			$str=preg_replace($pa,$pr,$str);
+			}
 		echo $str;
 		}
 	 protected function _initialize(){
