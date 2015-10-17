@@ -25,9 +25,9 @@ class Page{
 
 	// 分页显示定制
     private $config  = array(
-        'header' => '<span class="rows">共 %TOTAL_ROW% 条记录</span>',
-        'prev'   => '上一页',
-        'next'   => '下一页',
+        'header' => '<span class="rows">共 %TOTAL_ROW% 条</span>',
+        'prev'   => '<<',
+        'next'   => '>>',
         'first'  => '1...',
         'last'   => '...%TOTAL_PAGE%',
         'theme'  => '%FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END%',

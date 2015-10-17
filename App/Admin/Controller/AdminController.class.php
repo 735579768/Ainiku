@@ -88,6 +88,9 @@ class AdminController extends CommonController {
 		 $this->uinfo=session('uinfo');
 		 //取主导航
 		$this->getMainNav();
+//		if(I('mainmenu')=='true'){
+//			$this->display();
+//			}
 	 }
 	 /**
 	  *取主导航
