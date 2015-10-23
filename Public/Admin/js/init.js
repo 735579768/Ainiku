@@ -292,6 +292,7 @@ $('#nav-bar a').each(function(index, element) {
 		 }
 });
 window.setPosition=function(table1,id1,field1,value1,srcid){
+	$('body').append('<div id="markbg" class="bg"></div>');
 	$.get(ainiku.setposition,{table:table1,id:id1,field:field1,value:value1},function(da){
 		msgDialog({
 					'title':'修改信息',
@@ -304,12 +305,17 @@ window.setPosition=function(table1,id1,field1,value1,srcid){
 							url:formobj.attr('action'),
 							data:formobj.serialize(),
 							success: function(da){
-								if(da.status==1)$(srcid).html(da.info);
+								var chl=$(srcid).children();
+								if(da.status==1){
+									chl.eq(0).val(da.info[1]);
+									chl.eq(1).html(da.info[0]);
+								}
 								}
 							});
 						},
 					'cancel':function(){}
 			});
+		$('#markbg').remove();
 		});
 //	var arr=str.split(',');
 //	console.log(arr);

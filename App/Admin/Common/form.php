@@ -1,36 +1,5 @@
 <?php
 //表单列表缓存函数库
-///**
-// *表单类型
-// */	
-// function A_getFormType($key=null){
-//    // TODO 可以加入系统配置
-//	$formtype=array(
-//		'string'    => '字符串',
-//        'select'    =>  '枚举',
-//        'radio'     =>  '单选',
-//        'checkbox'  =>  '多选',
-//        'number'       => '数字',
-//	    'double'		=>'双精度数字',
-//		'password'       => '密码',
-//        'datetime'  =>  '时间',
-//        'editor'    =>  '编辑器',
-//		'textarea'  =>  '文本框', 
-//		'picture'   =>  '上传图片',
-//        'file'      =>  '上传附件',
-//		'bool'      =>  '布尔',
-//		'umeditor'    =>'UM简化编辑器',
-//		'batchpicture'   => '批量上传图片',
-//		'liandong'=>'城市联动',
-//		'custom'    => '自定义表单',
-//		'attribute'=>'内容属性',
-//    );
-//	if(empty($key)){
-//    return $formtype;
-//	}else{
-//	return $formtype[$key];	
-//		}
-//	 }
 
 /**
  *取模型列表

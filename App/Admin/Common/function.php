@@ -14,16 +14,18 @@ function tomark($value,$model,$field,$html=false){
 	$restr='';
 	$temarr=explode(',',$value);
 	if($html){
+			$restr='<ul class="cl">';
 			foreach($arr as $key=>$val){
-				$temstr='';
+				$temstr='<li class="cl">';
 				if(in_array($key,$temarr)){
-					$temstr=$val.'<input type="checkbox" checked name="position[]" value="'.$key.'" />&nbsp;&nbsp;';
+					$temstr.='<span>'.$val.'</span><input class="markinput" type="checkbox" checked name="position[]" value="'.$key.'" />';
 					}else{
-					$temstr=$val.'<input type="checkbox"  name="position[]" value="'.$key.'" />&nbsp;&nbsp;';	
-						}
-				
+					$temstr.='<span>'.$val.'</span><input class="markinput"  type="checkbox"  name="position[]" value="'.$key.'" />';	
+					}
+				$temstr.='</li>';
 				$restr.=$temstr;	
 				}
+				$restr.='</ul>';
 		}else{
 			foreach($temarr as $val){
 					if($val!='0')$restr.=trim(empty($restr)?$arr[$val]:','.$arr[$val]);		

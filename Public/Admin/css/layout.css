@@ -230,3 +230,8 @@ border-color: #44b549 #e0e0e0 #f6f6f6;
 .youmenu .menuitem a{ font-size:12px; padding:0px 20px; text-align:left; border-bottom:solid 1px #d2d2d2; height:30px; line-height:30px; display:block;    white-space: nowrap;}
 .youmenu .menuitem:hover a,
 .youmenu .menuitem a:hover{ background:#e2e2e2;}
+.markbs{width:80px; display:inline-block; overflow:hidden; text-overflow:ellipsis; cursor:pointer;}
+#positionform ul{ width:180px;}
+#positionform ul li{ display:inline-block; width:60px;}
+#positionform span{    display: inline-block;padding-right: 5px;}
+#positionform .markinput{vertical-align: middle;}

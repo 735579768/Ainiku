@@ -35,7 +35,7 @@
 		<th width="30">序号</th>
         <th>标题</th>
 		<th>分类</th>
-        <th>标记</th>
+        <th style="width:80px;">标记</th>
 		<th>状态</th>
 		<th style="text-align:center;">操作</th>
 		</tr>
@@ -49,7 +49,8 @@
    <div class="imgbox" _src="{$vo.pic|getPicture=###,'thumbpath'}" ><span class="wrapimg"></span></div></notempty>
     </td>
     <td>{$vo.category_id|getCategoryTitle}</td>
-      <td style="text-align:left;" title="双击更改"  id="position{$vo.goods_id}" onDblClick="setPosition('goods','{$vo.goods_id}','position','{$vo.position}','#position{$vo.goods_id}')">{$vo.position|tomark='goods','position'}</td>
+      <td style="text-align:left; cursor:pointer;" title="双击更改"  id="position{$vo.goods_id}" onDblClick="setPosition('Goods','{$vo.goods_id}','position',$(this).children().eq(0).val(),'#position{$vo.goods_id}')"><input name="position" value="{$vo.position}" type="hidden" />
+      <span class="markbs">{$vo.position|tomark='goods','position'}</span></td>
     <td><span data-table="Goods" data-id="{$vo.goods_id}" data-field="status"  data-value="{$vo.status}" class="yn"></span></td>
     <td>
     	<a href="{:U('Goods/edit?goods_id='.$vo['goods_id'])}"  class="btn btn-primary">编辑</a>
@@ -61,6 +62,7 @@
 <div id="page" class="page">{$_page}</div>
 </div>
 <script>
+$(function(){
 	//表格着色
 	$('tr:even').css('background','#f7f7f7');
 	//分类过滤
@@ -86,6 +88,10 @@
 			}
 		$('#moveform').submit();
     });
+		
+});
+
+	
 </script>
 <!--content end-->
 </block>

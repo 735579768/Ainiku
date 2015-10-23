@@ -34,7 +34,7 @@ class AdminController extends CommonController {
 		 // 获取当前用户ID
 		 $uid=is_login();
 		 if($uid){
-			 define('UID',$uid);
+			 defined('UID') or define('UID',$uid);
 		 }else{
 			 $login=A('Public');
 			 $uid=$login->autologin();
@@ -171,10 +171,11 @@ class AdminController extends CommonController {
 	}
 	 function setposition($table=null,$id=null,$field=null,$value=null){
 		  if(IS_POST){
-			  $postr=implode(',',I('position'));
+			  	$position=I('position');
+			    $postr=implode(',',$position);
 			  	$result=M($table)->where($table.'_id='.$id)->save(array($field=>$postr));
 				if(0<$result){
-					 $this->success(tomark($postr,$table,$field));
+					 $this->success(array(tomark($postr,$table,$field),$postr));
 					}
 			  }else{
 				  $str='<form id="positionform" method="post" action="'.U('setposition').'">
