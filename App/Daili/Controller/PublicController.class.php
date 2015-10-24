@@ -52,7 +52,7 @@ class PublicController extends Controller {
 							}
 						cookie('__uid__',$u,$b);
 					}
-					return $autologin?$uid:($this->success('登录成功！', U('Index/index')));
+					return $autologin?$uid:($this->success('登录成功！')));
             } else { 
 			   //登录失败
 				
@@ -80,17 +80,17 @@ class PublicController extends Controller {
 		return $this->login(ainiku_decrypt($u['u']),ainiku_decrypt($u['p']),null,true);
 		}
 		}
-//    /* 退出登录 */
-//    public function logout(){
-//        if(is_login()){
-//            D('Member')->logout();
-//            session('[destroy]');
-//			cookie('u',null);
-//            $this->success('退出成功！', U('login'));
-//        } else {
-//            $this->redirect(U('login'));
-//        }
-//    }
+    /* 退出登录 */
+    public function logout(){
+        if(is_login()){
+            D('Member')->logout();
+            session('[destroy]');
+			cookie(null);
+            $this->success('退出成功！', U('Public/login'));
+        } else {
+            $this->redirect(U('Public/login'));
+        }
+    }
     public function verify(){
 		$conf=array(
 				'imageH'=>50,

@@ -129,7 +129,7 @@ class MemberModel extends BaseModel {
 		$jin=__DB_PREFIX__."member_group as a on ".__DB_PREFIX__."member.member_group_id=a.member_group_id";
 		$field="*,".__DB_PREFIX__."member.status as status";
         $user = $this->field($field)->where($map)->join($jin)->find();
-        if(is_array($user) && $user['status']==='1' &&  $user['member_group_id']===C('ALLOW_GROUP')){
+        if(is_array($user) && $user['status']==='1' &&  $user['member_group_id']==C('ALLOW_GROUP')){
             /* 验证用户密码 */
           $md5pas=ainiku_ucenter_md5($password);
           if($md5pas === $user['password']){

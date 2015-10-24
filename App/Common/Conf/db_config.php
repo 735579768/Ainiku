@@ -16,6 +16,7 @@ return array(
        'ainiku.lix'  => 'Home',
 	   'ainiku.loc'  => 'Home',
 	   'ainiku.com'  => 'Home', 
+	   'daili.ainiku.loc'  => 'Daili', 
 	   'www.ainiku.com'  => 'Home', 
 	   'm.ainiku.loc'  => 'Mobile',
 	   'm.ainiku.com'  => 'Mobile', 

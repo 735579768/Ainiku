@@ -17,15 +17,21 @@ return array(
 	'LANG_LIST'          => 'zh-cn', //必须写可允许的语言列表用','分隔
 	'VAR_LANGUAGE'       => 'l', // 默认语言切换变量
 	'ALLOW_GROUP'		=>2,//允许登陆的会员组
+	'ADMIN_LOGIN_TITLE'		=>'会员管理',
 	//后台菜单
 	'ADMIN_MENU'=>array(
 				'默认'=>array(
-					array('title'=>'会员列表','url'=>'Member/index'),
-					array('title'=>'产品列表','url'=>'Member/index'),						
+					array('title'=>'会员列表','url'=>'Index/index'),
+					array('title'=>'产品列表','url'=>'Index/index'),						
 				),
-				'会员'=>array(
-					array('title'=>'会员列表','url'=>'Member/index'),
-					array('title'=>'产品列表','url'=>'Member/index'),						
+				'会员列表'=>array(
+					array('title'=>'会员列表','url'=>'Index/index'),
+					array('title'=>'产品列表','url'=>'Index/index'),						
 				),
+				'产品列表'=>array(
+					array('title'=>'会员列表','url'=>'Index/index'),
+					array('title'=>'产品列表','url'=>'Index/index'),						
+				),
+				
 	),
 );
