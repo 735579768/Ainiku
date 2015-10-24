@@ -12,11 +12,21 @@ class CommentsPlugin extends \Plugins\Plugin{
 	public function run(){
 	   $this->display('content');	
 	}
-   public function ajaxlist($arc_id=''){
+   public function ajaxlist($arc_id='',$pid=''){
 	  // empty($arc_id)&&die('没有评论');
 	   $map['status']=1;
+	   empty($pid)||$map['pid']=$pid;
 	   //$map['arc_id']=$arc_id;
 	   $list=M('Comments')->where($map)->order('create_time desc')->select();
+	   foreach($list as $key=>$val){
+		    $map['pid']=$val['id'];
+			$child=M('Comments')->where($map)->order('create_time desc')->select();
+			if(empty($child)){
+				$list[$key]['_']=array();
+				}else{
+				$list[$key]['_']=$child;	
+					}
+		   }
 	   if(empty($list)){
 		die('没有评论');
    		}else{

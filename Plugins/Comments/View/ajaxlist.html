@@ -2,10 +2,32 @@
 <dl>
 <dt>
 <span class="fl">
-<a href="javascript:;">{$vo.name}</a>
-<a href="javascript:;" class="huifu" onClick="huifuclick(this,{$vo.id});">回复</a>
+<a href="javascript:;">{$key+1}楼-{$vo.name}</a>
+<a href="javascript:;" class="huifu" onClick="huifuclick(this,{$vo.pid},{$vo.id});">回复</a>
 </span>
 <span class="fr ptime">时间:{$vo.create_time|time_format}</span></dt>
-<dd>{$vo.content}</dd>
+<dd>{$vo.content}
+
+            <notempty name="vo['_']">
+                <volist name="vo['_']" id="v">
+                <dl style=" border: dashed 1px #ccc;    margin-left: 20px;">
+                <dt style="background:none;">
+                <span class="fl">
+                <a href="javascript:;">{$key+1}楼-{$v.name}</a>
+                <a href="javascript:;" class="huifu" onClick="huifuclick(this,{$v.pid},{$v.id});">回复</a>
+                </span>
+                <span class="fr ptime">时间:{$v.create_time|time_format}</span></dt>
+                <dd>{$v.content} 
+                </dd>
+                </dl>
+                </volist>
+            </notempty>
+</dd>
 </dl>
 </volist>
+
+
+
+
+
+

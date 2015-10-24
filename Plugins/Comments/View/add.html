@@ -50,12 +50,15 @@ window.cancelhuifu=function(obj){
 	$('#commentpid').val(0);
 	$('#cancelbtn').hide();
 	};
-window.huifuclick=function(obj,pid){
+window.huifuclick=function(obj,pid,id){
 	$('#cancelbtn').show();
+	pid=pid?pid:id;
 	$('#commentpid').val(pid);
 	var dobj=$(obj).parents('dl').find('dd');
 	$('#commentsform').insertAfter(dobj);
+	return false;
 	};
+//window.load2huifu=function(){};
 ank.loadhtml('{:UP('Comments/ajaxlist')}',{},$('#comments-list'),'POST');	
 });
 function  _after_func(){
