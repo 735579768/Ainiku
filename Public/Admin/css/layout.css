@@ -97,7 +97,7 @@ body{overflow:hidden;padding:62px 0px 0px 179px;}
 .category .order,.category .order input{text-align:center;}
 .category .order{width:90px;}
 .category .order input{margin-bottom:2px;width:30px; display:inline-block;}
-.category input{width:130px;}
+.category input{width:180px;}
 .category .name input{margin-bottom:2px;display:inline-block\9;}
 .category .add-sub-cate{margin-left:10px;margin-top:8px\9;float:left\9;}
 .category .add-sub-cate:hover{text-decoration:none;border-bottom:0 none;}
