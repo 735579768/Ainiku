@@ -52,7 +52,7 @@ class PublicController extends Controller {
 							}
 						cookie('__uid__',$u,$b);
 					}
-					return $autologin?$uid:($this->success('登录成功！')));
+					return $autologin?$uid:($this->success('登录成功！'));
             } else { 
 			   //登录失败
 				
