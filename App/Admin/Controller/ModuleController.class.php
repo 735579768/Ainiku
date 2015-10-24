@@ -24,7 +24,7 @@ class ModuleController extends AdminController {
 						'title'=>'模块信息位置置',
 						'note'=>'',
 						'extra'=>$moduleposlist,
-						'is_show'=>1,
+						'is_show'=>3,
 						'value'=>I('modulepos_id')
 					)
 			);
