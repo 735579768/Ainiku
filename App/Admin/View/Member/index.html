@@ -59,5 +59,32 @@
 </table>
 <div id="page" class="page">{$_page}</div>
 </div>
+<script>
+//修改密码
+$(function(){
+	$('.updatepwd').click(function(e) {
+		$('body').append('<div id="updatebg" class="bg"></div>');
+		var uri=$(this).attr('href');
+		ank.ajax({
+			url:uri,
+			type:'get',
+			success:function(da){
+				$('#updatebg').remove();
+				ank.msgDialog({
+					title:'修改密码',
+					content:da,
+					ok:function(){
+						
+						}
+					});
+				
+				}
+			});	
+		return false;	
+    });
+
+});
+
+</script>
 <!--content end-->
 </block>

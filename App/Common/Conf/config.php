@@ -12,7 +12,7 @@ return array(
 	'URL_MODEL'=>  0,  // URL访问模式
 	'URL_HTML_SUFFIX'       =>  'html',  // URL伪静态后缀设置
 	//'URL_MODULE_MAP'    =>    array('kladmin'=>'admin'),//隐藏后台模块
-    'MODULE_ALLOW_LIST'    => array('Home','Admin','Install','User'),
+    'MODULE_ALLOW_LIST'    => array('Home','Admin','Daili','User'),
     'DEFAULT_MODULE'     => '',
     'MODULE_DENY_LIST'   => array('Common'),
 	"LOAD_EXT_FILE"=>"image,getinfo,addons,goods,form",//扩展函数库
@@ -47,5 +47,30 @@ return array(
 	'TMPL_EXCEPTION_FILE'   =>APP_PATH.'sys_exception.tpl',// 异常页面的模板文件
 	'TMPL_ACTION_ERROR'     =>APP_PATH.'sys_jump.tpl', // 默认错误跳转对应的模板文件
 	'TMPL_ACTION_SUCCESS'   =>APP_PATH.'sys_jump.tpl', // 默认成功跳转对应的模板文件板文件
-
+    'FILE_UPLOAD' => array(
+//		'thumb_width'=>100,这里的参数直接配置在后台啦
+//		'thumb_height'=>100,
+		'maxSize'  => 2*1024*1024, //上传的文件大小限制 (0-不做限制)
+		'exts'     => 'jpg,gif,png,jpeg', //允许上传的文件后缀
+		'rootPath' => '/Uploads', //保存图片根路径
+    ),
+    /* 文件上传相关配置 */
+    'DOWNLOAD_UPLOAD' => array(
+        'mimes'    => '', //允许上传的文件MiMe类型
+        'maxSize'  => 50*1024*1024, //上传的文件大小限制 (0-不做限制)
+        'exts'     => 'jpg,gif,png,jpeg,bmp,zip,rar,tar,gz,7z,doc,docx,txt,xml', //允许上传的文件后缀
+        'autoSub'  => true, //自动子目录保存文件
+        'subName'  => array('date', 'Ymd'), //子目录创建方式，[0]-函数名，[1]-参数，多个参数使用数组
+        'rootPath' => './Uploads/file/', //保存根路径
+        'savePath' => '', //保存路径
+        'saveName' => array('uniqid', ''), //上传文件命名规则，[0]-函数名，[1]-参数，多个参数使用数组
+        'saveExt'  => '', //文件保存后缀，空则使用原后缀
+        'replace'  => false, //存在同名是否覆盖
+        'hash'     => true, //是否生成hash编码
+        'callback' => false, //检测文件是否存在回调函数，如果存在返回文件信息数组
+    ),
+	'TOKEN_ON'      =>    true,  // 是否开启令牌验证 默认关闭
+	'TOKEN_NAME'    =>    '__hash_vertify__',    // 令牌验证的表单隐藏字段名称，默认为__hash__
+	'TOKEN_TYPE'    =>    'md5',  //令牌哈希验证规则 默认为MD5
+	'TOKEN_RESET'   =>    true,  //令牌验证出错后是否重置令牌 默认为true
 );
