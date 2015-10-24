@@ -99,7 +99,7 @@ body{overflow:hidden;padding:62px 0px 0px 179px;}
 .category .order input{margin-bottom:2px;width:30px; display:inline-block;}
 .category input{width:180px;}
 .category .name input{margin-bottom:2px;display:inline-block\9;}
-.category .add-sub-cate{margin-left:10px;margin-top:8px\9;float:left\9;}
+.category .add-sub-cate{margin-top:8px\9;float:left\9;}
 .category .add-sub-cate:hover{text-decoration:none;border-bottom:0 none;}
 .category .btn-mod{margin-left:15px;}
 .category .root{font-weight:bold;}
@@ -110,7 +110,7 @@ body{overflow:hidden;padding:62px 0px 0px 179px;}
 /* é¡¶çº§åˆ†ç±» */
 .category > dl > dt .tab-sign{display:none;}
 /* äºŒçº§åˆ†ç±» */
-.category > dl > dd > dl > dt .tab-sign{width:54px;background-position:0 0;}
+.category > dl > dd > dl > dt .tab-sign{width:40px;background-position:0 0;}
 .category > dl > dd > dl:last-child > dt .tab-sign{background-position:-55px 0;}
 /* ä¸‰çº§åˆ†ç±» */
 .category > dl > dd > dl > dd > dl > dt .tab-sign{width:110px;background-position:0 -30px;}

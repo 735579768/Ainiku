@@ -20,7 +20,7 @@ class ModelController extends AdminController {
     	$this->pages(array(
 					'model'=>'Model',
 					'where'=>$map,
-					'order'=>'sort asc,status asc,model_id desc'
+					'order'=>'sort asc,model_id desc'
 					));
 	$this->meta_title='表单模型列表';
 	 $this->display();
