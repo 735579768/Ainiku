@@ -24,6 +24,23 @@
 </dd>
 </dl>
 </volist>
+<div id="pages" class="page">{$_page}</div>
+<script>
+$(function(){
+$('#pages a').click(function(e) {
+	cancelhuifu();
+	var uri=$(this).attr('href');
+	ank.ajax({
+		type:'post',
+		url:uri,
+		success:function(da){
+			$('#comments-list').html(da);
+			}
+		});
+    return false;
+});	
+});
+</script>
 
 
 

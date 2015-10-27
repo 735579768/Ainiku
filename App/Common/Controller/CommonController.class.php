@@ -60,12 +60,12 @@ class CommonController extends Controller {
       */
      protected function Pages ($conf){
 		$model=@$conf['model'];
-		$whe=isset($conf['where'])?$conf['where']:null;
-		$join=isset($conf['join'])?$conf['join']:null;
-		$field=isset($conf['field'])?$conf['field']:null;
-		$order=isset($conf['order'])?$conf['order']:null;
+		$whe=isset($conf['where'])?$conf['where']:'';
+		$join=isset($conf['join'])?$conf['join']:'';
+		$field=isset($conf['field'])?$conf['field']:'';
+		$order=isset($conf['order'])?$conf['order']:'';
 		$rows=isset($conf['rows'])?$conf['rows']:10;
-		$url=isset($conf['url'])?$conf['url']:null;
+		$url=isset($conf['url'])?$conf['url']:'';
        $User = M($model); // 实例化User对象
        $count=0;
 	   if(is_string($whe)){
