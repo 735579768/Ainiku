@@ -28,7 +28,7 @@ class CommentsModel extends Model {
         array('ip', 'getip', self::MODEL_INSERT, 'callback'),
 		array('location', 'getadr', self::MODEL_BOTH, 'callback'), //手机禁止注册
         array('create_time', NOW_TIME, self::MODEL_BOTH)
-        //array('status', '1', self::MODEL_INSERT),
+        array('status', '1', self::MODEL_INSERT),
     );
 	protected function getadr(){
 		return getIpLocation(get_client_ip());

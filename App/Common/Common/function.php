@@ -305,7 +305,9 @@ function sendMail($conf=array()){
       return true;
 	   }
 }
-//删除系统上传的图片
+/**
+ *删除系统上传的图片
+ */
 function delimage($id=null){
 		if(empty($id))return false;
 		//die(file_exists('/oiuou'));
@@ -357,7 +359,10 @@ function delimage($id=null){
 //			return false;
 //			}
 	}
-//删除系统上传的附件/文件
+	
+/**
+ *删除系统上传的附件/文件
+ **/
 function delfile($id=null){
 		if(empty($id))return false;
 		//删除本地文件
@@ -439,7 +444,9 @@ function removeHtml($str, $start=0, $length, $charset="utf-8", $suffix=true){
 	 return $str;
 	 }
 
-//支持中文json编码
+/**
+ *支持中文json编码
+ */
 function gbkjson_encode($str) {  
     return urldecode(json_encode(url_encode($str)));      
 }  
@@ -455,6 +462,9 @@ function url_encode($str) {
     return $str;  
 }  
 
+/**
+ *检查目录是否可写
+ */
 function check_dir_iswritable($dir_path){ 
 $dir_path=str_replace('\\','/',$dir_path); 
 $is_writale=1; 
@@ -635,7 +645,10 @@ function rm_empty_dir($path){
         closedir($handle);  
     }  
 } 
-//把字符串转成utf8如果本身就是utf8的话原样返回
+/**
+ *把字符串转成utf8如果本身就是utf8的话原样返回
+ *
+ **/
 function is_utf8($str){
 $len = strlen($str);
 for($i = 0; $i < $len; $i++){
@@ -657,6 +670,10 @@ for($i = 0; $i < $len; $i++){
 }
 return true;
 }	
+/**
+ *把字符串转成utf
+ *
+ **/
 function toUtf8($str=null){
 		if(is_utf8($str)){
 			return $str;
@@ -698,7 +715,9 @@ die("path is not found:".$ipath);
 }
  return $str;
 }
-//压缩JS文件并替换JS嵌套include文件
+/**
+ *压缩JS文件并替换JS嵌套include文件
+ */
 function compress_js($jspath){
 //	import('Ainiku.JavaScriptPacker');
 //    $packer = new JavaScriptPacker($js, 'Normal', true, false);  
@@ -707,6 +726,9 @@ function compress_js($jspath){
 	import('Ainiku.JSMin');
 	return JSMin::minify($js);
 }
+/**
+ *写字符串到文件
+ */
 function writetofile($filename,$str){
 	if(createFolder(dirname($filename))){
 		return file_put_contents($filename,$str);
@@ -716,12 +738,10 @@ function writetofile($filename,$str){
 	}
 	
 	}
+/**
+ *创建文件夹
+ */
 function createFolder($path){
-//	//取文档根目录
-//	$path=str_replace('\\','/',$path);
-//	if(strpos($path,__SITE_ROOT__)===false){
-//		$path=__SITE_ROOT__.$path;
-//		}
 	$path=pathA($path);
 	if(!is_dir($path)){
 	return mkdir($path,0777,true);//第三个参数为true即可以创建多极目录
