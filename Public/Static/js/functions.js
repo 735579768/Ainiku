@@ -51,7 +51,7 @@ $(function(){
             formobj.submit(function(e) {
                 return false;
             });
-            url = formobj.attr("action");
+            var url = formobj.attr("action");
             postdata = formobj.serialize();
             a = "{" + a + "}";
             b = eval("(" + a + ")");

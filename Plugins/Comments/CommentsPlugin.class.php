@@ -38,7 +38,7 @@ class CommentsPlugin extends \Plugins\Plugin{
    public function add(){
 		if(IS_POST){
 			$verify=I('verify');
-			if(empty($verify)){$this->error('请输入验证码1!');}
+			if(empty($verify)){$this->error('请输入验证码!');}
 			if(!check_verify($verify)){
 				$this->error('验证码输入错误！');
 			  }
@@ -46,7 +46,10 @@ class CommentsPlugin extends \Plugins\Plugin{
 			if($model->create()){
 					$result=$model->add();
 					if(0<$result){
-						$this->success('留言成功');
+						$list[]=M('Comments')->find($result);
+						$this->assign('_list',$list);
+						$str=$this->fetch('ajaxlist');
+						$this->success(array('content'=>$str,msg=>'留言成功'));
 						}else{
 						$this->error('留言失败');	
 							}						
@@ -71,8 +74,9 @@ $sql = <<<sql
 				  `name` varchar(255) DEFAULT NULL,
 				  `mobile` varchar(255) DEFAULT NULL,
 				  `email` varchar(255) DEFAULT NULL,
+				  `url` varchar(255) DEFAULT NULL,
 				  `qq` varchar(255) DEFAULT NULL,
-				  `status` tinyint(1)  NULL DEFAULT 0 ,
+				  `status` tinyint(1)  NULL DEFAULT 1 ,
 				  `ip` varchar(255) DEFAULT NULL,
 				  `location` varchar(255) DEFAULT NULL,
 				  `create_time` int(11) DEFAULT NULL,
