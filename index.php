@@ -6,7 +6,7 @@ if(version_compare(PHP_VERSION,'5.3.0','<'))  die('require PHP > 5.3.0 !');
 define('APP_PATH','./App/');
 //常量定义
 define('ACCESS_ROOT',true);
-define('APP_DEBUG',true);
+define('APP_DEBUG',false);
 APP_DEBUG or define('BUILD_LITE_FILE',true);
 // 绑定访问Admin模块
 //define('BIND_MODULE','Daili');
@@ -23,8 +23,7 @@ defined('RUNTIME_PATH') or define ( 'RUNTIME_PATH', DATA_DIR_PATH.'cache/Runtime
 //定义cookies域
 preg_match('/(.*\.)?(.*\..*)/',$_SERVER['HTTP_HOST'],$mat);
 define('COOKIES_DOMIN',$mat[2]);
-
-if(file_exists(RUNTIME_PATH.'lite.php' && !APP_DEBUG)){
+if(file_exists(realpath(RUNTIME_PATH.'lite.php')) && !APP_DEBUG){
 	require RUNTIME_PATH.'lite.php';
 	}else{
 	require './TP/ThinkPHP.php';	

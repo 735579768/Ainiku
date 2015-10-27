@@ -1,5 +1,5 @@
 <?PHP
-if(!defined("ACCESS_ROOT"))die("Invalid access");
+defined("ACCESS_ROOT") or die("Invalid access");
 /**
  *系统产品函数库
  */
