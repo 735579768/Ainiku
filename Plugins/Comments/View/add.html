@@ -19,7 +19,7 @@
 <form method="post" class="form-group-h" id="commentsform" action="{:UP('Comments/add')}">
   <div class="form-group">
     <label class="form-label"for="exampleInputEmail1">名字</label>
-    <input type="text" name="name" class="form-control input-large"  placeholder="输入您的名字">
+    <input type="text" name="name" id="comments-name" class="form-control input-large"  placeholder="输入您的名字">
   </div>
     <div class="form-group">
     <label class="form-label"for="exampleInputEmail1">邮箱</label>
@@ -31,11 +31,11 @@
   </div>
     <div class="form-group">
     <label class="form-label"for="exampleInputEmail1">内容</label>
-    <textarea name="content" class="form-control input-large" placeholder="输入内容"></textarea>
+    <textarea name="content" id="comments-content" class="form-control input-large" placeholder="输入内容"></textarea>
   </div>
       <div class="form-group">
     <label class="form-label"for="exampleInputEmail1">验证码</label>
-    <input type="text" name="verify" class="form-control input-middle" placeholder="输入验证码">
+    <input type="text" name="verify" id="verifyimg" class="form-control input-middle" placeholder="输入验证码">
 <div id="verify" style="display:inline-block;">
     <img style="cursor:pointer; vertical-align:middle;" class="verifyimg reloadverify"  id="verifyimg" alt="点击切换" onclick="this.src='{:U('Public/verify')}?random='+Math.random();" src="{:U('public/verify')}">
     </div>
@@ -71,9 +71,13 @@ $('#addcomments').click(function(e) {
             formobj.submit(function(e) {
                 return false;
             });
+			if(!(/^[a-zA-Z0-9]{4}$/.test($('#verifyimg').val()))){ank.msg('请填入正确的验证码!');return false;}
+			if(/\s*/.test($('#comments-content').val())){ank.msg('请填入内容!');return false;}
+			if(!(/^.{2,5}$/.test($('#comments-name').val()))){ank.msg('请填入正确的名字!');return false;}
            var uri = formobj.attr("action");
             postdata = formobj.serialize();
-            $("body").append('<div id="liuyanklbg" class="bg">');
+           // $("body").append('<div id="liuyanklbg" class="bg">');
+		   $('#addcomments').html('正在提交...');
             $.ajax({
                 url:uri,
                 type:"POST",
@@ -81,13 +85,19 @@ $('#addcomments').click(function(e) {
                 data:postdata,
                 success:function(da) {
 					if(da.status=='1'){
-						ank.msg(da.info.msg);
-						formobj.before(da.info.content);
-						cancelhuifu();
+							ank.msg(da.info.msg);
+							var len=formobj.parents('#comments-list').length;
+							if(len===1){
+							formobj.before(da.info.content);
+							cancelhuifu();
+							}else{
+							$('#comments-list').prepend(da.info.content);
+								}
 						}else{
 						ank.msg(da.info);
 							}
-						$('#liuyanklbg').remove();
+					$('#addcomments').html('提交评论');
+					//	$('#liuyanklbg').remove();
                 }
             });
 });
