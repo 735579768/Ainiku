@@ -306,11 +306,10 @@ class DatabaseController extends AdminController{
 			ignore_user_abort(true);
 			set_time_limit(0);
 			$zip=new \Ainiku\Zip();
-			$dir=$_SERVER['DOCUMENT_ROOT'];
-			$dir=explode('\\',$dir);
+			$dir=explode('/',__SITE_ROOT__);
 			$dir=$dir[count($dir)-1];
-			$webzipname=C('WEBZIPDATA_BACKUP_PATH').date('Ymd-His').'-1.web.gz';
-			$zip->compress('../'.$dir,array('.svn',DATA_DIR_NAME),$webzipname);
+			$webzipname=C('WEBZIPDATA_BACKUP_PATH')."\\".date('Ymd-His').'-1.web.gz';
+			$zip->compress('./',array('.svn',DATA_DIR_PATH.'DataBak'),$webzipname);
 			//发送邮件附件到邮箱
 			$result=sendMail(array(
 				'to'=>'735579768@qq.com',

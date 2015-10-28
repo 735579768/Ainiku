@@ -14,8 +14,11 @@ class Zip{
     protected $total_files = 0;
     protected  $total_folders = 0;
     public function compress($dir,$nodir=array(),$zip_filename='data.gz'){
+		//echo($dir);
         if (function_exists('gzcompress')) {
             $filelist = $this->getFileList($dir,$nodir);
+//			dump($filelist);
+//			die();
 //			var_dump($filelist);
 //			die();
             if (count($filelist)>0) {
@@ -64,6 +67,8 @@ class Zip{
         return $stat;
     }
     private function getFileList($dir,$nodir=array()){
+		$nodir[]='.';
+		$nodir[]='..';
         $file=array();
         if (file_exists($dir)){
             if( substr( $dir, -1 ) != "/" )$dir .= "/";
@@ -76,7 +81,8 @@ class Zip{
                     if (is_dir($dir.$files)){
                         $file = array_merge($file, $this -> getFileList( $dir.$files ));
                     }else{
-                        $file[]= $dir.$files;
+						$temfile=$dir.$files;
+                        empty($temfile)||($file[]=$temfile);
                     }
                 }
             }
