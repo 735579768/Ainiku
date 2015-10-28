@@ -17,10 +17,6 @@ class Zip{
 		//echo($dir);
         if (function_exists('gzcompress')) {
             $filelist = $this->getFileList($dir,$nodir);
-//			dump($filelist);
-//			die();
-//			var_dump($filelist);
-//			die();
             if (count($filelist)>0) {
                 foreach($filelist as $filename) {
                     if (is_file($filename)){
@@ -73,9 +69,9 @@ class Zip{
         if (file_exists($dir)){
             if( substr( $dir, -1 ) != "/" )$dir .= "/";
             $dh = opendir($dir);
-			array_push($nodir,'.');
-			array_push($nodir,'..');
             while($files = readdir($dh)) {
+				//$dname=str_replace('/\/|\\/','',dirname($files));
+				
 				if(!in_array($files,$nodir)){
                // if (($files!=".")&&($files!="..")&&($files!==".svn")){
                     if (is_dir($dir.$files)){
@@ -88,7 +84,7 @@ class Zip{
             }
             closedir($dh);
         }
-        $file[] = '';
+       // $file[] = '';
         return $file;
     }
     private function unixToDostime($unixtime = 0) {

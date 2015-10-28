@@ -9,7 +9,7 @@
                     <th width="80">压缩</th>
                     <th width="80">数据大小</th>
                     <th width="200">备份时间</th>
-                    <th>状态</th>
+                    <th>下载</th>
                     <th style="text-align:center;">操作</th>
                 </tr>
                 <volist name="list" id="data">
@@ -19,7 +19,7 @@
                         <td class="center">{$data.compress}</td>
                         <td class="center">{$data.size|format_bytes}</td>
                         <td class="center">{$key}</td>
-                        <td class="center">-</td>
+                        <td class="center"><a href="/Data/DataBak/{$data.time|date='Ymd-His',###}-1.sql.gz" target="_blank">下载</a></td>
                         <td class="action center">
                             <a class="db-import btn btn-primary" href="{:U('import?time='.$data['time'])}">还原</a>&nbsp;
                             <a class="ajax-href-del confirm btn btn-danger" href="{:U('del?time='.$data['time'])}">删除</a>
