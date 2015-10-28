@@ -16,7 +16,7 @@ class CommentsPlugin extends \Plugins\Plugin{
 	  // empty($arc_id)&&die('没有评论');
 	   $map['status']=1;
 	   $map['pid']=$pid;
-	   //$map['arc_id']=$arc_id;
+	   //$map['arc_id']=I('post.arc_id');
 	  // $list=M('Comments')->where($map)->order('create_time desc')->select();
 	   $list=$this->pages(array(
 	   				'model'=>'Comments',

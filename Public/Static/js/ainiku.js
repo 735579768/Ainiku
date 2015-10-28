@@ -214,9 +214,7 @@ ajaxform:function(opts) {
 			_after_post:function(){},
 			success:function(){}
 			};
-		 opts=$.extend(conf,opts)
-      //  if (typeof arguments[2] != "undefined") reloadbool = arguments[2];
-        //if (typeof arguments[1] != "undefined") msgtime = arguments[1];
+		 opts=$.extend(conf,opts);
         try {
             opts._before_post(opts);
 			var thisobj=$(opts._this);
