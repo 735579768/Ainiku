@@ -122,10 +122,13 @@ public function lists(){
 	 $this->meta_title="留言列表";
 	 return $this->fetch('lists');
 	 }
-public function check($id=''){
-			//只允许后台访问
-		if(MODULE_NAME!=='Admin')die('');
-	$this->data=M('comments')->find($id);
+public function check(){
+	//只允许后台访问
+	if(MODULE_NAME!=='Admin')die('');
+	$id=I('get.id');
+	empty($id)&&die('ID不能为空');
+	$data=M('Comments')->find($id);
+	$this->assign('info',$data);
 	//M('comments')->where("id=$id")->setInc('is_view',1);
 	$this->display('check');
 	die();

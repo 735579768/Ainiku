@@ -288,7 +288,7 @@ function get_list_field($data, $grid,$model){
                 // 替换系统特殊字符串
                 $href	=	str_replace(
                     array('[DEL]','[DELE]','[HUIFU]','[EDIT]','[MODEL]'),
-                    array('del?id=[id]&model_id=[MODEL]','dele?id=[id]&model_id=[MODEL]','huifu?id=[id]&model_id=[MODEL]','edit?id=[id]&model_id=[MODEL]',$model['model_id']),
+                    array('del?model_id=[MODEL]','dele?model_id=[MODEL]','huifu?model_id=[MODEL]','edit?model_id=[MODEL]',$model['model_id']),
                     $href);
 
                 // 替换数据变量

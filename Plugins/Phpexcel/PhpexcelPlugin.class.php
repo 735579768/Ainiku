@@ -28,9 +28,7 @@ class PhpexcelPlugin extends \Plugins\Plugin{
 		 Vendor('PHPExcel.PHPExcel.Style.Fill');		  
 		  }
 	//钩子默认的调用方法
-	public function run($a,$b){
-	  $this->assign('a',$a);
-	  $this->assign('b',$b);
+	public function run(){
 	  $this->display('content');	
 	}
 	function export($data,$filename,$field){

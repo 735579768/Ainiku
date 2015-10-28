@@ -80,8 +80,7 @@ class AlipayPlugin extends \Plugins\Plugin{
 
 		}
 	//钩子默认的调用方法
-	public function run($a){
-	  $this->assign('a',$a);
+	public function run(){
 	   $this->display('content');	
 	}
 	public function getConfig(){
