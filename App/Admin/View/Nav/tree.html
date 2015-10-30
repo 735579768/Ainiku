@@ -3,7 +3,7 @@
     <dl class="cate-item">
     <!--cate start-->
       <dt class="cl">
-        <div class="btn-toolbar opt-btn cl"> <a title="编辑" class="btn btn-primary" href="{:u('Nav/edit?nav_id='.$vo['nav_id'])}">编辑</a> <a title="删除" class="btn btn-danger ajax-href-del"  href="{:u('Nav/del?nav_id='.$vo['nav_id'])}">删除</a> </div>
+        <div class="btn-toolbar opt-btn cl"> <a title="编辑" class="btn btn-primary" href="{:u('Nav/edit?nav_id='.$vo['nav_id'])}">编辑</a> <a title="删除" class="btn btn-danger ajax-list-del"  href="{:u('Nav/del?nav_id='.$vo['nav_id'])}">删除</a> </div>
         <div class="fold"><i></i></div>
         <div class="order"><input  data-table="nav" data-id="{$vo.nav_id}" data-field="sort"  type="text" class="form-control input-mini  ajax-blur" name="sort" value="{$vo.sort}" /></div>
         <div class="order"><span data-table="Nav" data-id="{$vo.nav_id}" data-field="status"  data-value="{$vo.status}" class="yn"></span></div>

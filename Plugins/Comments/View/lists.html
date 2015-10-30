@@ -42,7 +42,7 @@
      <td><span data-table="Comments" data-id="{$vo.id}" data-field="status"  data-value="{$vo.status}" class="yn"></span></td>
     <td>
       <a href="javascript:dialogAjax('{:UP('Comments/check?id='.$vo['id'])}','查看留言');" class="btn btn-primary check">查看</a>
-      <a href="{:UP('Comments/del?id='.$vo['id'])}" class="btn btn-danger ajax-href">删除</a>
+      <a href="{:UP('Comments/del?id='.$vo['id'])}" class="btn btn-danger ajax-list-del">删除</a>
     </td>
   </tr>
 </volist>

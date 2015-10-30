@@ -112,7 +112,8 @@ class CategoryController extends AdminController {
         $res = M('Category')->delete($category_id);
         if(0<$res){
 			F('sys_category_'.I('category_type').'_tree',null);
-            $this->success('删除分类成功！',U('index',array('category_type'=>I('category_type'))));
+            //$this->success('删除分类成功！',U('index',array('category_type'=>I('category_type'))));
+			 $this->success('删除分类成功！');
         }else{
             $this->error('删除分类失败！');
         }

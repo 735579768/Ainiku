@@ -94,7 +94,7 @@ class NodeController extends AdminController {
         }else{
            $result=M('Node')->where("id=$node_id")->delete();
         	if($result){
-				$this->success(L('_DELETE_SUCCESS_'),U('Node/index'));
+				$this->success(L('_DELETE_SUCCESS_'));
 				}else{
 				$this->error(L('_DELETE_FAIL_'));	
 					}

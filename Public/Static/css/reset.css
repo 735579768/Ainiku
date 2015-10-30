@@ -91,3 +91,27 @@ select.form-control{display:inline-block;width:auto;height:30px;}
 #dialog-con{padding:10px 20px;}
 #dialog h2{font:14px/1.5 microsoft yahei;line-height:31px;white-space:nowrap;overflow:hidden;padding:0 10px;height:31px; font-weight:bolder;}
 .bm_h{border-bottom:1px solid #CDCDCD;}
+/*---滚动条默认显示样式--*/
+::-webkit-scrollbar-thumb{background-color:#018EE8;background:rgba(0,0,0,.3);-webkit-border-radius:6px;-moz-border-radius:6px;-ms-border-radius:6px;-o-border-radius:6px;border-radius:6px;}
+/*---鼠标点击滚动条显示样式--*/
+::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.5);height:50px;-webkit-border-radius:4px;}
+/*---滚动条大小--*/
+::-webkit-scrollbar{width:8px;height:8px;}
+/*---滚动框背景样式--*/
+::-webkit-scrollbar-track-piece{background-color:#fff;-webkit-border-radius:0;}
+
+scrollbar{-moz-appearance:none !important;background:#FAFAFA !important;}
+scrollbar thumb{-moz-appearance:none !important;background:rgba(55,55,55,.5) !important;
+border:0px !important;border-radius:0px !important;}
+scrollbar thumb:hover,scrollbar thumb:active{background:rgba(22, 22, 22,.8) !important;}
+
+slider,slider:hover,slider:active
+{-moz-appearance:none !important;background:transparent !important;
+border:0px !important;opacity:0.9 !important;-moz-transition-duration:0.5s !important;}
+
+scrollbar[orient="vertical"]{width:5px !important;} scrollbar[orient="horizontal"]{height:5px !important;}
+scrollbar[orient="vertical"],scrollbar[orient="horizontal"]{padding:0px !important;border-width:0px !important;}
+
+scrollbarbutton[sbattr="scrollbar-up-top"],scrollbarbutton[sbattr="scrollbar-down-top"],
+scrollbarbutton[sbattr="scrollbar-up-bottom"],scrollbarbutton[sbattr="scrollbar-down-bottom"]
+{-moz-appearance:none !important;display:none !important;}

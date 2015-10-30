@@ -142,7 +142,7 @@ public function check(){
 		$model=M('Comments');
     	$result=$model->where("id in ($id)")->delete();
     	if(result){
-    	  $this->success('已经彻底删除',U('index'));
+    	  $this->success('已经彻底删除');
     	}else{
     	  $this->error('操作失败');
     	}

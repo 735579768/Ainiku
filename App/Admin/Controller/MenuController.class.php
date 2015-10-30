@@ -106,7 +106,7 @@ class MenuController extends AdminController {
         }else{
            $result=M('Menu')->where("id=$id")->delete();
         	if($result){
-				$this->success(L('_DELETE_SUCCESS_'),U('Menu/index'));
+				$this->success(L('_DELETE_SUCCESS_'));
 				}else{
 				$this->error(L('_DELETE_FAIL_'));	
 					}

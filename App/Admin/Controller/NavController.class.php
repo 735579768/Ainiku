@@ -106,7 +106,7 @@ class NavController extends AdminController {
         $res = M('Nav')->delete($nav_id);
         if($res !== false){
 			 F('sys_nav_tree',null);
-            $this->success('删除导航成功！',U('index'));
+            $this->success('删除导航成功！');
         }else{
             $this->error('删除导航失败！');
         }

@@ -60,7 +60,7 @@
     <td><span data-table="Article" data-id="{$vo.article_id}" data-field="status"  data-value="{$vo.status}" class="yn"></span></td>
     <td>
     	<a href="{:U('Article/edit?article_id='.$vo['article_id'])}"  class="btn btn-primary">编辑</a>
-        <a href="{:U('Article/del?article_id='.$vo['article_id'])}" class="btn btn-danger ajax-href-del">移到回收站</a>
+        <a href="{:U('Article/del?article_id='.$vo['article_id'])}" class="btn btn-danger ajax-list-del">移到回收站</a>
     </td>
   </tr>
 </volist>
