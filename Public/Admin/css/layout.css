@@ -235,3 +235,4 @@ border-color: #44b549 #e0e0e0 #f6f6f6;
 #positionform ul li{ display:inline-block; width:60px;}
 #positionform span{    display: inline-block;padding-right: 5px;}
 #positionform .markinput{vertical-align: middle;}
+.form-checkbox{width:100px; white-space:nowrap; text-overflow:ellipsis; overflow:hidden; display:inline-block;}

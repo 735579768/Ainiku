@@ -48,6 +48,7 @@ class AdminController extends CommonController {
 
 		   // 记录当前列表页的cookie
 		   $forward=cookie('__forward__');
+		   is_array($forward)||($forward=array());
 		   if(!IS_AJAX  && !IS_POST){
 		  if(count($forward)>=2)array_shift($forward);
 			isset($_SERVER['HTTP_REFERER'])?($forward[] = $_SERVER['HTTP_REFERER']):'';
