@@ -35,13 +35,16 @@ var jiantime=draftboxtime;
 window.draftboxtimeid=setInterval(function(){
 	var caogao=$('input[name="status"]:checked').val();
 	if($('input[name="article_id"]').val()=='' || caogao=='2'){
-		    $('#submitbtn').html('保存草稿('+jiantime+')');
-			var title=$('input[name="title"]').val();
-			(title!='')&&$('input[name="status"][type="radio"][value="2"]').attr('checked','checked');
-			if((jiantime--)<=0){
-				jiantime=draftboxtime;
-				submitcg();	
+		var title=$('input[name="title"]').val();
+		if(title!=''){
+				$('#submitbtn').html('保存草稿('+jiantime+')');
+				$('input[name="status"][type="radio"][value="2"]').attr('checked','checked');
+				if((jiantime--)<=0){
+					jiantime=draftboxtime;
+					submitcg();	
+				}			
 			}
+
 	}else{
 		jiantime=draftboxtime;
 		subobj.html(srctext);
