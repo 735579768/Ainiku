@@ -308,6 +308,6 @@ function get_list_field($data, $grid,$model){
  function getTable($tablename,$prefix=true){
 	 $tablename=lcfirst($tablename);
 	 	$tablename=preg_replace('/([A-Z]{1})/','_$1',$tablename);
-		return $prefix?strtolower(C('DB_PREFIX').$tablename):strtolower($tablename);
+		return $prefix?strtolower(__DB_PREFIX__.$tablename):strtolower($tablename);
 	 }
 

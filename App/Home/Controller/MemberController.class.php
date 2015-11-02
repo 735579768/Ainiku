@@ -30,7 +30,7 @@ class MemberController extends Controller {
 	//用户登陆验证开始
 		$error='';
        $map = array();
-	   $dbprefix=C('DB_PREFIX');
+	   $dbprefix=__DB_PREFIX__;
 		$map[getAccountType($username)]=$username;
 		$jin=$dbprefix."member_group as a on ".$dbprefix."member.member_group_id=a.member_group_id";
 		$field="*,".$dbprefix."member.status as status";

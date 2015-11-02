@@ -69,24 +69,24 @@ class CommonController extends Controller {
        $User = M($model); // 实例化User对象
        $count=0;
 	   if(is_string($whe)){
-		   	 $whe=str_replace('__DB_PREFIX__',C('DB_PREFIX'),$whe);
+		   	 $whe=str_replace('__DB_PREFIX__',__DB_PREFIX__,$whe);
 		   }else{
 			   if(is_array($whe)){
 			   $temarr=array();
 			   foreach($whe as $key=>$val){
-				   $temarr[str_replace('__DB_PREFIX__',C('DB_PREFIX'),$key)]=$val;
+				   $temarr[str_replace('__DB_PREFIX__',__DB_PREFIX__,$key)]=$val;
 				   }
 				$whe=$temarr;
 			   }
 		  }
-	   	 $field=str_replace('__DB_PREFIX__',C('DB_PREFIX'),$field);
-		 $order=str_replace('__DB_PREFIX__',C('DB_PREFIX'),$order);
+	   	 $field=str_replace('__DB_PREFIX__',__DB_PREFIX__,$field);
+		 $order=str_replace('__DB_PREFIX__',__DB_PREFIX__,$order);
        if(is_array($join)){
-		    $join[0]=str_replace('__DB_PREFIX__',C('DB_PREFIX'),$join[0]);
-		    $join[1]=str_replace('__DB_PREFIX__',C('DB_PREFIX'),$join[1]);
+		    $join[0]=str_replace('__DB_PREFIX__',__DB_PREFIX__,$join[0]);
+		    $join[1]=str_replace('__DB_PREFIX__',__DB_PREFIX__,$join[1]);
          $count      = $User->where($whe)->field($field)->order($order)->join($join[0])->join($join[1])->count();// 查询满足要求的总记录数
        }else{
-		   $join=str_replace('__DB_PREFIX__',C('DB_PREFIX'),$join);
+		   $join=str_replace('__DB_PREFIX__',__DB_PREFIX__,$join);
          $count      = $User->where($whe)->field($field)->order($order)->join($join)->count();// 查询满足要求的总记录数
        }
      
