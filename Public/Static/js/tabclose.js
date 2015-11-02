@@ -79,8 +79,11 @@ window.addtabclose=function(title,url){
 	var isyou=false;
 	$('.kl-tab iframe').each(function(index, element) {
         var srcurl=$(this).attr('src');
+		var par=$(this).parent();
 		if(url==srcurl){
-			$(this).attr('src',url);		
+			$(this).remove();
+			par.append('<span class="iframeloading">正在加载...</span><iframe class="con-iframe" marginWidth=0 frameSpacing=0 marginHeight=0  onload="setIframeHeight(this);" frameborder="0" border="0" src="'+url+'"  noResize width="100%" scrolling=auto  vspale="0"></iframe>');
+			//$(this).attr('src',url);		
 			$('.kl-tab .kl-tab-nav').eq(index).click();
 			isyou=true;
 			return 0;
@@ -88,7 +91,7 @@ window.addtabclose=function(title,url){
     });
 	if(isyou)return true;
 	$('#nav-block').append(' <li class="kl-tab-nav">'+title+'<span class="close">X</span></li>');
-	$('#div-block').append(' <div class="kl-tab-div"><span class="iframeloading">正在加载...</span><iframe class="con-iframe" marginWidth=0 frameSpacing=0 marginHeight=0  onload="setIframeHeight(this);" frameborder="0" border="0" src="'+url+'"  noResize width="100%" scrolling=auto  vspale="0"></iframe>');
+	$('#div-block').append(' <div class="kl-tab-div"><span class="iframeloading">正在加载...</span><iframe class="con-iframe" marginWidth=0 frameSpacing=0 marginHeight=0  onload="setIframeHeight(this);" frameborder="0" border="0" src="'+url+'"  noResize width="100%" scrolling=auto  vspale="0"></iframe></div>');
 	 $('.kl-tab').mytab();
 	 $('.kl-tab .kl-tab-nav:last').click();
 	};
