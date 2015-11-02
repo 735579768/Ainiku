@@ -63,9 +63,9 @@ function getGoodsCatAttr($cat_id=null){
  function getGoodsInfo($goodsid=null){
 	 if(empty($goodsid))return false;
 	 $rows=M('Goods')
-	      ->join("kl_goods_cat as b on kl_goods.cat_id=b.id")
-		  ->where("kl_goods.id=$goodsid")
-		  ->field("*,kl_goods.id as id,kl_goods.title as title,kl_goods.content as content,kl_goods.pic as pic,b.title as cattitle")
+	      ->join("".__DB_PREFIX__."goods_cat as b on ".__DB_PREFIX__."goods.cat_id=b.id")
+		  ->where("".__DB_PREFIX__."goods.id=$goodsid")
+		  ->field("*,".__DB_PREFIX__."goods.id as id,".__DB_PREFIX__."goods.title as title,".__DB_PREFIX__."goods.content as content,".__DB_PREFIX__."goods.pic as pic,b.title as cattitle")
 		  ->find();
 	 if(empty($rows))return false;
 	 //查找扩展信息
