@@ -35,7 +35,7 @@
         <th>标题</th>
 		<th>分组</th>
         <th class="center">表单类型</th>
-        <eq name="Think.const.ISDEV" value="true">
+        <eq name="Think.const.APP_DEBUG" value="true">
 
 <th title="设置是否在关闭开发模式时在网站设置中显示">是否显示</th>
         </eq>
@@ -50,7 +50,7 @@
     <td><span title="{$vo.note}">{$vo.title}</span></td>
     <td>{$vo.group|getGroupName}</td>
     <td class="center">{$vo.type|getFormType}</td>
-    <eq name="Think.const.ISDEV" value="true">
+    <eq name="Think.const.APP_DEBUG" value="true">
     <td class="center">
     <span data-table="config" data-id="{$vo.config_id}" data-field="no_del"  data-value="{$vo.no_del}" class="yn"> </span></td>
     </eq>

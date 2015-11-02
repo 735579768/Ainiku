@@ -7,30 +7,8 @@ class AdminController extends CommonController {
 	protected $model_name=null;
 	protected $primarykey=null;
 	protected $auth=null;
-
-	protected function display($templateFile='',$charset='',$contentType='',$content='',$prefix=''){
-		$str=$this->fetch($templateFile);
-		$str=$this->auth->replaceurl($str);
-		//查看是不是tab中的数据
-		$mainmenu=I('get.mainmenu');
-		if($mainmenu=='true'){
-			$pattern='/<\/html>(.+)/si';
-			$str=preg_replace($pattern,'</html>',$str);
-			}
-		if(!APP_DEBUG){
-		//如果不是调试模式
-			$pa=array(
-					'/<\!\-\-.*?\-\->/i',//去掉html注释
-					'/(\s*?\r?\n\s*?)+/i'//删除空白行
-					);
-			$pr=array('',"\n");
-			$str=preg_replace($pa,$pr,$str);
-			}
-		echo $str;
-		}
-	 protected function _initialize(){
+	protected function _initialize(){
 		 (get_naps_bot()!==false)&&die('');//不让蜘蛛抓取
-
 		 // 获取当前用户ID
 		 $uid=is_login();
 		 if($uid){
@@ -40,58 +18,48 @@ class AdminController extends CommonController {
 			 $uid=$login->autologin();
 			 $uid>0?define('UID',$uid):redirect(U('Public/login'));
 		 }
-		 if(UID!=1){
-			 defined('IS_ADMIN') or define('IS_ADMIN',false);
-			 }else{
-			 defined('IS_ADMIN') or define('IS_ADMIN',true);	
-				}
+		 (UID!=1)?define('IS_ADMIN',false):define('IS_ADMIN',true);
 
-		   // 记录当前列表页的cookie
-		   $forward=cookie('__forward__');
-		   is_array($forward)||($forward=array());
-		   if(!IS_AJAX  && !IS_POST){
-		  if(count($forward)>=2)array_shift($forward);
-			isset($_SERVER['HTTP_REFERER'])?($forward[] = $_SERVER['HTTP_REFERER']):'';
-			  cookie('__forward__',$forward);  
-		   }
-		  defined('__FORWARD__')||define('__FORWARD__',$forward[0]);
-		 $this->meta_title='首页';
-		 //定义数据表前缀
-		 defined('DBPREFIX') or define('DBPREFIX',C('DB_PREFIX'));
 		//先读取缓存配置
-        $config =   F('DB_CONFIG_DATA');
-        if(!$config || APP_DEBUG){
-            $config =   api('Config/lists');
-            F('DB_CONFIG_DATA',$config);
-        }
-        C($config); //添加配置
+		$config =   F('DB_CONFIG_DATA');
+		if(!$config || APP_DEBUG){
+			$config =   api('Config/lists');
+			F('DB_CONFIG_DATA',$config);
+		}
+		C($config); //添加配置
 		if(I('get.mainmenu')=='true')C('SHOW_PAGE_TRACE',false);
-		defined('__DB_PREFIX__')  or  define('__DB_PREFIX__',C('DB_PREFIX'));
-		 //设置开发模式
-		  defined('ISDEV') or define('ISDEV',APP_DEBUG);
-		 //主题默认为空
-		 C('DEFAULT_THEME','');
-//		//赋值当前登陆用户信息
-//		$uinfo=session('uinfo');
-//		$map[getAccountType($uinfo['username'])]=$uinfo['username'];
-//		$jin=__DB_PREFIX__."member_group as a on ".__DB_PREFIX__."member.member_group_id=a.member_group_id";
-//		$field="*,".__DB_PREFIX__."member.status as status";
-//        $user = D('Member')->field($field)->where($map)->join($jin)->find();
-//		session('uinfo',$user);
-		$this->assign('uinfo',session('uinfo'));
-			//检查访问权限
-			import('Ainiku.Auth');
-			$this->auth = new \Ainiku\Auth;
-			if(!$this->auth->check()){
-				$this->error('啊哦,没有此权限,请联系管理员！',U($user['admin_index']));
-				}
 
-		 $this->uinfo=session('uinfo');
-		 //取主导航
-		$this->getMainNav();
-//		if(I('mainmenu')=='true'){
-//			$this->display();
-//			}
+		//定义数据表前缀
+		defined('DBPREFIX') or define('DBPREFIX',C('DB_PREFIX'));
+		defined('__DB_PREFIX__')  or  define('__DB_PREFIX__',C('DB_PREFIX'));
+		//主题默认为空
+		C('DEFAULT_THEME','');
+		//检查访问权限
+		import('Ainiku.Auth');
+		$this->auth = new \Ainiku\Auth;
+		if(!$this->auth->check()){
+			$this->error('啊哦,没有此权限,请联系管理员！',U($user['admin_index']));
+		}
+
+		// 记录当前列表页的cookie
+		$forward=cookie('__forward__');
+		is_array($forward)||($forward=array());
+		if(!IS_AJAX  && !IS_POST){
+			if(count($forward)>=2)array_shift($forward);
+			isset($_SERVER['HTTP_REFERER'])?($forward[] = $_SERVER['HTTP_REFERER']):'';
+			cookie('__forward__',$forward);  
+		}
+		defined('__FORWARD__')||define('__FORWARD__',$forward[0]);
+		//设置全局的模板变量
+		$this->assign('meta_title','首页');
+		$this->assign('uinfo',session('uinfo'));
+		//防止重复请求,如果是主框架请求就只输出个目录菜单
+		if(I('mainmenu')=='true'){
+			//取主导航
+			$this->getMainNav();
+			$this->display(CONTROLLER_NAME.'/'.ACTION_NAME);
+			die();
+		}
 	 }
 	 /**
 	  *取主导航
@@ -188,4 +156,24 @@ class AdminController extends CommonController {
 				  $this->success($str);
 				  }
 		 }
+	protected function display($templateFile='',$charset='',$contentType='',$content='',$prefix=''){
+		$str=$this->fetch($templateFile);
+		$str=$this->auth->replaceurl($str);
+		//查看是不是tab中的数据
+		$mainmenu=I('get.mainmenu');
+		if($mainmenu=='true'){
+			$pattern='/<\/html>(.+)/si';
+			$str=preg_replace($pattern,'</html>',$str);
+			}
+		if(!APP_DEBUG){
+		//如果不是调试模式
+			$pa=array(
+					'/<\!\-\-.*?\-\->/i',//去掉html注释
+					'/(\s*?\r?\n\s*?)+/i'//删除空白行
+					);
+			$pr=array('',"\n");
+			$str=preg_replace($pa,$pr,$str);
+			}
+		echo $str;
+		}
 }

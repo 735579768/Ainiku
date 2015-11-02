@@ -60,8 +60,6 @@ class DailiController extends CommonController {
         C($config); //添加配置
 		if(I('get.mainmenu')=='true')C('SHOW_PAGE_TRACE',false);
 		defined('__DB_PREFIX__')  or  define('__DB_PREFIX__',C('DB_PREFIX'));
-		 //设置开发模式
-		  defined('ISDEV') or define('ISDEV',APP_DEBUG);
 		 //主题默认为空
 		 C('DEFAULT_THEME','');
 		$this->assign('uinfo',session('uinfo'));

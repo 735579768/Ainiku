@@ -7,7 +7,7 @@
         <div class="fold"><i></i></div>
         <div class="order">{$vo.id}</div>
         <div class="order"><input  data-table="menu" data-id="{$vo.id}" data-field="sort"  type="text" class="form-control input-mini	 ajax-blur" name="sort" value="{$vo.sort}" /></div>
-        <eq name="Think.const.ISDEV" value="true">
+        <eq name="Think.const.APP_DEBUG" value="true">
         <div class="order"><span data-table="menu" data-id="{$vo.id}" data-field="hide"  data-value="{$vo.hide}" class="yn"></span></div>
         
          <div class="order"><span data-table="menu" data-id="{$vo.id}" data-field="is_dev"  data-value="{$vo.is_dev}" class="yn"></span></div></eq>
