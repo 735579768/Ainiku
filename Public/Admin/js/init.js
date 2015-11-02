@@ -120,7 +120,9 @@ $('.menu a').each(function(index, element) {
     var a=window.location.href;
 	a=a.replace(/(.*?)\.(.*?)\//,'/');
 	var b=$(this).attr('href');
-	if(a===b){
+//	b=b.replace(/(\?)|(\.)|(\=)/g,'\\$1$2$3');
+//	console.log();a.match(/b+".*?"/);
+	if(a==b){
 		window.hasmenu=true;
 		 $(this).parents('.menu').find('dt a').click();
 		 $(this).addClass('hover')
