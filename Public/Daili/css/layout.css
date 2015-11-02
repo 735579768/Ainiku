@@ -219,7 +219,7 @@ border-color: #44b549 #e0e0e0 #f6f6f6;
 .listext th,.listext td{border:solid 1px #ddd;text-align:left;padding:10px;font-size:14px;}
 .rc-handle-container{position:relative;}
 .rc-handle{position:absolute;width:7px;cursor:ew-resize;*cursor:pointer;margin-left:-3px;}
-.btn-tool .form-label{ font-weight:lighter;}
+.btn-tool .form-label{ font-weight:lighter;min-width:inherit;}
 
 .searchform form{ /*border:solid 1px #d8d8d8; border-radius:5px; padding-right:10px;*/}
 .searchform form input.form-control{/* border:none; box-shadow:none;*/}
