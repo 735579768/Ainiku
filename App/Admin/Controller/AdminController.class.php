@@ -53,7 +53,7 @@ class AdminController extends CommonController {
 		$this->assign('meta_title','首页');
 		$this->assign('uinfo',session('uinfo'));
 		//防止重复请求,如果是主框架请求就只输出个目录菜单
-		if(I('mainmenu')=='true'){
+		if(I('mainmenu')=='true' ||(CONTROLLER_NAME=='Index' && ACTION_NAME=='index')){
 			//取主导航
 			$this->getMainNav();
 			$this->display(CONTROLLER_NAME.'/'.ACTION_NAME);
