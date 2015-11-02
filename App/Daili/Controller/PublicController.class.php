@@ -12,8 +12,6 @@ class PublicController extends Controller {
 		$this->redirect('login');
 		}
 	protected function _initialize(){
-		 //定义数据表前缀
-		 defined('DBPREFIX') or define('DBPREFIX',C('DB_PREFIX'));
 		//先读取缓存配置
         $config =   F('DB_CONFIG_DATA');
         if(!$config){

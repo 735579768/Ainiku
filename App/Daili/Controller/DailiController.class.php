@@ -49,8 +49,6 @@ class DailiController extends CommonController {
 		   }
 		  defined('__FORWARD__')||define('__FORWARD__',$forward[0]);
 		 $this->meta_title='首页';
-		 //定义数据表前缀
-		 defined('DBPREFIX') or define('DBPREFIX',C('DB_PREFIX'));
 		//先读取缓存配置
         $config =   F('DB_CONFIG_DATA');
         if(!$config || APP_DEBUG){

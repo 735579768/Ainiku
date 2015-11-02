@@ -30,7 +30,6 @@ class AdminController extends CommonController {
 		if(I('get.mainmenu')=='true')C('SHOW_PAGE_TRACE',false);
 
 		//定义数据表前缀
-		defined('DBPREFIX') or define('DBPREFIX',C('DB_PREFIX'));
 		defined('__DB_PREFIX__')  or  define('__DB_PREFIX__',C('DB_PREFIX'));
 		//主题默认为空
 		C('DEFAULT_THEME','');
