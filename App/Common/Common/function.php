@@ -263,7 +263,7 @@ function sendMail($conf=array()){
 	
 	$fromname=empty($fromname)?$uname:$fromname;
 	$body=empty($body)?C('MAIL_SMTP_CE'):$body;
-	
+	$body=toutf8($body);
 	
 	if(empty($uname))return '收件人邮箱不能为空';
 	if(empty($host))return '主机址不能为空';
@@ -300,7 +300,7 @@ function sendMail($conf=array()){
      
  
   if(!$mail->Send()){   
-        return $mail->ErrorInfo;
+        return APP_DEBUG?$mail->ErrorInfo:'邮件发送错误!';
   }else{
       return true;
 	   }
