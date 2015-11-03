@@ -119,9 +119,11 @@ window.hasmenu=false;
 $('.menu a').each(function(index, element) {
     var a=window.location.href;
 	a=a.replace(/(.*?)\.(.*?)\//,'/');
+	a=a.replace('&mainmenu=true','');
 	var b=$(this).attr('href');
-//	b=b.replace(/(\?)|(\.)|(\=)/g,'\\$1$2$3');
-//	console.log();a.match(/b+".*?"/);
+//	var c=b.replace(/(\?)|(\.)|(\=)/g,'\\$1$2$3');
+//	c=c+".*?";
+//	console.log(a.match(/c/));
 	if(a==b){
 		window.hasmenu=true;
 		 $(this).parents('.menu').find('dt a').click();
