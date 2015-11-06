@@ -143,7 +143,7 @@ class ConfigController extends AdminController {
             }
 							
 			F('DB_CONFIG_DATA',null);
-			$this->success('配置保存成功！',U('group',array('id'=>I('id'))));					
+			$this->success('配置保存成功！');					
 			}else{
 			$this->error('非法访问');	
 				}
