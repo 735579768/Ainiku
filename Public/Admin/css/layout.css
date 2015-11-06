@@ -28,7 +28,7 @@ body{overflow:hidden;padding:62px 0px 0px 179px;}
 .page .rows{}
 .page div{ display:inline-block;}
 /**主导航**/
-.mainnav,.tool{float:left;margin:5px 0px;}
+.mainnav,.tool{margin:5px 0px;}
 .mainnav li,.tool li{float:left;}
 .mainnav li a,.tool li a{display:inline-block;padding:5px 10px;font-size:14px;border-bottom:solid 4px #ededed;}
 .mainnav li a:hover,.tool li a:hover{border-bottom:solid 4px #67ad03;color:#000;}
@@ -236,6 +236,7 @@ border-color: #44b549 #e0e0e0 #f6f6f6;
 #positionform span{    display: inline-block;padding-right: 5px;}
 #positionform .markinput{vertical-align: middle;}
 .form-checkbox{width:100px; white-space:nowrap; text-overflow:ellipsis; overflow:hidden; display:inline-block;}
-#admintheme{ position:absolute; right:10px; top:5px;}
+#admintheme{ display:inline-block;    margin: 15px 10px 0px 0px;}
 #admintheme li{ display:block; float:left; width:10px; cursor:pointer; height:10px; margin-left:1px; border:solid 2px #fff;}
-#admintheme li.selected{border:solid 2px #000;}
+#admintheme li.selected{border:solid 2px #71886C;}
+.right-tool{ position:absolute; right:0px; top:10px;}

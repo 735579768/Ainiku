@@ -1,13 +1,37 @@
 	<div id="north" class="layout-north header">
+    
+    
+    <div class="logo fl">管理平台</div>
+    <ul class="mainnav cl">
+    	<volist name="_MAINNAV_" id="vo">
+    	<li><a href="{:U($vo['url'],array('mainmenu'=>'true'))}">{$vo.title}</a></li>
+        </volist>
+    </ul>
+    <div class="right-tool cl">
     <ul id="admintheme" class="admintheme cl">
     	<li  data-name="default"  style="background:#5cb85c;"></li>
         <li  data-name="blue"   style="background:#317EF3;"></li>
         <li  data-name="green"  style="background:#00c9bd;"></li>
         <li  data-name="black"  style="background:#808080;"></li>
     </ul>
-    <script>
+    <ul class="tool cl">
+    	<li><a href="javascript:;" title="({$uinfo.member_group_id|getMemberGroup=###,'title'}),登陆地址:({$uinfo['last_login_ip']}){$uinfo['last_login_adr']}" >您好::<notempty name="uinfo.nickname">{$uinfo['nickname']}<else />{$uinfo['username']}</notempty></a></li>
+    	<li><a href="{:C('WEBDOMIN')}" target="_blank"></i>查看网站</a></li>
+    	<li style="position:relative;" class="downmenu"><a href="javascript:;"><i class="prinfo"></i>个人信息</a>
+        	<ul class="pwdinfo">
+    <li><a title="清空系统运行时缓存" href="{:U('Other/clearcache',array('type'=>'run'))}" class="ajax-href">清空运行缓存</a></li>
+    <li><a title="清空图片缩略图目录" href="{:U('Other/clearcache',array('type'=>'img'))}" class="ajax-href">清空图片缓存</a></li>
+    <li><a title="清空CSS,图片,JS缓存目录" href="{:U('Other/clearcache',array('type'=>'data'))}" class="ajax-href">清空数据缓存</a></li>
+    <li><a title="清空系统所有缓存" href="{:U('Other/clearcache',array('type'=>'all'))}" class="ajax-href">清空全部缓存</a></li>
+            	<li><a class="" href="javascript:dialogAjax('{:U('Member/updatepwd')}','修改密码');">修改密码</a></li>
+                <li><a href="{:U('Other/logout')}" class="ajax-href">退出系统</a></li>
+            </ul>
+        </li>
+        
+    </ul>
+	<script>
 	$(function(){
-	$('#color_{:C('DEFAULT_COLOR')}').addClass('selected');
+	$("#admintheme li[data-name='{:C('DEFAULT_COLOR')}']").addClass('selected');
 	$('#admintheme li').click(function(e) {
 		var str=$(this).attr('data-name');
 		$('head link').last().attr('href',"__CSS__/"+str+"color.css");
@@ -25,26 +49,5 @@
 	});
 
     </script>
-    <div class="logo fl">管理平台</div>
-    <ul class="mainnav">
-    	<volist name="_MAINNAV_" id="vo">
-    	<li><a href="{:U($vo['url'],array('mainmenu'=>'true'))}">{$vo.title}</a></li>
-        </volist>
-    </ul>
-    
-    <ul class="tool">
-    	<li><a href="javascript:;" title="({$uinfo.member_group_id|getMemberGroup=###,'title'}),登陆地址:({$uinfo['last_login_ip']}){$uinfo['last_login_adr']}" >您好::<notempty name="uinfo.nickname">{$uinfo['nickname']}<else />{$uinfo['username']}</notempty></a></li>
-    	<li><a href="{:C('WEBDOMIN')}" target="_blank"></i>查看网站</a></li>
-    	<li style="position:relative;" class="downmenu"><a href="javascript:;"><i class="prinfo"></i>个人信息</a>
-        	<ul class="pwdinfo">
-    <li><a title="清空系统运行时缓存" href="{:U('Other/clearcache',array('type'=>'run'))}" class="ajax-href">清空运行缓存</a></li>
-    <li><a title="清空图片缩略图目录" href="{:U('Other/clearcache',array('type'=>'img'))}" class="ajax-href">清空图片缓存</a></li>
-    <li><a title="清空CSS,图片,JS缓存目录" href="{:U('Other/clearcache',array('type'=>'data'))}" class="ajax-href">清空数据缓存</a></li>
-    <li><a title="清空系统所有缓存" href="{:U('Other/clearcache',array('type'=>'all'))}" class="ajax-href">清空全部缓存</a></li>
-            	<li><a class="" href="javascript:dialogAjax('{:U('Member/updatepwd')}','修改密码');">修改密码</a></li>
-                <li><a href="{:U('Other/logout')}" class="ajax-href">退出系统</a></li>
-            </ul>
-        </li>
-        
-    </ul>
+    </div>
     </div>
