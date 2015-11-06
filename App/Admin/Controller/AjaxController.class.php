@@ -25,4 +25,7 @@ class AjaxController extends AdminController {
 	$this->success('数据保存成功');
 	 die();
 	 }
+	function setdefaultcolor($color){
+		M('Config')->where("name='DEFAULT_COLOR'")->setField('value',$color);
+		}
 }

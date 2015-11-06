@@ -1,4 +1,22 @@
 	<div id="north" class="layout-north header">
+    <ul id="admintheme" class="admintheme cl">
+    	<li onclick="qiehuan('default');"  style="background:#5cb85c;"></li>
+        <li onclick="qiehuan('blue');"  style="background:#317EF3;"></li>
+        <li  onclick="qiehuan('green');"  style="background:#00c9bd;"></li>
+        <li  onclick="qiehuan('black');"  style="background:#808080;"></li>
+    </ul>
+    <script>
+    window.qiehuan=function(str){
+		$('head link').last().attr('href',"__CSS__/"+str+"color.css");
+		var win=$('iframe')[0].contentWindow;
+		win.$('head link').last().attr('href',"__CSS__/"+str+"color.css");
+		ank.ajax({
+			type:'post',
+			url:"{:U('Ajax/setdefaultcolor')}",
+			data:{color:str}
+			});
+		};
+    </script>
     <div class="logo fl">管理平台</div>
     <ul class="mainnav">
     	<volist name="_MAINNAV_" id="vo">
