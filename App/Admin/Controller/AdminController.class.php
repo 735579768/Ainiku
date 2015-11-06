@@ -9,6 +9,7 @@ class AdminController extends CommonController {
 	protected $auth=null;
 	protected function _initialize(){
 		 (get_naps_bot()!==false)&&die('');//不让蜘蛛抓取
+		
 		 // 获取当前用户ID
 		 $uid=is_login();
 		 if($uid){
@@ -27,8 +28,13 @@ class AdminController extends CommonController {
 			F('DB_CONFIG_DATA',$config);
 		}
 		C($config); //添加配置
-		if(I('get.mainmenu')=='true')C('SHOW_PAGE_TRACE',false);
-
+		if(I('mainmenu')=='true'){
+			define('MAIN_IFRAME','true');
+			C('SHOW_PAGE_TRACE',false);
+		}else{
+			define('MAIN_IFRAME','false');
+		}
+		$this->assign('MAIN_IFRAME',MAIN_IFRAME);
 		//定义数据表前缀
 		defined('__DB_PREFIX__')  or  define('__DB_PREFIX__',C('DB_PREFIX'));
 		//主题默认为空
@@ -53,7 +59,8 @@ class AdminController extends CommonController {
 		$this->assign('meta_title','首页');
 		$this->assign('uinfo',session('uinfo'));
 		//防止重复请求,如果是主框架请求就只输出个目录菜单
-		if(I('mainmenu')=='true' ||(CONTROLLER_NAME=='Index' && ACTION_NAME=='index')){
+		
+		if(MAIN_IFRAME=='true' ||(CONTROLLER_NAME=='Index' && ACTION_NAME=='index')){
 			//取主导航
 			$this->getMainNav();
 			$this->display(CONTROLLER_NAME.'/'.ACTION_NAME);

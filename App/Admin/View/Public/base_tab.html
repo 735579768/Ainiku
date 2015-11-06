@@ -10,7 +10,7 @@
 </head>
 
 <body>
-<if condition="(I('mainmenu') eq 'true')">
+<if condition="$MAIN_IFRAME eq 'true'">
 <!--header start-->
 <i class="closewest" title="点击打开/关闭侧栏" id="closewest"></i>
 <include file="Public:header" />
@@ -37,7 +37,7 @@
 <div id="south" class="layout-south hide">{:C('ADMIN_TITLE')}</div>
 </if>
 <!--left end-->
-<if condition="(I('mainmenu') neq 'true')">
+<if condition="!($MAIN_IFRAME eq 'true')">
 <style>
 .index-center, .layout-center{ margin-left:0px; margin-top:0px;}
 #center{ padding-left:0px;}
@@ -47,7 +47,7 @@ body{ padding:0px; overflow-y:auto;}
 <!--center start-->
 <div id="center" class="layout-center right">
 <!--tab qiehuan start-->
-<if condition="(I('mainmenu') eq 'true')">
+<if condition="$MAIN_IFRAME eq 'true'">
 
 <script>
 $(function(){
@@ -82,7 +82,7 @@ $(iframe).prev().remove();
 </div>
 </if>
 <!--tab qiehuan end-->
-<if condition="(I('mainmenu') neq 'true')">
+<if condition="!($MAIN_IFRAME eq 'true')">
 <!--导航标题位置--->
 <div class="title-tool cl"><div class="tico"></div><div class="title">
 <block name="maintitle">
@@ -93,7 +93,7 @@ $(iframe).prev().remove();
 </div>
 </if>
 
-<if condition="(I('mainmenu') neq 'true')">
+<if condition="!($MAIN_IFRAME eq 'true')">
 <block name="right">
 	<include file="Public:right" />
 </block>
