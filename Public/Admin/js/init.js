@@ -325,14 +325,16 @@ window.setPosition=function(table1,id1,field1,value1,srcid){
 //	console.log(arr);
 //	var con='<input type="checkbox" name="position[]" value="" />';
 	};
-//设置表格中按钮栏的宽度
-var ww=0;
-$('tr td:last-child').each(function(index, element) {
-	var wt=0;
-    $(this).find('.btn').each(function(index, element) {
-        wt+=$(this).outerWidth();
-    });
-	wt>ww&&(ww=wt);
-});
-$('tr th:last-child').css('width',ww+10);
+//setTimeout(function(){
+//		//设置表格中按钮栏的宽度
+//		var ww=0;
+//		$('tr td:last-child').each(function(index, element) {
+//			var wt=0;
+//			$(this).find('.btn').each(function(index, element) {
+//				wt+=$(this).outerWidth();
+//			});
+//			wt>ww&&(ww=wt);
+//		});
+//		$('tr th:last-child').css('width',ww+10);	
+//	},1000);
 });

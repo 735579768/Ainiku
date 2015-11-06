@@ -41,3 +41,5 @@ tr:hover{ color:#000;}
 .prinfo{background:url('../images/icodefault.png') -205px -210px no-repeat;}
 .exitico{background:url('../images/icodefault.png') -205px -60px no-repeat;}
 .icon-add{background:url('../images/bg_iconblue.png') no-repeat 0 0;}
+::-webkit-scrollbar-thumb{background:rgba(92,184,92,.3);}
+::-webkit-scrollbar-thumb:hover{background:rgba(92,184,92,.8);}

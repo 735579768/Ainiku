@@ -1,15 +1,3 @@
-<!DOCTYPE html> 
-<html>
-<head>
-<meta charset="utf-8">
-<title>{$meta_title}_{:C('ADMIN_TITLE')}{:C('DEFAULT_THEME')}</title>
-<include file="Public:head" />
-<ank:insert name="jquery-1.9.1.min,flashcopy-min,functions,ainiku,msg,ajax,tabclose,jquery.resizableColumns,init,autoyz" type="js"/>
-<ank:insert name="reset,common,layout" />
-<link href="__CSS__/{:C('DEFAULT_COLOR')}color.css" type="text/css" rel="stylesheet" />
-</head>
-
-<body>
 <if condition="$MAIN_IFRAME eq 'true'">
 <!--header start-->
 <i class="closewest" title="点击打开/关闭侧栏" id="closewest"></i>
@@ -102,25 +90,3 @@ $(iframe).prev().remove();
 <!--center end-->
 
 
-<!--script start-->
-<block name="script">
-</block>
-<script>
-$(function(){
-	$("table").resizableColumns({});
-	//判断是不是在iframe中
-	var iframename=self.frameElement;
-	if(iframename==null){
-	// 页面不在iframe中时处理
-	if($('#closewest').length<=0){
-		var ifuri=window.location.href;
-		window.location.href=ifuri+'&mainmenu=true';
-		}
-	
-	}
-});
-</script>
-<!--script end-->
-<include file="Public:menu" />
-</body>
-</html>

@@ -11,7 +11,7 @@ body{overflow:hidden;padding:62px 0px 0px 179px;}
 .layout-west{position:fixed;z-index:1;border-top:none;width:175px;top:59px;left:0px;overflow:hidden;overflow-y:auto; height:100%;}
 .index-center,.layout-center{/*position:relative;*//*margin-left:179px;margin-top:63px;*/border-bottom:none;}
 .index-center{ margin:63px 10px 0px 10px; overflow-y:scroll;}
-.header{box-shadow:0 2px 3px rgba(0,0,0,0.15),inset 0 -1px 0 0 #fcfcfc;-moz-box-shadow:0 2px 3px rgba(0,0,0,0.15),inset 0 -1px 0 0 #fcfcfc;-webkit-box-shadow:0 2px 3px rgba(0,0,0,0.15),inset 0 -1px 0 0 #fcfcfc;border-top:4px solid #67ad03;border-bottom:1px solid #ededed;border-left:4px solid #67ad03;}
+.header{box-shadow:0 2px 3px rgba(0,0,0,0.15),inset 0 -1px 0 0 #fcfcfc;-moz-box-shadow:0 2px 3px rgba(0,0,0,0.15),inset 0 -1px 0 0 #fcfcfc;-webkit-box-shadow:0 2px 3px rgba(0,0,0,0.15),inset 0 -1px 0 0 #fcfcfc;border-top:4px solid #67ad03;border-left:4px solid #67ad03;}
 .left{padding-bottom:50px; padding-top:3px;border-left:4px solid #67ad03; border:solid 1px #ededed\9;box-shadow:0 2px 3px rgba(0,0,0,0.15),inset 0 -1px 0 0 #fcfcfc;-moz-box-shadow:0 2px 3px rgba(0,0,0,0.15),inset 0 -1px 0 0 #fcfcfc;-webkit-box-shadow:0 2px 3px rgba(0,0,0,0.15),inset 0 -1px 0 0 #fcfcfc;}
 .closewest{display:inline-block;background:url('../images/ico.png') -40px -216px no-repeat;width:23px;height:23px;position:fixed;top:60px;cursor:pointer;left:165px;z-index:9999;}
 /***头部***/
