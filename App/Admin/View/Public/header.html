@@ -1,12 +1,15 @@
 	<div id="north" class="layout-north header">
     <ul id="admintheme" class="admintheme cl">
-    	<li onclick="qiehuan('default');"  style="background:#5cb85c;"></li>
-        <li onclick="qiehuan('blue');"  style="background:#317EF3;"></li>
-        <li  onclick="qiehuan('green');"  style="background:#00c9bd;"></li>
-        <li  onclick="qiehuan('black');"  style="background:#808080;"></li>
+    	<li  data-name="default"  style="background:#5cb85c;"></li>
+        <li  data-name="blue"   style="background:#317EF3;"></li>
+        <li  data-name="green"  style="background:#00c9bd;"></li>
+        <li  data-name="black"  style="background:#808080;"></li>
     </ul>
     <script>
-    window.qiehuan=function(str){
+	$(function(){
+	$('#color_{:C('DEFAULT_COLOR')}').addClass('selected');
+	$('#admintheme li').click(function(e) {
+		var str=$(this).attr('data-name');
 		$('head link').last().attr('href',"__CSS__/"+str+"color.css");
 		var win=$('iframe')[0].contentWindow;
 		win.$('head link').last().attr('href',"__CSS__/"+str+"color.css");
@@ -15,7 +18,12 @@
 			url:"{:U('Ajax/setdefaultcolor')}",
 			data:{color:str}
 			});
-		};
+		$('#admintheme li').removeClass('selected');
+		$(this).addClass('selected');        
+    });
+		
+	});
+
     </script>
     <div class="logo fl">管理平台</div>
     <ul class="mainnav">

@@ -237,4 +237,5 @@ border-color: #44b549 #e0e0e0 #f6f6f6;
 #positionform .markinput{vertical-align: middle;}
 .form-checkbox{width:100px; white-space:nowrap; text-overflow:ellipsis; overflow:hidden; display:inline-block;}
 #admintheme{ position:absolute; right:10px; top:5px;}
-#admintheme li{ display:block; float:left; width:10px; cursor:pointer; height:10px; margin-left:5px;}
+#admintheme li{ display:block; float:left; width:10px; cursor:pointer; height:10px; margin-left:1px; border:solid 2px #fff;}
+#admintheme li.selected{border:solid 2px #000;}
