@@ -35,8 +35,12 @@
 	$('#admintheme li').click(function(e) {
 		var str=$(this).attr('data-name');
 		$('head link').last().attr('href',"__CSS__/"+str+"color.css");
-		var win=$('iframe')[0].contentWindow;
-		win.$('head link').last().attr('href',"__CSS__/"+str+"color.css");
+		var ifr=$('iframe');
+		ifr.each(function(index, element) {
+			var win=ifr[index].contentWindow;
+			win.$('head link').last().attr('href',"__CSS__/"+str+"color.css");            
+        });
+
 		ank.ajax({
 			type:'post',
 			url:"{:U('Ajax/setdefaultcolor')}",
