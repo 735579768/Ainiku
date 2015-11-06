@@ -37,10 +37,16 @@ tr:hover{ color:#000;}
 .form-control:hover{border-color:#dfdfdf;}
 .form-control:focus{border-color:#000000;}
 /****图片样式*****/
-.menucloseico{background:url('../images/icoblack.png') -170px -118px no-repeat;}
-.menuopenico{background:url('../images/icoblack.png') -109px -56px no-repeat;}
-.title-tool .tico{background:url('../images/icoblack.png') -140px -31px no-repeat;}
-.closewest{background:url('../images/icoblack.png') -40px -216px no-repeat;}
-.prinfo{background:url('../images/icoblack.png') -205px -210px no-repeat;}
-.exitico{background:url('../images/icoblack.png') -205px -60px no-repeat;}
-.icon-add{background:url('../images/bg_iconblue.png') no-repeat 0 0;}
+.menucloseico{background:url('../images/black/ico.png') -170px -118px no-repeat;}
+.menuopenico{background:url('../images/black/ico.png')  -7px 3px no-repeat;}
+.title-tool .tico{background:url('../images/black/ico.png') -140px -31px no-repeat;}
+.closewest{background:url('../images/black/ico.png') -40px -216px no-repeat;}
+.prinfo{background:url('../images/black/ico.png') -205px -210px no-repeat;}
+.exitico{background:url('../images/black/ico.png') -205px -60px no-repeat;}
+.icon-add{background:url('../images/black/bg_icon.png') no-repeat 0 0;}
+.kl-tab-nav:hover, .kl-tab-nav.hover{background:#000;}
+.y {background: url('../images/black/yn.png') 0px 0px no-repeat;}
+.icon-add {background: url('../images/black/bg_icon.png') no-repeat 0 0;}
+.btn-search {background: url('../images/black/bg_icon.png') no-repeat -50px 0;}
+.filePicker,.upload_btn,.upload_btn:hover {background:#808080!important;}
+#topmsg{background:#ffffff!important; color:#000;}
