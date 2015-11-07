@@ -151,6 +151,7 @@ $(function() {
 
     //y n 插件
     $(".yn").each(function(index, element) {
+		$(this).parent().css('text-align','center');
         var da = parseInt($(this).attr("data-value"));
         if (da === 1) {
             $(this).addClass("y");
