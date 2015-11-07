@@ -27,5 +27,6 @@ class AjaxController extends AdminController {
 	 }
 	function setdefaultcolor($color){
 		M('Config')->where("name='DEFAULT_COLOR'")->setField('value',$color);
+		updateConfig();
 		}
 }

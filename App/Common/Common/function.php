@@ -822,3 +822,13 @@ function file_ismod($filepath){
 		return false;
 
 	}
+	
+/**
+ *更新缓存配置
+ */
+ function updateConfig(){
+	//重新添加配置
+	$config =   F('DB_CONFIG_DATA');
+	$config =   api('Config/lists');
+	F('DB_CONFIG_DATA',$config);	 
+	 }
