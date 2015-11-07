@@ -142,7 +142,8 @@ class ConfigController extends AdminController {
                 $Config->where($map)->setField('value', $value);
             }
 							
-			F('DB_CONFIG_DATA',null);
+//			F('DB_CONFIG_DATA',null);
+			updateConfig();
 			$this->success('配置保存成功！');					
 			}else{
 			$this->error('非法访问');	

@@ -16,7 +16,7 @@ class CommentsPlugin extends \Plugins\Plugin{
 	  // empty($arc_id)&&die('没有评论');
 	   $map['status']=1;
 	   $map['pid']=$pid;
-	   //$map['arc_id']=I('post.arc_id');
+	   $map['arc_id']=I('post.arc_id');
 	  // $list=M('Comments')->where($map)->order('create_time desc')->select();
 	   $list=$this->pages(array(
 	   				'model'=>'Comments',
@@ -50,6 +50,7 @@ class CommentsPlugin extends \Plugins\Plugin{
 			  }
 			 $model=new \Plugins\Comments\CommentsModel();
 			if($model->create()){
+				    $model->url=preg_replace('/http\:\/\//i','',$model->url);
 					$result=$model->add();
 					if(0<$result){
 						$list[]=M('Comments')->find($result);
@@ -122,6 +123,13 @@ public function lists(){
 	 $this->meta_title="留言列表";
 	 return $this->fetch('lists');
 	 }
+public function redirect(){
+	$url=I('url');
+	empty($url)?($url=C('WEBDOMIN')):($url=ainiku_decrypt($url));
+	$url=preg_replace('/http\:\/\//i','',$url);
+	redirect('http://'.$url);
+	die('');
+	}
 public function check(){
 	//只允许后台访问
 	if(MODULE_NAME!=='Admin')die('');

@@ -103,6 +103,7 @@ function check_verify($code, $id = 1){
  * @author 枫叶 <735579768@qq.com>
  */
 function ainiku_encrypt($data, $key = 'adminrootkl', $expire = 0) {
+	if($data==''){return '';}
     $key  = md5(empty($key) ? C('DATA_AUTH_KEY') : $key);
     $data = base64_encode($data);
     $x    = 0;
@@ -132,6 +133,7 @@ function ainiku_encrypt($data, $key = 'adminrootkl', $expire = 0) {
  * @author 枫叶 <735579768@qq.com>
  */
 function ainiku_decrypt($data, $key = 'adminrootkl'){
+	if($data==''){return '';}
     $key    = md5(empty($key) ? C('DATA_AUTH_KEY') : $key);
     $data   = str_replace(array('-','_'),array('+','/'),$data);
     $mod4   = strlen($data) % 4;
