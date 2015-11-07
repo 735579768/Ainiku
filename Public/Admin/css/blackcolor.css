@@ -45,7 +45,7 @@ tr:hover{ color:#000;}
 .exitico{background:url('../images/black/ico.png') -205px -60px no-repeat;}
 .icon-add{background:url('../images/black/bg_icon.png') no-repeat 0 0;}
 .kl-tab-nav:hover, .kl-tab-nav.hover{background:#27282d;}
-.y {background: url('../images/black/yn.png') 0px 0px no-repeat;}
+.y {background: url('../images/black/check.gif') 0px -18px no-repeat;}
 .icon-add {background: url('../images/black/bg_icon.png') no-repeat 0 0;}
 .btn-search {background: url('../images/black/bg_icon.png') no-repeat -50px 0;}
 .filePicker,.upload_btn,.upload_btn:hover {background:#4C4C4C!important;}

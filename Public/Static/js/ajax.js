@@ -165,6 +165,15 @@ $(function() {
             var id1 = $(this).attr("data-id");
             data1 = data1 ? 0 :1;
             if (data1 !== "" && table1 !== "" && field1 !== "" && id1 !== "") {
+		   if (_this.hasClass("y")) {
+				_this.attr("data-value", 0);
+				_this.removeClass("y");
+				_this.addClass("n");
+			} else {
+				_this.attr("data-value", 1);
+				_this.removeClass("n");
+				_this.addClass("y");
+			}
                 $.ajax({
                     type:"POST",
                     data:{
@@ -177,16 +186,6 @@ $(function() {
                     success:function(da) {
                         if (da.status == "0") {
                             topmsg(da, 1, true);
-                        } else {
-                            if (_this.hasClass("y")) {
-                                _this.attr("data-value", 0);
-                                _this.removeClass("y");
-                                _this.addClass("n");
-                            } else {
-                                _this.attr("data-value", 1);
-                                _this.removeClass("n");
-                                _this.addClass("y");
-                            }
                         }
                     }
                 });
