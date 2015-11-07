@@ -22,8 +22,8 @@ tr:hover{ color:#000;}
 .page a:hover{background-color:#27282d;}
 .page .current{background-color:#27282d;}
 /****按钮颜色*****/
-.btn{background:#808080;color:#fff;}
-.btn:hover{background-color:#cdcdcd;}
+.btn{background:#4C4C4C;color:#fff;}
+.btn:hover{background-color:#6F6F6F;}
 .btn-warning{background:#ed9c28;}
 .btn-warning:hover{background:#F7AE45;}
 .btn-success{background:#4bbd00;}
@@ -48,7 +48,7 @@ tr:hover{ color:#000;}
 .y {background: url('../images/black/yn.png') 0px 0px no-repeat;}
 .icon-add {background: url('../images/black/bg_icon.png') no-repeat 0 0;}
 .btn-search {background: url('../images/black/bg_icon.png') no-repeat -50px 0;}
-.filePicker,.upload_btn,.upload_btn:hover {background:#808080!important;}
+.filePicker,.upload_btn,.upload_btn:hover {background:#4C4C4C!important;}
 #topmsg{background:#ffffff!important; color:#000;}
 ::-webkit-scrollbar-thumb{background:rgba(0,0,0,.3);}
 ::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.8);}
