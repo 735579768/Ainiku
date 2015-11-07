@@ -72,7 +72,7 @@ class ArticleController extends AdminController {
 			//	$model->position=implode(',',I('position'));
 				$result=0;
 				$status=I('status');
-				$idd=I('id');
+				$idd=I('article_id');
 				//判断id是不是为空
 				if(!empty($idd)){$this->edit($idd);die();}
 				//去保存草稿
@@ -120,14 +120,14 @@ class ArticleController extends AdminController {
 				}
 		}
     /**
-     * 编辑配置
+     * 编辑文章
      * @author 枫叶 <735579768@qq.com>
      */
     public function edit($article_id = 0){
         if(IS_POST){
 				$status=I('status');
 				//去保存草稿
-				if($status=='2'){$this->savedraftbox();}
+			if($status=='2'){$this->savedraftbox();}
             $model = D('Article');
             if($model->create()){
 				//$model->position=implode(',',I('position'));
