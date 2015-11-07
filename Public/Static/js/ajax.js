@@ -164,17 +164,20 @@ $(function() {
             var table1 = $(this).attr("data-table");
             var field1 = $(this).attr("data-field");
             var id1 = $(this).attr("data-id");
+			var qh=function(){
+				   if (_this.hasClass("y")) {
+						_this.attr("data-value", 0);
+						_this.removeClass("y");
+						_this.addClass("n");
+					} else {
+						_this.attr("data-value", 1);
+						_this.removeClass("n");
+						_this.addClass("y");
+					}				
+				};
             data1 = data1 ? 0 :1;
             if (data1 !== "" && table1 !== "" && field1 !== "" && id1 !== "") {
-		   if (_this.hasClass("y")) {
-				_this.attr("data-value", 0);
-				_this.removeClass("y");
-				_this.addClass("n");
-			} else {
-				_this.attr("data-value", 1);
-				_this.removeClass("n");
-				_this.addClass("y");
-			}
+				qh();
                 $.ajax({
                     type:"POST",
                     data:{
@@ -186,6 +189,7 @@ $(function() {
                     url:ainiku.updatefield,
                     success:function(da) {
                         if (da.status == "0") {
+							qh();
                             topmsg(da, 1, true);
                         }
                     }

@@ -84,35 +84,7 @@
 			$(this).addClass('hover');
 		});
 //设置默认左边菜单////////////////////////////////////////////////////////////////////////
-//window.setDefaultMenu=function(ur){
-//			ur=ur.replace(/(.*?)\.(.*?)\//,'/');
-//			ur=ur.replace('.html','');
-//			var issel=false;
-//			$('.menu a').each(function(index, element) {
-//				var arr=ur.split('/');
-//				var b=$(this).attr('href');
-//				b=b.replace('.html','');
-//				var brr=b.split('/');
-//				if(arr.length>brr.length){
-//					arr=arr.slice(0,brr.length);
-//					}else{
-//					brr=brr.slice(0,arr.length);
-//						}
-//					var checkis=false;
-//				while(arr.length>=4){
-//					if(arr.join('/')==brr.join('/')){
-//						 $(this).parents('.menu').find('dt a').click();
-//						 $(this).addClass('hover');
-//						 checkis=true;	
-//						 break;
-//						}
-//					arr.pop();
-//					brr.pop();				
-//					}
-//					if(checkis)issel=true;
-//			});	
-//			return issel;
-//	};
+
 //默认折叠
 $('.menu .mt a').click();	
 window.hasmenu=false;
@@ -332,6 +304,7 @@ window.setPosition=function(table1,id1,field1,value1,srcid){
 //			var wt=0;
 //			$(this).find('.btn').each(function(index, element) {
 //				wt+=$(this).outerWidth();
+//			console.log(wt);
 //			});
 //			wt>ww&&(ww=wt);
 //		});
