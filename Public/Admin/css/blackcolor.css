@@ -1,26 +1,26 @@
 body{background:#fff;}
 /***顶部样式***/
 .logo{ color:#666;}
-.header{border-top:4px solid #27282d;border-left:4px solid #27282d;}
-.mainnav li a:hover,.tool li a:hover{border-bottom:solid 4px #27282d;color:#000;}
-.mainnav li a.hover{border-bottom:solid 4px #27282d;color:#27282d;}
+.header{border-top:4px solid #324b5e;border-left:4px solid #324b5e;}
+.mainnav li a:hover,.tool li a:hover{border-bottom:solid 4px #324b5e;color:#000;}
+.mainnav li a.hover{border-bottom:solid 4px #324b5e;color:#324b5e;}
 .tab .tabnav.hover  a{
-border-color: #27282d #e0e0e0 #f6f6f6;
+border-color: #324b5e #e0e0e0 #f6f6f6;
 }
 /******左边样式*****/
-.left{border-left: 4px solid #27282d;}
+.left{border-left: 4px solid #324b5e;}
 .menu .mt a:hover,.menu .mitem a:hover{background:#ededed;}
-.menu .mt a.hover,.menu .mitem a.hover{background:#27282d;color:#fff;}
+.menu .mt a.hover,.menu .mitem a.hover{background:#324b5e;color:#fff;}
 /******右边样式******/
-.right .title a.hover{color:#27282d;}
-.right .title{ color:#27282d;}
+.right .title a.hover{color:#324b5e;}
+.right .title{ color:#324b5e;}
 /****右边表格列表样式*****/
-.content table .th{background:#f6f6f6; color:#27282d;}
-.right .th,.right .th th{ background:#f6f6f6; color:#27282d;}
+.content table .th{background:#f6f6f6; color:#324b5e;}
+.right .th,.right .th th{ background:#f6f6f6; color:#324b5e;}
 tr:hover{ color:#000;}
 /*****分页样式****/
-.page a:hover{background-color:#27282d;}
-.page .current{background-color:#27282d;}
+.page a:hover{background-color:#324b5e;}
+.page .current{background-color:#324b5e;}
 /****按钮颜色*****/
 .btn{background:#4C4C4C;color:#fff;}
 .btn:hover{background-color:#6F6F6F;}
@@ -35,7 +35,7 @@ tr:hover{ color:#000;}
 /**表单颜色***/
 .form-control{transition:all .3s;background-color:#ffffff;border:1px solid #e6e6e6;color:#555555;}
 .form-control:hover{border-color:#dfdfdf;}
-.form-control:focus{border-color:#27282d;}
+.form-control:focus{border-color:#324b5e;}
 /****图片样式*****/
 .menucloseico{background:url('../images/black/ico.png') -170px -118px no-repeat;}
 .menuopenico{background:url('../images/black/ico.png')  -7px 3px no-repeat;}
@@ -44,7 +44,7 @@ tr:hover{ color:#000;}
 .prinfo{background:url('../images/black/ico.png') -205px -210px no-repeat;}
 .exitico{background:url('../images/black/ico.png') -205px -60px no-repeat;}
 .icon-add{background:url('../images/black/bg_icon.png') no-repeat 0 0;}
-.kl-tab-nav:hover, .kl-tab-nav.hover{background:#27282d;}
+.kl-tab-nav:hover, .kl-tab-nav.hover{background:#324b5e;}
 .y {background: url('../images/black/check.gif') 0px -18px no-repeat;}
 .icon-add {background: url('../images/black/bg_icon.png') no-repeat 0 0;}
 .btn-search {background: url('../images/black/bg_icon.png') no-repeat -50px 0;}
