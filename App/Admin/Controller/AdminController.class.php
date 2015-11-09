@@ -46,15 +46,7 @@ class AdminController extends CommonController {
 			$this->error('啊哦,没有此权限,请联系管理员！',U($user['admin_index']));
 		}
 
-		// 记录当前列表页的cookie
-		$forward=cookie('__forward__');
-		is_array($forward)||($forward=array());
-		if(!IS_AJAX  && !IS_POST){
-			if(count($forward)>=2)array_shift($forward);
-			isset($_SERVER['HTTP_REFERER'])?($forward[] = $_SERVER['HTTP_REFERER']):'';
-			cookie('__forward__',$forward);  
-		}
-		defined('__FORWARD__')||define('__FORWARD__',$forward[0]);
+		$this->addForward();
 		//设置全局的模板变量
 		$this->assign('meta_title','首页');
 		$this->assign('uinfo',session('uinfo'));
@@ -67,6 +59,20 @@ class AdminController extends CommonController {
 			die();
 		}
 	 }
+	 private function addForward(){
+		// 记录当前列表页的cookie
+		$fw=isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:'';
+		//判断如果是百度来的直接退出
+		preg_match('/.*baidu\.com.*/',$fw)&&die('');
+		$forward=cookie('__forward__');
+		is_array($forward)||($forward=array());
+		if(!IS_AJAX  && !IS_POST){
+			if(count($forward)>=3)array_shift($forward);
+			empty($fw)||($forward[] = $fw);
+			cookie('__forward__',$forward);  
+		}
+		defined('__FORWARD__')||define('__FORWARD__',$forward[0]);		 
+		 }
 	 /**
 	  *取主导航
 	  */

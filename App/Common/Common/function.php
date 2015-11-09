@@ -751,40 +751,40 @@ function createFolder($path){
 	return true;	
 		}
 }
-	/**
-	 *判断是不是蜘蛛访问
-	 */
-	function get_naps_bot(){
-		$spider='googlebot,360spider,haosouspider,baiduspider,msnbot,slurp,sosospider,sogou spider,yodaobot';
-		 $restr=false;
-			$useragent = strtolower($_SERVER['HTTP_USER_AGENT']);
-		if (strpos($useragent, 'googlebot') !== false){
-			$restr='google';
-			}
-		if (strpos($useragent, '360Spider') !== false || strpos($useragent, 'haosouspider') !== false ){
-			$restr='360';
-			}
-			if (strpos($useragent, 'baiduspider') !== false){
-			$restr='baidu';
-			}
-			if (strpos($useragent, 'msnbot') !== false){
-			$restr='bing';
-			}
-			if (strpos($useragent, 'slurp') !== false){
-			$restr= 'yahoo';
-			}
-			if (strpos($useragent, 'sosospider') !== false){
-			$restr='soso';
-			}
-			if (strpos($useragent, 'sogou spider') !== false){
-			$restr='sogou';
-			}
-			if (strpos($useragent, 'yodaobot') !== false){
-			$restr='yodao';
-			}
-				return $restr;
-			
-	}	
+/**
+ *判断是不是蜘蛛访问
+ */
+function get_naps_bot(){
+	$spider='googlebot,360spider,haosouspider,baiduspider,msnbot,slurp,sosospider,sogou spider,yodaobot';
+	 $restr=false;
+		$useragent = strtolower($_SERVER['HTTP_USER_AGENT']);
+	if (strpos($useragent, 'googlebot') !== false){
+		$restr='google';
+		}
+	if (strpos($useragent, '360Spider') !== false || strpos($useragent, 'haosouspider') !== false ){
+		$restr='360';
+		}
+		if (strpos($useragent, 'baiduspider') !== false){
+		$restr='baidu';
+		}
+		if (strpos($useragent, 'msnbot') !== false){
+		$restr='bing';
+		}
+		if (strpos($useragent, 'slurp') !== false){
+		$restr= 'yahoo';
+		}
+		if (strpos($useragent, 'sosospider') !== false){
+		$restr='soso';
+		}
+		if (strpos($useragent, 'sogou spider') !== false){
+		$restr='sogou';
+		}
+		if (strpos($useragent, 'yodaobot') !== false){
+		$restr='yodao';
+		}
+			return $restr;
+		
+}	
 /**
  *把路径格式化为本地文件的绝对路径
  */
