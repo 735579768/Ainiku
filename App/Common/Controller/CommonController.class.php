@@ -66,7 +66,7 @@ class CommonController extends Controller {
 		$order=isset($conf['order'])?$conf['order']:'';
 		$rows=isset($conf['rows'])?$conf['rows']:10;
 		$url=isset($conf['url'])?$conf['url']:'';
-       $User = M($model); // 实例化User对象
+		$User=preg_match('/[a-zA-Z0-9]+View/',$model)?D($model):M($model);
        $count=0;
 	   if(is_string($whe)){
 		   	 $whe=str_replace('__DB_PREFIX__',__DB_PREFIX__,$whe);
