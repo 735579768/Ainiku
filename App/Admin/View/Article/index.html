@@ -49,7 +49,7 @@
    <div class="imgbox" _src="{$vo.pic|getPicture=###,'thumbpath'}" ><span class="wrapimg"></span></div></notempty>
     </td>
     <td>{$vo.category_id|getCategoryTitle}</td>
-    <td style="text-align:left;" title="双击更改" id="position{$vo.article_id}" onDblClick="setPosition('article','{$vo.article_id}','position',$(this).children().eq(0).val(),'#position{$vo.article_id}')"><input name="position" value="{$vo.position}" type="hidden" />
+    <td style="text-align:left;"  title="单击更改" id="position{$vo.article_id}" onClick="setPosition('article','{$vo.article_id}','position',$(this).children().eq(0).val(),'#position{$vo.article_id}')"><input name="position" value="{$vo.position}" type="hidden" />
       <span class="markbs">{$vo.position|tomark='article','position'}</span></td>
     <td><span data-table="Article" data-id="{$vo.article_id}" data-field="status"  data-value="{$vo.status}" class="yn"></span></td>
     <td>
