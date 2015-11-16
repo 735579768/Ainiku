@@ -8,6 +8,7 @@
 .mgr10{ margin-right:10px;}
 .mgb10{ margin-bottom:10px;}
 .mgl10{margin-left:10px;}
+.disabled{cursor: not-allowed;}
 .a-left{ text-align:left!important;}
 .a-center{ text-align:center!important;}
 .el{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; display:inline-block; width:100%;}
