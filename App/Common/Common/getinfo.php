@@ -458,7 +458,7 @@ function extraToArray($extra){
 		$data=F($key);
 		if(empty($data)){
 			foreach($idarr as $val){
-				$info=M('newarea')->find($val);
+				$info=M('Area')->find($val);
 				$data.=$info['area_name'];
 				}
 				F($key,$data);			
