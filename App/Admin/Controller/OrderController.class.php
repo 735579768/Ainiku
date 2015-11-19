@@ -27,11 +27,11 @@ class OrderController extends AdminController {
 	public function del(){
 		$this->display();
 		}
-	public function updatewuliu(){
+	public function updateorder(){
 		$model=M('Order');
 		if($model->create()){
 			$result=$model->save();
-			($result>0)?$this->success('保存成功'):$this->error('没有更改');
+			($result>0)?$this->success('设置成功'):$this->error('没有更改');
 			}else{
 			$this->error($model->geterror());	
 				}

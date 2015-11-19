@@ -69,7 +69,7 @@
 <tr>
 <th class="tdt" colspan="5">商品信息</th>
 </tr>
-        <tr class="th">
+        <tr>
        <th>产品ID</th>
         <th>标题</th>
         <th>价格</th>
@@ -90,6 +90,24 @@
 </volist>
   </tr>
 </table>
+<table class="leftalign" width="100%" border="1" bordercolor="#ededed">
+<tr>
+<th class="tdt" colspan="2">操作信息</th>
+</tr>
+<tr>
+<td>操作备注</td>
+<td>
+<textarea id="action_note" name="action_note" class="form-control input-large">{$info.action_note}</textarea>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="text-align:center; padding:10px 0px;">
+<a  class="btn" onClick="updateorder(this,1);" href="javascript:;" id="savewuliu">设置为未付款</a>
+<a  class="btn" onClick="updateorder(this,2);" href="javascript:;" id="savewuliu">设置为已付款</a>
+<a  class="btn" onClick="updateorder(this,3);" href="javascript:;" id="savewuliu">设置为已发货</a>
+</td>
+</tr>
+</table>
 <div style="height:100px;"></div>
 <script>
 //更新物流
@@ -102,13 +120,28 @@ window.updatewuliu=function(){
 	savewuliu.html('正在保存信息...');
 	ank.ajax({
 		type:'POST',
-		url:"{:U('Order/updatewuliu')}",
+		url:"{:U('Order/updateorder')}",
 		data:{order_id:orderid,wuliu_name:wuliuname,wuliu_danhao:wuliudanhao},
 		success:function(da){
 			ank.msg(da.info);
 			savewuliu.html('保存信息');
 		}
 		});
+	};
+//更新订单状态
+window.updateorder=function(obj,a){
+	var obj=$(obj);
+	var tem=obj.html();
+	obj.html('正在设置...');
+	ank.ajax({
+		type:'POST',
+		url:"{:U('Order/updateorder')}",
+		data:{order_id:orderid,order_status:a},
+		success:function(da){
+			ank.msg(da.info);
+			obj.html(tem);
+		}
+	});	
 	};
 });
 </script>
