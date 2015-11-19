@@ -3,10 +3,14 @@ namespace Admin\Controller;
 if(!defined("ACCESS_ROOT"))die("Invalid access");
 class OrderController extends AdminController {
 	public function index(){
-		$this->assign('meta_title','订单列表');
+	$this->assign('meta_title','订单列表');
+	$order_sn=I('order_sn');
+	$map=array();
+	empty($order_sn)||($map['order_sn']=$order_sn);
 	$list=$this->pages(array(
-		'model'=>'OrderView',
-		'order'=>'order_id desc'
+			'where'=>$map,
+			'model'=>'OrderView',
+			'order'=>'order_id desc'
 	));
 	$this->display();
 	}

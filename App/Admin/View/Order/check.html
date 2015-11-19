@@ -76,7 +76,10 @@
 <volist name="_list" id="vo">
 <tr>
 <td>{$vo.goods_id}</td>
-<td>{$vo.title}</td>
+<td class="popupthumb" style="text-align:left;"><a href="javascript:;" class="">{$vo.title}</a>
+<notempty name="vo.pic">
+<div class="imgbox" _src="{$vo.pic|getPicture=###,'thumbpath'}" ><span class="wrapimg"></span></div></notempty>
+</td>
 <td>{$vo.price}</td>
 <td>{$vo.num}</td>
 <td>{$vo.total}</td>
@@ -84,5 +87,6 @@
 </volist>
   </tr>
 </table>
+<div style="height:100px;"></div>
 <!--content end-->
 </block>
