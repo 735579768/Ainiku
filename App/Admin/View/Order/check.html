@@ -48,23 +48,26 @@
 <td class="tdl">{$info.consignee_email}</td>
 </tr>
 <tr>
-<td class="tdr">物流/快递单号</td>
-<td class="tdl">{$info.wuliu_danhao}</td>
 <td class="tdr">物流/快递名称</td>
-<td class="tdl">{$info.wuliu_name}</td>
+<td class="tdl"><input id="wuliu_name" name="wuliu_name" class="form-control input-middle" type="text" value="{$info.wuliu_name}" /></td>
+<td class="tdr">物流/快递单号</td>
+<td class="tdl"><input id="wuliu_danhao" name="wuliu_danhao" class="form-control input-middle"  type="text" value="{$info.wuliu_danhao}" /></td>
+
 </tr>
 
 <tr>
 <td class="tdr">订单备注</td>
 <td class="tdl" colspan="3">{$info.order_note}</td>
 </tr>
-
+<tr>
+<td class="tdr center" style="text-align:center; padding:10px 0px;" colspan="4"> <a  class="btn" onClick="updatewuliu();" href="javascript:;" id="savewuliu">保存信息</a></td>
+</tr>
 </table>
 
 
 <table class="leftalign" width="100%" border="1" bordercolor="#ededed">
 <tr>
-<th class="tdt" colspan="4">商品信息</th>
+<th class="tdt" colspan="5">商品信息</th>
 </tr>
         <tr class="th">
        <th>产品ID</th>
@@ -88,5 +91,26 @@
   </tr>
 </table>
 <div style="height:100px;"></div>
+<script>
+//更新物流
+$(function(){
+var orderid="{$info.order_id}";
+var savewuliu=$('#savewuliu');
+window.updatewuliu=function(){
+	var wuliuname=$('#wuliu_name').val();
+	var wuliudanhao=$('#wuliu_danhao').val();
+	savewuliu.html('正在保存信息...');
+	ank.ajax({
+		type:'POST',
+		url:"{:U('Order/updatewuliu')}",
+		data:{order_id:orderid,wuliu_name:wuliuname,wuliu_danhao:wuliudanhao},
+		success:function(da){
+			ank.msg(da.info);
+			savewuliu.html('保存信息');
+		}
+		});
+	};
+});
+</script>
 <!--content end-->
 </block>
