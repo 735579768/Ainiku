@@ -34,7 +34,8 @@ var draftboxtime={:C('DRAFTBOX_TIME')};
 var jiantime=draftboxtime;
 window.draftboxtimeid=setInterval(function(){
 	var caogao=$('input[name="status"]:checked').val();
-	if($('input[name="article_id"]').val()=='' || caogao=='2'){
+	var arccid=$('input[name="article_id"]').val();
+	if(arccid=='' || caogao=='2'){
 		var title=$('input[name="title"]').val();
 		if(title!=''){
 				$('#submitbtn').html('保存草稿('+jiantime+')');
@@ -47,7 +48,11 @@ window.draftboxtimeid=setInterval(function(){
 
 	}else{
 		jiantime=draftboxtime;
-		subobj.html(srctext);
+		if(arccid!='' && caogao!=2){
+			subobj.html('确定更新');
+			}else{
+			subobj.html(srctext);	
+				}
 		}
 			},1000);
 }

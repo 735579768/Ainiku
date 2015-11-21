@@ -39,7 +39,7 @@
     <td>{$vo.status|totext}</td>
     <td>
     	<a href="{:U('Goods/edit?goods_id='.$vo['goods_id'])}"  class="btn btn-primary">编辑</a>
-        <a href="{:U('Goods/dele?goods_id='.$vo['goods_id'])}" class="btn btn-danger ajax-href-list-del">删除</a>
+        <a href="{:U('Goods/dele?goods_id='.$vo['goods_id'])}" class="btn btn-danger ajax-list-del">删除</a>
     </td>
   </tr>
 </volist>

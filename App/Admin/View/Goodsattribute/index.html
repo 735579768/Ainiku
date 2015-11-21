@@ -45,7 +45,7 @@
     <td>{$vo.status|A_totext}</td>
     <td>
     	<a href="{:U('Article/edit?id='.$vo['id'])}"  class="btn btn-primary ajax-loadhtml">编辑</a>
-        <a href="{:U('Article/del?id='.$vo['id'])}" class="btn btn-danger ajax-href-list-del">移到回收站</a>
+        <a href="{:U('Article/del?id='.$vo['id'])}" class="btn btn-danger ajax-list-del">移到回收站</a>
     </td>
   </tr>
 </volist>
