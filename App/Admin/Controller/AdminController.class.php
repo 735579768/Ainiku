@@ -67,7 +67,7 @@ class AdminController extends CommonController {
 		$forward=cookie('__forward__');
 		is_array($forward)||($forward=array());
 		if(!IS_AJAX  && !IS_POST){
-			if(count($forward)>=3)array_shift($forward);
+			if(count($forward)>=2)array_shift($forward);
 			empty($fw)||($forward[] = $fw);
 			cookie('__forward__',$forward);  
 		}
