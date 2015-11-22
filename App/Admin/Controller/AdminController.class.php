@@ -19,7 +19,7 @@ class AdminController extends CommonController {
 			 $uid=$login->autologin();
 			 $uid>0?define('UID',$uid):redirect(U('Public/login'));
 		 }
-		 (UID!=1)?define('IS_ADMIN',false):define('IS_ADMIN',true);
+		defined('IS_ADMIN') or ((UID==1)?define('IS_ADMIN',true):define('IS_ADMIN',false));
 
 		//先读取缓存配置
 		$config =   F('DB_CONFIG_DATA');
@@ -28,11 +28,13 @@ class AdminController extends CommonController {
 			F('DB_CONFIG_DATA',$config);
 		}
 		C($config); //添加配置
+		if(!defined('MAIN_IFRAME')){
 		if(I('mainmenu')=='true'){
 			define('MAIN_IFRAME','true');
 			C('SHOW_PAGE_TRACE',false);
 		}else{
 			define('MAIN_IFRAME','false');
+		}
 		}
 		$this->assign('MAIN_IFRAME',MAIN_IFRAME);
 		//定义数据表前缀
