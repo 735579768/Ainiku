@@ -25,7 +25,10 @@
 		<th width="30">序号</th>
         <th width="50">排序</th>
         <th>属性标题</th>
-		<th>类型</th>
+        <th>属性标识</th>
+		<th>所属产品类型</th>
+        <th>表单类型</th>
+        <th>更新时间</th>
 		<th>状态</th>
 		<th style="text-align:center;">操作</th>
 		</tr>
@@ -35,8 +38,13 @@
    <td>{$key+1}</td>
     <td><input class="ajax-blur form-control input-mini" data-table="GoodsTypeAttribute" data-field="sort" data-id="{$vo.goods_type_attribute_id}" value="{$vo.sort}" /></td>
     <td>{$vo.title}</td>
+    <td>{$vo.name}</td>
     <td>{$vo.goods_type_id|getGoodsType='title'}</td>
-    <td>{$vo.status|totext}</td>
+    <td>{$vo.type}</td>
+     <td>{$vo.update_time|time_format}</td>
+    <td>
+        <span data-table="GoodsTypeAttribute" data-id="{$vo.goods_type_attribute_id}" data-field="status"  data-value="{$vo.status}" class="yn"></span>
+    </td>
     <td>
     	<a href="{:U('Goodstypeattribute/edit?goods_type_attribute_id='.$vo['goods_type_attribute_id'])}"  class="btn btn-primary ajax-loadhtml">编辑</a>
         <a href="{:U('Goodstypeattribute/del?goods_type_attribute_id='.$vo['goods_type_attribute_id'])}" class="btn btn-danger ajax-list-del">删除</a>

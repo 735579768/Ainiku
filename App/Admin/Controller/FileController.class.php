@@ -693,25 +693,25 @@ switch ($action) {
 			);
 		$this->assign('fieldarr1',$field);
 
-				//产品分类树
-			$catelist=F('sys_goodscat_tree');
-			if(empty($catelist)){
-				$catelist=F_getCatelist(true,'goods');
-				F('sys_goodscat_tree',$catelist);
-				}
-			$catelist[0]='全部分类';
-			$field=array(
-					array(
-						'field'=>'category_id',
-						'name'=>'category_id',
-						'type'=>'select',
-						'title'=>'产品分类',
-						'note'=>'',
-						'extra'=>$catelist,
-						'is_show'=>1
-					)
-			);
-		$this->assign('fieldarr2',$field);
+//				//产品分类树
+//			$catelist=F('sys_goodscat_tree');
+//			if(empty($catelist)){
+//				$catelist=F_getCatelist(true,'goods');
+//				F('sys_goodscat_tree',$catelist);
+//				}
+//			$catelist[0]='全部分类';
+//			$field=array(
+//					array(
+//						'field'=>'category_id',
+//						'name'=>'category_id',
+//						'type'=>'select',
+//						'title'=>'产品分类',
+//						'note'=>'',
+//						'extra'=>$catelist,
+//						'is_show'=>1
+//					)
+//			);
+//		$this->assign('fieldarr2',$field);
 		$this->display();
 			
 			}

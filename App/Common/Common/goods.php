@@ -60,11 +60,11 @@ function getGoodsCatAttr($cat_id=null){
 /**
  *取当个产品的属性详细信息
  */
- function getGoodsInfo($goodsid=null){
-	 if(empty($goodsid))return false;
+ function getGoodsInfo($goods_id=null){
+	 if(empty($goods_id))return false;
 	 $rows=M('Goods')
 	      ->join("".__DB_PREFIX__."goods_cat as b on ".__DB_PREFIX__."goods.cat_id=b.id")
-		  ->where("".__DB_PREFIX__."goods.id=$goodsid")
+		  ->where("".__DB_PREFIX__."goods.id=$goods_id")
 		  ->field("*,".__DB_PREFIX__."goods.id as id,".__DB_PREFIX__."goods.title as title,".__DB_PREFIX__."goods.content as content,".__DB_PREFIX__."goods.pic as pic,b.title as cattitle")
 		  ->find();
 	 if(empty($rows))return false;
@@ -72,68 +72,66 @@ function getGoodsCatAttr($cat_id=null){
 	 $goods_type_id=$rows['goods_type_id'];
 	 $tema=M('GoodsType')->where("goods_type_id=$goods_type_id")->select();
 	 foreach($tema as $key=>$val){
-		 $map['goodsid']=$goodsid;
+		 $map['goods_id']=$goods_id;
 		 $map['attrid']=$tema['id'];
-		 $temb=M('GoodsAttrvalue')->where($map)->find();
+		 $temb=M('GoodsAttribute')->where($map)->find();
 		 $rows[$temb['name']]=$temb['value'];
 		 }
 	return $rows;
 	 }
-	//保存产品post过来的附加信息
-function updateGoodsinfo($Goodsid=null){
-			$msg=array(
-				'info'=>'操作成功',
-				'status'=>1
-			);
-			
-			//附加用户信息转为数组
-					//取post值
-		$data=I('post.');
-		$fields=array();
-		//取带_的键值说明是附加属性
-		foreach ($data as $key => $value) {
-			$pos=strpos($key,'__');
-			if($pos!==false){
-			$fields[$key]=$value;
-			//$tem=explode('__', $key);
-			//$data2[$tem[0]]=$value;
-			}
-		}
-			//$model=M('GoodsAttrvalue');
-			//更新字段状态
-			$fieldbool=true;
-			foreach($fields as $key=>$val){
-				//查找有没有这个表单值
-				$tem=explode('__', $key);
-				$data2[]=$value;
-				
-				$map['goodsid']=$Goodsid;
-				$map['name']=$tem[0];
-				$map['goods_type_id']=$tem[1];
-				$temrow=M('GoodsAttrvalue')->where($map)->find();
-				
-				if(empty($temrow)){
-					//添加
-					$map['value']=$val;
-
-					$fieldbool=M('GoodsAttrvalue')->add($map);
-					
-					if($fieldbool===false){
-						$msg['info']='添加字段时出错';
-						$msg['status']=0;
-						}
-					}else{
-					//更新
-					$mapp['Goods_id']=$Goods_id;
-					$mapp['goods_type_id']=$key;
-					$fieldbool=M('GoodsAttrvalue')->where($mapp)->save(array('value'=>$val));	
-					if($fieldbool===false){
-						$msg['info']='更新字段时出错';
-						$msg['status']=0;	
-						}
-						}
-				
-				}
-		return $msg;		
-		}
+//	//保存产品post过来的附加信息
+//function updateGoodsinfo($goods_id=null){
+//			$msg=array(
+//				'info'=>'操作成功',
+//				'status'=>1
+//			);
+//			
+//			//附加用户信息转为数组
+//					//取post值
+//		$data=I('post.');
+//		$fields=array();
+//		//取带__的键值说明是附加属性
+//		foreach ($data as $key => $value) {
+//			$pos=strpos($key,'____');
+//			if($pos!==false){
+//			$fields[$key]=$value;
+//			}
+//		}
+//			//$model=M('GoodsAttribute');
+//			//更新字段状态
+//			//$fieldbool=true;
+//			foreach($fields as $key=>$val){
+//				//查找有没有这个表单值
+//				$tem=explode('____', $key);
+//				$data2[]=$value;
+//				
+//				$map['goods_id']=$goods_id;
+//				$map['name']=$tem[0];
+//				$map['goods_type_id']=$tem[1];
+//				$temrow=M('GoodsAttribute')->where($map)->find();
+//				
+//				if(empty($temrow)){
+//					//添加
+//					$map['value']=$val;
+//
+//					$fieldbool=M('GoodsAttribute')->add($map);
+//					
+//					if(!($fieldbool>0)){
+//						$msg['info']='添加字段时出错';
+//						$msg['status']=0;
+//						}
+//				}else{
+//					//更新
+//					$mapp['goods_id']=$goods_id;
+//					$mapp['goods_type_id']=$key;
+//					$fieldbool=M('GoodsAttribute')->where($mapp)->save(array('value'=>$val));	
+//					if(!($fieldbool>0)){
+//						$msg['info']='更新字段时出错';
+//						$msg['status']=0;	
+//						}
+//						}
+//				
+//				}
+//		return $msg;		
+//		}
 ?>

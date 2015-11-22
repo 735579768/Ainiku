@@ -144,7 +144,6 @@ class GoodsController extends AdminController {
 					}else{
 					$this->success($msg['info'],U('index',array('category_id'=>I('category_id'))));	
 						}	
-                  //  $this->success(L('_UPDATE_SUCCESS_'),U('Goods/index'));
                 } else {
                     $this->error($model->geterror());
                 }
@@ -187,7 +186,7 @@ class GoodsController extends AdminController {
 			}
 		}
 			//更新字段状态
-			$fieldbool=true;
+			//$fieldbool=true;
 			foreach($fields as $key=>$val){
 				//查找有没有这个表单值
 				$tem=explode('____', $key);
@@ -196,19 +195,19 @@ class GoodsController extends AdminController {
 				$map['goods_id']=$goods_id;
 				$map['name']=$tem[0];
 				$map['goods_type_attribute_id']=$tem[1];
-				$temrow=$model->where($map)->find();
 				$map['update_time']=NOW_TIME;
 				$map['value']=$val;
 				
-				if(count($temrow)==0){
-					//die('run');
+				$temrow=$model->where($map)->find();
+				
+				if(empty($temrow)){
 					//添加					
 					$result=$model->add($map);			
 					if(0<$result){
-						$msg['info']=L('_ADD_FAIL_');
+						$msg['info']=L('_UPDATE_SUCCESS_');
 						$msg['status']=1;	
 						}else{
-						$msg['info']='添加字段时出错';
+						$msg['info']='添加产品附加属性字段时出错';
 						$msg['status']=0;						
 							}
 					}else{
@@ -218,7 +217,7 @@ class GoodsController extends AdminController {
 					if(0<$result){
 						$msg['info']=L('_UPDATE_SUCCESS_');	
 						}else{
-						$msg['info']='更新附加属性时出错';
+						$msg['info']='更新产品附加属性时出错';
 						$msg['status']=0;							
 							}
 					}

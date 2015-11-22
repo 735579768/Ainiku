@@ -5,8 +5,9 @@ if(!defined("ACCESS_ROOT"))die("Invalid access");
 class IndexController extends HomeController {
     public function index(){
 
-//var_dump($location);
-//trace(getNavTree());
+	$model= D("Goods");
+    $info = $model->relation(true)->select(1);
+	dump($info);
   $this->display();
     }
 	function sendmail(){

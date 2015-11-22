@@ -98,6 +98,7 @@ body{overflow:hidden;padding:62px 0px 0px 179px;}
 .category .fold .icon-unfold{background-position:-125px -25px;}
 .category .order,.category .order input{text-align:center;}
 .category .order{width:90px;}
+.category .order span{ vertical-align:middle;margin-top: -5px;}
 .category .order input{margin-bottom:2px;width:30px; display:inline-block;}
 .category input{width:180px;}
 .category .name input{margin-bottom:2px;display:inline-block\9;}
