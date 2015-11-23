@@ -35,7 +35,7 @@
 		  	<a  class="btn btn ajax-href" href='{:U('Addons/jinyong?id='.$vo['id'])}'>已启用</a>
 		  	</if>	
 		  	<notempty name="vo['setmenu']">
-		  			<a  class="btn btn-primary" href='{:U($vo['setmenu']['url'])}'>设置</a>
+		  			<a  class="btn btn-primary" href='{:U($vo['setmenu']['url'])}'>管理</a>
 		  	</notempty>  
 		  	<if condition="$vo.type neq 'system'">	
 	  	<a class='btn btn-warning ajax-href' href='{:U('Addons/uninstall?id='.$vo['id'])}'>卸载</a>
