@@ -25,8 +25,14 @@ class AjaxController extends AdminController {
 	$this->success('数据保存成功');
 	 die();
 	 }
+	 /*设置后台默认主题色*/
 	function setdefaultcolor($color){
 		M('Config')->where("name='DEFAULT_COLOR'")->setField('value',$color);
 		updateConfig();
+		}
+	/*取自定义菜单列表*/
+	function getmenu(){
+		$this->display();
+		die();
 		}
 }

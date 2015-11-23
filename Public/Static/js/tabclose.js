@@ -95,11 +95,5 @@ window.addtabclose=function(title,url){
 	 $('.kl-tab').mytab();
 	 $('.kl-tab .kl-tab-nav:last').click();
 	};
-	$('.menu .mitem a').click(function(e) {
-		var   uri=$(this).attr('href');
-		var   title=$(this).text();
-		addtabclose(title,uri);
-        return false;
-    });
 	});
 

@@ -6,8 +6,9 @@ class IndexController extends HomeController {
     public function index(){
 
 	$model= D("Goods");
-    $info = $model->relation(true)->select(1);
-	dump($info);
+//	$map['jiage']='100-600';
+    $info = $model->relation(true)->where($map)->select(1);
+	//dump($info);
   $this->display();
     }
 	function sendmail(){

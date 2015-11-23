@@ -3,6 +3,8 @@ if(!defined("ACCESS_ROOT"))die("Invalid access");
 return array(
 	//配置分组
 	'DEFAULT_FILTER'        =>  '',
+	// 加载扩展配置文件
+	'LOAD_EXT_CONFIG' => 'menu', 
 	'CONFIG_GROUP'=>array(
 				1=>'基本',
 				4=>'网站',

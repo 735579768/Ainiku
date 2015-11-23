@@ -4,9 +4,22 @@
     <div class="logo fl">管理平台</div>
     <ul class="mainnav cl">
     	<volist name="_MAINNAV_" id="vo">
-    	<li><a href="{:U($vo['url'],array('mainmenu'=>'true'))}">{$vo.title}</a></li>
+    	<li><a href="{:U($vo['url'],array('mainmenu'=>'true'))}">{$vo.title}</a></li>  
         </volist>
+        <li><a href="javascript:;" id="gongneng">常用功能</a></li>
     </ul>
+    <script>
+    $('#gongneng').click(function(e){
+    $.ajax({
+		type:'POST',
+		url:"{:U('Ajax/getmenu')}",
+		success:function(da){
+			$('#west').html(da);
+			//console.log(da);
+			}
+		});
+	});
+    </script>
     <div class="right-tool cl">
     <ul id="admintheme" class="admintheme cl">
     	<li  data-name="default"  style="background:#5cb85c;"></li>
