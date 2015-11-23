@@ -31,10 +31,33 @@ class PublicController extends Controller {
 			if(!check_verify($verify) && !($autologin)){
 				$this->error('验证码输入错误！');
 			}
-            $uid = D('Member')->login($username, $password);
-            if(0 < $uid){ 
-					//UC登录成功//把用户密码加密保存到cookie中
-					
+			//自动判断用户名是哪个字段的
+			$map[getAccountType($username)]=$username;
+			$map['password']=ainiku_ucenter_md5($password);
+			$map['status']=1;
+			//$map['member_group_id']=1;
+			$map['is_adminlogin']=1;
+			$user=D('MemberView')->where($map)->find();
+			if(empty($user)){
+			   //登录失败
+				cookie('__uid__',null);
+				return $autologin?(false):$this->error('用户名或密码错误!');				
+			}else{
+				//登陆成功
+				
+                /* 记录登录SESSION和COOKIES */
+                $auth = array(
+                    'uid'             => $user['member_id'],
+                    'username'        => $user['username'],
+                    'last_login_time' => $user['update_time'],
+                );
+                session('user_auth', $auth);
+				session('uinfo',$user);
+                session('user_auth_sign', data_auth_sign($auth));
+                //更新用户登录信息
+                $this->updateLogin($user['member_id']); 
+				
+					//把用户密码加密保存到cookie中
 					if(!$autologin){
 						$u['u']=ainiku_encrypt($username);
 						$u['p']=ainiku_encrypt($password);
@@ -50,19 +73,9 @@ class PublicController extends Controller {
 							}
 						cookie('__uid__',$u,$b);
 					}
-					return $autologin?$uid:($this->success('登录成功！', U('Index/index',array('mainmenu'=>'true'))));
-            } else { 
-			   //登录失败
-				
-				//清空cookie
-				cookie('__uid__',null);
-                switch($uid) {
-                    case -1: $error = '用户不存在或被禁用！'; break; //系统级别禁用
-                    case -2: $error = '密码错误！'; break;
-                    default: $error = L('_UNKNOWN_ERROR_'); break; // 0-接口参数错误（调试阶段使用）
-                }
-				return $autologin?(false):$this->error($error);
-            }
+					return $autologin?$uid:($this->success('登录成功！', U('Index/index',array('mainmenu'=>'true'))));					
+			}
+			
         } else {
             if(is_login()){
                 redirect(U('Index/index',array('mainmenu'=>'true')));
@@ -100,5 +113,31 @@ class PublicController extends Controller {
 		);
         $verify = new \Think\Verify($conf);
         $verify->entry(1);
+    }
+   /**
+     * 更新用户登录信息
+     * @param  integer $uid 用户ID
+     */
+    protected function updateLogin($uid){
+		$ip=get_client_ip();
+		$location=getIpLocation($ip);
+        $data = array(
+            'member_id'              => $uid,
+            'update_time' => NOW_TIME,
+            'last_login_ip'   =>$ip ,
+			'last_login_adr'  =>$location
+        );
+		M('Member')->where("member_id=$uid")->setInc('login');
+		M('Member')->save($data);
+		//保存用户登陆日志
+		M('MemberLog')->add(
+		array(
+				'member_id'=>$uid,
+				'ip'=>$ip,
+				'adr'=>$location,
+				'create_time'=>NOW_TIME
+				)
+		);
+
     }
 }

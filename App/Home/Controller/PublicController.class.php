@@ -34,14 +34,13 @@ class PublicController extends Controller {
        $map = array();
 	   $dbprefix=__DB_PREFIX__;
 		$map[getAccountType($username)]=$username;
-		$jin=$dbprefix."member_group as a on ".$dbprefix."member.member_group_id=a.member_group_id";
-		$field="*,".$dbprefix."member.status as status";
-		$muser=M('Member');
-        $user = $muser->field($field)->where($map)->join($jin)->find();
-        if(is_array($user) && $user['status']==='1'){
-            /* 验证用户密码 */
-          $md5pas=ainiku_ucenter_md5($password);
-          if($md5pas === $user['password']){
+		$map['password']=ainiku_ucenter_md5($password);
+		$map['status']=1;
+		$map['member_group_id']=2;//前台只允许会员登陆
+        $user = M('Member')->field($field)->where($map)->find();
+        if(empty($user)){																
+				$this->error('用户名或密码错误！');
+        } else {
                 /* 记录登录SESSION和COOKIES */
                 $auth = array(
                     'uid'             => $user['member_id'],
@@ -54,15 +53,9 @@ class PublicController extends Controller {
 				 define('UID',$user['member_id']);
                 //更新用户登录信息
                 self::updateLogin($user['member_id']); 
-				$this->success('登陆成功',U('/'));
-            } else {
-                $error = '密码错误！';//密码错误
-            }
-        } else {
-            $error = '用户不存在或被禁用！';  // '用户不存在或被禁用！'
+				$this->success('登陆成功',U('/'));            
         }	
-	//验证结束																
-		$this->error($error);
+
 		}else{
 			//显示登陆页面
 			if(IS_AJAX){

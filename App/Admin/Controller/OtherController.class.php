@@ -5,8 +5,10 @@ class OtherController extends AdminController {
     /* 退出登录 */
     public function logout(){
         if(is_login()){
-            D('Member')->logout();
-            session('[destroy]');
+			//session('user_auth', null);
+			//session('user_auth_sign', null);
+          //  session('[destroy]');
+		    session(null);
 			cookie(null);
             $this->success('退出成功！', U('Public/login'));
         } else {

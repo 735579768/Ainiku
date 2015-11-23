@@ -49,21 +49,6 @@ class MemberController extends AdminController {
 		$this->meta_title='用户登陆日志';
 		$this->display();
 		}
-//	//用户行为日志
-//	public function actionlog(){
-//		$this->pages(
-//		array(
-//			'model'=>'MemberAction',
-//			'join'=>array(
-//			'__DB_PREFIX__.'member as b on b.id=__DB_PREFIX__.'member_action.uid',
-//			'__DB_PREFIX__.'menu as c on c.id=__DB_PREFIX__.'member_action.menuid'
-//					),
-//			'field'=>'__DB_PREFIX__.'member_action.id as id,b.username,c.title as menutitle,__DB_PREFIX__.'member_action.create_time as create_time'
-//		)
-//		);
-//		$this->meta_title='用户操作日志';
-//		$this->display();
-//		}
 	public function dellog($member_log_id=null){
     	$id=I('get.member_log_id');
     	$idd=M('Member_log')->where("member_log_id in ($member_log_id)")->delete();
@@ -73,35 +58,37 @@ class MemberController extends AdminController {
     	  $this->error(L('_CAOZUO_FAIL_'));
     	}		
 		}
-//	public function delactionlog(){
-//    	$id=I('get.id');
-//    	$idd=M('Member_action')->where("1")->delete();
-//    	if(0<$idd){
-//    	  $this->success('已经全部清空',U('Member/actionlog'));
-//    	}else{
-//    	  $this->error(L('_CAOZUO_FAIL_'));
-//    	}		
-//		}
     public function add($member_group_id='',$username = '', $password = '', $repassword = '', $email = ''){
         if(IS_POST){
             /* 检测密码 */
             if($password != $repassword){
                 $this->error('密码和重复密码不一致！');
             }
+        $data = array(
+            'member_group_id'=>$member_group_id,
+            'username' => $username,
+            'password' => $password,
+            'email'    => $email,
+            'mobile'   => $mobile,
+			'create_time'=>NOW_TIME,
+			'update_time'=>NOW_TIME,
+			'account'=>createAccount()
+        );
+		//自动判断用户名是哪个字段
+		$data[getAccountType($username)]=$username;
+			$mem = D('Member');
+			/* 添加用户 */
+			if($mem->create($data)){
+				$mem->password=ainiku_ucenter_md5($mem->password);
+				$uid = $mem->add();
+				return ($uid>0) ? $this->success('添加成功') : $this->error('添加失败') ; //0-未知错误，大于0-注册成功
+			} else {
+				return $this->error($mem->getError()); //错误详情见自动验证注释
+			}
 
-            /* 调用注册接口注册用户 */
-            $User   = D('Member');
-            $uid    =   $User->register($member_group_id,$username, $password, $email);
-            if(0 < $uid){ //注册成功
-              $this->success(L('_ADD_SUCCESS_'),U('index'));
-            } else { //注册失败，显示错误信息
-                $this->error($this->showRegError($uid));
-            }
         } else {
-			//$field=Api('Model/memberModel',array('add'));
 			$field=getModelAttr('member');
 			$this->assign('fieldarr',$field);
-			//$this->assign('data',$data);
             $this->meta_title = '新增用户';
             $this->display('edit');
         }
@@ -160,28 +147,28 @@ class MemberController extends AdminController {
         $this->display();
     }
 
-	/**
-     * 获取用户注册错误信息
-     * @param  integer $code 错误编码
-     * @return string        错误信息
-     */
-    private function showRegError($code = 0){
-        switch ($code) {
-            case -1:  $error = '用户名长度必须在16个字符以内！'; break;
-            case -2:  $error = '用户名被禁止注册！'; break;
-            case -3:  $error = '用户名被占用！'; break;
-            case -4:  $error = '密码长度必须在5-30个字符之间！'; break;
-            case -5:  $error = '邮箱格式不正确！'; break;
-            case -6:  $error = '邮箱长度必须在1-32个字符之间！'; break;
-            case -7:  $error = '邮箱被禁止注册！'; break;
-            case -8:  $error = '邮箱被占用！'; break;
-            case -9:  $error = '手机格式不正确！'; break;
-            case -10: $error = '手机被禁止注册！'; break;
-            case -11: $error = '手机号被占用！'; break;
-            default:  $error = L('_UNKNOWN_ERROR_');
-        }
-        return $error;
-    }
+//	/**
+//     * 获取用户注册错误信息
+//     * @param  integer $code 错误编码
+//     * @return string        错误信息
+//     */
+//    private function showRegError($code = 0){
+//        switch ($code) {
+//            case -1:  $error = '用户名长度必须在16个字符以内！'; break;
+//            case -2:  $error = '用户名被禁止注册！'; break;
+//            case -3:  $error = '用户名被占用！'; break;
+//            case -4:  $error = '密码长度必须在5-30个字符之间！'; break;
+//            case -5:  $error = '邮箱格式不正确！'; break;
+//            case -6:  $error = '邮箱长度必须在1-32个字符之间！'; break;
+//            case -7:  $error = '邮箱被禁止注册！'; break;
+//            case -8:  $error = '邮箱被占用！'; break;
+//            case -9:  $error = '手机格式不正确！'; break;
+//            case -10: $error = '手机被禁止注册！'; break;
+//            case -11: $error = '手机号被占用！'; break;
+//            default:  $error = L('_UNKNOWN_ERROR_');
+//        }
+//        return $error;
+//    }
 	//放到回收站
 	function del($member_id){
         $member_id=I('get.member_id');
