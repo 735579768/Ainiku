@@ -39,9 +39,12 @@ array('title'=>"标题2",'name'=>'名字1','price'=>'140'),
 导入示例
 下载示例excel文件
 <a target="_blank" href="/Plugins/Phpexcel/view/import.xls">import.xls</a>
-<form action="{:UP('Phpexcel/sample')}" method="post" enctype="multipart/form-data">
-<input type="file" name="excel" value="选择excel文件">
-<input type="submit" class="btn" value="导入">
+<form id="formexcel" action="{:UP('Phpexcel/sample')}" method="post" enctype="multipart/form-data">
+<input style="display:none;" id="excelbtn" type="file" name="excel" value="选择excel文件">
+<div >
+<a href="javascript:;" class="btn" onClick="document.getElementById('excelbtn').click();">选择文件</a><br>
+<a href="javascript:;" style="display:inline-block;" class="btn" onClick="formexcel.submit();">导入</a>
+</div>
 </form>
 </pre>
 </div>
