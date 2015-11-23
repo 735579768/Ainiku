@@ -30,6 +30,8 @@ $(function(){
 	// 页面不在iframe中时处理
 	if($('#closewest').length<=0){
 		var ifuri=window.location.href;
+		(ifuri=='')&&(ifuri="{:U(CONTROLLER_NAME.'/'.ACTION_NAME)}");
+		var ifuri="{:U(CONTROLLER_NAME.'/'.ACTION_NAME)}";
 		window.location.href=ifuri+'&mainmenu=true';
 		}
 	

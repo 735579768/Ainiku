@@ -79,7 +79,7 @@
 		return false;	
     });
 //绑定左边菜单
-window.bingleftmenu=function(){
+window.bindleftmenu=function(){
 		//加载完菜单后进行绑定
 			//菜单合并
 			$('.menu .mt a').click(function(e) {	
@@ -173,7 +173,7 @@ window.bingleftmenu=function(){
 	}
 	//设置默认左边菜单end////////////////////////////////////////////////////////////////////////	
 };
-bingleftmenu();
+bindleftmenu();
 
 	//选择全部
 	$('.check-all').click(function(e) {
