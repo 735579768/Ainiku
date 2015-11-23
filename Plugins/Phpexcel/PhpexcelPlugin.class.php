@@ -15,7 +15,7 @@ require_once pathA('/Plugins/Plugin.class.php');
 class PhpexcelPlugin extends \Plugins\Plugin{
 	protected   $config=array(
             		'version'=>'1.0',
-            	    'author'=>'作者',
+            	    'author'=>'qiaokeli',
             	    'name'=>'excel导入',
             	    'descr'=>'excel导入工具'
             	 );
@@ -41,6 +41,10 @@ class PhpexcelPlugin extends \Plugins\Plugin{
 		$this->exportExcel($conf);
 		 exit;	
 	}
+	public function sample(){
+		$this->assign('data',$this->importExcel());
+		return $this->fetch('content');
+		}
 	public function importExcel(){
 	$file='';$filetempname='';
 	if($_FILES)
@@ -72,7 +76,8 @@ class PhpexcelPlugin extends \Plugins\Plugin{
 			$sheet = $objPHPExcel->getSheet(0); 
 			$highestRow = $sheet->getHighestRow();           //取得总行数 
 			$highestColumn = $sheet->getHighestColumn(); //取得总列数
-			
+			//dump($highestRow);
+			//dump($highestColumn);
 			$colarr=array();
 			$fieldarr=array();
 			//循环读取excel文件,读取一条,插入一条
@@ -87,7 +92,8 @@ class PhpexcelPlugin extends \Plugins\Plugin{
 					//实测在excel中，如果某单元格的值包含了\\导入的数据会为空        
 					//getValue 取内容   getCalculatedValue 取工式结果
 					$str=$objPHPExcel->getActiveSheet()->getCell("$k$j")->getCalculatedValue();//读取单元格
-					if(empty($str)&& $k=='A')break;
+					//dump($str);
+					if(empty($str) && $k=='A')break;
 					if($j==1){
 					   $fieldarr[$k]=$str;
 					}else{
@@ -197,9 +203,9 @@ $objPHPExcel->getActiveSheet()->getStyle('E13')->getBorders()->getRight()->getCo
     public  function install(){
     	//向后台添加菜单，如果不添加的话直接返回真
       $data=array(
-      	 'title'=>'测试插件',//插件后台菜单名字
+      	 'title'=>'Excel工具',//插件后台菜单名字
          'pid'=>ADDONS_MENU,//不用改变
-         'url'=>'Addons/plugin?name=Phpexcel&method=set',//填写后台菜单url名称和方法
+         'url'=>'Addons/plugin?pn=Phpexcel&pm=set',//填写后台菜单url名称和方法
          'group'=>'已装插件',//不用改变
          'type'=>'Phpexcel'    //填写自己的插件名字
       );
@@ -224,25 +230,26 @@ $objPHPExcel->getActiveSheet()->getStyle('E13')->getBorders()->getRight()->getCo
 	}
 	public function set(){
 		//插件工菜单后台设置,没有的话直接返回真
-	    if(IS_POST){
-	      $data=array(
-	      	'title'=>I('post.title'),
-	        'url'=>I('post.url'),
-	        'sort'=>I('post.sort')
-	      );
- 	     $model=M('Addons');
-        $result= $model->where("mark='Phpexcel'")->save(array('param'=>json_encode($data)));	  	
-			if(0<$result){
-				$this->success('保存成功');	
-			}else{
-				$this->error('保存失败');			
-			}	    	
-	    	}else{
-	    	    $data=M('Addons')->field('param')->where("mark='Phpexcel'")->find();
-	  		   $this->assign('info',json_decode($data['param'],true));
-	  			  $str=$this->fetch('config');
-     		   return $str;
-	    }
-
+//	    if(IS_POST){
+//	      $data=array(
+//	      	'title'=>I('post.title'),
+//	        'url'=>I('post.url'),
+//	        'sort'=>I('post.sort')
+//	      );
+// 	     $model=M('Addons');
+//        $result= $model->where("mark='Phpexcel'")->save(array('param'=>json_encode($data)));	  	
+//			if(0<$result){
+//				$this->success('保存成功');	
+//			}else{
+//				$this->error('保存失败');			
+//			}	    	
+//	    	}else{
+//	    	    $data=M('Addons')->field('param')->where("mark='Phpexcel'")->find();
+//	  		   $this->assign('info',json_decode($data['param'],true));
+//	  			  $str=$this->fetch('config');
+//     		   return $str;
+//	    }
+		return $this->fetch('config');
+		return true;
 	}
 }

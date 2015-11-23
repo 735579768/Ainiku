@@ -28,9 +28,9 @@ require_once pathA('/Plugins/Plugin.class.php');
 class AlipayPlugin extends \Plugins\Plugin{
 	protected   $config=array(
             		'version'=>'1.0',
-            	    'author'=>'作者',
-            	    'name'=>'Alipay',
-            	    'descr'=>'支付'
+            	    'author'=>'qiaokeli',
+            	    'name'=>'支付宝',
+            	    'descr'=>'支付宝'
             	 );
 	//测试支付功能
 	public function testpay(){

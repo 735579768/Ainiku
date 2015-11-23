@@ -7,7 +7,7 @@ require_once ADDONS_PATH.'Plugin.class.php';
 class QloginPlugin extends \Plugins\Plugin{
 	protected   $config=array(
             		'version'=>'1.0',
-            	    'author'=>'作者',
+            	    'author'=>'qiaokeli',
             	    'name'=>'QQ登陆',
             	    'descr'=>'QQ互联'
             	 );

@@ -4,7 +4,7 @@ require_once pathA('/Plugins/Plugin.class.php');
 class SpiderPlugin extends \Plugins\Plugin{
 	protected   $config=array(
             		'version'=>'1.0',
-            	    'author'=>'作者',
+            	    'author'=>'qiaokeli',
             	    'name'=>'蜘蛛访问记录',
             	    'descr'=>'蜘蛛访问'
             	 );

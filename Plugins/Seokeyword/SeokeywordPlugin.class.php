@@ -4,7 +4,7 @@ require_once pathA('/Plugins/Plugin.class.php');
 class SeokeywordPlugin extends \Plugins\Plugin{
 	protected   $config=array(
             		'version'=>'1.0',
-            	    'author'=>'作者',
+            	    'author'=>'qiaokeli',
             	    'name'=>'关键字优化',
             	    'descr'=>'优化文章中的关键字'
             	 );

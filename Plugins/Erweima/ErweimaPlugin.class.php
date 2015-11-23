@@ -5,7 +5,7 @@ require_once './Plugins/Erweima/phpqrcode.php';
 class ErweimaPlugin extends \Plugins\Plugin{
 	protected   $config=array(
             		'version'=>'1.0',
-            	    'author'=>'作者',
+            	    'author'=>'qiaokeli',
             	    'name'=>'二维码',
             	    'descr'=>'生成二维码'
             	 );

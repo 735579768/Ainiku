@@ -4,7 +4,7 @@ require_once pathA('/Plugins/Plugin.class.php');
 class TestPlugin extends \Plugins\Plugin{
 	protected   $config=array(
             		'version'=>'1.0',
-            	    'author'=>'作者',
+            	    'author'=>'qiaokeli',
             	    'name'=>'插件名字',
             	    'descr'=>'插件描述'
             	 );

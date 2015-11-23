@@ -4,7 +4,7 @@ require_once pathA('/Plugins/Plugin.class.php');
 class OutlinkPlugin extends \Plugins\Plugin{
 	protected   $config=array(
             		'version'=>'1.0',
-            	    'author'=>'作者',
+            	    'author'=>'qiaokeli',
             	    'name'=>'外链分析',
             	    'descr'=>'外链分析工具'
             	 );
