@@ -50,7 +50,7 @@ class PublicController extends Controller {
 							}
 						cookie('__uid__',$u,$b);
 					}
-					return $autologin?$uid:($this->success('登录成功！', U('Index/index')));
+					return $autologin?$uid:($this->success('登录成功！', U('Index/index',array('mainmenu'=>'true'))));
             } else { 
 			   //登录失败
 				
@@ -65,7 +65,7 @@ class PublicController extends Controller {
             }
         } else {
             if(is_login()){
-                redirect(U('Index/index'));
+                redirect(U('Index/index',array('mainmenu'=>'true')));
             }else{
 					$this->display();	
                 
