@@ -181,7 +181,7 @@ border-color: #44b549 #e0e0e0 #f6f6f6;
 .bjbox table{/* width:90%;*/
 }
 .bjbox .con{padding:10px;}
-.bjbox{background:#fdfdfd;margin:10px;border:solid 1px #ececec;float:left;/*width:400px;*/
+.bjbox{background:#fdfdfd;margin:10px;border:solid 1px #ececec;float:left;
 }
 .bjbox:after{content:"";visibility:hidden;display:block;font-size:0;content:'';;clear:both;height:0;}
 .bjbox .title{overflow:hidden;padding-left:20px;background-color:#ececec;background-image:-moz-linear-gradient(to bottom,#ffffff 0,#f0f0f0 100%);background-image:-webkit-gradient(linear,0 0,0 100%,from(#f4f4f4),to(#f3f3f3));background-image:-webkit-linear-gradient(to bottom,#ffffff 0,#f0f0f0 100%);background-image:-o-linear-gradient(to bottom,#ffffff 0,#f0f0f0 100%);background-image:linear-gradient(to bottom,#ffffff 0,#f0f0f0 100%);border-bottom:1px solid #eaeaea;box-shadow:0 1px 2px #e4e4e4;-moz-box-shadow:0 1px 2px #e4e4e4;-webkit-box-shadow:0 1px 2px #e4e4e4;line-height:35px;height:35px;display:block;clear:both;}
@@ -190,11 +190,11 @@ border-color: #44b549 #e0e0e0 #f6f6f6;
 .bjbox tr td{padding:0px 10px;border-bottom:solid 1px #ededed;}
 
 /* 首页数据 */
-.top-columns{margin:10px 0 5px;text-align:center; padding-top:10px;}
+.top-columns{margin:10px 0 5px; padding-top:10px;}
 .show-num-mod{display:inline-block;*display:inline;*zoom:1;margin:0 15px 15px;border:1px solid #cdcdcd;background-color:#fff;}
 .show-num-mod dt,.show-num-mod dd{float:left;padding:10px;}
-.show-num-mod dt{width:65px;height:56px;line-height:56px;}
-.show-num-mod dd{width:100px;border-left:1px solid #cdcdcd;}
+.show-num-mod dt{width:56px;height:56px;line-height:56px;}
+.show-num-mod dd{width:60px;border-left:1px solid #cdcdcd;}
 .show-num-mod dd strong{margin-bottom:5px;height:30px;line-height:30px;}
 .show-num-mod dd span{font-size:12px;letter-spacing:.15em;}
 .show-num-mod dd strong{display:block;font-size:20px;overflow:hidden}

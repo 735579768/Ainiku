@@ -51,15 +51,33 @@
 		}
 	//设置默认主菜单
 	
-	$('.mainnav a').each(function(index) {
+	$('#mainnav a').each(function(index) {
 		var str=window.location.href;
 		var str=str.replace(/(.+?)\.(.+?)\//,'/');
 		var href=$(this).attr('href');
         if(href==str){
 			$(this).addClass('hover');
-			
 			}
 	});
+	$('#mainnav li a').click(function(e) {
+		var obj=$('#west');
+		var shtml=obj.html();
+        var dataurl=$(this).attr('data-url');
+		$.ajax({
+			type:'POST',
+			url:ainiku.getmenu,
+			data:{url:dataurl},
+			success:function(da){
+				if(da.status=='1'){
+					$('#west').html(da.info);
+					}else{
+						ank.msg(da.info);
+						}
+				
+				}
+			});	
+		return false;	
+    });
 //绑定左边菜单
 window.bingleftmenu=function(){
 		//加载完菜单后进行绑定

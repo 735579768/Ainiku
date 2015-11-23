@@ -39,6 +39,18 @@ body{ padding:0px; overflow-y:auto;}
 
 <script>
 $(function(){
+		$.ajax({
+			type:'POST',
+			url:ainiku.getmenu,
+			success:function(da){
+				if(da.status=='1'){
+					$('#west').html(da.info);
+					}else{
+						ank.msg(da.info);
+						}
+				
+				}
+			});
 	$('#center').height($(window).outerHeight()-73);
 	$(window).resize(function(e) {
         $('iframe').height($(window).outerHeight()-88);
