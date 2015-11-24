@@ -4,7 +4,7 @@ use Think\Controller;
 if(!defined("ACCESS_ROOT"))die("Invalid access");
 class IndexController extends HomeController {
     public function index(){
-
+//runPluginMethod('Erweima','create',array('200','这个是测试内容','./Uploads/image/thumb/20151008/144429065269885.png'));
 	$model= D("Goods");
 //	$map['jiage']='100-600';
     $info = $model->relation(true)->where($map)->select(1);
