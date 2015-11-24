@@ -24,8 +24,10 @@ class OrderController extends AdminController {
 		$this->assign('_list',$list);
 		$this->display();
 		}
-	public function del(){
-		$this->display();
+	public function del($order_id=''){
+		M('OrderGoods')->where("order_id=$order_id")->delete();
+		M('Order')->where("order_id=$order_id")->delete();
+		$this->success(L('_DELETE_SUCCESS_'));
 		}
 	public function updateorder(){
 		$model=M('Order');
