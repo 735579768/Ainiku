@@ -36,19 +36,22 @@ function getCategoryAllChild($id){
  ***/
  function getCategoryParent($id=null,$top=true){
 	 if(empty($id))return '';
-	 $reid='';
-	 $info=M('Category')->find($id);
-	 trace($info);
-	 if($top){
-		 if($info['pid']!=0){
-			 	$reid=getCategoryParent($info['pid'],false);
-			 }else{
-				 $reid=$info['category_id'];
-			 }
-		 
-	}else{
-			$reid=$info['pid']; 
-			 }
+	 $catkey=sha1(json_encode($id).json_encode($top));
+	 $reid=F($catkey);
+	 if(empty($reid)|| APP_DEBUG){
+		 $info=M('Category')->find($id);
+		 if($top){
+			 if($info['pid']!=0){
+					$reid=getCategoryParent($info['pid'],true);
+				 }else{
+					 $reid=$info['category_id'];
+				 }
+			 
+		}else{
+				$reid=$info['pid']; 
+				 }
+		F($catkey,$reid);
+	 }
 	return $reid;
 	 }
 /**
