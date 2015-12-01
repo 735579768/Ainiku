@@ -16,9 +16,6 @@ class CartController extends LoginController {
 							'where'=> "uid=".UID
 							));
         $this->meta_title = '购物车';
-		//加载取货地址
-		$adlist=M('Member')->where("member_group_id=2 and address<>''")->select();
-		$this->assign('adlist',$adlist);
         $this->display();
     }
 	/**
@@ -34,7 +31,7 @@ class CartController extends LoginController {
 	function updatenum(){
 		$resu=M('Cart')->where("uid=".UID.'  and cart_id='.I('cart_id'))
 					   ->save(array(
-							'num'=>I('num'),											
+							'num'=>I('num')											
 									));
 		if($resu>0){
 			$this->success('ok');
@@ -69,16 +66,19 @@ class CartController extends LoginController {
 					$this->error($model->getError());
 				}		
 			}else{
-				$result=$model->save(array('cart_id'=>$resu['cart_id'],'num'=>$resu['num']+intval($id[1])));
+				//购物车中有这个产品
+				$result=$model->save(array(
+						'cart_id'=>$resu['cart_id'],
+						'num'=>$resu['num']+$num
+						));
 				if(0<$result){
-						//$this->success('添加成功');
-					}else{
-						$this->error('添加失败');
-						}
-				}
-		$this->success('成功添加到购物车');
+					$this->success('添加成功');
+				}else{
+					$this->error('添加失败');
+					}
+			}
 		}else{
-			$this->error('请选择产品');
+			redirect('/');
 			}
 		
 		die();
