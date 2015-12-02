@@ -71,30 +71,10 @@ select.form-control{display:inline-block;width:auto;height:30px;}
 .btn-danger{background:#d2322d;}
 .btn-danger:hover{background:#D85A56;}
 /**多选框样式**/
-.icon-check{   
-	font-family: "iconfont" !important;
-    font-style: normal;
-    -webkit-font-smoothing: antialiased;
-    -webkit-text-stroke-width: 0.2px;
-    -moz-osx-font-smoothing: grayscale;
-    display: inline-block;
-    width: 18px;
-    height: 18px;
-    line-height: 18px;
-    border: 1px solid #e0e0e0;
-    background-color: #fff;
-    color: #fff;
-    font-size: 20px;
-    text-align: center;
-    vertical-align: middle;
-    position: relative;
-    cursor: pointer;
-}
-.icon-check:hover{color: #757575;}
-.icon-check-selected{    
-	color: #fff;
-    border-color: #ff6700;
-    background-color: #ff6700;}
+.icon-check{display:inline-block;width:14px;height:14px;cursor: pointer;border: 1px solid #ababab;vertical-align: middle;}
+.icon-check a{ vertical-align: top; padding:0px;background: #fff; margin:2px; width: 10px; height: 10px; display: inline-block;}
+.icon-check a:hover{}
+.icon-check-selected a{background:#ff6700;;}
 /*****对话框样式*****/
 #dialog{font-family:Microsoft Yahei;overflow:hidden;position:fixed;z-index:9991;top:40%;left:50%;font-size:14px;color:#333;opacity:1;_position:absolute;_width:expression((this.clientWidth<100)?'100px':'auto');_height:expression((this.clientHidth<50)?'50px':'auto');_bottom:auto;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight-this.offsetHeight)/2));_padding-bottom:10px;}
 .t_l,.t_c,.t_r,.m_l,.m_r,.b_l,.b_c,.b_r{overflow:hidden;background:#000;opacity:0.2;filter:alpha(opacity=20);}

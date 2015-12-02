@@ -8,12 +8,13 @@ class CartController extends LoginController {
      * @author 枫叶 <735579768@qq.com>
      */
     public function index(){
-		$jon='__DB_PREFIX__goods as a   on  __DB_PREFIX__cart.goods_id=a.goods_id';
-        $list = $this->pages(array(
-							'join'=>$jon,
-							'rows'=>5,
-							'model'=>'Cart',
-							'where'=> "uid=".UID
+		//$jon='__DB_PREFIX__goods as a   on  __DB_PREFIX__cart.goods_id=a.goods_id';
+       // $map['uid']=UID;
+		$list = $this->pages(array(
+							//'join'=>$jon,
+							'rows'=>10,
+							'model'=>'CartView',
+							'where'=> $map
 							));
         $this->meta_title = '购物车';
         $this->display();
@@ -29,10 +30,13 @@ class CartController extends LoginController {
 	 *更新当前用户产品的数量
 	 */
 	function updatenum(){
-		$resu=M('Cart')->where("uid=".UID.'  and cart_id='.I('cart_id'))
-					   ->save(array(
-							'num'=>I('num')
-									));
+		$num=intval(I('num'));
+		$cart_id=intval(I('cart_id'));
+		empty($cart_id)&&$this->error('no');
+		empty($num)&&$this->error('no');
+		//$map['uid']=UID;
+		$map['cart_id']=$cart_id;
+		$resu=M('Cart')->where($map)->save(array('num'=>$num,'update_time'=>NOW_TIME));
 		if($resu>0){
 			$this->success('ok');
 			}else{
