@@ -88,22 +88,16 @@ class CartController extends LoginController {
 		die();
 		}
     function del(){
-    	$cart_id=isset($_REQUEST['cart_id'])?I('get.cart_id'):I("id");//I('get.cart_id');
+		$cart_id=intval(I('cart_id'));
 		if(empty($cart_id))$this->error('请先进行选择');
 		$model=M('Cart');
-    	$result=$model->where("cart_id in ($cart_id)")->delete();
-    	if(result){
+		$map['cart_id']=array('in',"$cart_id");
+		//$map['uid']=UID;
+    	$result=$model->where($map)->delete();
+    	if($result>0){
     	  $this->success('已经从购物车删除');
     	}else{
     	  $this->error('操作失败');
     	}
     }
-	function delall(){
-		$result=M('Cart')->where("status=-1")->delete();
-    	if(result){
-    	  $this->success('回收站已经清空',U('recycle'));
-    	}else{
-    	  $this->error('操作失败');
-    	}
-		}
 }
