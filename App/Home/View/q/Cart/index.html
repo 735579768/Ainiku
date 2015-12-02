@@ -23,7 +23,7 @@
 .cart-list-box .col-check{width:100px; text-align:left;}
 .cart-list-box .col-check .icon-check{ margin-left:40px;}
 .cart-list-box .col-img{width:120px;}
-.cart-list-box .col-img img{width:80px;height:80px;margin-top:5px;}
+.cart-list-box .col-img img{width:80px;height:80px; vertical-align:middle;}
 .cart-list-box .col-title{width:300px;text-align:left; }
 .cart-list-box .col-price{width:150px;}
 .cart-list-box .col-num{width:150px;}
@@ -65,7 +65,7 @@
     <div class="icon-check check-item" data-id="{$vo.cart_id}"><a href="javascript:;"></a></div>
     </li>
     <li class="col col-img"><img src="{$vo.pic|getPicture='thumbpath','80_80'}" /></li>
-    <li class="col col-title">{$vo.title}</li>
+    <li class="col col-title el"><a title="{$vo.title}" href="javascript:;">{$vo.title}</a></li>
     <li class="col col-price">{$vo.price}元</li>
     <li class="col col-num">
    	  <div class="cart-num">
@@ -85,6 +85,7 @@
  </div>
  <div class="section-right">
  <span class="totalprice">合计（不含运费）：<em id="totalprice" class="price"></em>元 </span>
+ <input id="cartidstr" type="hidden" value="" />
  <a href="javascript:;" class="a-btn r-btn">去结算</a>
  </div>
  </div>
@@ -103,11 +104,13 @@ $(function() {
             _this.addClass('icon-check-selected');
             _li.addClass('icon-check-selected');
         }
+		cartobj.setCartidStr();
     });
     $('.check-item').click(function(event) {
         var _this = $(this);
         var ha = _this.hasClass('icon-check-selected');
         ha ? _this.removeClass('icon-check-selected') : _this.addClass('icon-check-selected');
+		cartobj.setCartidStr();
     });
     //加减数量
     $('.jia').click(function(e) {
@@ -191,7 +194,16 @@ $(function() {
                     }
                 }
             });
-        }
+        },
+	//更新选中的产品id
+		setCartidStr:function(){
+			var strid='';
+			$('.check-item.icon-check-selected').each(function(index, element) {
+                var str=$(this).attr('data-id');
+				(str!='')&&((strid==='')?strid=str:(strid+=','+str));
+            });
+			$('#cartidstr').val(strid);
+			}
     };
 
     window.addToCart=function(){
