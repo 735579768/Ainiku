@@ -9,8 +9,14 @@
 
 <body>
 <style>
-.cart-list-box{font-size:14px;margin:0px auto;width:1100px;}
-.cart-list-box .list-body{border-top:solid 1px #ccc;}
+/*******购物车头样式 start********/
+.cart-header{width:1100px;margin:0px auto;height:100px;background:#fff;border-bottom: 2px solid #ff6700;}
+.cart-header .cart-title{font-size:30px;display:inline-block;width:200px;height:100px;line-height:100px;text-align:center;color:#000;    }
+
+/*******购物车头样式 end********/
+/*******购物车列表样式 start********/
+.cart-list-box{font-size:14px;margin:0px auto;width:1100px;margin-top:10px;}
+.cart-list-box .list-body{border-top:solid 1px #e2e2e2;}
 .cart-list-box .list-body .col{height:90px;line-height:90px;}
 .cart-list-box .row{width:100%;display:block;background:#fff;}
 .cart-list-box .col{height:70px;line-height:70px;display:block;float:left;text-align:center;}
@@ -37,8 +43,11 @@
 .cart-list-box .cart-bar .a-btn{display:inline-block;color:#fff;text-align:center;padding:0px;background:#5cb85c;height:48px;line-height:48px;font-size:18px;vertical-align:top;}
 .cart-list-box .cart-bar .l-btn{width:150px;background:none;color:#666;}
 .cart-list-box .cart-bar .r-btn{width:200px;margin-left:50px;}
-
+/*******购物车列表样式 end********/
 </style>
+<div class="cart-header">
+<div class="cart-title">购物车</div>
+</div>
 <div class="cart-list-box cl">
  <ul class="row list-head cl">
  	<li class="col col-check"><div id="all-selected" class="icon-check"><a href="javascript:;"></a></div>
