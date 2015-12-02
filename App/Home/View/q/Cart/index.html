@@ -113,8 +113,8 @@ $(function() {
         //更新总价
         cartobj.updateTotalPrice();
         //更新数量
-        var cartid=_this.parents('.list-body').find('.icon-check').attr('data-id');
-        cartobj.updateGoodsNum(cartid,v);
+        var cartid = _this.parents('.list-body').find('.icon-check').attr('data-id');
+        cartobj.updateGoodsNum(cartid, v);
     });
     $('.jian').click(function(e) {
         var _this = $(this);
@@ -132,8 +132,8 @@ $(function() {
         //更新总价
         cartobj.updateTotalPrice();
         //更新数量
-        var cartid=_this.parents('.list-body').find('.icon-check').attr('data-id');
-        cartobj.updateGoodsNum(cartid,v);
+        var cartid = _this.parents('.list-body').find('.icon-check').attr('data-id');
+        cartobj.updateGoodsNum(cartid, v);
     });
     //数量改变
     $('.input-num').bind('change', function(event) {
@@ -141,51 +141,77 @@ $(function() {
         var t = _this.val();
         if (t < 1) _this.val(1);
     });
-    window.cartobj={
-    //更新产品数量
-    updateGoodsNum:function(cartid,numb){
-        $.ajax({
-            type:'POST',
-            url:"{:U('Cart/updatenum')}",
-            data:{cart_id:cartid,num:numb},
-            success:function(da){
-                if(da.status==0){
-                    alert('error');
+    window.cartobj = {
+        //更新产品数量
+        updateGoodsNum: function(cartid, numb) {
+            $.ajax({
+                type: 'POST',
+                url: "{:U('Cart/updatenum')}",
+                data: {
+                    cart_id: cartid,
+                    num: numb
+                },
+                success: function(da) {
+                    if (da.status == 0) {
+                        alert('error');
+                    }
                 }
-            }
-        });
-    },
-    //更新购物车总价
-    updateTotalPrice : function() {
-        var t = 0;
-        $('.list-body .col-total').each(function(index) {
-            t += parseFloat($(this).html());
-        });
-        $('#totalprice').html(t);
-    },
-    //删除购物车产品
-    delCartGoods : function(cartid){
-        $.ajax({
-            type:'POST',
-            url:"{:U('Cart/del')}",
-            data:{cart_id:cartid},
-            success:function(da){
-                if(da.status==0){
-                    alert('error');
-                }else{
-                    $('.list-body .icon-check[data-id='+cartid+']').parents('.list-body').remove();
+            });
+        },
+        //更新购物车总价
+        updateTotalPrice: function() {
+            var t = 0;
+            $('.list-body .col-total').each(function(index) {
+                t += parseFloat($(this).html());
+            });
+            $('#totalprice').html(t);
+        },
+        //删除购物车产品
+        delCartGoods: function(cartid) {
+            $.ajax({
+                type: 'POST',
+                url: "{:U('Cart/del')}",
+                data: {
+                    cart_id: cartid
+                },
+                success: function(da) {
+                    if (da.status == 0) {
+                        alert('error');
+                    } else {
+                        $('.list-body .icon-check[data-id=' + cartid + ']').parents('.list-body').remove();
+                    }
                 }
-            }
-        });
-    }
+            });
+        }
     };
 
-
+    window.addToCart=function(){
+        var arg=arguments;
+        if(!(arg[0] && arg[1])){alert('参数不能为空!');return false;}
+        var goodsid=arg[0];
+        var numb=arg[1];
+        var callback=arg[2];
+        $.ajax({
+            type:'POST',
+            url:"{:U('Cart/add')}",
+            data:{goods_id:goodsid,num:numb},
+            success:function(da){
+                if(da.status==1){
+                    ank.msg('添加成功');
+                }else{
+                    ank.msg('添加失败');
+                }
+                da.goods_id=goodsid;
+                da.goods_num=numb;
+                (typeof(callback) === 'function')&&callback(da);
+            }
+        });
+    };
 
     //绑定删除购物车产品按钮
     $('.delcartgoods').click(function(event) {
-        var cartid=$(this).parents('.list-body').find('.icon-check').attr('data-id');
-       cartobj.delCartGoods(cartid);
+        var cartid = $(this).parents('.list-body').find('.icon-check').attr('data-id');
+        cartobj.delCartGoods(cartid);
         return false;
     });
     //初始化总价
