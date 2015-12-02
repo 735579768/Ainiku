@@ -22,26 +22,26 @@
 <block name="script">
 </block>
 <script>
-$(function(){
+$(function() {
 	$("table").resizableColumns({});
 	//判断是不是在iframe中
-	var iframename=self.frameElement;
-	var ifuri=window.location.href;
-	(ifuri=='')&&(ifuri="{:U(CONTROLLER_NAME.'/'.ACTION_NAME)}");
+	var iframename = self.frameElement;
+	var ifuri = window.location.pathname;
+	(ifuri == '/') && (ifuri = "{:U(CONTROLLER_NAME.'/'.ACTION_NAME)}");
 	//ifuri="{:U(CONTROLLER_NAME.'/'.ACTION_NAME)}";
-	if(iframename==null){
-	// 页面不在iframe中时处理
-	if($('#closewest').length<=0){
+	if (iframename == null) {
+		// 页面不在iframe中时处理
+		if ($('#closewest').length <= 0) {
 
-		window.location.href=ifuri+'&mainmenu=true';
+			window.location.href = ifuri + '&mainmenu=true';
 		}
-	
-	}else{
+
+	} else {
 		//页面在iframe中
-		if(ifuri.indexOf()!=-1){
-			window.location.href=ifuri.replace('&mainmenu=true','');
-			}
+		if (ifuri.indexOf() != -1) {
+			window.location.href = ifuri.replace('&mainmenu=true', '');
 		}
+	}
 });
 </script>
 <!--script end-->

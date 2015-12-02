@@ -31,12 +31,12 @@ class CartController extends LoginController {
 	function updatenum(){
 		$resu=M('Cart')->where("uid=".UID.'  and cart_id='.I('cart_id'))
 					   ->save(array(
-							'num'=>I('num')											
+							'num'=>I('num')
 									));
 		if($resu>0){
 			$this->success('ok');
 			}else{
-			$this->error('no');	
+			$this->error('no');
 				}
 		}
 	/**
@@ -64,7 +64,7 @@ class CartController extends LoginController {
 				} else {
 					//未知错误
 					$this->error($model->getError());
-				}		
+				}
 			}else{
 				//购物车中有这个产品
 				$result=$model->save(array(
@@ -80,7 +80,7 @@ class CartController extends LoginController {
 		}else{
 			redirect('/');
 			}
-		
+
 		die();
 		}
     function del(){
@@ -100,6 +100,6 @@ class CartController extends LoginController {
     	  $this->success('回收站已经清空',U('recycle'));
     	}else{
     	  $this->error('操作失败');
-    	}		
+    	}
 		}
 }
