@@ -1,7 +1,7 @@
 <?php
-namespace Admin\Controller;
+namespace Home\Controller;
 if(!defined("ACCESS_ROOT"))die("Invalid access");
-class RegionController extends AdminController {
+class RegionController extends HomeController {
 function index($id=null,$selid=null){
 		$map['parent_id']=$id;
 		$list=M('area')->where($map)->field("area_id,area_name")->order('area_id asc')->select();

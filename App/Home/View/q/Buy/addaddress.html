@@ -1,34 +1,150 @@
 <style type="text/css">
-.address-edit-box{width:300px;}
+.address-edit-box{width:auto;margin: 10px;}
 .address-edit-box textarea:focus,.address-edit-box input:focus{border-color:#ff6700}
-.address-edit-box textarea,.address-edit-box input{display:block;display:block;outline:none;border:solid 1px #e0e0e0;height:30px;line-height:30px;padding:5px 10px;margin-top:10px;width:300px;margin-left:-10px;}
+.address-edit-box textarea,.address-edit-box input{display:block;display:block;outline:none;border:solid 1px #e0e0e0;height:30px;line-height:30px;padding:5px 10px;margin-top:10px;width:300px;}
 .address-edit-box input:hover{border-color:#b0b0b0;}
 .address-edit-box textarea{height:50px;resize:none;}
 .address-edit-box .form-section{position:relative;margin-top:15px;}
-.address-edit-box .form-section  label{background:#fff;height:20px;line-height:20px;position:absolute;left:1px;top:9px;color:#bbb;font-size:14px;}
+.address-edit-box .form-section  label{background:#fff;height:20px;line-height:20px;position:absolute;left:10px;top:9px;color:#bbb;font-size:14px;}
 .address-edit-box .address-btn{margin-top:20px;}
-.address-edit-box .address-btn .btn{padding:6px 11px;width:120px;color:#fff!important;}
+.address-edit-box .address-btn .btn{padding:6px 11px;width:130px;color:#fff!important;}
 .address-edit-box .address-btn .btn-ok{background:#4bbd00;}
 .address-edit-box .address-btn .btn-cancel{background:#C3A200;}
+.form-section select{    padding: 0px 0px 0px 10px;-webkit-appearance:none;-moz-appearance:none;appearance:none;border:solid 1px #e0e0e0;height:38px;line-height:38px;}
+#Provinceconsignee_diqu,
+#cityconsignee_diqu{width:154px;}
+#Provinceconsignee_diqu{display:inline-block;}
+#cityconsignee_diqu{display:inline-block;    margin-left: 10px;}
+#area1consignee_diqu{margin-top: 10px;width: 322px;}
+#diqu-section{}
+#dialog #dialog-con{padding: 0px !important;}
 </style>
 <div class="address-edit-box">
 <div class="form-section">
 <label class="input-label" >姓名</label>
- <input class="auto-label" name="name" value="" data-msg="收货人姓名" placeholder="姓名">
+ <input class="auto-label" name="consignee_name" value="" data-msg="收货人姓名" placeholder="姓名">
  </div>
 
  <div class="form-section">
  <label class="input-label" >手机号</label>
- <input class="auto-label" name="mobile" value="" data-msg="常用手机号" placeholder="手机号">
+ <input class="auto-label" name="consignee_mobile" value="" data-msg="常用手机号" placeholder="手机号">
+ </div>
+ <div class="form-section cl">
+               <style>select.selarea{ width:150px; overflow:hidden;}</style>
+<div id="diqu-section">
+<input type="hidden" id="ssqconsignee_diqu"  name="consignee_diqu"  value="" />
+ <select id="Provinceconsignee_diqu" class="selarea"><option value="0">请选择--</option></select>
+<select id="cityconsignee_diqu" class="selarea"><option value="0">请选择--</option></select>
+<select id="area1consignee_diqu" class="selarea"><option value="0">请选择--</option></select>
+<select id="area11consignee_diqu" class="selarea" style="display:none;"><option value="0">请选择--</option></select>
+</div>
+<script>
+    var arr = $('#ssqconsignee_diqu').val();
+    arr = arr.split(',');
+    $.ajax({
+        type: 'post',
+        url: "{:U('Region/index')}",
+        data: {
+            id: 0,
+            selid: arr[0]
+        },
+        success: function(da) {
+            $('#Provinceconsignee_diqu').html(da);
+            if ($('#Provinceconsignee_diqu').val() != 0) {
+                $('#Provinceconsignee_diqu').change();
+            }
+            setssqconsignee_diqu();
+        }
+    });
+    $('#Provinceconsignee_diqu').change(function(e) {
+        var idd = $(this).val();
+        if (idd != 0) {
+            $.ajax({
+                type: 'post',
+                url: "{:U('Region/index')}",
+                data: {
+                    id: idd,
+                    selid: arr[1]
+                },
+                success: function(da) {
+                    $('#cityconsignee_diqu').html(da);
+                    $('#cityconsignee_diqu').change();
+                    setssqconsignee_diqu();
+                }
+            });
+        } else {
+            $('#cityconsignee_diqu').html('<option value="0">请选择--</option></select>');
+            $('#cityconsignee_diqu').change();
+            setssqconsignee_diqu();
+        }
+    });
+
+    $('#cityconsignee_diqu').change(function(e) {
+        var idd = $(this).val();
+        if (idd != 0) {
+            $.ajax({
+                type: 'post',
+                url: "{:U('Region/index')}",
+                data: {
+                    id: idd,
+                    selid: arr[2]
+                },
+                success: function(da) {
+                    $('#area1consignee_diqu').html(da);
+                    $('#area1consignee_diqu').change();
+                    setssqconsignee_diqu();
+                }
+            });
+        } else {
+            $('#area1consignee_diqu').html('<option value="0">请选择--</option></select>');
+            $('#area1consignee_diqu').change();
+            setssqconsignee_diqu();
+        }
+    });
+    $('#area1consignee_diqu').change(function(e) {
+        var idd = $(this).val();
+        if (idd != 0) {
+            $.ajax({
+                type: 'post',
+                url: "{:U('Region/index')}",
+                data: {
+                    id: idd,
+                    selid: arr[3]
+                },
+                success: function(da) {
+                    $('#area11consignee_diqu').html(da);
+                    $('#area11consignee_diqu').change();
+                    setssqconsignee_diqu();
+                }
+            });
+        } else {
+            $('#area11consignee_diqu').html('<option value="0">请选择--</option></select>');
+            $('#area11consignee_diqu').change();
+            setssqconsignee_diqu();
+        }
+    });
+    $('#area11consignee_diqu').change(function(e) {
+        setssqconsignee_diqu();
+    });
+
+    window.setssqconsignee_diqu = function() {
+        var idd = 'consignee_diqu';
+        var str1 = $('#Province' + idd).val();
+        var str2 = $('#city' + idd).val();
+        var str3 = $('#area1' + idd).val();
+        var str4 = $('#area11' + idd).val();
+        $('#ssq' + idd).val(str1 + ',' + str2 + ',' + str3 + ',' + str4);
+    }
+</script> 
  </div>
  <div class="form-section">
  <label class="input-label">详细地址</label>
- <textarea class="auto-label" name="address" data-msg="详细地址，路名或街道名称，门牌号"  placeholder="详细地址"></textarea>
+ <textarea class="auto-label" name="confignee_detail" data-msg="详细地址，路名或街道名称，门牌号"  placeholder="详细地址"></textarea>
  </div>
 
  <div class="form-section">
  <label class="input-label">邮政编码</label>
- <input class="auto-label" name="youbian" value="aaaa" data-msg="邮政编码" placeholder="邮政编码">
+ <input class="auto-label" name="consignee_youbian" value="aaaa" data-msg="邮政编码" placeholder="邮政编码">
  </div>
  <div class="address-btn">
      <a href="javascript:;" class="btn btn-ok">保存</a>
@@ -43,16 +159,16 @@ $('.auto-label').focus(function(event) {
     _this.css('borderColor', '#ff6700');
     labobj.css('color', '#ff6700');
     //if (_this.val() == '') {
-        labobj.show();
-        _this.attr('placeholder','');
-        labobj.animate({
-                top: -9,
-                fontSize: 12
-            },
-            300,
-            function() {
-              _this.attr('placeholder',ms);
-            });
+    labobj.show();
+    _this.attr('placeholder', '');
+    labobj.animate({
+            top: -9,
+            fontSize: 12
+        },
+        300,
+        function() {
+            _this.attr('placeholder', ms);
+        });
     //}
 });
 $('.auto-label').blur(function(event) {
@@ -62,35 +178,35 @@ $('.auto-label').blur(function(event) {
     _this.css('borderColor', '#e0e0e0');
     labobj.css('color', '#bbb');
     if (_this.val() == '') {
-        _this.attr('placeholder','');
+        _this.attr('placeholder', '');
         labobj.animate({
                 top: 9,
                 fontSize: 14
             },
             300,
             function() {
-                _this.attr('placeholder',labobj.html());
+                _this.attr('placeholder', labobj.html());
             });
     }
 
 
 });
 
-         $('.form-section .auto-label').each(function(index) {
-            var str=$(this).val();
-            if(str!=''){
-                var _this = $(this);
-                var labobj = _this.prev();
-                var ms = _this.attr('data-msg');
-                labobj.css({
-                    color:'#bbb',
-                     top: -9,
-                     fontSize: 12
-                });
-                _this.attr('placeholder',ms);
-                labobj.show();
-                _this.attr('placeholder','');
-            }
+$('.form-section .auto-label').each(function(index) {
+    var str = $(this).val();
+    if (str != '') {
+        var _this = $(this);
+        var labobj = _this.prev();
+        var ms = _this.attr('data-msg');
+        labobj.css({
+            color: '#bbb',
+            top: -9,
+            fontSize: 12
+        });
+        _this.attr('placeholder', ms);
+        labobj.show();
+        _this.attr('placeholder', '');
+    }
 
-        });       
+});
 </script>
