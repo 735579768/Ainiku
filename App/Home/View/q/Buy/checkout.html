@@ -37,46 +37,19 @@
 <div class="sh-box cl">
     <div class="s-address cl">
         <div class="s-title">收货地址</div>
-        <dl class="s-adr selected cl">
-            <dt>赵克立</dt>
+        <volist name="addresslist" id="vo">
+        <dl id="consignee_address{$vo.consignee_address_id}" class="s-adr cl">
+            <dt>{$vo.consignee_name}</dt>
             <dd>
-                <div class="s-mobile">13633719215</div>
+                <div class="s-mobile">{$vo.consignee_mobile}</div>
                 <div class="s-diqu">
-                河南 郑州市 金水区<br>
-                河南省郑州市金水区文化路与北环路交叉口路西瀚海爱特中心1020室</div>
+                {$vo.consignee_diqu|getRegion}<br>
+                {$vo.consignee_detail}</div>
             </dd>
-            <dd class='action'><a href="javascript:;">修改</a></dd>
+            <dd class='action'><a onclick="modAddress({$vo.consignee_address_id})" data-id="{$vo.consignee_address_id}" href="javascript:;">修改</a></dd>
         </dl>
-        <dl class="s-adr cl">
-            <dt>赵克立</dt>
-            <dd>
-                <div class="s-mobile">13633719215</div>
-                <div class="s-diqu">
-                河南 郑州市 金水区<br>
-                河南省郑州市金水区文化路与北环路交叉口路西瀚海爱特中心1020室</div>
-            </dd>
-            <dd class='action'><a href="javascript:;">修改</a></dd>
-        </dl>
-        <dl class="s-adr cl">
-            <dt>赵克立</dt>
-            <dd>
-                <div class="s-mobile">13633719215</div>
-                <div class="s-diqu">
-                河南 郑州市 金水区<br>
-                河南省郑州市金水区文化路与北环路交叉口路西瀚海爱特中心1020室</div>
-            </dd>
-            <dd class='action'><a href="javascript:;">修改</a></dd>
-        </dl>
-        <dl class="s-adr cl">
-            <dt>赵克立</dt>
-            <dd>
-                <div class="s-mobile">13633719215</div>
-                <div class="s-diqu">
-                河南 郑州市 金水区<br>
-                河南省郑州市金水区文化路与北环路交叉口路西瀚海爱特中心1020室</div>
-            </dd>
-            <dd class='action'><a href="javascript:;">修改</a></dd>
-        </dl>
+        </volist>
+
         <dl class="s-adr cl">
             <a id="add-new-address" class="add-new-address" href="javascript:;">添加新地址</a>
         </dl>
@@ -106,21 +79,46 @@ $(function() {
         $.ajax({
             url: "{:U('Buy/addaddress')}",
             type: 'GET',
-            data: {
-                address_id: '1'
-            },
             success: function(da) {
-                ank.msgDialog({
-                    width:350,
-                    height:400,
-                    title:'添加新地址',
-                    content:da.info
-                });
+                if(da.status==1){
+                    ank.msgDialog({
+                        width:350,
+                        height:400,
+                        title:'添加新地址',
+                        content:da.info
+                    });
+                }else{
+                    ank.msg(da.info);
+                }
+
             }
         });
 
 
     });
+    window.modAddress=function(id){
+        $.ajax({
+            url: "{:U('Buy/editaddress')}",
+            type: 'POST',
+            data:{
+                consignee_address_id:id,
+                action:'edit'
+            },
+            success: function(da) {
+                if(da.status==1){
+                    ank.msgDialog({
+                        width:350,
+                        height:400,
+                        title:'修改地址',
+                        content:da.info
+                    });
+                }else{
+                    ank.msg(da.info);
+                }
+
+            }     
+        }); 
+    };
 });
 </script>
 </body>
