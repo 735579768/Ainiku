@@ -54,13 +54,15 @@ $('.auto-label').blur(function(event) {
     _this.css('borderColor', '#e0e0e0');
     labobj.css('color', '#bbb');
     if (_this.val() == '') {
-        _this.attr('placeholder',labobj.html());
+        _this.attr('placeholder','');
         labobj.animate({
                 top: 9,
                 fontSize: 14
             },
             300,
-            function() {});
+            function() {
+                _this.attr('placeholder',labobj.html());
+            });
     }
 });
 </script>
