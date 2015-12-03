@@ -6,6 +6,10 @@
 .address-edit-box textarea{height:50px;resize:none;}
 .address-edit-box .form-section{position:relative;margin-top:15px;}
 .address-edit-box .form-section  label{background:#fff;height:20px;line-height:20px;display:none;position:absolute;left:1px;top:9px;color:#bbb;font-size:14px;}
+.address-edit-box .address-btn{margin-top:20px;}
+.address-edit-box .address-btn .btn{color: #fff!important;}
+.address-edit-box .address-btn .btn-ok{}
+.address-edit-box .address-btn .btn-cancel{}
 </style>
 <div class="address-edit-box">
 <div class="form-section">
@@ -24,7 +28,11 @@
 
  <div class="form-section">
  <label class="input-label">邮政编码</label>
- <input class="auto-label" name="youbian" value="" data-msg="邮政编码" placeholder="邮政编码">
+ <input class="auto-label" name="youbian" value="aaaa" data-msg="邮政编码" placeholder="邮政编码">
+ </div>
+ <div class="address-btn">
+     <a href="javascript:;" class="btn btn-ok">保存</a>
+     <a href="javascript:;" class="btn btn-cancel">取消</a>
  </div>
 </div>
 <script type="text/javascript">
@@ -64,5 +72,12 @@ $('.auto-label').blur(function(event) {
                 _this.attr('placeholder',labobj.html());
             });
     }
+/*    $('.form-section .auto-label').each(function(index, el) {
+        var str=$(this).val();
+        console.log(str);
+        if(str!=''){
+            $(this).focus();
+        }
+    });*/
 });
 </script>
