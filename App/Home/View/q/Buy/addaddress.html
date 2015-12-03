@@ -1,23 +1,22 @@
 <style type="text/css">
-.address-edit-box{width:auto;margin: 10px;}
+.address-edit-box{width:auto;margin:10px;}
 .address-edit-box textarea:focus,.address-edit-box input:focus{border-color:#ff6700}
 .address-edit-box textarea,.address-edit-box input{display:block;display:block;outline:none;border:solid 1px #e0e0e0;height:30px;line-height:30px;padding:5px 10px;margin-top:10px;width:300px;}
 .address-edit-box input:hover{border-color:#b0b0b0;}
-.address-edit-box textarea{height:50px;resize:none;}
+.address-edit-box textarea{height:50px;resize:none;line-height:20px;padding:10px;}
 .address-edit-box .form-section{position:relative;margin-top:15px;}
 .address-edit-box .form-section  label{background:#fff;height:20px;line-height:20px;position:absolute;left:10px;top:9px;color:#bbb;font-size:14px;}
 .address-edit-box .address-btn{margin-top:20px;}
 .address-edit-box .address-btn .btn{padding:6px 11px;width:130px;color:#fff!important;}
 .address-edit-box .address-btn .btn-ok{background:#4bbd00;}
 .address-edit-box .address-btn .btn-cancel{background:#C3A200;}
-.form-section select{    padding: 0px 0px 0px 10px;-webkit-appearance:none;-moz-appearance:none;appearance:none;border:solid 1px #e0e0e0;height:38px;line-height:38px;}
-#Provinceconsignee_diqu,
-#cityconsignee_diqu{width:154px;}
+.form-section select{padding:0px 0px 0px 10px;-webkit-appearance:none;-moz-appearance:none;appearance:none;border:solid 1px #e0e0e0;height:38px;line-height:38px;}
+#Provinceconsignee_diqu,#cityconsignee_diqu{width:154px;}
 #Provinceconsignee_diqu{display:inline-block;}
-#cityconsignee_diqu{display:inline-block;    margin-left: 10px;}
-#area1consignee_diqu{margin-top: 10px;width: 322px;}
+#cityconsignee_diqu{display:inline-block;margin-left:10px;}
+#area1consignee_diqu{margin-top:10px;width:322px;}
 #diqu-section{}
-#dialog #dialog-con{padding: 0px !important;}
+#dialog #dialog-con{padding:0px!important;}
 </style>
 <div class="address-edit-box">
 <div class="form-section">
@@ -233,11 +232,21 @@ window.saveAddress=function(){
         },
         success:function(da){
             if(da.status==1){
-                //修改地址块信息
-                var o=$('#consignee_address'+da.data.address_id);
-                o.find('dt').html(da.data.name);
-                o.find('.s-mobile').html(da.data.mobile);
-                o.find('.s-diqu').html(da.data.diqu);
+                if(da.action=='add'){
+                    //添加地址块信息
+                    var shtml='<dl onclick="selectedAddress(this);" id="consignee_address{consignee_address_id}" class="s-adr cl"><dt>{consignee_name}</dt><dd><div class="s-mobile">{consignee_mobile}</div><div class="s-diqu">{consignee_diqu}</div></dd><dd class="action"><a onclick="modAddress({consignee_address_id})" data-id="{consignee_address_id}" href="javascript:;">修改</a></dd></dl>';
+                    shtml=shtml.replace('{consignee_address_id}',da.data.addressid);
+                    shtml=shtml.replace('{consignee_name}',da.data.name);
+                    shtml=shtml.replace('{consignee_diqu}',da.data.diqu);
+                    shtml=shtml.replace('{consignee_mobile}',da.data.mobile);
+                    $('#add-new-address').parent().before(shtml);
+                }else{
+                    //修改地址块信息
+                    var o=$('#consignee_address'+da.data.address_id);
+                    o.find('dt').html(da.data.name);
+                    o.find('.s-mobile').html(da.data.mobile);
+                    o.find('.s-diqu').html(da.data.diqu);    
+                }
                 $('#dialog-wrap').remove();
             }else{
                 ank.msg(da.info);

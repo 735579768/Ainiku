@@ -15,13 +15,13 @@
 .sh-box{margin:0px auto;margin-top:10px;width:1100px;}
 .sh-box .s-title{text-align:left;font-size:20px;margin-bottom:20px;}
 .sh-box .s-address{padding:20px;background:#fff;font-size:14px;}
-.sh-box .s-address .s-adr{cursor:pointer;float:left;width:220px;height:160px;padding:10px 12px;border:1px solid #e0e0e0;margin-left:15px;margin-top:20px;}
+.sh-box .s-address .s-adr{position:relative;cursor:pointer;float:left;width:220px;height:160px;padding:10px 12px;border:1px solid #e0e0e0;margin-left:15px;margin-top:20px;}
 .sh-box .s-address .s-adr .add-new-address{text-align:center;color:#b0b0b0;display:block;line-height:160px;height:160px;font-size:16px;}
 .sh-box .s-address .s-adr:hover{border-color:#b0b0b0;}
 .sh-box .s-address .s-adr.selected{border-color:#ff6700;}
 .sh-box .s-address .s-adr dt{margin:0 0 10px;line-height:30px;font-size:18px;color:#333;}
 .sh-box .s-address .s-adr .s-mobile,.sh-box .s-address .s-adr .s-diqu{margin:0;line-height:22px;color:#757575;}
-.sh-box .s-address .s-adr .action{margin-top:10px;height:20px;position:relative;}
+.sh-box .s-address .s-adr .action{position:absolute;width:240px;left:0px;bottom:10px;height:20px;}
 .sh-box .s-address .s-adr .action a{height:20px;line-height:20px;position:absolute;right:10px;top:0px;color:#ff6700;display:none;}
 .sh-box .s-address .s-adr.selected .action a{display:block;}
 .sh-box .cart-bar{height:80px;padding-left:20px;background:#fff;margin-top:20px;line-height:20px;}
@@ -38,7 +38,7 @@
     <div class="s-address cl">
         <div class="s-title">收货地址</div>
         <volist name="addresslist" id="vo">
-        <dl id="consignee_address{$vo.consignee_address_id}" class="s-adr cl">
+        <dl onclick="selectedAddress(this);" id="consignee_address{$vo.consignee_address_id}" class="s-adr cl">
             <dt>{$vo.consignee_name}</dt>
             <dd>
                 <div class="s-mobile">{$vo.consignee_mobile}</div>
@@ -69,12 +69,13 @@
 </div>
 <script type="text/javascript">
 $(function() {
-    $('.s-adr').click(function(event) {
-        if ($(this).find('.add-new-address').length === 0) {
+    window.selectedAddress=function(obj){
+        var _this=$(obj);
+        if (_this.find('.add-new-address').length === 0) {
             $('.s-adr').removeClass('selected');
-            $(this).addClass('selected');
+            _this.addClass('selected');
         }
-    });
+    };
     $('#add-new-address').click(function(event) {
         $.ajax({
             url: "{:U('Buy/addaddress')}",
