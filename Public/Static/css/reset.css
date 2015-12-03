@@ -95,7 +95,7 @@ select.form-control{display:inline-block;width:auto;height:30px;}
 .flbc:hover{background-position:0 -16px;}
 .bm_h{background:#fdfdfd;border-bottom:1px solid #ededed;}
 #dialog-con{padding:10px 20px;}
-#dialog h2{font:14px/1.5 microsoft yahei;line-height:31px;white-space:nowrap;overflow:hidden;padding:0 10px;height:31px; font-weight:bolder;}
+#dialog h2{font:14px/1.5 microsoft yahei;line-height:31px;white-space:nowrap;overflow:hidden;padding:0 10px;height:31px; }
 .bm_h{border-bottom:1px solid #CDCDCD;}
 /*---滚动条默认显示样式--*/
 ::-webkit-scrollbar-thumb{background-color:#018EE8;background:rgba(0,0,0,.3);-webkit-border-radius:6px;-moz-border-radius:6px;-ms-border-radius:6px;-o-border-radius:6px;border-radius:6px;}

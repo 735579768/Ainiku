@@ -1,0 +1,66 @@
+<style type="text/css">
+.address-edit-box{width:300px;}
+.address-edit-box textarea:focus,.address-edit-box input:focus{border-color:#ff6700}
+.address-edit-box textarea,.address-edit-box input{display:block;display:block;outline:none;border:solid 1px #e0e0e0;height:30px;line-height:30px;padding:5px 10px;margin-top:10px;width:300px;margin-left:-10px;}
+.address-edit-box input:hover{border-color:#b0b0b0;}
+.address-edit-box textarea{height:50px;resize:none;}
+.address-edit-box .form-section{position:relative;margin-top:15px;}
+.address-edit-box .form-section  label{background:#fff;height:20px;line-height:20px;display:none;position:absolute;left:1px;top:9px;color:#bbb;font-size:14px;}
+</style>
+<div class="address-edit-box">
+<div class="form-section">
+<label class="input-label" >姓名</label>
+ <input class="auto-label" name="name" value="" data-msg="收货人姓名" placeholder="姓名">
+ </div>
+
+ <div class="form-section">
+ <label class="input-label" >手机号</label>
+ <input class="auto-label" name="mobile" value="" data-msg="常用手机号" placeholder="手机号">
+ </div>
+ <div class="form-section">
+ <label class="input-label">详细地址</label>
+ <textarea class="auto-label" name="address" data-msg="详细地址，路名或街道名称，门牌号"  placeholder="详细地址"></textarea>
+ </div>
+
+ <div class="form-section">
+ <label class="input-label">邮政编码</label>
+ <input class="auto-label" name="youbian" value="" data-msg="邮政编码" placeholder="邮政编码">
+ </div>
+</div>
+<script type="text/javascript">
+$('.auto-label').focus(function(event) {
+    var _this = $(this);
+    var labobj = _this.prev();
+    var ms = _this.attr('data-msg');
+    _this.css('borderColor', '#ff6700');
+    labobj.css('color', '#ff6700');
+    if (_this.val() == '') {
+        labobj.show();
+        _this.attr('placeholder','');
+        labobj.animate({
+                top: -9,
+                fontSize: 12
+            },
+            300,
+            function() {
+              _this.attr('placeholder',ms);
+            });
+    }
+});
+$('.auto-label').blur(function(event) {
+    var _this = $(this);
+    var labobj = _this.prev();
+    var ms = _this.attr('data-msg');
+    _this.css('borderColor', '#e0e0e0');
+    labobj.css('color', '#bbb');
+    if (_this.val() == '') {
+        _this.attr('placeholder',labobj.html());
+        labobj.animate({
+                top: 9,
+                fontSize: 14
+            },
+            300,
+            function() {});
+    }
+});
+</script>
