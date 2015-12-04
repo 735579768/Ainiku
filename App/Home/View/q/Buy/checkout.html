@@ -41,7 +41,7 @@
     <div class="s-address cl">
         <div class="s-title">收货地址</div>
         <volist name="addresslist" id="vo">
-        <dl onclick="selectedAddress(this);" id="consignee_address{$vo.consignee_address_id}" class="s-adr cl">
+        <dl onclick="buyobj.selectedAddress(this);" id="consignee_address{$vo.consignee_address_id}" class="s-adr cl">
             <dt>{$vo.consignee_name}</dt>
             <dd>
                 <div class="s-mobile">{$vo.consignee_mobile}</div>
@@ -50,14 +50,14 @@
                 {$vo.consignee_detail}</div>
             </dd>
             <dd class='action'>
-            <a class="delbtn" onclick="delAddress({$vo.consignee_address_id})" data-id="{$vo.consignee_address_id}" href="javascript:;">删除</a>
-            <a class="modbtn" onclick="modAddress({$vo.consignee_address_id})" data-id="{$vo.consignee_address_id}" href="javascript:;">修改</a>
+            <a class="delbtn" onclick="buyobj.delAddress({$vo.consignee_address_id})" data-id="{$vo.consignee_address_id}" href="javascript:;">删除</a>
+            <a class="modbtn" onclick="buyobj.modAddress({$vo.consignee_address_id})" data-id="{$vo.consignee_address_id}" href="javascript:;">修改</a>
             </dd>
         </dl>
         </volist>
 
         <dl class="s-adr cl">
-            <a id="add-new-address" class="add-new-address" href="javascript:;">添加新地址</a>
+            <a id="add-new-address" onclick="buyobj.addNewAddress();" class="add-new-address" href="javascript:;">添加新地址</a>
         </dl>
     </div>
 
@@ -73,86 +73,15 @@
      </div>
 
 </div>
+<ank:insert type="js" name="buy" />
 <script type="text/javascript">
 $(function() {
-    window.selectedAddress=function(obj){
-        var _this=$(obj);
-        if (_this.find('.add-new-address').length === 0) {
-            $('.s-adr').removeClass('selected');
-            _this.addClass('selected');
-        }
-    };
-    $('#add-new-address').click(function(event) {
-        $.ajax({
-            url: "{:U('Buy/addaddress')}",
-            type: 'GET',
-            success: function(da) {
-                if(da.status==1){
-                    ank.msgDialog({
-                        width:350,
-                        height:400,
-                        title:'添加新地址',
-                        content:da.info
-                    });
-                }else{
-                    ank.msg(da.info);
-                }
-
-            }
-        });
-
-
-    });
-    window.modAddress=function(id){
-        $.ajax({
-            url: "{:U('Buy/editaddress')}",
-            type: 'POST',
-            data:{
-                consignee_address_id:id,
-                action:'edit'
-            },
-            success: function(da) {
-                if(da.status==1){
-                    ank.msgDialog({
-                        width:350,
-                        height:400,
-                        title:'修改地址',
-                        content:da.info
-                    });
-                }else{
-                    ank.msg(da.info);
-                }
-
-            }     
-        }); 
-    };
-    window.delAddress = function(id) {
-        ank.msgDialog({
-            title:'删除提示',
-            content:'确定要删除吗?',
-            btn:true,
-            ok:function(){
-               $.ajax({
-                    url: "{:U('Buy/deladdress')}",
-                    type: 'POST',
-                    data: {
-                        consignee_address_id: id,
-                        action: 'del'
-                    },
-                    success: function(da) {
-                        if (da.status == 1) {
-                            $('#consignee_address' + id).remove();
-                        }
-                        ank.msg(da.info);
-                    }
-                });
-            },
-            cancel:function(){
-
-            }
-        });
- 
-    };
+//传入地址初始化
+buyobj.url={
+    saveAddressurl:"{:U('Buy/addaddress')}",
+    editAddressurl:"{:U('Buy/editaddress')}",
+    delAddressurl:"{:U('Buy/deladdress')}"
+};
 });
 </script>
 </body>
