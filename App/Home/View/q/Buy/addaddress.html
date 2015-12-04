@@ -235,11 +235,12 @@ window.saveAddress=function(){
                 if(da.action=='add'){
                     //添加地址块信息
                     var shtml='<dl onclick="selectedAddress(this);" id="consignee_address{consignee_address_id}" class="s-adr cl"><dt>{consignee_name}</dt><dd><div class="s-mobile">{consignee_mobile}</div><div class="s-diqu">{consignee_diqu}</div></dd><dd class="action"><a onclick="modAddress({consignee_address_id})" data-id="{consignee_address_id}" href="javascript:;">修改</a></dd></dl>';
-                    shtml=shtml.replace('{consignee_address_id}',da.data.addressid);
-                    shtml=shtml.replace('{consignee_name}',da.data.name);
-                    shtml=shtml.replace('{consignee_diqu}',da.data.diqu);
-                    shtml=shtml.replace('{consignee_mobile}',da.data.mobile);
+                    shtml=shtml.replace(/\{consignee_address_id\}/g,da.data.address_id);
+                    shtml=shtml.replace(/\{consignee_name\}/g,da.data.name);
+                    shtml=shtml.replace(/\{consignee_diqu\}/g,da.data.diqu);
+                    shtml=shtml.replace(/\{consignee_mobile\}/g,da.data.mobile);
                     $('#add-new-address').parent().before(shtml);
+                    $('#consignee_address'+da.data.address_id).click();
                 }else{
                     //修改地址块信息
                     var o=$('#consignee_address'+da.data.address_id);

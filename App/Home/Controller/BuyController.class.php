@@ -12,7 +12,7 @@ class BuyController extends LoginController {
  }
  public function addaddress(){
  	if(IS_POST){
- 		$model=M('ConsigneeAddress');
+ 		$model=D('ConsigneeAddress');
  		if($model->create()){
  			$data['address_id']=$model->consignee_address_id;
  			$data['name']=$model->consignee_name;
@@ -23,6 +23,7 @@ class BuyController extends LoginController {
 	 			$model->update_time=NEW_TIME;
 	 			$result=$model->add();
 	 			if($result>0){
+	 				$data['address_id']=$result;
 	 				$this->ajaxreturn(array(
 	 							status=>1,
 	 							action=>'add',
@@ -65,8 +66,8 @@ class BuyController extends LoginController {
 	 	$this->assign('info',$info);
 	 	$this->success($this->fetch('addaddress'));		
  	}
- 	if(IS_POST){
-		$model=M('ConsigneeAddress');
+/* 	if(IS_POST){
+		$model=D('ConsigneeAddress');
 		if($model->create()){
 			//$model->create_time=NEW_TIME;
  			$model->update_time=NEW_TIME;
@@ -79,7 +80,18 @@ class BuyController extends LoginController {
  		}else{
  			$this->error($model->geterror());
  		}
- 	}
+ 	}*/
 
+ }
+ public  function deladdress(){
+	$consignee_address_id=I('consignee_address_id');
+	$map['consignee_address_id']=array('in',"$consignee_address_id");
+	//$map['uid']=UID;
+ 	$result=M('ConsigneeAddress')->where($map)->delete();
+ 	if($result>0){
+ 		$this->success('删除成功');
+ 	}else{
+ 		$this->error('删除失败');
+ 	}
  }
 }

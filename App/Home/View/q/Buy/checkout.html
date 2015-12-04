@@ -20,9 +20,12 @@
 .sh-box .s-address .s-adr:hover{border-color:#b0b0b0;}
 .sh-box .s-address .s-adr.selected{border-color:#ff6700;}
 .sh-box .s-address .s-adr dt{margin:0 0 10px;line-height:30px;font-size:18px;color:#333;}
-.sh-box .s-address .s-adr .s-mobile,.sh-box .s-address .s-adr .s-diqu{margin:0;line-height:22px;color:#757575;}
+.sh-box .s-address .s-adr .s-mobile,.sh-box .s-address .s-adr .s-diqu{margin:0;line-height:20px;color:#757575;}
+.sh-box .s-address .s-adr .s-diqu{word-break:break-all;height: 80px; overflow: hidden;text-overflow: ellipsis;}
 .sh-box .s-address .s-adr .action{position:absolute;width:240px;left:0px;bottom:10px;height:20px;}
-.sh-box .s-address .s-adr .action a{height:20px;line-height:20px;position:absolute;right:10px;top:0px;color:#ff6700;display:none;}
+.sh-box .s-address .s-adr .action a{height:20px;line-height:20px;color:#ff6700;display:none;}
+.sh-box .s-address .s-adr .action .modbtn{float: right;margin-right: 10px;}
+.sh-box .s-address .s-adr .action .delbtn{ float: left; margin-left: 10px;}
 .sh-box .s-address .s-adr.selected .action a{display:block;}
 .sh-box .cart-bar{height:80px;padding-left:20px;background:#fff;margin-top:20px;line-height:20px;}
 .sh-box .cart-bar .section-left{float:left;margin-top:20px;}
@@ -46,7 +49,10 @@
                 {$vo.consignee_diqu|getRegion}<br>
                 {$vo.consignee_detail}</div>
             </dd>
-            <dd class='action'><a onclick="modAddress({$vo.consignee_address_id})" data-id="{$vo.consignee_address_id}" href="javascript:;">修改</a></dd>
+            <dd class='action'>
+            <a class="delbtn" onclick="delAddress({$vo.consignee_address_id})" data-id="{$vo.consignee_address_id}" href="javascript:;">删除</a>
+            <a class="modbtn" onclick="modAddress({$vo.consignee_address_id})" data-id="{$vo.consignee_address_id}" href="javascript:;">修改</a>
+            </dd>
         </dl>
         </volist>
 
@@ -119,6 +125,33 @@ $(function() {
 
             }     
         }); 
+    };
+    window.delAddress = function(id) {
+        ank.msgDialog({
+            title:'删除提示',
+            content:'确定要删除吗?',
+            btn:true,
+            ok:function(){
+               $.ajax({
+                    url: "{:U('Buy/deladdress')}",
+                    type: 'POST',
+                    data: {
+                        consignee_address_id: id,
+                        action: 'del'
+                    },
+                    success: function(da) {
+                        if (da.status == 1) {
+                            $('#consignee_address' + id).remove();
+                        }
+                        ank.msg(da.info);
+                    }
+                });
+            },
+            cancel:function(){
+
+            }
+        });
+ 
     };
 });
 </script>
