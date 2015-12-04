@@ -1,0 +1,78 @@
+/*******购物车头样式 start********/
+.cart-header{width:1100px;margin:0px auto;height:100px;background:#fff;border-bottom:2px solid #ff6700;}
+.cart-header .cart-title{font-size:30px;display:inline-block;width:200px;height:100px;line-height:100px;text-align:center;color:#000;}
+
+/*******购物车头样式 end********/
+
+/*******购物车列表样式 start********/
+.cart-list-box{font-size:14px;margin:0px auto;width:1100px;margin-top:10px;}
+.cart-list-box .list-body{border-top:solid 1px #e2e2e2;}
+.cart-list-box .list-body .col{height:90px;line-height:90px;}
+.cart-list-box .row{width:100%;display:block;background:#fff;}
+.cart-list-box .col{height:70px;line-height:70px;display:block;float:left;text-align:center;}
+.cart-list-box .col-check{width:100px;text-align:left;}
+.cart-list-box .col-check .icon-check{margin-left:40px;}
+.cart-list-box .col-img{width:120px;}
+.cart-list-box .col-img img{width:80px;height:80px;vertical-align:middle;}
+.cart-list-box .col-title{width:300px;text-align:left;}
+.cart-list-box .col-price{width:150px;}
+.cart-list-box .col-num{width:150px;}
+.cart-list-box .cart-num,.cart-list-box .cart-num .input-num,.cart-list-box .cart-num span{height:40px;line-height:40px;float:left;}
+.cart-list-box .cart-num{border:solid 1px #E0E0E0;width:150px;margin-top:19px;}
+.cart-list-box .cart-num span{cursor:pointer;font-size:25px;display:inline-block;width:40px;}
+.cart-list-box .cart-num span:hover{background-color:#e0e0e0;}
+.cart-list-box .cart-num .input-num{text-align:center;vertical-align:top;border:none;width:70px;display:inline-block;}
+.cart-list-box .col-total{width:150px;}
+.cart-list-box .col-action{width:130px;}
+.cart-list-box .list-body .col-price,.cart-list-box .list-body .col-total{color:#ff6700;}
+.cart-list-box .cart-bar{background:#fff;margin-top:20px;height:50px;line-height:50px;}
+.cart-list-box .cart-bar .section-left{float:left;}
+.cart-list-box .cart-bar .section-right{float:right;}
+.cart-list-box .cart-bar .totalprice{color:#ff6700;}
+.cart-list-box .cart-bar .totalprice .price{font-size:30px;}
+.cart-list-box .cart-bar .a-btn{display:inline-block;color:#fff;text-align:center;padding:0px;background:#5cb85c;height:48px;line-height:48px;font-size:18px;vertical-align:top;}
+.cart-list-box .cart-bar .l-btn{width:150px;background:none;color:#666;}
+.cart-list-box .cart-bar .r-btn{width:200px;margin-left:50px;}
+
+/*******添加配送地址表单样式 start********/
+.address-edit-box{width:auto;margin:10px;}
+.address-edit-box textarea:focus,.address-edit-box input:focus{border-color:#ff6700}
+.address-edit-box textarea,.address-edit-box input{display:block;display:block;outline:none;border:solid 1px #e0e0e0;height:30px;line-height:30px;padding:5px 10px;margin-top:10px;width:300px;}
+.address-edit-box input:hover{border-color:#b0b0b0;}
+.address-edit-box textarea{height:50px;resize:none;line-height:20px;padding:10px;}
+.address-edit-box .form-section{position:relative;margin-top:15px;}
+.address-edit-box .form-section  label{background:#fff;height:20px;line-height:20px;position:absolute;left:10px;top:9px;color:#bbb;font-size:14px;}
+.address-edit-box .address-btn{margin-top:20px;}
+.address-edit-box .address-btn .btn{padding:6px 11px;width:130px;color:#fff!important;}
+.address-edit-box .address-btn .btn-ok{background:#4bbd00;}
+.address-edit-box .address-btn .btn-cancel{background:#C3A200;}
+.form-section select{padding:0px 0px 0px 10px;-webkit-appearance:none;-moz-appearance:none;appearance:none;border:solid 1px #e0e0e0;height:38px;line-height:38px;}
+#Provinceconsignee_diqu,#cityconsignee_diqu{width:154px;}
+#Provinceconsignee_diqu{display:inline-block;}
+#cityconsignee_diqu{display:inline-block;margin-left:10px;}
+#area1consignee_diqu{margin-top:10px;width:322px;}
+#diqu-section{}
+#dialog #dialog-con{padding:0px!important;}
+
+/************配送地址页面*****************/
+.sh-box{margin:0px auto;margin-top:10px;width:1100px;}
+.sh-box .s-title{text-align:left;font-size:20px;margin-bottom:20px;}
+.sh-box .s-address{padding:20px;background:#fff;font-size:14px;}
+.sh-box .s-address .s-adr{position:relative;cursor:pointer;float:left;width:220px;height:160px;padding:10px 12px;border:1px solid #e0e0e0;margin-left:15px;margin-top:20px;}
+.sh-box .s-address .s-adr .add-new-address{text-align:center;color:#b0b0b0;display:block;line-height:160px;height:160px;font-size:16px;}
+.sh-box .s-address .s-adr:hover{border-color:#b0b0b0;}
+.sh-box .s-address .s-adr.selected{border-color:#ff6700;}
+.sh-box .s-address .s-adr dt{margin:0 0 10px;line-height:30px;font-size:18px;color:#333;}
+.sh-box .s-address .s-adr .s-mobile,.sh-box .s-address .s-adr .s-diqu{margin:0;line-height:20px;color:#757575;}
+.sh-box .s-address .s-adr .s-diqu{word-break:break-all;height: 80px; overflow: hidden;text-overflow: ellipsis;}
+.sh-box .s-address .s-adr .action{position:absolute;width:240px;left:0px;bottom:10px;height:20px;}
+.sh-box .s-address .s-adr .action a{height:20px;line-height:20px;color:#ff6700;display:none;}
+.sh-box .s-address .s-adr .action .modbtn{float: right;margin-right: 10px;}
+.sh-box .s-address .s-adr .action .delbtn{ float: left; margin-left: 10px;}
+.sh-box .s-address .s-adr.selected .action a{display:block;}
+.sh-box .cart-bar{height:80px;padding-left:20px;background:#fff;margin-top:20px;line-height:20px;}
+.sh-box .cart-bar .section-left{float:left;margin-top:20px;}
+.sh-box .cart-bar .section-right{float:right;margin-top:16px;}
+.sh-box .cart-bar .a-btn{display:inline-block;color:#fff;text-align:center;padding:0px;background:#5cb85c;height:48px;line-height:48px;font-size:18px;vertical-align:top;}
+.sh-box .cart-bar .l-btn{width:150px;background:none;color:#666;}
+.sh-box .cart-bar .r-btn{width:200px;margin-left:50px;margin-right:20px;}
