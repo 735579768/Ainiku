@@ -52,7 +52,7 @@
 #cityconsignee_diqu{display:inline-block;margin-left:10px;}
 #area1consignee_diqu{margin-top:10px;width:322px;}
 #diqu-section{}
-#dialog #dialog-con{padding:0px!important;}
+#dialog #dialog-con{}
 
 /************配送地址页面*****************/
 .sh-box{margin:0px auto;width:1100px;}
