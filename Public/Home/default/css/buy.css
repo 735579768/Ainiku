@@ -1,11 +1,11 @@
 /*******购物车头样式 start********/
-.cart-header{width:1100px;margin:0px auto;height:100px;background:#fff;border-bottom:2px solid #ff6700;}
+.cart-header{width:1100px;margin:0px auto;height:100px;background:#fff;margin-bottom:10px;border-bottom:2px solid #ff6700;}
 .cart-header .cart-title{font-size:30px;display:inline-block;width:200px;height:100px;line-height:100px;text-align:center;color:#000;}
 
 /*******购物车头样式 end********/
 
 /*******购物车列表样式 start********/
-.cart-list-box{font-size:14px;margin:0px auto;width:1100px;margin-top:10px;}
+.cart-list-box{font-size:14px;margin:0px auto;width:1100px;}
 .cart-list-box .list-body{border-top:solid 1px #e2e2e2;}
 .cart-list-box .list-body .col{height:90px;line-height:90px;}
 .cart-list-box .row{width:100%;display:block;background:#fff;}
@@ -55,7 +55,7 @@
 #dialog #dialog-con{padding:0px!important;}
 
 /************配送地址页面*****************/
-.sh-box{margin:0px auto;margin-top:10px;width:1100px;}
+.sh-box{margin:0px auto;width:1100px;}
 .sh-box .s-title{text-align:left;font-size:20px;margin-bottom:20px;}
 .sh-box .s-address{padding:20px;background:#fff;font-size:14px;}
 .sh-box .s-address .s-adr{position:relative;cursor:pointer;float:left;width:220px;height:160px;padding:10px 12px;border:1px solid #e0e0e0;margin-left:15px;margin-top:20px;}
@@ -64,11 +64,11 @@
 .sh-box .s-address .s-adr.selected{border-color:#ff6700;}
 .sh-box .s-address .s-adr dt{margin:0 0 10px;line-height:30px;font-size:18px;color:#333;}
 .sh-box .s-address .s-adr .s-mobile,.sh-box .s-address .s-adr .s-diqu{margin:0;line-height:20px;color:#757575;}
-.sh-box .s-address .s-adr .s-diqu{word-break:break-all;height: 80px; overflow: hidden;text-overflow: ellipsis;}
+.sh-box .s-address .s-adr .s-diqu{word-break:break-all;height:80px;overflow:hidden;text-overflow:ellipsis;}
 .sh-box .s-address .s-adr .action{position:absolute;width:240px;left:0px;bottom:10px;height:20px;}
 .sh-box .s-address .s-adr .action a{height:20px;line-height:20px;color:#ff6700;display:none;}
-.sh-box .s-address .s-adr .action .modbtn{float: right;margin-right: 10px;}
-.sh-box .s-address .s-adr .action .delbtn{ float: left; margin-left: 10px;}
+.sh-box .s-address .s-adr .action .modbtn{float:right;margin-right:10px;}
+.sh-box .s-address .s-adr .action .delbtn{float:left;margin-left:10px;}
 .sh-box .s-address .s-adr.selected .action a{display:block;}
 .sh-box .cart-bar{height:80px;padding-left:20px;background:#fff;margin-top:20px;line-height:20px;}
 .sh-box .cart-bar .section-left{float:left;margin-top:20px;}
@@ -76,3 +76,21 @@
 .sh-box .cart-bar .a-btn{display:inline-block;color:#fff;text-align:center;padding:0px;background:#5cb85c;height:48px;line-height:48px;font-size:18px;vertical-align:top;}
 .sh-box .cart-bar .l-btn{width:150px;background:none;color:#666;}
 .sh-box .cart-bar .r-btn{width:200px;margin-left:50px;margin-right:20px;}
+
+/**订单支付页面样式***/
+.order-box{margin:0px auto;width:1100px;}
+.order-info{background:#fff;padding:30px 10px;}
+.order-info .order-title{text-align:center;margin-bottom:10px;font-size:24px;font-weight:normal;line-height:36px;}
+.order-info .order-line{display:block;width:80%;height:1px;background:#ccc;margin:0px auto;}
+.order-info .order-detail{font-size:14px;margin:10px 0px 0px 110px;}
+.order-info .order-detail .label,
+.order-info .order-detail .label-con{height: 30px; line-height: 30px;}
+.order-info .order-detail .label{float:left;width: 100px;}
+.order-info .order-detail .label-con{margin-left: 100px;}
+.order-box .cart-bar{height:80px;padding-left:20px;background:#fff;margin-top:20px;line-height:20px;}
+.order-box .cart-bar .section-left{float:left;line-height: 80px;font-size:14px;}
+.order-box .cart-bar .section-right{float:right;margin-top:16px;}
+.order-box .cart-bar .a-btn{display:inline-block;color:#fff;text-align:center;padding:0px;background:#5cb85c;height:48px;line-height:48px;font-size:18px;vertical-align:top;}
+.order-box .cart-bar .l-btn{width:150px;background:none;color:#666;}
+.order-box .cart-bar .r-btn{width:200px;margin-left:50px;margin-right:20px;}
+.order-box .cart-bar .totalprice{     color: #ff6700;   font-size: 24px;}
