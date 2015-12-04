@@ -30,7 +30,8 @@ class LoginController extends HomeController {
         '__CSS__'=> __ROOT__ .'/Public/'.MODULE_NAME.'/'.C('DEFAULT_THEME').'/css',
         '__JS__' => __ROOT__ .'/Public/'.MODULE_NAME.'/'.C('DEFAULT_THEME').'/js',
     	));
-		defined('UID') or define('UID',auto_login());
+        define('UID',1);
+//		defined('UID') or define('UID',auto_login());
 //		if(!UID){
 //			//没有登陆的情况
 //			if(IS_AJAX){

@@ -15,7 +15,7 @@
     <div class="s-address cl">
         <div class="s-title">收货地址</div>
         <volist name="addresslist" id="vo">
-        <dl onclick="buyobj.selectedAddress(this);" id="consignee_address{$vo.consignee_address_id}" class="s-adr cl">
+        <dl data-id="{$vo.consignee_address_id}" onclick="buyobj.selectedAddress(this);" id="consignee_address{$vo.consignee_address_id}" class="s-adr cl">
             <dt>{$vo.consignee_name}</dt>
             <dd>
                 <div class="s-mobile">{$vo.consignee_mobile}</div>
@@ -36,13 +36,12 @@
     </div>
 
      <div class="cart-bar cl">
-    <div class="section-left">
-        赵孜恒 187****0040<br>
-河南 郑州市 管城回族区 郑州市管城回族区航海东路经开第十七大街海马汽车公司
+    <div id="total_address" class="section-left">
+       
     </div>
      <div class="section-right">
-     <input id="cartidstr" type="hidden" value="" />
-     <a href="javascript:;" class="a-btn r-btn">去结算</a>
+     <input id="selected_adress" type="hidden" value="" />
+     <a href="javascript:;" onclick="buyobj.submitOrder();" class="a-btn r-btn">提交订单</a>
      </div>
      </div>
 
@@ -54,7 +53,8 @@ $(function() {
 buyobj.url={
     saveAddressurl:"{:U('Buy/addaddress')}",
     editAddressurl:"{:U('Buy/editaddress')}",
-    delAddressurl:"{:U('Buy/deladdress')}"
+    delAddressurl:"{:U('Buy/deladdress')}",
+    submitorder:"{:U('Buy/submitorder')}"
 };
 });
 </script>

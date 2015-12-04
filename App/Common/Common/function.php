@@ -387,6 +387,22 @@ function createorder(){
 		return substr(date("YmdHis").mt_rand(1000,9999),2);
 	}
 /**
+ * 得到新订单号
+ * @return  string
+ */
+function createOrderSn(){
+    /* 选择一个随机的方案 */
+    while(true){
+			mt_srand((double) microtime() * 1000000);
+			$ordernum=date('ymd') . str_pad(mt_rand(1000000, 9999999), 5, '0', STR_PAD_LEFT);	
+			//查询数据库中是不是有这个记录
+			$info=M('Order')->where("order_sn=$ordernum")->find();
+			if(empty($info)){
+					return $ordernum;
+				}
+		}
+}
+/**
  * 字符串截取，支持中文和其他编码
  * @static
  * @access public

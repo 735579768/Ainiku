@@ -33,7 +33,7 @@ class CartController extends LoginController {
 		$cart_id=I('cart_id');
 		$selected=I('selected');
 		$map=array();
-		//$map['uid']=UID;
+		$map['uid']=UID;
 		if(empty($cart_id)){
 			//如果id是空的话就把所有都清空
 			$selected=0;
@@ -51,7 +51,7 @@ class CartController extends LoginController {
 		$cart_id=intval(I('cart_id'));
 		empty($cart_id)&&$this->error('no');
 		empty($num)&&$this->error('no');
-		//$map['uid']=UID;
+		$map['uid']=UID;
 		$map['cart_id']=$cart_id;
 		$resu=M('Cart')->where($map)->save(array('num'=>$num,'update_time'=>NOW_TIME));
 		if($resu>0){
@@ -109,7 +109,7 @@ class CartController extends LoginController {
 		if(empty($cart_id))$this->error('请先进行选择');
 		$model=M('Cart');
 		$map['cart_id']=array('in',"$cart_id");
-		//$map['uid']=UID;
+		$map['uid']=UID;
     	$result=$model->where($map)->delete();
     	if($result>0){
     	  $this->success('已经从购物车删除');

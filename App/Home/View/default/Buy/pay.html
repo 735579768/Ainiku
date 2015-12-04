@@ -13,38 +13,25 @@
 </div>
 <div class="order-box cl">
 	<div class="order-info">
-		<div class="order-title">订单提交成功！去付款咯～成功付款后，7天发货</div>
+		<div class="order-title">订单提交成功！去付款咯～</div>
 		<div class="order-line"></div>
 		<ul class="order-detail">
 			<li>
 				<div class="label">订单号:</div>
-				<div class="label-con">1151204132420718</div>
+				<div class="label-con">{$info.order_sn}</div>
 			</li>
 			<li>
 				<div class="label">收货信息：</div>
-				<div class="label-con">赵孜恒 187****0040   河南  郑州市  管城回族区  郑州市管城回族区航海东路经开第十七大街海马汽车公司</div>
+				<div class="label-con">{$info.consignee_name}&nbsp;&nbsp;&nbsp; {$info.consignee_mobile} &nbsp;&nbsp;&nbsp;  {$info.consignee_diqu|getRegion}
+				&nbsp;&nbsp;&nbsp;
+				{$info.consignee_detail} </div>
 			</li>
-			<li>
-				<div class="label">商品名称：</div>
-				<div class="label-con">小米手机4c 全网通版 白色 16GB</div>
-			</li>
-			<li>
-				<div class="label">商品名称：</div>
-				<div class="label-con">小米手机4c 全网通版 白色 16GB</div>
-			</li>
-			<li>
-				<div class="label">商品名称：</div>
-				<div class="label-con">小米手机4c 全网通版 白色 16GB</div>
-			</li>
-			<li>
-				<div class="label">商品名称：</div>
-				<div class="label-con">小米手机4c 全网通版 白色 16GB</div>
-			</li>
+
 		</ul>
 	</div>
      <div class="cart-bar cl">
     <div class="section-left">
-       订单总额: <em class="totalprice">10000000</em> 元
+       订单总额: <em class="totalprice">{$info.order_total}</em> 元
     </div>
      <div class="section-right">
      <input id="cartidstr" type="hidden" value="" />

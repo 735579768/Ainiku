@@ -26,6 +26,7 @@ $(function() {
 				}
 				var strid = cartobj.setCartidStr();
 				cartobj.updateCheck(strid, 1);
+				cartobj.updateTotalPrice();
 
 			});
 			$('.check-item').click(function(event) {
@@ -39,6 +40,7 @@ $(function() {
 					cartobj.updateCheck(_this.attr('data-id'), 1);
 				}
 				cartobj.setCartidStr();
+				cartobj.updateTotalPrice();
 			});
 			//数量改变
 			$('.input-num').bind('change', function(event) {
@@ -104,7 +106,10 @@ $(function() {
 		updateTotalPrice: function() {
 			var t = 0;
 			$('.list-body .col-total').each(function(index) {
-				t += parseFloat($(this).html());
+				if($(this).parents('.list-body').find('.icon-check-selected').length>0){
+					t += parseFloat($(this).html());
+				}
+				
 			});
 			$('#totalprice').html(t);
 		},

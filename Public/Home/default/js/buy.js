@@ -6,7 +6,8 @@ $(function() {
 		url:{
 			saveAddressurl:'',
 			editAddressurl:'',
-			delAddressurl:''
+			delAddressurl:'',
+			submitorder:''
 		},
 		
 		//初始化添加地址框的焦点提示
@@ -98,7 +99,7 @@ $(function() {
 					if (da.status == 1) {
 						if (da.action == 'add') {
 							//添加地址块信息
-							var shtml = '<dl onclick="buyobj.selectedAddress(this);" id="consignee_address{consignee_address_id}" class="s-adr cl"><dt>{consignee_name}</dt><dd><div class="s-mobile">{consignee_mobile}</div><div class="s-diqu">{consignee_diqu}</div></dd><dd class="action"><a class="delbtn" onclick="buyobj.delAddress({consignee_address_id})" data-id="{consignee_address_id}" href="javascript:;">删除</a><a class="modbtn" onclick="buyobj.modAddress({consignee_address_id})" data-id="{consignee_address_id}" href="javascript:;">修改</a></dd></dl>';
+							var shtml = '<dl data-id="{consignee_address_id}" onclick="buyobj.selectedAddress(this);" id="consignee_address{consignee_address_id}" class="s-adr cl"><dt>{consignee_name}</dt><dd><div class="s-mobile">{consignee_mobile}</div><div class="s-diqu">{consignee_diqu}</div></dd><dd class="action"><a class="delbtn" onclick="buyobj.delAddress({consignee_address_id})" data-id="{consignee_address_id}" href="javascript:;">删除</a><a class="modbtn" onclick="buyobj.modAddress({consignee_address_id})" data-id="{consignee_address_id}" href="javascript:;">修改</a></dd></dl>';
 							shtml = shtml.replace(/\{consignee_address_id\}/g, da.data.address_id);
 							shtml = shtml.replace(/\{consignee_name\}/g, da.data.name);
 							shtml = shtml.replace(/\{consignee_diqu\}/g, da.data.diqu);
@@ -132,6 +133,13 @@ $(function() {
 				$('.s-adr').removeClass('selected');
 				_this.addClass('selected');
 			}
+			//设置下面地址
+			var name=_this.find('dt').html();
+			var mobile=_this.find('.s-mobile').html();
+			var diqu=_this.find('.s-diqu').html();
+			diqu=diqu.replace(/<br>/,'&nbsp;&nbsp;&nbsp;');
+			$('#total_address').html(name+'&nbsp;&nbsp;&nbsp;'+mobile+'<br>'+diqu);
+			$('#selected_adress').val(_this.attr('data-id'));
 		},
 		//添加配送新地址
 		addNewAddress: function() {
@@ -206,6 +214,27 @@ $(function() {
 				}
 			});
 
+		},
+		//提交订单
+		submitOrder:function(){
+			var adid=$('#selected_adress').val();
+			if(adid==''){
+				ank.msg('请选择一个配送地址!');
+				return false;
+			}
+			var _this=this;
+			$.ajax({
+				type:'POST',
+				url:_this.url.submitorder,
+				data:{consignee_address_id:adid},
+				success:function(da){
+					ank.msg(da.info);
+					if(da.url!=''){
+						window.location.href=da.url;
+					}
+				}
+			});
 		}
+
 	};
 });
