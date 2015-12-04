@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <title>无标题文档</title>
-<ank:insert name="reset,common,index" />
+<ank:insert name="reset,common,index,buy" />
 <ank:insert name="jquery-1.9.1.min,ainiku,functions,ajax,jquery.SuperSlide.2.1.1" type="js"  />
 </head>
 
 <body>
 <style>
-/*******购物车头样式 start********/
+/* ******购物车头样式 start*******
 .cart-header{width:1100px;margin:0px auto;height:100px;background:#fff;border-bottom:2px solid #ff6700;}
 .cart-header .cart-title{font-size:30px;display:inline-block;width:200px;height:100px;line-height:100px;text-align:center;color:#000;}
 
-/*******购物车头样式 end********/
+******购物车头样式 end*******
 
-/*******购物车列表样式 start********/
+******购物车列表样式 start*******
 .cart-list-box{font-size:14px;margin:0px auto;width:1100px;margin-top:10px;}
 .cart-list-box .list-body{border-top:solid 1px #e2e2e2;}
 .cart-list-box .list-body .col{height:90px;line-height:90px;}
@@ -45,7 +45,7 @@
 .cart-list-box .cart-bar .l-btn{width:150px;background:none;color:#666;}
 .cart-list-box .cart-bar .r-btn{width:200px;margin-left:50px;}
 
-/*******购物车列表样式 end********/
+******购物车列表样式 end******* */
 </style>
 <div class="cart-header">
 <div class="cart-title">购物车</div>
@@ -64,7 +64,7 @@
  <volist name="_list" id="vo">
  <ul class="row list-body cl">
  	<li class="col col-check">
-    <div class="icon-check check-item" data-id="{$vo.cart_id}"><a href="javascript:;"></a></div>
+    <div id="check_{$vo.cart_id}" class="icon-check check-item <eq name="vo.selected" value="1">icon-check-selected</eq>" data-id="{$vo.cart_id}"><a href="javascript:;"></a></div>
     </li>
     <li class="col col-img"><img src="{$vo.pic|getPicture='thumbpath','80_80'}" /></li>
     <li class="col col-title el"><a title="{$vo.title}" href="javascript:;">{$vo.title}</a></li>
@@ -98,9 +98,11 @@ $(function() {
     cartobj.url = {
         updategoodsnum: "{:U('Cart/updatenum')}",
         addcartgoods: "{:U('Cart/add')}",
-        delcartgoods: "{:U('Cart/del')}"
+        delcartgoods: "{:U('Cart/del')}",
+        setcheck:"{:U('Cart/setcheck')}"
     };
     cartobj.init();
+    cartobj.setCartidStr();
 });
 </script>
 </body>

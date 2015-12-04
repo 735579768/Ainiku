@@ -6,7 +6,8 @@ $(function() {
 		url: {
 			updategoodsnum: '',
 			addcartgoods: '',
-			delcartgoods: ''
+			delcartgoods: '',
+			setcheck:''
 		},
 		//全部选中或取消
 		init: function() {
@@ -17,16 +18,25 @@ $(function() {
 				if (ha) {
 					_this.removeClass('icon-check-selected');
 					_li.removeClass('icon-check-selected');
+					
 				} else {
 					_this.addClass('icon-check-selected');
 					_li.addClass('icon-check-selected');
 				}
-				cartobj.setCartidStr();
+				var strid=cartobj.setCartidStr();
+				cartobj.updateCheck(strid,1);
+				
 			});
 			$('.check-item').click(function(event) {
 				var _this = $(this);
 				var ha = _this.hasClass('icon-check-selected');
-				ha ? _this.removeClass('icon-check-selected') : _this.addClass('icon-check-selected');
+				if(ha){
+				_this.removeClass('icon-check-selected') ;
+				cartobj.updateCheck(_this.attr('data-id'),0);
+				}else{
+				_this.addClass('icon-check-selected');
+				cartobj.updateCheck(_this.attr('data-id'),1);
+				}
 				cartobj.setCartidStr();
 			});
 			//数量改变
@@ -117,12 +127,28 @@ $(function() {
 		},
 		//更新选中的产品id
 		setCartidStr: function() {
+			
 			var strid = '';
 			$('.check-item.icon-check-selected').each(function(index, element) {
 				var str = $(this).attr('data-id');
 				(str != '') && ((strid === '') ? strid = str : (strid += ',' + str));
 			});
 			$('#cartidstr').val(strid);
+			return strid;
+		},
+		//更新购物车中产品选中状态
+		updateCheck:function(cartid,sel){
+			var _this=this;
+			$.ajax({
+				url: _this.url.setcheck,
+				type: 'POST',
+				data: {cart_id:cartid,selected:sel},
+				success:function(da){
+					if(da.status==0){
+						ank.msg(da.info);
+					}
+				}
+			});
 		},
 		//添加产品到购物车
 		addToCart: function() {

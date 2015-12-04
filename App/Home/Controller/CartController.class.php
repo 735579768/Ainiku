@@ -27,6 +27,23 @@ class CartController extends LoginController {
 		die($resu);
 		}
 	/**
+	 *更新当前产品选中状态
+	 */
+	function setcheck(){
+		$cart_id=I('cart_id');
+		$selected=I('selected');
+		$map=array();
+		//$map['uid']=UID;
+		if(empty($cart_id)){
+			//如果id是空的话就把所有都清空
+			$selected=0;
+		}else{
+			$map['cart_id']=array('in',"$cart_id");
+		}
+		$result=M('Cart')->where($map)->setField('selected',$selected);
+		$this->success('设置成功');
+	}
+	/**
 	 *更新当前用户产品的数量
 	 */
 	function updatenum(){
