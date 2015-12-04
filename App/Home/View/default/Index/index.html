@@ -1,81 +1,34 @@
 <extend name="Public/base" />
-<block name="content">
- <ank:get table="GoodsCat" field="ico" id="1" pic='true'/> 
- <article:pagelist  rows="20" catid="65"  name="vo">
- {$key+1}->{$vo.title}
- </article:pagelist>
- 
- <article:page rows="20" catid="65" />
- 
- <ank:nav name="vo">
-<a href="{$vo.url}">{$vo.title}</a>
- </ank:nav>
- 
- 
-  <ank:link name="vo">
- <a href="{$vo.url}">{$vo.title}</a>
- </ank:link>
- 
- 
- <article:single id="18" name="data">
-标题:{$data.title}文章
- </article:single>
- 
- 
- <ank:module posid="3" name="vo">
- 
- 这个是模块：{$vo.title}
- </ank:module>
- 
- {:UP('Alipay/pay')}
- 
- {:W('Modulepos/index',array('3'))}
- 
- <ank:query name="vo" sql="select * from __DB_PREFIX__menu">
- {$vo.title}
- </ank:query>
- 
- 
- <select id="city1"><option>请选择--</option></select>
-<select id="city2"><option>请选择--</option></select>
-<select id="city3"><option>请选择--</option></select>
- <img src="{:UP('Erweima/create',array('content'=>'http://www.zhaokeli.com'))}"/>
-<script>
-$(function(){
-	$.ajax({
-	type:'post',
-	url:"{:U('Region/index')}",
-	data:{id:1},
-	success: function(da){
-		$('#city1').html(da);
-		$('#city1').click();
-		}
-	});	
-	
-	$('#city1').click(function(e) {
-        var idd=$(this).val();
-			$.ajax({
-				type:'post',
-				url:"{:U('Region/index')}",
-				data:{id:idd,},
-				success: function(da){
-					$('#city2').html(da);
-					$('#city2').click();
-					}
-			});
-    });
-	
-	$('#city2').click(function(e) {
-        var idd=$(this).val();
-			$.ajax({
-				type:'post',
-				url:"{:U('Region/index')}",
-				data:{id:idd,},
-				success: function(da){
-					$('#city3').html(da);
-					}
-			});
-    });
-});
-</script>
- </block>
+<block name="left">
+<img src="{:UP('Erweima/create')}" />
+<div class="left">
+<include file="Module/huandeng" />
+  <dl class="list w-list new-list bd">
+	<dt class="l-title"><a href="javascript:;">最新说说</a></dt>
+   <article:list rows="20">
+    <dd class="l-item"><a target="_blank" href="{:U('detail/'.$vo['article_id'])}" title="{$vo.title}"><span class="xinico">♥</span>{$vo.title}</a> <span class="date">{$vo.create_time|date='Y/m/d',###}</span></dd>
+  </article:list>
+</dl>
+{:W('Arclist/textlist',array(85,10))}
+{:W('Arclist/textlist',array(86,10))}
+{:W('Arclist/upimglist',array(84,12))}
+{:W('Arclist/textlist',array(89,10))}
+{:W('Arclist/textlist',array(90,10))}
+{:W('Arclist/upimglist',array(84,12))}
+{:W('Arclist/textlist',array(89,10))}
+{:W('Arclist/textlist',array(90,10))}
+</div>
+</block>
+<block name="right">
+<div class="right">
+{:W('Arclist/rtextlist',array(86,9))}
+
+{:W('Arclist/rtextlist',array(84,10))}
+
+ <ul class="rimglist cl">
+  <article:list position="3" rows="20">
+  <li class="rimglistitem bd"><a target="_blank" href="{:U('detail/'.$vo['article_id'])}"><img class="preload"  src="{$vo.pic|getPicture='thumbpath','90_80'}" alt="{$vo.title}"  title="{$vo.title}"  /></a><a href="{:U('detail/'.$vo['article_id'])}" target="_blank" title="{$vo.title}" class="imgtitle">{$vo.title}</a></li>
+  </article:list>
+ </ul>
+ </div>
+</block>

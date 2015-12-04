@@ -94,4 +94,7 @@ class BuyController extends LoginController {
  		$this->error('删除失败');
  	}
  }
+ public function pay(){
+ 	$this->display();
+ }
 }

@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>填写订单信息</title>
+<ank:insert name="reset,common,index,buy" />
+<ank:insert name="jquery-1.9.1.min,ainiku,functions,ajax,jquery.SuperSlide.2.1.1" type="js"  />
+</head>
+
+<body>
+<div class="cart-header">
+<div class="cart-title">确认订单</div>
+</div>
+<div class="sh-box cl">
+    <div class="s-address cl">
+        <div class="s-title">收货地址</div>
+        <volist name="addresslist" id="vo">
+        <dl onclick="buyobj.selectedAddress(this);" id="consignee_address{$vo.consignee_address_id}" class="s-adr cl">
+            <dt>{$vo.consignee_name}</dt>
+            <dd>
+                <div class="s-mobile">{$vo.consignee_mobile}</div>
+                <div class="s-diqu">
+                {$vo.consignee_diqu|getRegion}<br>
+                {$vo.consignee_detail}</div>
+            </dd>
+            <dd class='action'>
+            <a class="delbtn" onclick="buyobj.delAddress({$vo.consignee_address_id})" data-id="{$vo.consignee_address_id}" href="javascript:;">删除</a>
+            <a class="modbtn" onclick="buyobj.modAddress({$vo.consignee_address_id})" data-id="{$vo.consignee_address_id}" href="javascript:;">修改</a>
+            </dd>
+        </dl>
+        </volist>
+
+        <dl class="s-adr cl">
+            <a id="add-new-address" onclick="buyobj.addNewAddress();" class="add-new-address" href="javascript:;">添加新地址</a>
+        </dl>
+    </div>
+
+     <div class="cart-bar cl">
+    <div class="section-left">
+        赵孜恒 187****0040<br>
+河南 郑州市 管城回族区 郑州市管城回族区航海东路经开第十七大街海马汽车公司
+    </div>
+     <div class="section-right">
+     <input id="cartidstr" type="hidden" value="" />
+     <a href="javascript:;" class="a-btn r-btn">去结算</a>
+     </div>
+     </div>
+
+</div>
+<ank:insert type="js" name="buy" />
+<script type="text/javascript">
+$(function() {
+//传入地址初始化
+buyobj.url={
+    saveAddressurl:"{:U('Buy/addaddress')}",
+    editAddressurl:"{:U('Buy/editaddress')}",
+    delAddressurl:"{:U('Buy/deladdress')}"
+};
+});
+</script>
+</body>
+</html>

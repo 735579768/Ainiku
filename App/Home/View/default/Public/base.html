@@ -3,16 +3,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <block name="css">
-<link href="__CSS__/index.css" type="text/css" rel="stylesheet" />
+<ank:insert name="reset,common,index" />
 </block>
 
 <block name="headerscript">
-<script src="__JS__/jquery-1.9.1.min.js" type="text/javascript" ></script>
+<ank:insert name="jquery-1.9.1.min,ainiku,functions,ajax,jquery.SuperSlide.2.1.1" type="js"  />
 </block>
 <block name="meta">
 <title><notempty name="info">{$info.title}_</notempty><notempty name="category"><notempty name="category.meta_title">{$category.meta_title}_<else />{$category.title}_</notempty></notempty>{:C('WEB_SITE_TITLE')}</title>
-<meta name="keywords" content="<notempty name="category">{$category.meta_keywords},</notempty><notempty name="info">{$info.seo_keywords},</notempty>{:C('WEB_SITE_KEYWORD')}" />
-<meta name="description" content="<notempty name="category">{$category.meta_descr},</notempty><notempty name="info">{$info.seo_descr},</notempty>{:C('WEB_SITE_DESCRIPTION')}" />
+<meta name="keywords" content="<notempty name="category.meta_keywords">{$category.meta_keywords},</notempty><notempty name="info.seo_keywords">{$info.seo_keywords},</notempty>{:C('WEB_SITE_KEYWORD')}" />
+<meta name="description" content="<notempty name="category.meta_descr">{$category.meta_descr},</notempty>
+<notempty name="arcinfo"><notempty name="arcinfo.seo_descr">{$info.seo_descr},<else/>{$arcinfo.content|removeHTML=0,100}</notempty></notempty>
+{:C('WEB_SITE_DESCRIPTION')}" />
 </block>
 </head>
 
@@ -21,20 +23,40 @@
 	<include file="Public/header" />
 </block>
 <div class="container">
-<block name="left">
-	<include file="Public/left" />
+<notempty name="category">
+{:W('Arclist/upimglist',array($category['category_id'],16))}
+<else/>
+{:W('Arclist/upimglist',array(84,16))}
+</notempty>
+<block name="body">
+
 </block>
+
+
+
+<block name="left">
+<div class="left">
+<include file="Public/left" />
+</div>
+</block>
+
+
 
 <block name="right">
-	<include file="Public/right" />
+<div class="right">
+<include file="Public/right" />
+</div>
 </block>
 
+
+<include file="Module/footerimglist" />
+</div>
 <block name="footer">
 	<include file="Public/footer" />
 </block>
-</div>
+
 <block name="footerscript">
-<script src="__JS__/init.js" type="text/javascript" ></script>
+<ank:insert name="init,jquery.scrload" type="js"  />
 </block>
 </body>
 </html>
