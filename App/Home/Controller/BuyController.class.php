@@ -19,8 +19,8 @@ class BuyController extends LoginController {
  			$data['mobile']=$model->consignee_mobile;
  			$data['diqu']=getRegion($model->consignee_diqu).'<br>'.$model->consignee_detail;
  			if(empty($model->consignee_address_id)){
-	 			$model->create_time=NEW_TIME;
-	 			$model->update_time=NEW_TIME;
+	 			//$model->create_time=NOW_TIME;
+	 			//$model->update_time=NOW_TIME;
 	 			$result=$model->add();
 	 			if($result>0){
 	 				$data['address_id']=$result;
@@ -34,7 +34,7 @@ class BuyController extends LoginController {
 	 				$this->error('添加失败');
 	 			}
  			}else{
-	 			$model->update_time=NEW_TIME;
+	 			//$model->update_time=NOW_TIME;
 	 			$result=$model->save();
 	 			if($result>0){
 	 				$this->ajaxreturn(array(
