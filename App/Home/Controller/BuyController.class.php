@@ -126,6 +126,7 @@ class BuyController extends LoginController {
 						'uid'=>UID,
 						'num'=>$num,
 						'price'=>$price,
+						'total'=>$num*$price,
 						'order_id'=>0,
 						'create_time'=>NOW_TIME
 					);
@@ -142,7 +143,7 @@ class BuyController extends LoginController {
 			$data['order_total']=$order_total;
 			$data['consignee_name']=$info['consignee_name'];
 			$data['consignee_mobile']=$info['consignee_mobile'];
-			$data['consignee_city']=$info['consignee_mobile'];
+			$data['consignee_diqu']=getRegion($info['consignee_diqu']);
 			$data['consignee_detail']=$info['consignee_detail'];
 			$data['youbian']=$info['consignee_youbian'];
 			$data['order_status']=1;
@@ -179,8 +180,8 @@ class BuyController extends LoginController {
  public function pay(){
  	$order_id=I('order_id');
  	$verify=F('__ORDERSUCCESS__'.$order_id);
- 	//F('__ORDERSUCCESS__'.$order_id,null);
- 	//($verify!='true')&&redirect('/');
+ 	F('__ORDERSUCCESS__'.$order_id,null);
+ 	($verify!='true')&&redirect('/');
  	$info=M('Order')->find($order_id);
  	$this->assign('info',$info);
  	$this->display();

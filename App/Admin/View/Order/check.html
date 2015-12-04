@@ -37,7 +37,7 @@
 
 <tr>
 <td class="tdr">收货人城市</td>
-<td class="tdl">{$info.consignee_diqu|getRegion}</td>
+<td class="tdl">{$info.consignee_diqu}</td>
 <td class="tdr">发货时间</td>
 <td class="tdl">{$info.fahuo_time|time_format}</td>
 </tr>
@@ -88,9 +88,9 @@
 <notempty name="vo.pic">
 <div class="imgbox" _src="{$vo.pic|getPicture=###,'thumbpath'}" ><span class="wrapimg"></span></div></notempty>
 </td>
-<td>{$vo.price}</td>
+<td>{$vo.price}元</td>
 <td>{$vo.num}</td>
-<td>{$vo.total}</td>
+<td>{$vo.total}元</td>
 </tr>
 </volist>
   </tr>
