@@ -38,9 +38,9 @@ class CartController extends LoginController {
 		$map['cart_id']=$cart_id;
 		$resu=M('Cart')->where($map)->save(array('num'=>$num,'update_time'=>NOW_TIME));
 		if($resu>0){
-			$this->success('ok');
+			$this->success('更新成功');
 			}else{
-			$this->error('no');
+			$this->error('没有更改');
 				}
 		}
 	/**

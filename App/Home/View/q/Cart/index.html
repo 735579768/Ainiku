@@ -71,14 +71,14 @@
     <li class="col col-price">{$vo.price}元</li>
     <li class="col col-num">
    	  <div class="cart-num">
-        <span class="jian">-</span>
+        <span onclick="cartobj.jian(this);" class="jian">-</span>
         <input class="input-num" autocomplete="off" name="num" value="{$vo.num}" />
-        <span class="jia">+</span>
+        <span onclick="cartobj.jia(this);" class="jia">+</span>
         </div>
     </li>
     <li class="col col-total">{$vo['price']*$vo['num']}元</li>
     <li class="col col-action">
-    <a class="delcartgoods" href="javascript:;">删除</a></li>
+    <a class="delcartgoods" onclick="cartobj.delListCartGoods(this);" href="javascript:;">删除</a></li>
  </ul>
  </volist>
  <div class="cart-bar cl">
@@ -92,9 +92,16 @@
  </div>
  </div>
 </div>
+<ank:insert type="js" name='cart' />
 <script>
 $(function() {
-    //全部选中或取消
+    cartobj.url={
+            updategoodsnum:"{:U('Cart/updatenum')}",
+            addcartgoods: "{:U('Cart/add')}",
+            delcartgoods:"{:U('Cart/del')}"
+        };
+    cartobj.init();
+ /*   //全部选中或取消
     $('#all-selected').click(function(event) {
         var _this = $(this);
         var _li = $('.check-item');
@@ -236,9 +243,8 @@ $(function() {
         var cartid = $(this).parents('.list-body').find('.icon-check').attr('data-id');
         cartobj.delCartGoods(cartid);
         return false;
-    });
-    //初始化总价
-    cartobj.updateTotalPrice();
+    });*/
+
 });
 </script>
 </body>
