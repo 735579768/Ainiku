@@ -88,7 +88,7 @@
  <div class="section-right">
  <span class="totalprice">合计（不含运费）：<em id="totalprice" class="price"></em>元 </span>
  <input id="cartidstr" type="hidden" value="" />
- <a href="javascript:;" class="a-btn r-btn">去结算</a>
+ <a href="javascript:;" onclick="cartobj.checkOut();" class="a-btn r-btn">去结算</a>
  </div>
  </div>
 </div>
@@ -99,7 +99,8 @@ $(function() {
         updategoodsnum: "{:U('Cart/updatenum')}",
         addcartgoods: "{:U('Cart/add')}",
         delcartgoods: "{:U('Cart/del')}",
-        setcheck:"{:U('Cart/setcheck')}"
+        setcheck:"{:U('Cart/setcheck')}",
+        checkout:"{:U('Buy/checkout')}"
     };
     cartobj.init();
     cartobj.setCartidStr();

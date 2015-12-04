@@ -7,7 +7,8 @@ $(function() {
 			updategoodsnum: '',
 			addcartgoods: '',
 			delcartgoods: '',
-			setcheck:''
+			setcheck: '',
+			checkout:''
 		},
 		//全部选中或取消
 		init: function() {
@@ -18,24 +19,24 @@ $(function() {
 				if (ha) {
 					_this.removeClass('icon-check-selected');
 					_li.removeClass('icon-check-selected');
-					
+
 				} else {
 					_this.addClass('icon-check-selected');
 					_li.addClass('icon-check-selected');
 				}
-				var strid=cartobj.setCartidStr();
-				cartobj.updateCheck(strid,1);
-				
+				var strid = cartobj.setCartidStr();
+				cartobj.updateCheck(strid, 1);
+
 			});
 			$('.check-item').click(function(event) {
 				var _this = $(this);
 				var ha = _this.hasClass('icon-check-selected');
-				if(ha){
-				_this.removeClass('icon-check-selected') ;
-				cartobj.updateCheck(_this.attr('data-id'),0);
-				}else{
-				_this.addClass('icon-check-selected');
-				cartobj.updateCheck(_this.attr('data-id'),1);
+				if (ha) {
+					_this.removeClass('icon-check-selected');
+					cartobj.updateCheck(_this.attr('data-id'), 0);
+				} else {
+					_this.addClass('icon-check-selected');
+					cartobj.updateCheck(_this.attr('data-id'), 1);
 				}
 				cartobj.setCartidStr();
 			});
@@ -127,7 +128,7 @@ $(function() {
 		},
 		//更新选中的产品id
 		setCartidStr: function() {
-			
+
 			var strid = '';
 			$('.check-item.icon-check-selected').each(function(index, element) {
 				var str = $(this).attr('data-id');
@@ -137,14 +138,17 @@ $(function() {
 			return strid;
 		},
 		//更新购物车中产品选中状态
-		updateCheck:function(cartid,sel){
-			var _this=this;
+		updateCheck: function(cartid, sel) {
+			var _this = this;
 			$.ajax({
 				url: _this.url.setcheck,
 				type: 'POST',
-				data: {cart_id:cartid,selected:sel},
-				success:function(da){
-					if(da.status==0){
+				data: {
+					cart_id: cartid,
+					selected: sel
+				},
+				success: function(da) {
+					if (da.status == 0) {
 						ank.msg(da.info);
 					}
 				}
@@ -199,6 +203,15 @@ $(function() {
 			});
 
 
+		},
+		//购物车结算按钮
+		checkOut:function(){
+			var strid=$('#cartidstr').val();
+			if(strid==''){
+				ank.msg('请选择产品!');
+				return false;
+			}
+			window.location.href=this.url.checkout;
 		}
 	};
 });
