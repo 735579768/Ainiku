@@ -72,6 +72,8 @@ class AlipayPlugin extends \Plugins\Plugin{
 						'order'=>$order,//单号
 						'ordername'=>$ordername,
 						'money'=>$money,//交易金额
+						'return_url'=>C('WEBDOMIN').C('return_url'),
+						'notify_url'=>C('WEBDOMIN').C('notify_url')
 						//必填				
 					);
 			$alipayconf=array_merge($alipayconf,$conf);
@@ -122,9 +124,7 @@ class AlipayPlugin extends \Plugins\Plugin{
 	      	'account'=>I('post.ALIPAYUNAME'),	//账号
 	        'appid'=>I('post.ALIPAYSAFEID'),		//验证key
 	        'appkey'=>I('post.ALIPAYVERIFY'),	//验证密钥
-			 'api'=>I('post.ALIPAYAPI'),					//接口类型
-			 'return_url'=>I('post.return_url'),
-			 'notify_url'=>I('post.notify_url')
+			 'api'=>I('post.ALIPAYAPI')		//接口类型
 	      );
  	     $model=M('Addons');
         $result= $model->where("mark='Alipay'")->save(array('param'=>json_encode($data)));	  	

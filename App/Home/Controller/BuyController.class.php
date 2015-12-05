@@ -218,7 +218,21 @@ class BuyController extends LoginController {
  				'data'=>$data
  		));
  }
+ //支付结果后台通知
  public function dopayok(){
+ 	//支付宝通知
+	//计算得出通知验证结果
+	$alipayNotify = new \Ainiku\Alipay\AlipayNotify($alipay_config);
+	$verify_result = $alipayNotify->verifyNotify();
+	if($verify_result) {
+		//验证成功后把信息添加到你的数据库
+		$order_sn = $_POST['out_trade_no'];//商户订单号
+		$trade_no = $_POST['trade_no'];//支付宝交易号
+		$trade_status = $_POST['trade_status'];//交易状态//各个状态请查看api或插件下面的示例处理函数
+	  //设置为已经支付
+ 	 $info=M('Order')->where("order_sn=$order_sn")->setField('order_status',1);
+	}
+	exit();
+  }
 
- }
 }
