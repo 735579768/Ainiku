@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <title>支付订单</title>
 <ank:insert name="reset,common,index,buy" />
-<ank:insert name="jquery-1.9.1.min,ainiku,functions,ajax,jquery.SuperSlide.2.1.1" type="js"  />
+<ank:insert name="jquery-1.9.1.min,buy,ainiku,functions,ajax,jquery.SuperSlide.2.1.1" type="js"  />
 </head>
 
 <body>
@@ -29,19 +29,34 @@
 
 		</ul>
 	</div>
+   <div class="s-address order-goodslist">
+    <div class="s-title">订单详情</div>
+    <div class="recart"><a href="{:U('Cart/index')}">返回购物车></a></div>
+    <ul class="cartlist cl">
+    <volist name="_list" id="vo">
+        <li class="cl">
+        <img src="{$vo.pic|getPicture='thumbpath','50_50'}">
+        <a href="{:U('Goods/'.$vo['goods_id'])}" target="_blank" class="z-title">{$vo.title}</a>
+        <div class="pricecolor z-price">{$vo.price}元 X {$vo.num}</div>
+        </li>
+    </volist>
+    </ul>
+    </div>
+
+
      <div class="cart-bar cl">
     <div class="section-left">
        订单总额: <em class="totalprice">{$info.order_total}</em> 元
     </div>
      <div class="section-right">
      <input id="cartidstr" type="hidden" value="" />
-     <a href="javascript:;" class="a-btn r-btn">去支付</a>
+     <a href="javascript:;" onclick="buyobj.dopay({$info.order_id});" class="a-btn r-btn">去支付</a>
      </div>
      </div>
 </div>
 <script>
 $(function() {
-
+buyobj.url={dopay:"{:U('Buy/dopay')}"}
 });
 </script>
 </body>

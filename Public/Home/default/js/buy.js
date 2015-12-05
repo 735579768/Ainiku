@@ -7,7 +7,8 @@ $(function() {
 			saveAddressurl:'',
 			editAddressurl:'',
 			delAddressurl:'',
-			submitorder:''
+			submitorder:'',
+			dopay:''
 		},
 		
 		//初始化添加地址框的焦点提示
@@ -177,7 +178,7 @@ $(function() {
 					if (da.status == 1) {
 						ank.msgDialog({
 							width: 350,
-							height: 400,
+							height: 450,
 							title: '修改地址',
 							content: da.info
 						});
@@ -240,6 +241,41 @@ $(function() {
 					}
 				}
 			});
+		},
+		//去支付
+		dopay:function(orderid){
+			if(orderid==''){
+				ank.msg('支付参数错误!');
+			}
+			var _this=this;
+			$.ajax({
+				type:'POST',
+				url:_this.url.dopay,
+				data:{order_id:orderid},
+				success:function(da){
+					if(da.status==1){
+						$('body').append('<div id="zhifucontainer">'+da.data+'</div>');
+						$('#zhifucontainer').remove();
+						ank.msgDialog({
+								title:'支付订单',
+								content:da.info,
+								btn:true,
+								oktitle:'支付完成',
+								canceltitle:'支付失败',
+								ok:function(){
+
+								},
+								cancel:function(){
+
+								}
+						});
+					}else{
+						ank.msg(da.info);
+					}
+
+				}
+			});
+
 		}
 
 	};

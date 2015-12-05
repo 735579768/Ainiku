@@ -40,21 +40,24 @@ class AlipayPlugin extends \Plugins\Plugin{
 		//实现支付功能
 	public function dopay($money=null,$order=null,$ordername=null){
 		if(IS_POST){
-				$money=doubleval(I('money'));
-				$order=I('order');
-				$ordername=I('ordername');
+				empty($money) && $money=doubleval(I('money'));
+				empty($order) && $order=I('order');
+				empty($ordername) && $ordername=I('ordername');
+				//$money=100;
+				//$order='1512051222437';
+				//$ordername='1512051222437';
 				if(empty($order)){
 						$this->error('请输入单号');
 						}
 				if(empty($ordername)){
 						$this->error('请输入单号名称');
-						}						
+						}
 				if(empty($money)||!is_numeric($money) || $money<0){
 						$this->error('输入的金额不合法请重新输入');
 						}
 					//取插件配置参数
 					$conf=F('pluginalipay');
-					if(empty($conf)){
+					if(empty($conf)||APP_DEBUG){
 				  		$data=M('Addons')->field('param')->where("mark='Alipay'")->find();
 						 $conf=json_decode($data['param'],true);
 						F('pluginalipay',$conf);
@@ -73,7 +76,7 @@ class AlipayPlugin extends \Plugins\Plugin{
 					);
 			$alipayconf=array_merge($alipayconf,$conf);
 			$alipay=new  \Plugins\Alipay\Pay($alipayconf);
-			$alipay->dopay($alipayconf);	
+			return $alipay->dopay($alipayconf);	
 		}else{
 				die('参数不对');
 			}
@@ -117,8 +120,8 @@ class AlipayPlugin extends \Plugins\Plugin{
 	    if(IS_POST){
 	      $data=array(
 	      	'account'=>I('post.ALIPAYUNAME'),	//账号
-	        'appid'=>I('post.ALIPAYVERIFY'),		//验证key
-	        'appkey'=>I('post.ALIPAYSAFEID'),	//验证密钥
+	        'appid'=>I('post.ALIPAYSAFEID'),		//验证key
+	        'appkey'=>I('post.ALIPAYVERIFY'),	//验证密钥
 			 'api'=>I('post.ALIPAYAPI'),					//接口类型
 			 'return_url'=>I('post.return_url'),
 			 'notify_url'=>I('post.notify_url')

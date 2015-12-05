@@ -17,15 +17,17 @@ class Pay extends Controller {
 		$paytype=trim($conf['api']);
 		if($paytype==='shuang'){
 			//双接口
-			$this->doShuangPay($conf);
+			return $this->doShuangPay($conf);
 		}else if($paytype==='danbao'){
 			//担保交易
-			$this->doTradePay($conf);
+			return $this->doTradePay($conf);
 		}else if($paytype==='jishi'){
 			//即时到账
-			$this->doDirectPay($conf);
+			return $this->doDirectPay($conf);
+		}else{
+			return 'alipay error';
 		}
-		die();	
+		
 		}
 	/********************担保交易***************************/
 	public function doTradePay($conf=array()){
@@ -122,8 +124,9 @@ class Pay extends Controller {
 		//建立请求
 		$alipaySubmit = new \Ainiku\Alipay\AlipaySubmit($alipay_config);
 		$html_text = $alipaySubmit->buildRequestForm($parameter,"get", "确认");
-		echo $html_text;
-		exit();		
+		return $html_text;
+
+				
 		}
 		/********************即时到账***************************/
 		function doDirectPay($conf=array()){
@@ -194,8 +197,9 @@ $parameter = array(
 //建立请求
 $alipaySubmit = new \Ainiku\Alipay\AlipaySubmit($alipay_config);
 $html_text = $alipaySubmit->buildRequestForm($parameter,"get", "确认");
-echo $html_text;
-exit();					
+return $html_text;
+
+					
 			}
 	/********************双标准接口***************************/
 	public function doShuangPay($conf=array()){
@@ -291,7 +295,7 @@ $parameter = array(
 //建立请求
 $alipaySubmit = new \Ainiku\Alipay\AlipaySubmit($alipay_config);
 $html_text = $alipaySubmit->buildRequestForm($parameter,"get", "确认");
-echo $html_text;
-exit();
+	return $html_text;
+
 		}
 }

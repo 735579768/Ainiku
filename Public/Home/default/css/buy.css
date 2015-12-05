@@ -1,3 +1,4 @@
+.pricecolor{color:#ff6700;}
 /*******购物车头样式 start********/
 .cart-header{width:1100px;margin:0px auto;height:100px;background:#fff;margin-bottom:10px;border-bottom:2px solid #ff6700;}
 .cart-header .cart-title{font-size:30px;display:inline-block;width:200px;height:100px;line-height:100px;text-align:center;color:#000;}
@@ -56,8 +57,8 @@
 .c-title{}
 
 /************配送地址页面*****************/
-.sh-box .s-address .pricecolor{color: #ff6700;}
 .sh-box{margin:0px auto;width:1100px;}
+.s-address .s-title,
 .sh-box .s-title{text-align:left;font-size:20px;margin-bottom:20px;}
 .sh-box .s-address{margin-bottom:10px;padding:20px;background:#fff;font-size:14px;}
 .sh-box .s-address .s-adr{position:relative;cursor:pointer;float:left;width:220px;height:160px;padding:10px 12px;border:1px solid #e0e0e0;margin-left:15px;margin-top:20px;}
@@ -79,22 +80,21 @@
 .sh-box .cart-bar .l-btn{width:150px;background:none;color:#666;}
 .sh-box .cart-bar .r-btn{width:200px;margin-left:50px;margin-right:20px;}
 .sh-box .s-address #order_note{padding:10px;display:block;width:500px;height:100px;resize:none;border:solid 1px #CACACA;}
-.sh-box .s-address .order-info .order-detail{float: right;}
+.sh-box .s-address .order-info .order-detail{float:right;}
 .sh-box .s-address .order-info .label{}
-.sh-box .s-address .order-info .label-con{color:#ff6700;text-align: right;}
-.sh-box .s-address .order-info .yfprice .label,
-.sh-box .s-address .order-info .yfprice .label-con{height:50px;line-height: 50px;}
-.sh-box .s-address .order-info .label-con #totalprice{font-size: 30px;}
-.sh-box .s-address .recart{height:40px;}
-.sh-box .s-address .recart a{float: right;height:40px;line-height: 40px;}
-.sh-box .s-address .cartlist{display: block;}
-.sh-box .s-address .cartlist li{    height: 50px;
-    line-height: 50px;
-    border-bottom: solid 1px #E4E4E4;padding-bottom: 10px;}
-.sh-box .s-address .cartlist li img{float: left;}
-.sh-box .s-address .cartlist li .z-title{float:left;padding: 0px 20px;}
-.sh-box .s-address .cartlist li .z-price{float: right;padding-right: 10px;}
+.sh-box .s-address .order-info .label-con{color:#ff6700;text-align:right;}
+.sh-box .s-address .order-info .yfprice .label,.sh-box .s-address .order-info .yfprice .label-con{height:50px;line-height:50px;}
+.sh-box .s-address .order-info .label-con #totalprice{font-size:30px;}
+.s-address .recart{height:40px;}
+.s-address .recart a{float:right;height:40px;line-height:40px;}
+.s-address .cartlist{display:block;}
+.s-address .cartlist li{height:50px;line-height:50px;border-bottom:solid 1px #E4E4E4;padding-bottom:10px;}
+.s-address .cartlist li img{float:left;}
+.s-address .cartlist li .z-title{float:left;padding:0px 20px;}
+.s-address .cartlist li .z-price{float:right;padding-right:10px;}
+
 /**订单支付页面样式***/
+.order-goodslist{ padding:30px;background: #fff; margin-top: 10px;}
 .order-box{margin:0px auto;width:1100px;}
 .order-info{background:#fff;padding:30px 10px;}
 .order-info .order-title{text-align:center;margin-bottom:10px;font-size:24px;font-weight:normal;line-height:36px;}

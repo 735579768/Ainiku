@@ -192,10 +192,33 @@ class BuyController extends LoginController {
  public function pay(){
  	$order_id=I('order_id');
  	$verify=F('__ORDERSUCCESS__'.$order_id);
- 	F('__ORDERSUCCESS__'.$order_id,null);
- 	($verify!='true')&&redirect('/');
+ 	//F('__ORDERSUCCESS__'.$order_id,null);
+ 	//($verify!='true')&&redirect('/');
  	$info=M('Order')->find($order_id);
  	$this->assign('info',$info);
+ 	$list=D('OrderGoodsView')->where("order_id=$order_id")->select();
+ 	$this->assign('_list',$list);
  	$this->display();
+ }
+ //调用支付接口完成支付
+ public function dopay(){
+ 	$order_id=I('order_id');
+ 	empty($order_id)&&$this->error('参数错误!');
+ 	//查询订单
+ 	$info=M('Order')->find($order_id);
+ 	$order_sn=$info['order_sn'];
+ 	$order_title='产品订单支付:'.$info['order_sn'];
+ 	$order_total=$info['order_total'];
+ 	$data=runPluginMethod('Alipay','dopay',array($order_total,$order_sn,$order_title));
+ 	
+ 	$this->ajaxreturn(array(
+ 				'status'=>1,
+ 				'info'=>$this->fetch(),
+ 				'url'=>'',
+ 				'data'=>$data
+ 		));
+ }
+ public function dopayok(){
+
  }
 }
