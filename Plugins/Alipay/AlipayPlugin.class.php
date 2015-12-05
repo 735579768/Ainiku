@@ -84,6 +84,48 @@ class AlipayPlugin extends \Plugins\Plugin{
 			}
 
 		}
+	private function yanzheng(){
+		//计算得出通知验证结果
+		import('Ainiku.Alipay.core');
+		import('Ainiku.Alipay.md5');
+		import('Ainiku.Alipay.notify');
+		import('Ainiku.Alipay.submit');   
+		$alipayNotify = new \Ainiku\Alipay\AlipayNotify($alipay_config);
+		return $alipayNotify->verifyNotify();
+	}
+	public function return_url(){
+		if($this->yanzheng()){
+			//验证成功后把信息添加到你的数据库
+			$data['order_sn'] = $_POST['out_trade_no'];//商户订单号
+			$data['trade_no'] = $_POST['trade_no'];//支付宝交易号
+			$data['trade_status'] = $_POST['trade_status'];//交易状态//各个状态请查看api或插件下面的示例处理函数
+			$data=array(
+					'status'=>1,
+					'mark'=>'支付宝',
+					'str'=>'验签成功',
+					'order_sn'=>$_POST['out_trade_no']
+					);
+			return  $data;
+		}else{
+			return array(
+					'status'=>0,
+					'mark'=>'支付宝',
+					'str'=>'验签失败'
+					);
+		}
+	}
+	public function notify_url(){
+		if($this->yanzheng()){
+		//验证成功后把信息添加到你的数据库
+		$order_sn = $_POST['out_trade_no'];//商户订单号
+		$trade_no = $_POST['trade_no'];//支付宝交易号
+		$trade_status = $_POST['trade_status'];//交易状态//各个状态请查看api或插件下面的示例处理函数
+	 	 //设置为已经支付
+ 		 $info=M('Order')->where("order_sn=$order_sn")->setField('order_status',1);
+		}else{
+
+		}
+	}
 	//钩子默认的调用方法
 	public function run(){
 	   $this->display('content');	

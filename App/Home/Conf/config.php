@@ -27,5 +27,5 @@ return array(
 		'SESSION_PREFIX' => 'anks_home', //session前缀
     	'COOKIE_PREFIX'  => 'ankc_home', // Cookie前缀 避免冲突
     	'notify_url'	=>'/Buy/dopayok.html',//支持接口异步通知url
-    	'return_url'	=>'/Buy/pay.html'//支付页面中转url
+    	'return_url'	=>'/Buy/payok.html'//支付页面中转url
 );
