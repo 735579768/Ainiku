@@ -12,8 +12,8 @@ const MEMBER_ID=UNIONPAY_MEMBER_ID;
 // 签名证书路径
 //echo str_replace('\utf8\func','',dirname(__FILE__)). '\PM_700000000000001_acp.pfx';
 
-//define('SDK_SIGN_CERT_PATH',UNIONPAY_PATH.'/lib/PM_700000000000001_acp.pfx');
-define('SDK_SIGN_CERT_PATH',UNIONPAY_PATH.'/lib/jiuwozhifu.pfx');
+define('SDK_SIGN_CERT_PATH',UNIONPAY_PATH.'/lib/PM_700000000000001_acp.pfx');
+//define('SDK_SIGN_CERT_PATH',UNIONPAY_PATH.'/lib/jiuwozhifu.pfx');
 //const SDK_SIGN_CERT_PATH = 'D:/wwwroot/0yuanwang.com/zhifusdk/jiuwozhifu.pfx';
 
 // 签名证书密码
