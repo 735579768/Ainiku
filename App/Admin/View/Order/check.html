@@ -32,21 +32,39 @@
 <td class="tdr">收货人电话</td>
 <td class="tdl">{$info.consignee_mobile}</td>
 <td class="tdr">付款时间</td>
-<td class="tdl">{$info.pay_time|time_format}</td>
+<td class="tdl">
+<notempty name="pay_time">
+{$info.pay_time|time_format}
+<else />
+未知
+</notempty>
+</td>
 </tr>
 
 <tr>
 <td class="tdr">收货人城市</td>
 <td class="tdl">{$info.consignee_diqu}</td>
 <td class="tdr">发货时间</td>
-<td class="tdl">{$info.fahuo_time|time_format}</td>
+<td class="tdl">
+<notempty name="pay_time">
+{$info.fahuo_time|time_format}
+<else />
+未知
+</notempty>
+</td>
 </tr>
 
 <tr>
 <td class="tdr">收货人地址</td>
 <td class="tdl">{$info.consignee_detail}</td>
 <td class="tdr">发货时间</td>
-<td class="tdl">{$info.fahuo_time|time_format}</td>
+<td class="tdl">
+<notempty name="pay_time">
+{$info.fahuo_time|time_format}
+<else />
+未知
+</notempty>
+</td>
 </tr>
 <tr>
 <td class="tdr">收货地址邮编</td>

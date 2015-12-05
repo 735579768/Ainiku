@@ -76,6 +76,7 @@ $(function() {
 			var _this=this;
 			var name = $("input[name='consignee_name']").val();
 			var mobile = $("input[name='consignee_mobile']").val();
+			var email = $("input[name='consignee_email']").val();
 			var diqu = $("input[name='consignee_diqu']").val();
 			var detail = $("textarea[name='consignee_detail']").val();
 			var youbian = $("input[name='consignee_youbian']").val();
@@ -90,6 +91,7 @@ $(function() {
 				data: {
 					consignee_name: name,
 					consignee_mobile: mobile,
+					consignee_email: email,
 					consignee_diqu: diqu,
 					consignee_detail: detail,
 					consignee_youbian: youbian,
@@ -218,15 +220,19 @@ $(function() {
 		//提交订单
 		submitOrder:function(){
 			var adid=$('#selected_adress').val();
+			var ordernote=$('#order_note').val();
 			if(adid==''){
-				ank.msg('请选择一个配送地址!');
+				ank.msg('请选择一个收货地址!');
 				return false;
 			}
 			var _this=this;
 			$.ajax({
 				type:'POST',
 				url:_this.url.submitorder,
-				data:{consignee_address_id:adid},
+				data:{
+					consignee_address_id:adid,
+					order_note:ordernote
+				},
 				success:function(da){
 					ank.msg(da.info);
 					if(da.url!=''){

@@ -8,6 +8,17 @@ class BuyController extends LoginController {
  	$map['uid']=UID;
  	$list=M('ConsigneeAddress')->where($map)->select();
  	$this->assign('addresslist',$list);
+ 	//取购物车中的商品
+ 	$map['uid']=UID;
+ 	$map['selected']=1;
+ 	$goodslist=D('CartView')->where($map)->select();
+ 	$this->assign('goodslist',$goodslist);
+ 	//取商品详情
+ 	$data=M('Cart')->where($map)->field('sum(num) as num')->find();
+ 	$info['totalnum']=$data['num'];
+ 	$data=D('CartView')->where($map)->field('sum(num*price) as totalprice')->find();
+ 	$info['totalprice']=$data['totalprice'];
+ 	$this->assign('info',$info);
  	$this->display('checkout');
  }
  public function addaddress(){
@@ -97,6 +108,7 @@ class BuyController extends LoginController {
  //提交订单
  public function submitorder(){
  	$consignee_address_id=I('consignee_address_id');
+ 	$order_note=I('order_note');
  	//查询配送地址
  	$map=array();
  	$map['uid']=UID;
@@ -148,7 +160,7 @@ class BuyController extends LoginController {
 			$data['youbian']=$info['consignee_youbian'];
 			$data['order_status']=1;
 			//$data['consignee_email']=$info['consignee_email'];
-			$data['order_note']='';
+			$data['order_note']=$order_note;
 
 			$result=M('Order')->add($data);	
 			if(0<$result){

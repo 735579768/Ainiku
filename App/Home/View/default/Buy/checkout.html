@@ -34,7 +34,47 @@
             <a id="add-new-address" onclick="buyobj.addNewAddress();" class="add-new-address" href="javascript:;">添加新地址</a>
         </dl>
     </div>
+    <div class="s-address">
+    <div class="s-title">订单备注</div>
+    <div class="order-note">
+        <textarea id="order_note" name="order-note"></textarea>
+    </div>
+    </div>
+    <div class="s-address">
+    <div class="s-title">订单详情</div>
+    <div class="recart"><a href="{:U('Cart/index')}">返回购物车></a></div>
+    <ul class="cartlist cl">
+    <volist name="goodslist" id="vo">
+        <li class="cl">
+        <img src="{$vo.pic|getPicture='thumbpath','50_50'}">
+        <a href="{:U('Goods/'.$vo['goods_id'])}" target="_blank" class="z-title">{$vo.title}</a>
+        <div class="pricecolor z-price">{$vo.price}元 X {$vo.num}</div>
+        </li>
+    </volist>
+    </ul>
+    <div class="order-info cl">
+        <ul class="order-detail cl">
+            <li>
+                <div class="label">商品件数:</div>
+                <div class="label-con">{$info.totalnum} 件</div>
+            </li>
+            <li>
+                <div class="label">金额合计</div>
+                <div class="label-con">{$info.totalprice} 元</div>
+            </li>
+            <li>
+                <div class="label">运费</div>
+                <div class="label-con">0元</div>
+            </li>
 
+            <li class="yfprice">
+                <div class="label">应付金额：</div>
+                <div class="label-con"><em id="totalprice">{$info.totalprice} </em> 元</div>
+            </li>
+
+        </ul>
+    </div>
+    </div>
      <div class="cart-bar cl">
     <div id="total_address" class="section-left">
        
