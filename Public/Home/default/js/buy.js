@@ -154,7 +154,7 @@ $(function() {
 					if (da.status == 1) {
 						ank.msgDialog({
 							width: 350,
-							height: 400,
+							height: 460,
 							title: '添加新地址',
 							content: da.info
 						});
