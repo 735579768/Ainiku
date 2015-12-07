@@ -11,8 +11,8 @@ use Think\Model;
  */
 
 class ModuleModel extends BaseModel {
-	    protected $_validate = array(
-        array('title', 'require', '名称不能为空', self::MUST_VALIDATE , 'regex', self::MODEL_BOTH),
-		array('title', '','名称已经存在', self::EXISTS_VALIDATE, 'unique')
-    ); 
+	protected $_validate = array(
+		array('title', 'require', '名称不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
+		array('title', '', '名称已经存在', self::EXISTS_VALIDATE, 'unique'),
+	);
 }

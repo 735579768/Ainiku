@@ -11,10 +11,10 @@ use Think\Model;
  */
 
 class ModuleposModel extends BaseModel {
-	    protected $_validate = array(
-        array('name', 'require', '模块标识不能为空', self::MUST_VALIDATE , 'regex', self::MODEL_BOTH),
-		array('name', '','模块标识已经存在', self::EXISTS_VALIDATE, 'unique'),
-        array('title', 'require', '模块名称不能为空', self::MUST_VALIDATE , 'regex', self::MODEL_BOTH),
-		array('title', '','模块名称已经存在', self::EXISTS_VALIDATE, 'unique')
-    );
+	protected $_validate = array(
+		array('name', 'require', '模块标识不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
+		array('name', '', '模块标识已经存在', self::EXISTS_VALIDATE, 'unique'),
+		array('title', 'require', '模块名称不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
+		array('title', '', '模块名称已经存在', self::EXISTS_VALIDATE, 'unique'),
+	);
 }
