@@ -4,9 +4,9 @@ require_once pathA('/Plugins/Plugin.class.php');
 class OutlinkPlugin extends \Plugins\Plugin {
 	protected $config = array(
 		'version' => '1.0',
-		'author' => 'qiaokeli',
-		'name' => '外链分析',
-		'descr' => '外链分析工具',
+		'author'  => 'qiaokeli',
+		'name'    => '外链分析',
+		'descr'   => '外链分析工具',
 	);
 	public function __construct() {
 		\Plugins\Plugin::__construct();
@@ -22,14 +22,14 @@ class OutlinkPlugin extends \Plugins\Plugin {
 	}
 	public function fenxi() {
 		$othernum = 0;
-		$str = '';
+		$str      = '';
 		if (IS_POST) {
-			$arr = $this->importtext();
+			$arr  = $this->importtext();
 			$data = array();
 
 			foreach ($arr as $val) {
-				$v = explode(',', $val);
-				$k = toutf8(preg_replace('/(\.\w+)\/.*/i', '$1', $v[1]));
+				$v        = explode(',', $val);
+				$k        = toutf8(preg_replace('/(\.\w+)\/.*/i', '$1', $v[1]));
 				$data[$k] = isset($data[$k]) ? (++$data[$k]) : 1;
 			}
 			//去掉小于1的链接
@@ -47,31 +47,31 @@ class OutlinkPlugin extends \Plugins\Plugin {
 		return $this->fetch('fenxi');
 	}
 	private function importtext() {
-		$file = '';
+		$file         = '';
 		$filetempname = '';
 		if ($_FILES) {
-			$file = $_FILES['excel']['name'];
+			$file         = $_FILES['excel']['name'];
 			$filetempname = $_FILES['excel']['tmp_name'];
 		} else {
 			$this->error('请选择文件后再上传');
 		}
 		//自己设置的上传文件存放路径
 		$filePath = RUNTIME_PATH;
-		$str = "";
+		$str      = "";
 
 		//注意设置时区
 		$time = date("y-m-d-H-i-s"); //去当前上传的时间
 		//获取上传文件的扩展名
 		$extend = strrchr($file, '.');
 		//上传后的文件名
-		$name = $time . $extend;
+		$name       = $time . $extend;
 		$uploadfile = $filePath . $name; //上传后的文件名地址
 		//move_uploaded_file() 函数将上传的文件移动到新位置。若成功，则返回 true，否则返回 false。
 		$result = move_uploaded_file($filetempname, $uploadfile); //假如上传到当前目录下
 		//echo $result;
 		if ($result) //如果上传文件成功，就执行导入excel操作
 		{
-			$str = file_get_contents($uploadfile);
+			$str    = file_get_contents($uploadfile);
 			$temarr = preg_split('/\n/', $str);
 			return $temarr;
 			//$tema=explode("\n",$str);
@@ -79,24 +79,24 @@ class OutlinkPlugin extends \Plugins\Plugin {
 		}
 	}
 	private function importExcel() {
-		$file = '';
+		$file         = '';
 		$filetempname = '';
 		if ($_FILES) {
-			$file = $_FILES['excel']['name'];
+			$file         = $_FILES['excel']['name'];
 			$filetempname = $_FILES['excel']['tmp_name'];
 		} else {
 			$this->error('请选择文件后再上传');
 		}
 		//自己设置的上传文件存放路径
 		$filePath = RUNTIME_PATH;
-		$str = "";
+		$str      = "";
 
 		//注意设置时区
 		$time = date("y-m-d-H-i-s"); //去当前上传的时间
 		//获取上传文件的扩展名
 		$extend = strrchr($file, '.');
 		//上传后的文件名
-		$name = $time . $extend;
+		$name       = $time . $extend;
 		$uploadfile = $filePath . $name; //上传后的文件名地址
 		//move_uploaded_file() 函数将上传的文件移动到新位置。若成功，则返回 true，否则返回 false。
 		$result = move_uploaded_file($filetempname, $uploadfile); //假如上传到当前目录下
@@ -104,13 +104,13 @@ class OutlinkPlugin extends \Plugins\Plugin {
 		if ($result) //如果上传文件成功，就执行导入excel操作
 		{
 			include "conn.php";
-			$objReader = \PHPExcel_IOFactory::createReader('Excel5'); //use excel2007 for 2007 format
-			$objPHPExcel = $objReader->load($uploadfile);
-			$sheet = $objPHPExcel->getSheet(0);
-			$highestRow = $sheet->getHighestRow(); //取得总行数
+			$objReader     = \PHPExcel_IOFactory::createReader('Excel5'); //use excel2007 for 2007 format
+			$objPHPExcel   = $objReader->load($uploadfile);
+			$sheet         = $objPHPExcel->getSheet(0);
+			$highestRow    = $sheet->getHighestRow(); //取得总行数
 			$highestColumn = $sheet->getHighestColumn(); //取得总列数
 
-			$colarr = array();
+			$colarr   = array();
 			$fieldarr = array();
 			//循环读取excel文件,读取一条,插入一条
 			for ($j = 1; $j <= $highestRow; $j++) //从第一行开始读取数据
@@ -150,7 +150,7 @@ class OutlinkPlugin extends \Plugins\Plugin {
 	}
 	public function install() {
 		$prefix = C('DB_PREFIX');
-		$sql = <<<sql
+		$sql    = <<<sql
 				DROP TABLE IF EXISTS `{$prefix}outlink`;
 				CREATE TABLE `{$prefix}outlink` (
 				  `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -170,10 +170,10 @@ sql;
 		//向后台添加菜单，如果不添加的话直接返回真
 		$data = array(
 			'title' => '外链分析', //插件后台菜单名字
-			'pid' => ADDONS_MENU, //不用改变
-			'url' => 'Addons/plugin?pn=Outlink&pm=fenxi', //填写后台菜单url名称和方法
+			'pid'   => ADDONS_MENU, //不用改变
+			'url'   => 'Addons/plugin?pn=Outlink&pm=fenxi', //填写后台菜单url名称和方法
 			'group' => '已装插件', //不用改变
-			'type' => 'Outlink', //填写自己的插件名字
+			'type'  => 'Outlink', //填写自己的插件名字
 		);
 		//添加到数据库
 		if (M('Menu')->add($data)) {
@@ -185,7 +185,7 @@ sql;
 
 	public function uninstall() {
 		$prefix = C('DB_PREFIX');
-		$sql = <<<sql
+		$sql    = <<<sql
 						DROP TABLE IF EXISTS `{$prefix}outlink`;
 sql;
 		$arr = explode(';', $sql);
@@ -206,8 +206,8 @@ sql;
 	}
 	public function set() {
 		if (IS_POST) {
-			$data = I('Outlink');
-			$model = M('Addons');
+			$data   = I('Outlink');
+			$model  = M('Addons');
 			$result = $model->where("mark='Outlink'")->save(array('param' => json_encode($data)));
 			if (0 < $result) {
 				$this->success('保存成功');

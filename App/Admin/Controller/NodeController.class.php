@@ -31,7 +31,7 @@ class NodeController extends AdminController {
 		if (IS_POST) {
 			F('sys_Node_tree', null);
 			$model = D('Node');
-			$data = $model->create();
+			$data  = $model->create();
 			if ($data) {
 				if ($model->add()) {
 					$this->success(L('_ADD_SUCCESS_'), U('index'));
@@ -77,7 +77,7 @@ class NodeController extends AdminController {
 		} else {
 			$info = array();
 			/* 获取数据 */
-			$data = M('Node')->find($node_id);
+			$data  = M('Node')->find($node_id);
 			$field = getModelAttr('Node');
 			$this->assign('fieldarr', $field);
 			$this->assign('data', $data);

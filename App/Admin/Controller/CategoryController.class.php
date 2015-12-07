@@ -79,7 +79,7 @@ class CategoryController extends AdminController {
 			//$field=Api('Model/categoryModel');
 			$field = getModelAttr('category');
 
-			$data['pid'] = $pid;
+			$data['pid']           = $pid;
 			$data['category_type'] = I('category_type');
 			$this->assign('fieldarr', $field);
 			$this->assign('data', $data);

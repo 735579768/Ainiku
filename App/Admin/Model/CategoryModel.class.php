@@ -77,11 +77,11 @@ class CategoryModel extends BaseModel {
 		/* 获取当前分类信息 */
 		if ($id) {
 			$info = $this->info($id);
-			$id = $info['id'];
+			$id   = $info['id'];
 		}
 
 		/* 获取所有分类 */
-		$map = array('status' => array('gt', -1));
+		$map           = array('status' => array('gt', -1));
 		$category_type = I('category_type');
 		if (!empty($category_type)) {
 			$map['category_type'] = $category_type;

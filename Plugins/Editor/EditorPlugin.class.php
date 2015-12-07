@@ -4,12 +4,12 @@ use Think\Upload;
 
 require_once pathA('/Plugins/Plugin.class.php');
 class EditorPlugin extends \Plugins\Plugin {
-	public $uploader = null;
+	public $uploader  = null;
 	protected $config = array(
 		'version' => '4.1.7',
-		'author' => 'qiaokeli',
-		'name' => 'HTML编辑器',
-		'descr' => 'Editor',
+		'author'  => 'qiaokeli',
+		'name'    => 'HTML编辑器',
+		'descr'   => 'Editor',
 	);
 	//钩子默认的调用方法
 	/*
@@ -38,10 +38,10 @@ class EditorPlugin extends \Plugins\Plugin {
 
 		$data = array(
 			'title' => 'Editor插件',
-			'pid' => 124,
-			'url' => 'Addons/Plugin?name=Editor&method=set',
+			'pid'   => 124,
+			'url'   => 'Addons/Plugin?name=Editor&method=set',
 			'group' => '已安装插件',
-			'type' => 'Editor',
+			'type'  => 'Editor',
 		);
 		if (M('Menu')->add($data)) {
 			return true;
@@ -66,10 +66,10 @@ class EditorPlugin extends \Plugins\Plugin {
 
 		/* 调用文件上传组件上传文件 */
 		$this->uploader = new Upload($setting, 'Local');
-		$info = $this->uploader->upload($_FILES);
+		$info           = $this->uploader->upload($_FILES);
 		if ($info) {
-			$url = C('EDITOR_UPLOAD.rootPath') . $info['imgFile']['savepath'] . $info['imgFile']['savename'];
-			$url = str_replace('./', '/', $url);
+			$url              = C('EDITOR_UPLOAD.rootPath') . $info['imgFile']['savepath'] . $info['imgFile']['savename'];
+			$url              = str_replace('./', '/', $url);
 			$info['fullpath'] = __ROOT__ . $url;
 		}
 		session('upload_error', $this->uploader->getError());
@@ -80,13 +80,13 @@ class EditorPlugin extends \Plugins\Plugin {
 	public function ke_upimg() {
 		/* 返回标准数据 */
 		$return = array('error' => 0, 'info' => '上传成功', 'data' => '');
-		$img = $this->upload();
+		$img    = $this->upload();
 		/* 记录附件信息 */
 		if ($img) {
 			$return['url'] = $img['fullpath'];
 			unset($return['info'], $return['data']);
 		} else {
-			$return['error'] = 1;
+			$return['error']   = 1;
 			$return['message'] = session('upload_error');
 		}
 
@@ -96,13 +96,13 @@ class EditorPlugin extends \Plugins\Plugin {
 	//ueditor编辑器上传图片处理
 	public function ue_upimg() {
 
-		$img = $this->upload();
-		$return = array();
-		$return['url'] = $img['fullpath'];
-		$title = htmlspecialchars($_POST['pictitle'], ENT_QUOTES);
-		$return['title'] = $title;
+		$img                = $this->upload();
+		$return             = array();
+		$return['url']      = $img['fullpath'];
+		$title              = htmlspecialchars($_POST['pictitle'], ENT_QUOTES);
+		$return['title']    = $title;
 		$return['original'] = $img['imgFile']['name'];
-		$return['state'] = ($img) ? 'SUCCESS' : session('upload_error');
+		$return['state']    = ($img) ? 'SUCCESS' : session('upload_error');
 		/* 返回JSON数据 */
 		exit(json_encode($return));
 		// $this->ajaxReturn($return);

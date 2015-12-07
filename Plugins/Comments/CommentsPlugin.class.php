@@ -4,9 +4,9 @@ require_once pathA('/Plugins/Plugin.class.php');
 class CommentsPlugin extends \Plugins\Plugin {
 	protected $config = array(
 		'version' => '1.0',
-		'author' => 'qiaokeli',
-		'name' => '留言插件',
-		'descr' => '留言',
+		'author'  => 'qiaokeli',
+		'name'    => '留言插件',
+		'descr'   => '留言',
 	);
 	//钩子默认的调用方法
 	public function run() {
@@ -15,18 +15,18 @@ class CommentsPlugin extends \Plugins\Plugin {
 	public function ajaxlist($arc_id = '', $pid = 0) {
 		// empty($arc_id)&&die('没有评论');
 		$map['status'] = 1;
-		$map['pid'] = $pid;
+		$map['pid']    = $pid;
 		$map['arc_id'] = I('post.arc_id');
 		// $list=M('Comments')->where($map)->order('create_time desc')->select();
 		$list = $this->pages(array(
 			'model' => 'Comments',
 			'where' => $map,
 			'order' => 'create_time desc',
-			'rows' => 5,
+			'rows'  => 5,
 		));
 		foreach ($list as $key => $val) {
 			$map['pid'] = $val['id'];
-			$child = M('Comments')->where($map)->order('create_time desc')->select();
+			$child      = M('Comments')->where($map)->order('create_time desc')->select();
 			if (empty($child)) {
 				$list[$key]['_'] = array();
 			} else {
@@ -51,7 +51,7 @@ class CommentsPlugin extends \Plugins\Plugin {
 			$model = new \Plugins\Comments\CommentsModel();
 			if ($model->create()) {
 				$model->url = preg_replace('/http\:\/\//i', '', $model->url);
-				$result = $model->add();
+				$result     = $model->add();
 				if (0 < $result) {
 					$list[] = M('Comments')->find($result);
 					$this->assign('_list', $list);
@@ -73,7 +73,7 @@ class CommentsPlugin extends \Plugins\Plugin {
 		}
 
 		$prefix = C('DB_PREFIX');
-		$sql = <<<sql
+		$sql    = <<<sql
 				DROP TABLE IF EXISTS `{$prefix}comments`;
 				CREATE TABLE `{$prefix}comments` (
 				  `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -103,10 +103,10 @@ sql;
 		//向后台添加菜单，如果不添加的话直接返回真
 		$data = array(
 			'title' => '留言管理', //插件后台菜单名字
-			'pid' => ADDONS_MENU, //不用改变
-			'url' => 'Addons/plugin?pn=Comments&pm=lists', //填写后台菜单url名称和方法
+			'pid'   => ADDONS_MENU, //不用改变
+			'url'   => 'Addons/plugin?pn=Comments&pm=lists', //填写后台菜单url名称和方法
 			'group' => '已装插件', //不用改变
-			'type' => 'Comments', //填写自己的插件名字
+			'type'  => 'Comments', //填写自己的插件名字
 		);
 		//添加到数据库
 		if (M('Menu')->add($data)) {
@@ -121,7 +121,7 @@ sql;
 			die('');
 		}
 
-		$name = I('name');
+		$name        = I('name');
 		$map['name'] = array('like', '%' . $name . '%');
 		//$map['status']=array('egt',0);
 		$this->pages(array(
@@ -165,7 +165,7 @@ sql;
 			$this->error('请先进行选择');
 		}
 
-		$model = M('Comments');
+		$model  = M('Comments');
 		$result = $model->where("id in ($id)")->delete();
 		if (result) {
 			$this->success('已经彻底删除');
@@ -193,7 +193,7 @@ sql;
 		}
 
 		$prefix = C('DB_PREFIX');
-		$sql = <<<sql
+		$sql    = <<<sql
 						DROP TABLE IF EXISTS `{$prefix}comments`;
 sql;
 		$arr = explode(';', $sql);

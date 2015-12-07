@@ -47,11 +47,11 @@ class MenuModel extends BaseModel {
 		/* 获取当前分类信息 */
 		if ($id) {
 			$info = $this->info($id);
-			$id = $info['id'];
+			$id   = $info['id'];
 		}
 
 		/* 获取所有分类 */
-		$map = array('status' => array('gt', -1));
+		$map  = array('status' => array('gt', -1));
 		$list = $this->field($field)->where($map)->order('is_dev desc,hide asc,sort asc,`group` desc')->select();
 		$list = list_to_tree($list, $pk = 'id', $pid = 'pid', $child = '_', $root = $id);
 

@@ -24,7 +24,7 @@ class AddonsModel extends Model {
 	*/
 	public function jinyong($id = null) {
 		$data['status'] = 0;
-		$data['id'] = $id;
+		$data['id']     = $id;
 		if ($this->save($data)) {
 			return true;
 		} else {
@@ -36,7 +36,7 @@ class AddonsModel extends Model {
 	*/
 	public function qiyong($id = null) {
 		$data['status'] = 1;
-		$data['id'] = $id;
+		$data['id']     = $id;
 		if ($this->save($data)) {
 			return true;
 		} else {

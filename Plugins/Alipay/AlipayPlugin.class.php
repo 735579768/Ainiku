@@ -27,9 +27,9 @@ require_once pathA('/Plugins/Plugin.class.php');
 class AlipayPlugin extends \Plugins\Plugin {
 	protected $config = array(
 		'version' => '1.0',
-		'author' => 'qiaokeli',
-		'name' => '支付宝',
-		'descr' => '支付宝',
+		'author'  => 'qiaokeli',
+		'name'    => '支付宝',
+		'descr'   => '支付宝',
 	);
 	//测试支付功能
 	public function testpay() {
@@ -39,8 +39,8 @@ class AlipayPlugin extends \Plugins\Plugin {
 	//实现支付功能
 	public function dopay($money = null, $order = null, $ordername = null) {
 		if (IS_POST) {
-			empty($money) && $money = doubleval(I('money'));
-			empty($order) && $order = I('order');
+			empty($money) && $money         = doubleval(I('money'));
+			empty($order) && $order         = I('order');
 			empty($ordername) && $ordername = I('ordername');
 			//$money=100;
 			//$order='1512051222437';
@@ -64,19 +64,19 @@ class AlipayPlugin extends \Plugins\Plugin {
 
 			$alipayconf = array(
 				//必填
-				'sellerid' => $conf['appid'], //合作身份者pid
-				'sellerkey' => $conf['appkey'], //安全检验码
+				'sellerid'    => $conf['appid'], //合作身份者pid
+				'sellerkey'   => $conf['appkey'], //安全检验码
 				'selleruname' => $conf['account'], //收款账号
 
-				'order' => $order, //单号
-				'ordername' => $ordername,
-				'money' => $money, //交易金额
-				'return_url' => C('WEBDOMIN') . C('return_url'),
-				'notify_url' => C('WEBDOMIN') . C('notify_url'),
+				'order'       => $order, //单号
+				'ordername'   => $ordername,
+				'money'       => $money, //交易金额
+				'return_url'  => C('WEBDOMIN') . C('return_url'),
+				'notify_url'  => C('WEBDOMIN') . C('notify_url'),
 				//必填
 			);
 			$alipayconf = array_merge($alipayconf, $conf);
-			$alipay = new \Plugins\Alipay\Pay($alipayconf);
+			$alipay     = new \Plugins\Alipay\Pay($alipayconf);
 			return $alipay->dopay($alipayconf);
 		} else {
 			die('参数不对');
@@ -95,35 +95,35 @@ class AlipayPlugin extends \Plugins\Plugin {
 	public function return_url() {
 		if ($this->yanzheng()) {
 			//验证成功后把信息添加到你的数据库
-			$data['order_sn'] = $_POST['out_trade_no']; //商户订单号
-			$data['trade_no'] = $_POST['trade_no']; //支付宝交易号
+			$data['order_sn']     = $_POST['out_trade_no']; //商户订单号
+			$data['trade_no']     = $_POST['trade_no']; //支付宝交易号
 			$data['trade_status'] = $_POST['trade_status']; //交易状态//各个状态请查看api或插件下面的示例处理函数
-			$data = array(
-				'status' => 1,
-				'mark' => '支付宝',
-				'str' => '验签成功',
+			$data                 = array(
+				'status'   => 1,
+				'mark'     => '支付宝',
+				'str'      => '验签成功',
 				'order_sn' => $_POST['out_trade_no'],
 			);
 			return $data;
 		} else {
 			return array(
 				'status' => 0,
-				'mark' => '支付宝',
-				'str' => '验签失败',
+				'mark'   => '支付宝',
+				'str'    => '验签失败',
 			);
 		}
 	}
 	public function notify_url() {
 		if ($this->yanzheng()) {
 			//验证成功后把信息添加到你的数据库
-			$order_sn = $_POST['out_trade_no']; //商户订单号
-			$trade_no = $_POST['trade_no']; //支付宝交易号
+			$order_sn     = $_POST['out_trade_no']; //商户订单号
+			$trade_no     = $_POST['trade_no']; //支付宝交易号
 			$trade_status = $_POST['trade_status']; //交易状态//各个状态请查看api或插件下面的示例处理函数
 			if ($trade_status == 'TRADE_SUCCESS' || $trade_status == 'TRADE_FINISHED' || $trade_status == 'WAIT_SELLER_SEND_GOODS') {
 				//设置为已经支付
 				$info = M('Order')->where("order_sn=$order_sn")->save(array(
-					'pay_time' => NOW_TIME,
-					'pay_type' => '支付宝',
+					'pay_time'     => NOW_TIME,
+					'pay_type'     => '支付宝',
 					'pay_trade_no' => $$trade_no,
 					'order_status' => 2,
 				));
@@ -141,10 +141,10 @@ class AlipayPlugin extends \Plugins\Plugin {
 		//向后台添加菜单，如果不添加的话直接返回真
 		$data = array(
 			'title' => '支付宝', //插件后台菜单名字
-			'pid' => ADDONS_MENU, //不用改变
-			'url' => 'Addons/plugin?pn=Alipay&pm=set', //填写后台菜单url名称和方法
+			'pid'   => ADDONS_MENU, //不用改变
+			'url'   => 'Addons/plugin?pn=Alipay&pm=set', //填写后台菜单url名称和方法
 			'group' => '已装插件', //不用改变
-			'type' => 'Alipay', //填写自己的插件名字
+			'type'  => 'Alipay', //填写自己的插件名字
 		);
 		//添加到数据库
 		if (M('Menu')->add($data)) {
@@ -168,12 +168,12 @@ class AlipayPlugin extends \Plugins\Plugin {
 		if (IS_POST) {
 			$data = array(
 				'update_time' => NOW_TIME,
-				'account' => I('post.ALIPAYUNAME'), //账号
-				'appid' => I('post.ALIPAYSAFEID'), //验证key
-				'appkey' => I('post.ALIPAYVERIFY'), //验证密钥
-				'api' => I('post.ALIPAYAPI'), //接口类型
+				'account'     => I('post.ALIPAYUNAME'), //账号
+				'appid'       => I('post.ALIPAYSAFEID'), //验证key
+				'appkey'      => I('post.ALIPAYVERIFY'), //验证密钥
+				'api'         => I('post.ALIPAYAPI'), //接口类型
 			);
-			$model = M('Addons');
+			$model  = M('Addons');
 			$result = $model->where("mark='Alipay'")->save(array('param' => json_encode($data)));
 			if (0 < $result) {
 				$this->success('保存成功');
@@ -199,12 +199,12 @@ class AlipayPlugin extends \Plugins\Plugin {
 		}
 
 		$status = array(
-			'no' => '未知状态',
-			'WAIT_BUYER_PAY' => '等待买家付款',
-			'WAIT_SELLER_SEND_GOODS' => '等待卖家发货',
+			'no'                       => '未知状态',
+			'WAIT_BUYER_PAY'           => '等待买家付款',
+			'WAIT_SELLER_SEND_GOODS'   => '等待卖家发货',
 			'WAIT_BUYER_CONFIRM_GOODS' => '卖家已发货，等待买家确认收货',
-			'TRADE_FINISHED' => '充值成功',
-			'TRADE_SUCCESS' => '充值成功',
+			'TRADE_FINISHED'           => '充值成功',
+			'TRADE_SUCCESS'            => '充值成功',
 		);
 		if ($info['chongzhi'] == '0' and ($info['status'] == 'TRADE_SUCCESS' or $info['status'] == 'TRADE_FINISHED')) {
 			//添加在线充值日志
@@ -224,12 +224,12 @@ class AlipayPlugin extends \Plugins\Plugin {
 	////////////////////各个接口的通知函数/////////////////////////////////////////////////////////////////////////////
 	public function tradenNotifyurl() {
 		//计算得出通知验证结果
-		$alipayNotify = new \Ainiku\Alipay\AlipayNotify($alipay_config);
+		$alipayNotify  = new \Ainiku\Alipay\AlipayNotify($alipay_config);
 		$verify_result = $alipayNotify->verifyNotify();
 		if ($verify_result) {
 			//验证成功
 			$out_trade_no = $_POST['out_trade_no']; //商户订单号
-			$trade_no = $_POST['trade_no']; //支付宝交易号
+			$trade_no     = $_POST['trade_no']; //支付宝交易号
 			$trade_status = $_POST['trade_status']; //交易状态
 			//初始化模型更新订单状态
 			$model = D('order');
@@ -253,11 +253,11 @@ class AlipayPlugin extends \Plugins\Plugin {
 	}
 	public function tradeReturnurl() {
 		//计算得出通知验证结果
-		$alipayNotify = new \Ainiku\Alipay\AlipayNotify($alipay_config);
+		$alipayNotify  = new \Ainiku\Alipay\AlipayNotify($alipay_config);
 		$verify_result = $alipayNotify->verifyNotify();
 		if ($verify_result) {
 			$out_trade_no = $_GET['out_trade_no']; //商户订单号
-			$trade_no = $_GET['trade_no']; //支付宝交易号
+			$trade_no     = $_GET['trade_no']; //支付宝交易号
 			$trade_status = $_GET['trade_status']; //交易状态
 			//验证成功
 			if ($_GET['trade_status'] == 'WAIT_SELLER_SEND_GOODS') {
@@ -275,13 +275,13 @@ class AlipayPlugin extends \Plugins\Plugin {
 
 	public function directNotifyurl() {
 		//计算得出通知验证结果
-		$alipayNotify = new AlipayNotify($alipay_config);
+		$alipayNotify  = new AlipayNotify($alipay_config);
 		$verify_result = $alipayNotify->verifyNotify();
 
 		if ($verify_result) {
 //验证成功
 			$out_trade_no = $_POST['out_trade_no'];
-			$trade_no = $_POST['trade_no'];
+			$trade_no     = $_POST['trade_no'];
 			$trade_status = $_POST['trade_status'];
 			//初始化模型更新订单状态
 			$model = D('order');
@@ -302,12 +302,12 @@ class AlipayPlugin extends \Plugins\Plugin {
 	}
 	public function directReturnurl() {
 		//计算得出通知验证结果
-		$alipayNotify = new AlipayNotify($alipay_config);
+		$alipayNotify  = new AlipayNotify($alipay_config);
 		$verify_result = $alipayNotify->verifyReturn();
 		if ($verify_result) {
 //验证成功
 			$out_trade_no = $_POST['out_trade_no'];
-			$trade_no = $_POST['trade_no'];
+			$trade_no     = $_POST['trade_no'];
 			$trade_status = $_POST['trade_status'];
 			if ($_GET['trade_status'] == 'TRADE_FINISHED' || $_GET['trade_status'] == 'TRADE_SUCCESS') {
 //判断该笔订单是否在商户网站中已经做过处理
@@ -326,12 +326,12 @@ class AlipayPlugin extends \Plugins\Plugin {
 
 	public function shuangNotifyurl() {
 		//计算得出通知验证结果
-		$alipayNotify = new AlipayNotify($alipay_config);
+		$alipayNotify  = new AlipayNotify($alipay_config);
 		$verify_result = $alipayNotify->verifyReturn();
 		if ($verify_result) {
 //验证成功
 			$out_trade_no = $_POST['out_trade_no'];
-			$trade_no = $_POST['trade_no'];
+			$trade_no     = $_POST['trade_no'];
 			$trade_status = $_POST['trade_status'];
 			//初始化模型更新订单状态
 			$model = D('order');
@@ -376,12 +376,12 @@ class AlipayPlugin extends \Plugins\Plugin {
 	}
 	public function shuangReturnurl() {
 		//计算得出通知验证结果
-		$alipayNotify = new AlipayNotify($alipay_config);
+		$alipayNotify  = new AlipayNotify($alipay_config);
 		$verify_result = $alipayNotify->verifyReturn();
 		if ($verify_result) {
 //验证成功
 			$out_trade_no = $_POST['out_trade_no'];
-			$trade_no = $_POST['trade_no'];
+			$trade_no     = $_POST['trade_no'];
 			$trade_status = $_POST['trade_status'];
 			if ($_GET['trade_status'] == 'WAIT_SELLER_SEND_GOODS') {
 //判断该笔订单是否在商户网站中已经做过处理

@@ -23,7 +23,7 @@ class FormController extends Controller {
 	}
 	public function getData() {
 		$field = $this->fiel;
-		$da = $this->data;
+		$da    = $this->data;
 
 		//判断是不是编辑状态
 		if (strpos(ACTION_NAME, 'edit') !== false) {
@@ -35,7 +35,7 @@ class FormController extends Controller {
 		}
 		//缓存
 		$cacheform = sha1(json_encode($field) . json_encode($da));
-		$formstr = F('_dataform/' . $cacheform);
+		$formstr   = F('_dataform/' . $cacheform);
 		if (empty($formstr) || APP_DEBUG) {
 			$this->isvar();
 			//判断是不是数组不是的话组合成数组
@@ -43,11 +43,11 @@ class FormController extends Controller {
 				$field = array($field);
 			}
 			//下面变量保证只自加一次
-			$pic = false;
-			$dtm = false;
-			$edr = false;
-			$umedr = false;
-			$colo = false;
+			$pic        = false;
+			$dtm        = false;
+			$edr        = false;
+			$umedr      = false;
+			$colo       = false;
 			$data['jc'] = null;
 			$data['kz'] = null;
 			foreach ($field as $key => $val) {
@@ -59,7 +59,7 @@ class FormController extends Controller {
 				if ($val['type'] === 'editor') {$edr = true;}
 				if ($val['type'] === 'umeditor') {$umedr = true;}
 				if ($val['type'] === 'color') {$colo = true;}
-				$ttt = trim($val['field']);
+				$ttt                 = trim($val['field']);
 				$field[$key]['data'] = isset($da[$ttt]) ? $da[$ttt] : '';
 				if ($field[$key]['data'] === '' || $field[$key]['data'] === null) {$field[$key]['data'] = isset($val['value']) ? $val['value'] : '';}
 				if (!isset($val['is_require'])) {$field[$key]['is_require'] = false;}

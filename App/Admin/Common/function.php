@@ -12,9 +12,9 @@ function getCategoryDocument($category_id = null, $category_type = 'article') {
 }
 //把标记转成对应的文字
 function tomark($value, $model, $field, $html = false) {
-	$arr = getModelAttr($model, $field);
-	$arr = $arr['extra'];
-	$restr = '';
+	$arr    = getModelAttr($model, $field);
+	$arr    = $arr['extra'];
+	$restr  = '';
 	$temarr = explode(',', $value);
 	if ($html) {
 		$restr = '<ul class="cl">';
@@ -65,50 +65,50 @@ function getGroupName($id) {
 function getFormType($key = null, $datatype = false) {
 	// TODO 可以加入系统配置
 	$formtype = array(
-		'string' => '字符串',
-		'select' => '枚举',
-		'radio' => '单选',
-		'checkbox' => '多选',
-		'number' => '数字',
-		'double' => '双精度数字',
-		'password' => '密码',
-		'datetime' => '时间',
-		'editor' => '编辑器',
-		'textarea' => '文本框',
-		'bigtextarea' => '超大文本框',
-		'picture' => '上传图片',
-		'cutpicture' => '剪切图片',
-		'file' => '上传附件',
-		'bool' => '布尔',
-		'color' => '颜色选择器',
-		'umeditor' => 'UM简化编辑器',
+		'string'       => '字符串',
+		'select'       => '枚举',
+		'radio'        => '单选',
+		'checkbox'     => '多选',
+		'number'       => '数字',
+		'double'       => '双精度数字',
+		'password'     => '密码',
+		'datetime'     => '时间',
+		'editor'       => '编辑器',
+		'textarea'     => '文本框',
+		'bigtextarea'  => '超大文本框',
+		'picture'      => '上传图片',
+		'cutpicture'   => '剪切图片',
+		'file'         => '上传附件',
+		'bool'         => '布尔',
+		'color'        => '颜色选择器',
+		'umeditor'     => 'UM简化编辑器',
 		'batchpicture' => '批量上传图片',
-		'liandong' => '城市联动表单',
-		'custom' => '自定义表单',
-		'attribute' => '内容属性',
+		'liandong'     => '城市联动表单',
+		'custom'       => '自定义表单',
+		'attribute'    => '内容属性',
 	);
 	$mysqltype = array(
-		'string' => '  varchar(50) NULL ',
-		'select' => '  varchar(50) NULL ',
-		'radio' => '  tinyint(1) NULL DEFAULT 0 ',
-		'checkbox' => '  varchar(50) NULL ',
-		'number' => 'int(10) NULL  DEFAULT 0 ',
-		'double' => 'double(10,2)  NOT NULL DEFAULT 0',
-		'password' => 'varchar(50) NULL',
-		'datetime' => ' varchar(20) NULL ',
-		'editor' => 'longtext NULL',
-		'textarea' => ' text NULL ',
-		'bigtextarea' => ' text NULL ',
-		'picture' => 'int(10) NULL DEFAULT 0',
-		'cutpicture' => 'int(10) NULL DEFAULT 0',
-		'file' => 'int(10) NULL DEFAULT 0',
-		'bool' => '  tinyint(1) NULL DEFAULT 0',
-		'color' => "varchar(8) NOT NULL DEFAULT '#000'",
-		'umeditor' => 'longtext NULL',
+		'string'       => '  varchar(50) NULL ',
+		'select'       => '  varchar(50) NULL ',
+		'radio'        => '  tinyint(1) NULL DEFAULT 0 ',
+		'checkbox'     => '  varchar(50) NULL ',
+		'number'       => 'int(10) NULL  DEFAULT 0 ',
+		'double'       => 'double(10,2)  NOT NULL DEFAULT 0',
+		'password'     => 'varchar(50) NULL',
+		'datetime'     => ' varchar(20) NULL ',
+		'editor'       => 'longtext NULL',
+		'textarea'     => ' text NULL ',
+		'bigtextarea'  => ' text NULL ',
+		'picture'      => 'int(10) NULL DEFAULT 0',
+		'cutpicture'   => 'int(10) NULL DEFAULT 0',
+		'file'         => 'int(10) NULL DEFAULT 0',
+		'bool'         => '  tinyint(1) NULL DEFAULT 0',
+		'color'        => "varchar(8) NOT NULL DEFAULT '#000'",
+		'umeditor'     => 'longtext NULL',
 		'batchpicture' => '  varchar(50) NULL ',
-		'liandong' => '  varchar(20) NULL ',
-		'custom' => '自定义表单',
-		'attribute' => 'int(10) NULL  DEFAULT 0',
+		'liandong'     => '  varchar(20) NULL ',
+		'custom'       => '自定义表单',
+		'attribute'    => 'int(10) NULL  DEFAULT 0',
 	);
 	if ($datatype && !empty($key)) {
 		return $mysqltype[$key];
@@ -143,15 +143,15 @@ function getGoodsTypeModel($goods_type_id = null) {
 	if (is_numeric($goods_type_id)) {
 		$map['goods_type_id'] = $goods_type_id;
 	}
-	$list = M('GoodsTypeAttribute')->where($map)->order('sort asc')->select();
+	$list    = M('GoodsTypeAttribute')->where($map)->order('sort asc')->select();
 	$refield = null;
 	foreach ($list as $key => $val) {
-		$namef = $val['name'] . '____' . $val['goods_type_attribute_id'];
-		$list[$key]['name'] = $namef;
+		$namef               = $val['name'] . '____' . $val['goods_type_attribute_id'];
+		$list[$key]['name']  = $namef;
 		$list[$key]['field'] = $namef;
 		if (!empty($val['extra'])) {
 			if ($val['extranote'] === '1' || $val['extranote'] == 'func') {
-				$func = $val['extra'];
+				$func                = $val['extra'];
 				$list[$key]['extra'] = $func();
 			} else {
 				$list[$key]['extra'] = extraToArray($val['extra']);
@@ -186,7 +186,7 @@ function list_to_tree($list, $pk = 'id', $pid = 'pid', $child = '_child', $root 
 				$tree[] = &$list[$key];
 			} else {
 				if (isset($refer[$parentId])) {
-					$parent = &$refer[$parentId];
+					$parent           = &$refer[$parentId];
 					$parent[$child][] = &$list[$key];
 				}
 			}
@@ -220,14 +220,14 @@ function format_bytes($size, $delimiter = '') {
  */
 function delAllFile($fpath, $delself = false, $delfolder = true) {
 	defined('YPATH') OR define('YPATH', $fpath);
-	$files = array();
+	$files    = array();
 	$filepath = iconv('gb2312', 'utf-8', $fpath);
 	if (is_dir($fpath)) {
 		if ($dh = opendir($fpath)) {
 			while (($file = readdir($dh)) !== false) {
 				if ($file != '.' && $file != '..') {
 					$temarr = delAllFile($fpath . '/' . $file);
-					$files = array_merge($files, $temarr);
+					$files  = array_merge($files, $temarr);
 				}
 			}
 			closedir($dh);
@@ -257,7 +257,7 @@ function delAllFile($fpath, $delself = false, $delfolder = true) {
  */
 function getDirSize($dir) {
 	$sizeResult = 0;
-	$handle = opendir($dir); //打开文件流
+	$handle     = opendir($dir); //打开文件流
 	while (false !== ($FolderOrFile = readdir($handle))) //循环判断文件是否可读
 	{
 		if ($FolderOrFile != "." && $FolderOrFile != "..") {
@@ -278,7 +278,7 @@ function get_list_field($data, $grid, $model) {
 	// 获取当前字段数据
 	foreach ($grid['field'] as $field) {
 		$array = explode('|', $field); //把字段值和函数分开
-		$temp = $data[$array[0]];
+		$temp  = $data[$array[0]];
 		// 函数支持
 		if (isset($array[1])) {
 			$temp = call_user_func($array[1], $temp);
@@ -296,7 +296,7 @@ function get_list_field($data, $grid, $model) {
 		$links = explode(',', $grid['href']);
 		foreach ($links as $link) {
 			$array = explode('|', $link);
-			$href = $array[0];
+			$href  = $array[0];
 			if (preg_match('/^\[([a-z_]+)\]$/', $href, $matches)) {
 				$val[] = $data2[$matches[1]];
 			} else {
@@ -310,7 +310,7 @@ function get_list_field($data, $grid, $model) {
 				// 替换数据变量
 				$href = preg_replace_callback('/\[([a-z_]+)\]/', function ($match) use ($data) {return $data[$match[1]];}, $href);
 				//链接第三个数组为样式类
-				$cln = $array[2];
+				$cln   = $array[2];
 				$val[] = '<a class="' . $cln . '" href="' . U($href) . '">' . $show . '</a>';
 			}
 		}

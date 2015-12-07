@@ -9,7 +9,7 @@ namespace Admin\Controller;
  */
 class CommentsController extends AdminController {
 	public function index() {
-		$name = I('name');
+		$name        = I('name');
 		$map['name'] = array('like', '%' . $name . '%');
 		//$map['status']=array('egt',0);
 		$this->pages(array(
@@ -32,7 +32,7 @@ class CommentsController extends AdminController {
 			$this->error('请先进行选择');
 		}
 
-		$model = M('Comments');
+		$model  = M('Comments');
 		$result = $model->where("comments_id in ($comments_id)")->delete();
 		if (result) {
 			$this->success(L('_CHEDI_DELETE_'), U('index'));

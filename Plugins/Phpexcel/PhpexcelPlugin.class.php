@@ -15,9 +15,9 @@ require_once pathA('/Plugins/Plugin.class.php');
 class PhpexcelPlugin extends \Plugins\Plugin {
 	protected $config = array(
 		'version' => '1.0',
-		'author' => 'qiaokeli',
-		'name' => 'excel导入',
-		'descr' => 'excel导入工具',
+		'author'  => 'qiaokeli',
+		'name'    => 'excel导入',
+		'descr'   => 'excel导入工具',
 	);
 	public function __construct() {
 		\Plugins\Plugin::__construct();
@@ -34,9 +34,9 @@ class PhpexcelPlugin extends \Plugins\Plugin {
 	function export($data, $filename, $field) {
 		//$data=M('Order')->where('status=0')->select();
 		$conf = array(
-			'data' => $data,
+			'data'     => $data,
 			'filename' => $filename,
-			'field' => $field,
+			'field'    => $field,
 		);
 		$this->exportExcel($conf);
 		exit;
@@ -46,24 +46,24 @@ class PhpexcelPlugin extends \Plugins\Plugin {
 		return $this->fetch('content');
 	}
 	public function importExcel() {
-		$file = '';
+		$file         = '';
 		$filetempname = '';
 		if ($_FILES) {
-			$file = $_FILES['excel']['name'];
+			$file         = $_FILES['excel']['name'];
 			$filetempname = $_FILES['excel']['tmp_name'];
 		} else {
 			$this->error('请选择文件后再上传');
 		}
 		//自己设置的上传文件存放路径
 		$filePath = RUNTIME_PATH;
-		$str = "";
+		$str      = "";
 
 		//注意设置时区
 		$time = date("y-m-d-H-i-s"); //去当前上传的时间
 		//获取上传文件的扩展名
 		$extend = strrchr($file, '.');
 		//上传后的文件名
-		$name = $time . $extend;
+		$name       = $time . $extend;
 		$uploadfile = $filePath . $name; //上传后的文件名地址
 		//move_uploaded_file() 函数将上传的文件移动到新位置。若成功，则返回 true，否则返回 false。
 		$result = move_uploaded_file($filetempname, $uploadfile); //假如上传到当前目录下
@@ -71,14 +71,14 @@ class PhpexcelPlugin extends \Plugins\Plugin {
 		if ($result) //如果上传文件成功，就执行导入excel操作
 		{
 			include "conn.php";
-			$objReader = \PHPExcel_IOFactory::createReader('Excel5'); //use excel2007 for 2007 format
-			$objPHPExcel = $objReader->load($uploadfile);
-			$sheet = $objPHPExcel->getSheet(0);
-			$highestRow = $sheet->getHighestRow(); //取得总行数
+			$objReader     = \PHPExcel_IOFactory::createReader('Excel5'); //use excel2007 for 2007 format
+			$objPHPExcel   = $objReader->load($uploadfile);
+			$sheet         = $objPHPExcel->getSheet(0);
+			$highestRow    = $sheet->getHighestRow(); //取得总行数
 			$highestColumn = $sheet->getHighestColumn(); //取得总列数
 			//dump($highestRow);
 			//dump($highestColumn);
-			$colarr = array();
+			$colarr   = array();
 			$fieldarr = array();
 			//循环读取excel文件,读取一条,插入一条
 			for ($j = 1; $j <= $highestRow; $j++) //从第一行开始读取数据
@@ -115,9 +115,9 @@ class PhpexcelPlugin extends \Plugins\Plugin {
 		}
 	}
 	public function exportExcel($conf = array()) {
-		$data = $conf['data'];
-		$name = $conf['filename'] . '-' . date('Y-m-d H-i-s');
-		$field = explode(',', $conf['field'][0]);
+		$data       = $conf['data'];
+		$name       = $conf['filename'] . '-' . date('Y-m-d H-i-s');
+		$field      = explode(',', $conf['field'][0]);
 		$fieldtitle = explode(',', $conf['field'][1]);
 
 		$objPHPExcel = new \PHPExcel();
@@ -133,7 +133,7 @@ class PhpexcelPlugin extends \Plugins\Plugin {
 		$obj = $objPHPExcel->setActiveSheetIndex(0);
 
 		$fieldnum = count($fieldtitle);
-		$j = 65;
+		$j        = 65;
 		foreach ($fieldtitle as $v) {
 			//
 			$obj->setCellValue(chr($j++) . '1', ' ' . $v);
@@ -152,10 +152,10 @@ class PhpexcelPlugin extends \Plugins\Plugin {
 		$obj->freezePane('A1');
 		$fieldnum = count($field);
 		foreach ($data as $k => $v) {
-			$num = $k + 2;
+			$num      = $k + 2;
 			$temfield = $field;
-			$j = 'A';
-			$i = 0;
+			$j        = 'A';
+			$i        = 0;
 			//$obj=$objPHPExcel->setActiveSheetIndex(0);
 			for ($i; $i < $fieldnum; $i++) {
 				$temstr = array_shift($temfield);
@@ -165,7 +165,7 @@ class PhpexcelPlugin extends \Plugins\Plugin {
 				} else if (substr($temstr, 0, 5) == "#pic#") {
 					//插入图片
 					$temstr = str_replace("#pic#", '', $temstr);
-					$img = new \PHPExcel_Worksheet_Drawing();
+					$img    = new \PHPExcel_Worksheet_Drawing();
 					$img->setPath($v[$temstr]); //写入图片路径
 					$img->setHeight(100); //写入图片高度
 					$img->setWidth(100); //写入图片宽度
@@ -209,10 +209,10 @@ class PhpexcelPlugin extends \Plugins\Plugin {
 		//向后台添加菜单，如果不添加的话直接返回真
 		$data = array(
 			'title' => 'Excel工具', //插件后台菜单名字
-			'pid' => ADDONS_MENU, //不用改变
-			'url' => 'Addons/plugin?pn=Phpexcel&pm=set', //填写后台菜单url名称和方法
+			'pid'   => ADDONS_MENU, //不用改变
+			'url'   => 'Addons/plugin?pn=Phpexcel&pm=set', //填写后台菜单url名称和方法
 			'group' => '已装插件', //不用改变
-			'type' => 'Phpexcel', //填写自己的插件名字
+			'type'  => 'Phpexcel', //填写自己的插件名字
 		);
 		//添加到数据库
 		if (M('Menu')->add($data)) {

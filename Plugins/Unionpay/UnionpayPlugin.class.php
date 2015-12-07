@@ -5,9 +5,9 @@ require_once pathA('/Plugins/Plugin.class.php');
 class UnionpayPlugin extends \Plugins\Plugin {
 	protected $config = array(
 		'version' => '1.0',
-		'author' => 'qiaokeli',
-		'name' => '中国银联',
-		'descr' => '银联支付',
+		'author'  => 'qiaokeli',
+		'name'    => '中国银联',
+		'descr'   => '银联支付',
 	);
 	//钩子默认的调用方法
 	public function run($a, $b) {
@@ -42,24 +42,24 @@ class UnionpayPlugin extends \Plugins\Plugin {
 		//$log->LogInfo ( "============处理前台请求开始===============" );
 		// 初始化日志
 		$params = array(
-			'version' => '5.0.0', //版本号
-			'encoding' => 'utf-8', //编码方式
-			'certId' => getSignCertId(), //证书ID
-			'txnType' => '01', //交易类型
-			'txnSubType' => '01', //交易子类 01：预授权、03：担保消费
-			'bizType' => '000201', //业务类型
-			'frontUrl' => SDK_FRONT_NOTIFY_URL, //前台通知地址
-			'backUrl' => SDK_BACK_NOTIFY_URL, //后台通知地址
-			'signMethod' => '01', //签名方法
-			'channelType' => '08', //渠道类型，07-PC，08-手机
-			'accessType' => '0', //接入类型
-			'merId' => MEMBER_ID, //商户代码，请改自己的测试商户号
-			'orderId' => $order, //商户订单号，8-40位数字字母
-			'txnTime' => date('YmdHis'), //订单发送时间
-			'txnAmt' => $money * 100, //交易金额，单位分
+			'version'      => '5.0.0', //版本号
+			'encoding'     => 'utf-8', //编码方式
+			'certId'       => getSignCertId(), //证书ID
+			'txnType'      => '01', //交易类型
+			'txnSubType'   => '01', //交易子类 01：预授权、03：担保消费
+			'bizType'      => '000201', //业务类型
+			'frontUrl'     => SDK_FRONT_NOTIFY_URL, //前台通知地址
+			'backUrl'      => SDK_BACK_NOTIFY_URL, //后台通知地址
+			'signMethod'   => '01', //签名方法
+			'channelType'  => '08', //渠道类型，07-PC，08-手机
+			'accessType'   => '0', //接入类型
+			'merId'        => MEMBER_ID, //商户代码，请改自己的测试商户号
+			'orderId'      => $order, //商户订单号，8-40位数字字母
+			'txnTime'      => date('YmdHis'), //订单发送时间
+			'txnAmt'       => $money * 100, //交易金额，单位分
 			'currencyCode' => '156', //交易币种
-			'orderDesc' => $ordername, //订单描述，可不上送，上送时控件中会显示该信息
-			'reqReserved' => ' 透传信息', //请求方保留域，透传字段，查询、通知、对账文件中均会原样出现
+			'orderDesc'    => $ordername, //订单描述，可不上送，上送时控件中会显示该信息
+			'reqReserved'  => ' 透传信息', //请求方保留域，透传字段，查询、通知、对账文件中均会原样出现
 		);
 
 		// 签名
@@ -95,18 +95,18 @@ class UnionpayPlugin extends \Plugins\Plugin {
 		if ($this->yanzheng()) {
 
 			$orderId = $_POST['orderId'];
-			$data = array(
-				'status' => 1,
-				'str' => '验签成功',
-				'mark' => '中国银联',
+			$data    = array(
+				'status'   => 1,
+				'str'      => '验签成功',
+				'mark'     => '中国银联',
 				'order_sn' => $orderId,
 			);
 			return $data;
 		} else {
 			return array(
 				'status' => 0,
-				'mark' => '中国银联',
-				'str' => '验签失败',
+				'mark'   => '中国银联',
+				'str'    => '验签失败',
 			);
 		}
 
@@ -115,10 +115,10 @@ class UnionpayPlugin extends \Plugins\Plugin {
 		if ($this->yanzheng()) {
 			$orderId = $_POST['orderId'];
 			$queryId = $_POST['queryId'];
-			$info = M('Order')->where("order_sn=$orderId")->save(array(
-				'pay_time' => NOW_TIME,
+			$info    = M('Order')->where("order_sn=$orderId")->save(array(
+				'pay_time'     => NOW_TIME,
 				'pay_trade_no' => $queryId,
-				'pay_type' => '中国银联',
+				'pay_type'     => '中国银联',
 				'order_status' => 2,
 			));
 		}
@@ -130,10 +130,10 @@ class UnionpayPlugin extends \Plugins\Plugin {
 		//向后台添加菜单，如果不添加的话直接返回真
 		$data = array(
 			'title' => '中国银联', //插件后台菜单名字
-			'pid' => ADDONS_MENU, //不用改变
-			'url' => 'Addons/plugin?pn=Unionpay&pm=set', //填写后台菜单url名称和方法
+			'pid'   => ADDONS_MENU, //不用改变
+			'url'   => 'Addons/plugin?pn=Unionpay&pm=set', //填写后台菜单url名称和方法
 			'group' => '已装插件', //不用改变
-			'type' => 'Unionpay', //填写自己的插件名字
+			'type'  => 'Unionpay', //填写自己的插件名字
 		);
 		//添加到数据库
 		if (M('Menu')->add($data)) {
@@ -160,9 +160,9 @@ class UnionpayPlugin extends \Plugins\Plugin {
 		if (IS_POST) {
 			$data = array(
 				'update_time' => NOW_TIME,
-				'MEMBER_ID' => I('post.MEMBER_ID'), //商户id
+				'MEMBER_ID'   => I('post.MEMBER_ID'), //商户id
 			);
-			$model = M('Addons');
+			$model  = M('Addons');
 			$result = $model->where("mark='Unionpay'")->save(array('param' => json_encode($data)));
 			if (0 < $result) {
 				$this->success('保存成功');

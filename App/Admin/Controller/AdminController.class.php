@@ -7,7 +7,7 @@ defined("ACCESS_ROOT") || die("Invalid access");
 class AdminController extends CommonController {
 	protected $model_name = null;
 	protected $primarykey = null;
-	protected $auth = null;
+	protected $auth       = null;
 	protected function _initialize() {
 		(get_naps_bot() !== false) && die(''); //不让蜘蛛抓取
 
@@ -17,7 +17,7 @@ class AdminController extends CommonController {
 			defined('UID') or define('UID', $uid);
 		} else {
 			$login = A('Public');
-			$uid = $login->autologin();
+			$uid   = $login->autologin();
 			$uid > 0 ? define('UID', $uid) : redirect(U('Public/login'));
 		}
 		defined('IS_ADMIN') or ((UID == 1) ? define('IS_ADMIN', true) : define('IS_ADMIN', false));
@@ -87,7 +87,7 @@ class AdminController extends CommonController {
 			$nav = F('sys_mainnav');
 			if (empty($nav) || APP_DEBUG) {
 				$where = "pid=0 and hide=0";
-				$nav = M('menu')->where($where)->order('sort asc')->select();
+				$nav   = M('menu')->where($where)->order('sort asc')->select();
 				F('sys_mainnav', $nav);
 			}
 			$this->assign('_MAINNAV_', $nav);
@@ -151,7 +151,7 @@ class AdminController extends CommonController {
 			$this->error(L('_PARAM_NOT_NULL_'));
 		}
 		$data = array(
-			$field => $value,
+			$field        => $value,
 			'update_time' => NOW_TIME,
 		);
 		$result = M($table)->where(M($table)->getPk() . "=$id")->save($data);
@@ -160,8 +160,8 @@ class AdminController extends CommonController {
 	function setposition($table = null, $id = null, $field = null, $value = null) {
 		if (IS_POST) {
 			$position = I('position');
-			$postr = implode(',', $position);
-			$result = M($table)->where($table . '_id=' . $id)->save(array($field => $postr));
+			$postr    = implode(',', $position);
+			$result   = M($table)->where($table . '_id=' . $id)->save(array($field => $postr));
 			if (0 < $result) {
 				$this->success(array(tomark($postr, $table, $field), $postr));
 			}
@@ -182,7 +182,7 @@ class AdminController extends CommonController {
 		$mainmenu = I('get.mainmenu');
 		if ($mainmenu == 'true') {
 			$pattern = '/<\/html>(.+)/si';
-			$str = preg_replace($pattern, '</html>', $str);
+			$str     = preg_replace($pattern, '</html>', $str);
 		}
 		if (!APP_DEBUG) {
 			//如果不是调试模式
@@ -190,7 +190,7 @@ class AdminController extends CommonController {
 				'/<\!\-\-.*?\-\->/i', //去掉html注释
 				'/(\s*?\r?\n\s*?)+/i', //删除空白行
 			);
-			$pr = array('', "\n");
+			$pr  = array('', "\n");
 			$str = preg_replace($pa, $pr, $str);
 		}
 		echo $str;

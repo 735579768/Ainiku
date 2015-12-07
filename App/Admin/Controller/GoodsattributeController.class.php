@@ -3,19 +3,20 @@
 // +----------------------------------------------------------------------
 namespace Admin\Controller;
 use \Admin\Controller\AdminController;
+
 defined("ACCESS_ROOT") || die("Invalid access");
 class GoodsattributeController extends AdminController {
-	public function index(){
+	public function index() {
 		$this->display();
-		}
-	public function add(){
+	}
+	public function add() {
 		$this->display('edit');
-		}
-	public function edit(){
+	}
+	public function edit() {
 		$this->display();
-		}
-	public function del(){
+	}
+	public function del() {
 		$this->display();
-		}
- 
+	}
+
 }

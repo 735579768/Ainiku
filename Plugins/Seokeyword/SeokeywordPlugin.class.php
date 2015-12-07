@@ -4,9 +4,9 @@ require_once pathA('/Plugins/Plugin.class.php');
 class SeokeywordPlugin extends \Plugins\Plugin {
 	protected $config = array(
 		'version' => '1.0',
-		'author' => 'qiaokeli',
-		'name' => '关键字优化',
-		'descr' => '优化文章中的关键字',
+		'author'  => 'qiaokeli',
+		'name'    => '关键字优化',
+		'descr'   => '优化文章中的关键字',
 	);
 	//钩子默认的调用方法
 	public function run() {
@@ -14,37 +14,37 @@ class SeokeywordPlugin extends \Plugins\Plugin {
 	}
 	public function replace($str) {
 		$list = M('Seokeyword')->field('keyword,url')->select();
-		$str = $str[0];
+		$str  = $str[0];
 		foreach ($list as $val) {
 			$patte = "/(>[^<]*?)({$val['keyword']})([^>]*?<)/";
-			$str = preg_replace($patte, '$1<a target="_blank"  href="' . $val['url'] . '">$2</a>$3', $str);
+			$str   = preg_replace($patte, '$1<a target="_blank"  href="' . $val['url'] . '">$2</a>$3', $str);
 		}
 		return $str;
 	}
 	public function lists() {
 		$starttime = strtotime(I('starttime'));
-		$endtime = strtotime(I('endtime'));
-		$map = array();
-		$field = array(
+		$endtime   = strtotime(I('endtime'));
+		$map       = array();
+		$field     = array(
 			'start' => array(
-				'field' => 'starttime',
-				'name' => 'starttime',
-				'type' => 'datetime',
-				'title' => '开始时间',
-				'note' => '',
-				'extra' => null,
+				'field'   => 'starttime',
+				'name'    => 'starttime',
+				'type'    => 'datetime',
+				'title'   => '开始时间',
+				'note'    => '',
+				'extra'   => null,
 				'is_show' => 3,
-				'value' => $starttime,
+				'value'   => $starttime,
 			),
-			'end' => array(
-				'field' => 'endtime',
-				'name' => 'endtime',
-				'type' => 'datetime',
-				'title' => '结束时间',
-				'note' => '',
-				'extra' => null,
+			'end'   => array(
+				'field'   => 'endtime',
+				'name'    => 'endtime',
+				'type'    => 'datetime',
+				'title'   => '结束时间',
+				'note'    => '',
+				'extra'   => null,
 				'is_show' => 3,
-				'value' => $endtime,
+				'value'   => $endtime,
 			),
 		);
 		$this->assign('fieldarr', $field);
@@ -67,7 +67,7 @@ class SeokeywordPlugin extends \Plugins\Plugin {
 		//			$Seokeywordarr[]=$this->Seokeywordinfo[$val];
 		//			}
 		//		$this->assign('spinfo',$Seokeywordarr);
-		$keyword = I('keyword');
+		$keyword        = I('keyword');
 		$map['keyword'] = array('like', "%$keyword%");
 		$this->pages(array(
 			'where' => $map,
@@ -85,7 +85,7 @@ class SeokeywordPlugin extends \Plugins\Plugin {
 		}
 	}
 	public function add() {
-		$id = I('id');
+		$id    = I('id');
 		$model = DP('Seokeyword', 'Seokeyword');
 		if (IS_POST) {
 
@@ -113,27 +113,27 @@ class SeokeywordPlugin extends \Plugins\Plugin {
 			}
 		} else {
 			$keyword = I('keyword');
-			$url = I('url');
-			$field = array(
+			$url     = I('url');
+			$field   = array(
 				'start' => array(
-					'field' => 'keyword',
-					'name' => 'keyword',
-					'type' => 'string',
-					'title' => '关键字',
-					'note' => '',
-					'extra' => null,
+					'field'   => 'keyword',
+					'name'    => 'keyword',
+					'type'    => 'string',
+					'title'   => '关键字',
+					'note'    => '',
+					'extra'   => null,
 					'is_show' => 3,
-					'value' => $keyword,
+					'value'   => $keyword,
 				),
-				'end' => array(
-					'field' => 'url',
-					'name' => 'url',
-					'type' => 'string',
-					'title' => '地址',
-					'note' => '',
-					'extra' => null,
+				'end'   => array(
+					'field'   => 'url',
+					'name'    => 'url',
+					'type'    => 'string',
+					'title'   => '地址',
+					'note'    => '',
+					'extra'   => null,
 					'is_show' => 3,
-					'value' => $url,
+					'value'   => $url,
 				),
 			);
 			$data = array();
@@ -151,12 +151,12 @@ class SeokeywordPlugin extends \Plugins\Plugin {
 		$mar = $this->get_naps_bot();
 		if ($mar !== false) {
 			$data['Seokeyword_name'] = strtolower($mar);
-			$data['url'] = $_SERVER['REQUEST_URI'];
-			$data['ip'] = get_client_ip();
-			$data['location'] = getIpLocation($data['ip']);
+			$data['url']             = $_SERVER['REQUEST_URI'];
+			$data['ip']              = get_client_ip();
+			$data['location']        = getIpLocation($data['ip']);
 			//$result=M('Seokeyword')->where($data)->setInc('views');
 			//if(!$result){
-			$data['views'] = 1;
+			$data['views']       = 1;
 			$data['create_time'] = NOW_TIME;
 			M('Seokeyword')->add($data);
 			//}
@@ -167,7 +167,7 @@ class SeokeywordPlugin extends \Plugins\Plugin {
 	}
 	public function install() {
 		$prefix = C('DB_PREFIX');
-		$sql = <<<sql
+		$sql    = <<<sql
 				DROP TABLE IF EXISTS `{$prefix}seokeyword`;
 				CREATE TABLE `{$prefix}seokeyword` (
 				  `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -187,10 +187,10 @@ sql;
 		//向后台添加菜单，如果不添加的话直接返回真
 		$data = array(
 			'title' => '关键字优化', //插件后台菜单名字
-			'pid' => ADDONS_MENU, //不用改变
-			'url' => 'Addons/plugin?pn=Seokeyword&pm=lists', //填写后台菜单url名称和方法
+			'pid'   => ADDONS_MENU, //不用改变
+			'url'   => 'Addons/plugin?pn=Seokeyword&pm=lists', //填写后台菜单url名称和方法
 			'group' => '已装插件', //不用改变
-			'type' => 'Seokeyword', //填写自己的插件名字
+			'type'  => 'Seokeyword', //填写自己的插件名字
 		);
 		//添加到数据库
 		if (M('Menu')->add($data)) {
@@ -202,7 +202,7 @@ sql;
 
 	public function uninstall() {
 		$prefix = C('DB_PREFIX');
-		$sql = <<<sql
+		$sql    = <<<sql
 						DROP TABLE IF EXISTS `{$prefix}seokeyword`;
 sql;
 		$arr = explode(';', $sql);
@@ -223,8 +223,8 @@ sql;
 	}
 	public function set() {
 		if (IS_POST) {
-			$data = I('Seokeyword');
-			$model = M('Addons');
+			$data   = I('Seokeyword');
+			$model  = M('Addons');
 			$result = $model->where("mark='Seokeyword'")->save(array('param' => json_encode($data)));
 			if (0 < $result) {
 				$this->success('保存成功');
@@ -240,7 +240,7 @@ sql;
 	}
 	function addSeokeywordlog() {
 		$searchbot = get_naps_bot(); //判断是不是蜘蛛
-		$url = $_SERVER['HTTP_REFERER']; //来源网站
+		$url       = $_SERVER['HTTP_REFERER']; //来源网站
 		//下面判断如果是来自百度的用户或是你网站内部的链接
 		if ($searchbot || ($url != '' and strpos($url, 'baidu.com') !== false) || strpos($url, '你网站的域名')) {
 			//符合的要求的链接可以进入你的网站

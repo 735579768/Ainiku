@@ -4,36 +4,36 @@ defined("ACCESS_ROOT") || die("Invalid access");
 class AddonsController extends AdminController {
 	public function index() {
 		$this->meta_title = '插件管理';
-		$dirlist = getDirList(__SITE_ROOT__ . '/Plugins/');
-		$dirlist = str_replace('Plugin', '', $dirlist);
-		$addoninfo = array();
+		$dirlist          = getDirList(__SITE_ROOT__ . '/Plugins/');
+		$dirlist          = str_replace('Plugin', '', $dirlist);
+		$addoninfo        = array();
 		foreach ($dirlist as $a) {
 			$temarr = runPluginMethod($a, 'getConfig');
-			$mark = $a; //strtolower($temarr['mark']);
-			$model = M('Addons')->where("mark='$mark'")->find();
+			$mark   = $a; //strtolower($temarr['mark']);
+			$model  = M('Addons')->where("mark='$mark'")->find();
 			if (!empty($model)) {
 				//数据库中有插件的信息说明已经安装过啦
 				//查询插件是不是有设置页面
 				$setmenu = M('Menu')->where("`type`='$mark'")->find();
 				//trace($setmenu);
 				$addoninfo[] = array(
-					'id' => $model['id'],
-					'name' => $model['name'],
-					'mark' => $model['mark'],
-					'author' => $model['author'],
-					'descr' => $model['descr'],
+					'id'      => $model['id'],
+					'name'    => $model['name'],
+					'mark'    => $model['mark'],
+					'author'  => $model['author'],
+					'descr'   => $model['descr'],
 					'install' => $model['install'],
-					'status' => $model['status'],
-					'type' => $model['type'],
+					'status'  => $model['status'],
+					'type'    => $model['type'],
 					'setmenu' => $setmenu,
 				);
 			} else {
 				//没有信息说明还没有安装
-				$temarr['mark'] = $a; //strtolower($temarr['mark']);
+				$temarr['mark']    = $a; //strtolower($temarr['mark']);
 				$temarr['install'] = 0;
-				$temarr['status'] = 1;
-				$temarr['type'] = 'other';
-				$addoninfo[] = $temarr;
+				$temarr['status']  = 1;
+				$temarr['type']    = 'other';
+				$addoninfo[]       = $temarr;
 			}
 		}
 		//trace($addoninfo);
@@ -61,7 +61,7 @@ class AddonsController extends AdminController {
 			}
 		}
 		//$addoninfo=array_merge($list0,$list1);
-		$page = new \Ainiku\Arrpage($list0, I('pg'), 10);
+		$page        = new \Ainiku\Arrpage($list0, I('pg'), 10);
 		$this->_list = $page->cur_page_data;
 		$this->_page = $page->showpage(false);
 
@@ -100,10 +100,10 @@ class AddonsController extends AdminController {
 				$this->error('插件安装失败,请联系做作者');
 			}
 
-			$data = runPluginMethod($mark, 'getConfig');
-			$data['mark'] = $mark; //strtolower($data['mark']);
+			$data           = runPluginMethod($mark, 'getConfig');
+			$data['mark']   = $mark; //strtolower($data['mark']);
 			$data['status'] = 0;
-			$model = D('Addons');
+			$model          = D('Addons');
 			if ($model->create($data)) {
 				$model->add();
 				$this->success('安装成功', U('index'));

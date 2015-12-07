@@ -55,7 +55,7 @@ class MembergroupController extends AdminController {
 				$this->error($model->getError());
 			}
 		} else {
-			$data = $model->find(I('get.member_group_id'));
+			$data  = $model->find(I('get.member_group_id'));
 			$field = getModelAttr('memberGroup');
 			$this->assign('fieldarr', $field);
 			$this->assign('data', $data);
@@ -89,10 +89,10 @@ class MembergroupController extends AdminController {
 		if (IS_POST) {
 			//处理权限数据
 			$model = D('MemberGroup');
-			$data = array(
+			$data  = array(
 				'member_group_id' => $member_group_id,
-				'auth' => json_encode(I('post.auth')),
-				'update_time' => NOW_TIME,
+				'auth'            => json_encode(I('post.auth')),
+				'update_time'     => NOW_TIME,
 			);
 			if ($model->create($data)) {
 				$result = $model->save();

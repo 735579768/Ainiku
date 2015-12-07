@@ -14,12 +14,12 @@ class ModelattrController extends AdminController {
 		//$this->primarykey='model_attr_id';
 	}
 	public function index() {
-		$title = I('title');
-		$model_id = I('model_id');
-		$map[__DB_PREFIX__ . 'model_attr.title'] = array('like', '%' . $title . '%');
+		$title                                    = I('title');
+		$model_id                                 = I('model_id');
+		$map[__DB_PREFIX__ . 'model_attr.title']  = array('like', '%' . $title . '%');
 		$map[__DB_PREFIX__ . 'model_attr.status'] = array('egt', 0);
-		$join = __DB_PREFIX__ . 'model as a on ' . __DB_PREFIX__ . 'model_attr.model_id=a.model_id';
-		$field = '*,a.title as modeltitle,' . __DB_PREFIX__ . 'model_attr.name as name,' . __DB_PREFIX__ . 'model_attr.title as title,' . __DB_PREFIX__ . 'model_attr.sort as sort,' . __DB_PREFIX__ . 'model_attr.update_time as update_time,' . __DB_PREFIX__ . 'model_attr.status as status';
+		$join                                     = __DB_PREFIX__ . 'model as a on ' . __DB_PREFIX__ . 'model_attr.model_id=a.model_id';
+		$field                                    = '*,a.title as modeltitle,' . __DB_PREFIX__ . 'model_attr.name as name,' . __DB_PREFIX__ . 'model_attr.title as title,' . __DB_PREFIX__ . 'model_attr.sort as sort,' . __DB_PREFIX__ . 'model_attr.update_time as update_time,' . __DB_PREFIX__ . 'model_attr.status as status';
 		if (!empty($model_id)) {
 			$map[__DB_PREFIX__ . 'model_attr.model_id'] = $model_id;
 		}
@@ -27,7 +27,7 @@ class ModelattrController extends AdminController {
 		$this->pages(array(
 			'model' => 'ModelAttr',
 			'field' => $field,
-			'join' => $join,
+			'join'  => $join,
 			'where' => $map,
 			'order' => __DB_PREFIX__ . 'model_attr.sort asc,' . __DB_PREFIX__ . 'model_attr.status asc,' . __DB_PREFIX__ . 'model_attr.model_attr_id asc',
 		));
@@ -73,7 +73,7 @@ class ModelattrController extends AdminController {
 			}
 		} else {
 			//$field=Api('Model/ModeattrlModel');
-			$field = getModelAttr('modelattr');
+			$field            = getModelAttr('modelattr');
 			$this->meta_title = '表单模型>' . getModelTitle(I('model_id')) . '>添加表单';
 			$this->assign('fieldarr', $field);
 			$this->display('edit');
@@ -144,7 +144,7 @@ class ModelattrController extends AdminController {
 			$data = D('ModelAttr')->where("model_attr_id=$model_attr_id")->find();
 
 			//$field=Api('Model/ModeattrlModel');
-			$field = getModelAttr('modelattr');
+			$field            = getModelAttr('modelattr');
 			$this->meta_title = '表单模型>' . getModelTitle(I('model_id')) . '>编辑表单';
 			$this->assign('fieldarr', $field);
 			$this->assign('data', $data);

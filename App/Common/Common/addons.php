@@ -28,9 +28,9 @@ function getDirList($dir) {
  */
 function hook($name, $param = array()) {
 	$map['status'] = 1;
-	$map['mark'] = $name;
+	$map['mark']   = $name;
 	$map['status'] = 1;
-	$rows = M('Hooks')->field('id,pluginid')->where($map)->find();
+	$rows          = M('Hooks')->field('id,pluginid')->where($map)->find();
 	if (!empty($rows)) {
 		$pluginidarr = explode(',', $rows['pluginid']);
 	} else {
@@ -67,7 +67,7 @@ function hook($name, $param = array()) {
  * @param string $param 数组参数
  * */
 function UP($name = null, $param = array()) {
-	$a = array();
+	$a  = array();
 	$ab = strpos($name, '?');
 	if ($ab !== false) {
 		$a = explode('/', substr($name, 0, $ab));
@@ -92,10 +92,10 @@ function UP($name = null, $param = array()) {
  *参数转成数组
  */
 function parseParam($str) {
-	$arr = explode('&', $str);
+	$arr   = explode('&', $str);
 	$rearr = array();
 	foreach ($arr as $val) {
-		$ar = explode('=', $val);
+		$ar                  = explode('=', $val);
 		$rearr[trim($ar[0])] = trim($ar[1]);
 	}
 	return $rearr;
@@ -110,7 +110,7 @@ function parseParam($str) {
 function runPluginMethod($pn = null, $pm = null, $param = array()) {
 	//包含插件目录
 	require_once ADDONS_PATH . $pn . '/' . $pn . 'Plugin.class.php';
-	$str = "\\" . ADDONS_DIR_NAME . "\\$pn\\" . $pn . 'Plugin';
+	$str    = "\\" . ADDONS_DIR_NAME . "\\$pn\\" . $pn . 'Plugin';
 	$temobj = new $str();
 	return call_user_func_array(array($temobj, $pm), $param);
 }
@@ -119,7 +119,7 @@ function plugin($name, $param = array()) {
 		//包含插件目录
 		$narr = explode('/', $name);
 		require_once ADDONS_PATH . $narr[0] . '/' . $narr[0] . 'Plugin.class.php';
-		$str = "\\" . ADDONS_DIR_NAME . "\\{$narr[0]}\\" . $narr[0] . 'Plugin';
+		$str    = "\\" . ADDONS_DIR_NAME . "\\{$narr[0]}\\" . $narr[0] . 'Plugin';
 		$temobj = new $str();
 		return call_user_func_array(array($temobj, $narr[1]), array($param));
 	} catch (Exception $e) {
@@ -163,7 +163,7 @@ function plugin($name, $param = array()) {
  * 成功返回true，失败返回false
  * */
 function removePluginFromHook($hid, $aid) {
-	$model = M('Hooks')->where("id=$hid")->field('pluginid')->find();
+	$model  = M('Hooks')->where("id=$hid")->field('pluginid')->find();
 	$temarr = explode(',', $model['pluginid']);
 	$result = array();
 	foreach ($temarr as $a) {
@@ -188,8 +188,8 @@ function removePluginFromHook($hid, $aid) {
  * */
 function addPluginToHook($hid, $aid) {
 	$model = M('Hooks')->where("id=$hid")->field('pluginid')->find();
-	$str1 = $model['pluginid'];
-	$str = '';
+	$str1  = $model['pluginid'];
+	$str   = '';
 	if (empty($str1)) {
 		$str = $aid;
 	} else {

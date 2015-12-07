@@ -29,11 +29,11 @@ class MenuController extends AdminController {
 		$this->display('tree');
 	}
 	function sorts() {
-		$map['pid'] = 0;
+		$map['pid']  = 0;
 		$map['hide'] = 0;
-		$list = M('Menu')->where($map)->field('id,title,pid,sort')->select();
+		$list        = M('Menu')->where($map)->field('id,title,pid,sort')->select();
 		foreach ($list as $key => $val) {
-			$map['pid'] = $val['id'];
+			$map['pid']          = $val['id'];
 			$list[$key]['child'] = M('Menu')->where($map)->field('id,title,pid,sort,`group`')->order('`group` asc,sort asc')->select();
 		}
 		$this->assign('_list', $list);
@@ -43,7 +43,7 @@ class MenuController extends AdminController {
 		if (IS_POST) {
 			F('sys_menu_tree', null);
 			$model = D('Menu');
-			$data = $model->create();
+			$data  = $model->create();
 			if ($data) {
 				if ($model->add()) {
 					$this->success(L('_ADD_SUCCESS_'), U('index'));
@@ -89,7 +89,7 @@ class MenuController extends AdminController {
 		} else {
 			$info = array();
 			/* 获取数据 */
-			$data = M('Menu')->find($id);
+			$data  = M('Menu')->find($id);
 			$field = getModelAttr('menu');
 			$this->assign('fieldarr', $field);
 			$this->assign('data', $data);

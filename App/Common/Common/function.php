@@ -43,18 +43,18 @@ function autologin() {
 	if (empty($user)) {
 		return 0;
 	} else {
-		$username = ainiku_decrypt($user['u']);
-		$password = ainiku_ucenter_md5(ainiku_decrypt($user['p']));
+		$username        = ainiku_decrypt($user['u']);
+		$password        = ainiku_ucenter_md5(ainiku_decrypt($user['p']));
 		$map['uesrname'] = $username;
 		$map['password'] = $password;
-		$info = M('Member')->where($map)->find();
+		$info            = M('Member')->where($map)->find();
 		if (empty($info)) {
 			return 0;
 		} else {
 			/* 记录登录SESSION和COOKIES */
 			$auth = array(
-				'uid' => $info['member_id'],
-				'username' => $info['username'],
+				'uid'             => $info['member_id'],
+				'username'        => $info['username'],
 				'last_login_time' => $info['last_login_time'],
 			);
 			session('user_auth', $auth);
@@ -62,13 +62,13 @@ function autologin() {
 			session('user_auth_sign', data_auth_sign($auth));
 			define('UID', $info['member_id']);
 
-			$uid = $info['member_id'];
-			$ip = get_client_ip();
+			$uid      = $info['member_id'];
+			$ip       = get_client_ip();
 			$location = getIpLocation($ip);
-			$data = array(
-				'member_id' => $uid,
-				'update_time' => NOW_TIME,
-				'last_login_ip' => $ip,
+			$data     = array(
+				'member_id'      => $uid,
+				'update_time'    => NOW_TIME,
+				'last_login_ip'  => $ip,
 				'last_login_adr' => $location['country'] . $location['area'],
 			);
 			M('Member')->where("member_id=$uid")->setInc('login');
@@ -76,9 +76,9 @@ function autologin() {
 			//保存用户登陆日志
 			M('MemberLog')->add(
 				array(
-					'member_id' => $uid,
-					'ip' => $Ip,
-					'adr' => $location['country'] . $location['area'],
+					'member_id'   => $uid,
+					'ip'          => $Ip,
+					'adr'         => $location['country'] . $location['area'],
 					'create_time' => NOW_TIME,
 				)
 			);
@@ -108,11 +108,11 @@ function check_verify($code, $id = 1) {
  */
 function ainiku_encrypt($data, $key = 'adminrootkl', $expire = 0) {
 	if ($data == '') {return '';}
-	$key = md5(empty($key) ? C('DATA_AUTH_KEY') : $key);
+	$key  = md5(empty($key) ? C('DATA_AUTH_KEY') : $key);
 	$data = base64_encode($data);
-	$x = 0;
-	$len = strlen($data);
-	$l = strlen($key);
+	$x    = 0;
+	$len  = strlen($data);
+	$l    = strlen($key);
 	$char = '';
 
 	for ($i = 0; $i < $len; $i++) {
@@ -141,22 +141,22 @@ function ainiku_encrypt($data, $key = 'adminrootkl', $expire = 0) {
  */
 function ainiku_decrypt($data, $key = 'adminrootkl') {
 	if ($data == '') {return '';}
-	$key = md5(empty($key) ? C('DATA_AUTH_KEY') : $key);
+	$key  = md5(empty($key) ? C('DATA_AUTH_KEY') : $key);
 	$data = str_replace(array('-', '_'), array('+', '/'), $data);
 	$mod4 = strlen($data) % 4;
 	if ($mod4) {
 		$data .= substr('====', $mod4);
 	}
-	$data = base64_decode($data);
+	$data   = base64_decode($data);
 	$expire = substr($data, 0, 10);
-	$data = substr($data, 10);
+	$data   = substr($data, 10);
 
 	if ($expire > 0 && $expire < time()) {
 		return '';
 	}
-	$x = 0;
-	$len = strlen($data);
-	$l = strlen($key);
+	$x    = 0;
+	$len  = strlen($data);
+	$l    = strlen($key);
 	$char = $str = '';
 
 	for ($i = 0; $i < $len; $i++) {
@@ -208,11 +208,11 @@ function data_auth_sign($data) {
  * @param  array|string  $vars 参数
  */
 function api($name, $vars = array()) {
-	$array = explode('/', $name);
-	$method = array_pop($array);
+	$array     = explode('/', $name);
+	$method    = array_pop($array);
 	$classname = array_pop($array);
-	$module = $array ? array_pop($array) : 'Common';
-	$callback = $module . '\\Api\\' . $classname . 'Api::' . $method;
+	$module    = $array ? array_pop($array) : 'Common';
+	$callback  = $module . '\\Api\\' . $classname . 'Api::' . $method;
 	if (is_string($vars)) {
 		parse_str($vars, $vars);
 	}
@@ -253,27 +253,27 @@ function time_format2($time = NULL, $format = 'Y-m-d H:i:s') {
 
 function sendMail($conf = array()) {
 	//ini_set("memory_limit","100M");
-	$to = isset($conf['to']) ? $conf['to'] : '';
-	$subject = isset($conf['subject']) ? $conf['subject'] : '';
-	$body = isset($conf['body']) ? $conf['body'] : '';
-	$fromname = isset($conf['fromname']) ? $conf['fromname'] : '';
-	$toname = isset($conf['toname']) ? $conf['toname'] : '';
-	$extra_msg = isset($conf['extra_msg']) ? $conf['extra_msg'] : '';
-	$host = isset($conf['host']) ? $conf['host'] : '';
-	$port = isset($conf['port']) ? $conf['port'] : '';
-	$uname = isset($conf['username']) ? $conf['username'] : '';
-	$pwd = isset($conf['password']) ? $conf['password'] : '';
+	$to         = isset($conf['to']) ? $conf['to'] : '';
+	$subject    = isset($conf['subject']) ? $conf['subject'] : '';
+	$body       = isset($conf['body']) ? $conf['body'] : '';
+	$fromname   = isset($conf['fromname']) ? $conf['fromname'] : '';
+	$toname     = isset($conf['toname']) ? $conf['toname'] : '';
+	$extra_msg  = isset($conf['extra_msg']) ? $conf['extra_msg'] : '';
+	$host       = isset($conf['host']) ? $conf['host'] : '';
+	$port       = isset($conf['port']) ? $conf['port'] : '';
+	$uname      = isset($conf['username']) ? $conf['username'] : '';
+	$pwd        = isset($conf['password']) ? $conf['password'] : '';
 	$attachment = isset($conf['attachment']) ? $conf['attachment'] : '';
-	$fromemail = isset($conf['fromemail']) ? $conf['fromemail'] : 'service@ainiku.com'; //来源邮箱
+	$fromemail  = isset($conf['fromemail']) ? $conf['fromemail'] : 'service@ainiku.com'; //来源邮箱
 
-	$host = empty($host) ? C('MAIL_SMTP_HOST') : $host;
-	$port = empty($port) ? C('MAIL_SMTP_PORT') : $port;
+	$host  = empty($host) ? C('MAIL_SMTP_HOST') : $host;
+	$port  = empty($port) ? C('MAIL_SMTP_PORT') : $port;
 	$uname = empty($uname) ? C('MAIL_SMTP_USER') : $uname;
-	$pwd = empty($pwd) ? C('MAIL_SMTP_PASS') : $pwd;
+	$pwd   = empty($pwd) ? C('MAIL_SMTP_PASS') : $pwd;
 
 	$fromname = empty($fromname) ? $uname : $fromname;
-	$body = empty($body) ? C('MAIL_SMTP_CE') : $body;
-	$body = toutf8($body);
+	$body     = empty($body) ? C('MAIL_SMTP_CE') : $body;
+	$body     = toutf8($body);
 
 	if (empty($uname)) {
 		return '收件人邮箱不能为空';
@@ -296,21 +296,21 @@ function sendMail($conf = array()) {
 
 	$mail->SMTPDebug = 0; // 关闭SMTP调试功能
 	$mail->IsSMTP(); // send via SMTP
-	$mail->Host = $host; // SMTP servers
+	$mail->Host     = $host; // SMTP servers
 	$mail->SMTPAuth = true; // turn on SMTP
 	$mail->Username = $uname; // SMTP username
 	$mail->Password = $pwd; // SMTP password
-	$mail->From = $fromemail; // 发件人邮箱
+	$mail->From     = $fromemail; // 发件人邮箱
 	$mail->FromName = $fromname; // 发件人
-	$mail->CharSet = "utf-8"; // 这里指定字符集！
+	$mail->CharSet  = "utf-8"; // 这里指定字符集！
 	$mail->Encoding = "base64";
 	$mail->AddAddress($to, $toname); // 收件人邮箱和姓名
 	$mail->IsHTML(true); // send as HTML
 	//$mail->SMTPSecure = 'ssl';   // 使用安全协议用qq邮箱时要用
-	$mail->Subject = $subject; // 邮件主题
-	$mail->Body = $body;
+	$mail->Subject  = $subject; // 邮件主题
+	$mail->Body     = $body;
 	$mail->WordWrap = 50; // set word wrap 换行字数
-	$mail->AltBody = "text/html";
+	$mail->AltBody  = "text/html";
 	$mail->AddReplyTo($fromemail, $fromname); //快捷回复
 	if (!empty($attachment)) {
 		$mail->AddAttachment($attachment);
@@ -460,10 +460,10 @@ function msubstr($str, $start = 0, $length, $charset = "utf-8", $suffix = true) 
 			$slice = '';
 		}
 	} else {
-		$re['utf-8'] = "/[\x01-\x7f]|[\xc2-\xdf][\x80-\xbf]|[\xe0-\xef][\x80-\xbf]{2}|[\xf0-\xff][\x80-\xbf]{3}/";
+		$re['utf-8']  = "/[\x01-\x7f]|[\xc2-\xdf][\x80-\xbf]|[\xe0-\xef][\x80-\xbf]{2}|[\xf0-\xff][\x80-\xbf]{3}/";
 		$re['gb2312'] = "/[\x01-\x7f]|[\xb0-\xf7][\xa0-\xfe]/";
-		$re['gbk'] = "/[\x01-\x7f]|[\x81-\xfe][\x40-\xfe]/";
-		$re['big5'] = "/[\x01-\x7f]|[\x81-\xfe]([\x40-\x7e]|\xa1-\xfe])/";
+		$re['gbk']    = "/[\x01-\x7f]|[\x81-\xfe][\x40-\xfe]/";
+		$re['big5']   = "/[\x01-\x7f]|[\x81-\xfe]([\x40-\x7e]|\xa1-\xfe])/";
 		preg_match_all($re[$charset], $str, $match);
 		$slice = join("", array_slice($match[0], $start, $length));
 	}
@@ -479,8 +479,8 @@ function mbstringtoarray($str, $charset) {
 	$strlen = mb_strlen($str);
 	while ($strlen) {
 		$array[] = mb_substr($str, 0, 1, $charset);
-		$str = mb_substr($str, 1, $strlen, $charset);
-		$strlen = mb_strlen($str);
+		$str     = mb_substr($str, 1, $strlen, $charset);
+		$strlen  = mb_strlen($str);
 	}
 	return $array;
 }
@@ -496,7 +496,7 @@ function removeHtml($str, $start = 0, $length, $charset = "utf-8", $suffix = tru
  */
 function filter_html($str) {
 	$panner = '/((&lt;)|<)(.*?)(>|(&gt;))/si';
-	$str = preg_replace($panner, '', $str);
+	$str    = preg_replace($panner, '', $str);
 	return $str;
 }
 
@@ -522,7 +522,7 @@ function url_encode($str) {
  *检查目录是否可写
  */
 function check_dir_iswritable($dir_path) {
-	$dir_path = str_replace('\\', '/', $dir_path);
+	$dir_path   = str_replace('\\', '/', $dir_path);
 	$is_writale = 1;
 	if (!is_dir($dir_path)) {
 		$is_writale = 0;
@@ -570,9 +570,9 @@ function check_dir_iswritable($dir_path) {
  **/
 function createAccount() {
 	while (true) {
-		$num = rand(10000000, 99999999);
+		$num            = rand(10000000, 99999999);
 		$map['account'] = $num;
-		$info = M('Member')->where($map)->select();
+		$info           = M('Member')->where($map)->select();
 		if (empty($info)) {
 			return $num;
 		}
@@ -634,9 +634,9 @@ function Pinyin($_String, $_Code = 'UTF8') {
 		"|-11052|-11045|-11041|-11038|-11024|-11020|-11019|-11018|-11014|-10838|-10832|-10815|-10800|-10790|-10780" .
 		"|-10764|-10587|-10544|-10533|-10519|-10331|-10329|-10328|-10322|-10315|-10309|-10307|-10296|-10281|-10274" .
 		"|-10270|-10262|-10260|-10256|-10254";
-	$_TDataKey = explode('|', $_DataKey);
+	$_TDataKey   = explode('|', $_DataKey);
 	$_TDataValue = explode('|', $_DataValue);
-	$_Data = array_combine($_TDataKey, $_TDataValue);
+	$_Data       = array_combine($_TDataKey, $_TDataValue);
 	arsort($_Data);
 	reset($_Data);
 	if ($_Code != 'gb2312') {
@@ -763,8 +763,8 @@ function toUtf8($str = null) {
  **/
 function compress_css($path) {
 	$dirname = dirname($path); //当前css文件的路径目录
-	$ipath = $path;
-	$str = '';
+	$ipath   = $path;
+	$str     = '';
 	if ($ipath) {
 		$str = file_get_contents($ipath);
 //把文件压缩
@@ -778,8 +778,8 @@ function compress_css($path) {
 			if (strpos($v, '../images') !== false) {
 				$src_new = str_replace("../images", $dirname . "/images", $v); //源绝对路径
 				$src_new = str_replace('css/', '', $src_new);
-				$new = str_replace("../images", STYLE_CACHE_DIR . MODULE_NAME . "/images", $v); //设置新路径
-				$new = __SITE_ROOT__ . __ROOT__ . str_replace('./', '/', $new);
+				$new     = str_replace("../images", STYLE_CACHE_DIR . MODULE_NAME . "/images", $v); //设置新路径
+				$new     = __SITE_ROOT__ . __ROOT__ . str_replace('./', '/', $new);
 				createFolder(dirname($new));
 				if (file_exists($src_new)) { //判断是否存在
 					copy($src_new, $new); //复制到新目录
@@ -830,8 +830,8 @@ function createFolder($path) {
  *判断是不是蜘蛛访问
  */
 function get_naps_bot() {
-	$spider = 'googlebot,360spider,haosouspider,baiduspider,msnbot,slurp,sosospider,sogou spider,yodaobot';
-	$restr = false;
+	$spider    = 'googlebot,360spider,haosouspider,baiduspider,msnbot,slurp,sosospider,sogou spider,yodaobot';
+	$restr     = false;
 	$useragent = strtolower($_SERVER['HTTP_USER_AGENT']);
 	if (strpos($useragent, 'googlebot') !== false) {
 		$restr = 'google';
@@ -885,10 +885,10 @@ function file_ismod($filepath) {
 		$filearr[] = $filepath;
 	}
 	foreach ($filearr as $val) {
-		$sval = pathA($val);
+		$sval    = pathA($val);
 		$modtime = date('Y-m-d h:i:s', filemtime($sval));
 		if ($modtime) {
-			$path = str_replace(array('/', '\\'), array('_'), $val);
+			$path     = str_replace(array('/', '\\'), array('_'), $val);
 			$modstime = F('_modfile/' . $path);
 			if ($modtime !== $modstime) {
 				F('_modfile/' . $path, $modtime);
@@ -917,15 +917,15 @@ function updateConfig() {
  */
 function http_post($url, $post_data) {
 	$postdata = http_build_query($post_data);
-	$options = array(
+	$options  = array(
 		'http' => array(
-			'method' => 'POST',
-			'header' => 'Content-type:application/x-www-form-urlencoded',
+			'method'  => 'POST',
+			'header'  => 'Content-type:application/x-www-form-urlencoded',
 			'content' => $postdata,
 			'timeout' => 15 * 60, // 超时时间（单位:s）
 		),
 	);
 	$context = stream_context_create($options);
-	$result = file_get_contents($url, false, $context);
+	$result  = file_get_contents($url, false, $context);
 	return $result;
 }

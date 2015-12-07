@@ -7,7 +7,7 @@ class CommonController extends Controller {
 	public function __construct() {
 		parent::__construct();
 		//查询黑名单
-		$ip = get_client_ip();
+		$ip     = get_client_ip();
 		$iplist = C('IP_BLACKLIST');
 		$iplist = extratoarray($iplist);
 		if (!empty($iplist)) {
@@ -42,9 +42,9 @@ class CommonController extends Controller {
 		C($config); //添加配置
 		C('TMPL_PARSE_STRING', array(
 			'__STATIC__' => __ROOT__ . '/Public/Static',
-			'__IMG__' => __ROOT__ . '/Public/' . MODULE_NAME . '/' . C('DEFAULT_THEME') . '/images',
-			'__CSS__' => __ROOT__ . '/Public/' . MODULE_NAME . '/' . C('DEFAULT_THEME') . '/css',
-			'__JS__' => __ROOT__ . '/Public/' . MODULE_NAME . '/' . C('DEFAULT_THEME') . '/js',
+			'__IMG__'    => __ROOT__ . '/Public/' . MODULE_NAME . '/' . C('DEFAULT_THEME') . '/images',
+			'__CSS__'    => __ROOT__ . '/Public/' . MODULE_NAME . '/' . C('DEFAULT_THEME') . '/css',
+			'__JS__'     => __ROOT__ . '/Public/' . MODULE_NAME . '/' . C('DEFAULT_THEME') . '/js',
 		));
 		defined('__DB_PREFIX__') or define('__DB_PREFIX__', C('DB_PREFIX'));
 		defined('UID') or define('UID', is_login());
@@ -63,13 +63,13 @@ class CommonController extends Controller {
 	 */
 	protected function Pages($conf) {
 		$model = @$conf['model'];
-		$whe = isset($conf['where']) ? $conf['where'] : '';
-		$join = isset($conf['join']) ? $conf['join'] : '';
+		$whe   = isset($conf['where']) ? $conf['where'] : '';
+		$join  = isset($conf['join']) ? $conf['join'] : '';
 		$field = isset($conf['field']) ? $conf['field'] : '';
 		$order = isset($conf['order']) ? $conf['order'] : '';
-		$rows = isset($conf['rows']) ? $conf['rows'] : 10;
-		$url = isset($conf['url']) ? $conf['url'] : '';
-		$User = preg_match('/[a-zA-Z0-9]+View/', $model) ? D($model) : M($model);
+		$rows  = isset($conf['rows']) ? $conf['rows'] : 10;
+		$url   = isset($conf['url']) ? $conf['url'] : '';
+		$User  = preg_match('/[a-zA-Z0-9]+View/', $model) ? D($model) : M($model);
 		$count = 0;
 		if (is_string($whe)) {
 			$whe = str_replace('__DB_PREFIX__', __DB_PREFIX__, $whe);
@@ -87,9 +87,9 @@ class CommonController extends Controller {
 		if (is_array($join)) {
 			$join[0] = str_replace('__DB_PREFIX__', __DB_PREFIX__, $join[0]);
 			$join[1] = str_replace('__DB_PREFIX__', __DB_PREFIX__, $join[1]);
-			$count = $User->where($whe)->field($field)->order($order)->join($join[0])->join($join[1])->count(); // 查询满足要求的总记录数
+			$count   = $User->where($whe)->field($field)->order($order)->join($join[0])->join($join[1])->count(); // 查询满足要求的总记录数
 		} else {
-			$join = str_replace('__DB_PREFIX__', __DB_PREFIX__, $join);
+			$join  = str_replace('__DB_PREFIX__', __DB_PREFIX__, $join);
 			$count = $User->where($whe)->field($field)->order($order)->join($join)->count(); // 查询满足要求的总记录数
 		}
 
@@ -126,26 +126,26 @@ class CommonController extends Controller {
 	}
 	//重写输出模板
 	protected function display($templateFile = '', $charset = '', $contentType = '', $content = '', $prefix = '') {
-		$str = $this->fetch($templateFile);
-		$patterns[] = '/\n\s*\r/';
+		$str            = $this->fetch($templateFile);
+		$patterns[]     = '/\n\s*\r/';
 		$replacements[] = '';
-		$regstr = C('TPL_REG');
+		$regstr         = C('TPL_REG');
 
 		$tema = explode('\n', $regstr);
 		foreach ($tema as $val) {
 			if (strpos($regstr, '#') !== false) {
 				$temb = explode('#', $val);
 				if (count($temb) === 2) {
-					$patterns[] = $temb[0];
+					$patterns[]     = $temb[0];
 					$replacements[] = $temb[1];
 				}
 			}
 		}
 		if (C('SITE_PRELOAD')) {
-			$patterns[] = '/<img(.*?)\s{1}src=["|\']([^\'|\"]+?)["|\'](.*?)>/';
+			$patterns[]     = '/<img(.*?)\s{1}src=["|\']([^\'|\"]+?)["|\'](.*?)>/';
 			$replacements[] = '<img$1 data-original="$2" src="' . __STATIC__ . '/images/preload.png"$3>';
 		}
-		$patterns[] = '/<img(.*?)src=["|\']["|\'](.*?)>/';
+		$patterns[]     = '/<img(.*?)src=["|\']["|\'](.*?)>/';
 		$replacements[] = '<img$1src="' . C('DEFAULT_IMG') . '"$2>';
 
 		$str = preg_replace($patterns, $replacements, $str);

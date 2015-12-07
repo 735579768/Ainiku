@@ -7,7 +7,7 @@ class ArchiveController extends AdminController {
 	private $m_name = '';
 	private $m_info = null;
 	public function __construct() {
-		$model_id = I('model_id');
+		$model_id     = I('model_id');
 		$this->m_name = $model_id;
 		if (is_numeric($model_id)) {
 			$this->m_info = getModel($model_id);
@@ -37,7 +37,7 @@ class ArchiveController extends AdminController {
 
 		//解析列表规则
 		$fields = array();
-		$grids = preg_split('/[;\r\n]+/s', $this->m_info['list_format']);
+		$grids  = preg_split('/[;\r\n]+/s', $this->m_info['list_format']);
 		foreach ($grids as &$value) {
 			// 字段:标题:链接
 			$val = explode(':', $value);
@@ -55,7 +55,7 @@ class ArchiveController extends AdminController {
 				list($value['title'], $value['format']) = explode('|', $val[1]);
 			}
 			foreach ($field as $val) {
-				$array = explode('|', $val);
+				$array    = explode('|', $val);
 				$fields[] = $array[0];
 			}
 		}
@@ -88,7 +88,7 @@ class ArchiveController extends AdminController {
 	function recycle() {
 		//解析列表规则
 		$fields = array();
-		$grids = preg_split('/[;\r\n]+/s', $this->m_info['recycle_format']);
+		$grids  = preg_split('/[;\r\n]+/s', $this->m_info['recycle_format']);
 		foreach ($grids as &$value) {
 			// 字段:标题:链接
 			$val = explode(':', $value);
@@ -106,7 +106,7 @@ class ArchiveController extends AdminController {
 				list($value['title'], $value['format']) = explode('|', $val[1]);
 			}
 			foreach ($field as $val) {
-				$array = explode('|', $val);
+				$array    = explode('|', $val);
 				$fields[] = $array[0];
 			}
 		}
@@ -133,7 +133,7 @@ class ArchiveController extends AdminController {
 			if ($Document->create()) {
 				$Document->create_time = NOW_TIME;
 				$Document->update_time = NOW_TIME;
-				$result = $Document->add();
+				$result                = $Document->add();
 				$result > 0 ? $this->success(L('_ADD_SUCCESS_'), __FORWARD__) : $this->error(L('_ADD_FAIL_'));
 			} else {
 				$this->error($Document->geterror());
@@ -156,7 +156,7 @@ class ArchiveController extends AdminController {
 		if (IS_POST) {
 			if ($Document->create()) {
 				$Document->create_time = NOW_TIME;
-				$result = $Document->save();
+				$result                = $Document->save();
 				$result > 0 ? $this->success(L('_UPDATE_SUCCESS_'), __FORWARD__) : $this->error(L('_UPDATE_FAIL_'));
 			} else {
 				$this->error($Document->geterror());
@@ -191,7 +191,7 @@ class ArchiveController extends AdminController {
 			$this->error('请先进行选择');
 		}
 
-		$preid = getTable($this->m_info['table'], false) . '_id';
+		$preid  = getTable($this->m_info['table'], false) . '_id';
 		$result = M($this->m_info['table'])->where("{$preid} in($id)")->save(array('status' => -1));
 		$result > 0 ? $this->success(L('_TO_RECYCLE_'), U('recycle', array('model_id' => I('model_id')))) : $this->error(L('_CAOZUO_FAIL_'));
 	}
@@ -204,7 +204,7 @@ class ArchiveController extends AdminController {
 			$this->error('请先进行选择');
 		}
 
-		$preid = getTable($this->m_info['table'], false) . '_id';
+		$preid  = getTable($this->m_info['table'], false) . '_id';
 		$result = M($this->m_info['table'])->where("{$preid} in ($id)")->delete();
 		$result > 0 ? $this->success(L('_CHEDI_DELETE_'), U('recycle', array('model_id' => I('model_id')))) : $this->error(L('_CAOZUO_FAIL_'));
 	}
@@ -215,7 +215,7 @@ class ArchiveController extends AdminController {
 		}
 
 		$preid = getTable($this->m_info['table'], false) . '_id';
-		$uid = M($this->m_info['table'])->where("{$preid} in($id)")->save(array('status' => 1));
+		$uid   = M($this->m_info['table'])->where("{$preid} in($id)")->save(array('status' => 1));
 		if (0 < $uid) {
 			$this->success(L('_TO_HUIFU_'), U('index', array('model_id' => I('model_id'))));
 		} else {

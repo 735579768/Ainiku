@@ -4,9 +4,9 @@ require_once pathA('/Plugins/Plugin.class.php');
 class AdminInfoPlugin extends \Plugins\Plugin {
 	protected $config = array(
 		'version' => '1.0',
-		'author' => 'qiaokeli',
-		'name' => '系统信息',
-		'descr' => '插件描述',
+		'author'  => 'qiaokeli',
+		'name'    => '系统信息',
+		'descr'   => '插件描述',
 	);
 	//钩子默认的调用方法
 	public function run() {

@@ -10,7 +10,7 @@ defined("ACCESS_ROOT") || die("Invalid access");
  */
 class ModuleposController extends AdminController {
 	public function index() {
-		$title = I('title');
+		$title        = I('title');
 		$map['title'] = array('like', '%' . $title . '%');
 		$this->pages(array(
 			'model' => 'modulepos',
@@ -36,7 +36,7 @@ class ModuleposController extends AdminController {
 			}
 		} else {
 			//$field=Api('Model/moduleposModel');
-			$field = getModelAttr('modulepos');
+			$field            = getModelAttr('modulepos');
 			$this->meta_title = '添加模块位置';
 			$this->assign('fieldarr', $field);
 			$this->display('edit');
@@ -66,7 +66,7 @@ class ModuleposController extends AdminController {
 			$data = M('modulepos')->where("modulepos_id=$modulepos_id")->find();
 
 			//$field=Api('Model/moduleposModel');
-			$field = getModelAttr('modulepos');
+			$field            = getModelAttr('modulepos');
 			$this->meta_title = '编辑模块位置';
 			$this->assign('fieldarr', $field);
 			$this->assign('data', $data);

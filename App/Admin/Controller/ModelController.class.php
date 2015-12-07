@@ -14,8 +14,8 @@ class ModelController extends AdminController {
 		//$this->primarykey='model_id';
 	}
 	public function index() {
-		$title = I('title');
-		$map['title'] = array('like', '%' . $title . '%');
+		$title         = I('title');
+		$map['title']  = array('like', '%' . $title . '%');
 		$map['status'] = array('egt', 0);
 		$this->pages(array(
 			'model' => 'Model',
@@ -40,7 +40,7 @@ class ModelController extends AdminController {
 				$this->error($model->geterror());
 			}
 		} else {
-			$field = getModelAttr('model');
+			$field            = getModelAttr('model');
 			$this->meta_title = '添加模型';
 			$this->assign('fieldarr', $field);
 			$this->display('edit');
@@ -49,10 +49,10 @@ class ModelController extends AdminController {
 	}
 	//判断有没有这个数据表没有的话添加
 	private function addnewtable($table_name) {
-		$tablename = getTable($table_name);
+		$tablename  = getTable($table_name);
 		$table_name = getTable($table_name, false);
-		$sql = "SHOW TABLES LIKE '{$tablename}'";
-		$res = M()->execute($sql);
+		$sql        = "SHOW TABLES LIKE '{$tablename}'";
+		$res        = M()->execute($sql);
 		if ($res <= 0) {
 			$sql = <<<sql
 	CREATE TABLE `{$tablename}`(
@@ -85,8 +85,8 @@ sql;
 				$this->error(L('_ID_NOT_NULL_'));
 			}
 
-			$data = D('Model')->where("model_id=$model_id")->find();
-			$field = getModelAttr('model');
+			$data             = D('Model')->where("model_id=$model_id")->find();
+			$field            = getModelAttr('model');
 			$this->meta_title = '编辑模型';
 			$this->assign('fieldarr', $field);
 			$this->assign('data', $data);
@@ -101,15 +101,15 @@ sql;
 			$this->error('请删除模型下面的字段再删除');
 		}
 
-		$mod = M('Model')->field('table')->find($model_id);
+		$mod        = M('Model')->field('table')->find($model_id);
 		$table_name = $mod['table'];
 
 		$result = D('Model')->where("model_id=$model_id")->delete();
 		if ($result > 0) {
 			//删除数据表
 			$tablename = getTable($table_name);
-			$sql = "DROP TABLE IF EXISTS `{$tablename}`";
-			$res = M()->execute($sql);
+			$sql       = "DROP TABLE IF EXISTS `{$tablename}`";
+			$res       = M()->execute($sql);
 			$this->success(L('_DELETE_SUCCESS_'), U('index'));
 		} else {
 			$this->error(L('_UNKNOWN_ERROR_'));

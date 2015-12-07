@@ -11,12 +11,12 @@ function getCategoryTitle($id) {
 function getCategoryAllChild($id) {
 	$restr = F('cateallchild' . $id);
 	if (empty($restr) || APP_DEBUG) {
-		$restr = $id;
+		$restr      = $id;
 		$map['pid'] = $id;
-		$result = M('Category')->where($map)->select();
+		$result     = M('Category')->where($map)->select();
 		if (!empty($result)) {
 			foreach ($result as $key => $val) {
-				$temid = $val['category_id'];
+				$temid   = $val['category_id'];
 				$result1 = M('Category')->where("pid=" . $temid)->select();
 				if (!empty($result1)) {
 					$temid = getCategoryAllChild($temid);
@@ -40,7 +40,7 @@ function getCategoryParent($id = null, $top = true) {
 	}
 
 	$catkey = sha1(json_encode($id) . json_encode($top));
-	$reid = F($catkey);
+	$reid   = F($catkey);
 	if (empty($reid) || APP_DEBUG) {
 		$info = M('Category')->find($id);
 		if ($top) {
@@ -61,13 +61,13 @@ function getCategoryParent($id = null, $top = true) {
  *取分类树
  */
 function getCategoryTree($pid = 0, $child = false) {
-	$rearr = array();
+	$rearr           = array();
 	$where['status'] = 1;
-	$where['pid'] = $pid;
-	$list = M('Category')->where($where)->order('sort asc')->select();
+	$where['pid']    = $pid;
+	$list            = M('Category')->where($where)->order('sort asc')->select();
 	if ($list) {
 		foreach ($list as $key => $val) {
-			$child = getCategoryTree($val['category_id']);
+			$child               = getCategoryTree($val['category_id']);
 			$list[$key]['child'] = $child;
 		}
 	}
@@ -77,7 +77,7 @@ function getCategoryTree($pid = 0, $child = false) {
  *取系统缓存分类
  */
 function F_getCategoryTree($pid = 0, $child = false) {
-	$cachekey = md5('homecategorytree');
+	$cachekey     = md5('homecategorytree');
 	$categorytree = F($cachekey);
 	if (empty($categorytree)) {
 		$categorytree = getCategoryTree($pid, $child);
@@ -123,15 +123,15 @@ function getCategory($id = null, $field = null) {
  */
 function getPicture($id = null, $field = null, $wh = null) {
 	$revalue = '';
-	$id = trim($id);
+	$id      = trim($id);
 	if (empty($id)) {
 		$revalue = false;
 	}
 	if (is_numeric($id)) {
 		$cakey = md5($id . '_' . $field . '_' . $wh);
 		//$revalue=F('_picture/'.$cakey);
-		$pkey = '_picture/' . ($id % 100);
-		$picarr = F($pkey);
+		$pkey    = '_picture/' . ($id % 100);
+		$picarr  = F($pkey);
 		$revalue = $picarr[$cakey];
 		if (empty($revalue) || APP_DEBUG) {
 
@@ -181,12 +181,12 @@ function getPicture($id = null, $field = null, $wh = null) {
  */
 function getFile($id = null, $field = null) {
 	$revalue = null;
-	$id = trim($id);
+	$id      = trim($id);
 	if (empty($id)) {
 		$revalue = false;
 	}
 	if (is_numeric($id)) {
-		$cakey = $id . '_' . $field;
+		$cakey   = $id . '_' . $field;
 		$revalue = F('_file/' . $cakey);
 		if (empty($revalue)) {
 			$picture = M('File')->where(array('status' => 1))->getById($id);
@@ -235,7 +235,7 @@ function getGoods($id = null, $whe = null, $field = null) {
 		}
 
 		$info2 = getGoodsAttribute($id);
-		$info = array_merge($info, $info2);
+		$info  = array_merge($info, $info2);
 		S('goods' . $id, $info);
 	}
 	return is_null($field) ? $info : $info[$field];
@@ -293,7 +293,7 @@ function getArticleList($whe = null, $order = null) {
 	$list = S($skey);
 	if (empty($list) || APP_DEBUG) {
 		$map['_string'] = $whe;
-		$list = M('Article')->where($map)->order($order)->select();
+		$list           = M('Article')->where($map)->order($order)->select();
 		S($skey, $list);
 	}
 	return $list;
@@ -373,10 +373,10 @@ function getGoodsTypeAttributeList($id = null) {
  **/
 function getGoodsAttribute($goods_id = null, $field = null) {
 	$map['goods_id'] = $goods_id;
-	$jon = __DB_PREFIX__ . "goods_type_attribute as a on a.goods_type_attribute_id=" . __DB_PREFIX__ . "goods_attribute.goods_type_attribute_id";
-	$fie = "*,a.name as attrname,a.title as attrtitle," . __DB_PREFIX__ . "goods_attribute.value as attrvalue";
-	$list = M('GoodsAttribute')->join($jon)->field($fie)->where($map)->select();
-	$rearr = array();
+	$jon             = __DB_PREFIX__ . "goods_type_attribute as a on a.goods_type_attribute_id=" . __DB_PREFIX__ . "goods_attribute.goods_type_attribute_id";
+	$fie             = "*,a.name as attrname,a.title as attrtitle," . __DB_PREFIX__ . "goods_attribute.value as attrvalue";
+	$list            = M('GoodsAttribute')->join($jon)->field($fie)->where($map)->select();
+	$rearr           = array();
 	foreach ($list as $key => $val) {
 		$rearr[$val['attrname']] = $val['attrvalue'];
 	}
@@ -416,7 +416,7 @@ function getModel($model_id = '', $field = '') {
  *
  **/
 function getModelAttr($model_id = null, $field = null, $attr = null) {
-	$skey = $model_id . '_' . $field . '_' . $attr;
+	$skey   = $model_id . '_' . $field . '_' . $attr;
 	$relist = F('_modelform/' . $skey);
 	if (empty($relist) || APP_DEBUG) {
 		$list = array();
@@ -430,8 +430,8 @@ function getModelAttr($model_id = null, $field = null, $attr = null) {
 		}
 
 		$model_id = $data['model_id'];
-		$list = M('ModelAttr')->where("model_id=$model_id")->order('sort asc')->select();
-		$refield = null;
+		$list     = M('ModelAttr')->where("model_id=$model_id")->order('sort asc')->select();
+		$refield  = null;
 		foreach ($list as $key => $val) {
 			if (!empty($val['extra'])) {
 				if ($val['extranote'] === '1' || $val['extranote'] == 'func') {
@@ -475,8 +475,8 @@ function getModelAttr($model_id = null, $field = null, $attr = null) {
  */
 function extraToArray($extra) {
 	$extra = preg_replace(array('/\n/i', '/\s/i'), array(',', ''), $extra);
-	$dest = array();
-	$tema = explode(',', $extra);
+	$dest  = array();
+	$tema  = explode(',', $extra);
 	foreach ($tema as $val) {
 		if (strpos($extra, ':') !== false) {
 			$temb = explode(':', $val);
@@ -495,8 +495,8 @@ function extraToArray($extra) {
  **/
 function getRegion($id = null) {
 	$idarr = explode(',', $id);
-	$key = md5('area' . json_encode($idarr));
-	$data = F($key);
+	$key   = md5('area' . json_encode($idarr));
+	$data  = F($key);
 	if (empty($data)) {
 		foreach ($idarr as $val) {
 			$info = M('Area')->find($val);

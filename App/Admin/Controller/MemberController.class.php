@@ -7,14 +7,14 @@ class MemberController extends AdminController {
 		//$this->primarykey='id';
 	}
 	public function index() {
-		$title = I('title');
+		$title   = I('title');
 		$groupid = I('groupid');
-		$map = array();
+		$map     = array();
 		if (!empty($title)) {
 			$map['username'] = array('like', '%' . $title . '%');
 		}
 
-		$map['status'] = array('egt', 0);
+		$map['status']    = array('egt', 0);
 		$map['member_id'] = array('NEQ', 1);
 		if (!empty($groupid)) {
 			$map['member_group_id'] = $groupid;
@@ -29,9 +29,9 @@ class MemberController extends AdminController {
 		$this->display();
 	}
 	public function recycling() {
-		$title = I('title');
+		$title           = I('title');
 		$map['username'] = array('like', '%' . $title . '%');
-		$map['status'] = array('lt', 0);
+		$map['status']   = array('lt', 0);
 		$this->pages(array(
 			'model' => 'Member',
 			'where' => $map,
@@ -44,7 +44,7 @@ class MemberController extends AdminController {
 		$this->pages(
 			array(
 				'model' => 'MemberLog',
-				'join' => array(
+				'join'  => array(
 					__DB_PREFIX__ . 'member as b on b.member_id=' . __DB_PREFIX__ . 'member_log.member_id',
 					__DB_PREFIX__ . 'member_group as c on c.member_group_id=b.member_group_id',
 				),
@@ -56,7 +56,7 @@ class MemberController extends AdminController {
 		$this->display();
 	}
 	public function dellog($member_log_id = null) {
-		$id = I('get.member_log_id');
+		$id  = I('get.member_log_id');
 		$idd = M('Member_log')->where("member_log_id in ($member_log_id)")->delete();
 		if (0 < $idd) {
 			$this->success(L('_DELETE_SUCCESS_'));
@@ -72,21 +72,21 @@ class MemberController extends AdminController {
 			}
 			$data = array(
 				'member_group_id' => $member_group_id,
-				'username' => $username,
-				'password' => $password,
-				'email' => $email,
-				'mobile' => $mobile,
-				'create_time' => NOW_TIME,
-				'update_time' => NOW_TIME,
-				'account' => createAccount(),
+				'username'        => $username,
+				'password'        => $password,
+				'email'           => $email,
+				'mobile'          => $mobile,
+				'create_time'     => NOW_TIME,
+				'update_time'     => NOW_TIME,
+				'account'         => createAccount(),
 			);
 			//自动判断用户名是哪个字段
 			$data[getAccountType($username)] = $username;
-			$mem = D('Member');
+			$mem                             = D('Member');
 			/* 添加用户 */
 			if ($mem->create($data)) {
 				$mem->password = ainiku_ucenter_md5($mem->password);
-				$uid = $mem->add();
+				$uid           = $mem->add();
 				return ($uid > 0) ? $this->success('添加成功') : $this->error('添加失败'); //0-未知错误，大于0-注册成功
 			} else {
 				return $this->error($mem->getError()); //错误详情见自动验证注释
@@ -125,7 +125,7 @@ class MemberController extends AdminController {
 
 		} else {
 			$field = getModelAttr('member');
-			$data = M('Member')->find($member_id);
+			$data  = M('Member')->find($member_id);
 			$this->assign('fieldarr', $field);
 			$this->assign('data', $data);
 			$this->meta_title = '编辑用户信息';
@@ -142,7 +142,7 @@ class MemberController extends AdminController {
 			$model = D('Member');
 			if ($model->create()) {
 				$model->password = ainiku_ucenter_md5($model->password);
-				$result = $model->save();
+				$result          = $model->save();
 				if (0 < $result) {
 					$this->success(L('_UPDATE_SUCCESS_'));
 				} else {
@@ -152,9 +152,9 @@ class MemberController extends AdminController {
 				$this->error($this->showRegError($model->geterror()));
 			}
 		}
-		$member_id = empty($member_id) ? UID : $member_id;
-		$data = M('Member')->find($member_id);
-		$this->data = $data;
+		$member_id        = empty($member_id) ? UID : $member_id;
+		$data             = M('Member')->find($member_id);
+		$this->data       = $data;
 		$this->meta_title = '修改密码';
 		$this->display();
 	}
@@ -211,7 +211,7 @@ class MemberController extends AdminController {
 		}
 	}
 	function huifu($member_id) {
-		$id = I('get.member_id');
+		$id  = I('get.member_id');
 		$uid = M('Member')->where("member_id in($member_id)")->save(array('status' => 1));
 		if (0 < $uid) {
 			$this->success(L('_TO_HUIFU_'), U('Member/index'));

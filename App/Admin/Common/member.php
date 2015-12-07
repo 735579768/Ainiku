@@ -24,16 +24,16 @@ function getAllMenuList() {
 	return $list;
 }
 function getNodeTree() {
-	$rearr = array();
-	$rearr[0] = '顶级节点';
+	$rearr         = array();
+	$rearr[0]      = '顶级节点';
 	$map['status'] = 1;
-	$map['pid'] = 0;
-	$list = M('Node')->where($map)->select();
+	$map['pid']    = 0;
+	$list          = M('Node')->where($map)->select();
 	if (!empty($list)) {
 		foreach ($list as $val) {
 			$rearr[$val['node_id']] = $val['title'];
-			$map['pid'] = $val['node_id'];
-			$list1 = M('Node')->where($map)->select();
+			$map['pid']             = $val['node_id'];
+			$list1                  = M('Node')->where($map)->select();
 			if (!empty($list1)) {
 				foreach ($list1 as $v) {
 					$rearr[$v['node_id']] = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┗━━━" . $v['title'];

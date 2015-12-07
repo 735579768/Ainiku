@@ -4,9 +4,9 @@ require_once pathA('/Plugins/Plugin.class.php');
 class AboutPlugin extends \Plugins\Plugin {
 	protected $config = array(
 		'version' => '1.0',
-		'author' => 'qiaokeli',
-		'name' => '关于我们',
-		'descr' => '企业信息',
+		'author'  => 'qiaokeli',
+		'name'    => '关于我们',
+		'descr'   => '企业信息',
 	);
 	//钩子默认的调用方法
 	public function run() {

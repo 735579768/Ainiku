@@ -5,9 +5,9 @@ require_once pathA('/Plugins/Plugin.class.php');
 class TenpayPlugin extends \Plugins\Plugin {
 	protected $config = array(
 		'version' => '1.0',
-		'author' => 'qiaokeli',
-		'name' => '财付通',
-		'descr' => '财付通',
+		'author'  => 'qiaokeli',
+		'name'    => '财付通',
+		'descr'   => '财付通',
 	);
 	//钩子默认的调用方法
 	public function run($a, $b) {
@@ -155,10 +155,10 @@ eot;
 			if ("1" == $trade_mode) {
 				if ("0" == $trade_state) {
 					$orderId = $out_trade_no;
-					$data = array(
-						'status' => 1,
-						'str' => '财付通即时到帐支付成功',
-						'mark' => '财付通',
+					$data    = array(
+						'status'   => 1,
+						'str'      => '财付通即时到帐支付成功',
+						'mark'     => '财付通',
 						'order_sn' => $orderId,
 					);
 					return $data;
@@ -166,17 +166,17 @@ eot;
 					//
 					return array(
 						'status' => 0,
-						'mark' => '财付通',
-						'str' => '财付通即时到帐支付失败',
+						'mark'   => '财付通',
+						'str'    => '财付通即时到帐支付失败',
 					);
 				}
 			} elseif ("2" == $trade_mode) {
 				if ("0" == $trade_state) {
 					$orderId = $out_trade_no;
-					$data = array(
-						'status' => 1,
-						'str' => '财付通中介担保支付成功',
-						'mark' => '财付通',
+					$data    = array(
+						'status'   => 1,
+						'str'      => '财付通中介担保支付成功',
+						'mark'     => '财付通',
 						'order_sn' => $orderId,
 					);
 					return $data;
@@ -185,8 +185,8 @@ eot;
 					//当做不成功处理
 					return array(
 						'status' => 0,
-						'mark' => '财付通',
-						'str' => '财付通中介担保支付失败',
+						'mark'   => '财付通',
+						'str'    => '财付通中介担保支付失败',
 					);
 					//echo "<br/>" . "财付通中介担保支付失败" . "<br/>";
 				}
@@ -194,8 +194,8 @@ eot;
 		} else {
 			return array(
 				'status' => 0,
-				'mark' => '财付通',
-				'str' => '验签失败',
+				'mark'   => '财付通',
+				'str'    => '验签失败',
 			);
 		}
 	}
@@ -216,11 +216,11 @@ eot;
 			$trade_state = $resHandler->getParameter("trade_state");
 			//交易模式,1即时到账
 			$trade_mode = $resHandler->getParameter("trade_mode");
-			$orderId = $out_trade_no;
-			$info = M('Order')->where("order_sn=$orderId")->save(array(
-				'pay_time' => NOW_TIME,
+			$orderId    = $out_trade_no;
+			$info       = M('Order')->where("order_sn=$orderId")->save(array(
+				'pay_time'     => NOW_TIME,
 				'pay_trade_no' => $transaction_id,
-				'pay_type' => '财付通',
+				'pay_type'     => '财付通',
 				'order_status' => 2,
 			));
 		}
@@ -232,10 +232,10 @@ eot;
 		//向后台添加菜单，如果不添加的话直接返回真
 		$data = array(
 			'title' => '财付通', //插件后台菜单名字
-			'pid' => ADDONS_MENU, //不用改变
-			'url' => 'Addons/plugin?pn=Tenpay&pm=set', //填写后台菜单url名称和方法
+			'pid'   => ADDONS_MENU, //不用改变
+			'url'   => 'Addons/plugin?pn=Tenpay&pm=set', //填写后台菜单url名称和方法
 			'group' => '已装插件', //不用改变
-			'type' => 'Tenpay', //填写自己的插件名字
+			'type'  => 'Tenpay', //填写自己的插件名字
 		);
 		//添加到数据库
 		if (M('Menu')->add($data)) {
@@ -262,10 +262,10 @@ eot;
 		if (IS_POST) {
 			$data = array(
 				'update_time' => NOW_TIME,
-				'partner' => I('post.partner'), //商户id
-				'key' => I('key'),
+				'partner'     => I('post.partner'), //商户id
+				'key'         => I('key'),
 			);
-			$model = M('Addons');
+			$model  = M('Addons');
 			$result = $model->where("mark='Tenpay'")->save(array('param' => json_encode($data)));
 			if (0 < $result) {
 				$this->success('保存成功');

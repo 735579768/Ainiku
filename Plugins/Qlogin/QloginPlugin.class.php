@@ -7,9 +7,9 @@ require_once ADDONS_PATH . 'Plugin.class.php';
 class QloginPlugin extends \Plugins\Plugin {
 	protected $config = array(
 		'version' => '1.0',
-		'author' => 'qiaokeli',
-		'name' => 'QQ登陆',
-		'descr' => 'QQ互联',
+		'author'  => 'qiaokeli',
+		'name'    => 'QQ登陆',
+		'descr'   => 'QQ互联',
 	);
 	function run() {
 		$this->display('content');
@@ -33,13 +33,13 @@ class QloginPlugin extends \Plugins\Plugin {
 		}
 	}
 	public function QQregister($openid) {
-		$qqinfo = session('qqinfo');
-		$data['openid'] = $openid;
+		$qqinfo                  = session('qqinfo');
+		$data['openid']          = $openid;
 		$data['member_group_id'] = 2;
-		$data['nickname'] = $qqinfo['nickname'];
-		$data['username'] = $qqinfo['nickname'];
-		$mem = M('Member');
-		$re = $mem->where("openid='$openid'")->select();
+		$data['nickname']        = $qqinfo['nickname'];
+		$data['username']        = $qqinfo['nickname'];
+		$mem                     = M('Member');
+		$re                      = $mem->where("openid='$openid'")->select();
 		if (!empty($re)) {
 			$data['member_id'] = $re[0]['member_id'];
 			if ($mem->create($data)) {
@@ -51,7 +51,7 @@ class QloginPlugin extends \Plugins\Plugin {
 		} else {
 			/* 添加用户 */
 			$data['last_login_ip'] = get_client_ip();
-			$data['account'] = createAccount();
+			$data['account']       = createAccount();
 			//生成用户名
 			$uid = $mem->add($data);
 			return $uid ? $uid : 0; //0-未知错误，大于0-注册成功
@@ -94,8 +94,8 @@ class QloginPlugin extends \Plugins\Plugin {
 			/* 验证用户密码 */
 			/* 记录登录SESSION和COOKIES */
 			$auth = array(
-				'uid' => $user['member_id'],
-				'username' => $user['username'],
+				'uid'             => $user['member_id'],
+				'username'        => $user['username'],
 				'last_login_time' => $user['last_login_time'],
 			);
 			session('user_auth', $auth);
@@ -114,11 +114,11 @@ class QloginPlugin extends \Plugins\Plugin {
 	 */
 	protected function updateLogin($uid) {
 		$data = array(
-			'member_id' => $uid,
+			'member_id'       => $uid,
 			'last_login_time' => NOW_TIME,
-			'last_login_ip' => get_client_ip(),
-			'create_time' => NOW_TIME,
-			'update_time' => NOW_TIME,
+			'last_login_ip'   => get_client_ip(),
+			'create_time'     => NOW_TIME,
+			'update_time'     => NOW_TIME,
 		);
 		D('Member')->save($data);
 	}

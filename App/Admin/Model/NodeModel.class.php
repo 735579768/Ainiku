@@ -47,11 +47,11 @@ class NodeModel extends BaseModel {
 		/* 获取当前分类信息 */
 		if ($id) {
 			$info = $this->info($id);
-			$id = $info['id'];
+			$id   = $info['id'];
 		}
 
 		/* 获取所有分类 */
-		$map = array('status' => array('gt', -1));
+		$map  = array('status' => array('gt', -1));
 		$list = $this->field($field)->where($map)->order('sort asc,node_id desc')->select();
 		$list = list_to_tree($list, $pk = 'node_id', $pid = 'pid', $child = '_', $root = $id);
 

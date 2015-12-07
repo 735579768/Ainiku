@@ -13,17 +13,17 @@ class NoticeController extends AdminController {
 		//
 		//		));
 		$conf = array(
-			'host' => C('MAIL_SMTP_HOST'),
-			'port' => C('MAIL_SMTP_PORT'),
-			'username' => C('MAIL_SMTP_USER'),
-			'password' => C('MAIL_SMTP_PASS'),
+			'host'      => C('MAIL_SMTP_HOST'),
+			'port'      => C('MAIL_SMTP_PORT'),
+			'username'  => C('MAIL_SMTP_USER'),
+			'password'  => C('MAIL_SMTP_PASS'),
 
 			'fromemail' => C('MAIL_SMTP_FROMEMAIL'),
-			'to' => C('MAIL_SMTP_TESTEMAIL'),
-			'toname' => C('MAIL_SMTP_TESTEMAIL'),
-			'subject' => C('MAIL_SMTP_EMAILSUBJECT'), //主题标题
-			'fromname' => C('MAIL_SMTP_FROMNAME'), //发件人
-			'body' => C('MAIL_SMTP_CE'), //邮件内容
+			'to'        => C('MAIL_SMTP_TESTEMAIL'),
+			'toname'    => C('MAIL_SMTP_TESTEMAIL'),
+			'subject'   => C('MAIL_SMTP_EMAILSUBJECT'), //主题标题
+			'fromname'  => C('MAIL_SMTP_FROMNAME'), //发件人
+			'body'      => C('MAIL_SMTP_CE'), //邮件内容
 		);
 		$sendmaillock = S('sendmaillock');
 		if (empty($sendmaillock)) {

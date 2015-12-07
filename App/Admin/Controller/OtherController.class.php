@@ -20,7 +20,7 @@ class OtherController extends AdminController {
 	 * 清空系统缓存目录
 	 * **/
 	public function clearCache($type = 'img') {
-		$arr = array();
+		$arr        = array();
 		$rutimepath = str_replace(MODULE_NAME . '/', '', RUNTIME_PATH);
 		if ($type == 'img' || $type == 'all') {
 			$arr[] = delAllFile(IMAGE_CACHE_DIR);

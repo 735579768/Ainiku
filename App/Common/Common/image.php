@@ -43,11 +43,11 @@ function markimg($info = array(
 
 	if ($info['str'] != '') {
 		$font_size = 14;
-		$fontname = 'C:\WINDOWS\Fonts\simkai.ttf';
-		$black = imagecolorallocate($dst_im, 0, 0, 0);
-		$arr = imagettfbbox($font_size, 0, $fontname, $info['str']);
-		$hh = abs($arr[7] - $arr[1]);
-		$ww = abs($arr[2] - $arr[0]);
+		$fontname  = 'C:\WINDOWS\Fonts\simkai.ttf';
+		$black     = imagecolorallocate($dst_im, 0, 0, 0);
+		$arr       = imagettfbbox($font_size, 0, $fontname, $info['str']);
+		$hh        = abs($arr[7] - $arr[1]);
+		$ww        = abs($arr[2] - $arr[0]);
 		switch ($pos) {
 		case 'right':
 			//右下角
@@ -125,7 +125,7 @@ function img2thumb($src_img, $dst_img, $width = 75, $height = 75, $createimg = t
 	}
 	$to = '';
 	if (!empty($dst_img)) {
-		$ot = strtolower(pathinfo($dst_img, PATHINFO_EXTENSION));
+		$ot      = strtolower(pathinfo($dst_img, PATHINFO_EXTENSION));
 		$dirname = pathinfo($dst_img, PATHINFO_DIRNAME);
 		if (!file_exists($dirname)) {
 			createFolder($dirname);
@@ -134,12 +134,12 @@ function img2thumb($src_img, $dst_img, $width = 75, $height = 75, $createimg = t
 	} else {
 		$ot = strtolower(pathinfo($src_img, PATHINFO_EXTENSION));
 	}
-	$otfunc = 'image' . ($ot == 'jpg' ? 'jpeg' : $ot);
+	$otfunc  = 'image' . ($ot == 'jpg' ? 'jpeg' : $ot);
 	$srcinfo = getimagesize($src_img);
-	$src_w = $srcinfo[0];
-	$src_h = $srcinfo[1];
+	$src_w   = $srcinfo[0];
+	$src_h   = $srcinfo[1];
 	//if($src_h<intval(C('THUMB_HEIGHT')) || $src_w<intval(C('THUMB_WIDTH'))){return false;}
-	$type = strtolower(substr(image_type_to_extension($srcinfo[2]), 1));
+	$type      = strtolower(substr(image_type_to_extension($srcinfo[2]), 1));
 	$createfun = 'imagecreatefrom' . ($type == 'jpg' ? 'jpeg' : $type);
 
 	if (!$createimg) {
@@ -148,7 +148,7 @@ function img2thumb($src_img, $dst_img, $width = 75, $height = 75, $createimg = t
 
 	$dst_h = $height;
 	$dst_w = $width;
-	$x = $y = 0;
+	$x     = $y     = 0;
 
 	$zfxbili = 0.00;
 	//如果缩略图是正方形，算出源图的宽高比例如果接近正方形的话就生成正方形的图片
@@ -236,8 +236,8 @@ function img2thumb($src_img, $dst_img, $width = 75, $height = 75, $createimg = t
 				//缩略图宽大于高
 				if ($width > $height) {
 					$bili = ($width / $height);
-					$hh = $src_w / $bili;
-					$_y = ($src_h - $hh) / 2;
+					$hh   = $src_w / $bili;
+					$_y   = ($src_h - $hh) / 2;
 					if ($src_w > $src_h) {
 						//查找合适剪切的高
 						$tem_w = $src_w;
@@ -263,8 +263,8 @@ function img2thumb($src_img, $dst_img, $width = 75, $height = 75, $createimg = t
 				} else {
 					//缩略图宽小于等于高
 					$bili = ($height / $width);
-					$ww = $src_h / $bili;
-					$_x = ($src_w - $ww) / 2;
+					$ww   = $src_h / $bili;
+					$_x   = ($src_w - $ww) / 2;
 					if ($src_h > $src_w) {
 						//查找合适剪切的高
 						$tem_h = $src_h;
@@ -425,15 +425,15 @@ function imagecreatefrombmp($filename) {
 		return FALSE;
 	}
 
-	$BMP = unpack('Vheader_size/Vwidth/Vheight/vplanes/vbits_per_pixel' . '/Vcompression/Vsize_bitmap/Vhoriz_resolution' . '/Vvert_resolution/Vcolors_used/Vcolors_important', fread($f1, 40));
+	$BMP           = unpack('Vheader_size/Vwidth/Vheight/vplanes/vbits_per_pixel' . '/Vcompression/Vsize_bitmap/Vhoriz_resolution' . '/Vvert_resolution/Vcolors_used/Vcolors_important', fread($f1, 40));
 	$BMP['colors'] = pow(2, $BMP['bits_per_pixel']);
 	if ($BMP['size_bitmap'] == 0) {
 		$BMP['size_bitmap'] = $FILE['file_size'] - $FILE['bitmap_offset'];
 	}
 
-	$BMP['bytes_per_pixel'] = $BMP['bits_per_pixel'] / 8;
+	$BMP['bytes_per_pixel']  = $BMP['bits_per_pixel'] / 8;
 	$BMP['bytes_per_pixel2'] = ceil($BMP['bytes_per_pixel']);
-	$BMP['decal'] = ($BMP['width'] * $BMP['bytes_per_pixel'] / 4);
+	$BMP['decal']            = ($BMP['width'] * $BMP['bytes_per_pixel'] / 4);
 	$BMP['decal'] -= floor($BMP['width'] * $BMP['bytes_per_pixel'] / 4);
 	$BMP['decal'] = 4 - (4 * $BMP['decal']);
 	if ($BMP['decal'] == 4) {
@@ -445,20 +445,20 @@ function imagecreatefrombmp($filename) {
 		$PALETTE = unpack('V' . $BMP['colors'], fread($f1, $BMP['colors'] * 4));
 	}
 
-	$IMG = fread($f1, $BMP['size_bitmap']);
+	$IMG  = fread($f1, $BMP['size_bitmap']);
 	$VIDE = chr(0);
 
 	$res = imagecreatetruecolor($BMP['width'], $BMP['height']);
-	$P = 0;
-	$Y = $BMP['height'] - 1;
+	$P   = 0;
+	$Y   = $BMP['height'] - 1;
 	while ($Y >= 0) {
 		$X = 0;
 		while ($X < $BMP['width']) {
 			if ($BMP['bits_per_pixel'] == 32) {
 				$COLOR = unpack("V", substr($IMG, $P, 3));
-				$B = ord(substr($IMG, $P, 1));
-				$G = ord(substr($IMG, $P + 1, 1));
-				$R = ord(substr($IMG, $P + 2, 1));
+				$B     = ord(substr($IMG, $P, 1));
+				$G     = ord(substr($IMG, $P + 1, 1));
+				$R     = ord(substr($IMG, $P + 2, 1));
 				$color = imagecolorexact($res, $R, $G, $B);
 				if ($color == -1) {
 					$color = imagecolorallocate($res, $R, $G, $B);
@@ -469,10 +469,10 @@ function imagecreatefrombmp($filename) {
 			} elseif ($BMP['bits_per_pixel'] == 24) {
 				$COLOR = unpack("V", substr($IMG, $P, 3) . $VIDE);
 			} elseif ($BMP['bits_per_pixel'] == 16) {
-				$COLOR = unpack("n", substr($IMG, $P, 2));
+				$COLOR    = unpack("n", substr($IMG, $P, 2));
 				$COLOR[1] = $PALETTE[$COLOR[1] + 1];
 			} elseif ($BMP['bits_per_pixel'] == 8) {
-				$COLOR = unpack("n", $VIDE . substr($IMG, $P, 1));
+				$COLOR    = unpack("n", $VIDE . substr($IMG, $P, 1));
 				$COLOR[1] = $PALETTE[$COLOR[1] + 1];
 			} elseif ($BMP['bits_per_pixel'] == 4) {
 				$COLOR = unpack("n", $VIDE . substr($IMG, floor($P), 1));
@@ -546,8 +546,8 @@ function imagebmp(&$im, $filename = '', $bit = 8, $compression = 0) {
 
 	// 调整调色板
 	imagetruecolortopalette($im, true, $bits);
-	$width = imagesx($im);
-	$height = imagesy($im);
+	$width      = imagesx($im);
+	$height     = imagesy($im);
 	$colors_num = imagecolorstotal($im);
 
 	if ($bit <= 8) {
@@ -570,7 +570,7 @@ function imagebmp(&$im, $filename = '', $bit = 8, $compression = 0) {
 			$compression = 0;
 
 			// 每行字节数必须为4的倍数，补齐。
-			$extra = '';
+			$extra   = '';
 			$padding = 4 - ceil($width / (8 / $bit)) % 4;
 			if ($padding % 4 != 0) {
 				$extra = str_repeat("\0", $padding);
@@ -579,7 +579,7 @@ function imagebmp(&$im, $filename = '', $bit = 8, $compression = 0) {
 			for ($j = $height - 1; $j >= 0; $j--) {
 				$i = 0;
 				while ($i < $width) {
-					$bin = 0;
+					$bin   = 0;
 					$limit = $width - $i < 8 / $bit ? (8 / $bit - $width + $i) * $bit : 0;
 
 					for ($k = 8 - $bit; $k >= $limit; $k -= $bit) {
@@ -598,7 +598,7 @@ function imagebmp(&$im, $filename = '', $bit = 8, $compression = 0) {
 		else if ($compression == 1 && $bit == 8) {
 			for ($j = $height - 1; $j >= 0; $j--) {
 				$last_index = "\0";
-				$same_num = 0;
+				$same_num   = 0;
 				for ($i = 0; $i <= $width; $i++) {
 					$index = imagecolorat($im, $i, $j);
 					if ($index !== $last_index || $same_num > 255) {
@@ -607,7 +607,7 @@ function imagebmp(&$im, $filename = '', $bit = 8, $compression = 0) {
 						}
 
 						$last_index = $index;
-						$same_num = 1;
+						$same_num   = 1;
 					} else {
 						$same_num++;
 					}
@@ -623,7 +623,7 @@ function imagebmp(&$im, $filename = '', $bit = 8, $compression = 0) {
 		$size_data = strlen($bmp_data);
 	} else {
 		// 每行字节数必须为4的倍数，补齐。
-		$extra = '';
+		$extra   = '';
 		$padding = 4 - ($width * ($bit / 8)) % 4;
 		if ($padding % 4 != 0) {
 			$extra = str_repeat("\0", $padding);
@@ -634,7 +634,7 @@ function imagebmp(&$im, $filename = '', $bit = 8, $compression = 0) {
 
 		for ($j = $height - 1; $j >= 0; $j--) {
 			for ($i = 0; $i < $width; $i++) {
-				$index = imagecolorat($im, $i, $j);
+				$index  = imagecolorat($im, $i, $j);
 				$colors = imagecolorsforindex($im, $index);
 
 				if ($bit == 16) {
@@ -655,8 +655,8 @@ function imagebmp(&$im, $filename = '', $bit = 8, $compression = 0) {
 			$bmp_data .= $extra;
 		}
 
-		$size_quad = 0;
-		$size_data = strlen($bmp_data);
+		$size_quad  = 0;
+		$size_data  = strlen($bmp_data);
 		$colors_num = 0;
 	}
 

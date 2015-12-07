@@ -5,7 +5,7 @@ class OrderController extends AdminController {
 	public function index() {
 		$this->assign('meta_title', '订单列表');
 		$order_sn = I('order_sn');
-		$map = array();
+		$map      = array();
 		empty($order_sn) || ($map['order_sn'] = $order_sn);
 		$list = $this->pages(array(
 			'where' => $map,
@@ -19,7 +19,7 @@ class OrderController extends AdminController {
 		$info = M('Order')->find($order_id);
 		//查询订单中的商品信息
 		$map['order_id'] = $order_id;
-		$list = D('OrderGoodsView')->where($map)->select();
+		$list            = D('OrderGoodsView')->where($map)->select();
 		$this->assign('info', $info);
 		$this->assign('_list', $list);
 		$this->display();

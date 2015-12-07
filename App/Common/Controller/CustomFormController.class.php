@@ -7,8 +7,8 @@ class CustomFormController extends Controller {
 	public function __construct($metch, $name, $value) {
 		parent::__construct();
 		$this->filename = $metch;
-		$data['name'] = $name;
-		$data['value'] = $value;
+		$data['name']   = $name;
+		$data['value']  = $value;
 		$this->assign('data', $data);
 	}
 	//云标签表单

@@ -12,7 +12,7 @@ class AjaxController extends AdminController {
 			$pid = $val->pid;
 			if (count($val->child) > 0) {
 				foreach ($val->child as $k => $v) {
-					$id = $v->id;
+					$id   = $v->id;
 					$sort = $v->sorts;
 					//echo $pid.'_'.$id.'_'.$sort;
 					//保存到数据库
@@ -43,15 +43,15 @@ class AjaxController extends AdminController {
 	private function getchildmenu($url) {
 		//查到当前页面地址
 		preg_match('/.*?m\=(.*?)&c\=(.*?)&a\=(.*?)&.*?/', $url, $match);
-		$module = $match[1];
+		$module        = $match[1];
 		$controll_name = $match[2];
-		$action_name = $match[3];
-		$current = array();
+		$action_name   = $match[3];
+		$current       = array();
 		if (empty($menu_id)) {
-			$act = $controll_name;
-			$url = $act . "/" . $action_name;
+			$act      = $controll_name;
+			$url      = $act . "/" . $action_name;
 			$url_sha1 = sha1($url);
-			$current = F('sys_current_url' . $url_sha1);
+			$current  = F('sys_current_url' . $url_sha1);
 			if (empty($current) || APP_DEBUG) {
 
 				$current = M('Menu')->where(" url like '%" . $url . "%'")->find();
@@ -73,12 +73,12 @@ class AjaxController extends AdminController {
 		}
 		//取当前分组列表
 		$grouplist = F('sys_grouplist' . $curid);
-		$childnav = F('sys_childnavlist' . $curid);
+		$childnav  = F('sys_childnavlist' . $curid);
 		if (APP_DEBUG || empty($grouplist) || empty($childnav)) {
 			$map['hide'] = 0;
-			$map['pid'] = $curid;
-			$model = M('menu');
-			$grouplist = $model->where($map)->group('`group`')->order('`group` asc')->select();
+			$map['pid']  = $curid;
+			$model       = M('menu');
+			$grouplist   = $model->where($map)->group('`group`')->order('`group` asc')->select();
 			foreach ($grouplist as $key => $val) {
 				$grouplist[$key]['group'] = preg_replace('/\d*/', '', $val['group']);
 			}

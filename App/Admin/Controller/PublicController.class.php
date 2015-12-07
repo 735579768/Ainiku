@@ -34,11 +34,11 @@ class PublicController extends Controller {
 			}
 			//自动判断用户名是哪个字段的
 			$map[getAccountType($username)] = $username;
-			$map['password'] = ainiku_ucenter_md5($password);
-			$map['status'] = 1;
+			$map['password']                = ainiku_ucenter_md5($password);
+			$map['status']                  = 1;
 			//$map['member_group_id']=1;
 			$map['is_adminlogin'] = 1;
-			$user = D('MemberView')->where($map)->find();
+			$user                 = D('MemberView')->where($map)->find();
 			if (empty($user)) {
 				//登录失败
 				cookie('__uid__', null);
@@ -48,8 +48,8 @@ class PublicController extends Controller {
 
 				/* 记录登录SESSION和COOKIES */
 				$auth = array(
-					'uid' => $user['member_id'],
-					'username' => $user['username'],
+					'uid'             => $user['member_id'],
+					'username'        => $user['username'],
 					'last_login_time' => $user['update_time'],
 				);
 				session('user_auth', $auth);
@@ -108,12 +108,12 @@ class PublicController extends Controller {
 	//    }
 	public function verify() {
 		$conf = array(
-			'imageH' => 50,
-			'imageW' => 200,
+			'imageH'   => 50,
+			'imageW'   => 200,
 			'fontSize' => 25,
-			'bg' => array(255, 255, 255),
+			'bg'       => array(255, 255, 255),
 			'useNoise' => false, // 是否添加杂点
-			'length' => 4,
+			'length'   => 4,
 		);
 		$verify = new \Think\Verify($conf);
 		$verify->entry(1);
@@ -123,12 +123,12 @@ class PublicController extends Controller {
 	 * @param  integer $uid 用户ID
 	 */
 	protected function updateLogin($uid) {
-		$ip = get_client_ip();
+		$ip       = get_client_ip();
 		$location = getIpLocation($ip);
-		$data = array(
-			'member_id' => $uid,
-			'update_time' => NOW_TIME,
-			'last_login_ip' => $ip,
+		$data     = array(
+			'member_id'      => $uid,
+			'update_time'    => NOW_TIME,
+			'last_login_ip'  => $ip,
 			'last_login_adr' => $location,
 		);
 		M('Member')->where("member_id=$uid")->setInc('login');
@@ -136,9 +136,9 @@ class PublicController extends Controller {
 		//保存用户登陆日志
 		M('MemberLog')->add(
 			array(
-				'member_id' => $uid,
-				'ip' => $ip,
-				'adr' => $location,
+				'member_id'   => $uid,
+				'ip'          => $ip,
+				'adr'         => $location,
 				'create_time' => NOW_TIME,
 			)
 		);

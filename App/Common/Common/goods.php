@@ -9,7 +9,7 @@ defined("ACCESS_ROOT") or die("Invalid access");
 function F_getGoodsType() {
 	$rearr = F('sys_goodstype_tree');
 	if (empty($rearr) || APP_DEBUG) {
-		$rows = M('GoodsType')->where('status>0')->order('sort asc')->select();
+		$rows  = M('GoodsType')->where('status>0')->order('sort asc')->select();
 		$rearr = array();
 		foreach ($rows as $val) {
 			$rearr[$val['goods_type_id']] = $val['title'];
@@ -45,7 +45,7 @@ function getGoodsCatAttr($cat_id = null) {
 	}
 
 	$rearr = array();
-	$row = M('GoodsCat')->field('goods_type_id')->find($cat_id);
+	$row   = M('GoodsCat')->field('goods_type_id')->find($cat_id);
 	if (!empty($row)) {
 		$tema = M('GoodsTypeAttr')->where("goods_type_id={$row['goods_type_id']}")->order('sort asc ,id desc')->select();
 		foreach ($tema as $val) {
@@ -55,7 +55,7 @@ function getGoodsCatAttr($cat_id = null) {
 			}
 
 			$rearr[] = array(
-				'name' => $val['name'],
+				'name'  => $val['name'],
 				'title' => $val['title'],
 				'extra' => $extra,
 			);
@@ -82,11 +82,11 @@ function getGoodsInfo($goods_id = null) {
 
 	//查找扩展信息
 	$goods_type_id = $rows['goods_type_id'];
-	$tema = M('GoodsType')->where("goods_type_id=$goods_type_id")->select();
+	$tema          = M('GoodsType')->where("goods_type_id=$goods_type_id")->select();
 	foreach ($tema as $key => $val) {
-		$map['goods_id'] = $goods_id;
-		$map['attrid'] = $tema['id'];
-		$temb = M('GoodsAttribute')->where($map)->find();
+		$map['goods_id']     = $goods_id;
+		$map['attrid']       = $tema['id'];
+		$temb                = M('GoodsAttribute')->where($map)->find();
 		$rows[$temb['name']] = $temb['value'];
 	}
 	return $rows;

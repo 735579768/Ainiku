@@ -4,9 +4,9 @@ require_once pathA('/Plugins/Plugin.class.php');
 class ChartPlugin extends \Plugins\Plugin {
 	protected $config = array(
 		'version' => '1.0',
-		'author' => 'qiaokeli',
-		'name' => '访问流量',
-		'descr' => '流量分析图表',
+		'author'  => 'qiaokeli',
+		'name'    => '访问流量',
+		'descr'   => '流量分析图表',
 	);
 	//钩子默认的调用方法
 	public function run($a = null, $b = null) {
@@ -51,10 +51,10 @@ class ChartPlugin extends \Plugins\Plugin {
 		if (IS_POST) {
 			$data = array(
 				'title' => I('post.title'),
-				'url' => I('post.url'),
-				'sort' => I('post.sort'),
+				'url'   => I('post.url'),
+				'sort'  => I('post.sort'),
 			);
-			$model = M('Addons');
+			$model  = M('Addons');
 			$result = $model->where("mark='Chart'")->save(array('param' => json_encode($data)));
 			if (0 < $result) {
 				$this->success('保存成功');

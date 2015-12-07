@@ -10,8 +10,8 @@ defined("ACCESS_ROOT") || die("Invalid access");
  */
 class LinkController extends AdminController {
 	public function index() {
-		$title = I('title');
-		$map['title'] = array('like', '%' . $title . '%');
+		$title         = I('title');
+		$map['title']  = array('like', '%' . $title . '%');
 		$map['status'] = array('egt', 0);
 		$this->pages(array(
 			'model' => 'Link',
@@ -37,7 +37,7 @@ class LinkController extends AdminController {
 			}
 		} else {
 			//$field=Api('Model/linkModel');
-			$field = getModelAttr('link');
+			$field            = getModelAttr('link');
 			$this->meta_title = '添加友情链接';
 			$this->assign('fieldarr', $field);
 			$this->display('edit');
@@ -64,8 +64,8 @@ class LinkController extends AdminController {
 				$this->error(L('_ID_NOT_NULL_'));
 			}
 
-			$data = D('Link')->where("link_id=$link_id")->find();
-			$field = getModelAttr('link');
+			$data             = D('Link')->where("link_id=$link_id")->find();
+			$field            = getModelAttr('link');
 			$this->meta_title = '编辑友情链接';
 			$this->assign('fieldarr', $field);
 			$this->assign('data', $data);

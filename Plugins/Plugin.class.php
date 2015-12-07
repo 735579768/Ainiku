@@ -27,18 +27,18 @@ class Plugin extends CommonController {
 	 *  'version'=>'0.1'
 	 *  )
 	 */
-	public $info = array();
-	public $addon_path = '';
-	public $config_file = '';
-	public $custom_config = '';
-	public $admin_list = array();
+	public $info             = array();
+	public $addon_path       = '';
+	public $config_file      = '';
+	public $custom_config    = '';
+	public $admin_list       = array();
 	public $custom_adminlist = '';
-	public $access_url = array();
+	public $access_url       = array();
 
 	public function __construct() {
-		$this->view = \Think\Think::instance('Think\View');
-		$this->addon_path = ADDONS_PATH . $this->getName() . '/View/';
-		$TMPL_PARSE_STRING = C('TMPL_PARSE_STRING');
+		$this->view                         = \Think\Think::instance('Think\View');
+		$this->addon_path                   = ADDONS_PATH . $this->getName() . '/View/';
+		$TMPL_PARSE_STRING                  = C('TMPL_PARSE_STRING');
 		$TMPL_PARSE_STRING['__ADDONROOT__'] = ADDONS_PATH . $this->getName();
 		C('TMPL_PARSE_STRING', $TMPL_PARSE_STRING);
 		if (is_file($this->addon_path . 'config.php')) {

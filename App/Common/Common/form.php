@@ -6,7 +6,7 @@
  */
 function A_getModellist() {
 	$rearr = array();
-	$list = M('Model')->where('status=1')->select();
+	$list  = M('Model')->where('status=1')->select();
 	foreach ($list as $val) {
 		$rearr[$val['model_id']] = $val['title'];
 	}
@@ -49,7 +49,7 @@ function getMenuList($pid = 0, $child = false) {
 	}
 
 	$where['status'] = 1;
-	$where['pid'] = $pid;
+	$where['pid']    = $pid;
 	//if(!APP_DEBUG)$where['no_del']=0;
 	$list = M('menu')->where($where)->order('sort asc,`group` desc')->select();
 	if ($list) {
@@ -90,8 +90,8 @@ function A_getNavList($pid = 0, $child = false) {
 	}
 
 	$where['status'] = 1;
-	$where['pid'] = $pid;
-	$list = M('Nav')->where($where)->order('sort asc')->select();
+	$where['pid']    = $pid;
+	$list            = M('Nav')->where($where)->order('sort asc')->select();
 	if ($list) {
 		foreach ($list as $val) {
 			if ($child) {
@@ -121,7 +121,7 @@ function F_getmoduleposList() {
  *取模块位置置列表
  */
 function getmoduleposList() {
-	$rows = M('modulepos')->select();
+	$rows     = M('modulepos')->select();
 	$rearr[1] = '默认位置';
 	foreach ($rows as $val) {
 		$rearr[$val['modulepos_id']] = $val['title'];
@@ -152,9 +152,9 @@ function F_getGoodsCatelist($first = true) {
 }
 
 function F_getCatelist($first = true, $type = null) {
-	$catetype = I('category_type');
+	$catetype      = I('category_type');
 	$category_type = empty($type) ? (empty($catetype) ? 'article' : $catetype) : $type;
-	$catelist = F('sys_category_' . $category_type . '_tree');
+	$catelist      = F('sys_category_' . $category_type . '_tree');
 	if (empty($catelist) || APP_DEBUG) {
 		$catelist = A_getCatelist(0, false, $category_type);
 		F('sys_category_' . $category_type . '_tree', $catelist);
@@ -173,8 +173,8 @@ function A_getCatelist($pid = 0, $child = false, $type = 'article') {
 		$rearr[0] = '请选择----';
 	}
 
-	$where['status'] = 1;
-	$where['pid'] = $pid;
+	$where['status']        = 1;
+	$where['pid']           = $pid;
 	$where['category_type'] = $type;
 	//if(!APP_DEBUG)$where['dev_show']=0;
 	$list = M('category')->where($where)->order('sort asc')->select();

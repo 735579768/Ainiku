@@ -48,11 +48,11 @@ class NavModel extends BaseModel {
 		/* 获取当前导航信息 */
 		if ($id) {
 			$info = $this->info($id);
-			$id = $info['id'];
+			$id   = $info['id'];
 		}
 
 		/* 获取所有导航 */
-		$map = array('status' => array('gt', -1));
+		$map  = array('status' => array('gt', -1));
 		$list = $this->field($field)->where($map)->order('sort asc')->select();
 		$list = list_to_tree($list, $pk = 'nav_id', $pid = 'pid', $child = '_', $root = $id);
 		/* 获取返回数据 */
@@ -76,7 +76,7 @@ class NavModel extends BaseModel {
 	 */
 	public function getSameLevel($id, $field = true) {
 		$info = $this->info($id, 'pid');
-		$map = array('pid' => $info['pid'], 'status' => 1);
+		$map  = array('pid' => $info['pid'], 'status' => 1);
 		return $this->field($field)->where($map)->order('sort')->select();
 	}
 

@@ -7,27 +7,27 @@ class ArticleController extends AdminController {
 	 * @author 枫叶 <735579768@qq.com>
 	 */
 	public function index() {
-		$field = getModelAttr('article', 'category_id');
+		$field          = getModelAttr('article', 'category_id');
 		$field['title'] = '分类';
 		$this->assign('fieldarr', $field);
 
 		//附加属性
 		//$field1=Api('Model/articleModel');
-		$field1 = getModelAttr('article', 'position');
-		$field1['type'] = 'select';
-		$field1['title'] = '位置';
+		$field1             = getModelAttr('article', 'position');
+		$field1['type']     = 'select';
+		$field1['title']    = '位置';
 		$field1['extra'][0] = '全部';
-		$field1['value'] = I('position');
+		$field1['value']    = I('position');
 		$this->assign('fieldarr1', $field1);
 
 		$this->assign('data', null);
 		/* 查询条件初始化 */
-		$map = array();
-		$map['status'] = 1;
+		$map                  = array();
+		$map['status']        = 1;
 		$map['category_type'] = 'article';
-		$title = I('title');
-		$category_id = I('category_id');
-		$position = I('position');
+		$title                = I('title');
+		$category_id          = I('category_id');
+		$position             = I('position');
 		if ($position !== '0' && $position !== '') {
 			$map['position'] = array('like', '%' . $position . '%');
 		}
@@ -41,7 +41,7 @@ class ArticleController extends AdminController {
 		}
 
 		$field = 'article_id,title,pic,position,category_id,status,update_time,create_time';
-		$list = $this->pages(array(
+		$list  = $this->pages(array(
 			'field' => $field,
 			'order' => 'article_id desc',
 			'model' => 'article',
@@ -51,8 +51,8 @@ class ArticleController extends AdminController {
 		$this->display();
 	}
 	function recycle() {
-		$title = I('title');
-		$map['title'] = array('like', '%' . $title . '%');
+		$title         = I('title');
+		$map['title']  = array('like', '%' . $title . '%');
 		$map['status'] = -1;
 		$this->pages(array(
 			'model' => 'Article',
@@ -62,8 +62,8 @@ class ArticleController extends AdminController {
 		$this->display();
 	}
 	function draftbox() {
-		$title = I('title');
-		$map['title'] = array('like', '%' . $title . '%');
+		$title         = I('title');
+		$map['title']  = array('like', '%' . $title . '%');
 		$map['status'] = 2;
 		$this->pages(array(
 			'model' => 'Article',
@@ -79,7 +79,7 @@ class ArticleController extends AdminController {
 				//	$model->position=implode(',',I('position'));
 				$result = 0;
 				$status = I('status');
-				$idd = I('article_id');
+				$idd    = I('article_id');
 				//判断id是不是为空
 				if (!empty($idd)) {$this->edit($idd);die();}
 				//去保存草稿
@@ -95,7 +95,7 @@ class ArticleController extends AdminController {
 			}
 		} else {
 			//$field=Api('Model/articleModel');
-			$field = getModelAttr('article');
+			$field            = getModelAttr('article');
 			$this->meta_title = '添加文章';
 			$this->assign('fieldarr', $field);
 			$this->assign('data', $data);
@@ -103,10 +103,10 @@ class ArticleController extends AdminController {
 		}
 	}
 	public function savedraftbox() {
-		$model = D('article');
+		$model  = D('article');
 		$result = 0;
 		$status = I('status');
-		$idd = I('article_id');
+		$idd    = I('article_id');
 		if ($model->create()) {
 			//$model->position=implode(',',I('position'));
 			if ($status == '2' && !empty($idd)) {
@@ -116,10 +116,10 @@ class ArticleController extends AdminController {
 			}
 			// if(0<$result){
 			$this->ajaxreturn(array(
-				'info' => '草稿保存成功',
-				'status' => 1,
+				'info'       => '草稿保存成功',
+				'status'     => 1,
 				'article_id' => $idd ? $idd : $result,
-				'url' => '',
+				'url'        => '',
 			));
 
 			//	}
@@ -167,10 +167,10 @@ class ArticleController extends AdminController {
 		if (IS_POST) {
 			$catid = I('category_id');
 			if (!empty($catid)) {
-				$id = I('id');
-				$map = array();
+				$id                = I('id');
+				$map               = array();
 				$map['article_id'] = array('in', $id);
-				$result = M('article')->where($map)->save(array('category_id' => $catid));
+				$result            = M('article')->where($map)->save(array('category_id' => $catid));
 
 //				$sql="update __DB_PREFIX__.'Article set category_id=$catid where id in($id)";
 				//				$result=M('article')->query($sql);
@@ -189,12 +189,12 @@ class ArticleController extends AdminController {
 			unset($catelist[0]);
 			$field = array(
 				array(
-					'field' => 'category_id',
-					'name' => 'category_id',
-					'type' => 'select',
-					'title' => '所属分类',
-					'note' => '',
-					'extra' => $catelist,
+					'field'   => 'category_id',
+					'name'    => 'category_id',
+					'type'    => 'select',
+					'title'   => '所属分类',
+					'note'    => '',
+					'extra'   => $catelist,
 					'is_show' => 1,
 				),
 			);
@@ -228,7 +228,7 @@ class ArticleController extends AdminController {
 			$this->error('请先进行选择');
 		}
 
-		$model = M('Article');
+		$model  = M('Article');
 		$result = $model->where("article_id in ($article_id)")->delete();
 		if (result) {
 			$this->success(L('_CHEDI_DELETE_'), U('recycle'));

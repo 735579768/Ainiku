@@ -4,9 +4,9 @@ require_once pathA('/Plugins/Plugin.class.php');
 class PathInfoPlugin extends \Plugins\Plugin {
 	protected $config = array(
 		'version' => '1.0',
-		'author' => 'qiaokeli',
-		'name' => '系统路径信息',
-		'descr' => '系统路径信息',
+		'author'  => 'qiaokeli',
+		'name'    => '系统路径信息',
+		'descr'   => '系统路径信息',
 	);
 	//钩子默认的调用方法
 	public function run($a = null, $b = null) {

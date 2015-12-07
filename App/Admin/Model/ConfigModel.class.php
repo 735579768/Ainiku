@@ -30,7 +30,7 @@ class ConfigModel extends BaseModel {
 	 * @author 枫叶 <735579768@qq.com>
 	 */
 	public function lists() {
-		$map = array('status' => 1);
+		$map  = array('status' => 1);
 		$data = $this->where($map)->field('type,name,value')->select();
 
 		$config = array();
@@ -56,7 +56,7 @@ class ConfigModel extends BaseModel {
 				$value = array();
 				foreach ($array as $val) {
 					list($k, $v) = explode(':', $val);
-					$value[$k] = $v;
+					$value[$k]   = $v;
 				}
 			} else {
 				$value = $array;

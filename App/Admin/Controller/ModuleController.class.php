@@ -16,28 +16,28 @@ class ModuleController extends AdminController {
 			F('sys_modulepos_tree', $moduleposlist);
 		}
 		$moduleposlist[0] = '全部位置';
-		$field = array(
+		$field            = array(
 			array(
-				'field' => 'modulepos_id',
-				'name' => 'modulepos_id',
-				'type' => 'select',
-				'title' => '模块信息位置置',
-				'note' => '',
-				'extra' => $moduleposlist,
+				'field'   => 'modulepos_id',
+				'name'    => 'modulepos_id',
+				'type'    => 'select',
+				'title'   => '模块信息位置置',
+				'note'    => '',
+				'extra'   => $moduleposlist,
 				'is_show' => 3,
-				'value' => I('modulepos_id'),
+				'value'   => I('modulepos_id'),
 			),
 		);
 		$this->assign('fieldarr', $field);
 		$this->assign('data', null);
 
 		$modulepos_id = I('modulepos_id');
-		$title = I('title');
+		$title        = I('title');
 		//$modulepos_id=I('modulepos_id');
 		//if(!empty($cat_id))$map['modulepos_id']=$cat_id;
 		if (!empty($modulepos_id)) {
 			$map[__DB_PREFIX__ . 'module.modulepos_id'] = $modulepos_id;
-			$this->meta_title = '模块信息列表>模块信息位置>' . getmoduleposTitle($modulepos_id);
+			$this->meta_title                           = '模块信息列表>模块信息位置>' . getmoduleposTitle($modulepos_id);
 		} else {
 			$this->meta_title = '模块信息列表';
 		}
@@ -46,7 +46,7 @@ class ModuleController extends AdminController {
 		$this->pages(array(
 			'model' => 'Module',
 			'field' => '*,' . __DB_PREFIX__ . 'module.module_id as module_id,' . __DB_PREFIX__ . 'module.sort as sort,' . __DB_PREFIX__ . 'module.title as title,b.title as postitle,' . __DB_PREFIX__ . 'module.status as status',
-			'join' => __DB_PREFIX__ . 'modulepos as b on b.modulepos_id=' . __DB_PREFIX__ . 'module.modulepos_id',
+			'join'  => __DB_PREFIX__ . 'modulepos as b on b.modulepos_id=' . __DB_PREFIX__ . 'module.modulepos_id',
 			'where' => $map,
 			'order' => __DB_PREFIX__ . 'module.modulepos_id,status asc,' . __DB_PREFIX__ . 'module.sort asc,' . __DB_PREFIX__ . 'module.module_id desc',
 		));
@@ -68,7 +68,7 @@ class ModuleController extends AdminController {
 			}
 		} else {
 			//$field=Api('Model/AdModel');
-			$field = getModelAttr('Module');
+			$field            = getModelAttr('Module');
 			$this->meta_title = '添加模块信息';
 			$this->assign('fieldarr', $field);
 			$this->assign('data', null);
@@ -98,7 +98,7 @@ class ModuleController extends AdminController {
 			$data = M('Module')->where("module_id=$module_id")->find();
 
 			//$field=Api('Model/AdModel');
-			$field = getModelAttr('Module');
+			$field            = getModelAttr('Module');
 			$this->meta_title = '编辑模块信息';
 			$this->assign('fieldarr', $field);
 			$this->assign('data', $data);
