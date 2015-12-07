@@ -1,31 +1,26 @@
 /* CSS Document */
+
 /* 登陆页样式------------------------------------------ */
 body{background:#2472b4;}
+
 /*.login-main{margin:0 auto;width:960px;}
 */
 .login-header{height:50px;line-height:50px;background-color:#f3f3f3;}
 .login-body{margin-top:-224px;height:448px;position:fixed;left:50%;top:40%;margin-left:-176px;}
 .login-body .pr{position:relative;height:448px;}
 .login-form{width:290px;margin:50px auto;padding:25px 30px 13px;background-color:#fff;box-shadow:0 0 26px #041A36;border-top:8px solid #42EC00;border-radius:32px;border-radius:32px;border:1px solid transparent;background:rgba(0,0,0,0);_background:0;_border:0;}
+@media \0screen\,screen\9{
 
-@media \0screen\,screen\9 {/* 只支持IE6、7、8 */
-  .login-form{
-    background-color:#000000;
-    filter:Alpha(opacity=50);
-    position:static; /* IE6、7、8只能设置position:static(默认属性) ，否则会导致子元素继承Alpha值 */
-    *zoom:1; /* 激活IE6、7的haslayout属性，让它读懂Alpha */
-  }
-  .dlogin-form *{
-    position: relative;/* 设置子元素为相对定位，可让子元素不继承Alpha值 */
-  }  
+	/* 只支持IE6、7、8 */
+	.login-form{background-color:#000000;filter:Alpha(opacity=50);position:static; /* IE6、7、8只能设置position:static(默认属性) ，否则会导致子元素继承Alpha值 */*zoom:1; /* 激活IE6、7的haslayout属性，让它读懂Alpha */}
+	.dlogin-form *{position:relative;/* 设置子元素为相对定位，可让子元素不继承Alpha值 */}
 }
-
 .login-form h3{font-size:26px;margin:0 0 20px;padding:0;line-height:44px;text-align:center;color:#fff;*line-height:50px;}
 .login-logo{display:inline-block;margin-right:12px;width:23px;height:23px;vertical-align:middle;background:url(../images/icowhite.png) -75px -123px no-repeat;}
 .login-form .check-tips{color:#ff0000;margin-top:10px;}
 .login-form .item-box{/* box-shadow:0 1px 3px rgba(170,170,170,0.8) inset;*/
- /* background-color:#fff;*/
-}
+
+/* background-color:#fff;*/}
 .login-form .item-box .item{border-radius:32px;background:#fff;}
 .login-form .item{padding:3px 10px 3px 12px;border:1px solid #ececec;margin-bottom:10px;}
 .login-form .focus{border:1px solid #A6E1F3;box-shadow:0 0 12px #BAF7FF;}
@@ -51,6 +46,7 @@ body{background:#2472b4;}
 .login-form .log-in .on{display:none;}
 .login-form .#login-btn{font-size:22px;}
 .icon-loading{display:inline-block;margin-right:5px;width:16px;height:16px;vertical-align:-3px;background:url(../images/loading_icon.gif) no-repeat 0 0;}
+
 /* 底部 */
 .login-footer{line-height:2.0;text-align:right;color:#999;position:fixed;bottom:0;width:100%;}
 .login-main p{position:fixed;bottom:0;margin:0;text-align:center;left:0;right:0;background:#30333F;}
@@ -58,11 +54,11 @@ body{background:#2472b4;}
 .footer-link a:hover{text-decoration:underline;}
 .footer-link span{color:#2A72C5;margin:0 4px;}
 input:-webkit-autofill{-webkit-box-shadow:0 0 0px 1000px white inset;}
-.logo-img{margin:-20px 0 9px 0;;height:49px;background:url(../images/logo.png) no-repeat 0 center;}
+.logo-img{margin:-20px 0 9px 0;height:49px;background:url(../images/logo.png) no-repeat 0 center;}
 .welcome{color:#ddd;padding:1px;}
 .reloadverify{color:#69C3FF;}
 img.verifyimg{display:block;margin:0px auto;cursor:pointer;}
 #verifyimg{overflow:hidden;border-radius:40px;border:solid 1px #fff;}
-.youmenu{ z-index:999; top:0px; left:0px; display:none;position:fixed;background:#fefefe;border:solid 1px #d2d2d2; border-bottom:none;    box-shadow: 2px 2px 7px #ccc;}
-.youmenu .menuitem a{ font-size:12px; padding:0px 20px; text-align:left; border-bottom:solid 1px #d2d2d2; height:30px; line-height:30px; display:block;}
-.youmenu .menuitem a:hover{ background:#e2e2e2;}
+.youmenu{z-index:999;top:0px;left:0px;display:none;position:fixed;background:#fefefe;border:solid 1px #d2d2d2;border-bottom:none;box-shadow:2px 2px 7px #ccc;}
+.youmenu .menuitem a{font-size:12px;padding:0px 20px;text-align:left;border-bottom:solid 1px #d2d2d2;height:30px;line-height:30px;display:block;}
+.youmenu .menuitem a:hover{background:#e2e2e2;}
