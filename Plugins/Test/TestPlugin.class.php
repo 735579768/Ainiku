@@ -49,6 +49,7 @@ class TestPlugin extends \Plugins\Plugin{
 		//插件工菜单后台设置,没有的话直接返回真
 	    if(IS_POST){
 				  $data=array(
+				    'update_time'=>NOW_TIME,
 					'title'=>I('post.title'),
 					'url'=>I('post.url'),
 					'sort'=>I('post.sort')

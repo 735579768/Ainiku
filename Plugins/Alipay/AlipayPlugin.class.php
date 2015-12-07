@@ -163,6 +163,7 @@ class AlipayPlugin extends \Plugins\Plugin{
 		//插件工菜单后台设置,没有的话直接返回真
 	    if(IS_POST){
 	      $data=array(
+		  'update_time'=>NOW_TIME,
 	      	'account'=>I('post.ALIPAYUNAME'),	//账号
 	        'appid'=>I('post.ALIPAYSAFEID'),		//验证key
 	        'appkey'=>I('post.ALIPAYVERIFY'),	//验证密钥
