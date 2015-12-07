@@ -2,7 +2,7 @@
 //Author: 枫叶 <735579768@qq.com> <http://www.zhaokeli.com>
 namespace Daili\Controller;
 use Common\Controller\CommonController;
-if(!defined("ACCESS_ROOT"))die("Invalid access");
+defined("ACCESS_ROOT") || die("Invalid access");
 class DailiController extends CommonController {
 	protected $model_name=null;
 	protected $primarykey=null;

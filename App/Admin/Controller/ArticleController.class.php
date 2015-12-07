@@ -1,6 +1,6 @@
 <?php
 namespace Admin\Controller;
-if(!defined("ACCESS_ROOT"))die("Invalid access");
+defined("ACCESS_ROOT") || die("Invalid access");
 class ArticleController extends AdminController {
     /**
      * 配置管理

@@ -3,7 +3,7 @@
 // +----------------------------------------------------------------------
 
 namespace Admin\Controller;
-if(!defined("ACCESS_ROOT"))die("Invalid access");
+defined("ACCESS_ROOT") || die("Invalid access");
 /**
  * 后台导航管理控制器
  * @author 枫叶 <735579768@qq.com>

@@ -1,6 +1,6 @@
 <?php
 namespace Admin\Controller;
-if(!defined("ACCESS_ROOT"))die("Invalid access");
+defined("ACCESS_ROOT") || die("Invalid access");
 class OrderController extends AdminController {
 	public function index(){
 	$this->assign('meta_title','订单列表');

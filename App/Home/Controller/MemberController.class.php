@@ -2,7 +2,7 @@
 //Author: 枫叶 <735579768@qq.com> <http://www.zhaokeli.com>
 namespace Home\Controller;
 use Think\Controller;
-if(!defined("ACCESS_ROOT"))die("Invalid access");
+defined("ACCESS_ROOT") || die("Invalid access");
 class MemberController extends Controller {
     protected function _initialize(){
        /* 读取数据库中的配置 */

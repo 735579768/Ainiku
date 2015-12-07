@@ -1,6 +1,6 @@
 <?php
 namespace Admin\Controller;
-if(!defined("ACCESS_ROOT"))die("Invalid access");
+defined("ACCESS_ROOT") || die("Invalid access");
 class OtherController extends AdminController {
     /* 退出登录 */
     public function logout(){

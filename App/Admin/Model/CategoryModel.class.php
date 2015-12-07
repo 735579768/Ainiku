@@ -4,7 +4,7 @@
 
 namespace Admin\Model;
 use Think\Model;
-if(!defined("ACCESS_ROOT"))die("Invalid access");
+defined("ACCESS_ROOT") || die("Invalid access");
 /**
  * 分类模型
  * @author 枫叶 <735579768@qq.com>

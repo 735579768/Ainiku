@@ -2,7 +2,7 @@
 // | Author: 枫叶 <735579768@qq.com> <http://www.zhaokeli.com>
 // +----------------------------------------------------------------------
 namespace Admin\Controller;
-if(!defined("ACCESS_ROOT"))die("Invalid access");
+defined("ACCESS_ROOT") || die("Invalid access");
 /**
  * 文件控制器
  * 主要用于下载模型的文件上传和下载

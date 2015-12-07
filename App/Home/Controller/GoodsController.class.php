@@ -1,7 +1,7 @@
 <?php
 namespace Home\Controller;
 use Think\Controller;
-if(!defined("ACCESS_ROOT"))die("Invalid access");
+defined("ACCESS_ROOT") || die("Invalid access");
 class GoodsController extends HomeController {
     public function index(){
 //$Ip = new \Org\Net\IpLocation(); // 实例化类

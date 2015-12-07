@@ -1,5 +1,5 @@
 <?php
-if(!defined("ACCESS_ROOT"))die("Invalid access");
+defined("ACCESS_ROOT") || die("Invalid access");
 return array(
     THINK_PATH.'Common/functions.php',
     COMMON_PATH.'Common/function.php',

@@ -1,5 +1,5 @@
 <?php
-if(!defined("ACCESS_ROOT"))die("Invalid access");
+defined("ACCESS_ROOT") || die("Invalid access");
 return array(
 	//配置分组
 	'DEFAULT_FILTER'        =>  '',

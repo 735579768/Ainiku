@@ -3,7 +3,7 @@
 // +----------------------------------------------------------------------
 namespace Admin\Controller;
 use \Admin\Controller\AdminController;
-if(!defined("ACCESS_ROOT"))die("Invalid access");
+defined("ACCESS_ROOT") || die("Invalid access");
 class GoodstypeattributeController extends AdminController {
 
  	public function index($goods_type_id=''){

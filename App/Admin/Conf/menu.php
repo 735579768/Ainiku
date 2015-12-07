@@ -1,5 +1,5 @@
 <?php
-if(!defined("ACCESS_ROOT"))die("Invalid access");
+defined("ACCESS_ROOT") || die("Invalid access");
 return array(
 	//后台菜单
 	'ADMIN_CUSTOM_MENU'=>array(

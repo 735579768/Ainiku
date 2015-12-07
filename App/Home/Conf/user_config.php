@@ -1,5 +1,5 @@
 <?php
-if(!defined("ACCESS_ROOT"))die("Invalid access");
+defined("ACCESS_ROOT") || die("Invalid access");
 return array(
 		//'VIEW_PATH'=>'View/',
 		'DEFAULT_FILTER'        =>  'filter_html',

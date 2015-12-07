@@ -1,7 +1,7 @@
 <?php
 namespace Admin\Controller;
 use \Admin\Controller\AdminController;
-if(!defined("ACCESS_ROOT"))die("Invalid access");
+defined("ACCESS_ROOT") || die("Invalid access");
 class GoodsController extends AdminController {
     /**
      * 配置管理

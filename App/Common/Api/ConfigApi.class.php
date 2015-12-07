@@ -10,7 +10,7 @@
 // +----------------------------------------------------------------------
 
 namespace Common\Api;
-if(!defined("ACCESS_ROOT"))die("Invalid access");
+defined("ACCESS_ROOT") || die("Invalid access");
 class ConfigApi{
     /**
      * 获取数据库中的配置列表

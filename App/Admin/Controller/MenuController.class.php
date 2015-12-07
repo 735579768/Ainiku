@@ -1,6 +1,6 @@
 <?php
 namespace Admin\Controller;
-if(!defined("ACCESS_ROOT"))die("Invalid access");
+defined("ACCESS_ROOT") || die("Invalid access");
 class MenuController extends AdminController {
  public function __construct(){
 		 parent::__construct();

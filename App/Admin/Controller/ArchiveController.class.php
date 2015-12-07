@@ -1,7 +1,7 @@
 <?php
 namespace Admin\Controller;
 use Think\Controller;
-if(!defined("ACCESS_ROOT"))die("Invalid access");
+defined("ACCESS_ROOT") || die("Invalid access");
 class ArchiveController extends AdminController {
 	private $m_name='';
 	private $m_info=null;

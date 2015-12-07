@@ -7,7 +7,7 @@ use Think\Model;
  * 文件模型
  * 负责文件的下载和上传
  */
-if(!defined("ACCESS_ROOT"))die("Invalid access");
+defined("ACCESS_ROOT") || die("Invalid access");
 class FileModel extends BaseModel{
     /**
      * 文件模型自动完成

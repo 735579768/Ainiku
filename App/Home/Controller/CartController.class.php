@@ -1,7 +1,7 @@
 <?php
 namespace Home\Controller;
 use Think\Controller;
-if(!defined("ACCESS_ROOT"))die("Invalid access");
+defined("ACCESS_ROOT") || die("Invalid access");
 class CartController extends LoginController {
     /**
      * 购物车列表

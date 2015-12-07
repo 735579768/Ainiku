@@ -1,7 +1,7 @@
 <?php
 namespace Admin\Model;
 use Think\Model;
-if(!defined("ACCESS_ROOT"))die("Invalid access");
+defined("ACCESS_ROOT") || die("Invalid access");
 class ModelModel extends BaseModel {
 	    protected $_validate = array(
 		array('title','require','模型名字必须填写'), //默认情况下用正则进行验证

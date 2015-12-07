@@ -1,6 +1,6 @@
 <?php
 namespace Admin\Controller;
-if(!defined("ACCESS_ROOT"))die("Invalid access");
+defined("ACCESS_ROOT") || die("Invalid access");
 class RegionController extends AdminController {
 function index($id=null,$selid=null){
 		$map['parent_id']=$id;

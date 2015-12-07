@@ -1,7 +1,7 @@
 <?php
 namespace Home\Controller;
 use Think\Controller;
-if(!defined("ACCESS_ROOT"))die("Invalid access");
+defined("ACCESS_ROOT") || die("Invalid access");
 class IndexController extends HomeController {
     public function index(){
 //runPluginMethod('Erweima','create',array('200','这个是测试内容','./Uploads/image/thumb/20151008/144429065269885.png'));

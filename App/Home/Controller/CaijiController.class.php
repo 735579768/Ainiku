@@ -1,7 +1,7 @@
 <?php
 namespace Home\Controller;
 use Think\Controller;
-if(!defined("ACCESS_ROOT"))die("Invalid access");
+defined("ACCESS_ROOT") || die("Invalid access");
 class CaijiController extends HomeController {
 	//查询数据库中是不是有外链接
 	function picurl(){

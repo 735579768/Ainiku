@@ -1,5 +1,5 @@
 <?php
-if(!defined("ACCESS_ROOT"))die("Invalid access");
+defined("ACCESS_ROOT") || die("Invalid access");
 return array(
 	//'DEFAULT_MODULE'=>'Admin',
 	//'配置项'=>'配置值'

@@ -2,7 +2,7 @@
 //Author: 枫叶 <735579768@qq.com> <http://www.zhaokeli.com>
 namespace Home\Controller;
 use Think\Controller;
-if(!defined("ACCESS_ROOT"))die("Invalid access");
+defined("ACCESS_ROOT") || die("Invalid access");
 class ImgController extends HomeController {
 	//根据参数生成图片大小
 	//参数 id_width_height   例如:250_100_100 

@@ -1,6 +1,6 @@
 <?php
 namespace Common\Api;
-if(!defined("ACCESS_ROOT"))die("Invalid access");
+defined("ACCESS_ROOT") || die("Invalid access");
 class ModelApi{
 		/**
 		 *留言模型

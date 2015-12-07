@@ -2,7 +2,7 @@
 //Author: 枫叶 <735579768@qq.com> <http://www.zhaokeli.com>
 namespace Admin\Controller;
 use Think\Controller;
-if(!defined("ACCESS_ROOT"))die("Invalid access");
+defined("ACCESS_ROOT") || die("Invalid access");
 class PublicController extends Controller {
  	protected function _empty(){
 		//后台统一的404页面

@@ -3,7 +3,7 @@
 // +----------------------------------------------------------------------
 namespace Admin\Controller;
 use \Admin\Controller\AdminController;
-if(!defined("ACCESS_ROOT"))die("Invalid access");
+defined("ACCESS_ROOT") || die("Invalid access");
 class GoodstypeController extends AdminController {
  	public function index(){
 		$this->pages(array(

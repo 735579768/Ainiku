@@ -4,7 +4,7 @@
 namespace Home\Model;
 use Think\Model;
 
-if(!defined("ACCESS_ROOT"))die("Invalid access");
+defined("ACCESS_ROOT") || die("Invalid access");
 
 /**
  * 用户模型
