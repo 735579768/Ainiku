@@ -1,0 +1,12 @@
+<form target="_blank" action="{:UP('Tenpay/set')}" method="post" class="form-horizontal">
+  <div class="form-group cl">
+    <div class="form-label">财付通商户号ID<span class="form-tip">（。标识:partner）</span> </div>
+    <input type="text" class="form-control input-large" name="partner" value="{$info.partner}">
+  </div>
+   <div class="form-group cl">
+    <div class="form-label">财付通密钥<span class="form-tip">（。标识:key）</span> </div>
+    <input type="text" class="form-control input-large" name="key" value="{$info.key}">
+  </div>
+  <div class="form-group center"> <a href="javascript:;" class="btn btn-parmary btn-large ajax-post">保存配置</a> </div>
+  </div>
+</form>
