@@ -8,49 +8,11 @@
 </head>
 
 <body>
-<style>
-/* ******购物车头样式 start*******
-.cart-header{width:1100px;margin:0px auto;height:100px;background:#fff;border-bottom:2px solid #ff6700;}
-.cart-header .cart-title{font-size:30px;display:inline-block;width:200px;height:100px;line-height:100px;text-align:center;color:#000;}
-
-******购物车头样式 end*******
-
-******购物车列表样式 start*******
-.cart-list-box{font-size:14px;margin:0px auto;width:1100px;margin-top:10px;}
-.cart-list-box .list-body{border-top:solid 1px #e2e2e2;}
-.cart-list-box .list-body .col{height:90px;line-height:90px;}
-.cart-list-box .row{width:100%;display:block;background:#fff;}
-.cart-list-box .col{height:70px;line-height:70px;display:block;float:left;text-align:center;}
-.cart-list-box .col-check{width:100px;text-align:left;}
-.cart-list-box .col-check .icon-check{margin-left:40px;}
-.cart-list-box .col-img{width:120px;}
-.cart-list-box .col-img img{width:80px;height:80px;vertical-align:middle;}
-.cart-list-box .col-title{width:300px;text-align:left;}
-.cart-list-box .col-price{width:150px;}
-.cart-list-box .col-num{width:150px;}
-.cart-list-box .cart-num,.cart-list-box .cart-num .input-num,.cart-list-box .cart-num span{height:40px;line-height:40px;float:left;}
-.cart-list-box .cart-num{border:solid 1px #E0E0E0;width:150px;margin-top:19px;}
-.cart-list-box .cart-num span{cursor:pointer;font-size:25px;display:inline-block;width:40px;}
-.cart-list-box .cart-num span:hover{background-color:#e0e0e0;}
-.cart-list-box .cart-num .input-num{text-align:center;vertical-align:top;border:none;width:70px;display:inline-block;}
-.cart-list-box .col-total{width:150px;}
-.cart-list-box .col-action{width:130px;}
-.cart-list-box .list-body .col-price,.cart-list-box .list-body .col-total{color:#ff6700;}
-.cart-list-box .cart-bar{background:#fff;margin-top:20px;height:50px;line-height:50px;}
-.cart-list-box .cart-bar .section-left{float:left;}
-.cart-list-box .cart-bar .section-right{float:right;}
-.cart-list-box .cart-bar .totalprice{color:#ff6700;}
-.cart-list-box .cart-bar .totalprice .price{font-size:30px;}
-.cart-list-box .cart-bar .a-btn{display:inline-block;color:#fff;text-align:center;padding:0px;background:#5cb85c;height:48px;line-height:48px;font-size:18px;vertical-align:top;}
-.cart-list-box .cart-bar .l-btn{width:150px;background:none;color:#666;}
-.cart-list-box .cart-bar .r-btn{width:200px;margin-left:50px;}
-
-******购物车列表样式 end******* */
-</style>
 <div class="cart-header">
 <div class="cart-title">购物车</div>
 </div>
 <div class="cart-list-box cl">
+<notempty name="_list">
  <ul class="row list-head cl">
  	<li class="col col-check"><div id="all-selected" class="icon-check"><a href="javascript:;"></a></div>
     &nbsp;全选</li>
@@ -91,6 +53,10 @@
  <a href="javascript:;" onclick="cartobj.checkOut();" class="a-btn r-btn">去结算</a>
  </div>
  </div>
+ <else />
+ <div class="cart-empty" >您的购物车还是空的！</div>
+ <a class="cart-btn" href="javascript:;">马上去购物</a>
+ </notempty>
 </div>
 <ank:insert type="js" name='cart' />
 <script>

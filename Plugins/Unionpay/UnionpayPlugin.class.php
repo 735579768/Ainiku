@@ -54,11 +54,11 @@ class UnionpayPlugin extends \Plugins\Plugin{
 				'channelType' => '08',		//渠道类型，07-PC，08-手机
 				'accessType' => '0',		//接入类型
 				'merId' =>MEMBER_ID,	//商户代码，请改自己的测试商户号
-				'orderId' => date('YmdHis'),	//商户订单号，8-40位数字字母
+				'orderId' => $order,	//商户订单号，8-40位数字字母
 				'txnTime' => date('YmdHis'),	//订单发送时间
-				'txnAmt' => '100',		//交易金额，单位分
+				'txnAmt' => $money * 100,		//交易金额，单位分
 				'currencyCode' => '156',	//交易币种
-				'orderDesc' => '订单描述',  //订单描述，可不上送，上送时控件中会显示该信息
+				'orderDesc' =>$ordername,  //订单描述，可不上送，上送时控件中会显示该信息
 				'reqReserved' =>' 透传信息', //请求方保留域，透传字段，查询、通知、对账文件中均会原样出现
 				);
 
@@ -67,8 +67,7 @@ class UnionpayPlugin extends \Plugins\Plugin{
 		// 前台请求地址
 		$front_uri = SDK_FRONT_TRANS_URL;
 		$html_form = create_html ( $params, $front_uri );
-		echo $html_form;
-		die();
+		return $html_form;
 	}
 	private function yanzheng(){
 		include_once(UNIONPAY_PATH. '/lib/utf8/func/SDKConfig.php');
@@ -113,7 +112,7 @@ class UnionpayPlugin extends \Plugins\Plugin{
 	public function notify_url(){
 	if($this->yanzheng()){
 		$orderId = $_POST ['orderId']; 
-		$info=M('Order')->where("order_sn=$orderId")->setField('order_status',1);
+		$info=M('Order')->where("order_sn=$orderId")->setField('order_status',2);
 	}
 	}
 	public function getConfig(){

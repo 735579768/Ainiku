@@ -133,12 +133,7 @@ function deal_file($params) {
 function create_html($params, $action) {
 	$encodeType = isset ( $params ['encoding'] ) ? $params ['encoding'] : 'UTF-8';
 	$html = <<<eot
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset={$encodeType}" />
-</head>
-<body  onload="javascript:document.pay_form.submit();">
-    <form id="pay_form" name="pay_form" action="{$action}" method="post">
+    <form target="_blank" id="unionpay_form" name="pay_form" action="{$action}" method="post">
 	
 eot;
 	foreach ( $params as $key => $value ) {
@@ -147,8 +142,7 @@ eot;
 	$html .= <<<eot
     <input type="submit" type="hidden" style="display:none;">
     </form>
-</body>
-</html>
+    <script>document.getElementById('unionpay_form').submit();</script>
 eot;
 	return $html;
 }

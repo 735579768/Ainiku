@@ -43,20 +43,30 @@
     </ul>
     </div>
 
+   <div class="s-address order-goodslist">
+    <div class="s-title">订单支付</div>
+    <ul class="online-pay cl">
+    <li><a href="javascript:;" onclick="buyobj.selectPay(this);" data-mark="Alipay"><img src="__IMG__/alipay.png" /></a></li>
+    <li><a href="javascript:;" onclick="buyobj.selectPay(this);"  data-mark="Unionpay"><img src="__IMG__/unionpay.png" /></a></li>
+    </ul>
+    </div>
 
      <div class="cart-bar cl">
     <div class="section-left">
        订单总额: <em class="totalprice">{$info.order_total}</em> 元
     </div>
      <div class="section-right">
-     <input id="cartidstr" type="hidden" value="" />
+     <input type="hidden"  id="payOnlineBank" value=""  />
      <a href="javascript:;" onclick="buyobj.dopay({$info.order_id});" class="a-btn r-btn">去支付</a>
      </div>
      </div>
 </div>
 <script>
 $(function() {
-buyobj.url={dopay:"{:U('Buy/dopay')}"}
+buyobj.url={
+    dopay:"{:U('Buy/dopay')}",
+    checkpay:"{:U('Buy/checkpay')}"
+}
 });
 </script>
 </body>

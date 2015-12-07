@@ -203,20 +203,34 @@ class BuyController extends LoginController {
  //调用支付接口完成支付
  public function dopay(){
  	$order_id=I('order_id');
+ 	$online_pay=strtolower(I('online_pay'));//支付类型
  	empty($order_id)&&$this->error('参数错误!');
  	//查询订单
  	$info=M('Order')->find($order_id);
  	$order_sn=$info['order_sn'];
  	$order_title='产品订单支付:'.$info['order_sn'];
  	$order_total=$info['order_total'];
- 	$data=runPluginMethod('Alipay','dopay',array($order_total,$order_sn,$order_title));
- 	
- 	$this->ajaxreturn(array(
- 				'status'=>1,
- 				'info'=>$this->fetch(),
- 				'url'=>'',
- 				'data'=>$data
- 		));
+ 	$rearr=array(
+ 		'order_id'=>$order_id,
+ 		'status'=>1,
+ 		'info'=>$this->fetch(),
+ 		'url'=>'',
+ 		'data'=>''
+ 		);
+ 	$data='';
+ 	switch ($online_pay) {
+ 		case 'alipay':
+ 			$rearr['data']=runPluginMethod('Alipay','dopay',array($order_total,$order_sn,$order_title));
+ 			break;
+ 		case 'unionpay':
+ 			$rearr['data']=runPluginMethod('Unionpay','dopay',array($order_total,$order_sn,$order_title));
+ 			break;
+ 		default:
+ 			$rearr['data']='支付接口调用失败';
+ 			$rearr['status']=0;
+ 			break;
+ 	}
+ 	$this->ajaxreturn($rearr);
  }
  //支付成功后前台跳转通知
  public function payok(){
@@ -239,6 +253,16 @@ class BuyController extends LoginController {
  	$data=runPluginMethod('Unionpay','notify_url');
  	($data['status']==1)&& exit();
  	exit();
+  }
+  //前台查询支付状态url
+  public function  checkpay($order_id){
+  	$order_id=I('order_id');
+  	$info=M('Order')->field('order_status')->where("order_id=$order_id")->find();
+  	if($info['order_status']==2){
+  		$this->success('支付成功');
+  	}else{
+		$this->error('未支付');
+  	}
   }
 
 }

@@ -242,16 +242,33 @@ $(function() {
 				}
 			});
 		},
+		//选择支付类型
+		selectPay:function(obj){
+			var _this=$(obj);
+			var mark=_this.attr('data-mark');
+			$('#payOnlineBank').val(mark);
+			$('.online-pay li a').removeClass('hover');
+			_this.addClass('hover');
+		},
 		//去支付
 		dopay:function(orderid){
+			var mark=$('#payOnlineBank').val();
+			if(mark==""){
+				ank.msg('请选择支付方式!');
+				return false;
+			}
 			if(orderid==''){
 				ank.msg('支付参数错误!');
+				return false;
 			}
 			var _this=this;
 			$.ajax({
 				type:'POST',
 				url:_this.url.dopay,
-				data:{order_id:orderid},
+				data:{
+					order_id:orderid,
+					online_pay:mark
+				},
 				success:function(da){
 					if(da.status==1){
 						$('body').append('<div id="zhifucontainer">'+da.data+'</div>');
@@ -269,6 +286,10 @@ $(function() {
 
 								}
 						});
+					//验证支付状态是否成功
+					buyobj.verifyid=setInterval(function(){
+						buyobj.verifyPay(da.order_id);
+					},3000);
 					}else{
 						ank.msg(da.info);
 					}
@@ -276,6 +297,22 @@ $(function() {
 				}
 			});
 
+		},
+		verifyPay:function(orderid){
+			var _this=this;
+			$.ajax({
+				type:'POST',
+				url:_this.url.checkpay,
+				data:{
+					order_id:orderid
+				},
+				success:function(da){
+					if(da.status==1){
+						clearInterval(buyobj.verifyid);
+						$('#pay_status_text').html('支付成功!');
+					}
+				}
+			});
 		}
 
 	};
