@@ -142,15 +142,15 @@ class AlipayNotify {
 	 * false 请检查防火墙或者是服务器阻止端口问题以及验证时间是否超过一分钟
 	 */
 	function getResponse($notify_id) {
-		$transport = strtolower(trim($this->alipay_config['transport']));
-		$partner = trim($this->alipay_config['partner']);
+		$transport  = strtolower(trim($this->alipay_config['transport']));
+		$partner    = trim($this->alipay_config['partner']);
 		$veryfy_url = '';
 		if ($transport == 'https') {
 			$veryfy_url = $this->https_verify_url;
 		} else {
 			$veryfy_url = $this->http_verify_url;
 		}
-		$veryfy_url = $veryfy_url . "partner=" . $partner . "&notify_id=" . $notify_id;
+		$veryfy_url  = $veryfy_url . "partner=" . $partner . "&notify_id=" . $notify_id;
 		$responseTxt = getHttpResponseGET($veryfy_url, $this->alipay_config['cacert']);
 
 		return $responseTxt;

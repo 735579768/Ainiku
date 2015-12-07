@@ -20,10 +20,10 @@ class Ank extends TagLib {
 		// 标签定义： attr 属性列表 close 是否闭合（0 或者1 默认1） alias 标签别名 level 嵌套层次
 		'insert' => array('attr' => 'type,name', 'close' => 0),
 		'single' => array('attr' => 'id', 'close' => 0),
-		'get' => array('attr' => 'table,field,id,pic', 'close' => 0),
-		'query' => array('attr' => 'name,sql', 'close' => 1),
-		'nav' => array('attr' => 'name,catid,order,rows', 'close' => 1),
-		'link' => array('attr' => 'name', 'close' => 1),
+		'get'    => array('attr' => 'table,field,id,pic', 'close' => 0),
+		'query'  => array('attr' => 'name,sql', 'close' => 1),
+		'nav'    => array('attr' => 'name,catid,order,rows', 'close' => 1),
+		'link'   => array('attr' => 'name', 'close' => 1),
 		'module' => array('attr' => 'name', 'close' => 1),
 	);
 	/**
@@ -36,7 +36,7 @@ class Ank extends TagLib {
 	public function _insert($tag, $content) {
 		$hname = isset($tag['name']) ? $tag['name'] : '';
 		$htype = isset($tag['type']) ? $tag['type'] : 'css';
-		$dir = isset($tag['dir']) ? $tag['dir'] : '';
+		$dir   = isset($tag['dir']) ? $tag['dir'] : '';
 		if (empty($dir)) {
 			if ($htype == 'js') {$dir = C('TMPL_PARSE_STRING.__JS__');} else { $dir = C('TMPL_PARSE_STRING.__CSS__');}
 		}
@@ -143,9 +143,9 @@ class Ank extends TagLib {
 	 */
 	public function _get($tag, $content) {
 		$table = isset($tag['table']) ? $tag['table'] : '';
-		$id = isset($tag['id']) ? $tag['id'] : '';
+		$id    = isset($tag['id']) ? $tag['id'] : '';
 		$field = isset($tag['field']) ? ($tag['field']) : '';
-		$pic = isset($tag['pic']) ? ($tag['pic']) : '';
+		$pic   = isset($tag['pic']) ? ($tag['pic']) : '';
 		if (empty($table) || empty($id) || empty($field)) {
 			return '';
 		}
@@ -178,9 +178,9 @@ class Ank extends TagLib {
 	 */
 	public function _query($tag, $content) {
 		$name = isset($tag['name']) ? $tag['name'] : 'vo';
-		$sql = isset($tag['sql']) ? ($tag['sql']) : '';
-		$sql = str_replace('__DB_PREFIX__', C('DB_PREFIX'), $sql);
-		$sql = str_replace('neq', '<>', $sql);
+		$sql  = isset($tag['sql']) ? ($tag['sql']) : '';
+		$sql  = str_replace('__DB_PREFIX__', C('DB_PREFIX'), $sql);
+		$sql  = str_replace('neq', '<>', $sql);
 		if (empty($sql)) {
 			return '';
 		}
@@ -205,7 +205,7 @@ class Ank extends TagLib {
 	 * @return string
 	 */
 	public function _nav($tag, $content) {
-		$name = isset($tag['name']) ? $tag['name'] : 'vo';
+		$name  = isset($tag['name']) ? $tag['name'] : 'vo';
 		$order = isset($tag['order']) ? ($tag['order'] . ',') : '';
 		$parse = '<?php ';
 		$parse .= '$__NAV_LIST__=F("sys_navhome_list");';
@@ -227,7 +227,7 @@ class Ank extends TagLib {
 	 * @return string
 	 */
 	public function _link($tag, $content) {
-		$name = isset($tag['name']) ? $tag['name'] : 'vo';
+		$name  = isset($tag['name']) ? $tag['name'] : 'vo';
 		$parse = '<?php ';
 		$parse .= '$__LINK_LIST__=F("sys_link_tree");';
 		$parse .= 'if(empty($__LINK_LIST__) || APP_DEBUG):';
@@ -248,8 +248,8 @@ class Ank extends TagLib {
 	 * @return string
 	 */
 	public function _module($tag, $content) {
-		$name = isset($tag['name']) ? $tag['name'] : 'vo';
-		$posid = isset($tag['modulepos_id']) ? $tag['modulepos_id'] : '';
+		$name      = isset($tag['name']) ? $tag['name'] : 'vo';
+		$posid     = isset($tag['modulepos_id']) ? $tag['modulepos_id'] : '';
 		$module_id = isset($tag['module_id']) ? $tag['module_id'] : '';
 		if (empty($posid) && empty($module_id)) {
 			return false;

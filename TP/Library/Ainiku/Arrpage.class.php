@@ -16,22 +16,22 @@ class Arrpage {
 	public $page_size; //每页的记录数
 	public $total_size; //总记录数
 	public $page; //当前的页码
-	private $urlgz = 0; //对应分类url中的规则
+	private $urlgz   = 0; //对应分类url中的规则
 	private $ys_page = 2; //分类页导航显示数量
-	private $urlarr = array(
+	private $urlarr  = array(
 		0 => '&pg=',
 		1 => './pg/',
 	);
 	protected $config = array(
-		'total' => '条记录',
-		'prev' => '上一页',
-		'next' => '下一页',
-		'first' => '首页',
-		'last' => '尾页',
-		'prevurl' => '',
-		'nexturl' => '',
+		'total'    => '条记录',
+		'prev'     => '上一页',
+		'next'     => '下一页',
+		'first'    => '首页',
+		'last'     => '尾页',
+		'prevurl'  => '',
+		'nexturl'  => '',
 		'firsturl' => '',
-		'lasturl' => '',
+		'lasturl'  => '',
 		'navstyle' => '<style>.pagenav{ text-align:center;}.pagenav a,.pagenav span{ font-size:12px; display:inline-block;text-decoration:none; color:#000; margin:0px 5px;}.pagenav a{height:20px; line-height:20px;border: 1px solid #E7ECF0; padding:0px 5px; margin:0px 5px;}.pagenav a.numnav{height:20px;width:20px; padding:0px;}.pagenav a:hover{ background:#ebebeb;}.pagenav strong{ display:inline-block;height:20px; width:20px; line-height:20px;}</style>',
 	);
 	// 默认分页变量名
@@ -42,22 +42,22 @@ class Arrpage {
 	 *@param  $urlgz url生成的规则对应成员变量url规则数组0为 ./?_page=1   1为./_page/1
 	 */
 	function __construct($total_arr, $page = '', $page_size = 10, $urlgz = 0) {
-		$this->urlgz = $urlgz;
-		$this->total_arr = $total_arr;
+		$this->urlgz      = $urlgz;
+		$this->total_arr  = $total_arr;
 		$this->total_size = count($total_arr);
-		$this->page_size = $page_size < 10 ? 10 : $page_size;
-		$this->page_num = $this->getPageNum();
+		$this->page_size  = $page_size < 10 ? 10 : $page_size;
+		$this->page_num   = $this->getPageNum();
 
 		$url_page = I('pg'); //从url中取请求页
 		$url_page = $url_page == '' ? 1 : $url_page;
-		$page = $page == '' ? $url_page : $page;
+		$page     = $page == '' ? $url_page : $page;
 
 		$this->page = $this->getpage($page);
 		//初始化分页导航url
-		$this->config['prevurl'] = U('', array('pg' => $this->page - 1)); //$this->urlarr[$this->urlgz].($this->page-1);
-		$this->config['nexturl'] = U('', array('pg' => $this->page + 1)); //$this->urlarr[$this->urlgz].($this->page+1);
+		$this->config['prevurl']  = U('', array('pg' => $this->page - 1)); //$this->urlarr[$this->urlgz].($this->page-1);
+		$this->config['nexturl']  = U('', array('pg' => $this->page + 1)); //$this->urlarr[$this->urlgz].($this->page+1);
 		$this->config['firsturl'] = U('', array('pg' => 1)); //$this->urlarr[$this->urlgz].'1';
-		$this->config['lasturl'] = U('', array('pg' => $this->page_num));
+		$this->config['lasturl']  = U('', array('pg' => $this->page_num));
 		$this->cur_pagedata();
 	}
 //返回分成的总页数
@@ -76,12 +76,12 @@ class Arrpage {
 //返回对类初始化后的信息
 	public function getmypageinfo() {
 		$mypageinfo = array(
-			"total_size" => $this->total_size,
-			"total_arr" => $this->total_arr,
+			"total_size"    => $this->total_size,
+			"total_arr"     => $this->total_arr,
 			"cur_page_data" => $this->cur_page_data,
-			"page_num" => $this->page_num,
-			"page_size" => $this->page_size,
-			"page" => $this->page,
+			"page_num"      => $this->page_num,
+			"page_size"     => $this->page_size,
+			"page"          => $this->page,
 		);
 		return $mypageinfo;
 	}

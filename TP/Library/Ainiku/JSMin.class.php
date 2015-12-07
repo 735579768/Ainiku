@@ -46,18 +46,18 @@
  * @link https://github.com/rgrove/jsmin-php
  */
 class JSMin {
-	const ORD_LF = 10;
-	const ORD_SPACE = 32;
-	const ACTION_KEEP_A = 1;
-	const ACTION_DELETE_A = 2;
+	const ORD_LF            = 10;
+	const ORD_SPACE         = 32;
+	const ACTION_KEEP_A     = 1;
+	const ACTION_DELETE_A   = 2;
 	const ACTION_DELETE_A_B = 3;
-	protected $a = '';
-	protected $b = '';
-	protected $input = '';
-	protected $inputIndex = 0;
-	protected $inputLength = 0;
-	protected $lookAhead = null;
-	protected $output = '';
+	protected $a            = '';
+	protected $b            = '';
+	protected $input        = '';
+	protected $inputIndex   = 0;
+	protected $inputLength  = 0;
+	protected $lookAhead    = null;
+	protected $output       = '';
 	// -- Public Static Methods --------------------------------------------------
 	/**
 	 * Minify Javascript
@@ -78,7 +78,7 @@ class JSMin {
 	 * @param string $input Javascript to be minified
 	 */
 	public function __construct($input) {
-		$this->input = str_replace("\r\n", "\n", $input);
+		$this->input       = str_replace("\r\n", "\n", $input);
 		$this->inputLength = strlen($this->input);
 	}
 	// -- Protected Instance Methods ---------------------------------------------
@@ -169,7 +169,7 @@ class JSMin {
 	 * @return string|null
 	 */
 	protected function get() {
-		$c = $this->lookAhead;
+		$c               = $this->lookAhead;
 		$this->lookAhead = null;
 		if ($c === null) {
 			if ($this->inputIndex < $this->inputLength) {

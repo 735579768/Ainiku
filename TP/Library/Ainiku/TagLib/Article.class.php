@@ -18,10 +18,10 @@ class Article extends TagLib {
 	// 标签定义
 	protected $tags = array(
 		// 标签定义： attr 属性列表 close 是否闭合（0 或者1 默认1） alias 标签别名 level 嵌套层次
-		'list' => array('attr' => 'category_id,order,rows,name,position', 'close' => 1),
-		'single' => array('attr' => 'single_id,name', 'close' => 1),
+		'list'     => array('attr' => 'category_id,order,rows,name,position', 'close' => 1),
+		'single'   => array('attr' => 'single_id,name', 'close' => 1),
 		'pagelist' => array('attr' => 'category_id,name', 'close' => 1),
-		'pagenav' => array('attr' => 'category_id,name', 'close' => 0),
+		'pagenav'  => array('attr' => 'category_id,name', 'close' => 0),
 	);
 	/**
 	 * list标签解析
@@ -31,11 +31,11 @@ class Article extends TagLib {
 	 * @return string
 	 */
 	public function _list($tag, $content) {
-		$name = isset($tag['name']) ? $tag['name'] : 'vo';
-		$catid = isset($tag['category_id']) ? $tag['category_id'] : null;
+		$name     = isset($tag['name']) ? $tag['name'] : 'vo';
+		$catid    = isset($tag['category_id']) ? $tag['category_id'] : null;
 		$position = isset($tag['position']) ? $tag['position'] : null;
-		$rows = isset($tag['rows']) ? $tag['rows'] : 10;
-		$order = isset($tag['order']) ? ($tag['order'] . ',') : '';
+		$rows     = isset($tag['rows']) ? $tag['rows'] : 10;
+		$order    = isset($tag['order']) ? ($tag['order'] . ',') : '';
 		if (empty($name)) {return '';}
 		$parse = ' <?php ';
 		$parse .= '$maplist=array();';
@@ -64,13 +64,13 @@ class Article extends TagLib {
 	}
 	//文章分页
 	function _pagelist($tag, $content) {
-		$name = isset($tag['name']) ? $tag['name'] : 'vo';
+		$name      = isset($tag['name']) ? $tag['name'] : 'vo';
 		$pagenavid = isset($tag['id']) ? $tag['id'] : 'pagenav';
-		$url = isset($tag['url']) ? $tag['url'] : '';
-		$position = isset($tag['position']) ? $tag['position'] : null;
-		$catid = $tag['category_id'];
-		$rows = isset($tag['rows']) ? $tag['rows'] : 10;
-		$order = isset($tag['order']) ? ($tag['order'] . ',') : '';
+		$url       = isset($tag['url']) ? $tag['url'] : '';
+		$position  = isset($tag['position']) ? $tag['position'] : null;
+		$catid     = $tag['category_id'];
+		$rows      = isset($tag['rows']) ? $tag['rows'] : 10;
+		$order     = isset($tag['order']) ? ($tag['order'] . ',') : '';
 		if (empty($name)) {
 			return '';
 		}
@@ -117,7 +117,7 @@ class Article extends TagLib {
 	//取分页导航
 	function _pagenav($tag) {
 		$pagenavid = isset($tag['id']) ? $tag['id'] : '';
-		$parse = '<div class="page"><?php ';
+		$parse     = '<div class="page"><?php ';
 		if (empty($pagenavid)) {
 			$parse .= 'echo $__SHOW__;';
 		} else {
@@ -129,7 +129,7 @@ class Article extends TagLib {
 	//单篇文章
 	function _single($tag, $content) {
 		$name = isset($tag['name']) ? $tag['name'] : 'vo';
-		$id = isset($tag['id']) ? $tag['id'] : '';
+		$id   = isset($tag['id']) ? $tag['id'] : '';
 		if (empty($id)) {
 			return '';
 		}

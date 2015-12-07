@@ -62,7 +62,7 @@ class AlipaySubmit {
 		$mysign = $this->buildRequestMysign($para_sort);
 
 		//签名结果与签名方式加入请求提交参数组中
-		$para_sort['sign'] = $mysign;
+		$para_sort['sign']      = $mysign;
 		$para_sort['sign_type'] = strtoupper(trim($this->alipay_config['sign_type']));
 
 		return $para_sort;
@@ -134,7 +134,7 @@ class AlipaySubmit {
 	function buildRequestHttpInFile($para_temp, $file_para_name, $file_name) {
 
 		//待请求参数数组
-		$para = $this->buildRequestPara($para_temp);
+		$para                  = $this->buildRequestPara($para_temp);
 		$para[$file_para_name] = "@" . $file_name;
 
 		//远程获取数据
@@ -149,13 +149,13 @@ class AlipaySubmit {
 	 * return 时间戳字符串
 	 */
 	function query_timestamp() {
-		$url = $this->alipay_gateway_new . "service=query_timestamp&partner=" . trim(strtolower($this->alipay_config['partner'])) . "&_input_charset=" . trim(strtolower($this->alipay_config['input_charset']));
+		$url         = $this->alipay_gateway_new . "service=query_timestamp&partner=" . trim(strtolower($this->alipay_config['partner'])) . "&_input_charset=" . trim(strtolower($this->alipay_config['input_charset']));
 		$encrypt_key = "";
 
 		$doc = new DOMDocument();
 		$doc->load($url);
 		$itemEncrypt_key = $doc->getElementsByTagName("encrypt_key");
-		$encrypt_key = $itemEncrypt_key->item(0)->nodeValue;
+		$encrypt_key     = $itemEncrypt_key->item(0)->nodeValue;
 
 		return $encrypt_key;
 	}
