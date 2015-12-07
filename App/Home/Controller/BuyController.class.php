@@ -242,15 +242,15 @@ $this->error($model->geterror());
 	//支付成功后前台跳转通知
 	public function payok($order_id = '') {
 		//支付宝通知
-		//$data = runPluginMethod('Alipay', 'return_url');
+		$data = runPluginMethod('Alipay', 'return_url');
 		//dump($data);
 		//($data['status'] == 1) && exit();
 		//财付通通知
-		//$data = runPluginMethod('Tenpay', 'return_url');
+		$data = runPluginMethod('Tenpay', 'return_url');
 		//dump($data);
 		//银联通知
 		$data = runPluginMethod('Unionpay', 'return_url');
-		dump($data);
+		//dump($data);
 		//($data['status'] == 1) && exit();
 
 		//$order_sn = $data['order_sn'];

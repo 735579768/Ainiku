@@ -280,7 +280,9 @@ $(function() {
 								oktitle:'支付完成',
 								canceltitle:'支付失败',
 								ok:function(){
-
+									var uri=window.location.pathname;
+									uri=uri.replace('pay/order_id','payok/order_id');
+									window.location.href=uri;
 								},
 								cancel:function(){
 

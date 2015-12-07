@@ -85,12 +85,12 @@ class UnionpayPlugin extends \Plugins\Plugin {
 	}
 	public function return_url() {
 		//银联通知
-		$str = '';
+		/*		$str = '';
 		foreach ($_POST as $key => $val) {
 			$str .= isset($mpi_arr[$key]) ? $mpi_arr[$key] : $key . '<br>';
 			$str .= $val;
 		}
-		echo $str;
+		echo $str;*/
 
 		if ($this->yanzheng()) {
 
