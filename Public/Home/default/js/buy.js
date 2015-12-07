@@ -3,14 +3,14 @@
 $(function() {
 	window.buyobj = {
 		//初始化提交地址
-		url:{
-			saveAddressurl:'',
-			editAddressurl:'',
-			delAddressurl:'',
-			submitorder:'',
-			dopay:''
+		url: {
+			saveAddressurl: '',
+			editAddressurl: '',
+			delAddressurl: '',
+			submitorder: '',
+			dopay: ''
 		},
-		
+
 		//初始化添加地址框的焦点提示
 		initFocusBlur: function() {
 			$('.auto-label').focus(function(event) {
@@ -74,7 +74,7 @@ $(function() {
 
 		//保存地址
 		saveAddress: function() {
-			var _this=this;
+			var _this = this;
 			var name = $("input[name='consignee_name']").val();
 			var mobile = $("input[name='consignee_mobile']").val();
 			var email = $("input[name='consignee_email']").val();
@@ -137,16 +137,16 @@ $(function() {
 				_this.addClass('selected');
 			}
 			//设置下面地址
-			var name=_this.find('dt').html();
-			var mobile=_this.find('.s-mobile').html();
-			var diqu=_this.find('.s-diqu').html();
-			diqu=diqu.replace(/<br>/,'&nbsp;&nbsp;&nbsp;');
-			$('#total_address').html(name+'&nbsp;&nbsp;&nbsp;'+mobile+'<br>'+diqu);
+			var name = _this.find('dt').html();
+			var mobile = _this.find('.s-mobile').html();
+			var diqu = _this.find('.s-diqu').html();
+			diqu = diqu.replace(/<br>/, '&nbsp;&nbsp;&nbsp;');
+			$('#total_address').html(name + '&nbsp;&nbsp;&nbsp;' + mobile + '<br>' + diqu);
 			$('#selected_adress').val(_this.attr('data-id'));
 		},
 		//添加配送新地址
 		addNewAddress: function() {
-			var _this=this;
+			var _this = this;
 			$.ajax({
 				url: _this.url.saveAddressurl,
 				type: 'GET',
@@ -166,7 +166,7 @@ $(function() {
 		},
 		//修改配送地址
 		modAddress: function(id) {
-			var _this=this;
+			var _this = this;
 			$.ajax({
 				url: _this.url.editAddressurl,
 				type: 'POST',
@@ -191,7 +191,7 @@ $(function() {
 		},
 		//删除配送地址
 		delAddress: function(id) {
-			var _this=this;
+			var _this = this;
 			ank.msgDialog({
 				title: '删除提示',
 				content: '确定要删除吗?',
@@ -219,80 +219,81 @@ $(function() {
 
 		},
 		//提交订单
-		submitOrder:function(){
-			var adid=$('#selected_adress').val();
-			var ordernote=$('#order_note').val();
-			if(adid==''){
+		submitOrder: function() {
+			var adid = $('#selected_adress').val();
+			var ordernote = $('#order_note').val();
+			if (adid == '') {
 				ank.msg('请选择一个收货地址!');
 				return false;
 			}
-			var _this=this;
+			var _this = this;
 			$.ajax({
-				type:'POST',
-				url:_this.url.submitorder,
-				data:{
-					consignee_address_id:adid,
-					order_note:ordernote
+				type: 'POST',
+				url: _this.url.submitorder,
+				data: {
+					consignee_address_id: adid,
+					order_note: ordernote
 				},
-				success:function(da){
+				success: function(da) {
 					ank.msg(da.info);
-					if(da.url!=''){
-						window.location.href=da.url;
+					if (da.url != '') {
+						window.location.href = da.url;
 					}
 				}
 			});
 		},
 		//选择支付类型
-		selectPay:function(obj){
-			var _this=$(obj);
-			var mark=_this.attr('data-mark');
+		selectPay: function(obj) {
+			var _this = $(obj);
+			var mark = _this.attr('data-mark');
 			$('#payOnlineBank').val(mark);
 			$('.online-pay li a').removeClass('hover');
 			_this.addClass('hover');
 		},
 		//去支付
-		dopay:function(orderid){
-			var mark=$('#payOnlineBank').val();
-			if(mark==""){
+		dopay: function(orderid) {
+			var mark = $('#payOnlineBank').val();
+			if (mark == "") {
 				ank.msg('请选择支付方式!');
 				return false;
 			}
-			if(orderid==''){
+			if (orderid == '') {
 				ank.msg('支付参数错误!');
 				return false;
 			}
-			var _this=this;
+			var _this = this;
 			$.ajax({
-				type:'POST',
-				url:_this.url.dopay,
-				data:{
-					order_id:orderid,
-					online_pay:mark
+				type: 'POST',
+				url: _this.url.dopay,
+				data: {
+					order_id: orderid,
+					online_pay: mark
 				},
-				success:function(da){
-					if(da.status==1){
-						$('body').append('<div id="zhifucontainer">'+da.data+'</div>');
+				success: function(da) {
+					if (da.status == 1) {
+						$('body').append('<div id="zhifucontainer">' + da.data + '</div>');
 						$('#zhifucontainer').remove();
 						ank.msgDialog({
-								title:'支付订单',
-								content:da.info,
-								btn:true,
-								oktitle:'支付完成',
-								canceltitle:'支付失败',
-								ok:function(){
-									var uri=window.location.pathname;
-									uri=uri.replace('pay/order_id','payok/order_id');
-									window.location.href=uri;
-								},
-								cancel:function(){
-
-								}
+							title: '支付订单',
+							content: da.info,
+							btn: true,
+							oktitle: '支付完成',
+							canceltitle: '支付失败',
+							ok: function() {
+								var uri = window.location.pathname;
+								uri = uri.replace('pay/order_id', 'payok/order_id');
+								window.location.href = uri;
+								clearInterval(buyobj.verifyid);
+							},
+							cancel: function() {
+								clearInterval(buyobj.verifyid);
+							}
 						});
-					//验证支付状态是否成功
-					buyobj.verifyid=setInterval(function(){
-						buyobj.verifyPay(da.order_id);
-					},3000);
-					}else{
+						//验证支付状态是否成功
+						buyobj.verifyid = setInterval(function() {
+							buyobj.verifyPay(da.order_id);
+						}, 3000);
+					} else {
 						ank.msg(da.info);
 					}
 
@@ -300,19 +301,19 @@ $(function() {
 			});
 
 		},
-		verifyPay:function(orderid){
-			var _this=this;
+		verifyPay: function(orderid) {
+			var _this = this;
 			$.ajax({
-				type:'POST',
-				url:_this.url.checkpay,
-				data:{
-					order_id:orderid
+				type: 'POST',
+				url: _this.url.checkpay,
+				data: {
+					order_id: orderid
 				},
-				success:function(da){
-					if(da.status==1){
+				success: function(da) {
+					if (da.status == 1) {
 						clearInterval(buyobj.verifyid);
 						$('#pay_status_text').html('支付成功!');
-						window.location.href=da.url;
+						window.location.href = da.url;
 					}
 				}
 			});

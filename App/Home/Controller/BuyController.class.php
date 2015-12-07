@@ -205,6 +205,9 @@ $this->error($model->geterror());
 	}
 	//调用支付接口完成支付
 	public function dopay() {
+		$dopaylock = S('dopaylock');
+		empty($dopaylock) || $this->error('为避免重复支付,请等待1分钟后再尝试支付!');
+		S('dopaylock', true, 60);
 		$order_id = I('order_id');
 		$online_pay = strtolower(I('online_pay')); //支付类型
 		empty($order_id) && $this->error('参数错误!');
