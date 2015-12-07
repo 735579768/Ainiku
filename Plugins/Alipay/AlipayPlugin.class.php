@@ -121,9 +121,11 @@ class AlipayPlugin extends \Plugins\Plugin{
 		$trade_no = $_POST['trade_no'];//支付宝交易号
 		$trade_status = $_POST['trade_status'];//交易状态//各个状态请查看api或插件下面的示例处理函数
 	 	 //设置为已经支付
- 		 $info=M('Order')->where("order_sn=$order_sn")->setField('order_status',2);
-		}else{
-
+ 		$info=M('Order')->where("order_sn=$order_sn")->save(array(
+											'pay_time'=>NOW_TIME,
+											'pay_type'=>'支付宝',
+											'order_status'=>2
+											));
 		}
 	}
 	//钩子默认的调用方法

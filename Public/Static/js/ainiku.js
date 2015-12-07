@@ -299,7 +299,7 @@
 				_gtype(options) === 'string' && (conf.content = options);
 				_gtype(options) === 'object' && (conf = this.extend(options, conf));
 			}
-			var style = "<style>#kl-msg-wrap *{margin:0px;padding:0px;font:14px/1.5 'microsoft yahei';}#kl-msg{position:fixed;top:45%;left:50%;border:solid 2px #666;z-index:" + this.config.zindex + ";background:#fff;padding:10px 20px;}" + conf.style + "</style>";
+			var style = "<style>#kl-msg-wrap *{margin:0px;padding:0px;font:14px/1.5 'microsoft yahei';}#kl-msg{position:fixed;top:45%;left:50%;border:solid 2px #666;z-index:" + this.config.zindex + ";background:#fff;padding:20px;}" + conf.style + "</style>";
 			var html = '<div id="kl-msg-wrap">' + style + '<div id="kl-msg">' + conf.content + '</div></div>';
 			$('body').append(html);
 			var obj = $('#kl-msg');

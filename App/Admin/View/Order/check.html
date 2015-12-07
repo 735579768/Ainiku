@@ -44,10 +44,10 @@
 <tr>
 <td class="tdr">收货人城市</td>
 <td class="tdl">{$info.consignee_diqu}</td>
-<td class="tdr">发货时间</td>
+<td class="tdr">付款类型</td>
 <td class="tdl">
 <notempty name="pay_time">
-{$info.fahuo_time|time_format}
+{$info.pay_type}
 <else />
 未知
 </notempty>

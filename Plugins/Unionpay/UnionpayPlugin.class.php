@@ -112,7 +112,11 @@ class UnionpayPlugin extends \Plugins\Plugin{
 	public function notify_url(){
 	if($this->yanzheng()){
 		$orderId = $_POST ['orderId']; 
-		$info=M('Order')->where("order_sn=$orderId")->setField('order_status',2);
+		$info=M('Order')->where("order_sn=$orderId")->save(array(
+														'pay_time'=>NOW_TIME,
+														'pay_type'=>'中国银联',
+														'order_status'=>2
+														));
 	}
 	}
 	public function getConfig(){
