@@ -310,6 +310,7 @@ $(function() {
 					if(da.status==1){
 						clearInterval(buyobj.verifyid);
 						$('#pay_status_text').html('支付成功!');
+						window.location.href=da.url;
 					}
 				}
 			});

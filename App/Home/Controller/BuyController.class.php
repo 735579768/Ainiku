@@ -240,23 +240,29 @@ $this->error($model->geterror());
 		$this->ajaxreturn($rearr);
 	}
 	//支付成功后前台跳转通知
-	public function payok() {
+	public function payok($order_id = '') {
 		//支付宝通知
-		$data = runPluginMethod('Alipay', 'return_url');
-		dump($data);
-		($data['status'] == 1) && exit();
+		//$data = runPluginMethod('Alipay', 'return_url');
+		//dump($data);
+		//($data['status'] == 1) && exit();
 		//财付通通知
-		$data = runPluginMethod('Tenpay', 'return_url');
-		dump($data);
+		//$data = runPluginMethod('Tenpay', 'return_url');
+		//dump($data);
 		//银联通知
 		$data = runPluginMethod('Unionpay', 'return_url');
 		dump($data);
-		($data['status'] == 1) && exit();
+		//($data['status'] == 1) && exit();
 
-		$order_sn = $data['order_sn'];
+		//$order_sn = $data['order_sn'];
+		empty($order_id) && ($order = I('get.order_id'));
+		empty($order_id) && $this->error('参数错误!');
 		//查询订单
-		$info = M('Order')->where("order_sn=$order_sn")->find();
-		($info['order_status'] != 1) && $this->error('此订单已经支付,请不要重复支付!');
+		$info = M('Order')->where("order_id=$order_id")->find();
+		//($info['order_status'] != 1) && $this->error('此订单已经支付,请不要重复支付!');
+		empty($info) && $this->error('没有此订单!');
+		$this->assign('info', $info);
+		$list = D('OrderGoodsView')->where("order_id=$order_id")->select();
+		$this->assign('_list', $list);
 		$this->display();
 	}
 	//支付结果后台通知
@@ -277,7 +283,7 @@ $this->error($model->geterror());
 		$order_id = I('order_id');
 		$info = M('Order')->field('order_status')->where("order_id=$order_id")->find();
 		if ($info['order_status'] == 2) {
-			$this->success('支付成功');
+			$this->success('支付成功', U('Buy/payok', array('order_id' => $order_id)));
 		} else {
 			$this->error('未支付');
 		}
