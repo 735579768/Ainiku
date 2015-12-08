@@ -12,7 +12,6 @@
 	<include file="Member/member_left" />
 	<div class="member-right cl">
 	<div class="mem-hd-title cl">{$member_title}</div>
-	<div class="divline"></div>
 		<div class="user-info">
 			<div class="user-tx"><img src="__IMG__/photo.jpg" />
 			<div class="login-info">
@@ -20,9 +19,20 @@
  						<h2 class="username">{$uinfo.username}</h2>
                         <p class="tip">您好～</p>
                         <a class="link" href="{:U('Member/modpwd')}">修改个人信息 &gt;</a>
-                        </div>
+            </div>
+			<div class="login-info">
+              <p class="tip">手机 : {$uinfo.mobile}</p>
+              <p class="tip">邮箱 : {$uinfo.email}</p>
+            </div>
 			</div>
 		</div>
+	<div class="divline"></div>
+	<ul class="user-order cl">
+		<li><a href="javascript:;">待支付订单</a></li>
+		<li><a href="javascript:;">待收货订单</a></li>
+		<li><a href="javascript:;">已支付订单</a></li>
+		<li><a href="javascript:;">已完成订单</a></li>
+	</ul>
 	</div>
 </div>
 </body>

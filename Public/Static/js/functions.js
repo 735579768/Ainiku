@@ -46,6 +46,9 @@ $(function() {
             a = "";
 			
             formobj = thisobj.parents("form");
+			if(!formobj){
+				return false;
+				}
             formobj.submit(function(e) {
                 return false;
             });
