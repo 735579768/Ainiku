@@ -1,0 +1,51 @@
+ <!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>订单支付结果</title>
+<ank:insert name="reset,common,index,buy" />
+<ank:insert name="jquery-1.9.1.min,buy,ainiku,functions,ajax,jquery.SuperSlide.2.1.1" type="js"  />
+</head>
+
+<body>
+<div class="member-block">
+    <include file="Member/member_left" />
+    <div class="member-right cl">
+    <div class="mem-hd-title cl">{$member_title}</div>
+    <div class="divline"></div>
+  <div class="s-address cl">
+        <volist name="_list" id="vo">
+        <dl data-id="{$vo.consignee_address_id}" onclick="buyobj.selectedAddress(this);" id="consignee_address{$vo.consignee_address_id}" class="s-adr cl">
+            <dt>{$vo.consignee_name}</dt>
+            <dd>
+                <div class="s-mobile">{$vo.consignee_mobile}</div>
+                <div class="s-diqu">
+                {$vo.consignee_diqu|getRegion}<br>
+                {$vo.consignee_detail}</div>
+            </dd>
+            <dd class='action'>
+            <a class="delbtn" onclick="buyobj.delAddress({$vo.consignee_address_id})" data-id="{$vo.consignee_address_id}" href="javascript:;">删除</a>
+            <a class="modbtn" onclick="buyobj.modAddress({$vo.consignee_address_id})" data-id="{$vo.consignee_address_id}" href="javascript:;">修改</a>
+            </dd>
+        </dl>
+        </volist>
+
+        <dl class="s-adr cl">
+            <a id="add-new-address" onclick="buyobj.addNewAddress();" class="add-new-address" href="javascript:;">添加新地址</a>
+        </dl>
+    </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(function() {
+//传入地址初始化
+buyobj.url={
+    saveAddressurl:"{:U('Buy/addaddress')}",
+    editAddressurl:"{:U('Buy/editaddress')}",
+    delAddressurl:"{:U('Buy/deladdress')}",
+};
+});
+</script>
+</body>
+</html>
+ 

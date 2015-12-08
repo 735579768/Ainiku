@@ -69,4 +69,14 @@ class MemberController extends LoginController {
 		}
 
 	}
+	/**
+	 *收货地址
+	 **/
+	public function address() {
+		$this->assign('member_title', '收货地址');
+		$map['uid'] = UID;
+		$list       = M('ConsigneeAddress')->where($map)->select();
+		$this->assign('_list', $list);
+		$this->display('consigneeaddress');
+	}
 }
