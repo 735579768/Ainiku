@@ -1,5 +1,5 @@
 .pricecolor{color:#ff6700;}
-
+.buy-flow-block{width:1100px; margin: 0px auto;}
 /*******购物车头样式 start********/
 .cart-header{width:1100px;margin:0px auto;height:100px;background:#fff;margin-bottom:10px;border-bottom:2px solid #ff6700;}
 .cart-header .cart-title{font-size:30px;display:inline-block;width:200px;height:100px;line-height:100px;text-align:center;color:#000;}
