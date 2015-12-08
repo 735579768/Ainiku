@@ -22,7 +22,9 @@
             </div>
 			<div class="login-info">
               <p class="tip">手机 : {$uinfo.mobile}</p>
-              <p class="tip">邮箱 : {$uinfo.email}</p>
+              <p class="tip">邮箱 : {$uinfo.email} 
+				<eq name="uinfo.email_activate" value="0"><a href="{:U('Member/emailactivate')}" class="ajax-href" >点击激活</a><else /><span class="green">已验证</span></eq>
+              </p>
             </div>
 			</div>
 		</div>

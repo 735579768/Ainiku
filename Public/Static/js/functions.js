@@ -7,6 +7,7 @@ $(function() {
         }
     };
     window.ajaxhref = function(obj) {
+		obj=$(obj);
         obj.addClass("disabled");
         if (typeof arguments[2] != "undefined") reloadbool = arguments[2];
         if (typeof arguments[1] != "undefined") msgtime = arguments[1];

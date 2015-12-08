@@ -73,10 +73,47 @@ class MemberController extends LoginController {
 	 *收货地址
 	 **/
 	public function address() {
-		$this->assign('member_title', '收货地址');
 		$map['uid'] = UID;
 		$list       = M('ConsigneeAddress')->where($map)->select();
+		$this->assign('member_title', '收货地址');
 		$this->assign('_list', $list);
 		$this->display('consigneeaddress');
+	}
+	/**
+	 *邮箱激活
+	 **/
+	public function emailactivate($yz = '') {
+		$uinfo = $this->uinfo;
+		if (empty($yz)) {
+			$yzm = ainiku_ucenter_md5($uinfo['username'] . $uinfo['password']);
+			$url = C('WEBDOMIN') . U("Member/emailactivate", array('yz' => $yzm));
+			$str = <<<eot
+		此链接10分钟内有效
+		<a target="_blank" href="{$url}">点击以激活邮箱</a>
+eot;
+			$result = sendMail(array(
+				'to'       => $uinfo['email'],
+				'toname'   => $uinfo['email'],
+				'subject'  => C('WEBDOMIN') . '的邮件激活', //主题标题
+				'fromname' => C('WEBDOMIN'),
+				'body'     => $str . date('Y/m/d H:i:s'), //邮件内容
+				//'attachment'=>'E:\SVN\frame\DataBak\20141126-003119-1.sql.gz'
+
+			));
+			if ($result) {
+				S('emailactivate' . UID, $yzm, true, 600);
+				$this->success('激活邮件已经发送成功!');
+			} else {
+				$this->error('邮件发送失败!');
+			}
+		} else {
+			if ($yz === S('emailactivate' . UID)) {
+				S('emailactivate' . UID, null);
+				M('Member')->where("member_id=" . UID)->save(array('email_activate' => 1));
+				$this->success('邮箱验证成功!', U('Member/portal'));
+			} else {
+				$this->success('邮箱验证失败!', U('Member/portal'));
+			}
+		}
 	}
 }
