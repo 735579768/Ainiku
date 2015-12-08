@@ -15,22 +15,31 @@ class MemberController extends LoginController {
 	/**
 	 *我的全部订单
 	 **/
-	public function order() {
+	public function order($order_status = 1) {
 		$this->assign('member_title', '全部订单');
+		$map['order_status'] = $order_status;
+		$map['uid']          = UID;
+		$this->pages(array(
+			'model' => 'Order',
+			'where' => $map,
+			'order' => 'order_id desc',
+			'rows'  => 5,
+		));
 		$this->display();
 	}
 	/**
-	 *待收货订单
+	 *查看订单
 	 **/
-	public function shouhuoorder() {
-		$this->assign('member_title', '待收货订单');
-		$this->display();
-	}
-	/**
-	 *待支付订单
-	 **/
-	public function zhifuorder() {
-		$this->assign('member_title', '待支付订单');
+	public function checkorder($order_id = '') {
+		empty($order_id) && $this->error('参数错误!');
+		$this->assign('member_title', '订单详情');
+		$map['uid']      = UID;
+		$map['order_id'] = $order_id;
+		$info            = M('Order')->where($map)->find();
+		//查询订单中的商品信息
+		$list = D('OrderGoodsView')->where($map)->select();
+		$this->assign('info', $info);
+		$this->assign('_list', $list);
 		$this->display();
 	}
 	/**

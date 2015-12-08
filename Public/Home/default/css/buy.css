@@ -1,4 +1,5 @@
 .pricecolor{color:#ff6700;}
+.green{color:#83c44e;}
 .member-block,.buy-flow-block{width:1100px;margin:0px auto;}
 .divline{width:95%;height:1px;background:#ccc;margin:0px auto;}
 
@@ -139,4 +140,24 @@
 .user-info .user-tx img{vertical-align:top;border-radius:150px;display:inline-block;border:1px solid #e0e0e0;padding:4px;}
 .user-modpwd{padding:10px 0px 10px 30px;}
 .user-order li{float:left;margin:20px 0px 0px 120px;}
-.user-order li a{display:block;width:250px;height:100px;background:#02BBBB;color:#fff;text-align:center;line-height:100px;font-size:20px;}
+.user-order li a{display:block;width:250px;height:100px;background:#02BBBB;color:#fff;text-align:center;line-height:100px;font-size:20px;border-radius:5px;}
+.mem-order-list{padding:10px;}
+.mem-order-list .order-item{border:solid 1px #e8e8e8;margin-top:20px;padding:10px;}
+.mem-order-list .order-item .order-status,.mem-order-list .order-item .order-detail span{height:30px;line-height:30px;}
+.mem-order-list .order-item .order-detail span{display:inline-block;margin-left:10px;font-size:14px;}
+.mem-order-list .order-item .order-detail span.totalprice{float:right;}
+.mem-order-list .order-item .order-detail span.totalprice em{height:18px;margin-right:5px;font-size:28px;font-weight:200;line-height:1;}
+.mem-order-list .order-item .order-status{font-size:18px;}
+.mem-order-list .order-item .order-detail{padding:10px;}
+.mem-order-list .order-item .order-goods{margin-top: 10px;    overflow: hidden;}
+.mem-order-list .order-item .order-goods .btn{float: right;}
+.order-goods-list{padding:20px; overflow: hidden;}
+.order-goods-list li img{float: left;}
+.order-goods-list li span{font-size:14px;padding:10px 20px;float: left;}
+.order-detail{margin: 10px 0px;}
+.order-detail dt {padding-left: 20px; font-size: 20px;height: 40px; line-height: 40px;}
+.order-detail dd{padding-left: 20px;}
+.order-detail dd .label,
+.order-detail dd .label-con{display: inline-block;height: 30px;line-height: 30px;font-size: 14px;}
+.order-detail dd .label{width: 80px; float: left;}
+.order-detail dd .label-con{display: block;margin-left: 90px;}

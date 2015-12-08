@@ -28,10 +28,10 @@
 		</div>
 	<div class="divline"></div>
 	<ul class="user-order cl">
-		<li><a href="javascript:;">待支付订单</a></li>
-		<li><a href="javascript:;">待收货订单</a></li>
-		<li><a href="javascript:;">已支付订单</a></li>
-		<li><a href="javascript:;">已完成订单</a></li>
+		<li><a href="{:U('Member/order',array('order_status'=>1))}">待支付订单</a></li>
+		<li><a href="{:U('Member/order',array('order_status'=>3))}">待收货订单</a></li>
+		<li><a href="{:U('Member/order',array('order_status'=>2))};">已支付订单</a></li>
+		<li><a href="{:U('Member/order',array('order_status'=>4))}">已完成订单</a></li>
 	</ul>
 	</div>
 </div>

@@ -8,9 +8,10 @@
 
 <dl class="uc-nav-box cl">
 <dt class="uc-nav-title"><a href="javascript:;">订单中心</a></dt>
-<dd class="uc-nav-item hover"><a href="javascript:;">已完成订单</a></dd>
-<dd class="uc-nav-item"><a href="javascript:;">未支付订单</a></dd>
-<dd class="uc-nav-item"><a href="javascript:;">待收货订单</a></dd>
+<dd class="uc-nav-item hover"><a href="{:U('Member/order',array('order_status'=>4))}">已完成订单</a></dd>
+<dd class="uc-nav-item"><a href="{:U('Member/order',array('order_status'=>1))}">未支付订单</a></dd>
+<dd class="uc-nav-item"><a href="{:U('Member/order',array('order_status'=>2))}">待发货订单</a></dd>
+<dd class="uc-nav-item"><a href="{:U('Member/order',array('order_status'=>3))}">待收货订单</a></dd>
 </dl>
 
 <dl class="uc-nav-box cl">
