@@ -35,6 +35,7 @@ $(function() {
      *_after_post()提交后调用
      */
     window.ajaxform = function(thisobj, callback) {
+		thisobj=$(thisobj);
         thisobj.addClass("disabled");
         if (typeof arguments[2] != "undefined") reloadbool = arguments[2];
         if (typeof arguments[1] != "undefined") msgtime = arguments[1];
@@ -43,6 +44,7 @@ $(function() {
             if (typeof _before_func == "function") _before_func();
             var thisobj, obj, a, url;
             a = "";
+			
             formobj = thisobj.parents("form");
             formobj.submit(function(e) {
                 return false;

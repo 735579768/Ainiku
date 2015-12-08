@@ -1,5 +1,7 @@
 .pricecolor{color:#ff6700;}
-.buy-flow-block{width:1100px; margin: 0px auto;}
+.member-block,.buy-flow-block{width:1100px;margin:0px auto;}
+.divline{width:95%;height:1px;background:#ccc;margin:0px auto;}
+
 /*******购物车头样式 start********/
 .cart-header{width:1100px;margin:0px auto;height:100px;background:#fff;margin-bottom:10px;border-bottom:2px solid #ff6700;}
 .cart-header .cart-title{font-size:30px;display:inline-block;width:200px;height:100px;line-height:100px;text-align:center;color:#000;}
@@ -116,6 +118,22 @@
 .online-pay li{float:left;margin-left:10px;}
 .online-pay li img{width:188px;height:64px;}
 .online-pay li a{border:1px solid #e0e0e0;display:inline-block;}
-.online-pay li a.hover,
-.online-pay li a:hover{border-color:#ff6700;}
+.online-pay li a.hover,.online-pay li a:hover{border-color:#ff6700;}
 .online-pay li input{display:none;}
+
+/****会员中心样式**/
+.member-left{width:200px;float:left;background:#fff;padding-bottom:40px;}
+.member-right{margin-left:210px;background:#fff;}
+.member-left .uc-nav-box{margin-top:20px;}
+.member-left .uc-nav-box a.hover,.member-left .uc-nav-box a:hover{color:#ff6700;}
+.member-left .uc-nav-box a{font-size:14px;padding-left:40px;display:block;height:30px;line-height:30px;}
+.uc-nav-box .uc-nav-title a{color:#000;height:60px;line-height:60px;font-size:16px;}
+.uc-nav-box .uc-nav-item{}
+.member-right .mem-hd-title{height:60px;line-height:60px;font-size:25px;padding-left:30px;padding-top:20px;}
+
+/***会员信息样式***/
+.user-info{padding:40px;}
+.user-info .user-tx{}
+.user-info .user-tx .login-info{display:inline-block;height:134px;    padding: 40px 0px 0px 50px;}
+.user-info .user-tx img{vertical-align:top;border-radius:150px;display:inline-block;border:1px solid #e0e0e0;padding:4px;}
+.user-modpwd{padding:10px 0px 10px 30px;}

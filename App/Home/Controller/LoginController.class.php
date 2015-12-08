@@ -31,31 +31,25 @@ class LoginController extends HomeController {
 			'__CSS__'    => __ROOT__ . '/Public/' . MODULE_NAME . '/' . C('DEFAULT_THEME') . '/css',
 			'__JS__'     => __ROOT__ . '/Public/' . MODULE_NAME . '/' . C('DEFAULT_THEME') . '/js',
 		));
+		define('UID', 1);
 		//过滤掉支付接口的异步通知url
 		if (CONTROLLER_NAME != 'Buy' && ACTION_NAME != 'dopayok') {
-			//      defined('UID') or define('UID',auto_login());
-			//      if(!UID){
-			//          //没有登陆的情况
-			//          if(IS_AJAX){
-			//              $this->error($this->fetch('Public/ajaxlogin'));
-			//          }else{
-			//              redirect(U('Public/login'));
-			//              }
-			//
-			//       }else{
-			//          //赋值当前登陆用户信息
-			//          $uinfo=session('uinfo');
-			//          $map[getAccountType($uinfo['username'])]=$uinfo['username'];
-			//          $jin=__DB_PREFIX__."member_group as a on ".__DB_PREFIX__."member.member_group_id=a.member_group_id";
-			//          $field="*,".__DB_PREFIX__."member.status as status";
-			//          $user = D('Member')->field($field)->where($map)->join($jin)->find();
-			//          $this->uinfo=$user;
-			//          $this->member_group_id=$user['member_group_id'];
-			//          session('uinfo',$user);
-			//          $this->assign('uinfo',$user);
-			//       }
+			defined('UID') or define('UID', auto_login());
+			if (!UID) {
+				//没有登陆的情况
+				if (IS_AJAX) {
+					$this->error($this->fetch('Public/ajaxlogin'));
+				} else {
+					redirect(U('Public/login'));
+				}
+
+			} else {
+				//赋值当前登陆用户信息
+				$map['member_id'] = UID;
+				$user             = D('MemberView')->field($field)->where($map)->find();
+				$this->uinfo      = $user;
+			}
 		}
-		define('UID', 1);
 
 	}
 

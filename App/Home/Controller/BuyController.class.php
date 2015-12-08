@@ -2,10 +2,7 @@
 namespace Home\Controller;
 use Think\Controller;
 
-if (!defined("ACCESS_ROOT")) {
-	die("Invalid access");
-}
-
+defined("ACCESS_ROOT") || die("Invalid access");
 class BuyController extends LoginController {
 	public function checkout() {
 		//取地址列表
@@ -181,7 +178,7 @@ $this->error($model->geterror());
 				if ($res > 0) {
 					$this->error('下单失败');
 				} else {
-					F('__ORDERSUCCESS__' . $result, 'true');
+					//F('__ORDERSUCCESS__' . $result, 'true');
 					$this->success('下单成功', U('Buy/pay', array('order_id' => $result)));
 				}
 			} else {

@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>订单支付结果</title>
+<ank:insert name="reset,common,index,buy" />
+<ank:insert name="jquery-1.9.1.min,ainiku,functions,ajax,jquery.SuperSlide.2.1.1" type="js"  />
+</head>
+
+<body>
+<div class="member-block">
+	<include file="Member/member_left" />
+	<div class="member-right cl">
+	<div class="mem-hd-title cl">{$member_title}</div>
+	<div class="divline"></div>
+		<div class="user-modpwd">
+			<form action="{:U('Member/modpwd')}">
+				<div class="form-group">
+					<div class="form-label">新密码<span class="form-tip">（6-15位由字母或数字组合）</span></div>
+					<input class="form-control input-large" type="password" name="new_password" value="" />
+
+				</div>
+				<div class="form-group">
+					<div class="form-label">重复密码</div>
+					<input class="form-control input-large" type="password" name="re_password" value="" />
+
+				</div>
+				<div class="form-group">
+					<a href="javascript:;" onclick="ajaxform(this);" class="btn btn-large">确认修改</a>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+</body>
+</html>
