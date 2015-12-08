@@ -89,13 +89,14 @@ class MemberController extends LoginController {
 			$url = C('WEBDOMIN') . U("Member/emailactivate", array('yz' => $yzm));
 			$str = <<<eot
 		此链接10分钟内有效
-		<a target="_blank" href="{$url}">点击以激活邮箱</a>
+		<a target="_blank" href="{$url}">点击以激活邮箱</a>或复制这个链接并打开
+		{$url}
 eot;
 			$result = sendMail(array(
 				'to'       => $uinfo['email'],
 				'toname'   => $uinfo['email'],
-				'subject'  => C('WEBDOMIN') . '的邮件激活', //主题标题
-				'fromname' => C('WEBDOMIN'),
+				'subject'  => C('WEB_SITE_TITLE') . '的邮件验证', //主题标题
+				'fromname' => C('WEB_SITE_TITLE'),
 				'body'     => $str . date('Y/m/d H:i:s'), //邮件内容
 				//'attachment'=>'E:\SVN\frame\DataBak\20141126-003119-1.sql.gz'
 
