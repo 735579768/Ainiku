@@ -6,6 +6,22 @@ use Think\Controller;
 class CommonController extends Controller {
 	public function __construct() {
 		parent::__construct();
+/*		import('Ainiku.AssetsManager');
+$assets = \Ainiku\AssetsManager::getInstance();
+//设置资源路径
+$assets->addSourcePath(array(
+__ROOT__ . '/Public/' . MODULE_NAME . '/' . C('DEFAULT_THEME') . '/css',
+__ROOT__ . '/Public/' . MODULE_NAME . '/' . C('DEFAULT_THEME') . '/js',
+__ROOT__ . '/Public/Static/css',
+__ROOT__ . '/Public/Static/js',
+));
+//注册css文件
+$assets->registercss('reset,common,index,404');
+//注册js文件
+$assets->registerjs('jquery-1.9.1.min,ajax,functions');
+
+echo ($assets->registerend());
+dump($assets);*/
 		//查询黑名单
 		$ip     = get_client_ip();
 		$iplist = C('IP_BLACKLIST');

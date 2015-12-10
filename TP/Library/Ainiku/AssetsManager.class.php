@@ -4,8 +4,30 @@
  *到最后渲染的时候这些资源文件会添加到页面的head标签中
  *AssetsManager::getInstance()->register();
  *echo AssetsManager::getInstance()->registerend();
+ *使用方法
+ *import('Ainiku.AssetsManager');
+ *$assets = \Ainiku\AssetsManager::getInstance();
+ *设置资源路径
+ *$assets->addSourcePath(array(
+ *__ROOT__ . '/Public/' . MODULE_NAME . '/' . C('DEFAULT_THEME') . '/css',
+ *__ROOT__ . '/Public/' . MODULE_NAME . '/' . C('DEFAULT_THEME') . '/js',
+ *__ROOT__ . '/Public/Static/css',
+ *__ROOT__ . '/Public/Static/js',
+ *));
+ *注册css文件
+ *$assets->registercss('reset,common,index,404');
+ *注册js文件
+ *$assets->registerjs('ajax,functions');
+ *
+ *echo ($assets->registerend());
+ *dump($assets);
+ *
+ *
+ *
  **/
 namespace Ainiku;
+defined('APP_DEBUG') or define('APP_DEBUG', true);
+defined('APP_DEBUG') or define('APP_DEBUG', true);
 class AssetsManager {
 	public static $_instance = null;
 	private $js              = array();
@@ -27,47 +49,97 @@ class AssetsManager {
 	 **/
 	public function register($conf = array()) {
 		if (isset($conf['js']) && is_array($conf['js'])) {
-			$this->js = array_merge($this->js, $conf['js']);
+			$this->registerjs($conf['js']);
 		}
 		if (isset($conf['css']) && is_array($conf['css'])) {
-			$this->css = array_merge($this->css, $conf['css']);
+			$this->registercss($conf['css']);
 		}
 		$this->js  = array_unique($this->js);
 		$this->css = array_unique($this->css);
+	}
+	public function registercss($conf) {
+		if (is_string($conf)) {
+			$conf = explode(',', $conf);
+		}
+		$this->css = array_merge($this->css, $conf);
+	}
+	public function registerjs($conf) {
+		if (is_string($conf)) {
+			$conf = explode(',', $conf);
+		}
+		$this->js = array_merge($this->js, $conf);
 	}
 	/**
 	 *输出资源到文件中
 	 **/
 	public function registerend() {
 		//查找真实路径,先从当前模块查找
-		foreach ($this->sourcePath as $value) {
-			//查找css文件
-			foreach ($this->css as $k => $v) {
-				$filepath = $value . '/' . $file;
-				if (file_exists('.' . $filepath)) {
+		$ismodcss = false;
+		$ismodjs  = false;
+		$cssname  = md5(implode($this->css));
+		$jsname   = md5(implode($this->js));
+		$csscache = STYLE_CACHE_DIR . MODULE_NAME . '/' . $cssname . '.css';
+		$jscache  = STYLE_CACHE_DIR . MODULE_NAME . '/' . $jsname . '.js';
+		//查找css文件
+		foreach ($this->css as $k => $v) {
+			$filepath = $this->getFilePath($v, 'css');
+			if ($filepath) {
+				$this->css[$k] = $filepath;
+				if (APP_DEBUG) {
 					$this->cssstr .= '<link href="' . $filepath . '" type="text/css" rel="stylesheet" />' . "\n";
-					unset($this->css[$k]);
+				} else {
+					if (file_ismod('.' . $filepath) || !file_exists($csscache)) {
+						$ismodcss = true;
+						$this->cssstr .= $this->compress_css('.' . $filepath);
+					}
 				}
+			} else {
+				$this->css[$k] .= '.css--->file is not exists!';
 			}
-			//查找js文件
-			foreach ($this->js as $k => $v) {
-				$filepath = $value . '/' . $file;
-				if (file_exists('.' . $filepath)) {
+		}
+		//查找js文件
+		foreach ($this->js as $k => $v) {
+			$filepath = $this->getFilePath($v, 'js');
+			if ($filepath) {
+				$this->js[$k] = $filepath;
+				if (APP_DEBUG) {
 					$this->jsstr .= '<script src="' . $filepath . '" type="text/javascript" ></script>' . "\n";
-					unset($this->js[$k]);
+				} else {
+					if (file_ismod('.' . $filepath) || !file_exists($jscache)) {
+						$ismodjs = true;
+						$this->jsstr .= $this->compress_js('.' . $filepath);
+					}
 				}
+			} else {
+				$this->js[$k] .= '.js--->file is not exists!';
 			}
-
+		}
+		if (!APP_DEBUG) {
+			mkdir(dirname($csscache), 0777, true);
+			$ismodcss && file_put_contents($csscache, $this->cssstr);
+			$ismodjs && file_put_contents($jscache, $this->jsstr);
+			$this->cssstr = '<link href="' . substr($csscache, 1) . '" type="text/css" rel="stylesheet" />' . "\n";
+			$this->jsstr  = '<script src="' . substr($jscache, 1) . '" type="text/javascript" ></script>' . "\n";
 		}
 		return $this->cssstr . $this->jsstr;
 	}
+	/**
+	 *在路径中查找是否存在文件
+	 **/
+	private function getFilePath($filename, $type = 'css') {
+		foreach ($this->sourcePath as $value) {
+			$filepath = "{$value}/{$filename}.{$type}";
+			if (file_exists('.' . $filepath)) {
+				return $filepath;
+			}
+		}
+		return false;
+	}
 	public function addSourcePath($conf) {
 		if (is_string($conf)) {
-			$this->sourcePath[] = $conf;
+			$conf = explode(',', $conf);
 		}
-		if (is_array($conf)) {
-			$this->sourcePath = array_merge($this->sourcePath, $conf);
-		}
+		$this->sourcePath = array_merge($this->sourcePath, $conf);
 	}
 	/**
 	 *压缩css
@@ -109,6 +181,6 @@ class AssetsManager {
 	private function compress_js($jspath) {
 		$js = file_get_contents($jspath);
 		import('Ainiku.JSMin');
-		return JSMin::minify($js);
+		return \JSMin::minify($js);
 	}
 }
