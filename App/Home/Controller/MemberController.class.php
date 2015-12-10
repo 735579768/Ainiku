@@ -57,12 +57,12 @@ class MemberController extends LoginController {
 			if (!preg_match('/[\w]{6,15}/', $new_password)) {
 				$this->error('密码格式不正确！');
 			}
-			$result = M('Member')->where("member_id=" . UID)->save(array(
+			$new_password = ainiku_ucenter_md5($new_password);
+			$result       = M('Member')->where("member_id=" . UID)->save(array(
 				'password'    => $new_password,
 				'update_time' => NOW_TIME,
 			));
 
-			$new_password = ainiku_ucenter_md5($new_password);
 			($result > 0) ? $this->success('修改成功') : $this->error('修改失败');
 		} else {
 			$this->display();
