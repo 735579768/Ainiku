@@ -1,7 +1,7 @@
 <?php
 // | Author: 枫叶 <735579768@qq.com> <http://www.zhaokeli.com>
 // +----------------------------------------------------------------------
-namespace Home\Model;
+namespace Common\Model;
 use Think\Model;
 
 defined("ACCESS_ROOT") || die("Invalid access");
