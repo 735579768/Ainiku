@@ -12,13 +12,7 @@ class AssetsManager {
 	private $css             = array();
 	private $jsstr           = '';
 	private $cssstr          = '';
-	private $sourcePath      = array(
-		// __ROOT__ . '/Public/' . MODULE_NAME . '/' . C('DEFAULT_THEME') . '/css',
-		// __ROOT__ . '/Public/Static/css',
-		// __ROOT__ . '/Public/' . MODULE_NAME . '/' . C('DEFAULT_THEME') . '/js',
-		// __ROOT__ . '/Public/Static/js',
-
-	);
+	private $sourcePath      = array();
 	private function __construct() {
 
 	}
@@ -66,5 +60,55 @@ class AssetsManager {
 
 		}
 		return $this->cssstr . $this->jsstr;
+	}
+	public function addSourcePath($conf) {
+		if (is_string($conf)) {
+			$this->sourcePath[] = $conf;
+		}
+		if (is_array($conf)) {
+			$this->sourcePath = array_merge($this->sourcePath, $conf);
+		}
+	}
+	/**
+	 *压缩css
+	 **/
+	private function compress_css($path) {
+		$dirname = dirname($path); //当前css文件的路径目录
+		$ipath   = $path;
+		$str     = '';
+		if ($ipath) {
+			$str = file_get_contents($ipath);
+//把文件压缩
+			$arr = array('/(\n|\t|\s)*/i', '/\n|\t|\s(\{|}|\,|\:|\;)/i', '/(\{|}|\,|\:|\;)\s/i');
+			$str = preg_replace($arr, '$1', $str);
+			$str = preg_replace('/(\/\*.*?\*\/\n?)/i', '', $str);
+
+//查找出样式文件中的图片
+			preg_match_all("/url\(\s*?[\'|\"]?(.*?)[\'|\"]?\)/", $str, $out);
+			foreach ($out[1] as $v) {
+				if (strpos($v, '../images') !== false) {
+					$src_new = str_replace("../images", $dirname . "/images", $v); //源绝对路径
+					$src_new = str_replace('css/', '', $src_new);
+					$new     = str_replace("../images", STYLE_CACHE_DIR . MODULE_NAME . "/images", $v); //设置新路径
+					$new     = __SITE_ROOT__ . __ROOT__ . str_replace('./', '/', $new);
+					createFolder(dirname($new));
+					if (file_exists($src_new)) { //判断是否存在
+						copy($src_new, $new); //复制到新目录
+					}
+				}
+			}
+			$str = str_replace('../images', './images', $str);
+		} else {
+			die("path is not found:" . $ipath);
+		}
+		return $str;
+	}
+	/**
+	 *压缩JS文件并替换JS嵌套include文件
+	 */
+	private function compress_js($jspath) {
+		$js = file_get_contents($jspath);
+		import('Ainiku.JSMin');
+		return JSMin::minify($js);
 	}
 }
