@@ -29,12 +29,12 @@ namespace Ainiku;
 defined('APP_DEBUG') or define('APP_DEBUG', true);
 defined('APP_DEBUG') or define('APP_DEBUG', true);
 class AssetsManager {
-	static public $_instance = null;
-	private $js              = array();
-	private $css             = array();
-	private $jsstr           = '';
-	private $cssstr          = '';
-	private $sourcePath      = array();
+	static private $_instance = null;
+	private $js               = array();
+	private $css              = array();
+	private $jsstr            = '';
+	private $cssstr           = '';
+	private $sourcePath       = array();
 	/**
 	 * Description:私有化构造函数，防止外界实例化对象
 	 */

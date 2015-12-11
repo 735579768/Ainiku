@@ -1,13 +1,13 @@
 <?php
 /**
  *给目标图片添加水印
-//使用示例
-markimg(array(
-'dst'=>'./images/1.jpg',//原始图像
-'src'=>'./images/ico.png',//水印图像
-'pos'=>'center'//水印位置('left,right,center'),
-'str'=>'水印文字'
-));
+ *使用示例
+ *markimg(array(
+ *'dst'=>'./images/1.jpg',//原始图像
+ *'src'=>'./images/ico.png',//水印图像
+ *'pos'=>'center'//水印位置('left,right,center'),
+ *'str'=>'水印文字'
+ *));
  */
 function markimg($info = array(
 	'det' => null,
