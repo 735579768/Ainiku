@@ -196,7 +196,7 @@ class Image {
 			imagesavealpha($cropped_image, true); //这里很重要,意思是不要丢了$thumb图像的透明色
 			imagefill($cropped_image, 0, 0, $alpha);
 		}
-//剪切图片(先从源图片中按缩略图的比例剪切出一个区域再缩放到缩略图中)
+		//剪切图片(先从源图片中按缩略图的比例剪切出一个区域再缩放到缩略图中)
 		if ($proportion) {
 			//源图比缩略图大的情况
 			if ($src_w > $width && $src_h > $height) {
@@ -254,7 +254,7 @@ class Image {
 						return true;
 					}
 				} else {
-//缩略图宽高不一样的情况
+					//缩略图宽高不一样的情况
 					//缩略图宽大于高
 					if ($width > $height) {
 						$bili = ($width / $height);
@@ -343,7 +343,7 @@ class Image {
 				}
 			}
 		} else {
-//缩放图片(把源图片完整的缩放到缩略图中)
+			//缩放图片(把源图片完整的缩放到缩略图中)
 			//缩略图宽高一样
 			if ($width == $height) {
 				//源图宽大于高
@@ -424,7 +424,6 @@ class Image {
 					imagedestroy($src_image);
 					return true;
 				}
-
 			}
 		}
 		return true;
