@@ -79,9 +79,8 @@
 .s-address .s-adr .action .delbtn{float:left;margin-left:10px;}
 .s-address .s-adr.selected .action a{display:block;}
 .s-address .add-adr-box{border-style:dashed;}
-.s-address .add-adr-box .add-btn{    }
-.s-address .add-adr-box .add-btn em{font-size: 30px;
-    font-weight: bolder;}
+.s-address .add-adr-box .add-btn{}
+.s-address .add-adr-box .add-btn em{font-size:30px;font-weight:bolder;}
 .sh-box .cart-bar{height:80px;padding-left:20px;background:#fff;margin-top:20px;line-height:20px;}
 .sh-box .cart-bar .section-left{float:left;margin-top:20px;}
 .sh-box .cart-bar .section-right{float:right;margin-top:16px;}
