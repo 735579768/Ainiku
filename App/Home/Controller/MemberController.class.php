@@ -22,7 +22,7 @@ class MemberController extends LoginController {
 		$this->pages(array(
 			'model' => 'Order',
 			'where' => $map,
-			'order' => 'order_id desc',
+			'order' => 'order_status asc,order_id desc',
 			'rows'  => 5,
 		));
 		$this->display();

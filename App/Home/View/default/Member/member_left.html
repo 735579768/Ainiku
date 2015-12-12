@@ -1,4 +1,4 @@
-<div class="member-left cl">
+<div id="member_left" class="member-left cl">
 <dl class="uc-nav-box cl">
 <dt class="uc-nav-title"><a href="javascript:;">个人中心</a></dt>
 <dd class="uc-nav-item hover"><a href="{:U('Member/order',array('order_status'=>4))}">已完成订单</a></dd>
@@ -16,3 +16,7 @@
 <dd class="uc-nav-item"><a href="{:U('Public/logout')}">退出登陆</a></dd>
 </dl>
 </div>
+<script type="text/javascript">
+	var member_left_uri=window.location.pathname;
+	$("#member_left a[href='"+member_left_uri+"']").addClass('hover');
+</script>
