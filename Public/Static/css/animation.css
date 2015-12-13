@@ -1,0 +1,23 @@
+.rotate{animation:mytotate 2s infinite linear;-moz-animation:mytotate 2s infinite linear;	/* Firefox */-webkit-animation:mytotate 2s infinite linear;	/* Safari 和 Chrome */-o-animation:mytotate 2s infinite linear;	/* Opera */}
+@keyframes mytotate{
+	0%{transform:rotate(0deg);}
+	100%{transform:rotate(360deg);}
+}
+
+/* Firefox */
+@-moz-keyframes mytotate{
+	0%{transform:rotate(0deg);}
+	100%{transform:rotate(360deg);}
+}
+
+/* Safari 和 Chrome */
+@-webkit-keyframes mytotate{
+	0%{transform:rotate(0deg);}
+	100%{transform:rotate(360deg);}
+}
+
+/* Opera */
+@-o-keyframes mytotate{
+	0%{transform:rotate(0deg);}
+	100%{transform:rotate(360deg);}
+}
