@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>{:C('ADMIN_TITLE')}</title>
-<ank:insert name="reset,login" />
+<ank:insert name="reset,common,login" />
 <ank:insert type="js" name="jquery-1.9.1.min,ainiku,flashcopy-min,functions,ajax,bgline" />
 </head>
 
@@ -40,7 +40,7 @@
                             <label style=" font-size:16px; color:#fff;line-height:34px;display:inline-block; ;">登陆状态：</label>
 									<select name="remember" class="form-control">
                                     <option value="0">不记录</option>
-                                    <option value="1">记录一天</option>
+                                    <option value="1" selected>记录一天</option>
                                     <option value="2">记录一周</option>
                                     <option value="3">记录一月</option>
                                     </select>
