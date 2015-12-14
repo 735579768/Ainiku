@@ -7,7 +7,7 @@ $(function() {
         }
     };
     window.ajaxhref = function(obj) {
-		obj=$(obj);
+        obj = $(obj);
         obj.addClass("disabled");
         if (typeof arguments[2] != "undefined") reloadbool = arguments[2];
         if (typeof arguments[1] != "undefined") msgtime = arguments[1];
@@ -36,7 +36,7 @@ $(function() {
      *_after_post()提交后调用
      */
     window.ajaxform = function(thisobj, callback) {
-		thisobj=$(thisobj);
+        thisobj = $(thisobj);
         thisobj.addClass("disabled");
         if (typeof arguments[2] != "undefined") reloadbool = arguments[2];
         if (typeof arguments[1] != "undefined") msgtime = arguments[1];
@@ -45,11 +45,11 @@ $(function() {
             if (typeof _before_func == "function") _before_func();
             var thisobj, obj, a, url;
             a = "";
-			
+
             formobj = thisobj.parents("form");
-			if(!formobj){
-				return false;
-				}
+            if (!formobj) {
+                return false;
+            }
             formobj.submit(function(e) {
                 return false;
             });
@@ -154,17 +154,23 @@ $(function() {
     window.topmsg = function(da, callback) {
         var str = (typeof da === "string") ? da : da.info;
         var data = {
+            status:1,
             url: '',
             info: str,
             msgtime: 2
         };
-        (typeof da === "object") && (data.url = da.url);
+        if (typeof da === "object") {
+            for (var name in da) {
+                data[name] = da[name];
+            }
+        }
         var msgtime = data.msgtime;
         //信息显示时间
         $("body").css("position", "relative");
         $("#topmsg").remove();
-        var xiaolian = da.status == "0" ? ">_<" : "o_0";
-        $("body").append('<div id="topmsg" style="display:none;top:30%;z-index:99999;padding:15px 20px;font-weight:bolder;text-align:center; color:#f00;display:block;position:fixed; background:#fff; left:50%;border-radius: 10px;-webkit-box-shadow: 0px 4px 13px rgba(0,0,0,0.30);-moz-box-shadow: 0px 4px 13px rgba(0,0,0,0.30);box-shadow: 0px 4px 13px rgba(0,0,0,0.30);_left:45%;_position:absolute;_bottom:auto;_top:expression(eval(document.documentElement.scrollTop));">' + xiaolian + " ，" + data.info + "<span>," + msgtime + "</span></div>");
+        //var xiaolian = da.status == "0" ? ">_<" : "o_0";
+        data.status==1?xiaolian='msgok':xiaolian='msgts';
+        $("body").append('<div id="topmsg" style="display:none;top:30%;z-index:99999;padding:15px 20px;font-weight:bolder;text-align:center; color:#f00;display:block;position:fixed; background:#fff; left:50%;border-radius: 10px;-webkit-box-shadow: 0px 4px 13px rgba(0,0,0,0.30);-moz-box-shadow: 0px 4px 13px rgba(0,0,0,0.30);box-shadow: 0px 4px 13px rgba(0,0,0,0.30);_left:45%;_position:absolute;_bottom:auto;_top:expression(eval(document.documentElement.scrollTop));"><div style="margin-top: 2px;" class="' + xiaolian + '" ></div>' + data.info + "<span>," + msgtime + "</span></div>");
         var msgo = $("#topmsg");
         msgo.css({
             marginLeft: "-" + msgo.outerWidth() / 2 + "px",
