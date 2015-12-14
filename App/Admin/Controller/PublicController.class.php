@@ -108,9 +108,9 @@ class PublicController extends Controller {
 	//    }
 	public function verify() {
 		$conf = array(
-			'imageH'   => 50,
+			'imageH'   => 40,
 			'imageW'   => 200,
-			'fontSize' => 25,
+			'fontSize' => 20,
 			'bg'       => array(255, 255, 255),
 			'useNoise' => false, // 是否添加杂点
 			'length'   => 4,
