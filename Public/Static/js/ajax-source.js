@@ -140,7 +140,7 @@ $(function() {
                 value:value1
             },
             success:function(da) {
-                ank.msg(da);
+                ank.msg(da.info);
             }
         });
     });
