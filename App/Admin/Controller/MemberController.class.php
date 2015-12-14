@@ -120,7 +120,7 @@ class MemberController extends AdminController {
 					$this->error(L('_UPDATE_FAIL_'));
 				}
 			} else {
-				$this->error($this->showRegError($model->geterror()));
+				$this->error($model->geterror());
 			}
 
 		} else {
