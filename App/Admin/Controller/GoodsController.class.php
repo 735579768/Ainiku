@@ -82,6 +82,9 @@ class GoodsController extends AdminController {
 				if (!empty($idd)) {$this->edit($idd);die();}
 				//去保存草稿
 				if ($status == '2') {$this->savedraftbox();}
+				if (!$model->pic) {
+					$model->pic = $this->getFirstPicture($model->content);
+				}
 				$result = $model->add();
 				//保存产品附加属性表中的信息
 				$msg = $this->updateGoodsInfo($result);
@@ -127,7 +130,19 @@ class GoodsController extends AdminController {
 		}
 	}
 	/**
-	 * 编辑配置
+	 *提取字符串中的第一个图片
+	 */
+	private function getFirstPicture($str = '') {
+		preg_match('/<img.*?src\=[\'|\"](.*?)[\'|\"].*?>/', $str, $match);
+		if ($match) {
+			$info = M('Picture')->field('id')->where("path='{$match[1]}'")->find();
+			return empty($info) ? 0 : $info['id'];
+		} else {
+			return 0;
+		}
+	}
+	/**
+	 * 编辑产品
 	 * @author 枫叶 <735579768@qq.com>
 	 */
 	public function edit($goods_id = 0) {
@@ -139,8 +154,11 @@ class GoodsController extends AdminController {
 			if ($model->create()) {
 				//$model->position=implode(',',I('position'));
 				//取原来的产品类型
-				$srcid  = getGoods($goods_id);
-				$srcid  = $srcid['goods_type_id'];
+				$srcid = getGoods($goods_id);
+				$srcid = $srcid['goods_type_id'];
+				if (!$model->pic) {
+					$model->pic = $this->getFirstPicture($model->content);
+				}
 				$result = $model->save();
 				if (0 < $result) {
 					//判断产品类型是否变化啦如果是的话就删除原有信息

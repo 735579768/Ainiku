@@ -84,6 +84,9 @@ class ArticleController extends AdminController {
 				if (!empty($idd)) {$this->edit($idd);die();}
 				//去保存草稿
 				if ($status == '2') {$this->savedraftbox();}
+				if (!$model->pic) {
+					$model->pic = $this->getFirstPicture($model->content);
+				}
 				$result = $model->add();
 				if (0 < $result) {
 					$this->success('添加文章成功', U('index', array('category_id' => I('category_id'))));
@@ -127,6 +130,18 @@ class ArticleController extends AdminController {
 		}
 	}
 	/**
+	 *提取字符串中的第一个图片
+	 */
+	private function getFirstPicture($str = '') {
+		preg_match('/<img.*?src\=[\'|\"](.*?)[\'|\"].*?>/', $str, $match);
+		if ($match) {
+			$info = M('Picture')->field('id')->where("path='{$match[1]}'")->find();
+			return empty($info) ? 0 : $info['id'];
+		} else {
+			return 0;
+		}
+	}
+	/**
 	 * 编辑文章
 	 * @author 枫叶 <735579768@qq.com>
 	 */
@@ -138,6 +153,9 @@ class ArticleController extends AdminController {
 			$model = D('Article');
 			if ($model->create()) {
 				//$model->position=implode(',',I('position'));
+				if (!$model->pic) {
+					$model->pic = $this->getFirstPicture($model->content);
+				}
 				if ($model->save()) {
 					$this->success(L('_UPDATE_SUCCESS_'), __FORWARD__);
 				} else {
