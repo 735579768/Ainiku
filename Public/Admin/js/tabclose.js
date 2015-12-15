@@ -82,6 +82,7 @@
 $(function() {
 	$('.kl-tab').mytab();
 	window.addtabclose = function(title, url) {
+		$('#loadingimg').show();
 		var isyou = false;
 		$('.kl-tab iframe').each(function(index, element) {
 			var srcurl = $(this).attr('src');

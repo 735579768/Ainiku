@@ -1,5 +1,5 @@
 /**旋转动画**/
-.rotate{animation:mytotate 2s infinite linear;-moz-animation:mytotate 2s infinite linear;	/* Firefox */-webkit-animation:mytotate 2s infinite linear;	/* Safari 和 Chrome */-o-animation:mytotate 2s infinite linear;	/* Opera */}
+.rotate{animation:mytotate 1s infinite linear;-moz-animation:mytotate 1s infinite linear;	/* Firefox */-webkit-animation:mytotate 1s infinite linear;	/* Safari 和 Chrome */-o-animation:mytotate 1s infinite linear;	/* Opera */}
 @keyframes mytotate{
 	0%{transform:rotate(0deg);}
 	100%{transform:rotate(360deg);}

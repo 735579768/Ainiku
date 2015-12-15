@@ -70,6 +70,7 @@ $(function() {
 		}
 	});
 	$('#mainnav li a').click(function(e) {
+		$('#loadingimg').show();
 		var obj = $('#west');
 		var shtml = obj.html();
 		var dataurl = $(this).attr('data-url');
@@ -80,6 +81,7 @@ $(function() {
 				url: dataurl
 			},
 			success: function(da) {
+				$('#loadingimg').hide();
 				if (da.status == '1') {
 					$('#west').html(da.info);
 				} else {
