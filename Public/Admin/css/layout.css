@@ -232,7 +232,7 @@ body{overflow:hidden;padding:62px 0px 0px 179px;}
 .searchform form{ /*border:solid 1px #d8d8d8; border-radius:5px; padding-right:10px;*/}
 .searchform form input.form-control{/* border:none; box-shadow:none;*/}
 .searchform form input.form-control:focus,.searchform form input.form-control:hover{/* border:none;*/}
-.iframeloading{position:fixed;top:45%;left:50%;z-index:99;margin-left:-33px;margin-top:-11px;font-size:20px;color:#ABABAB;}
+.iframeloading{position:fixed;top:45%;left:50%;z-index:99;margin-left:-50px;margin-top:-11px;font-size:20px;color:#ABABAB;}
 .youmenu{z-index:999999999999;top:-1000000px;left:0px;position:fixed;background:#fefefe;border:solid 1px #d2d2d2;border-bottom:none;box-shadow:2px 2px 7px #ccc;}
 .youmenu .menuitem a{font-size:12px;padding:0px 20px;text-align:left;border-bottom:solid 1px #d2d2d2;height:30px;line-height:30px;display:block;white-space:nowrap;}
 .youmenu .menuitem:hover a,.youmenu .menuitem a:hover{background:#e2e2e2;}

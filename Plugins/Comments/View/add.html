@@ -18,18 +18,24 @@
 </style>
 <div id="comments-form">
 <form method="post" class="form-group-h" id="commentsform" action="{:UP('Comments/add')}">
+<eq name="conf.name" value="1">
   <div class="form-group">
     <label class="form-label"for="exampleInputEmail1">名字</label>
     <input type="text" name="name" id="comments-name" class="form-control input-large"  placeholder="输入您的名字">
   </div>
+</eq>
+<eq name="conf.email" value="1">
     <div class="form-group">
     <label class="form-label"for="exampleInputEmail1">邮箱</label>
     <input type="text" name="email" class="form-control input-large"  placeholder="输入你的邮箱">
   </div>
+</eq>
+<eq name="conf.url" value="1">
      <div class="form-group">
     <label class="form-label"for="exampleInputEmail1">网站地址</label>
     <input type="text" name="url" class="form-control input-large"  placeholder="输入你的网站地址">
   </div>
+</eq>
     <div class="form-group">
     <label class="form-label"for="exampleInputEmail1">内容</label>
     <textarea name="content" id="comments-content" class="form-control input-large" placeholder="输入内容"></textarea>
@@ -74,7 +80,9 @@ window.addcomments=function(){
             });
 			if(!(/^[a-zA-Z0-9]{4}$/.test($('#verifyimg').val()))){ank.msg('请填入正确的验证码!');return false;}
 			if(/^\s*$/.test($('#comments-content').val())){ank.msg('请填入内容!');return false;}
+      <eq name="conf.name" value="1">
 			if(!(/^.{2,5}$/.test($('#comments-name').val()))){ank.msg('请填入正确的名字!');return false;}
+      </eq>
            var uri = formobj.attr("action");
             postdata = formobj.serialize();
            // $("body").append('<div id="liuyanklbg" class="bg">');

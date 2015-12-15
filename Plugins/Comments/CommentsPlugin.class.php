@@ -64,6 +64,14 @@ class CommentsPlugin extends \Plugins\Plugin {
 				$this->error($model->geterror());
 			}
 		} else {
+			//取插件配置参数
+			$conf = F('plugin_comments');
+			if (empty($conf) || APP_DEBUG) {
+				$data = M('Addons')->field('param')->where("mark='Comments'")->find();
+				$conf = json_decode($data['param'], true);
+				F('plugin_comments', $conf);
+			}
+			$this->assign('conf', $conf);
 			$this->display('add');
 		}
 	}
@@ -212,6 +220,27 @@ sql;
 		}
 	}
 	public function set() {
-		return true;
+		$this->meta_title = '留言设置';
+		//插件工菜单后台设置,没有的话直接返回真
+		if (IS_POST) {
+			$data = array(
+				'update_time' => NOW_TIME,
+				'name'        => I('post.name'),
+				'email'       => I('post.email'),
+				'url'         => I('post.url'),
+			);
+			$model  = M('Addons');
+			$result = $model->where("mark='Comments'")->save(array('param' => json_encode($data)));
+			if (0 < $result) {
+				$this->success('保存成功');
+			} else {
+				$this->error('保存失败');
+			}
+		} else {
+			$data = M('Addons')->field('param')->where("mark='Comments'")->find();
+			$this->assign('info', json_decode($data['param'], true));
+			$str = $this->fetch('config');
+			return $str;
+		}
 	}
 }
