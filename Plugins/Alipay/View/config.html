@@ -14,17 +14,33 @@
 
   <div class="form-group cl">
     <div class="form-label">选择接口类型<span class="form-tip">（。标识:ALIPAYAPI）</span> </div>
-    <select name="ALIPAYAPI" class="form-control input-middle">
-      <option value="shuang">使用标准双接口</option>
-      <option value="danbao" selected="">使用担保交易接口</option>
-      <option value="jishi">使用即时到帐交易接口</option>
-    </select>
+    <div class="controls">
+    <span class="form-checkbox">
+    <input type="checkbox" name="ALIPAYAPI[]" value="shuang">
+    <b>双接口</b>
+    </span>
+    <span class="form-checkbox">
+    <input type="checkbox"  name="ALIPAYAPI[]" value="danbao">
+    <b>担保交易</b>
+</span>
+    <span class="form-checkbox">
+    <input type="checkbox"  name="ALIPAYAPI[]" value="jishi">
+    <b>即时到帐</b>
+    </span>
+    <span class="form-checkbox">
+    <input type="checkbox"  name="ALIPAYAPI[]" value="bank">
+    <b>网银支付</b>
+    </span>
+  </div>
   </div>
   <div class="form-group center"> <a href="javascript:;" class="btn btn-parmary btn-large ajax-post">保存配置</a> </div>
   </div>
   <script>
   $(function(){
-	  $('select[name="ALIPAYAPI"]').val('{$info.api}');
+    var aliarr={$info.api};
+    for(var i in aliarr){
+      $('input[value="'+aliarr[i]+'"]').attr('checked',true);
+    }
 	  });
   </script>
 </form>

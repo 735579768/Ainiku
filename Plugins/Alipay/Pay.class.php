@@ -18,7 +18,7 @@ class Pay extends Controller {
 		$this->display();
 	}
 	public function dopay($conf = array()) {
-		$paytype = trim($conf['api']);
+		$paytype = trim($conf['api'][1]);
 		if ($paytype === 'shuang') {
 			//双接口
 			return $this->doShuangPay($conf);
@@ -28,6 +28,9 @@ class Pay extends Controller {
 		} else if ($paytype === 'jishi') {
 			//即时到账
 			return $this->doDirectPay($conf);
+		} else if ($paytype === 'bank') {
+			//支付宝网银
+			return $this->doBankPay($conf);
 		} else {
 			return 'alipay error';
 		}
@@ -291,5 +294,90 @@ class Pay extends Controller {
 		$html_text    = $alipaySubmit->buildRequestForm($parameter, "get", "确认");
 		return $html_text;
 
+	}
+	//支付宝网银
+	function doBankPay($conf) {
+/**************************请求参数**************************/
+
+		//支付类型
+		$payment_type = "1";
+		//必填，不能修改
+		//服务器异步通知页面路径
+		$notify_url = $conf['notify_url'];
+		//需http://格式的完整路径，不能加?id=123这类自定义参数
+
+		//页面跳转同步通知页面路径
+		$return_url = $conf['return_url'];
+		//需http://格式的完整路径，不能加?id=123这类自定义参数，不能写成http://localhost/
+
+		//商户订单号
+		$out_trade_no = $conf['order'];
+		//商户网站订单系统中唯一订单号，必填
+
+		//订单名称
+		$subject = $conf['ordername'];
+		//必填
+
+		//付款金额
+		$total_fee = $conf['money'];
+		//必填
+
+		//订单描述
+
+		$body = $conf['orderdescr'];
+		//默认支付方式
+		$paymethod = "bankPay";
+		//必填
+		//默认网银
+		$defaultbank = $conf['api'][2];
+		//必填，银行简码请参考接口技术文档
+
+		//商品展示地址
+		$show_url = 'javascript:;';
+		//需以http://开头的完整路径，例如：http://www.商户网址.com/myorder.html
+
+		//防钓鱼时间戳
+		$anti_phishing_key = "";
+		//若要使用请调用类文件submit中的query_timestamp函数
+
+		//客户端的IP地址
+		$exter_invoke_ip = "";
+		//非局域网的外网IP地址，如：221.0.0.1
+
+/************************************************************/
+
+		$conf['partner']       = $conf['sellerid']; // ;//合作身份者id
+		$conf['key']           = $conf['sellerkey']; // ;//安全检验码
+		$conf['sign_type']     = strtoupper('MD5'); //签名方式 不需修改
+		$conf['input_charset'] = strtolower('utf-8');
+		//ca证书路径地址，用于curl中ssl校验
+		//请保证cacert.pem文件在当前文件夹目录中
+		$conf['cacert']    = getcwd() . '\\cacert.pem';
+		$conf['transport'] = 'http';
+
+//构造要请求的参数数组，无需改动
+		$parameter = array(
+			"service"           => "create_direct_pay_by_user",
+			"partner"           => trim($conf['partner']),
+			"seller_email"      => trim($conf['selleruname']),
+			"payment_type"      => $payment_type,
+			"notify_url"        => $notify_url,
+			"return_url"        => $return_url,
+			"out_trade_no"      => $out_trade_no,
+			"subject"           => $subject,
+			"total_fee"         => $total_fee,
+			"body"              => $body,
+			"paymethod"         => $paymethod,
+			"defaultbank"       => $defaultbank,
+			"show_url"          => $show_url,
+			"anti_phishing_key" => $anti_phishing_key,
+			"exter_invoke_ip"   => $exter_invoke_ip,
+			"_input_charset"    => trim(strtolower($conf['input_charset'])),
+		);
+
+//建立请求
+		$alipaySubmit = new \Ainiku\Alipay\AlipaySubmit($conf);
+		$html_text    = $alipaySubmit->buildRequestForm($parameter, "get", "确认");
+		return $html_text;
 	}
 }

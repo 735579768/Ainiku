@@ -222,21 +222,30 @@ $this->error($model->geterror());
 			'data'     => '',
 		);
 		$data = '';
-		switch ($online_pay) {
-		case 'alipay':
-			$rearr['data'] = runPluginMethod('Alipay', 'dopay', array($order_total, $order_sn, $order_title));
-			break;
-		case 'unionpay':
-			$rearr['data'] = runPluginMethod('Unionpay', 'dopay', array($order_total, $order_sn, $order_title));
-			break;
-		case 'tenpay':
-			$rearr['data'] = runPluginMethod('Tenpay', 'dopay', array($order_total, $order_sn, $order_title));
-			break;
-		default:
-			$rearr['data']   = '支付接口调用失败';
-			$rearr['status'] = 0;
-			break;
+		if (strpos($online_pay, 'payOnlineBank_') !== false) {
+			//支付宝网银
+		} else if (strpos($online_pay, 'alipay_') !== false) {
+
+			$rearr['data'] = runPluginMethod('Alipay', 'dopay', array($order_total, $order_sn, $order_title, $online_pay));
+		} else {
+			//其它支付平台
+			switch ($online_pay) {
+/*			case 'alipay':
+$rearr['data'] = runPluginMethod('Alipay', 'dopay', array($order_total, $order_sn, $order_title));
+break;*/
+			case 'unionpay':
+				$rearr['data'] = runPluginMethod('Unionpay', 'dopay', array($order_total, $order_sn, $order_title));
+				break;
+			case 'tenpay':
+				$rearr['data'] = runPluginMethod('Tenpay', 'dopay', array($order_total, $order_sn, $order_title));
+				break;
+			default:
+				$rearr['data']   = '支付接口调用失败';
+				$rearr['status'] = 0;
+				break;
+			}
 		}
+		echo (strpos('alipay_', $online_pay));
 		$this->ajaxreturn($rearr);
 	}
 	//支付成功后前台跳转通知

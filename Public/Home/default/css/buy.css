@@ -119,11 +119,13 @@
 .order-box .cart-bar .l-btn{width:150px;background:none;color:#666;}
 .order-box .cart-bar .r-btn{width:200px;margin-left:50px;margin-right:20px;}
 .order-box .cart-bar .totalprice{color:#ff6700;font-size:24px;}
-.online-pay li{float:left;margin-left:10px;}
+.online-pay{margin-bottom: 30px;}
+.online-pay li{float:left;margin-left:10px;    margin-top: 10px;}
 .online-pay li img{width:188px;height:64px;}
 .online-pay li a{border:1px solid #e0e0e0;display:inline-block;}
 .online-pay li a.hover,.online-pay li a:hover{border-color:#ff6700;}
 .online-pay li input{display:none;}
+.zf-type-title{font-size:16px;font-weight:bolder;height:25px;line-height:25px;margin-bottom:20px;}
 
 /****会员中心样式**/
 .member-left{width:200px;float:left;background:#fff;padding-bottom:40px;}
