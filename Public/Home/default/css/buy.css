@@ -119,14 +119,15 @@
 .order-box .cart-bar .l-btn{width:150px;background:none;color:#666;}
 .order-box .cart-bar .r-btn{width:200px;margin-left:50px;margin-right:20px;}
 .order-box .cart-bar .totalprice{color:#ff6700;font-size:24px;}
-.online-pay{margin-bottom: 30px;}
-.online-pay li{float:left;margin-left:10px;    margin-top: 10px;}
+.online-pay{margin-bottom:30px;}
+.online-pay li{float:left;margin-left:10px;margin-top:10px;}
 .online-pay li img{width:188px;height:64px;}
 .online-pay li a{border:1px solid #e0e0e0;display:inline-block;}
 .online-pay li a.hover,.online-pay li a:hover{border-color:#ff6700;}
 .online-pay li input{display:none;}
 .zf-type-title{font-size:16px;font-weight:bolder;height:25px;line-height:25px;margin-bottom:20px;}
-.zf-type-title span{font-size: 12px; color: #BFBFBF;}
+.zf-type-title span{font-size:12px;color:#BFBFBF;}
+
 /****会员中心样式**/
 .member-left{width:200px;float:left;background:#fff;padding-bottom:40px;}
 .member-right{margin-left:210px;background:#fff;}
@@ -167,3 +168,34 @@
 .order-detail dd .label{width:80px;float:left;}
 .order-detail dd .label-con{display:block;margin-left:90px;}
 .order-empty{height:80px;line-height:80px;font-size:30px;text-align:center;color:#D2D2D2;}
+.order-tu{width:800px;position:relative;    margin: 60px 30px 100px 30px;}
+.order-tu .orderline{height:8px;background:#ccc;position:relative;}
+.order-tu .orderline .linese{background:#00BD66;display:none;height:8px;width:25%;position:absolute;}
+.order-tu .yuan{z-index:1;background:#ccc;border-radius:15px;height:30px;width:30px;position:absolute;left:-1px;top:-12px;}
+.order-tu .yuan .se{background:#00BD66;display:inline-block;height:22px;width:22px;border-radius:11px;margin:4px;display:none;}
+.order-tu .yuan .label{position:absolute;top:-30px;left:-7px;white-space:nowrap;}
+.order-tu .yuan .time{position:absolute;top:40px;width:100px;left:-10px;}
+.order-tu.jindu1 .linese{width:0%;display: inline-block;}
+.order-tu.jindu1 #jindu1 .se{display: inline-block;}
+
+.order-tu.jindu2 .linese{width:25%;display: inline-block;}
+.order-tu.jindu2 #jindu1 .se,
+.order-tu.jindu2 #jindu2 .se{display: inline-block;}
+
+.order-tu.jindu3 .linese{width:50%;display: inline-block;}
+.order-tu.jindu3 #jindu1 .se,
+.order-tu.jindu3 #jindu2 .se,
+.order-tu.jindu3 #jindu3 .se{display: inline-block;}
+
+.order-tu.jindu4 .linese{width:75%;display: inline-block;}
+.order-tu.jindu4 #jindu1 .se,
+.order-tu.jindu4 #jindu2 .se,
+.order-tu.jindu4 #jindu3 .se,
+.order-tu.jindu4 #jindu4 .se{display: inline-block;}
+
+.order-tu.jindu5 .linese{width:99%;display: inline-block;}
+.order-tu.jindu5 #jindu1 .se,
+.order-tu.jindu5 #jindu2 .se,
+.order-tu.jindu5 #jindu3 .se,
+.order-tu.jindu5 #jindu4 .se,
+.order-tu.jindu5 #jindu5 .se{display: inline-block;}

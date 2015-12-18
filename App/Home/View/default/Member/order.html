@@ -22,7 +22,8 @@
 					<eq name="vo.order_status" value="1">等待付款</eq>
 					<eq name="vo.order_status" value="2">已付款,等待发货</eq>
 					<eq name="vo.order_status" value="3">已发货,等待收货</eq>
-					<eq name="vo.order_status" value="4">交易完成</eq>					
+					<eq name="vo.order_status" value="4">已收货</eq>
+					<eq name="vo.order_status" value="5">交易完成</eq>
 				</div>
 				<div class="order-detail">
 					<span>下单时间：{$vo.create_time|time_format}</span>

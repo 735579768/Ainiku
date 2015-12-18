@@ -15,9 +15,11 @@
 <td class="tdl">{$info.order_sn}</td>
 <td class="tdr">订单状态</td>
 <td class="tdl">
-<eq name="info.order_status" value="1">已确认,未付款,未发货</eq>
-<eq name="info.order_status" value="2">已确认,已付款,未发货</eq>
-<eq name="info.order_status" value="3">已确认,已付款,已发货</eq>
+<eq name="info.order_status" value="1">等待付款</eq>
+<eq name="info.order_status" value="2">已付款,等待发货</eq>
+<eq name="info.order_status" value="3">已发货,等待收货</eq>
+<eq name="info.order_status" value="4">已收货</eq>
+<eq name="info.order_status" value="5">交易完成</eq>
 </td>
 </tr>
 
@@ -144,6 +146,8 @@
 <a  class="btn" onClick="updateorder(this,1);" href="javascript:;" id="savewuliu">设置为未付款</a>
 <a  class="btn" onClick="updateorder(this,2);" href="javascript:;" id="savewuliu">设置为已付款</a>
 <a  class="btn" onClick="updateorder(this,3);" href="javascript:;" id="savewuliu">设置为已发货</a>
+<a  class="btn" onClick="updateorder(this,4);" href="javascript:;" id="savewuliu">设置为已收货</a>
+<a  class="btn" onClick="updateorder(this,5);" href="javascript:;" id="savewuliu">设置交易完成</a>
 </td>
 </tr>
 </table>
