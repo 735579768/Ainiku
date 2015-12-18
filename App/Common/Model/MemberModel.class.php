@@ -16,7 +16,7 @@ class MemberModel extends Model {
 	protected $_validate = array(
 		array('member_group_id', 'require', '请选择用户组'),
 		/* 验证用户名 */
-		array('username', '4,30', '用户名长度不合法', self::MUST_VALIDATE, 'length'), //用户名长度不合法
+		array('username', '4,30', '用户名长度不正确', self::MUST_VALIDATE, 'length'), //用户名长度不合法
 		array('username', 'checkDenyMember', ' 用户名禁止注册', self::MUST_VALIDATE, 'callback'), //用户名禁止注册
 		array('username', '', '用户名被占用', self::MUST_VALIDATE, 'unique', 3), //用户名被占用
 		/* 验证密码 */
