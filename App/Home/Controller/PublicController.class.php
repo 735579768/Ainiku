@@ -4,7 +4,7 @@ namespace Home\Controller;
 use Think\Controller;
 
 defined("ACCESS_ROOT") || die("Invalid access");
-class PublicController extends Controller {
+class PublicController extends HomeController {
 	public function verify() {
 		$conf = array(
 			'imageH'   => 50,

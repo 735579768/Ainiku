@@ -161,14 +161,14 @@
 						$("#dialog-wrap").remove();
 					});
 				});
-				$("#dialog-ok").click(function(e) {
+				$("#dialog-ok,.bindok").click(function(e) {
 					opts.ok();
 					_this.hide(dialog, function() {
 						$("#dialog-wrap").remove();
 					});
 
 				});
-				$("#dialog-cancel").click(function(e) {
+				$("#dialog-cancel,.bindcancel").click(function(e) {
 					_this.hide(dialog, function() {
 						$("#dialog-wrap").remove();
 					});

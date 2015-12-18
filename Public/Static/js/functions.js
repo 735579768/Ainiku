@@ -256,12 +256,12 @@ $(function() {
             $("#dialog-close").click(function(e) {
                 $("#dialog-wrap").remove();
             });
-            $("#dialog-ok").click(function(e) {
+            $("#dialog-ok,.bindok").click(function(e) {
                 opts.ok();
                 $("#dialog-wrap").remove();
 
             });
-            $("#dialog-cancel").click(function(e) {
+            $("#dialog-cancel,.bindcancel").click(function(e) {
                 $("#dialog-wrap").remove();
                 opts.cancel();
             });

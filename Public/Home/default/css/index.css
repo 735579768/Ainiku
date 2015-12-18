@@ -109,3 +109,12 @@ a:hover{color:#ef4c79;transition:all .3s;}
 .flink dt,.flink dd{float:left;}
 .flink dt{font-weight:bolder;}
 .flink a{padding:5px 10px;}
+
+/**会员注册**/
+.loretitle {
+    font-size: 16px;
+    font-weight: bolder;
+    padding: 10px 0px;
+    margin-bottom: 10px;
+    border-bottom: solid 1px #DD0003;
+}
