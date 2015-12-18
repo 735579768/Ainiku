@@ -16,7 +16,7 @@
 </div>
 <div class="form-group">
 <div class="form-label">           </div>
-<img style="cursor:pointer; vertical-align:middle;" class="verifyimg reloadverify"  id="verifyimg" alt="点击切换"  src="{:U('public/verify')}">
+<img style="cursor:pointer; vertical-align:middle;" class="verifyimg reloadverify"  id="ajaxverifyimg" alt="点击切换"  src="{:U('public/verify')}">
 </div>
 <div class="form-group center">
 	<a href="javascript:;" id="loginbtn"  class="btn btn-large">登陆</a>
@@ -25,22 +25,26 @@
 </form>
 <script>
 $(function(){
-$('#loginbtn').click(function(event) {
-ajaxform($(this), function(da) {
-    if (da.status === 1) {
-        $("#dialog-wrap").remove();
-    }
-});
-});
-		$('#verifyimg').bind('click',function(){
-			var verurl="{:U('Public/verify',array('random'=>'suiji'))}";
-			verurl=verurl.replace('suiji',Math.random);
-			$('#verifyimg').attr('src',verurl);
-			});		$('.verifyimg').bind('click',function(){
-			var verurl="{:U('Public/verify',array('random'=>'suiji'))}";
-			verurl=verurl.replace('suiji',Math.random);
-			$('#verifyimg').attr('src',verurl);
-			});	
+	$('#loginbtn').click(function(event) {
+		ajaxform($(this), function(da) {
+			console.log(da);
+			if (da.status === 1) {
+				$("#dialog-wrap").remove();
+			} else {
+				$('#ajaxverifyimg').click();
+			}
+		});
 	});
+$('#ajaxverifyimg').bind('click',function(){
+	var verurl="{:U('Public/verify',array('random'=>'suiji'))}";
+	verurl=verurl.replace('suiji',Math.random);
+	$(this).attr('src',verurl);
+	});		
+	$('.verifyimg').bind('click',function(){
+	var verurl="{:U('Public/verify',array('random'=>'suiji'))}";
+	verurl=verurl.replace('suiji',Math.random);
+	$('#verifyimg').attr('src',verurl);
+	});	
+});
 
 </script>
