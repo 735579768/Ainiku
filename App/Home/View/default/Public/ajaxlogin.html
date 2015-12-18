@@ -27,9 +27,9 @@
 $(function(){
 	$('#loginbtn').click(function(event) {
 		ajaxform($(this), function(da) {
-			console.log(da);
 			if (da.status === 1) {
 				$("#dialog-wrap").remove();
+				window.location.reload();
 			} else {
 				$('#ajaxverifyimg').click();
 			}
