@@ -1,9 +1,9 @@
 <IfModule mod_rewrite.c>
-  Options +FollowSymlinks
-  RewriteEngine On
- RewriteCond %{HTTP:Host} ^ainiku.com$ 
- RewriteRule (.*) http://www.ainiku.com$1 [NC,R=301] 
-RewriteRule ^/?([a-zA-Z0-9]+)$                                index.php?m=Home&c=Public&a=error404 [L]
+Options +FollowSymlinks
+RewriteEngine On
+RewriteCond %{HTTP:Host} ^zhaokeli.com
+RewriteRule ^(.*) http://www.zhaokeli.com/$1 [L,R=301]
+RewriteRule ^/?([a-zA-Z0-9]+)$ index.php?m=Home&c=Public&a=error404 [L]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*)\.(jpg|gif|png|bmp)$ /Public/Static/images/default.png [QSA,PT,L]
