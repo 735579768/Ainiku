@@ -4,7 +4,7 @@
 </eq>
 
 <eq name="formjs.color" value="1">
-<script type="text/javascript" charset="utf-8" src="__STATIC__/jscolor/jscolor.js"></script> 
+<script type="text/javascript" charset="utf-8" src="__STATIC__/jscolor/jscolor.js"></script>
 </eq>
 <eq name="formjs.datetime" value="1">
 <php>$GLOBALS['formjs']['datetime']++</php>
@@ -21,7 +21,7 @@ $(function(){
         minView:2,
         autoclose:true
     });
-});	
+});
 </script>
 <!--日期js end-->
 </eq>
@@ -42,7 +42,7 @@ $(function(){
 <eq name="formjs.editornum" value="1">
 <script>
 	window.UEDITOR_HOME_URL='__STATIC__/ueditor/';
-</script> 
+</script>
 <!--ue编辑器js start-->
 <eq name="formjs.editor" value="1">
 <php>$GLOBALS['formjs']['editor']++</php>
@@ -54,7 +54,7 @@ $(function(){
 <ank:insert type="js"  name="umeditor.config" dir="__STATIC__/ueditor" />
 </eq>
  <!--um编辑器js end-->
-<script type="text/javascript" charset="utf-8" src="__STATIC__/ueditor/ueditor.all.min.js"></script> 
+<script type="text/javascript" charset="utf-8" src="__STATIC__/ueditor/ueditor.all.min.js"></script>
  <ank:insert type="js"  name="zh-cn" dir="__STATIC__/ueditor/lang/zh-cn" />
 </eq>
 
@@ -62,9 +62,10 @@ $(function(){
 <eq name="formjs.dandu" value="0">
 <div class="tab">
 <ul class="tabnavblock cl">
-	<li class="tabnav hover"><a href="javascript:;">基础</a></li>
+    <li class="tabnav hover"><a href="javascript:;">基础</a></li>
     <li class="tabnav"><a href="javascript:;">扩展</a></li>
 </ul>
+
 <div class="tabdivblock">
 </eq>
 
@@ -100,14 +101,14 @@ $(function(){
             <textarea rows=1 cols=40 style='overflow:scroll;overflow-y:hidden;;overflow-x:hidden;width:96%;' onfocus="window.activeobj=this;this.clock=setInterval(function(){if(activeobj.scrollHeight>=112){activeobj.style.height=(activeobj.scrollHeight-12)+'px';}},10);" onblur="clearInterval(this.clock);"   <notempty name="field.data_reg">  class="form-control  autoyz" data-reg="{$field.data_reg}" data-ts="{$field.data_ts}" data-ok="{$field.data_ok}" data-err="{$field.data_err}"<else />  class="form-control "</notempty>  placeholder="请输入{$field['title']}"  name="{$field['name']}">{$field['data']}</textarea>
           </case>
           <case value="datetime">
-            <input name="{$field['name']}" type="text" readonly class="form-control input-middle time" style="width:145px;" value="<empty name="field['data']">{:date('Y-m-d')}<else />{$field['data']|time_format}</empty>" placeholder="请选择时间" /> 
+            <input name="{$field['name']}" type="text" readonly class="form-control input-middle time" style="width:145px;" value="<empty name="field['data']">{:date('Y-m-d')}<else />{$field['data']|time_format}</empty>" placeholder="请选择时间" />
             </case>
               <case value="color">
 				 <input name="{$field['name']}"  type="text" class="selectcolor form-control input-small" value="{$field['data']|default='#ffffff'}">
             </case>
           <case value="bool">
             <select name="{$field['name']}" class="form-control input-middle">
-              <volist name="field['extra']" id="vo"> 
+              <volist name="field['extra']" id="vo">
               <option value="{$key}"<eq name="field['data']" value="$key">selected</eq>>{$vo}
                 </option>
               </volist>
@@ -117,7 +118,7 @@ $(function(){
             <select name="{$field['name']}" class="form-control input-middle">
             <php>
             	 foreach($field['extra'] as $key=>$val){
-                 	$sel='';	
+                 	$sel='';
             		if($field['data']==$key){
                     	$sel='selected';
                     }
@@ -125,7 +126,7 @@ $(function(){
                         $se=I($field['name']);
                         if($se==$key){
                             $sel='selected';
-                        }                    
+                        }
                     }
             	echo "<option value='$key' $sel >".trim($val)."</option>";
                 }
@@ -135,7 +136,7 @@ $(function(){
           <case value="radio">
           <div class="controls">
             <volist name="field['extra']" id="vo">
-              <input type="radio" value="{$key}" name="{$field['name']}" <eq name="field['data']" value="$key">checked="checked"</eq> >{$vo} 
+              <input type="radio" value="{$key}" name="{$field['name']}" <eq name="field['data']" value="$key">checked="checked"</eq> >{$vo}
             </volist>
             </div>
           </case>
@@ -148,16 +149,16 @@ $(function(){
                 }else{
                 echo '<span class="form-checkbox"> <input type="checkbox" value="'.$key.'" name="'.$field['name'].'[]"   ><b title="'.$val.'"> '.$val.'</b></span>';
                 }
-                
+
               }
               echo '</div>'; </php>
           </case>
-          <case value="editor">  
-            
- <!--style给定宽度可以影响编辑器的最终宽度--> 
+          <case value="editor">
+
+ <!--style给定宽度可以影响编辑器的最终宽度-->
 <script type="text/plain" id="{$field['name']}" name="{$field['name']}" style="width:99%;height:150px;">
     {$field['data']}
-</script> 
+</script>
 <script>
 	//保存编辑器初始化数据
 	var uescr{$field['name']}=null;
@@ -168,21 +169,21 @@ $(function(){
             imagePath:'',
             focus: true
 
-		});    
+		});
 		ue{$field['name']}.addListener('focus',function(editor){
 			uescr{$field['name']}=ue{$field['name']}.getContent();
-			});     
+			});
 		ue{$field['name']}.addListener('blur',function(editor){
 			delEditorImg(uescr{$field['name']},ue{$field['name']}.getContent());
-			});                      
-</script> 
+			});
+</script>
           </case>
           <case value="umeditor">
-            
- <!--style给定宽度可以影响编辑器的最终宽度--> 
+
+ <!--style给定宽度可以影响编辑器的最终宽度-->
 <script type="text/plain" id="{$field['name']}" name="{$field['name']}" style="width:99%;height:150px;">
     {$field['data']}
-</script> 
+</script>
 <script>
 	//保存编辑器初始化数据
 	var uescr{$field['name']}=null;
@@ -193,19 +194,19 @@ $(function(){
             imagePath:'',
             focus: true
 
-		});    
+		});
 		ue{$field['name']}.addListener('focus',function(editor){
 			uescr{$field['name']}=ue{$field['name']}.getContent();
-			});     
+			});
 		ue{$field['name']}.addListener('blur',function(editor){
 			delEditorImg(uescr{$field['name']},ue{$field['name']}.getContent());
-			});                      
-</script> 
+			});
+</script>
           </case>
           <case value="batchpicture">
             <div class="controls">
               <input type="file" id="upload_picture_{$field['name']}"   style="display:none;">
-              <a  id="demohtml5upload{$field['name']}btn" class="btn" style="margin-bottom:10px;" href="javascript:;">展开</a> 
+              <a  id="demohtml5upload{$field['name']}btn" class="btn" style="margin-bottom:10px;" href="javascript:;">展开</a>
               <div id="demohtml5upload{$field['name']}" class="demo"></div>
               <input type="hidden" name="{$field['name']}" id="cover_id_{$field['name']}" value="{$field['data']} "/>
               <div id="uploadimg_{$field['name']}" class="image-set">
@@ -225,7 +226,7 @@ $(function(){
               </div>
             </div>
             <script type="text/javascript">
-								
+
 ////上传图片
 ///* 初始化上传插件 */
 //$("#upload_picture_{$field['name']}").uploadify({
@@ -255,7 +256,7 @@ $(function(){
 			$(this).html('收缩');
 			}else{
 				$(this).html('展开');
-			$('#demohtml5upload{$field['name']}').slideUp();	
+			$('#demohtml5upload{$field['name']}').slideUp();
 				}
 	});
 	// 初始化插件
@@ -288,7 +289,7 @@ $(function(){
 
 		}
 	});
-});   
+});
             } else {
               //  alert("你的浏览器不支持HTML5");
 	$('#demohtml5upload{$field['name']}btn').remove();
@@ -333,12 +334,12 @@ function uploadPicture{$field['name']}(file, data){
 		},1500);
 	}
 }
-</script> 
+</script>
           </case>
           <case value="picture">
             <div class="controls">
 <input type="file" name="file" id="upload_picture_{$field['name']}"  style="display:none;">
-<a  id="demohtml5upload{$field['name']}btn" class="btn" style="margin-bottom:10px;"  href="javascript:;">展开</a> 
+<a  id="demohtml5upload{$field['name']}btn" class="btn" style="margin-bottom:10px;"  href="javascript:;">展开</a>
 <div id="demohtml5upload{$field['name']}" class="demo"></div>
 <input type="hidden" name="{$field['name']}" id="cover_id_{$field['name']}" value="{$field['data']}"/>
 <div id="uploadimg_{$field['name']}" class="cl">
@@ -348,7 +349,7 @@ function uploadPicture{$field['name']}(file, data){
 <div class="upload-pre-item"> <a class="" href="{:getPicture($field['data'],'path')}" data-lightbox="example-{$field['data']}" data-title="{:getPicture($field['data'],'destname')}"> <img class="example-image" src="{:getPicture($field['data'],'thumbpath')}"/></a> </div>
 </div>
 <a href='javascript:;' class='btn btn-danger'  dataid='{$field['data']}'>删除</a> </div>
-<script>$(function(){binddel();});</script> 
+<script>$(function(){binddel();});</script>
 </notempty>
 </div>
 </div>
@@ -366,7 +367,7 @@ function uploadPicture{$field['name']}(file, data){
 			$(this).html('收缩');
 			}else{
 				$(this).html('展开');
-			$('#demohtml5upload{$field['name']}').slideUp();	
+			$('#demohtml5upload{$field['name']}').slideUp();
 				}
 	});
 	// 初始化插件
@@ -399,7 +400,7 @@ function uploadPicture{$field['name']}(file, data){
 
 		}
 	});
-});   
+});
             } else {
               //  alert("你的浏览器不支持HTML5");
 	$('#demohtml5upload{$field['name']}btn').remove();
@@ -443,13 +444,13 @@ function uploadPicture{$field['name']}(file, data){
             },1500);
         }
     }
-    </script> 
+    </script>
           </case>
           <case value="file">
             <div class="controls">
-             <a  id="demohtml5upload_file_{$field['name']}btn" class="btn" style="margin-bottom:10px;"  href="javascript:;">展开</a> 
+             <a  id="demohtml5upload_file_{$field['name']}btn" class="btn" style="margin-bottom:10px;"  href="javascript:;">展开</a>
             <div id="demohtml5upload_file_{$field['name']}" class="demo"></div>
-           
+
               <input type="file" id="upload_file_{$field['name']}" style="display:none;">
               <input type="hidden" name="{$field['name']}" value="{$field['data']}"/>
               <div class="upload-img-box">
@@ -475,7 +476,7 @@ function uploadPicture{$field['name']}(file, data){
 			$(this).html('收缩');
 			}else{
 				$(this).html('展开');
-			$('#demohtml5upload_file_{$field['name']}').slideUp();	
+			$('#demohtml5upload_file_{$field['name']}').slideUp();
 				}
 	});
 	// 初始化插件
@@ -508,7 +509,7 @@ function uploadPicture{$field['name']}(file, data){
 
 		}
 	});
-});   
+});
             } else {
               //  alert("你的浏览器不支持HTML5");
 	$('#demohtml5upload_file_{$field['name']}').remove();
@@ -543,7 +544,7 @@ function uploadFile{$field['name']}(file, data){
 		var sid=$("input[name="+name+"]").val();
 		if(sid!=""){$.get(ainiku.delattach,{id:sid})}
 		$("input[name="+name+"]").val(data.id);
-		
+
 		$("input[name="+name+"]").parent().find('.upload-img-box').html(
 			"<div class=\"upload-pre-file\"><span class=\"upload_icon_all\"></span>" + data.info + "<a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
 		);
@@ -556,7 +557,7 @@ function uploadFile{$field['name']}(file, data){
 		},1500);
 	}
 }
-</script> 
+</script>
           </case>
             <case value="liandong">
             <style>select.selarea{ width:150px; overflow:hidden;}</style>
@@ -580,7 +581,7 @@ function uploadFile{$field['name']}(file, data){
 						}
 						setssq{$field['name']}();
                         }
-                    });	
+                    });
 					$('#Province{$field['name']}').change(function(e) {
 							var idd=$(this).val();
 							if(idd!=0){
@@ -588,19 +589,19 @@ function uploadFile{$field['name']}(file, data){
 									type:'post',
 									url:"{:U('Region/index')}",
 									data:{id:idd,selid:arr[1]},
-									success: function(da){	
+									success: function(da){
 										$('#city{$field['name']}').html(da);
 										$('#city{$field['name']}').change();
 										setssq{$field['name']}();
 										}
 								});
-							}else{	
+							}else{
 						$('#city{$field['name']}').html('<option value="0">请选择--</option></select>');
 						$('#city{$field['name']}').change();
 						setssq{$field['name']}();
-										}	
+										}
                     });
-                    
+
                     $('#city{$field['name']}').change(function(e) {
                         var idd=$(this).val();
 							if(idd!=0){
@@ -636,7 +637,7 @@ function uploadFile{$field['name']}(file, data){
 						}else{
 $('#area11{$field['name']}').html('<option value="0">请选择--</option></select>');
 								$('#area11{$field['name']}').change();
-									setssq{$field['name']}();							
+									setssq{$field['name']}();
 							}
                     });
                     $('#area11{$field['name']}').change(function(e) {
@@ -650,22 +651,22 @@ $('#area11{$field['name']}').html('<option value="0">请选择--</option></selec
 					   var str3=$('#area1'+idd).val();
 					   var str4=$('#area11'+idd).val();
 					   	$('#ssq'+idd).val(str1+','+str2+','+str3+','+str4);
-					   } 
+					   }
                 });
-                </script>         
+                </script>
           </case>
           <case value="attribute">
           		<select class="form-control" id="goodstype_form" name="goods_type_id">
                 		<option value="0">请选择--</option>
                 	<volist name=":getGoodsTypeList()" id="vo">
-                    	<option value="{$vo.goods_type_id}">{$vo.title}</option>                    
+                    	<option value="{$vo.goods_type_id}">{$vo.title}</option>
                     </volist>
                 </select>
                 <div id="goodsattribute" style="  padding: 20px 0px 0px 20px;" class="">
 
                 </div>
                 <script>
-                	$(function(){	
+                	$(function(){
 						$('#goodstype_form').bind('propertychange change',function(){
 							var idd=$(this).val();
 							var productid=$('#productid').val();
@@ -696,7 +697,7 @@ $('#area11{$field['name']}').html('<option value="0">请选择--</option></selec
 <div class="upload-pre-item"> <a class="" href="{:getPicture($field['data'],'path')}" data-lightbox="example-{$field['data']}" data-title="{:getPicture($field['data'],'destname')}"> <img class="example-image" src="{:getPicture($field['data'],'thumbpath')}"/></a> </div>
 </div>
 <a href='javascript:;' class='btn btn-danger'  dataid='{$field['data']}'>删除</a> </div>
-<script>$(function(){binddel();});</script> 
+<script>$(function(){binddel();});</script>
 </notempty>
 </div>
 
@@ -708,10 +709,10 @@ $('#area11{$field['name']}').html('<option value="0">请选择--</option></selec
                 </div>
                 <!--没加载方法前-->
                 <div id="SelectBox">
-                     <a href="javascript:;" onClick="document.getElementById('selectImage2').click();" id="selectImage"></a> 
+                     <a href="javascript:;" onClick="document.getElementById('selectImage2').click();" id="selectImage"></a>
                         <a href="javascript:;" id="PhotoLoading"></a>
                         <a href="javascript:;" id="camerasImage"></a>
-                        
+
                 </div>
                 <!--没加载方法前结束-->
                 <div id="relat">
@@ -835,7 +836,7 @@ var Cutpicture={
 		//截图成功后返回来的json值
 /*		document.getElementById("completeA").onclick=function(){
 			//绑定截图完成后的操作
-			
+
 			};*/
 	console.log(data);
 	}
