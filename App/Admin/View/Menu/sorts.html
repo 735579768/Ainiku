@@ -1,75 +1,74 @@
 <extend name="Public/base" />
 <block name="right">
-<!--tool start-->
-<div class="btn-tool">
-<a href="{:U('Menu/add')}" class="btn btn-parmary">添加菜单</a>
-<a href="{:U('Menu/sorts')}" class="btn btn-parmary">整理菜单</a>
-<div class="searchform" style="display:none;">
-<form action="{:U('')}" method="post">
-<input name="title" type="tel" value="{:I('title')}" class="form-control input-middle" placeholder="请输入标题" />
-
-<a class="sch-btn" href="javascript:;" id="search" ><i class="btn-search"></i></a>
-</form>
-</div>
-</div>
-
-<!--tool end-->
-<style>
+    <!--tool start-->
+    <div class="btn-tool">
+        <a href="{:U('Menu/add')}" class="btn btn-parmary">添加菜单</a>
+        <a href="{:U('Menu/sorts')}" class="btn btn-parmary">整理菜单</a>
+        <div class="searchform" style="display:none;">
+            <form action="{:U('')}" method="post">
+                <input name="title" type="tel" value="{:I('title')}" class="form-control input-middle" placeholder="请输入标题" />
+                <a class="sch-btn" href="javascript:;" id="search"><i class="btn-search"></i></a>
+            </form>
+        </div>
+    </div>
+    <!--tool end-->
+    <style>
 ul,li{list-style:none;}
-.dragblock .menutitle,
-.dragblock .dragitem{ font-size:12px; text-align:left!important;border:solid 1px #ccc; margin:5px;height:30px; line-height:30px;padding-left:10px;}
-.dragblock ul{float:left; margin:10px; width:150px; height:400px; overflow:auto; border:solid 1px #ccc;}
-.dragblock ul .menutitle{    border: none;font-weight: bolder;background-color: #ededed;}
-</style>
-<ank:insert type="js" name="drag-sort,json2" />
-<script>
-$(function(){
-	$('.dragblock').kldrag({
-               'spacestyle':'',
-			   'dragitem':'.dragitem',
-               'draggroup':'ul',
-			   'success':function(da){
-				   	//$('.dragblock .dragitem'){}
-						var strid=new Array();
-						$('.dragblock .menutitle').each(function(index, element) {
-                            var tem={ 
-							pid:$(this).attr('data-id'),
-							child:null
-							};
-							var arr=new Array();
-							$(this).parent().find('.dragitem').each(function(index, element) {
-                                arr.push({
-										id:$(this).attr('data-id'),
-										sorts:index 									
-									});
-                            });
-							tem.child=arr;
-							strid.push(tem);
+.dragblock .menutitle,.dragblock .dragitem{font-size:12px;text-align:left!important;border:solid 1px #ccc;margin:5px;height:30px;line-height:30px;padding-left:10px;}
+.dragblock ul{float:left;margin:10px;width:150px;height:400px;overflow:auto;border:solid 1px #ccc;}
+.dragblock ul .menutitle{border:none;font-weight:bolder;background-color:#ededed;}
+    </style>
+    <ank:insert type="js" name="drag-sort,json2" />
+    <script>
+    $(function() {
+        $('.dragblock').kldrag({
+            'spacestyle': '',
+            'dragitem': '.dragitem',
+            'draggroup': 'ul',
+            'success': function(da) {
+                //$('.dragblock .dragitem'){}
+                var strid = new Array();
+                $('.dragblock .menutitle').each(function(index, element) {
+                    var tem = {
+                        pid: $(this).attr('data-id'),
+                        child: null
+                    };
+                    var arr = new Array();
+                    $(this).parent().find('.dragitem').each(function(index, element) {
+                        arr.push({
+                            id: $(this).attr('data-id'),
+                            sorts: index
                         });
-					$.ajax({
-						type:'POST',
-						url:"{:U('Ajax/menusort')}",
-						data:{sortda:JSON.stringify(strid)},
-						success:function(da){
-							ank.msg(da.info);
-							}
-						});
-						}
-	});
-	});
-</script>
-<!--content start -->
-<div class="content">
-<div class="dragblock cl">
-<volist name="_list" id="vo">
-<ul class="cl">
-<li class="menutitle" data-id="{$vo.id}">{$vo.title}</li>
-<volist name="vo['child']" id="voo">
-<li class="dragitem cl" data-id="{$voo.id}">{$voo.title}</li>
-</volist>
-</ul>
-</volist>
-</div>
-</div>
-<!--content end-->
+                    });
+                    tem.child = arr;
+                    strid.push(tem);
+                });
+                $.ajax({
+                    type: 'POST',
+                    url: "{:U('Ajax/menusort')}",
+                    data: {
+                        sortda: JSON.stringify(strid)
+                    },
+                    success: function(da) {
+                        ank.msg(da.info);
+                    }
+                });
+            }
+        });
+    });
+    </script>
+    <!--content start -->
+    <div class="content">
+        <div class="dragblock cl">
+            <volist name="_list" id="vo">
+                <ul class="cl">
+                    <li class="menutitle" data-id="{$vo.id}">{$vo.title}</li>
+                    <volist name="vo['child']" id="voo">
+                        <li class="dragitem cl" data-id="{$voo.id}">{$voo.title}</li>
+                    </volist>
+                </ul>
+            </volist>
+        </div>
+    </div>
+    <!--content end-->
 </block>

@@ -114,7 +114,7 @@ body{overflow:hidden;padding:62px 0px 0px 179px;}
 .category .order span{vertical-align:middle;margin-top:-5px;}
 .category .order input{margin-bottom:2px;width:30px;display:inline-block;}
 .category input{width:180px;}
-.category .name input{margin-bottom:2px;display:inline-block\9;}
+.category .name input{margin-bottom:2px;display:inline-block\9;text-align: left;}
 .category .add-sub-cate{margin-top:8px\9;float:left\9;}
 .category .add-sub-cate:hover{text-decoration:none;border-bottom:0 none;}
 .category .btn-mod{margin-left:15px;}

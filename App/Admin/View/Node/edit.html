@@ -1,16 +1,17 @@
 <extend name="Public/base" />
 <block name="right">
-
-<!--content start -->
-<div class="content">
-<form class="autosubmit" action="{:U('')}" method="post">
-{:getForm($fieldarr,$data)}
-<div class="form-group center">
-<input type="hidden" name="node_id" value="{$data.node_id}" />
-<a href="javascript:;" class="btn btn-parmary btn-large ajax-post"><empty name="data.node_id">确定添加<else />确定更新</empty></a>
-<a href="javascript:;" class="btn btn-warning btn-large return">返回</a>
-</div>
-</form>
-</div>
-<!--content end-->
+    <!--content start -->
+    <div class="content">
+        <form class="autosubmit" action="{:U('')}" method="post">
+            {:getForm($fieldarr,$data)}
+            <div class="form-group center">
+                <input type="hidden" name="node_id" value="{$data.node_id}" />
+                <a href="javascript:;" class="btn btn-parmary btn-large ajax-post">
+                    <empty name="data.node_id">确定添加<else />确定更新</empty>
+                </a>
+                <a href="javascript:;" class="btn btn-warning btn-large return">返回</a>
+            </div>
+        </form>
+    </div>
+    <!--content end-->
 </block>

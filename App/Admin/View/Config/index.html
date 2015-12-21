@@ -8,61 +8,59 @@
 ]
 </block>
 <block name="right">
-<!--tool start-->
-<div class="btn-tool">
-<a href="{:U('add',array('group'=>I('group')))}" class="btn btn-parmary">添加配置</a>
-<a href="{:U('del')}" class="btn btn-danger klbatch">批量删除</a>
-
-<div class="searchform">
-<form action="{:U('')}" method="post">
-<input name="title" type="tel" value="{:I('title')}" class="form-control input-middle" placeholder="请输入配置标题" />
-
-<a class="sch-btn" href="javascript:;" id="search" ><i class="btn-search"></i></a>
-</form>
-</div>
-
-
-</div>
-
-<!--tool end-->
-
-<table class="leftalign" width="100%" border="1" bordercolor="#ededed">
+    <!--tool start-->
+    <div class="btn-tool">
+        <a href="{:U('add',array('group'=>I('group')))}" class="btn btn-parmary">添加配置</a>
+        <a href="{:U('del')}" class="btn btn-danger klbatch">批量删除</a>
+        <div class="searchform">
+            <form action="{:U('')}" method="post">
+                <input name="title" type="tel" value="{:I('title')}" class="form-control input-middle" placeholder="请输入配置标题" />
+                <a class="sch-btn" href="javascript:;" id="search"><i class="btn-search"></i></a>
+            </form>
+        </div>
+    </div>
+    <!--tool end-->
+    <table class="leftalign" width="100%" border="1" bordercolor="#ededed">
         <tr class="th">
-		<th width="30" style="text-align:center;"><input class="check-all" type="checkbox" /></th>
-        <th width="80">排序</th>
-		<th width="50">ID</th>
-		<th>名称</th>
-        <th>标题</th>
-		<th>分组</th>
-        <th class="center">表单类型</th>
-        <eq name="Think.const.APP_DEBUG" value="true">
-
-<th title="设置是否在关闭开发模式时在网站设置中显示">是否显示</th>
-        </eq>
-		<th style="text-align:center;">操作</th>
-		</tr>
-<volist name="_list" id="vo">
-  <tr>
-    <td style="text-align:center;"><input class="check-item" type="checkbox" name="id[]" value="{$vo.config_id}"/></td>
-    <td><input  data-table="Config" data-id="{$vo.config_id}" data-field="sort"  type="text" class="form-control input-mini	 ajax-blur" name="sort" value="{$vo.sort}" /></td>
-    <td class="center">{$vo.config_id}</td>
-    <td>{$vo.name}</td>
-    <td><span title="{$vo.note}">{$vo.title}</span></td>
-    <td>{$vo.group|getGroupName}</td>
-    <td class="center">{$vo.type|getFormType}</td>
-    <eq name="Think.const.APP_DEBUG" value="true">
-    <td class="center">
-    <span data-table="config" data-id="{$vo.config_id}" data-field="no_del"  data-value="{$vo.no_del}" class="yn"> </span></td>
-    </eq>
-    <td>
-    	<a href="{:U('Config/edit?config_id='.$vo['config_id'])}"  class="btn btn-primary">编辑</a>
-        <eq name="vo.no_del" value="0">
-        <a href="{:U('Config/del?config_id='.$vo['config_id'])}" class="btn btn-danger ajax-list-del">删除</a>
-        </eq>
-    </td>
-  </tr>
-</volist>
-</table>
-<div id="page" class="page">{$_page}</div>
-
+            <th width="30" style="text-align:center;">
+                <input class="check-all" type="checkbox" />
+            </th>
+            <th width="80">排序</th>
+            <th width="50">ID</th>
+            <th>名称</th>
+            <th>标题</th>
+            <th>分组</th>
+            <th class="center">表单类型</th>
+            <eq name="Think.const.APP_DEBUG" value="true">
+                <th title="设置是否在关闭开发模式时在网站设置中显示">是否显示</th>
+            </eq>
+            <th style="text-align:center;">操作</th>
+        </tr>
+        <volist name="_list" id="vo">
+            <tr>
+                <td style="text-align:center;">
+                    <input class="check-item" type="checkbox" name="id[]" value="{$vo.config_id}" />
+                </td>
+                <td>
+                    <input data-table="Config" data-id="{$vo.config_id}" data-field="sort" type="text" class="form-control input-mini    ajax-blur" name="sort" value="{$vo.sort}" />
+                </td>
+                <td class="center">{$vo.config_id}</td>
+                <td>{$vo.name}</td>
+                <td><span title="{$vo.note}">{$vo.title}</span></td>
+                <td>{$vo.group|getGroupName}</td>
+                <td class="center">{$vo.type|getFormType}</td>
+                <eq name="Think.const.APP_DEBUG" value="true">
+                    <td class="center">
+                        <span data-table="config" data-id="{$vo.config_id}" data-field="no_del" data-value="{$vo.no_del}" class="yn"> </span></td>
+                </eq>
+                <td>
+                    <a href="{:U('Config/edit?config_id='.$vo['config_id'])}" class="btn btn-primary">编辑</a>
+                    <eq name="vo.no_del" value="0">
+                        <a href="{:U('Config/del?config_id='.$vo['config_id'])}" class="btn btn-danger ajax-list-del">删除</a>
+                    </eq>
+                </td>
+            </tr>
+        </volist>
+    </table>
+    <div id="page" class="page">{$_page}</div>
 </block>

@@ -1,29 +1,31 @@
-
-    <volist name="_TREE_" id="vo">
+<volist name="_TREE_" id="vo">
     <dl class="cate-item">
-    <!--cate start-->
-      <dt class="cl">
-        <div class="btn-toolbar opt-btn cl"> <a title="编辑" class="btn btn-primary" href="{:u('edit?id='.$vo['id'])}">编辑</a> <a title="删除" class="btn btn-danger ajax-list-del"  href="{:u('del?id='.$vo['id'])}">删除</a> </div>
-        <div class="fold"><i></i></div>
-        <div class="order">{$vo.id}</div>
-        <div class="order"><input  data-table="menu" data-id="{$vo.id}" data-field="sort"  type="text" class="form-control input-mini	 ajax-blur" name="sort" value="{$vo.sort}" /></div>
-        <eq name="Think.const.APP_DEBUG" value="true">
-        <div class="order"><span data-table="menu" data-id="{$vo.id}" data-field="hide"  data-value="{$vo.hide}" class="yn"></span></div>
-        
-         <div class="order"><span data-table="menu" data-id="{$vo.id}" data-field="is_dev"  data-value="{$vo.is_dev}" class="yn"></span></div></eq>
-
-        <div class="name"> <span class="tab-sign"></span> <a class="add-sub-cate" title="添加子菜单" href="{:u('add?pid='.$vo['id'])}"> <i class="icon-add"></i></a><span class="catetitle"><input class="form-control	ajax-blur" name="title" data-id="{$vo.id}" data-table="menu" data-field="title"   type="text" value="{$vo.title}" />
+        <!--cate start-->
+        <dt class="cl">
+            <div class="btn-toolbar opt-btn cl"> <a title="编辑" class="btn btn-primary" href="{:u('edit?id='.$vo['id'])}">编辑</a> <a title="删除" class="btn btn-danger ajax-list-del" href="{:u('del?id='.$vo['id'])}">删除</a> </div>
+            <div class="fold"><i></i></div>
+            <div class="order">{$vo.id}</div>
+            <div class="order">
+                <input data-table="menu" data-id="{$vo.id}" data-field="sort" type="text" class="form-control input-mini     ajax-blur" name="sort" value="{$vo.sort}" />
+            </div>
+            <eq name="Think.const.APP_DEBUG" value="true">
+                <div class="order"><span data-table="menu" data-id="{$vo.id}" data-field="hide" data-value="{$vo.hide}" class="yn"></span></div>
+                <div class="order"><span data-table="menu" data-id="{$vo.id}" data-field="is_dev" data-value="{$vo.is_dev}" class="yn"></span></div>
+            </eq>
+            <div class="name"> <span class="tab-sign"></span>
+                <a class="add-sub-cate" title="添加子菜单" href="{:u('add?pid='.$vo['id'])}"> <i class="icon-add"></i></a><span class="catetitle"><input class="form-control ajax-blur" name="title" data-id="{$vo.id}" data-table="menu" data-field="title"   type="text" value="{$vo.title}" />
         <empty name="vo['_']">
-<span>分组:</span><input class="form-control	input-mini ajax-blur" name="group" data-id="{$vo.id}" data-table="menu" data-field="group"   type="text" value="{$vo.group}" />
-</empty>
-</span>  </div>
-      </dt>
-    <!--cate end-->
-    
-    	<notempty name="vo['_']">
-			<dd>
-				{:R('Menu/tree', array($vo['_']))}
-			</dd>
-		</notempty>
+<span>分组:</span>
+                <input class="form-control  input-mini ajax-blur" name="group" data-id="{$vo.id}" data-table="menu" data-field="group" type="text" value="{$vo.group}" />
+                </empty>
+                </span>
+            </div>
+        </dt>
+        <!--cate end-->
+        <notempty name="vo['_']">
+            <dd>
+                {:R('Menu/tree', array($vo['_']))}
+            </dd>
+        </notempty>
     </dl>
-    </volist>
+</volist>
