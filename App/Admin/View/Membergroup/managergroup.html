@@ -14,72 +14,60 @@
 </style>
 
 <div class="btn-tool">
-<a class="btn btn-primary" href="javascript:$('.authitem').prop('checked', true);">全选</a>
-<a class="btn btn-primary" href="javascript:$('.authitem').prop('checked', false);">全不选</a>
+    <a class="btn btn-primary" href="javascript:$('.authitem').prop('checked', true);">全选</a>
+    <a class="btn btn-primary" href="javascript:$('.authitem').prop('checked', false);">全不选</a>
 </div>
-				<form action="{:U('')}" enctype="application/x-www-form-urlencoded" method="POST" class="form-horizontal auth-form">
-	<div class="tab-wrap cl">
-		<div class="tab-content cl">
-			<!-- 访问授权 -->
-			<div id="itemblock" class="tab-pane in auth  cl menudiv">
-					<volist name="_list" id="vo">
+
+<form action="{:U('')}" enctype="application/x-www-form-urlencoded" method="POST" class="form-horizontal auth-form">
+    <div class="tab-wrap cl">
+        <div class="tab-content cl">
+            <!-- 访问授权 -->
+            <div id="itemblock" class="tab-pane in auth  cl menudiv">
+                <volist name="_list" id="vo">
                     <dl class="authblock item" style="display:none;">
-                    <dt><input class="authitem"  name="auth[]" type="checkbox" value="{$vo.node_id}" />{$vo.title}</dt>
-                    <volist name="vo._" id="voo">
-                    <dd><input class="authitem"  name="auth[]" type="checkbox" value="{$voo.node_id}" /><label title="{$voo.name}" class="item-label">{$voo.title}</label></dd>
-                    </volist>
+                        <dt>
+                            <input class="authitem" name="auth[]" type="checkbox" value="{$vo.node_id}" />{$vo.title}</dt>
+                        <volist name="vo._" id="voo">
+                            <dd>
+                                <input class="authitem" name="auth[]" type="checkbox" value="{$voo.node_id}" />
+                                <label title="{$voo.name}" class="item-label">{$voo.title}</label>
+                            </dd>
+                        </volist>
                     </dl>
-                    </volist>
+                </volist>
+            </div>
+        </div>
+        <div class="form-group center">
+            <input type="hidden" name="member_group_id" value="{$data.member_group_id}" />
+            <button type="submit" class="btn submit-btn btn-large ajax-post" target-form="auth-form">确 定</button>
+            <button class="btn btn-return btn-large btn-warning" onclick="javascript:history.back(-1);return false;">返 回</button>
+        </div>
+    </div>
+</form>
 
-			</div>
-                    </div>
-             <div class="form-group center">
-                 <input type="hidden" name="member_group_id" value="{$data.member_group_id}" />
-                 <button type="submit" class="btn submit-btn btn-large ajax-post" target-form="auth-form">确 定</button>
-                  <button class="btn btn-return btn-large btn-warning" onclick="javascript:history.back(-1);return false;">返 回</button>
-             </div>
-	</div>
-
- </form>
 
 <script type="text/javascript" charset="utf-8">
-$(function(){
+$(function() {
 	//初始化菜单
-	var auth={$data.auth|default='[]'};
-	for(var i=0;i<auth.length;i++){
+	var auth = {$data.auth |default = '[]'};
+	for (var i = 0; i < auth.length; i++) {
 		//console.log(auth[i]);
-		$("input[name='auth[]'][value="+auth[i]+']').prop("checked", true);
+		$("input[name='auth[]'][value=" + auth[i] + ']').prop("checked", true);
 	}
-	//初始化分类
-//	var cateauth={$data.auth.cate|default='[]'};
-//	for(var i=0;i<cateauth.length;i++){
-//		//console.log(auth[i]);
-//		$('.catediv input[value='+cateauth[i]+']').attr("checked", true);
-//	}
-	
-		$('.tab-pane dl dt input').bind('click',function(){
-			if($(this).is(':checked')){
-				$(this).parent().parent().find('dd input').prop("checked", true);
-				}else{
-				$(this).parent().parent().find('dd input').prop("checked", false);	
-					}
-			
-			});
-		$('dd input.authitem').bind('click',function(){
-			if($(this).is(':checked')){
-				$(this).parent().parent().find('dt input').prop("checked", true);
-				}
-			});
-			
-////使用方法
-//$('.tab-wrap').mytab({		
-//				'ev':'click',
-//				'navcls':'.tabnav',//默认导航类
-//				'divcls':'.tab-pane',//默认内容块
-//				'navhovercls':'current',//nav显示时候拥有的类
-//				'divshowcls':'curdiv'//div显示的时候拥有的类
-//});
 
+	$('.tab-pane dl dt input').bind('click', function() {
+		if ($(this).is(':checked')) {
+			$(this).parent().parent().find('dd input').prop("checked", true);
+		} else {
+			$(this).parent().parent().find('dd input').prop("checked", false);
+		}
+
+	});
+	$('dd input.authitem').bind('click', function() {
+		if ($(this).is(':checked')) {
+			$(this).parent().parent().find('dt input').prop("checked", true);
+		}
+	});
 });
 </script>
 <script src="__STATIC__/js/jquery-pubuliu.js" type="text/javascript"></script>

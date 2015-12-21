@@ -1,62 +1,60 @@
 <extend name="Public:base" />
 <block name="right">
-<div class="content">
-	<table class="leftalign" width='100%'>
-    	<tr class="th">
-        	<td>序号</td>
-            <td>标识</td>
-            <td>名称</td>
-            <td>作者</td>
-            <td>描述</td>
-            <td>类型</td>
-            <td>操作</td>
-        </tr>
-        <volist name="_list" id="vo">
-        <tr>
-        	<td>{$key+1}</td>
-            <td>{$vo.mark}</td>
-            <td>{$vo.name}</td>
-            <td>{$vo.author}</td>
-            <td>{$vo.descr}</td>
-            <td>
-	  	<if condition="$vo.type neq 'system'">	
-	  	第三方
-	  		<else />
-	  		系统插件
-	  		</if>
-            </td>
-            <td>
-	  	<if condition="$vo.install eq '0'">
-	  	<a class="btn btn-primary ajax-href" href='{:U('Addons/install?mark='.$vo['mark'])}'>安装</a>
-	  	<else />
-		  	<if condition="$vo.status eq '0'">
-		  	<a  class="btn btn-warning ajax-href" href='{:U('Addons/qiyong?id='.$vo['id'])}'>已禁用</a>
-		  	<else />
-		  	<a  class="btn btn ajax-href" href='{:U('Addons/jinyong?id='.$vo['id'])}'>已启用</a>
-		  	</if>	
-		  	<notempty name="vo['setmenu']">
-		  			<a  class="btn btn-primary" href='{:U($vo['setmenu']['url'])}'>管理</a>
-		  	</notempty>  
-		  	<if condition="$vo.type neq 'system'">	
-	  	<a class='btn btn-warning ajax-href' href='{:U('Addons/uninstall?id='.$vo['id'])}'>卸载</a>
-	  		</if>
-	  	</if>            
-            </td>
-        </tr>
-        </volist>
-    </table>	
-	<div class="page">{$_page}</div>
-	</div>
+    <div class="content">
+        <table class="leftalign" width='100%'>
+            <tr class="th">
+                <td>序号</td>
+                <td>标识</td>
+                <td>名称</td>
+                <td>作者</td>
+                <td>描述</td>
+                <td>类型</td>
+                <td>操作</td>
+            </tr>
+            <volist name="_list" id="vo">
+                <tr>
+                    <td>{$key+1}</td>
+                    <td>{$vo.mark}</td>
+                    <td>{$vo.name}</td>
+                    <td>{$vo.author}</td>
+                    <td>{$vo.descr}</td>
+                    <td>
+                        <if condition="$vo.type neq 'system'">
+                            第三方
+                            <else /> 系统插件
+                        </if>
+                    </td>
+                    <td>
+                        <if condition="$vo.install eq '0'">
+                            <a class="btn btn-primary ajax-href" href='{:U(' Addons/install?mark='.$vo[' mark '])}'>安装</a>
+                            <else />
+                            <if condition="$vo.status eq '0'">
+                                <a class="btn btn-warning ajax-href" href='{:U(' Addons/qiyong?id='.$vo[' id '])}'>已禁用</a>
+                                <else />
+                                <a class="btn btn ajax-href" href='{:U(' Addons/jinyong?id='.$vo[' id '])}'>已启用</a>
+                            </if>
+                            <notempty name="vo['setmenu']">
+                                <a class="btn btn-primary" href='{:U($vo[' setmenu ']['url '])}'>管理</a>
+                            </notempty>
+                            <if condition="$vo.type neq 'system'">
+                                <a class='btn btn-warning ajax-href' href='{:U(' Addons/uninstall?id='.$vo[' id '])}'>卸载</a>
+                            </if>
+                        </if>
+                    </td>
+                </tr>
+            </volist>
+        </table>
+        <div class="page">{$_page}</div>
+    </div>
 </block>
 <block name="script">
-	<script>
-	$(function(){
-	$('.btn-danger').bind('click',function(){
-		if(!confirm('卸载的话会删除应用的数据,确定卸载吗?'))return false;
-		ajaxhref($(this));
-	});
-	$('.row:odd').css('background','#ededed');		
-	});
-
-	</script>
+    <script>
+    $(function() {
+        $('.btn-danger').bind('click', function() {
+            if (!confirm('卸载的话会删除应用的数据,确定卸载吗?')) return false;
+            ajaxhref($(this));
+        });
+        $('.row:odd').css('background', '#ededed');
+    });
+    </script>
 </block>

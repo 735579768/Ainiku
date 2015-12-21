@@ -1,83 +1,84 @@
 <extend name="Public/base" />
 <block name="right">
+    <!--tool start-->
+    <!--tool end-->
+    <!--content start -->
+    <div class="content">
+        <form class="autosubmit" action="{:U('')}" method="post">
+            <input type="hidden" id="productid" value="{$data.article_id}" /> {:getForm($fieldarr,$data)}
+            <div class="form-group center">
+                <input type="hidden" name="article_id" value="{$data.article_id}" />
+                <a href="javascript:;" id="submitbtn" class="btn btn-parmary btn-large ajax-post">
+                    <empty name="data.article_id">确定添加
+                        <else />确定更新</empty>
+                </a>
+                <a href="javascript:;" class="btn btn-warning btn-large return">返回</a>
+            </div>
+        </form>
+    </div>
+    <script>
+    //function _after_post(da){
+    //	var id=$('input[name="article_id"]').val();
+    //	if(id==''){$('input[name="article_id"]').val(da.article_id)};
+    //	}
+    $(function() {
+        if (typeof draftboxtimeid != 'undefined') clearInterval(draftboxtimeid);
+        var opendraftbox = '{:C('
+        OPEN_DRAFTBOX ')}';
+        var subobj = $('#submitbtn');
+        var srctext = subobj.html();
+        if (opendraftbox == '1') {
+            var draftboxtime = {: C('DRAFTBOX_TIME')
+            };
+            var jiantime = draftboxtime;
+            window.draftboxtimeid = setInterval(function() {
+                var caogao = $('input[name="status"]:checked').val();
+                var arccid = $('input[name="article_id"]').val();
+                if (arccid == '' || caogao == '2') {
+                    var title = $('input[name="title"]').val();
+                    if (title != '') {
+                        $('#submitbtn').html('保存草稿(' + jiantime + ')');
+                        $('input[name="status"][type="radio"][value="2"]').attr('checked', 'checked');
+                        if ((jiantime--) <= 0) {
+                            jiantime = draftboxtime;
+                            submitcg();
+                        }
+                    }
 
-<!--tool start-->
+                } else {
+                    jiantime = draftboxtime;
+                    if (arccid != '' && caogao != 2) {
+                        subobj.html('确定更新');
+                    } else {
+                        subobj.html(srctext);
+                    }
+                }
+            }, 1000);
+        }
 
-
-<!--tool end-->
-
-<!--content start -->
-<div class="content">
-<form class="autosubmit" action="{:U('')}" method="post">
-<input type="hidden" id="productid"  value="{$data.article_id}" />
-{:getForm($fieldarr,$data)}
-<div class="form-group center">
-<input type="hidden" name="article_id" value="{$data.article_id}" />
-<a href="javascript:;" id="submitbtn" class="btn btn-parmary btn-large ajax-post"><empty name="data.article_id">确定添加<else />确定更新</empty></a>
-<a href="javascript:;" class="btn btn-warning btn-large return">返回</a>
-</div>
-</form>
-</div>
-<script>
-
-//function _after_post(da){
-//	var id=$('input[name="article_id"]').val();
-//	if(id==''){$('input[name="article_id"]').val(da.article_id)};
-//	}
-$(function(){
-if(typeof draftboxtimeid!='undefined')clearInterval(draftboxtimeid);
-var opendraftbox='{:C('OPEN_DRAFTBOX')}';
-var subobj=$('#submitbtn');
-var srctext=subobj.html();
-if(opendraftbox=='1'){
-var draftboxtime={:C('DRAFTBOX_TIME')};
-var jiantime=draftboxtime;
-window.draftboxtimeid=setInterval(function(){
-	var caogao=$('input[name="status"]:checked').val();
-	var arccid=$('input[name="article_id"]').val();
-	if(arccid=='' || caogao=='2'){
-		var title=$('input[name="title"]').val();
-		if(title!=''){
-				$('#submitbtn').html('保存草稿('+jiantime+')');
-				$('input[name="status"][type="radio"][value="2"]').attr('checked','checked');
-				if((jiantime--)<=0){
-					jiantime=draftboxtime;
-					submitcg();	
-				}			
-			}
-
-	}else{
-		jiantime=draftboxtime;
-		if(arccid!='' && caogao!=2){
-			subobj.html('确定更新');
-			}else{
-			subobj.html(srctext);	
-				}
-		}
-			},1000);
-}
-
-//提交文章草稿
-	window.submitcg=function(){
-			    var formobj = subobj.parents("form");
-				formobj.submit(function(e) {
-					return false;
-				});
-				var url = formobj.attr("action");
-				var postdata = formobj.serialize();
-				$.ajax({
-					url:url,
-					type:"POST",
-					datatype:"JSON",
-					data:postdata,
-					success:function(da) {
-					ank.msg(da.info);
-					var id=$('input[name="article_id"]').val();
-					if(id==''){$('input[name="article_id"]').val(da.article_id)};
-					}
-				});
-	};
-});
-</script>
-<!--content end-->
+        //提交文章草稿
+        window.submitcg = function() {
+            var formobj = subobj.parents("form");
+            formobj.submit(function(e) {
+                return false;
+            });
+            var url = formobj.attr("action");
+            var postdata = formobj.serialize();
+            $.ajax({
+                url: url,
+                type: "POST",
+                datatype: "JSON",
+                data: postdata,
+                success: function(da) {
+                    ank.msg(da.info);
+                    var id = $('input[name="article_id"]').val();
+                    if (id == '') {
+                        $('input[name="article_id"]').val(da.article_id)
+                    };
+                }
+            });
+        };
+    });
+    </script>
+    <!--content end-->
 </block>

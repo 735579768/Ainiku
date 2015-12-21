@@ -3,20 +3,19 @@
 <block name="maintitle"></block>
 <block name="right">
 <style>
-.title-tool{ display:none;}
-table{ width:95%;}
-.right th, .right td{ border:none;}
+.title-tool{display:none;}
+table{width:95%;}
+.right th,.right td{border:none;}
 </style>
-<div class="index-center" id="index-center">
-
-</div>
-<script>
-$(function(){
-	ank.loadhtml("{:U('Ajax/admininfo')}",{},$('#index-center'));
-	$(window).bind('resize load',function(){
-		var hh=$(this).height()-60;
-		$('#index-center').height(hh);
-		});
-});
-</script>
+    <div class="index-center" id="index-center">
+    </div>
+    <script>
+    $(function() {
+        ank.loadhtml("{:U('Ajax/admininfo')}", {}, $('#index-center'));
+        $(window).bind('resize load', function() {
+            var hh = $(this).height() - 60;
+            $('#index-center').height(hh);
+        });
+    });
+    </script>
 </block>

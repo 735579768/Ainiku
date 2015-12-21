@@ -749,7 +749,7 @@ class FileController extends AdminController {
 					'title'   => '文章分类',
 					'note'    => '',
 					'extra'   => $catelist,
-					'is_show' => 1,
+					'is_show' => 3,
 				),
 			);
 			$this->assign('fieldarr1', $field);

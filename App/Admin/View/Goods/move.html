@@ -1,33 +1,34 @@
 <extend name="Public/base" />
 <block name="right">
-
-<!--tool start-->
-<div class="btn-tool">
-<form  id="moveform" class="hform" action="{:U('')}" method="post">
-{:getForm($fieldarr,$data)}
-<input type="hidden" name="id" value="{:I('arcid')}" />
-<a id="okmove" href="javascript:;" class="btn btn-warning">确定移动到此分类</a>
-</form>
-</div>
-
-<!--tool end-->
-<script>
-$(function(){
-	$('#okmove').click(function(e) {
-        var catid=$('select[name="category_id"]').val();
-		var idd=$('input[name="id"]').val();
-		$.ajax({
-			type:'POST',
-			url:"{:U('')}",
-			data:{category_id:catid,id:idd},
-			success: function(da){
-					topmsg(da);
-				}
-			});
-		return false;
+    <!--tool start-->
+    <div class="btn-tool">
+        <form id="moveform" class="hform" action="{:U('')}" method="post">
+            {:getForm($fieldarr,$data)}
+            <input type="hidden" name="id" value="{:I('arcid')}" />
+            <a id="okmove" href="javascript:;" class="btn btn-warning">确定移动到此分类</a>
+        </form>
+    </div>
+    <!--tool end-->
+    <script>
+    $(function() {
+        $('#okmove').click(function(e) {
+            var catid = $('select[name="category_id"]').val();
+            var idd = $('input[name="id"]').val();
+            $.ajax({
+                type: 'POST',
+                url: "{:U('')}",
+                data: {
+                    category_id: catid,
+                    id: idd
+                },
+                success: function(da) {
+                    topmsg(da);
+                }
+            });
+            return false;
+        });
     });
-	});
-</script>
-<!--content start -->
-<!--content end-->
+    </script>
+    <!--content start -->
+    <!--content end-->
 </block>

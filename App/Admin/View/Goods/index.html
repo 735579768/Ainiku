@@ -1,97 +1,92 @@
 <extend name="Public/base" />
 <block name="right">
-<!--tool start-->
-<div class="btn-tool">
-<form id="moveform" class="form-h form-group-h" action="{:U('Goods/move')}" method="post">
-<a href="{:U('Goods/add')}" class="btn btn-parmary">添加产品</a>
-<a href="{:U('Goods/del')}" class="btn btn-danger klbatch">批量移到回收站</a>
-
-<input name="arcid" id="arcid" type="hidden" value="" />
-<a href="javascript:;" id="moveGoods" class="btn btn-paimary">移动选中产品</a>
-</form>
-
-<div class="searchform">
-<form class="form-h form-group-h" action="{:U('')}" method="post">
-{:getForm($fieldarr1,$data)}
-{:getForm($fieldarr,$data)}
-<div class="form-group">
-<input name="title" type="text" value="{:I('title')}" class="form-control input-middle" placeholder="请输入标题" />
-</div>
-
-<a class="sch-btn" href="javascript:;" id="search" ><i class="btn-search"></i></a>
-</form>
-</div>
-
-
-</div>
-
-<!--tool end-->
-
-<!--content start -->
-<div class="content">
-<table class="leftalign" width="100%" border="1" bordercolor="#ededed">
-        <tr class="th">
-		<th width="30" style="text-align:center;"><input class="check-all" type="checkbox" /></th>
-		<th width="30">序号</th>
-        <th>标题</th>
-		<th>分类</th>
-        <th style="width:80px;">标记</th>
-		<th>状态</th>
-		<th style="text-align:center;">操作</th>
-		</tr>
-<volist name="_list" id="vo">
-
-  <tr>
-    <td style="text-align:center;"><input class="check-item" type="checkbox" name="id[]" value="{$vo.goods_id}"/></td>
-    <td>{$key+1}</td>
-    <td class="popupthumb" style="text-align:left;"><a href="{:U('Goods/edit?goods_id='.$vo['goods_id'])}" class="ajax-loadhtml">{$vo.title}</a>
-    <notempty name="vo.pic">
-   <div class="imgbox" _src="{$vo.pic|getPicture=###,'thumbpath'}" ><span class="wrapimg"></span></div></notempty>
-    </td>
-    <td>{$vo.category_id|getCategoryTitle}</td>
-      <td style="text-align:left; cursor:pointer;" title="单击更改"  id="position{$vo.goods_id}" onClick="setPosition('Goods','{$vo.goods_id}','position',$(this).children().eq(0).val(),'#position{$vo.goods_id}')"><input name="position" value="{$vo.position}" type="hidden" />
-      <span class="markbs">{$vo.position|tomark='goods','position'}</span></td>
-    <td><span data-table="Goods" data-id="{$vo.goods_id}" data-field="status"  data-value="{$vo.status}" class="yn"></span></td>
-    <td>
-    	<a href="{:U('Goods/edit?goods_id='.$vo['goods_id'])}"  class="btn btn-primary">编辑</a>
-        <a href="{:U('Goods/del?goods_id='.$vo['goods_id'])}" class="btn btn-danger ajax-list-del">移到回收站</a>
-    </td>
-  </tr>
-</volist>
-</table>
-<div id="page" class="page">{$_page}</div>
-</div>
-<script>
-$(function(){
-	//表格着色
-	$('tr:even').css('background','#f7f7f7');
-	//分类过滤
-	$('select[name="category_id"],select[name="position"]').change(function(e) {
-        $(this).parents('form').submit();
-    });
-	$('select[name="category_id"]').val("{:I('category_id',0)}");
-	//移动文档
-	$('#moveGoods').click(function(e) {
-		var a='';
-        $('.check-item:checked').each(function(e) {
-            var b=$(this).val();
-			if(b!='udefined'){
-			a+=(a==='')?b:(','+b);	
-				}
-			
+    <!--tool start-->
+    <div class="btn-tool">
+        <form id="moveform" class="form-h form-group-h" action="{:U('Goods/move')}" method="post">
+            <a href="{:U('Goods/add')}" class="btn btn-parmary">添加产品</a>
+            <a href="{:U('Goods/del')}" class="btn btn-danger klbatch">批量移到回收站</a>
+            <input name="arcid" id="arcid" type="hidden" value="" />
+            <a href="javascript:;" id="moveGoods" class="btn btn-paimary">移动选中产品</a>
+        </form>
+        <div class="searchform">
+            <form class="form-h form-group-h" action="{:U('')}" method="post">
+                {:getForm($fieldarr1,$data)} {:getForm($fieldarr,$data)}
+                <div class="form-group">
+                    <input name="title" type="text" value="{:I('title')}" class="form-control input-middle" placeholder="请输入标题" />
+                </div>
+                <a class="sch-btn" href="javascript:;" id="search"><i class="btn-search"></i></a>
+            </form>
+        </div>
+    </div>
+    <!--tool end-->
+    <!--content start -->
+    <div class="content">
+        <table class="leftalign" width="100%" border="1" bordercolor="#ededed">
+            <tr class="th">
+                <th width="30" style="text-align:center;">
+                    <input class="check-all" type="checkbox" />
+                </th>
+                <th width="30">序号</th>
+                <th>标题</th>
+                <th>分类</th>
+                <th style="width:80px;">标记</th>
+                <th>状态</th>
+                <th style="text-align:center;">操作</th>
+            </tr>
+            <volist name="_list" id="vo">
+                <tr>
+                    <td style="text-align:center;">
+                        <input class="check-item" type="checkbox" name="id[]" value="{$vo.goods_id}" />
+                    </td>
+                    <td>{$key+1}</td>
+                    <td class="popupthumb" style="text-align:left;"><a href="{:U('Goods/edit?goods_id='.$vo['goods_id'])}" class="ajax-loadhtml">{$vo.title}</a>
+                        <notempty name="vo.pic">
+                            <div class="imgbox" _src="{$vo.pic|getPicture=###,'thumbpath'}"><span class="wrapimg"></span></div>
+                        </notempty>
+                    </td>
+                    <td>{$vo.category_id|getCategoryTitle}</td>
+                    <td style="text-align:left; cursor:pointer;" title="单击更改" id="position{$vo.goods_id}" onClick="setPosition('Goods','{$vo.goods_id}','position',$(this).children().eq(0).val(),'#position{$vo.goods_id}')">
+                        <input name="position" value="{$vo.position}" type="hidden" />
+                        <span class="markbs">{$vo.position|tomark='goods','position'}</span></td>
+                    <td><span data-table="Goods" data-id="{$vo.goods_id}" data-field="status" data-value="{$vo.status}" class="yn"></span></td>
+                    <td>
+                        <a href="{:U('Goods/edit?goods_id='.$vo['goods_id'])}" class="btn btn-primary">编辑</a>
+                        <a href="{:U('Goods/del?goods_id='.$vo['goods_id'])}" class="btn btn-danger ajax-list-del">移到回收站</a>
+                    </td>
+                </tr>
+            </volist>
+        </table>
+        <div id="page" class="page">{$_page}</div>
+    </div>
+    <script>
+    $(function() {
+        //表格着色
+        $('tr:even').css('background', '#f7f7f7');
+        //分类过滤
+        $('select[name="category_id"],select[name="position"]').change(function(e) {
+            $(this).parents('form').submit();
         });
-		if(a===''){
-			topmsg('没有选中文档');
-			return false;
-		}else{
-			$('#arcid').val(a);
-			}
-		$('#moveform').submit();
-    });
-		
-});
+        $('select[name="category_id"]').val("{:I('category_id',0)}");
+        //移动文档
+        $('#moveGoods').click(function(e) {
+            var a = '';
+            $('.check-item:checked').each(function(e) {
+                var b = $(this).val();
+                if (b != 'udefined') {
+                    a += (a === '') ? b : (',' + b);
+                }
 
-	
-</script>
-<!--content end-->
+            });
+            if (a === '') {
+                topmsg('没有选中文档');
+                return false;
+            } else {
+                $('#arcid').val(a);
+            }
+            $('#moveform').submit();
+        });
+
+    });
+    </script>
+    <!--content end-->
 </block>

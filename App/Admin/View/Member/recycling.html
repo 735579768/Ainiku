@@ -1,51 +1,50 @@
 <extend name="Public:base" />
 <block name="right">
-<!--tool start-->
-<div class="btn-tool">
-<a href="{:U('Member/dele')}" class="btn btn-danger klbatch">彻底删除</a>
-
-<div class="searchform">
-<form class="hform" action="{:U('')}" method="post">
-<input name="title" type="text" value="{:I('title')}" class="form-control input-middle" placeholder="请输入用户名" />
-
-<a class="sch-btn" href="javascript:;" id="search" ><i class="btn-search"></i></a>
-</form>
-</div>
-
-
-</div>
-
-<!--tool end-->
-<!--content start -->
-<div class="content">
-<table class="leftalign" width="100%" border="1" bordercolor="#ededed">
-        <tr class="th">
-		<th width="50" style="text-align:center;"><input class="check-all" type="checkbox"   /></th>
-		<th width="50">ID</th>
-		<th>用户名</th>
-        <th>用户组</th>
-		<th>登陆数</th>
-        <th>登陆时间</th>
-        <th>登陆IP</th>
-		<th style="text-align:center;">操作</th>
-		</tr>
-<volist name="_list" id="vo">
-  <tr>
-    <td style="text-align:center;"><input class="check-item" type="checkbox" name="id[]" value="{$vo.member_id}"/></td>
-    <td>{$key+1}</td>
-    <td>{$vo.username}</td>
-    <td>{$vo.member_group_id|getMemberGroup='title'}</td>
-    <td>{$vo.login}</td>
-    <td>{$vo.update_time|time_format}</td>
-    <td title="{$vo.last_login_adr}">{$vo.last_login_ip}</td>
-    <td>
-    	 <a href="{:U('Member/huifu?member_id='.$vo['member_id'])}" class="btn btn-primary ajax-href">恢复</a>
-         <a href="{:U('Member/dele?member_id='.$vo['member_id'])}" class="btn btn-danger ajax-href">删除</a>
-    </td>
-  </tr>
-</volist>
-</table>
-<div id="page" class="page">{$_page}</div>
-</div>
-<!--content end-->
+    <!--tool start-->
+    <div class="btn-tool">
+        <a href="{:U('Member/dele')}" class="btn btn-danger klbatch">彻底删除</a>
+        <div class="searchform">
+            <form class="hform" action="{:U('')}" method="post">
+                <input name="title" type="text" value="{:I('title')}" class="form-control input-middle" placeholder="请输入用户名" />
+                <a class="sch-btn" href="javascript:;" id="search"><i class="btn-search"></i></a>
+            </form>
+        </div>
+    </div>
+    <!--tool end-->
+    <!--content start -->
+    <div class="content">
+        <table class="leftalign" width="100%" border="1" bordercolor="#ededed">
+            <tr class="th">
+                <th width="50" style="text-align:center;">
+                    <input class="check-all" type="checkbox" />
+                </th>
+                <th width="50">ID</th>
+                <th>用户名</th>
+                <th>用户组</th>
+                <th>登陆数</th>
+                <th>登陆时间</th>
+                <th>登陆IP</th>
+                <th style="text-align:center;">操作</th>
+            </tr>
+            <volist name="_list" id="vo">
+                <tr>
+                    <td style="text-align:center;">
+                        <input class="check-item" type="checkbox" name="id[]" value="{$vo.member_id}" />
+                    </td>
+                    <td>{$key+1}</td>
+                    <td>{$vo.username}</td>
+                    <td>{$vo.member_group_id|getMemberGroup='title'}</td>
+                    <td>{$vo.login}</td>
+                    <td>{$vo.update_time|time_format}</td>
+                    <td title="{$vo.last_login_adr}">{$vo.last_login_ip}</td>
+                    <td>
+                        <a href="{:U('Member/huifu?member_id='.$vo['member_id'])}" class="btn btn-primary ajax-href">恢复</a>
+                        <a href="{:U('Member/dele?member_id='.$vo['member_id'])}" class="btn btn-danger ajax-href">删除</a>
+                    </td>
+                </tr>
+            </volist>
+        </table>
+        <div id="page" class="page">{$_page}</div>
+    </div>
+    <!--content end-->
 </block>

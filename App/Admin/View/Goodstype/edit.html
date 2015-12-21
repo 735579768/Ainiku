@@ -1,21 +1,20 @@
 <extend name="Public/base" />
 <block name="right">
-
-<!--tool start-->
-
-
-<!--tool end-->
-
-<!--content start -->
-<div class="content">
-<form class="autoform" action="{:U('')}" method="post">
-{:getForm($fieldarr,$data)}
-<div class="form-group center">
-<input type="hidden" name="goods_type_id" value="{$data.goods_type_id}" />
-<a href="javascript:;" id="submitbtn" class="btn btn-parmary btn-large ajax-post"><empty name="data.goods_type_id">确定添加<else />确定更新</empty></a>
-<a href="javascript:;" class="btn btn-warning btn-large return">返回</a>
-</div>
-</form>
-</div>
-<!--content end-->
+    <!--tool start-->
+    <!--tool end-->
+    <!--content start -->
+    <div class="content">
+        <form class="autoform" action="{:U('')}" method="post">
+            {:getForm($fieldarr,$data)}
+            <div class="form-group center">
+                <input type="hidden" name="goods_type_id" value="{$data.goods_type_id}" />
+                <a href="javascript:;" id="submitbtn" class="btn btn-parmary btn-large ajax-post">
+                    <empty name="data.goods_type_id">确定添加
+                        <else />确定更新</empty>
+                </a>
+                <a href="javascript:;" class="btn btn-warning btn-large return">返回</a>
+            </div>
+        </form>
+    </div>
+    <!--content end-->
 </block>

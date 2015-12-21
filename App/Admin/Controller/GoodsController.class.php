@@ -284,7 +284,7 @@ class GoodsController extends AdminController {
 					'title'   => '所属分类',
 					'note'    => '',
 					'extra'   => $catelist,
-					'is_show' => 1,
+					'is_show' => 3,
 				),
 			);
 			$this->assign('fieldarr', $field);

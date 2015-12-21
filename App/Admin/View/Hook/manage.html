@@ -1,56 +1,55 @@
 <extend name="Public:base" />
 <block name="right">
-<div class="module cl">
-    
-    	<form action="{:U('Hook/manage')}" method="post">
-	<div class="form-group">
-   	 <label class="form-label" for="exampleInputEmail1">钩子名字</label>
-   	 <input type="text" class="form-control input-large" name="name" value="{$data.name}" />
-  	</div>
-	<div class="form-group">
-   	 <label class="form-label" for="exampleInputEmail1">钩子描述</label>
-   	 <textarea type="text" class="form-control input-large" name="descr" >{$data.descr}</textarea>
-  	</div>
-  	<input type="hidden" name="id" value="{$data.id}">
-  	<a href="javascript:;" class="btn btn-primary ajax-post btn-large">保存</a>
-  </form>
 <style>
 /* 拖动排序列表 */
 .itemblock { position:relative;}
 .edit_sort {display: inline-block;border:1px solid #cdcdcd;color: #404040;line-height: 35px;width: 20%;height:376px;}
 .edit_sort span { height:30px; line-height:30px;background: #EEEEEE; width: 100%; display: inline-block;font-weight: bold; text-indent:10px;    border-bottom: 1px solid #cdcdcd;    margin-bottom:5px;}
 .edit_sort ul {padding: 0 5px;overflow-y:scroll;height: 334px;}
-.dragsort li {margin-bottom: 5px; padding: 0 6px; height: 30px;line-height: 30px;border: 1px solid #eee;background-color: #fff;	overflow: hidden;}
+.dragsort li {margin-bottom: 5px; padding: 0 6px; height: 30px;line-height: 30px;border: 1px solid #eee;background-color: #fff; overflow: hidden;}
 .dragsort li em { font-style: normal;}
 .dragsort li b {display: none;float: right; padding: 0 6px;font-weight: bold;color: #000;}
 .dragsort li:hover b { display: block;}
 .dragsort .draging-place { border-style: dashed;border-color: #ccc;padding:0px 6px;}
 </style>
-<br>
-<div class="itemblock">
-<div class="edit_sort"> <span>插件列表</span>
-  <ul class="dragsort needdragsort" data-group="1" data-listidx="0">
-  	<volist name="pluginlist" id="vo">
-  	<li class="getSort" style="cursor: pointer;"> <em data="3">{$vo.name}</em>
-         <input type="hidden"  value="{$vo.id}">
-    </li>
-  	</volist>
-  </ul>
+<div class="module cl">
+    <form action="{:U('Hook/manage')}" method="post">
+        <div class="form-group">
+            <label class="form-label" for="exampleInputEmail1">钩子名字</label>
+            <input type="text" class="form-control input-large" name="name" value="{$data.name}" />
+        </div>
+        <div class="form-group">
+            <label class="form-label" for="exampleInputEmail1">钩子描述</label>
+            <textarea type="text" class="form-control input-large" name="descr">{$data.descr}</textarea>
+        </div>
+        <input type="hidden" name="id" value="{$data.id}">
+        <a href="javascript:;" class="btn btn-primary ajax-post btn-large">保存</a>
+    </form>
+    <br>
+    <div class="itemblock">
+        <div class="edit_sort"> <span>插件列表</span>
+            <ul class="dragsort needdragsort" data-group="1" data-listidx="0">
+                <volist name="pluginlist" id="vo">
+                    <li class="getSort" style="cursor: pointer;"> <em data="3">{$vo.name}</em>
+                        <input type="hidden" value="{$vo.id}">
+                    </li>
+                </volist>
+            </ul>
+        </div>
+        <div class="edit_sort"> <span>已挂载列表</span>
+            <ul class="dragsort needdragsort saveplugin" data-group="2" data-listidx="1">
+                <volist name="pluginlisted" id="vo">
+                    <li class="getSort" style="cursor: pointer;"> <em data="3">{$vo.name}</em>
+                        <input type="hidden" value="{$vo.id}">
+                    </li>
+                </volist>
+            </ul>
+        </div>
+    </div>
 </div>
-<div class="edit_sort"> <span>已挂载列表</span>
-  <ul class="dragsort needdragsort saveplugin" data-group="2" data-listidx="1">
-     <volist name="pluginlisted" id="vo">
-  	<li class="getSort" style="cursor: pointer;"> <em data="3">{$vo.name}</em>
-      <input type="hidden"  value="{$vo.id}">
-    </li>
-  	</volist>
 
-  </ul>
-</div>
-</div>
-	</div>
-	
 </block>
+
 <block name="script">
 <script src="__JS__/jquery-dragsort.min.js" type="text/javascript"></script>
 	<script>
@@ -72,10 +71,10 @@ $(function(){
 //			 });
 //	     	idd={$data.id};
 //	    	$.post('{:U('Hook/savepluginlist')}',{val:a,id:idd},function(data){
-//	    		
-//	    	}); 
+//
+//	    	});
 //	     }
-//	 }); 
+//	 });
 	$('.itemblock').kldrag({
                'spacestyle':'',//点位空间附加样式
 			   'dragitem':'.getSort',//排序的项目类选择器
@@ -91,10 +90,10 @@ $(function(){
 			   }
 			 });
 	     	var idd={$data.id};
-	    	$.post('{:U('Hook/savepluginlist')}',{val:a,id:idd},function(data){
-	    		
-	    	}); 
-						
+	    	$.post("{:U('Hook/savepluginlist')}",{val:a,id:idd},function(data){
+
+	    	});
+
 						}
 					});
 });

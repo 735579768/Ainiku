@@ -2,66 +2,72 @@
 <block name="right">
     <!-- 应用列表 -->
     <div class="data-table table-striped">
-            <table width="100%" border="0">
-                    <tr class="th">
-                    <th width="200">备份名称</th>
-                    <th width="40">卷数</th>
-                    <th width="80">压缩</th>
-                    <th width="80">数据大小</th>
-                    <th width="200">备份时间</th>
-                    <th>下载</th>
-                    <th style="text-align:center;">操作</th>
+        <table width="100%" border="0">
+            <tr class="th">
+                <th width="200">备份名称</th>
+                <th width="40">卷数</th>
+                <th width="80">压缩</th>
+                <th width="80">数据大小</th>
+                <th width="200">备份时间</th>
+                <th>下载</th>
+                <th style="text-align:center;">操作</th>
+            </tr>
+            <volist name="list" id="data">
+                <tr>
+                    <td align="center">{$data.time|date='Ymd-His',###}</td>
+                    <td class="center">{$data.part}</td>
+                    <td class="center">{$data.compress}</td>
+                    <td class="center">{$data.size|format_bytes}</td>
+                    <td class="center">{$key}</td>
+                    <td class="center"><a href="/Data/DataBak/{$data.time|date='Ymd-His',###}-1.sql.gz" target="_blank">下载</a></td>
+                    <td class="action center">
+                        <a class="db-import btn btn-primary" href="{:U('import?time='.$data['time'])}">还原</a>&nbsp;
+                        <a class="ajax-href-del confirm btn btn-danger" href="{:U('del?time='.$data['time'])}">删除</a>
+                    </td>
                 </tr>
-                <volist name="list" id="data">
-                    <tr>
-                        <td align="center">{$data.time|date='Ymd-His',###}</td>
-                        <td class="center">{$data.part}</td>
-                        <td class="center">{$data.compress}</td>
-                        <td class="center">{$data.size|format_bytes}</td>
-                        <td class="center">{$key}</td>
-                        <td class="center"><a href="/Data/DataBak/{$data.time|date='Ymd-His',###}-1.sql.gz" target="_blank">下载</a></td>
-                        <td class="action center">
-                            <a class="db-import btn btn-primary" href="{:U('import?time='.$data['time'])}">还原</a>&nbsp;
-                            <a class="ajax-href-del confirm btn btn-danger" href="{:U('del?time='.$data['time'])}">删除</a>
-                        </td>
-                    </tr>
-                </volist>
+            </volist>
             </tbody>
         </table>
     </div>
     <!-- /应用列表 -->
-
     <script type="text/javascript">
-        $(".db-import").click(function(){
-            var self = this, status = ".";
-            $.get(self.href, success, "json");
-            window.onbeforeunload = function(){ return "正在还原数据库，请不要关闭！" }
-            return false;
-        
-            function success(data){
-                if(data.status){
-                    if(data.gz){
-                        data.info += status;
-                        if(status.length === 5){
-                            status = ".";
-                        } else {
-                            status += ".";
-                        }
+    $(".db-import").click(function() {
+        var self = this,
+            status = ".";
+        $.get(self.href, success, "json");
+        window.onbeforeunload = function() {
+            return "正在还原数据库，请不要关闭！"
+        }
+        return false;
+
+        function success(data) {
+            if (data.status) {
+                if (data.gz) {
+                    data.info += status;
+                    if (status.length === 5) {
+                        status = ".";
+                    } else {
+                        status += ".";
                     }
-                    $(self).parent().prev().text(data.info);
-                    if(data.part){
-                        $.get(self.href, 
-                            {"part" : data.part, "start" : data.start}, 
-                            success, 
-                            "json"
-                        );
-                    }  else {
-                        window.onbeforeunload = function(){ return null; }
-                    }
-                } else {
-                    topmsg(data,2,false);
                 }
+                $(self).parent().prev().text(data.info);
+                if (data.part) {
+                    $.get(self.href, {
+                            "part": data.part,
+                            "start": data.start
+                        },
+                        success,
+                        "json"
+                    );
+                } else {
+                    window.onbeforeunload = function() {
+                        return null;
+                    }
+                }
+            } else {
+                topmsg(data, 2, false);
             }
-        });
+        }
+    });
     </script>
 </block>

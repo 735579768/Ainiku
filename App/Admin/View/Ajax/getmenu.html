@@ -1,24 +1,23 @@
 <empty name="_GROUPLIST_">
-<volist name=":C('ADMIN_CUSTOM_MENU')" id="vo">
-<dl class="menu">
-        	<dt class="mt"><a href="javascript:;"><i class="menuopenico"></i>{$key}</a></dt>
-                <volist name="vo" id="v" >
-                  <dd class="mitem"><a class=""  href="{$v['url']|U}">{$v.title}</a></dd>
-                </volist>            
-
-</dl>
-</volist>
-<else />
-<volist name="_GROUPLIST_" id="vo">
-<dl class="menu">
-        	<dt class="mt"><a href="javascript:;"><i class="menuopenico"></i>{$vo.group|default='默认'}</a></dt>
+    <volist name=":C('ADMIN_CUSTOM_MENU')" id="vo">
+        <dl class="menu">
+            <dt class="mt"><a href="javascript:;"><i class="menuopenico"></i>{$key}</a></dt>
+            <volist name="vo" id="v">
+                <dd class="mitem"><a class="" href="{$v['url']|U}">{$v.title}</a></dd>
+            </volist>
+        </dl>
+    </volist>
+    <else />
+    <volist name="_GROUPLIST_" id="vo">
+        <dl class="menu">
+            <dt class="mt"><a href="javascript:;"><i class="menuopenico"></i>{$vo.group|default='默认'}</a></dt>
             <volist name="_CHILDNNAV_" id="v">
                 <if condition="$v['group'] eq $vo['group']">
-          	  <dd class="mitem"><a class=""  href="{:U($v['url'])}">{$v.title}</a></dd>
-              </if>
+                    <dd class="mitem"><a class="" href="{:U($v['url'])}">{$v.title}</a></dd>
+                </if>
             </volist>
-</dl>
-</volist>
+        </dl>
+    </volist>
 </empty>
 <script>
 bindleftmenu();

@@ -1,48 +1,49 @@
 <extend name="Public/base" />
 <block name="right">
-<!--title start-->
-<div class="main-title"><h2>{$meta_title}</h2></div>
-<!--title end -->
+    <!--title start-->
+    <div class="main-title">
+        <h2>{$meta_title}</h2></div>
+    <!--title end -->
+    <!--tool start-->
+    <!--tool end-->
+    <!--content start -->
+    <div class="content">
+        <form class="autoform" action="{:U('')}" method="post">
+            {:getForm($fieldarr,$data)}
+            <div class="form-group center">
+                <input type="hidden" name="id" value="{$data.id}" />
+                <a href="javascript:;" id="submitbtn" class="btn btn-parmary btn-large ajax-post">
+                    <empty name="data.id">确定添加
+                        <else />确定更新</empty>
+                </a>
+                <a href="javascript:;" class="btn btn-warning btn-large return">返回</a>
+            </div>
+        </form>
+    </div>
+    <if condition="($data.id eq '') or ($data.status eq '2')">
+        <script>
+        function _after_post(da) {
+            var id = $('input[name="id"]').val();
+            if (id === '') {
+                $('input[name="id"]').val(da.id)
+            };
+        }
+        if (typeof draftboxtimeid !== 'undefined') clearInterval(draftboxtimeid);
+        window.draftboxtimeid = setInterval(function() {
+            if ($('select[name="cat_id"]').length > 0) {
+                var catid = $('select[name="cat_id"]').val();
+                var title = $('input[name="title"]').val();
+                if (catid != 0 && title != '') {
+                    $('input[type="radio"][value="2"]').attr('checked', 'checked');
+                    $('#submitbtn').click();
+                }
+            } else {
+                if (typeof draftboxtimeid !== 'undefined') clearInterval(draftboxtimeid);
+            }
 
-<!--tool start-->
-
-
-<!--tool end-->
-
-<!--content start -->
-<div class="content">
-<form class="autoform" action="{:U('')}" method="post">
-{:getForm($fieldarr,$data)}
-<div class="form-group center">
-<input type="hidden" name="id" value="{$data.id}" />
-<a href="javascript:;" id="submitbtn" class="btn btn-parmary btn-large ajax-post"><empty name="data.id">确定添加<else />确定更新</empty></a>
-<a href="javascript:;" class="btn btn-warning btn-large return">返回</a>
-</div>
-</form>
-</div>
-
-<if condition="($data.id eq '') or ($data.status eq '2')">
-<script>
-function _after_post(da){
-	var id=$('input[name="id"]').val();
-	if(id===''){$('input[name="id"]').val(da.id)};
-	}
-if(typeof draftboxtimeid!=='undefined')clearInterval(draftboxtimeid);
-window.draftboxtimeid=setInterval(function(){
-	if($('select[name="cat_id"]').length>0){
-	var catid=$('select[name="cat_id"]').val();
-	var title=$('input[name="title"]').val();
-	if(catid!=0 && title!=''){
-		$('input[type="radio"][value="2"]').attr('checked','checked');
-		$('#submitbtn').click();		
-		}
-	}else{
-		if(typeof draftboxtimeid!=='undefined')clearInterval(draftboxtimeid);
-		}
-
-	},{:C('DRAFTBOX_TIME')});
-</script>
-</if>
-
-<!--content end-->
+        }, {: C('DRAFTBOX_TIME')
+        });
+        </script>
+    </if>
+    <!--content end-->
 </block>

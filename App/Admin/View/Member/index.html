@@ -1,90 +1,88 @@
 <extend name="Public:base" />
 <block name="right">
-<!--tool start-->
-<div class="btn-tool">
-<a href="{:U('Member/add')}" class="btn btn-parmary">添加用户</a>
-<a href="{:U('Member/del')}" class="btn btn-danger klbatch">批量移动到回收站</a>
+    <!--tool start-->
+    <div class="btn-tool">
+        <a href="{:U('Member/add')}" class="btn btn-parmary">添加用户</a>
+        <a href="{:U('Member/del')}" class="btn btn-danger klbatch">批量移动到回收站</a>
+        <div class="searchform">
+            <form class="form-h form-group-h" action="{:U('')}" method="post">
+                <div class="form-group">
+                    <input name="title" type="text" value="{:I('title')}" class="form-control input-middle" placeholder="请输入用户名" />
+                </div>
+                <a class="sch-btn" href="javascript:;" id="search"><i class="btn-search"></i></a>
+            </form>
+        </div>
+    </div>
+    <!--tool end-->
+    <!--content start -->
+    <div class="content">
+        <table class="leftalign" width="100%" border="1" bordercolor="#ededed">
+            <tr class="th">
+                <th width="50" style="text-align:center;">
+                    <input class="check-all" type="checkbox" />
+                </th>
+                <th width="30">序号</th>
+                <th>用户名</th>
+                <th>用户组</th>
+                <th>登陆数</th>
+                <th>登陆时间</th>
+                <th>登陆IP</th>
+                <th>状态</th>
+                <th style="text-align:center;">操作</th>
+            </tr>
+            <volist name="_list" id="vo">
+                <tr>
+                    <td class="center">
+                        <neq name="vo.member_id" value="1">
+                            <input class="check-item" type="checkbox" name="id[]" value="{$vo.member_id}" />
+                        </neq>
+                    </td>
+                    <td class="center">{$key+1}</td>
+                    <td>{$vo.username}</td>
+                    <td class="center">{$vo.member_group_id|getMemberGroup='title'}</td>
+                    <td class="center">{$vo.login}</td>
+                    <td class="center">{$vo.update_time|time_format}</td>
+                    <td class="center" title="{$vo.last_login_adr}">{$vo.last_login_ip}</td>
+                    <td>
+                        <neq name="vo.member_id" value="1"><span data-table="Member" data-id="{$vo.member_id}" data-field="status" data-value="{$vo.status}" class="yn"></span></neq>
+                    </td>
+                    <td>
+                        <a href="{:U('Member/updatepwd?member_id='.$vo['member_id'])}" class="btn btn-primary updatepwd">修改密码</a>
+                        <a href="{:U('Member/edit?member_id='.$vo['member_id'])}" class="btn btn-primary">编辑</a>
+                        <neq name="vo.member_id" value="1">
+                            <a href="{:U('Member/del?member_id='.$vo['member_id'])}" class="btn btn-danger ajax-list-del">移到回收站</a>
+                        </neq>
+                    </td>
+                </tr>
+            </volist>
+        </table>
+        <div id="page" class="page">{$_page}</div>
+    </div>
+    <script>
+    //修改密码
+    $(function() {
+        $('.updatepwd').click(function(e) {
+            $('body').append('<div id="updatebg" class="bg"></div>');
+            var uri = $(this).attr('href');
+            ank.ajax({
+                url: uri,
+                type: 'get',
+                success: function(da) {
+                    $('#updatebg').remove();
+                    ank.msgDialog({
+                        title: '修改密码',
+                        content: da,
+                        ok: function() {
 
-<div class="searchform">
-<form class="form-h form-group-h" action="{:U('')}" method="post">
-<div class="form-group">
-<input name="title" type="text" value="{:I('title')}" class="form-control input-middle" placeholder="请输入用户名" />
-</div>
-<a class="sch-btn" href="javascript:;" id="search" ><i class="btn-search"></i></a>
-</form>
-</div>
+                        }
+                    });
 
+                }
+            });
+            return false;
+        });
 
-</div>
-
-<!--tool end-->
-<!--content start -->
-<div class="content">
-<table class="leftalign" width="100%" border="1" bordercolor="#ededed">
-        <tr class="th">
-		<th width="50" style="text-align:center;"><input class="check-all" type="checkbox"   /></th>
-		<th width="30">序号</th>
-		<th>用户名</th>
-        <th>用户组</th>
-		<th>登陆数</th>
-        <th>登陆时间</th>
-        <th>登陆IP</th>
-        <th>状态</th>
-		<th style="text-align:center;">操作</th>
-		</tr>
-<volist name="_list" id="vo">
-  <tr>
-    <td class="center">
-    <neq name="vo.member_id" value="1">
-    <input class="check-item" type="checkbox" name="id[]" value="{$vo.member_id}"/>
-    </neq>
-    </td>
-    <td class="center">{$key+1}</td>
-    <td>{$vo.username}</td>
-    <td class="center">{$vo.member_group_id|getMemberGroup='title'}</td>
-    <td class="center">{$vo.login}</td>
-    
-    <td class="center">{$vo.update_time|time_format}</td>
-    <td class="center" title="{$vo.last_login_adr}">{$vo.last_login_ip}</td>
-    <td><neq name="vo.member_id" value="1"><span data-table="Member" data-id="{$vo.member_id}" data-field="status"  data-value="{$vo.status}" class="yn"></span></neq></td>
-    <td>
-    	 <a href="{:U('Member/updatepwd?member_id='.$vo['member_id'])}" class="btn btn-primary updatepwd">修改密码</a>
-         <a href="{:U('Member/edit?member_id='.$vo['member_id'])}" class="btn btn-primary">编辑</a>
-      <neq name="vo.member_id" value="1">
-       <a href="{:U('Member/del?member_id='.$vo['member_id'])}" class="btn btn-danger ajax-list-del">移到回收站</a>
-      </neq>
-    </td>
-  </tr>
-</volist>
-</table>
-<div id="page" class="page">{$_page}</div>
-</div>
-<script>
-//修改密码
-$(function(){
-	$('.updatepwd').click(function(e) {
-		$('body').append('<div id="updatebg" class="bg"></div>');
-		var uri=$(this).attr('href');
-		ank.ajax({
-			url:uri,
-			type:'get',
-			success:function(da){
-				$('#updatebg').remove();
-				ank.msgDialog({
-					title:'修改密码',
-					content:da,
-					ok:function(){
-						
-						}
-					});
-				
-				}
-			});	
-		return false;	
     });
-
-});
-
-</script>
-<!--content end-->
+    </script>
+    <!--content end-->
 </block>

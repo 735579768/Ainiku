@@ -1,23 +1,23 @@
 <extend name="Public:base" />
 <block name="right">
-<div class="content cl">
-    	<form action="{:U('Hook/add')}" method="post">
-	<div class="form-group">
-   	 <label class="form-label" for="exampleInputEmail1">钩子名字</label>
-   	 <input type="text" class="form-control input-large" name="name" value="{$data.name}" />
-  	</div>
-  <div class="form-group">
-   	 <label  class="form-label" for="exampleInputEmail1">钩子标识符(填写后不可更改)</label>
-   	 <input type="text" class="form-control input-large" name="mark" value="{$data.mark}" />
-  	</div>
-	<div class="form-group">
-   	 <label class="form-label" for="exampleInputEmail1">钩子描述</label>
-   	 <textarea type="text" class="form-control input-large" name="descr" >{$data.descr}</textarea>
-  	</div>
-    <div class="form-group">
-  	<input type="hidden" name="id" value="{$info.id}"  />
-    <a href="javascript:;" class="btn btn-primary btn-large ajax-post">添加</a>
-  </div>
-  </form>
-  </div>
- </block>
+    <div class="content cl">
+        <form action="{:U('Hook/add')}" method="post">
+            <div class="form-group">
+                <label class="form-label" for="exampleInputEmail1">钩子名字</label>
+                <input type="text" class="form-control input-large" name="name" value="{$data.name}" />
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="exampleInputEmail1">钩子标识符(填写后不可更改)</label>
+                <input type="text" class="form-control input-large" name="mark" value="{$data.mark}" />
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="exampleInputEmail1">钩子描述</label>
+                <textarea type="text" class="form-control input-large" name="descr">{$data.descr}</textarea>
+            </div>
+            <div class="form-group">
+                <input type="hidden" name="id" value="{$info.id}" />
+                <a href="javascript:;" class="btn btn-primary btn-large ajax-post">添加</a>
+            </div>
+        </form>
+    </div>
+</block>
