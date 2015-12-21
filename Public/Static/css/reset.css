@@ -58,6 +58,12 @@ select.form-control{display:inline-block;width:auto;height:30px;}
 .form-control{transition:all .3s;background-color:#ffffff;border:1px solid #e6e6e6;color:#555555;}
 .form-control:hover{border-color:#dfdfdf;}
 .form-control:focus{border-color:#66afe9;}
+/**去掉谷歌表单中的黄背景**/
+input:-webkit-autofill,textarea:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0px 1000px white inset!important;}
+/**表单外包括元素**/
+.form-group .input-wrap{display:block;border:solid 1px #ededed;padding:0px 5px;border-radius: 5px;}
+.form-group .input-wrap .form-control{margin:0px;border:none;outline:none;box-shadow:none;padding:5px 0px;}
+.form-group-h .input-wrap{display: inline-block;}
 /*********************************按钮样式***********************************/
 .btn{border-radius:4px;transition:all .3s;-webkit-transition:all .3s;-moz-transition:all .3s;-o-transition:all .3s;text-decoration:none;display:inline-block;margin-bottom:0;font-weight:normal;text-align:center;vertical-align:middle;cursor:pointer;background-image:none;white-space:nowrap;padding:5px 10px;font-size:14px;line-height:1.428571429;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none;letter-spacing:0px;border:solid 1px transparent;color:#fff;margin-left:1px;}
 /*******按钮大小******/
