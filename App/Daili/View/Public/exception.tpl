@@ -1,4 +1,4 @@
-<?php if(!APP_DEBUG ){ 
+<?php if(!APP_DEBUG ){
     	header('HTTP/1.1 404 Not Found');
 		header("status: 404 Not Found");
 ?>
