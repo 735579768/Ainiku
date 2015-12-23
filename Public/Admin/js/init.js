@@ -210,7 +210,7 @@ $(function() {
 		var sh=$(window).height();
 		var ih=$(this).find('.imgbox').height();
 		console.log(top,sh);
-		if(sh-top<ih && top>=ih){
+		if(sh-top-20<ih && top>=ih){
 			$(this).find('.imgbox').css({
 				top:'-'+ih+'px'
 			});
