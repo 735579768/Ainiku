@@ -20,7 +20,7 @@
             a.xxx = _t.offset().left;
             a.yyy = _t.offset().top;
             a._x = e.pageX - a.xxx;
-            a._y = e.pageY - a.yyy;			
+            a._y = e.pageY - a.yyy;
 			};
 		var ismove=function(e){
 				if (opts.titleheight === 0 || opts.titleheight >= e.pageY-_t.offset().top) {
@@ -28,7 +28,7 @@
 					return true;
 					}else{
 					_t.css("cursor", "auto");
-					return false;	
+					return false;
 						}
 			};
         _t.bind("mousedown", function(e) {
@@ -114,15 +114,15 @@ $(function() {
 									}
 								});
 								_this.removeClass("disabled");
-								$('#klbg').remove();	
+								$('#klbg').remove();
 						},
 						dataType:"JSON"
 					});
 				},
 			'cancel':function(){}
 			});
-        return false;        
-        
+        return false;
+
     });
     //失去焦点提交事件
     $(".ajax-blur").bind("change", function() {
@@ -169,7 +169,7 @@ $(function() {
 						_this.attr("data-value", 1);
 						_this.removeClass("n");
 						_this.addClass("y");
-					}				
+					}
 				};
             data1 = data1 ? 0 :1;
             if (data1 !== "" && table1 !== "" && field1 !== "" && id1 !== "") {

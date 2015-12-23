@@ -185,7 +185,7 @@ $(function() {
 				$('.menu dt a').eq(0).click();
 			}
 		}
-		//设置默认左边菜单end////////////////////////////////////////////////////////////////////////	
+		//设置默认左边菜单end////////////////////////////////////////////////////////////////////////
 	};
 	bindleftmenu();
 
@@ -197,11 +197,23 @@ $(function() {
 			$('.check-item').prop('checked', false);
 		}
 	});
+	//绑定列表中的图片显示功能
 	$('.popupthumb').hover(function() {
-		var len = $(this).find('img').length;
+		var _this=$(this);
+		var len = _this.find('img').length;
 		if (len == 0) {
 			var src = $(this).find('.imgbox').attr('_src');
 			$(this).find('.wrapimg').append('<img src="' + src + '" width="" height="" />');
+		}
+		//查找位置
+		var top=_this.offset().top;
+		var sh=$(window).height();
+		var ih=$(this).find('.imgbox').height();
+		console.log(top,sh);
+		if(sh-top<ih && top>=ih){
+			$(this).find('.imgbox').css({
+				top:'-'+ih+'px'
+			});
 		}
 		$(this).find('.imgbox').show();
 	}, function() {
@@ -361,6 +373,6 @@ $(function() {
 	//			});
 	//			wt>ww&&(ww=wt);
 	//		});
-	//		$('tr th:last-child').css('width',ww+10);	
+	//		$('tr th:last-child').css('width',ww+10);
 	//	},1000);
 });
