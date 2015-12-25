@@ -4,6 +4,45 @@ use Think\Controller;
 
 defined("ACCESS_ROOT") || die("Invalid access");
 class CaijiController extends HomeController {
+	function createjs() {
+		$sheng = '';
+		$shi   = '';
+		$qu    = '';
+		$list  = M('Area')->field('area_id,parent_id,area_name')->where('parent_id=0')->order('area_id asc')->select();
+		$i     = true;
+		$j     = true;
+		$k     = true;
+		foreach ($list as $key => $value) {
+			$sheng .= $i ? "{$value['area_id']}:'{$value['area_name']}'" : ",{$value['area_id']}:'{$value['area_name']}'";
+			//查询市
+			$list1 = M('Area')->field('area_id,parent_id,area_name')->order('area_id asc')->where('parent_id=' . $value['area_id'])->select();
+
+			$shi .= $j ? "{$value['area_id']}:{" : ",{$value['area_id']}:{";
+			$j = false;
+			$m = true;
+			foreach ($list1 as $ke => $va) {
+				$shi .= $m ? "{$va['area_id']}:'{$va['area_name']}'" : ",{$va['area_id']}:'{$va['area_name']}'";
+				$m = false;
+				//查询区域
+				$list2 = M('Area')->field('area_id,parent_id,area_name')->order('area_id asc')->where('parent_id=' . $va['area_id'])->select();
+				$qu .= $k ? "{$va['area_id']}:{" : ",{$va['area_id']}:{";
+				$k = false;
+				$n = true;
+				foreach ($list2 as $ka => $v) {
+					$qu .= $n ? "{$v['area_id']}:'{$v['area_name']}'" : ",{$v['area_id']}:'{$v['area_name']}'";
+					$n = false;
+				}
+				$qu .= "}";
+			}
+			$shi .= "}";
+			$i = false;
+		}
+		echo "var selectdata={'sheng':{{$sheng}},'shi':{{$shi}},'qu':{{$qu}}};";
+/*		echo "var sheng={{$sheng}};";
+echo "var shi={{$shi}};";
+echo "var qu={{$qu}};";*/
+		die();
+	}
 	//查询数据库中是不是有外链接
 	function picurl() {
 		$map['path'] = array('like', '%http%');
