@@ -560,100 +560,18 @@ function uploadFile{$field['name']}(file, data){
 </script>
           </case>
             <case value="liandong">
+<ank:insert type="js"  name="city" />
             <style>select.selarea{ width:150px; overflow:hidden;}</style>
 <input type="hidden" id="ssq{$field['name']}"  name="{$field['name']}"  value="{$field['data']}" />
  <select id="Province{$field['name']}" class="form-control selarea"><option value="0">请选择--</option></select>
 <select id="city{$field['name']}" class="form-control selarea"><option value="0">请选择--</option></select>
 <select id="area1{$field['name']}" class="form-control selarea"><option value="0">请选择--</option></select>
 <select id="area11{$field['name']}" class="form-control selarea" style="display:none;"><option value="0">请选择--</option></select>
-                <script>
-                $(function(){
-                   var arr=$('#ssq{$field['name']}').val();
-				   arr=arr.split(',');
-                    $.ajax({
-                    type:'post',
-                    url:"{:U('Region/index')}",
-                    data:{id:0,selid:arr[0]},
-                    success: function(da){
-                        $('#Province{$field['name']}').html(da);
-						if($('#Province{$field['name']}').val()!=0){
-                        $('#Province{$field['name']}').change();
-						}
-						setssq{$field['name']}();
-                        }
-                    });
-					$('#Province{$field['name']}').change(function(e) {
-							var idd=$(this).val();
-							if(idd!=0){
-								$.ajax({
-									type:'post',
-									url:"{:U('Region/index')}",
-									data:{id:idd,selid:arr[1]},
-									success: function(da){
-										$('#city{$field['name']}').html(da);
-										$('#city{$field['name']}').change();
-										setssq{$field['name']}();
-										}
-								});
-							}else{
-						$('#city{$field['name']}').html('<option value="0">请选择--</option></select>');
-						$('#city{$field['name']}').change();
-						setssq{$field['name']}();
-										}
-                    });
-
-                    $('#city{$field['name']}').change(function(e) {
-                        var idd=$(this).val();
-							if(idd!=0){
-                            $.ajax({
-                                type:'post',
-                                url:"{:U('Region/index')}",
-                                data:{id:idd,selid:arr[2]},
-                                success: function(da){
-                                    $('#area1{$field['name']}').html(da);
-									$('#area1{$field['name']}').change();
-									setssq{$field['name']}();
-                                    }
-                            });
-							}else{
-								$('#area1{$field['name']}').html('<option value="0">请选择--</option></select>');
-										$('#area1{$field['name']}').change();
-									setssq{$field['name']}();
-							}
-                    });
-                    $('#area1{$field['name']}').change(function(e) {
-                        var idd=$(this).val();
-						if(idd!=0){
-                            $.ajax({
-                                type:'post',
-                                url:"{:U('Region/index')}",
-                                data:{id:idd,selid:arr[3]},
-                                success: function(da){
-                                    $('#area11{$field['name']}').html(da);
-									$('#area11{$field['name']}').change();
-									setssq{$field['name']}();
-                                    }
-                            });
-						}else{
-$('#area11{$field['name']}').html('<option value="0">请选择--</option></select>');
-								$('#area11{$field['name']}').change();
-									setssq{$field['name']}();
-							}
-                    });
-                    $('#area11{$field['name']}').change(function(e) {
-									setssq{$field['name']}();
-                    });
-
-                   window.setssq{$field['name']}=function(){
-					    var idd='{$field['name']}';
-					   var str1=$('#Province'+idd).val();
-					   var str2=$('#city'+idd).val();
-					   var str3=$('#area1'+idd).val();
-					   var str4=$('#area11'+idd).val();
-					   	$('#ssq'+idd).val(str1+','+str2+','+str3+','+str4);
-					   }
-                });
-                </script>
+<script>
+$(function(){
+cityselect.create("ssq{$field['name']},Province{$field['name']},city{$field['name']},area1{$field['name']}");
+});
+</script>
           </case>
           <case value="attribute">
           		<select class="form-control" id="goodstype_form" name="goods_type_id">

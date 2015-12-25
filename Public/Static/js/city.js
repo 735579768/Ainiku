@@ -83,7 +83,7 @@ var selectdata={'sheng':{1:'北京市',2:'天津市',3:'河北省',4:'山西省'
 				if (diqu) {
 					diqu = diqu.split(',');
 				}
-				if (diqu.length == 3) {
+				if (diqu.length >= 3) {
 					sheng.val(diqu[0]);
 					sheng.change();
 					shi.val(diqu[1]);
