@@ -622,71 +622,60 @@ cityselect.create("ssq{$field['name']},Province{$field['name']},city{$field['nam
 <div id="cutpicture" style="display:none;">
 <!--主功能部份-->
 
-        <div id="main">
-           <div class="point">
-                </div>
-                <!--没加载方法前-->
-                <div id="SelectBox">
-                     <a href="javascript:;" onClick="document.getElementById('selectImage2').click();" id="selectImage"></a>
-                        <a href="javascript:;" id="PhotoLoading"></a>
-                        <a href="javascript:;" id="camerasImage"></a>
+<div id="main">
+    <div class="point">
+    </div>
+    <!--没加载方法前-->
+    <div id="SelectBox">
+        <a href="javascript:;" onClick="document.getElementById('selectImage2').click();" id="selectImage"></a>
+        <a href="javascript:;" id="PhotoLoading"></a>
+        <a href="javascript:;" id="camerasImage"></a>
+    </div>
+    <!--没加载方法前结束-->
+    <div id="relat">
+        <div id="black">
+        </div>
+        <div id="movebox">
+            <div id="smallbox">
+                <img src="__STATIC__/cutpicture/images/default.png" class="MoveImg" />
+            </div>
+            <i id="BottomRight">
+                                </i>
+            <i id="TopRight">
+                                </i>
+            <i id="Bottomleft">
+                                </i>
+            <i id="Topleft">
+                                </i>
+            <i id="Topmiddle">
+                                </i>
+            <i id="leftmiddle">
+                                </i>
+            <i id="Rightmiddle">
+                                </i>
+            <i id="Bottommiddle">
+                                </i>
+        </div>
+        <img src="__STATIC__/cutpicture/images/default.png" class="BigImg" />
+    </div>
+</div>
 
-                </div>
-                <!--没加载方法前结束-->
-                <div id="relat">
-                        <div id="black">
-                        </div>
-                        <div id="movebox">
-                                <div id="smallbox">
-                                        <img src="__STATIC__/cutpicture/images/default.png" class="MoveImg" />
-                                </div>
-                                <i id="BottomRight">
-                                </i>
-                                <i id="TopRight">
-                                </i>
-                                <i id="Bottomleft">
-                                </i>
-                                <i id="Topleft">
-                                </i>
-                                <i id="Topmiddle">
-                                </i>
-                                <i id="leftmiddle">
-                                </i>
-                                <i id="Rightmiddle">
-                                </i>
-                                <i id="Bottommiddle">
-                                </i>
-                        </div>
-                        <img src="__STATIC__/cutpicture/images/default.png" class="BigImg" />
-                </div>
-        </div>
-        <a href="javascript:;" style="position:absolute; z-index:101; top:5px; right:5px;" class="btn btn-warning" onClick="$('#cutpicture').hide();">取消</a>
-        <div id="Shearbar">
-                <a id="LeftRotate" href="javascript:;">
-                        <em>
-                        </em>
-                        向左旋转
-                </a>
-                <em class="hint L">
-                </em>
-                <div class="ZoomDist" id="ZoomDist">
-                        <div id="ZoomBar">
-                        </div>
-                        <span class="progress">
-                        </span>
-                </div>
-                <em class="hint R">
-                </em>
-                <a id="RightRotate" href="javascript:;">
-                        向右旋转
-                        <em>
-                        </em>
-                </a>
-                <p class="Psava">
-                        <a id="againIMG"  href="javascript:;">重新选择</a>
-                        <a id="saveShear" href="javascript:;">保存截图</a>
-                </p>
-        </div>
+<a href="javascript:;" style="position:absolute; z-index:101; top:5px; right:5px;" class="btn btn-warning" onClick="$('#cutpicture').hide();">取消</a>
+<div id="Shearbar">
+    <a id="LeftRotate" href="javascript:;"><em></em> 向左旋转</a>
+    <em class="hint L"></em>
+    <div class="ZoomDist" id="ZoomDist">
+        <div id="ZoomBar"></div>
+        <span class="progress"> </span>
+    </div>
+    <em class="hint R"></em>
+    <a id="RightRotate" href="javascript:;">向右旋转<em> </em> </a>
+    <p class="Psava">
+        <a id="againIMG" href="javascript:;">重新选择</a>
+        <a id="saveShear" href="javascript:;">保存截图</a>
+    </p>
+</div>
+
 
 <!--主功能部份-->
  <!--相册-->
