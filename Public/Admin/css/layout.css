@@ -107,7 +107,7 @@ body{overflow:hidden;padding:62px 0px 0px 179px;}
 .category .fold i{display:inline-block;vertical-align:middle;width:17px;height:17px;background-repeat:no-repeat;}
 .category .fold .icon-fold,.category .fold .icon-unfold{cursor:pointer;background:url(../images/bg_icon.png) no-repeat;}
 .category .fold .icon-fold{background-position:-100px -25px;}
-.category .fold i{margin-top:13px;}
+.category .fold i{margin-top:5px;}
 .category .fold .icon-unfold{background-position:-125px -25px;}
 .category .order,.category .order input{text-align:center;}
 .category .order{width:90px;}
