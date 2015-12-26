@@ -38,36 +38,6 @@ class NavModel extends BaseModel {
 	}
 
 	/**
-	 * 获取导航树，指定导航则返回指定导航极其子导航，不指定则返回所有导航树
-	 * @param  integer $id    导航ID
-	 * @param  boolean $field 查询字段
-	 * @return array          导航树
-	 * @author 枫叶 <735579768@qq.com>
-	 */
-	public function getTree($id = 0, $field = true) {
-		/* 获取当前导航信息 */
-		if ($id) {
-			$info = $this->info($id);
-			$id   = $info['id'];
-		}
-
-		/* 获取所有导航 */
-		$map  = array('status' => array('gt', -1));
-		$list = $this->field($field)->where($map)->order('sort asc')->select();
-		$list = list_to_tree($list, $pk = 'nav_id', $pid = 'pid', $child = '_', $root = $id);
-		/* 获取返回数据 */
-		if (isset($info)) {
-			//指定导航则返回当前导航极其子导航
-			$info['_'] = $list;
-		} else {
-			//否则返回所有导航
-			$info = $list;
-		}
-
-		return $info;
-	}
-
-	/**
 	 * 获取指定导航的同级导航
 	 * @param  integer $id    导航ID
 	 * @param  boolean $field 查询字段

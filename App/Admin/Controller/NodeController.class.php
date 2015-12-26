@@ -14,9 +14,33 @@ class NodeController extends AdminController {
 	public function index() {
 		//$list=M('Node')->where("hide=0 and pid=0")->select();
 		$this->assign('meta_title', '节点列表');
-		$tree = D('Node')->getTree(0, 'node_id,is_all,sort,title,name,pid,status');
+		$tree = $this->getTree(0, 'node_id,is_all,sort,title,name,pid,status');
 		$this->assign('_TREE_', $tree);
 		$this->display();
+	}
+	/**
+	 * 获取分类树，指定分类则返回指定分类极其子分类，不指定则返回所有分类树
+	 * @param  integer $id    分类ID
+	 * @param  boolean $field 查询字段
+	 * @return array          分类树
+	 * @author 枫叶 <735579768@qq.com>
+	 */
+	private function getTree($pid = 0, $field = true, $allrows = false) {
+		/* 获取所有分类 */
+		$map  = array('status' => array('gt', -1), 'pid' => $pid);
+		$list = array();
+		if ($allrows) {
+			$list = M('Node')->field($field)->where($map)->order('sort asc,node_id desc')->select();
+		} else {
+			$list = $this->pages(array(
+				'model'  => 'Node',
+				'where'  => $map,
+				'order'  => 'sort asc,node_id desc',
+				'$field' => $field,
+				'rows'   => 10,
+			));
+		}
+		return $list;
 	}
 	/**
 	 * 显示分类树，仅支持内部调
@@ -24,6 +48,9 @@ class NodeController extends AdminController {
 	 * @author 枫叶 <735579768@qq.com>
 	 */
 	public function tree($tree = null) {
+		if (is_string($tree)) {
+			$tree = $this->getTree($tree, 'node_id,is_all,sort,title,name,pid,status', true);
+		}
 		$this->assign('_TREE_', $tree);
 		$this->display('tree');
 	}

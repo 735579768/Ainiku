@@ -19,18 +19,44 @@ class NavController extends AdminController {
 	 * @author 枫叶 <735579768@qq.com>
 	 */
 	public function index() {
-		$tree = D('Nav')->getTree(0, true);
+		$tree = $this->getTree(0, true);
 		$this->assign('_TREE_', $tree);
 		$this->meta_title = '导航管理';
 		$this->display();
 	}
-
+	/**
+	 * 获取分类树，指定分类则返回指定分类极其子分类，不指定则返回所有分类树
+	 * @param  integer $id    分类ID
+	 * @param  boolean $field 查询字段
+	 * @return array          分类树
+	 * @author 枫叶 <735579768@qq.com>
+	 */
+	private function getTree($pid = 0, $field = true, $allrows = false) {
+		/* 获取所有分类 */
+		$map  = array('status' => array('gt', -1), 'pid' => $pid);
+		$list = array();
+		if ($allrows) {
+			$list = M('Nav')->field($field)->where($map)->order('sort asc')->select();
+		} else {
+			$list = $this->pages(array(
+				'model'  => 'Nav',
+				'where'  => $map,
+				'order'  => 'sort asc',
+				'$field' => $field,
+				'rows'   => 10,
+			));
+		}
+		return $list;
+	}
 	/**
 	 * 显示导航树，仅支持内部调
 	 * @param  array $tree 导航树
 	 * @author 枫叶 <735579768@qq.com>
 	 */
 	public function tree($tree = null) {
+		if (is_string($tree)) {
+			$tree = $this->getTree($tree, true, true);
+		}
 		$this->assign('_TREE_', $tree);
 		$this->display('tree');
 	}

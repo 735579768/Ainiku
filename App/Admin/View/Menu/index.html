@@ -30,60 +30,32 @@
             </dl>
             {:R('Menu/tree', array($_TREE_))}
         </div>
+        <div class="page">{$_page}</div>
     </div>
     <script>
-    $(function() {
+     $(function() {
+        $('.category .cate-item .fold i').click(function(event) {
+            var _t = $(this);
+            if (_t.hasClass('icon-fold')) {
+                _t.removeClass('icon-fold');
+                _t.addClass('icon-unfold');
+                _t.parents('dl').find('dd').show();
 
+            } else {
+                _t.removeClass('icon-unfold');
+                _t.addClass('icon-fold');
+                _t.parents('dl').find('dd').hide();
+            }
 
-        /* 分类展开收起 */
-        $(".category dd").prev().find(".fold i").addClass("icon-unfold")
-            .click(function() {
-                var self = $(this);
-                if (self.hasClass("icon-unfold")) {
-                    self.closest("dt").next().slideUp("fast", function() {
-                        self.removeClass("icon-unfold").addClass("icon-fold");
-                    });
-                } else {
-                    self.closest("dt").next().slideDown("fast", function() {
-                        self.removeClass("icon-fold").addClass("icon-unfold");
-                    });
-                }
-            });
-        /* 三级分类删除新增按钮 */
-        $(".category dd dd .add-sub").remove();
-        //实时更新分类信息
-        $(".category")
-            .on("submit", "form", function() {
-                var self = $(this);
-                $.post(
-                    self.attr("action"),
-                    self.serialize(),
-                    function(data) {
-                        // 提示信息
-                        var name = data.status ? "success" : "error",
-                            msg;
-                        msg = self.find(".msg").addClass(name).text(data.info)
-                            .css("display", "inline-block");
-                        setTimeout(function() {
-                            msg.fadeOut(function() {
-                                msg.text("").removeClass(name);
-                            });
-                        }, 1000);
-                    },
-                    "json"
-                );
-                return false;
-            })
-            .on("focus", "input", function() {
-                $(this).data('param', $(this).closest("form").serialize());
-            })
-            .on("blur", "input", function() {
-                if ($(this).data('param') != $(this).closest("form").serialize()) {
-                    $(this).closest("form").submit();
-                }
-            });
-
-        $('.fold i').click();
+        });
+        $(".category .cate-item dd").each(function(index, el) {
+            var _t = $(this);
+            if (_t.find('dl').length > 0) {
+                _t.prev().find(".fold i").addClass("icon-fold")
+            } else {
+                _t.prev().find(".fold i").removeClass("icon-fold")
+            }
+        });
 
     });
     </script>

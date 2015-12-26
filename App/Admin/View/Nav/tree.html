@@ -8,15 +8,12 @@
         <div class="order"><input  data-table="nav" data-id="{$vo.nav_id}" data-field="sort"  type="text" class="form-control input-mini  ajax-blur" name="sort" value="{$vo.sort}" /></div>
         <div class="order"><span data-table="Nav" data-id="{$vo.nav_id}" data-field="status"  data-value="{$vo.status}" class="yn"></span></div>
          <div class="order"><span data-table="Nav" data-id="{$vo.nav_id}" data-field="target"  data-value="{$vo.target}" class="yn"></span></div>
-        <div class="name"> <span class="tab-sign"></span> <a class="add-sub-cate" title="添加子导航" href="{:u('Nav/add?pid='.$vo['nav_id'])}"> <i class="icon-add"></i></a><span class="catetitle"><input class="form-control ajax-blur" data-id="{$vo.nav_id}" data-table="nav" data-field="title"  type="text" value="{$vo.title}" /></span> 
+        <div class="name"> <span class="tab-sign"></span> <a class="add-sub-cate" title="添加子导航" href="{:u('Nav/add?pid='.$vo['nav_id'])}"> <i class="icon-add"></i></a><span class="catetitle"><input class="form-control ajax-blur" data-id="{$vo.nav_id}" data-table="nav" data-field="title"  type="text" value="{$vo.title}" /></span>
          <span class="catetitle">地址:<input class="form-control ajax-blur" data-id="{$vo.nav_id}" data-table="nav" data-field="url"  type="text" value="{$vo.url}" /></span> </div>
       </dt>
     <!--cate end-->
-    
-    	<notempty name="vo['_']">
-			<dd>
-				{:R('Nav/tree', array($vo['_']))}
-			</dd>
-		</notempty>
+<dd>
+      {:R('Nav/tree', array($vo['nav_id']))}
+      </dd>
     </dl>
     </volist>
