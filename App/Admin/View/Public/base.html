@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
@@ -45,7 +45,9 @@ $(function() {
 });
 </script>
 <!--script end-->
+<if condition="$Think.const.APP_DEBUG eq false">
 <include file="Public:menu" />
+</if>
 <img id="loadingimg" class="rotate topcenter" src="__STATIC__/images/loading.png">
 </body>
 </html>
