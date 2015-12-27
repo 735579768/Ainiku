@@ -209,10 +209,14 @@ $(function() {
 		var top=_this.offset().top;
 		var sh=$(window).height();
 		var ih=$(this).find('.imgbox').height();
-		console.log(top,sh);
-		if(sh-top-20<ih && top>=ih){
+		//console.log(top,sh);
+		if(sh-top-20<ih && top>=sh-top){
 			$(this).find('.imgbox').css({
 				top:'-'+ih+'px'
+			});
+		}else{
+			$(this).find('.imgbox').css({
+				top:'35px'
 			});
 		}
 		$(this).find('.imgbox').show();
