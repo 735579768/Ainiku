@@ -3,7 +3,24 @@ namespace Home\Controller;
 use Think\Controller;
 
 defined("ACCESS_ROOT") || die("Invalid access");
-class CaijiController extends HomeController {
+class ToolController extends HomeController {
+	/**
+	 * [createjs description]
+	 * 提取文章中的第一个图片
+	 * @return [type] [description]
+	 */
+	function setFirstPicture() {
+		$list = M('Article')->field('article_id,content,pic')->where('pic=0')->select();
+		foreach ($list as $key => $value) {
+			preg_match('/<img.*?src\=[\'|\"](.*?)[\'|\"].*?>/', $value['content'], $match);
+			if ($match) {
+				$info = M('Picture')->field('id')->where("path='{$match[1]}'")->find();
+				if(!empty($info)){
+					M('Article')->where('article='.$value['article_id'])->setField('pic',$info['id']);
+				}
+		}
+
+	}
 	function createjs() {
 		$sheng = '';
 		$shi   = '';
