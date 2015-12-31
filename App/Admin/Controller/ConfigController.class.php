@@ -70,7 +70,8 @@ class ConfigController extends AdminController {
 				if (0 < $Config->save()) {
 
 					F('DB_CONFIG_DATA', null);
-					$this->success(L('_UPDATE_SUCCESS_'), U('index', array('group' => I('group'))));
+					//$this->success(L('_UPDATE_SUCCESS_'), U('index', array('group' => I('group'))));
+					$this->success(L('_UPDATE_SUCCESS_'), __PAGEURL__);
 				} else {
 					$this->error('没有更改');
 				}

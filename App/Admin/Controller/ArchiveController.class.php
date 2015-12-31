@@ -134,7 +134,7 @@ class ArchiveController extends AdminController {
 				$Document->create_time = NOW_TIME;
 				$Document->update_time = NOW_TIME;
 				$result                = $Document->add();
-				$result > 0 ? $this->success(L('_ADD_SUCCESS_'), __FORWARD__) : $this->error(L('_ADD_FAIL_'));
+				$result > 0 ? $this->success(L('_ADD_SUCCESS_'), __PAGEURL__) : $this->error(L('_ADD_FAIL_'));
 			} else {
 				$this->error($Document->geterror());
 			}
@@ -157,7 +157,7 @@ class ArchiveController extends AdminController {
 			if ($Document->create()) {
 				$Document->create_time = NOW_TIME;
 				$result                = $Document->save();
-				$result > 0 ? $this->success(L('_UPDATE_SUCCESS_'), __FORWARD__) : $this->error(L('_UPDATE_FAIL_'));
+				$result > 0 ? $this->success(L('_UPDATE_SUCCESS_'), __PAGEURL__) : $this->error(L('_UPDATE_FAIL_'));
 			} else {
 				$this->error($Document->geterror());
 			}

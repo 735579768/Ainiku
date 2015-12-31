@@ -72,7 +72,7 @@ sql;
 				$result = $model->save();
 				if (0 < $result) {
 					$this->addnewtable(I('post.table'));
-					$this->success(L('_UPDATE_SUCCESS_'), __FORWARD__);
+					$this->success(L('_UPDATE_SUCCESS_'), __PAGEURL__);
 				} else {
 					$this->error(L('_UNKNOWN_ERROR_'));
 				}

@@ -67,17 +67,26 @@ class AdminController extends CommonController {
 		$fw = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
 		//判断如果是百度来的直接退出
 		preg_match('/.*baidu\.com.*/', $fw) && die('');
-		$forward = cookie('__forward__');
-		is_array($forward) || ($forward = array());
-		if (!IS_AJAX && !IS_POST) {
-			if (count($forward) >= 2) {
-				array_shift($forward);
+		//分页记录
+		$forward     = cookie('__pageurl__');
+		$scontroller = cookie('__controller__');
+		if (IS_GET) {
+			$pg = I('get.p');
+			if (!empty($pg)) {
+				$forward = __SELF__;
+				cookie('__pageurl__', __SELF__, array('expire' => 600));
+			} else {
+				if ($scontroller != CONTROLLER_NAME) {
+					$forward = '';
+					cookie('__pageurl__', ' ', array('expire' => 600));
+				}
 			}
+			//记录当前操作的控制器
 
-			empty($fw) || ($forward[] = $fw);
-			cookie('__forward__', $forward);
+			cookie('__controller__', CONTROLLER_NAME, array('expire' => 600));
 		}
-		defined('__FORWARD__') || define('__FORWARD__', $forward[0]);
+
+		defined('__PAGEURL__') || define('__PAGEURL__', $forward);
 	}
 	/**
 	 *取主导航

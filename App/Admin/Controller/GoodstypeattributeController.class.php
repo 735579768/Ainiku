@@ -50,7 +50,7 @@ class GoodstypeattributeController extends AdminController {
 			F('sys_GoodsTypeAttribute_tree', null);
 			if (false !== $GoodsTypeAttribute->create()) {
 				$GoodsTypeAttribute->save();
-				$this->success(L('_UPDATE_SUCCESS_'), __FORWARD__);
+				$this->success(L('_UPDATE_SUCCESS_'), __PAGEURL__);
 			} else {
 				$error = $GoodsTypeAttribute->getError();
 				$this->error(empty($error) ? L('_UNKNOWN_ERROR_') : $error);

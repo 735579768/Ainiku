@@ -157,7 +157,7 @@ class ArticleController extends AdminController {
 					$model->pic = $this->getFirstPicture($model->content);
 				}
 				if ($model->save()) {
-					$this->success(L('_UPDATE_SUCCESS_'), __FORWARD__);
+					$this->success(L('_UPDATE_SUCCESS_'), __PAGEURL__);
 				} else {
 					$this->error(L('_UPDATE_FAIL_'));
 				}

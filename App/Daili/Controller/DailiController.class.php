@@ -51,7 +51,7 @@ class DailiController extends CommonController {
 			isset($_SERVER['HTTP_REFERER']) ? ($forward[] = $_SERVER['HTTP_REFERER']) : '';
 			cookie('__forward__', $forward);
 		}
-		defined('__FORWARD__') || define('__FORWARD__', $forward[0]);
+		defined('__PAGEURL__') || define('__PAGEURL__', $forward[0]);
 		$this->meta_title = '首页';
 		//先读取缓存配置
 		$config = F('DB_CONFIG_DATA');

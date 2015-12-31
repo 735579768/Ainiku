@@ -94,14 +94,14 @@ class SeokeywordPlugin extends \Plugins\Plugin {
 				if (empty($id)) {
 					$result = $model->add();
 					if ($result > 0) {
-						$this->success('添加成功', __FORWARD__);
+						$this->success('添加成功', __PAGEURL__);
 					} else {
 						$this->error('添加失败');
 					}
 				} else {
 					$result = $model->save();
 					if ($result > 0) {
-						$this->success('更新成功', __FORWARD__);
+						$this->success('更新成功', __PAGEURL__);
 					} else {
 						$this->error('更新失败');
 					}
