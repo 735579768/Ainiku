@@ -6,7 +6,8 @@
 <a href="javascript:;" class="huifu" onClick="huifuclick(this,{$vo.pid},{$vo.id});">回复</a>
 </span>
 <span class="fr ptime">时间:{$vo.create_time|time_format}</span></dt>
-<dd>{$vo.content}
+<dd>
+<div class="comments-con">{$vo.content}</div>
 {:RP('Comments/gettree',array($vo['id']))}
 </dd>
 </dl>

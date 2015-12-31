@@ -33,9 +33,11 @@ class CommentsPlugin extends \Plugins\Plugin {
 	}
 	public function gettree($pid = 0) {
 		if ($pid === 0) {return '';}
+		$info          = M('Comments')->field('name')->find($pid);
 		$map['pid']    = $pid;
 		$map['status'] = 1;
 		$list          = M('Comments')->where($map)->order('create_time desc')->select();
+		$this->assign('pname', $info['name']);
 		$this->assign('_list', $list);
 		echo $this->fetch('tree');
 	}

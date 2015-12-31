@@ -2,10 +2,12 @@
 <dl  style="padding-left:20px;">
 <dt>
 <span class="fl">
-<a href="javascript:;">{$v.name|default="匿名"}</a>
+<a href="javascript:;">{$v.name|default="匿名"}</a>@{$pname}
+<a href="javascript:;" class="huifu" onClick="huifuclick(this,{$v.pid},{$v.id});">回复</a>
 </span>
 <span class="fr ptime">时间:{$v.create_time|time_format}</span></dt>
-<dd>{$v.content}
+<dd>
+<div class="comments-con">{$v.content}</div>
 {:RP('Comments/gettree',array($v['id']))}
 </dd>
 </dl>
