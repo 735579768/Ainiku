@@ -1,0 +1,12 @@
+<volist name="_list" id="v">
+<dl  style="padding-left:20px;">
+<dt>
+<span class="fl">
+<a href="javascript:;">{$v.name|default="匿名"}</a>
+</span>
+<span class="fr ptime">时间:{$v.create_time|time_format}</span></dt>
+<dd>{$v.content}
+{:RP('Comments/gettree',array($v['id']))}
+</dd>
+</dl>
+</volist>

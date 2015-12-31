@@ -89,6 +89,23 @@ function UP($name = null, $param = array()) {
 	return U('Addons/plugin', $data);
 }
 /**
+ * 调用插件的控制器
+ */
+function RP($name = null, $param = array()) {
+	$a  = array();
+	$ab = strpos($name, '?');
+	if ($ab !== false) {
+		$a = explode('/', substr($name, 0, $ab));
+	} else {
+		$a = explode('/', $name);
+	}
+	$data = array(
+		'pn' => $a[0],
+		'pm' => $a[1],
+	);
+	return runPluginMethod($a[0], $a[1], $param);
+}
+/**
  *参数转成数组
  */
 function parseParam($str) {

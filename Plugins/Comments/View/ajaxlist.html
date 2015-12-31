@@ -7,20 +7,7 @@
 </span>
 <span class="fr ptime">时间:{$vo.create_time|time_format}</span></dt>
 <dd>{$vo.content}
-
-            <notempty name="vo['_']">
-                <volist name="vo['_']" id="v">
-                <dl>
-                <dt>
-                <span class="fl">
-                <a href="javascript:;">{$v.name|default="匿名"}</a>
-                </span>
-                <span class="fr ptime">时间:{$v.create_time|time_format}</span></dt>
-                <dd>{$v.content} 
-                </dd>
-                </dl>
-                </volist>
-            </notempty>
+{:RP('Comments/gettree',array($vo['id']))}
 </dd>
 </dl>
 </volist>
@@ -38,7 +25,7 @@ $('#pages a').click(function(e) {
 			}
 		});
     return false;
-});	
+});
 });
 </script>
 

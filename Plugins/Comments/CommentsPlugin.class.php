@@ -17,22 +17,12 @@ class CommentsPlugin extends \Plugins\Plugin {
 		$map['status'] = 1;
 		$map['pid']    = $pid;
 		$map['arc_id'] = I('post.arc_id');
-		// $list=M('Comments')->where($map)->order('create_time desc')->select();
-		$list = $this->pages(array(
+		$list          = $this->pages(array(
 			'model' => 'Comments',
 			'where' => $map,
 			'order' => 'create_time desc',
 			'rows'  => 5,
 		));
-		foreach ($list as $key => $val) {
-			$map['pid'] = $val['id'];
-			$child      = M('Comments')->where($map)->order('create_time desc')->select();
-			if (empty($child)) {
-				$list[$key]['_'] = array();
-			} else {
-				$list[$key]['_'] = $child;
-			}
-		}
 		if (empty($list)) {
 			die('没有评论');
 		} else {
@@ -40,6 +30,14 @@ class CommentsPlugin extends \Plugins\Plugin {
 			echo $this->fetch('ajaxlist');
 		}
 		die();
+	}
+	public function gettree($pid = 0) {
+		if ($pid === 0) {return '';}
+		$map['pid']    = $pid;
+		$map['status'] = 1;
+		$list          = M('Comments')->where($map)->order('create_time desc')->select();
+		$this->assign('_list', $list);
+		echo $this->fetch('tree');
 	}
 	public function add() {
 		if (IS_POST) {
