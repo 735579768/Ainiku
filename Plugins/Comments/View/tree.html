@@ -2,7 +2,7 @@
 <dl  style="padding-left:20px;">
 <dt>
 <span class="fl">
-<a href="javascript:;">{$v.name|default="匿名"}</a>@{$pname}
+<a name="comments{$v.id}" href="javascript:;">{$v.name|default="匿名"}</a>@<a  href="#comments{$v.pid}">{$pname}</a>
 <a href="javascript:;" class="huifu" onClick="huifuclick(this,{$v.pid},{$v.id});">回复</a>
 </span>
 <span class="fr ptime">时间:{$v.create_time|time_format}</span></dt>
