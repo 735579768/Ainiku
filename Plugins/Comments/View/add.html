@@ -9,7 +9,7 @@
 #comments-list .line{ display:block; height:0px; border-bottom:dashed 1px #ccc;}
 #comments-list dl{ margin:10px 0px;}
 #comments-list dl dl{border: dashed 1px #ccc;margin-left: 20px;}
-#comments-list dl dl:hover{    background: #F7F7F7;}
+#comments-list dl dl:hover{   }
 #comments-list dl dl dt{ background:none;}
 #comments-list dt{ padding:0px 10px; height:30px;line-height: 30px;background-color: #F7F7F7;}
 #comments-list dt .huifu{ color:#BDBDBD;  text-decoration:none;    margin-left: 10px;}
@@ -18,39 +18,53 @@
 #comments-list dd{ padding:10px;word-break: break-all; color:#888;}
 #comments-list a.btn{ color:#fff;}
 #comments-list dd #commentsform{ margin-top:20px;}
+
+#commentsform{width:auto;margin:10px;}
+#commentsform textarea:focus,#commentsform input:focus{border-color:#ff6700}
+#commentsform textarea,#commentsform input{display:block;outline:none;border:solid 1px #e0e0e0;height:30px;line-height:30px;padding:5px 10px;margin-top:10px;width:98%;}
+#commentsform input{width: 50%;}
+#commentsform input:hover{border-color:#b0b0b0;}
+#commentsform textarea{height:50px;resize:none;line-height:20px;padding:10px;}
+#commentsform .form-section{position:relative;margin-top:15px;}
+#commentsform .form-section  label{background:#fff;height:20px;line-height:20px;position:absolute;left:10px;top:9px;color:#bbb;font-size:14px;}
+#commentsform .address-btn{margin-top:20px;}
+#commentsform .address-btn .btn{padding:6px 11px;width:130px;color:#fff!important;}
+#commentsform .address-btn .btn-ok{background:#4bbd00;}
+#commentsform .address-btn .btn-cancel{background:#C3A200;}
+.form-section select{padding:0px 0px 0px 10px;-webkit-appearance:none;-moz-appearance:none;appearance:none;border:solid 1px #e0e0e0;height:38px;line-height:38px;}
 </style>
 <div id="comments-form">
 <form method="post" class="form-group-h" id="commentsform" action="{:UP('Comments/add')}">
 <eq name="conf.name" value="1">
-  <div class="form-group">
-    <label class="form-label"for="exampleInputEmail1">名字</label>
-    <input type="text" name="name" id="comments-name" class="form-control input-large"  placeholder="输入您的名字">
+  <div class="form-section">
+    <label class="input-label">名字</label>
+    <input type="text" name="name" id="comments-name" class="auto-label" data-msg="您的名字"  placeholder="名字">
   </div>
 </eq>
 <eq name="conf.email" value="1">
-    <div class="form-group">
-    <label class="form-label"for="exampleInputEmail1">邮箱</label>
-    <input type="text" name="email" class="form-control input-large"  placeholder="输入你的邮箱">
+    <div class="form-section">
+    <label class="input-label">邮箱</label>
+    <input type="text" name="email" class="auto-label" data-msg="您的邮箱"  placeholder="邮箱">
   </div>
 </eq>
 <eq name="conf.url" value="1">
-     <div class="form-group">
-    <label class="form-label"for="exampleInputEmail1">网站地址</label>
-    <input type="text" name="url" class="form-control input-large"  placeholder="输入你的网站地址">
+     <div class="form-section">
+    <label class="input-label">网站地址</label>
+    <input type="text" name="url" class="auto-label" data-msg="您的网站地址"  placeholder="网站地址">
   </div>
 </eq>
-    <div class="form-group">
-    <label class="form-label"for="exampleInputEmail1">内容</label>
-    <textarea name="content" id="comments-content" class="form-control input-large" placeholder="输入内容"></textarea>
+    <div class="form-section">
+    <label class="input-label">留言内容</label>
+    <textarea name="content" id="comments-content" class="auto-label" data-msg="留言内容" placeholder="留言内容"></textarea>
   </div>
-      <div class="form-group">
-    <label class="form-label"for="exampleInputEmail1">验证码</label>
-    <input type="text" name="verify" id="verifyimg" class="form-control input-middle" placeholder="输入验证码">
+      <div class="form-section">
+    <label class="input-label">验证码</label>
+    <input type="text" name="verify" id="verifyimg" class="auto-label" data-msg="验证码" placeholder="验证码">
 <div id="verify" style="display:inline-block;">
     <img style="cursor:pointer; vertical-align:middle;" class="verifyimg reloadverify"  id="verifyimg" alt="点击切换" onclick="this.src='{:U('Public/verify')}?random='+Math.random();" src="{:U('public/verify')}">
     </div>
   </div>
-    <div class="form-group center">
+    <div class="center">
     <input name="arc_id" type="hidden" value="{$info.article_id}" />
     <input id="commentpid" name="pid" type="hidden" value="0" />
     <a href="javascript:addcomments();" id="addcommentsbtn"  class="btn btn-large">提交评论</a>
@@ -120,5 +134,67 @@ ank.loadhtml('{:UP('Comments/ajaxlist')}',{},$('#comments-list'),'POST');
 function  _after_func(){
 	$('#verifyimg').click();
 	}
+window.commentsobj={
+  initfocus:function(){
+          $('.auto-label').focus(function(event) {
+        var _this = $(this);
+        var labobj = _this.prev();
+        var ms = _this.attr('data-msg');
+        _this.css('borderColor', '#ff6700');
+        labobj.css('color', '#ff6700');
+        //if (_this.val() == '') {
+        labobj.show();
+        _this.attr('placeholder', '');
+        labobj.animate({
+            top: -9,
+            fontSize: 12
+          },
+          300,
+          function() {
+            _this.attr('placeholder', ms);
+          });
+        //}
+      });
+      $('.auto-label').blur(function(event) {
+        var _this = $(this);
+        var labobj = _this.prev();
+        var ms = _this.attr('data-msg');
+        _this.css('borderColor', '#e0e0e0');
+        labobj.css('color', '#bbb');
+        if (_this.val() == '') {
+          _this.attr('placeholder', '');
+          labobj.animate({
+              top: 9,
+              fontSize: 14
+            },
+            300,
+            function() {
+              _this.attr('placeholder', labobj.html());
+            });
+        }
+
+
+      });
+      $('.form-section .auto-label').each(function(index) {
+        var str = $(this).val();
+        if (str != '') {
+          var _this = $(this);
+          var labobj = _this.prev();
+          var ms = _this.attr('data-msg');
+          labobj.css({
+            color: '#bbb',
+            top: -9,
+            fontSize: 12
+          });
+          _this.attr('placeholder', ms);
+          labobj.show();
+          _this.attr('placeholder', '');
+        }
+
+      });
+
+  }
+};
+commentsobj.initfocus();
 </script>
 </div>
