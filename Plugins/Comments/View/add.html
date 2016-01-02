@@ -22,7 +22,8 @@
 #commentsform{width:auto;margin:10px;}
 #commentsform textarea:focus,#commentsform input:focus{border-color:#ff6700}
 #commentsform textarea,#commentsform input{display:block;outline:none;border:solid 1px #e0e0e0;height:30px;line-height:30px;padding:5px 10px;margin-top:10px;width:98%;}
-#commentsform input{width: 50%;}
+#commentsform .verifyinput{width: 100px;}
+#commentsform .verifyimg{position: absolute; top: -10px; left:130px;}
 #commentsform input:hover{border-color:#b0b0b0;}
 #commentsform textarea{height:50px;resize:none;line-height:20px;padding:10px;}
 #commentsform .form-section{position:relative;margin-top:15px;}
@@ -32,6 +33,7 @@
 #commentsform .address-btn .btn-ok{background:#4bbd00;}
 #commentsform .address-btn .btn-cancel{background:#C3A200;}
 .form-section select{padding:0px 0px 0px 10px;-webkit-appearance:none;-moz-appearance:none;appearance:none;border:solid 1px #e0e0e0;height:38px;line-height:38px;}
+#commentsform .commentsbtn{position: absolute;right: 0px; top: 0px;}
 </style>
 <div id="comments-form">
 <form method="post" class="form-group-h" id="commentsform" action="{:UP('Comments/add')}">
@@ -59,16 +61,16 @@
   </div>
       <div class="form-section">
     <label class="input-label">验证码</label>
-    <input type="text" name="verify" id="verifyimg" class="auto-label" data-msg="验证码" placeholder="验证码">
-<div id="verify" style="display:inline-block;">
-    <img style="cursor:pointer; vertical-align:middle;" class="verifyimg reloadverify"  id="verifyimg" alt="点击切换" onclick="this.src='{:U('Public/verify')}?random='+Math.random();" src="{:U('public/verify')}">
+    <input type="text" name="verify" id="verifyimg" class="auto-label verifyinput" data-msg="验证码" placeholder="验证码">
+<div id="verify" class="verifyimg" style="display:inline-block;">
+    <img style="cursor:pointer; vertical-align:middle;" class="reloadverify"  id="verifyimg" alt="点击切换" onclick="this.src='{:U('Public/verify')}?random='+Math.random();" src="{:U('public/verify')}">
     </div>
-  </div>
-    <div class="center">
+    <div class="commentsbtn">
     <input name="arc_id" type="hidden" value="{$info.article_id}" />
     <input id="commentpid" name="pid" type="hidden" value="0" />
     <a href="javascript:addcomments();" id="addcommentsbtn"  class="btn btn-large">提交评论</a>
     <a href="javascript:;" style="display:none;" class="btn btn-large" id="cancelbtn" onClick="cancelhuifu(this);">取消回复</a>
+    </div>
   </div>
 </form>
 </div>
