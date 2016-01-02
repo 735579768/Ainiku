@@ -21,7 +21,7 @@
 
 #commentsform{width:auto;margin:10px;}
 #commentsform textarea:focus,#commentsform input:focus{border-color:#ff6700}
-#commentsform textarea,#commentsform input{display:block;outline:none;border:solid 1px #e0e0e0;height:30px;line-height:30px;padding:5px 10px;margin-top:10px;width:98%;}
+#commentsform textarea,#commentsform input{border-radius: 5px; display:block;outline:none;border:solid 1px #e0e0e0;height:30px;line-height:30px;padding:5px 10px;margin-top:10px;width:98%;}
 #commentsform .verifyinput{width: 100px;}
 #commentsform .verifyimg{position: absolute; top: -10px; left:130px;}
 #commentsform input:hover{border-color:#b0b0b0;}
@@ -40,28 +40,28 @@
 <eq name="conf.name" value="1">
   <div class="form-section">
     <label class="input-label">名字</label>
-    <input type="text" name="name" id="comments-name" class="auto-label" data-msg="您的名字"  placeholder="名字">
+    <input type="text" name="name" id="comments-name" class="auto-label" data-msg="请输入您的名字"  placeholder="名字">
   </div>
 </eq>
 <eq name="conf.email" value="1">
     <div class="form-section">
     <label class="input-label">邮箱</label>
-    <input type="text" name="email" class="auto-label" data-msg="您的邮箱"  placeholder="邮箱">
+    <input type="text" name="email" class="auto-label" data-msg="请输入您的邮箱"  placeholder="邮箱">
   </div>
 </eq>
 <eq name="conf.url" value="1">
      <div class="form-section">
     <label class="input-label">网站地址</label>
-    <input type="text" name="url" class="auto-label" data-msg="您的网站地址"  placeholder="网站地址">
+    <input type="text" name="url" class="auto-label" data-msg="请输入您的网站地址"  placeholder="网站地址">
   </div>
 </eq>
     <div class="form-section">
     <label class="input-label">留言内容</label>
-    <textarea name="content" id="comments-content" class="auto-label" data-msg="留言内容" placeholder="留言内容"></textarea>
+    <textarea name="content" id="comments-content" class="auto-label" data-msg="请输入留言内容" placeholder="留言内容"></textarea>
   </div>
       <div class="form-section">
     <label class="input-label">验证码</label>
-    <input type="text" name="verify" id="verifyimg" class="auto-label verifyinput" data-msg="验证码" placeholder="验证码">
+    <input type="text" name="verify" id="verifyimg" class="auto-label verifyinput" data-msg="请输入验证码" placeholder="验证码">
 <div id="verify" class="verifyimg" style="display:inline-block;">
     <img style="cursor:pointer; vertical-align:middle;" class="reloadverify"  id="verifyimg" alt="点击切换" onclick="this.src='{:U('Public/verify')}?random='+Math.random();" src="{:U('public/verify')}">
     </div>
