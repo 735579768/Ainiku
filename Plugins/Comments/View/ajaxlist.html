@@ -12,10 +12,10 @@
 </dd>
 </dl>
 </volist>
-<div id="pages" class="page">{$_page}</div>
+<div id="commentspages" class="page">{$_page}</div>
 <script>
 $(function(){
-$('#pages a').click(function(e) {
+$('#commentspages a').click(function(e) {
 	cancelhuifu();
 	var uri=$(this).attr('href');
 	ank.ajax({
