@@ -7,7 +7,7 @@
 #comments-list dt a{ text-decoration:none;}
 #comments-list dt a:hover{ text-decoration:underline; color:#f00;}
 #comments-list .line{ display:block; height:0px; border-bottom:dashed 1px #ccc;}
-#comments-list dl{ margin:10px 0px;}
+#comments-list dl{ margin:10px 0px;    margin-top: 0px;}
 #comments-list dl dl{border: dashed 1px #ccc;margin-left: 20px;    border-right: none;
     margin-right: -10px;}
 #comments-list dl dl:hover{   }
@@ -80,146 +80,162 @@
 
 </div>
 <script>
-$(function(){
-window.cancelhuifu=function(obj){
-	$('#comments-form').html($('#commentsform'));
-	$('#commentpid').val(0);
-	$('#cancelbtn').hide();
-	};
-window.huifuclick=function(obj,pid,id){
-	$('#cancelbtn').show();
-	pid=pid?pid:id;
-	$('#commentpid').val(pid);
-	var dobj=$(obj).parents('dt').next();
-	dobj.append($('#commentsform'));
-	return false;
-	};
-window.addcomments=function(){
-           var formobj = $('#commentsform');
-            formobj.submit(function(e) {
-                return false;
-            });
-			if(!(/^[a-zA-Z0-9]{4}$/.test($('#verifyimg').val()))){ank.msg('请填入正确的验证码!');return false;}
-			if(/^\s*$/.test($('#comments-content').val())){ank.msg('请填入内容!');return false;}
-      <eq name="conf.name" value="1">
-			if(!(/^.{2,5}$/.test($('#comments-name').val()))){ank.msg('请填入正确的名字!');return false;}
-      </eq>
-           var uri = formobj.attr("action");
-            postdata = formobj.serialize();
-           // $("body").append('<div id="liuyanklbg" class="bg">');
-		   $('#addcommentsbtn').html('正在提交...');
-            $.ajax({
-                url:uri,
-                type:"POST",
-                datatype:"JSON",
-                data:postdata,
-                success:function(da) {
-					if(da.status=='1'){
-							ank.msg(da.info.msg);
-							var len=formobj.parents('#comments-list').length;
-							if(len===1){
-							formobj.before(da.info.content);
-							cancelhuifu();
-							}else{
-							$('#comments-list').prepend(da.info.content);
-								}
-						}else{
-						ank.msg(da.info);
-							}
-					$('#addcommentsbtn').html('提交评论');
-                }
+$(function() {
+  window.cancelhuifu = function(obj) {
+    $('#comments-form').html($('#commentsform'));
+    $('#commentsform').show();
+    $('#commentpid').val(0);
+    $('#cancelbtn').hide();
+  };
+  window.huifuclick = function(obj, pid, id) {
 
-			});
-			return false;
-};
-//window.load2huifu=function(){};
-ank.loadhtml('{:UP('Comments/ajaxlist')}',{},$('#comments-list'),'POST');
+
+    var dobj = $(obj).parents('dt').next();
+    if (dobj.find('#commentsform').length < 1) {
+      $('#cancelbtn').show();
+      pid = pid ? pid : id;
+      $('#commentpid').val(pid);
+      dobj.append($('#commentsform'));
+      $('#commentsform').hide();
+      $('#commentsform').slideDown(100);
+    }
+
+    return false;
+  };
+  window.addcomments = function() {
+    var formobj = $('#commentsform');
+    formobj.submit(function(e) {
+      return false;
+    });
+    if (!(/^[a-zA-Z0-9]{4}$/.test($('#verifyimg').val()))) {
+      ank.msg('请填入正确的验证码!');
+      return false;
+    }
+    if (/^\s*$/.test($('#comments-content').val())) {
+      ank.msg('请填入内容!');
+      return false;
+    } <eq name = "conf.name" value = "1" >
+      if (!(/^.{2,5}$/.test($('#comments-name').val()))) {
+        ank.msg('请填入正确的名字!');
+        return false;
+      } </eq>
+    var uri = formobj.attr("action");
+    postdata = formobj.serialize();
+    // $("body").append('<div id="liuyanklbg" class="bg">');
+    $('#addcommentsbtn').html('正在提交...');
+    $.ajax({
+      url: uri,
+      type: "POST",
+      datatype: "JSON",
+      data: postdata,
+      success: function(da) {
+        if (da.status == '1') {
+          ank.msg(da.info.msg);
+          var len = formobj.parents('#comments-list').length;
+          if (len === 1) {
+            formobj.before(da.info.content);
+            cancelhuifu();
+          } else {
+            $('#comments-list').prepend(da.info.content);
+          }
+        } else {
+          ank.msg(da.info);
+        }
+        $('#addcommentsbtn').html('提交评论');
+      }
+
+    });
+    return false;
+  };
+  //window.load2huifu=function(){};
+  ank.loadhtml("{:UP('Comments/ajaxlist')}", {}, $('#comments-list'), 'POST');
 });
-function  _after_func(){
-	$('#verifyimg').click();
-	}
-window.commentsobj={
-  initfocus:function(){
-          $('.auto-label').focus(function(event) {
-        var _this = $(this);
-        var labobj = _this.prev();
-        var ms = _this.attr('data-msg');
-        _this.css('borderColor', '#ff6700');
-        labobj.css('color', '#ff6700');
-        //if (_this.val() == '') {
-        labobj.show();
+
+function _after_func() {
+  $('#verifyimg').click();
+}
+window.commentsobj = {
+  initfocus: function() {
+    $('.auto-label').focus(function(event) {
+      var _this = $(this);
+      var labobj = _this.prev();
+      var ms = _this.attr('data-msg');
+      _this.css('borderColor', '#ff6700');
+      labobj.css('color', '#ff6700');
+      //if (_this.val() == '') {
+      labobj.show();
+      _this.attr('placeholder', '');
+      labobj.animate({
+          top: -9,
+          fontSize: 12
+        },
+        300,
+        function() {
+          _this.attr('placeholder', ms);
+        });
+      //}
+    });
+    $('.auto-label').blur(function(event) {
+      var _this = $(this);
+      var labobj = _this.prev();
+      var ms = _this.attr('data-msg');
+      _this.css('borderColor', '#e0e0e0');
+      labobj.css('color', '#bbb');
+      if (_this.val() == '') {
         _this.attr('placeholder', '');
         labobj.animate({
-            top: -9,
-            fontSize: 12
+            top: 9,
+            fontSize: 14
           },
           300,
           function() {
-            _this.attr('placeholder', ms);
+            _this.attr('placeholder', labobj.html());
           });
-        //}
-      });
-      $('.auto-label').blur(function(event) {
+      }
+
+
+    });
+    $('.form-section .auto-label').each(function(index) {
+      var str = $(this).val();
+      if (str != '') {
         var _this = $(this);
         var labobj = _this.prev();
         var ms = _this.attr('data-msg');
-        _this.css('borderColor', '#e0e0e0');
-        labobj.css('color', '#bbb');
-        if (_this.val() == '') {
-          _this.attr('placeholder', '');
-          labobj.animate({
-              top: 9,
-              fontSize: 14
-            },
-            300,
-            function() {
-              _this.attr('placeholder', labobj.html());
-            });
-        }
+        labobj.css({
+          color: '#bbb',
+          top: -9,
+          fontSize: 12
+        });
+        _this.attr('placeholder', ms);
+        labobj.show();
+        _this.attr('placeholder', '');
+      }
 
-
-      });
-      $('.form-section .auto-label').each(function(index) {
-        var str = $(this).val();
-        if (str != '') {
-          var _this = $(this);
-          var labobj = _this.prev();
-          var ms = _this.attr('data-msg');
-          labobj.css({
-            color: '#bbb',
-            top: -9,
-            fontSize: 12
-          });
-          _this.attr('placeholder', ms);
-          labobj.show();
-          _this.attr('placeholder', '');
-        }
-
-      });
+    });
   },
-  initCheckMore:function(){
-      //初始化查看更多回复
-      $('#comments-list dl dd.top-huifu').each(function(index){
-        var _this=$(this);
-        var huifunum=_this.find('dl').length;
-        if(huifunum>0){
-_this.prev().find('span').eq(0).after('<a class="check-huifu" onClick="commentsobj.checkMore(this);" href="javascript:;">收起>></a>');
-        }
-      });
+  initCheckMore: function() {
+    //初始化查看更多回复
+    $('#comments-list dl dd.top-huifu').each(function(index) {
+      var _this = $(this);
+      var huifunum = _this.find('dl').length;
+      if (huifunum > 0) {
+        _this.prev().find('span').eq(0).after('<a class="check-huifu" onClick="commentsobj.checkMore(this);" href="javascript:;">收起>></a>');
+      }
+    });
   },
-  checkMore:function(obj){
-    var _t=$(obj);
-    var tex=_t.text();
-    if(tex=='查看更多回复>>'){
+  checkMore: function(obj) {
+    var _t = $(obj);
+    var tex = _t.text();
+    if (tex == '查看更多回复>>') {
 
-_t.parents('dt').next().find('dl').slideDown(200,function(){
- _t.html('收起>>');
-});
-    }else{
+      _t.parents('dt').next().find('.huifu-list').slideDown(200, function() {
+        _t.html('收起>>');
+      });
+    } else {
 
-_t.parents('dt').next().find('dl').slideUp(200,function(){
-_t.html('查看更多回复>>');
-});
+      _t.parents('dt').next().find('.huifu-list').slideUp(200, function() {
+        _t.html('查看更多回复>>');
+      });
     }
 
   }

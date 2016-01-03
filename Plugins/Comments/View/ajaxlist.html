@@ -8,7 +8,10 @@
 <span class="fr ptime">时间:{$vo.create_time|time_format}</span></dt>
 <dd class="top-huifu">
 <div class="comments-con">{$vo.content}</div>
+<div class="huifu-list">
 {:RP('Comments/gettree',array($vo['id']))}
+</div>
+
 </dd>
 </dl>
 </volist>
