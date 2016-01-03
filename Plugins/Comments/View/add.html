@@ -19,7 +19,7 @@
 #comments-list dd{ padding:10px;word-break: break-all; color:#888;}
 #comments-list a.btn{ color:#fff;}
 #comments-list dd #commentsform{ margin-top:20px;}
-
+#comments-list .check-huifu{margin-left: 20px; color: #969696;}
 #commentsform{width:auto;margin:10px;}
 #commentsform textarea:focus,#commentsform input:focus{border-color:#ff6700}
 #commentsform textarea,#commentsform input{border-radius: 5px; display:block;outline:none;border:solid 1px #e0e0e0;height:30px;line-height:30px;padding:5px 10px;margin-top:10px;width:98%;}
@@ -35,6 +35,7 @@
 #commentsform .address-btn .btn-cancel{background:#C3A200;}
 .form-section select{padding:0px 0px 0px 10px;-webkit-appearance:none;-moz-appearance:none;appearance:none;border:solid 1px #e0e0e0;height:38px;line-height:38px;}
 #commentsform .commentsbtn{position: absolute;right: 0px; top: 0px;}
+
 </style>
 <div id="comments-form">
 <form method="post" class="form-group-h" id="commentsform" action="{:UP('Comments/add')}">
@@ -195,6 +196,34 @@ window.commentsobj={
         }
 
       });
+
+
+
+  },
+  initCheckMore:function(){
+      //初始化查看更多回复
+      $('#comments-list dl dd.top-huifu').each(function(index){
+        var _this=$(this);
+        var huifunum=_this.find('dl').length;
+        if(huifunum>0){
+_this.prev().find('span').eq(0).after('<a class="check-huifu" onClick="commentsobj.checkMore(this);" href="javascript:;">收起>></a>');
+        }
+      });
+  },
+  checkMore:function(obj){
+    var _t=$(obj);
+    var tex=_t.text();
+    if(tex=='查看更多回复>>'){
+
+_t.parents('dt').next().find('dl').slideDown(200,function(){
+ _t.html('收起>>');
+});
+    }else{
+
+_t.parents('dt').next().find('dl').slideUp(200,function(){
+_t.html('查看更多回复>>');
+});
+    }
 
   }
 };

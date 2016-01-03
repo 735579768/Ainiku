@@ -6,7 +6,7 @@
 <a href="javascript:;" class="huifu" onClick="huifuclick(this,{$vo.pid},{$vo.id});">回复此留言</a>
 </span>
 <span class="fr ptime">时间:{$vo.create_time|time_format}</span></dt>
-<dd>
+<dd class="top-huifu">
 <div class="comments-con">{$vo.content}</div>
 {:RP('Comments/gettree',array($vo['id']))}
 </dd>
@@ -27,6 +27,7 @@ $('#pages a').click(function(e) {
 		});
     return false;
 });
+commentsobj.initCheckMore();
 });
 </script>
 
