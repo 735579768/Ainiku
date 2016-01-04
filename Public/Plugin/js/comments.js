@@ -91,12 +91,12 @@ $(this).parent().prev().find('span').eq(0).after('<a class="check-huifu" onClick
       var tex = _t.text();
       if (tex == '查看更多回复>>') {
 
-        _t.parents('dt').next().find('.huifu-list').slideDown(200, function() {
+        _t.parents('dt').next().children('.huifu-list').slideDown(200, function() {
           _t.html('收起>>');
         });
       } else {
 
-        _t.parents('dt').next().find('.huifu-list').slideUp(200, function() {
+        _t.parents('dt').next().children('.huifu-list').slideUp(200, function() {
           _t.html('查看更多回复>>');
         });
       }
