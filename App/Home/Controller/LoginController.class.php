@@ -46,7 +46,7 @@ class LoginController extends HomeController {
 			} else {
 				//赋值当前登陆用户信息
 				$map['member_id'] = UID;
-				$user             = D('MemberView')->field($field)->where($map)->find();
+				$user             = D('MemberView')->where($map)->find();
 				$this->uinfo      = $user;
 			}
 		}
