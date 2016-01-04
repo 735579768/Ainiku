@@ -91,7 +91,7 @@ $(function() {
 
 
     var dobj = $(obj).parents('dt').next();
-    if (dobj.find('#commentsform').length < 1) {
+    if (dobj.children('#commentsform').length < 1) {
       $('#cancelbtn').show();
       pid = pid ? pid : id;
       $('#commentpid').val(pid);
