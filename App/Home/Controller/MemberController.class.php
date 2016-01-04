@@ -16,6 +16,7 @@ class MemberController extends LoginController {
 	 *我的全部订单
 	 **/
 	public function order($order_status = 1) {
+		$this->orderguoqi();
 		$this->assign('member_title', '全部订单');
 		$map['order_status'] = $order_status;
 		$map['uid']          = UID;
@@ -26,6 +27,16 @@ class MemberController extends LoginController {
 			'rows'  => 5,
 		));
 		$this->display();
+	}
+	/**
+	 * 订单过期
+	 * @return [type] [description]
+	 */
+	private function orderguoqi() {
+		$map['uid']          = UID;
+		$map['order_status'] = 1;
+		$map['create_time']  = array('lt', NOW_TIME - (2 * 3600));
+		M('Order')->where($map)->setField('order_status', 0);
 	}
 	/**
 	 *查看订单

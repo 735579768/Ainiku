@@ -44,6 +44,7 @@
                     <td>{$vo.consignee_name}</td>
                     <td>{$vo.order_total}元</td>
                     <td>
+                         <eq name="vo.order_status" value="0">已失效</eq>
                         <eq name="vo.order_status" value="1">等待付款</eq>
                         <eq name="vo.order_status" value="2">已付款,等待发货</eq>
                         <eq name="vo.order_status" value="3">已发货,等待收货</eq>
