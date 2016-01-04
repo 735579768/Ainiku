@@ -1,30 +1,28 @@
 <div class="comments" style="width:800px; margin:0px auto;">
 <style>
 #comments-form{padding:20px;}
-#comments-list .comments-con{    margin-bottom: 15px;}
-#comments-list a,
-#comments-list{ color:#000; font-size:14px;}
-#comments-list dt a{ text-decoration:none;}
-#comments-list dt a:hover{ text-decoration:underline; color:#f00;}
-#comments-list .line{ display:block; height:0px; border-bottom:dashed 1px #ccc;}
-#comments-list dl{ margin:10px 0px;    margin-top: 0px;}
-#comments-list dl dl{border: dashed 1px #ccc;margin-left: 20px;    border-right: none;
-    margin-right: -10px;}
-#comments-list dl dl:hover{   }
-#comments-list dl dl dt{ background:none;}
-#comments-list dt{ padding:0px 10px; height:30px;line-height: 30px;background-color: #F7F7F7;}
-#comments-list dt .huifu{ color:#BDBDBD;  text-decoration:none;    margin-left: 10px;}
-#comments-list dt:hover span .huifu{display: inline-block;}
-#comments-list dt .ptime{ color:#8E8E8E;    font-size: 12px;}
-#comments-list dd{ padding:10px;word-break: break-all; color:#888;}
-#comments-list a.btn{ color:#fff;}
-#comments-list dd #commentsform{ margin-top:20px;}
-#comments-list .check-huifu{margin-left: 20px; color: #969696;}
+#comments-list .comments-con{margin-bottom:15px;}
+#comments-list a,#comments-list{color:#000;font-size:14px;}
+#comments-list dt a{text-decoration:none;}
+#comments-list dt a:hover{text-decoration:underline;color:#f00;}
+#comments-list .line{display:block;height:0px;border-bottom:dashed 1px #ccc;}
+#comments-list dl{margin:10px 0px;margin-top:0px;}
+#comments-list dl dl{border:dashed 1px #ccc;margin-left:20px;border-right:none;margin-right:-10px;}
+#comments-list dl dl:hover{}
+#comments-list dl dl dt{background:none;}
+#comments-list dt{padding:0px 10px;height:30px;line-height:30px;background-color:#F7F7F7;}
+#comments-list dt .huifu{color:#BDBDBD;text-decoration:none;margin-left:10px;}
+#comments-list dt:hover span .huifu{display:inline-block;}
+#comments-list dt .ptime{color:#8E8E8E;font-size:12px;}
+#comments-list dd{padding:10px;word-break:break-all;color:#888;}
+#comments-list a.btn{color:#fff;}
+#comments-list dd #commentsform{margin-top:20px;}
+#comments-list .check-huifu{margin-left:20px;color:#969696;}
 #commentsform{width:auto;margin:10px;}
 #commentsform textarea:focus,#commentsform input:focus{border-color:#ff6700}
-#commentsform textarea,#commentsform input{border-radius: 5px; display:block;outline:none;border:solid 1px #e0e0e0;height:30px;line-height:30px;padding:5px 10px;margin-top:10px;width:98%;}
-#commentsform .verifyinput{width: 100px;}
-#commentsform .verifyimg{position: absolute; top: -10px; left:130px;}
+#commentsform textarea,#commentsform input{border-radius:5px;display:block;outline:none;border:solid 1px #e0e0e0;height:30px;line-height:30px;padding:5px 10px;margin-top:10px;width:98%;}
+#commentsform .verifyinput{width:100px;}
+#commentsform .verifyimg{position:absolute;top:-10px;left:130px;}
 #commentsform input:hover{border-color:#b0b0b0;}
 #commentsform textarea{height:50px;resize:none;line-height:20px;padding:10px;}
 #commentsform .form-section{position:relative;margin-top:15px;}
@@ -34,7 +32,7 @@
 #commentsform .address-btn .btn-ok{background:#4bbd00;}
 #commentsform .address-btn .btn-cancel{background:#C3A200;}
 .form-section select{padding:0px 0px 0px 10px;-webkit-appearance:none;-moz-appearance:none;appearance:none;border:solid 1px #e0e0e0;height:38px;line-height:38px;}
-#commentsform .commentsbtn{position: absolute;right: 0px; top: 0px;}
+#commentsform .commentsbtn{position:absolute;right:0px;top:0px;}
 
 </style>
 <div id="comments-form">
@@ -68,7 +66,7 @@
     <img style="cursor:pointer; vertical-align:middle;" class="reloadverify"  id="verifyimg" alt="点击切换" onclick="this.src='{:U('Public/verify')}?random='+Math.random();" src="{:U('public/verify')}">
     </div>
     <div class="commentsbtn">
-    <input name="arc_id" type="hidden" value="{$info.article_id}" />
+    <input name="arc_id" type="hidden" value="{$info.article_id|default=0}" />
     <input id="commentpid" name="pid" type="hidden" value="0" />
     <a href="javascript:;" onclick="commentsobj.addcomments();" id="addcommentsbtn"  class="btn btn-large">提交评论</a>
     <a href="javascript:;" style="display:none;" class="btn btn-large" id="cancelbtn" onClick="commentsobj.cancelhuifu(this);">取消回复</a>
@@ -81,164 +79,183 @@
 </div>
 <script>
 $(function() {
-  ank.loadhtml("{:UP('Comments/ajaxlist')}", {}, $('#comments-list'), 'POST');
-});
-
-function _after_func() {
-  $('#verifyimg').click();
-}
-window.commentsobj = {
-  initfocus: function() {
-    $('.auto-label').focus(function(event) {
-      var _this = $(this);
-      var labobj = _this.prev();
-      var ms = _this.attr('data-msg');
-      _this.css('borderColor', '#ff6700');
-      labobj.css('color', '#ff6700');
-      //if (_this.val() == '') {
-      labobj.show();
-      _this.attr('placeholder', '');
-      labobj.animate({
-          top: -9,
-          fontSize: 12
-        },
-        300,
-        function() {
-          _this.attr('placeholder', ms);
-        });
-      //}
-    });
-    $('.auto-label').blur(function(event) {
-      var _this = $(this);
-      var labobj = _this.prev();
-      var ms = _this.attr('data-msg');
-      _this.css('borderColor', '#e0e0e0');
-      labobj.css('color', '#bbb');
-      if (_this.val() == '') {
-        _this.attr('placeholder', '');
-        labobj.animate({
-            top: 9,
-            fontSize: 14
-          },
-          300,
-          function() {
-            _this.attr('placeholder', labobj.html());
-          });
+  window.commentsobj = {
+    formhtml:'',
+    initfocus: function() {
+      if(this.formhtml==''){
+        this.formhtml=$('#comments-form').html();
       }
-
-
-    });
-    $('.form-section .auto-label').each(function(index) {
-      var str = $(this).val();
-      if (str != '') {
+      $('.auto-label').focus(function(event) {
         var _this = $(this);
         var labobj = _this.prev();
         var ms = _this.attr('data-msg');
-        labobj.css({
-          color: '#bbb',
-          top: -9,
-          fontSize: 12
-        });
-        _this.attr('placeholder', ms);
+        _this.css('borderColor', '#ff6700');
+        labobj.css('color', '#ff6700');
+        //if (_this.val() == '') {
         labobj.show();
         _this.attr('placeholder', '');
-      }
-
-    });
-  },
-  initCheckMore: function() {
-    //初始化查看更多回复
-    $('#comments-list dl dd.top-huifu').each(function(index) {
-      var _this = $(this);
-      var huifunum = _this.find('dl').length;
-      if (huifunum > 0) {
-        _this.prev().find('span').eq(0).after('<a class="check-huifu" onClick="commentsobj.checkMore(this);" href="javascript:;">收起>></a>');
-      }
-    });
-  },
-  checkMore: function(obj) {
-    var _t = $(obj);
-    var tex = _t.text();
-    if (tex == '查看更多回复>>') {
-
-      _t.parents('dt').next().find('.huifu-list').slideDown(200, function() {
-        _t.html('收起>>');
+        labobj.animate({
+            top: -9,
+            fontSize: 12
+          },
+          300,
+          function() {
+            _this.attr('placeholder', ms);
+          });
+        //}
       });
-    } else {
-
-      _t.parents('dt').next().find('.huifu-list').slideUp(200, function() {
-        _t.html('查看更多回复>>');
-      });
-    }
-  },
-  //单击回复按钮
-  huifuclick:function(obj, pid, id) {
-    var dobj = $(obj).parents('dt').next();
-    if (dobj.children('#commentsform').length < 1) {
-      $('#cancelbtn').show();
-      pid = pid ? pid : id;
-      $('#commentpid').val(pid);
-      dobj.append($('#commentsform'));
-      $('#commentsform').hide();
-      $('#commentsform').slideDown(100);
-    }
-
-    return false;
-  },
-  //取消回复按钮
-  cancelhuifu:function(obj) {
-    $('#comments-form').html($('#commentsform'));
-    $('#commentsform').show();
-    $('#commentpid').val(0);
-    $('#cancelbtn').hide();
-  },
-  //提交评论
-  addcomments:function() {
-    var formobj = $('#commentsform');
-    formobj.submit(function(e) {
-      return false;
-    });
-    if (!(/^[a-zA-Z0-9]{4}$/.test($('#verifyimg').val()))) {
-      ank.msg('请填入正确的验证码!');
-      return false;
-    }
-    if (/^\s*$/.test($('#comments-content').val())) {
-      ank.msg('请填入内容!');
-      return false;
-    } <eq name = "conf.name" value = "1" >
-      if (!(/^.{2,5}$/.test($('#comments-name').val()))) {
-        ank.msg('请填入正确的名字!');
-        return false;
-      } </eq>
-    var uri = formobj.attr("action");
-    postdata = formobj.serialize();
-    // $("body").append('<div id="liuyanklbg" class="bg">');
-    $('#addcommentsbtn').html('正在提交...');
-    $.ajax({
-      url: uri,
-      type: "POST",
-      datatype: "JSON",
-      data: postdata,
-      success: function(da) {
-        if (da.status == '1') {
-          ank.msg(da.info.msg);
-          var len = formobj.parents('#comments-list').length;
-          if (len === 1) {
-            formobj.before(da.info.content);
-            cancelhuifu();
-          } else {
-            $('#comments-list').prepend(da.info.content);
-          }
-        } else {
-          ank.msg(da.info);
+      $('.auto-label').blur(function(event) {
+        var _this = $(this);
+        var labobj = _this.prev();
+        var ms = _this.attr('data-msg');
+        _this.css('borderColor', '#e0e0e0');
+        labobj.css('color', '#bbb');
+        if (_this.val() == '') {
+          _this.attr('placeholder', '');
+          labobj.animate({
+              top: 9,
+              fontSize: 14
+            },
+            300,
+            function() {
+              _this.attr('placeholder', labobj.html());
+            });
         }
-        $('#addcommentsbtn').html('提交评论');
+
+
+      });
+      $('.form-section .auto-label').each(function(index) {
+        var str = $(this).val();
+        if (str != '') {
+          var _this = $(this);
+          var labobj = _this.prev();
+          var ms = _this.attr('data-msg');
+          labobj.css({
+            color: '#bbb',
+            top: -9,
+            fontSize: 12
+          });
+          _this.attr('placeholder', ms);
+          labobj.show();
+          _this.attr('placeholder', '');
+        }
+
+      });
+    },
+    initCheckMore: function() {
+      //初始化查看更多回复
+      $('#comments-list dl dd.top-huifu').each(function(index) {
+        var _this = $(this);
+        var huifunum = _this.find('dl').length;
+        if (huifunum > 0) {
+          _this.prev().find('span').eq(0).after('<a class="check-huifu" onClick="commentsobj.checkMore(this);" href="javascript:;">收起>></a>');
+        }
+      });
+    },
+    checkMore: function(obj) {
+      var _t = $(obj);
+      var tex = _t.text();
+      if (tex == '查看更多回复>>') {
+
+        _t.parents('dt').next().find('.huifu-list').slideDown(200, function() {
+          _t.html('收起>>');
+        });
+      } else {
+
+        _t.parents('dt').next().find('.huifu-list').slideUp(200, function() {
+          _t.html('查看更多回复>>');
+        });
+      }
+    },
+    //单击回复按钮
+    huifuclick:function(obj, pid, id) {
+      var _t=$(obj);
+      var dobj = _t.parents('dt').next();
+      if (dobj.children('#commentsform').length < 1) {
+        ank.msgDialog({
+          title:'回复:@'+_t.parents('span').children().eq(0).html(),
+          width:450,
+          height:'auto',
+          content:'',
+          cancel:function(){
+            $('#comments-form').append(commentsobj.formhtml);
+            commentsobj.initfocus();
+          }
+        });
+        $('#dialog-conn').append(this.formhtml);
+        $('#commentsform').remove();
+        commentsobj.initfocus();
+        return true;
+
+/*        $('#cancelbtn').show();
+        pid = pid ? pid : id;
+        $('#commentpid').val(pid);
+        dobj.append($('#commentsform'));
+        $('#commentsform').hide();
+        $('#commentsform').slideDown(100);*/
       }
 
-    });
-    return false;
-  }
-};
-commentsobj.initfocus();
+      return false;
+    },
+    //取消回复按钮
+    cancelhuifu:function(obj) {
+      $('#comments-form').html($('#commentsform'));
+      $('#commentsform').show();
+      $('#commentpid').val(0);
+      $('#cancelbtn').hide();
+    },
+    //提交评论
+    addcomments:function() {
+      var formobj = $('#commentsform');
+      formobj.submit(function(e) {
+        return false;
+      });
+      if (!(/^[a-zA-Z0-9]{4}$/.test($('#verifyimg').val()))) {
+        ank.msg('请填入正确的验证码!');
+        return false;
+      }
+      if (/^\s*$/.test($('#comments-content').val())) {
+        ank.msg('请填入内容!');
+        return false;
+      } <eq name = "conf.name" value = "1" >
+        if (!(/^.{2,5}$/.test($('#comments-name').val()))) {
+          ank.msg('请填入正确的名字!');
+          return false;
+        } </eq>
+      var uri = formobj.attr("action");
+      postdata = formobj.serialize();
+      // $("body").append('<div id="liuyanklbg" class="bg">');
+      $('#addcommentsbtn').html('正在提交...');
+      $.ajax({
+        url: uri,
+        type: "POST",
+        datatype: "JSON",
+        data: postdata,
+        success: function(da) {
+          if (da.status == '1') {
+            ank.msg(da.info.msg);
+            var len = formobj.parents('#comments-list').length;
+            if (len === 1) {
+              formobj.before(da.info.content);
+              cancelhuifu();
+            } else {
+              $('#comments-list').prepend(da.info.content);
+            }
+          } else {
+            ank.msg(da.info);
+          }
+          $('#addcommentsbtn').html('提交评论');
+        }
+
+      });
+      return false;
+    }
+  };
+  ank.loadhtml("{:UP('Comments/ajaxlist')}", {}, $('#comments-list'), 'POST');
+  commentsobj.initfocus();
+});
+function _after_func() {
+  $('#verifyimg').click();
+}
 </script>
 </div>

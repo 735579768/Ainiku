@@ -68,7 +68,7 @@
 						xx = e.pageX - a._x;
 						yy = e.pageY - a._y - scryyy;
 						_t.css({
-							zIndex: _this.config.zindex + 1,
+							zIndex: _this.config.zindex - 1,
 							position: "fixed",
 							left: xx,
 							top: (yy > 0) ? yy : 0,
@@ -135,7 +135,7 @@
 				(typeof(callback) === 'function') && callback(obj);
 			}
 		},
-		//对话框 
+		//对话框
 		msgDialog: function(opts) {
 			var _this = this;
 			var conf = {
@@ -160,6 +160,7 @@
 					_this.hide(dialog, function() {
 						$("#dialog-wrap").remove();
 					});
+					opts.cancel();
 				});
 				$("#dialog-ok,.bindok").click(function(e) {
 					opts.ok();
