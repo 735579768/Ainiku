@@ -56,7 +56,11 @@ class CommentsPlugin extends \Plugins\Plugin {
 					$list[] = M('Comments')->find($result);
 					$this->assign('_list', $list);
 					$str = $this->fetch('ajaxlist');
-					$this->success(array('content' => $str, msg => '留言成功'));
+					$this->success(array(
+						'content' => $str,
+						'msg'     => '留言成功',
+						'pid'     => I('post.pid'),
+					));
 				} else {
 					$this->error('留言失败');
 				}

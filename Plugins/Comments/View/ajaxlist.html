@@ -1,20 +1,21 @@
 <volist name="_list" id="vo">
-<dl>
+<dl id="comments-{$vo.id}" class="top-huifu">
 <dt>
 <span class="fl">
 <a name="comments{$vo.id}" rel="nofollow" target="_blank" href="<empty name="vo.url">javascript:;<else />{:UP('Comments/redirect',array('url'=>ainiku_encrypt($vo['url'])))}</empty>">{$vo.name|default="匿名"}</a>
 <a href="javascript:;" class="huifu" onClick="commentsobj.huifuclick(this,{$vo.pid},{$vo.id});">回复此留言</a>
 </span>
 <span class="fr ptime">时间:{$vo.create_time|time_format}</span></dt>
-<dd class="top-huifu">
+<dd>
 <div class="comments-con">{$vo.content}</div>
-<div class="huifu-list">
+<div class="huifu-list" id="comments-huifulist-{$vo.id}">
 {:RP('Comments/gettree',array($vo['id']))}
 </div>
 
 </dd>
 </dl>
 </volist>
+<notempty name="_page">
 <div id="commentspages" class="page">{$_page}</div>
 <script>
 $(function(){
@@ -30,9 +31,10 @@ $('#commentspages a').click(function(e) {
 		});
     return false;
 });
-commentsobj.initCheckMore();
 });
 </script>
+</notempty>
+<script>commentsobj.initCheckMore();</script>
 
 
 

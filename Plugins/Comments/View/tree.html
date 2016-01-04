@@ -1,5 +1,5 @@
 <volist name="_list" id="v">
-<dl  style="padding-left:20px;">
+<dl  style="padding-left:20px;" id="comments-{$v.id}">
 <dt>
 <span class="fl">
 <a name="comments{$v.id}"  rel="nofollow" target="_blank" href="<empty name="v.url">javascript:;<else />{:UP('Comments/redirect',array('url'=>ainiku_encrypt($v['url'])))}</empty>">{$v.name|default="匿名"}</a>@<a  href="#comments{$v.pid}">{$pname}</a>
@@ -8,7 +8,9 @@
 <span class="fr ptime">时间:{$v.create_time|time_format}</span></dt>
 <dd>
 <div class="comments-con">{$v.content}</div>
+<div class="huifu-list" id="comments-huifulist-{$v.id}">
 {:RP('Comments/gettree',array($v['id']))}
+</div>
 </dd>
 </dl>
 </volist>

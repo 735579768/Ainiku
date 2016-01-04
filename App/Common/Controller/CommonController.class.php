@@ -14,6 +14,8 @@ class CommonController extends Controller {
 			__ROOT__ . '/Public/' . MODULE_NAME . '/' . C('DEFAULT_THEME') . '/js',
 			__ROOT__ . '/Public/Static/css',
 			__ROOT__ . '/Public/Static/js',
+			__ROOT__ . '/Public/Plugin/css',
+			__ROOT__ . '/Public/Plugin/js',
 		));
 /*//注册css文件
 $assets->registercss('reset,common,index,404');
