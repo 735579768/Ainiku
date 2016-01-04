@@ -73,9 +73,9 @@ $(function() {
         var _this = $(this);
         var huifunum = _this.find('dl').length;
         if (huifunum > 0) {
-          if(_this.prev().find('.check-huifu').length<1){
-          _this.prev().find('span').eq(0).after('<a class="check-huifu" onClick="commentsobj.checkMore(this);" href="javascript:;">收起>></a>');
-        }
+          if (_this.prev().find('.check-huifu').length < 1) {
+            _this.prev().find('span').eq(0).after('<a class="check-huifu" onClick="commentsobj.checkMore(this);" href="javascript:;">收起>></a>');
+          }
         }
       });
     },
