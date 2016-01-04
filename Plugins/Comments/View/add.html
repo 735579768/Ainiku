@@ -70,8 +70,8 @@
     <div class="commentsbtn">
     <input name="arc_id" type="hidden" value="{$info.article_id}" />
     <input id="commentpid" name="pid" type="hidden" value="0" />
-    <a href="javascript:addcomments();" id="addcommentsbtn"  class="btn btn-large">提交评论</a>
-    <a href="javascript:;" style="display:none;" class="btn btn-large" id="cancelbtn" onClick="cancelhuifu(this);">取消回复</a>
+    <a href="javascript:;" onclick="commentsobj.addcomments();" id="addcommentsbtn"  class="btn btn-large">提交评论</a>
+    <a href="javascript:;" style="display:none;" class="btn btn-large" id="cancelbtn" onClick="commentsobj.cancelhuifu(this);">取消回复</a>
     </div>
   </div>
 </form>
@@ -81,73 +81,6 @@
 </div>
 <script>
 $(function() {
-  window.cancelhuifu = function(obj) {
-    $('#comments-form').html($('#commentsform'));
-    $('#commentsform').show();
-    $('#commentpid').val(0);
-    $('#cancelbtn').hide();
-  };
-  window.huifuclick = function(obj, pid, id) {
-
-
-    var dobj = $(obj).parents('dt').next();
-    if (dobj.children('#commentsform').length < 1) {
-      $('#cancelbtn').show();
-      pid = pid ? pid : id;
-      $('#commentpid').val(pid);
-      dobj.append($('#commentsform'));
-      $('#commentsform').hide();
-      $('#commentsform').slideDown(100);
-    }
-
-    return false;
-  };
-  window.addcomments = function() {
-    var formobj = $('#commentsform');
-    formobj.submit(function(e) {
-      return false;
-    });
-    if (!(/^[a-zA-Z0-9]{4}$/.test($('#verifyimg').val()))) {
-      ank.msg('请填入正确的验证码!');
-      return false;
-    }
-    if (/^\s*$/.test($('#comments-content').val())) {
-      ank.msg('请填入内容!');
-      return false;
-    } <eq name = "conf.name" value = "1" >
-      if (!(/^.{2,5}$/.test($('#comments-name').val()))) {
-        ank.msg('请填入正确的名字!');
-        return false;
-      } </eq>
-    var uri = formobj.attr("action");
-    postdata = formobj.serialize();
-    // $("body").append('<div id="liuyanklbg" class="bg">');
-    $('#addcommentsbtn').html('正在提交...');
-    $.ajax({
-      url: uri,
-      type: "POST",
-      datatype: "JSON",
-      data: postdata,
-      success: function(da) {
-        if (da.status == '1') {
-          ank.msg(da.info.msg);
-          var len = formobj.parents('#comments-list').length;
-          if (len === 1) {
-            formobj.before(da.info.content);
-            cancelhuifu();
-          } else {
-            $('#comments-list').prepend(da.info.content);
-          }
-        } else {
-          ank.msg(da.info);
-        }
-        $('#addcommentsbtn').html('提交评论');
-      }
-
-    });
-    return false;
-  };
-  //window.load2huifu=function(){};
   ank.loadhtml("{:UP('Comments/ajaxlist')}", {}, $('#comments-list'), 'POST');
 });
 
@@ -237,7 +170,73 @@ window.commentsobj = {
         _t.html('查看更多回复>>');
       });
     }
+  },
+  //单击回复按钮
+  huifuclick:function(obj, pid, id) {
+    var dobj = $(obj).parents('dt').next();
+    if (dobj.children('#commentsform').length < 1) {
+      $('#cancelbtn').show();
+      pid = pid ? pid : id;
+      $('#commentpid').val(pid);
+      dobj.append($('#commentsform'));
+      $('#commentsform').hide();
+      $('#commentsform').slideDown(100);
+    }
 
+    return false;
+  },
+  //取消回复按钮
+  cancelhuifu:function(obj) {
+    $('#comments-form').html($('#commentsform'));
+    $('#commentsform').show();
+    $('#commentpid').val(0);
+    $('#cancelbtn').hide();
+  },
+  //提交评论
+  addcomments:function() {
+    var formobj = $('#commentsform');
+    formobj.submit(function(e) {
+      return false;
+    });
+    if (!(/^[a-zA-Z0-9]{4}$/.test($('#verifyimg').val()))) {
+      ank.msg('请填入正确的验证码!');
+      return false;
+    }
+    if (/^\s*$/.test($('#comments-content').val())) {
+      ank.msg('请填入内容!');
+      return false;
+    } <eq name = "conf.name" value = "1" >
+      if (!(/^.{2,5}$/.test($('#comments-name').val()))) {
+        ank.msg('请填入正确的名字!');
+        return false;
+      } </eq>
+    var uri = formobj.attr("action");
+    postdata = formobj.serialize();
+    // $("body").append('<div id="liuyanklbg" class="bg">');
+    $('#addcommentsbtn').html('正在提交...');
+    $.ajax({
+      url: uri,
+      type: "POST",
+      datatype: "JSON",
+      data: postdata,
+      success: function(da) {
+        if (da.status == '1') {
+          ank.msg(da.info.msg);
+          var len = formobj.parents('#comments-list').length;
+          if (len === 1) {
+            formobj.before(da.info.content);
+            cancelhuifu();
+          } else {
+            $('#comments-list').prepend(da.info.content);
+          }
+        } else {
+          ank.msg(da.info);
+        }
+        $('#addcommentsbtn').html('提交评论');
+      }
+
+    });
+    return false;
   }
 };
 commentsobj.initfocus();
