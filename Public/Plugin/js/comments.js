@@ -70,21 +70,12 @@ $(function() {
     initCheckMore: function() {
       //初始化查看更多回复
       $('.huifu-list').each(function(index, el) {
-        var dle=$(this).children('dl');
-        if(dle.length>0){
-$(this).parent().prev().find('span').eq(0).after('<a class="check-huifu" onClick="commentsobj.checkMore(this);" href="javascript:;">收起>></a>');
+        var dle = $(this).children('dl');
+        if (dle.length > 0) {
+          $(this).parent().prev().find('span').eq(0).after('<a class="check-huifu" onClick="commentsobj.checkMore(this);" href="javascript:;">收起>></a>');
         }
 
       });
-/*      $('#comments-list dl.top-huifu').children('dd').each(function(index) {
-        var _this = $(this);
-        var huifunum = _this.find('dl').length;
-        if (huifunum > 0) {
-          if (_this.prev().find('.check-huifu').length < 1) {
-            _this.prev().find('span').eq(0).after('<a class="check-huifu" onClick="commentsobj.checkMore(this);" href="javascript:;">收起>></a>');
-          }
-        }
-      });*/
     },
     checkMore: function(obj) {
       var _t = $(obj);

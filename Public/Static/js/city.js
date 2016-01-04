@@ -83,7 +83,7 @@
 				if (diqu) {
 					diqu = diqu.split(',');
 				}
-				if (diqu.length >= 3) {
+				if (diqu && diqu.length >= 3) {
 					sheng.val(diqu[0]);
 					sheng.change();
 					shi.val(diqu[1]);
