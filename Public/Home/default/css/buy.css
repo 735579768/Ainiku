@@ -162,60 +162,30 @@
 .order-goods-list li img{float:left;}
 .order-goods-list li span{font-size:14px;padding:10px 20px;float:left;}
 .order-detail{margin:10px 0px;}
+.order-detail.order-xf{padding:20px 50px;float:right;}
+.order-detail.order-xf dd .pricecolor{font-size:25px;}
+.order-detail.order-xf dd .label-con{text-align:right;color:#ff6700;font-size:14px;}
+.order-detail.order-xf dd.shifu{margin-top: 20px;}
 .order-detail dt{padding-left:20px;font-size:20px;height:40px;line-height:40px;}
 .order-detail dd{padding-left:20px;}
 .order-detail dd .label,.order-detail dd .label-con{display:inline-block;height:30px;line-height:30px;font-size:14px;}
 .order-detail dd .label{width:80px;float:left;}
 .order-detail dd .label-con{display:block;margin-left:90px;}
 .order-empty{height:80px;line-height:80px;font-size:30px;text-align:center;color:#D2D2D2;}
-.order-tu{width:800px;position:relative;    margin: 60px 30px 100px 30px;}
+.order-tu{width:800px;position:relative;margin:60px 30px 100px 30px;}
 .order-tu .orderline{height:8px;background:#eee;position:relative;}
 .order-tu .orderline .linese{background:#83c44e;display:none;height:8px;width:25%;position:absolute;}
 .order-tu .yuan{z-index:1;background:#eee;border-radius:15px;height:30px;width:30px;position:absolute;left:-1px;top:-12px;}
 .order-tu .yuan .se{background:#83c44e;display:inline-block;height:22px;width:22px;border-radius:11px;margin:4px;display:none;}
 .order-tu .yuan .label{display:none;position:absolute;top:-30px;left:-7px;white-space:nowrap;}
 .order-tu .yuan .time{display:none;position:absolute;top:40px;width:100px;left:-10px;}
-
-.order-tu.jindu0 .linese,
-.order-tu.jindu1 .linese{width:0%;display: inline-block;}
-.order-tu.jindu0 #jindu1 span,
-.order-tu.jindu1 #jindu1 span,
-.order-tu.jindu0 #jindu1 .se,
-.order-tu.jindu1 #jindu1 .se{display: inline-block;}
-
-
-.order-tu.jindu2 .linese{width:25%;display: inline-block;}
-.order-tu.jindu2 #jindu1 span,
-.order-tu.jindu2 #jindu2 span,
-.order-tu.jindu2 #jindu1 .se,
-.order-tu.jindu2 #jindu2 .se{display: inline-block;}
-
-.order-tu.jindu3 .linese{width:50%;display: inline-block;}
-.order-tu.jindu3 #jindu1 span,
-.order-tu.jindu3 #jindu2 span,
-.order-tu.jindu3 #jindu3 span,
-.order-tu.jindu3 #jindu1 .se,
-.order-tu.jindu3 #jindu2 .se,
-.order-tu.jindu3 #jindu3 .se{display: inline-block;}
-
-.order-tu.jindu4 .linese{width:75%;display: inline-block;}
-.order-tu.jindu4 #jindu1 span,
-.order-tu.jindu4 #jindu2 span,
-.order-tu.jindu4 #jindu3 span,
-.order-tu.jindu4 #jindu4 span,
-.order-tu.jindu4 #jindu1 .se,
-.order-tu.jindu4 #jindu2 .se,
-.order-tu.jindu4 #jindu3 .se,
-.order-tu.jindu4 #jindu4 .se{display: inline-block;}
-
-.order-tu.jindu5 .linese{width:99%;display: inline-block;}
-.order-tu.jindu5 #jindu1 span,
-.order-tu.jindu5 #jindu2 span,
-.order-tu.jindu5 #jindu3 span,
-.order-tu.jindu5 #jindu4 span,
-.order-tu.jindu5 #jindu5 span,
-.order-tu.jindu5 #jindu1 .se,
-.order-tu.jindu5 #jindu2 .se,
-.order-tu.jindu5 #jindu3 .se,
-.order-tu.jindu5 #jindu4 .se,
-.order-tu.jindu5 #jindu5 .se{display: inline-block;}
+.order-tu.jindu0 .linese,.order-tu.jindu1 .linese{width:0%;display:inline-block;}
+.order-tu.jindu0 #jindu1 span,.order-tu.jindu1 #jindu1 span,.order-tu.jindu0 #jindu1 .se,.order-tu.jindu1 #jindu1 .se{display:inline-block;}
+.order-tu.jindu2 .linese{width:25%;display:inline-block;}
+.order-tu.jindu2 #jindu1 span,.order-tu.jindu2 #jindu2 span,.order-tu.jindu2 #jindu1 .se,.order-tu.jindu2 #jindu2 .se{display:inline-block;}
+.order-tu.jindu3 .linese{width:50%;display:inline-block;}
+.order-tu.jindu3 #jindu1 span,.order-tu.jindu3 #jindu2 span,.order-tu.jindu3 #jindu3 span,.order-tu.jindu3 #jindu1 .se,.order-tu.jindu3 #jindu2 .se,.order-tu.jindu3 #jindu3 .se{display:inline-block;}
+.order-tu.jindu4 .linese{width:75%;display:inline-block;}
+.order-tu.jindu4 #jindu1 span,.order-tu.jindu4 #jindu2 span,.order-tu.jindu4 #jindu3 span,.order-tu.jindu4 #jindu4 span,.order-tu.jindu4 #jindu1 .se,.order-tu.jindu4 #jindu2 .se,.order-tu.jindu4 #jindu3 .se,.order-tu.jindu4 #jindu4 .se{display:inline-block;}
+.order-tu.jindu5 .linese{width:99%;display:inline-block;}
+.order-tu.jindu5 #jindu1 span,.order-tu.jindu5 #jindu2 span,.order-tu.jindu5 #jindu3 span,.order-tu.jindu5 #jindu4 span,.order-tu.jindu5 #jindu5 span,.order-tu.jindu5 #jindu1 .se,.order-tu.jindu5 #jindu2 .se,.order-tu.jindu5 #jindu3 .se,.order-tu.jindu5 #jindu4 .se,.order-tu.jindu5 #jindu5 .se{display:inline-block;}
