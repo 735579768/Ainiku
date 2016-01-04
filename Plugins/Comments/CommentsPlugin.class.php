@@ -144,7 +144,7 @@ sql;
 		$this->meta_title = "留言列表";
 		return $this->fetch('lists');
 	}
-	public function redirect() {
+	public function redirect($url, $params = array(), $delay = 0, $msg = '') {
 		$url = I('url');
 		empty($url) ? ($url = C('WEBDOMIN')) : ($url = ainiku_decrypt($url));
 		$url = preg_replace('/http\:\/\//i', '', $url);

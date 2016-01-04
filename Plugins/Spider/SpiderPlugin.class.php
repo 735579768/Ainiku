@@ -276,7 +276,7 @@ sql;
 		if (strpos($useragent, 'yodaobot') !== false) {
 			$restr = 'yodao';
 		}
-		if (in_array($restr, $sp)) {
+		if ($sp && in_array($restr, $sp)) {
 			return $restr;
 		} else {
 			return false;
