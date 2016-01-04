@@ -25,6 +25,9 @@
 				<div class="order-goods cl">
 				<eq name="vo.order_status" value="1">
 				<a target="_blank" href="{:U('Buy/pay',array('order_id'=>$vo['order_id']))}" class="btn">立即支付</a></eq>
+				<eq name="vo.order_status" value="3">
+				<a target="_blank" href="{:U('Member/shouhuo',array('order_id'=>$vo['order_id']))}"  class="btn ajax-href">确认收货</a>
+				</eq>
 					<a href="{:U('Member/checkorder',array('order_id'=>$vo['order_id']))}" class="btn">订单详情</a>
 					<ul class="order-goods-list cl">
 					<volist name=":F_getOrderGoodsList($vo['order_id'])" id="v">

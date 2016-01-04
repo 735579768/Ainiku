@@ -43,6 +43,16 @@ class MemberController extends LoginController {
 		$this->display();
 	}
 	/**
+	 *收货
+	 **/
+	function shouhuo($order_id = '') {
+		empty($order_id) && $this->error('参数错误!');
+		$map['uid']      = UID;
+		$map['order_id'] = $order_id;
+		$info            = M('Order')->where($map)->setField('order_status', 5);
+		($info > 0) ? $this->success('交易成功', ' ') : $this->error('操作失败!');
+	}
+	/**
 	 *修改密码
 	 **/
 	public function modpwd($new_password = '', $re_password = '') {

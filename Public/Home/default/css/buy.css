@@ -169,10 +169,10 @@
 .order-detail dd .label-con{display:block;margin-left:90px;}
 .order-empty{height:80px;line-height:80px;font-size:30px;text-align:center;color:#D2D2D2;}
 .order-tu{width:800px;position:relative;    margin: 60px 30px 100px 30px;}
-.order-tu .orderline{height:8px;background:#ccc;position:relative;}
-.order-tu .orderline .linese{background:#00BD66;display:none;height:8px;width:25%;position:absolute;}
-.order-tu .yuan{z-index:1;background:#ccc;border-radius:15px;height:30px;width:30px;position:absolute;left:-1px;top:-12px;}
-.order-tu .yuan .se{background:#00BD66;display:inline-block;height:22px;width:22px;border-radius:11px;margin:4px;display:none;}
+.order-tu .orderline{height:8px;background:#eee;position:relative;}
+.order-tu .orderline .linese{background:#83c44e;display:none;height:8px;width:25%;position:absolute;}
+.order-tu .yuan{z-index:1;background:#eee;border-radius:15px;height:30px;width:30px;position:absolute;left:-1px;top:-12px;}
+.order-tu .yuan .se{background:#83c44e;display:inline-block;height:22px;width:22px;border-radius:11px;margin:4px;display:none;}
 .order-tu .yuan .label{display:none;position:absolute;top:-30px;left:-7px;white-space:nowrap;}
 .order-tu .yuan .time{display:none;position:absolute;top:40px;width:100px;left:-10px;}
 
