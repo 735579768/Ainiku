@@ -173,27 +173,47 @@
 .order-tu .orderline .linese{background:#00BD66;display:none;height:8px;width:25%;position:absolute;}
 .order-tu .yuan{z-index:1;background:#ccc;border-radius:15px;height:30px;width:30px;position:absolute;left:-1px;top:-12px;}
 .order-tu .yuan .se{background:#00BD66;display:inline-block;height:22px;width:22px;border-radius:11px;margin:4px;display:none;}
-.order-tu .yuan .label{position:absolute;top:-30px;left:-7px;white-space:nowrap;}
-.order-tu .yuan .time{position:absolute;top:40px;width:100px;left:-10px;}
+.order-tu .yuan .label{display:none;position:absolute;top:-30px;left:-7px;white-space:nowrap;}
+.order-tu .yuan .time{display:none;position:absolute;top:40px;width:100px;left:-10px;}
+
+.order-tu.jindu0 .linese,
 .order-tu.jindu1 .linese{width:0%;display: inline-block;}
+.order-tu.jindu0 #jindu1 span,
+.order-tu.jindu1 #jindu1 span,
+.order-tu.jindu0 #jindu1 .se,
 .order-tu.jindu1 #jindu1 .se{display: inline-block;}
 
+
 .order-tu.jindu2 .linese{width:25%;display: inline-block;}
+.order-tu.jindu2 #jindu1 span,
+.order-tu.jindu2 #jindu2 span,
 .order-tu.jindu2 #jindu1 .se,
 .order-tu.jindu2 #jindu2 .se{display: inline-block;}
 
 .order-tu.jindu3 .linese{width:50%;display: inline-block;}
+.order-tu.jindu3 #jindu1 span,
+.order-tu.jindu3 #jindu2 span,
+.order-tu.jindu3 #jindu3 span,
 .order-tu.jindu3 #jindu1 .se,
 .order-tu.jindu3 #jindu2 .se,
 .order-tu.jindu3 #jindu3 .se{display: inline-block;}
 
 .order-tu.jindu4 .linese{width:75%;display: inline-block;}
+.order-tu.jindu4 #jindu1 span,
+.order-tu.jindu4 #jindu2 span,
+.order-tu.jindu4 #jindu3 span,
+.order-tu.jindu4 #jindu4 span,
 .order-tu.jindu4 #jindu1 .se,
 .order-tu.jindu4 #jindu2 .se,
 .order-tu.jindu4 #jindu3 .se,
 .order-tu.jindu4 #jindu4 .se{display: inline-block;}
 
 .order-tu.jindu5 .linese{width:99%;display: inline-block;}
+.order-tu.jindu5 #jindu1 span,
+.order-tu.jindu5 #jindu2 span,
+.order-tu.jindu5 #jindu3 span,
+.order-tu.jindu5 #jindu4 span,
+.order-tu.jindu5 #jindu5 span,
 .order-tu.jindu5 #jindu1 .se,
 .order-tu.jindu5 #jindu2 .se,
 .order-tu.jindu5 #jindu3 .se,

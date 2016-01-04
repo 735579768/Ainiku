@@ -15,11 +15,11 @@
 	<div class="divline"></div>
 	<div class="order-tu jindu{$info.order_status}">
 		<div class="orderline"><span class="linese"></span></div>
-		<div id="jindu1" class="yuan"><span class="label">提交订单</span><span class="time">2015-12-19 15:12:52</span><span class="se"></span></div>
-		<div id="jindu2"  class="yuan" style="left:25%;"><span class="label">已付款</span><span class="time">2015-12-19 15:12:52</span><span class="se"></span></div>
-		<div id="jindu3"  class="yuan" style="left:50%;"><span class="label">已发货</span><span class="time">2015-12-19 15:12:52</span><span class="se"></span></div>
-		<div id="jindu4"  class="yuan" style="left:75%;"><span class="label">已收货</span><span class="time">2015-12-19 15:12:52</span><span class="se"></span></div>
-		<div id="jindu5"  class="yuan" style="left:99%;"><span class="label">交易完成</span><span class="time">2015-12-19 15:12:52</span><span class="se"></span></div>
+		<div id="jindu1" class="yuan"><span class="label">提交订单</span><span class="time">{$info.create_time|time_format}</span><span class="se"></span></div>
+		<div id="jindu2"  class="yuan" style="left:25%;"><span class="label">已付款</span><span class="time">{$info.pay_time|time_format}</span><span class="se"></span></div>
+		<div id="jindu3"  class="yuan" style="left:50%;"><span class="label">已发货</span><span class="time">{$info.fahuo_time|time_format}</span><span class="se"></span></div>
+		<div id="jindu4"  class="yuan" style="left:75%;"><span class="label">已收货</span><span class="time">{$info.shouhuo_time|time_format}</span><span class="se"></span></div>
+		<div id="jindu5"  class="yuan" style="left:99%;"><span class="label">交易完成</span><span class="time">{$info.shouhuo_time|time_format}</span><span class="se"></span></div>
 	</div>
 		<ul class="order-goods-list cl">
 		<volist name="_list" id="vo">
@@ -37,7 +37,7 @@
 			<dd><span class="label">收货地址：</span><span class="label-con">
 {$info.consignee_diqu}
 				&nbsp;&nbsp;&nbsp;
-				{$info.consignee_detail} 
+				{$info.consignee_detail}
 			</span></dd>
 		</dl>
 		<div class="divline"></div>

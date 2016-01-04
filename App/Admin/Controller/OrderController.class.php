@@ -34,6 +34,22 @@ class OrderController extends AdminController {
 	public function updateorder() {
 		$model = M('Order');
 		if ($model->create()) {
+			$status = I('order_status');
+			switch ($status) {
+			case '2':
+				$model->pay_time = NOW_TIME;
+				break;
+			case '3':
+				$model->fahuo_time = NOW_TIME;
+				break;
+			case '4':
+				$model->shouhuo_time = NOW_TIME;
+				break;
+
+			default:
+				# code...
+				break;
+			}
 			$result = $model->save();
 			($result > 0) ? $this->success('设置成功') : $this->error('没有更改');
 		} else {
