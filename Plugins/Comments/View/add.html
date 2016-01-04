@@ -78,7 +78,7 @@
 
 </div>
 <script>
-$(function() {
+$(function(){
   window.commentsobj = {
     formhtml:'',
     initfocus: function() {
@@ -171,31 +171,22 @@ $(function() {
     huifuclick:function(obj, pid, id) {
       var _t=$(obj);
       var dobj = _t.parents('dt').next();
-      if (dobj.children('#commentsform').length < 1) {
-        ank.msgDialog({
-          title:'回复:@'+_t.parents('span').children().eq(0).html(),
-          width:450,
-          height:'auto',
-          content:'',
-          cancel:function(){
-            $('#comments-form').append(commentsobj.formhtml);
-            commentsobj.initfocus();
-          }
-        });
-        $('#dialog-conn').append(this.formhtml);
-        $('#commentsform').remove();
-        pid = pid ? pid : id;
-        $('#commentpid').val(pid);
-        commentsobj.initfocus();
-        return true;
-/*        $('#cancelbtn').show();
-
-        dobj.append($('#commentsform'));
-        $('#commentsform').hide();
-        $('#commentsform').slideDown(100);*/
-      }
-
-      return false;
+      ank.msgDialog({
+        title:'回复:@'+_t.parents('span').children().eq(0).html(),
+        width:450,
+        height:'auto',
+        content:'',
+        cancel:function(){
+          $('#comments-form').append(commentsobj.formhtml);
+          commentsobj.initfocus();
+        }
+      });
+      $('#dialog-conn').append(this.formhtml);
+      $('#commentsform').remove();
+      pid = pid ? pid : id;
+      $('#commentpid').val(pid);
+      commentsobj.initfocus();
+      return true;
     },
     //取消回复按钮
     cancelhuifu:function(obj) {
