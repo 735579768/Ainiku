@@ -90,7 +90,7 @@ function getFormType($key = null, $datatype = false) {
 	$mysqltype = array(
 		'string'       => '  varchar(50) NULL ',
 		'select'       => '  varchar(50) NULL ',
-		'radio'        => '  tinyint(1) NULL DEFAULT 0 ',
+		'radio'        => '  varchar(50) NULL  ',
 		'checkbox'     => '  varchar(50) NULL ',
 		'number'       => 'int(10) NULL  DEFAULT 0 ',
 		'double'       => 'double(10,2)  NOT NULL DEFAULT 0',
@@ -281,7 +281,14 @@ function get_list_field($data, $grid, $model) {
 		$temp  = $data[$array[0]];
 		// 函数支持
 		if (isset($array[1])) {
-			$temp = call_user_func($array[1], $temp);
+			if ($array[1] == '[extra]') {
+				//使用模型的extra字段解析成数组
+				$val  = getModelAttr($model['model_id'], $array[0], 'extra');
+				$temp = $val[$temp];
+			} else {
+				$temp = call_user_func($array[1], $temp);
+			}
+
 		}
 		$data2[$array[0]] = $temp;
 	}
