@@ -49,7 +49,7 @@ article_id:编号
 title:标题|<span class="el">[title]</span>
 category_id|getCategoryTitle:分类|<span class="el">[category_id]</span>
 update_time|time_format:最后更新
-status|totext:状态
+status|[extra]:状态
 views:浏览
 article_id:操作:[EDIT]&id=[article_id]|编辑|btn,[DEL]&id=[article_id]|移动到回收站|btn btn-danger
 eot;
@@ -58,7 +58,7 @@ article_id:编号
 title:标题|<span class="el">[title]</span>
 category_id|getCategoryTitle:分类|<span class="el">[category_id]</span>
 update_time|time_format:最后更新
-status:状态
+status|[extra]:状态
 views:浏览
 article_id:操作:[HUIFU]&id=[article_id]|恢复|btn,[DELE]&id=[article_id]|彻底删除|btn btn-danger
 eot;
