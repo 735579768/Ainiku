@@ -43,3 +43,12 @@ function F_getOrderGoodsList($order_id = '') {
 	}
 	return $data;
 }
+/**
+ * 取分类内容列表
+ */
+function getCategoryList($category_id = 0, $model = 'Article', $rows = 10) {
+	$map['category_id'] = $category_id;
+	$map['status']      = 1;
+	$list               = M($model)->where($map)->limit($rows)->select();
+	return $list;
+}
