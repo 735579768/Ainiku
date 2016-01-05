@@ -44,7 +44,7 @@ function F_getOrderGoodsList($order_id = '') {
 	return $data;
 }
 /**
- * 取分类内容列表
+ * 取指定分类内容列表
  */
 function getCategoryList($category_id = 0, $model = 'Article', $rows = 10) {
 	$map['category_id'] = $category_id;
