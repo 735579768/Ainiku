@@ -8,4 +8,15 @@
 <a href="javascript:window.history.go(-1);" class="btn btn-large btn-warning">返回</a>
 </div>
 </form>
+<script type="text/javascript">
+$('input[name="table"]').blur(function(event) {
+	var table=$(this).val().toLowerCase();
+	if(table!=''){
+	var f1=$('textarea[name="list_format"]').eq(0);
+	var f2=$('textarea[name="recycle_format"]').eq(0);
+	f1.val(f1.val().replace(/\w+?_id/ig,table+'_id'));
+	f2.val(f2.val().replace(/\w+?_id/ig,table+'_id'));
+}
+});
+</script>
 </block>
