@@ -531,3 +531,17 @@ function getCustomForm($metch, $name, $data) {
 	$form = new \Common\Controller\CustomFormController($metch, $name, $data);
 	return $form->$metch();
 }
+/**
+ * 返回一个动态自动验证的数组
+ */
+function getModelRules($model_id = '') {
+	$relus = getModelAttr($model_id);
+	$rearr = array();
+	foreach ($relus as $key => $val) {
+		//查找出必填项
+		if ($val['is_require'] == '1') {
+			$rearr[] = array($val['name'], 'require', "{$val['title']}不能为空!");
+		}
+	}
+	return $rearr;
+}
