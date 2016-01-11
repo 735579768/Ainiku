@@ -1,7 +1,7 @@
 <?php
 defined("ACCESS_ROOT") || die("Invalid access");
 return array(
-	'DEFAULT_FILTER'    => '',
+	'DEFAULT_FILTER'    => 'htmlspecialchars',
 	'LOAD_EXT_CONFIG'   => 'user_config',
 	"LOAD_EXT_FILE"     => "lib.goods,lib.member", //扩展函数库
 	//加载自定义标签库

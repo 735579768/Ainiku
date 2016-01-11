@@ -59,8 +59,8 @@ class HomeController extends CommonController {
 			$patterns[]     = '/<img(.*?preload.*?)\s{1}src=["|\']([^\'|\"]+?)["|\'](.*?)>/';
 			$replacements[] = '<img$1 data-original="$2" src="' . __STATIC__ . '/images/preload.png"$3>';
 		}
-		$patterns[]     = '/<img(.*?)src=["|\']["|\'](.*?)>/';
-		$replacements[] = '<img$1src="' . C('DEFAULT_IMG') . '"$2>';
+		$patterns[]     = '/(<img.*?src=["|\'])(["|\'].*?>)/';
+		$replacements[] = '$1' . C('DEFAULT_IMG') . '$2';
 
 		$str    = preg_replace($patterns, $replacements, $str);
 		$cssjss = \Ainiku\AssetsManager::getInstance()->registerend();
