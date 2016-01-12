@@ -90,6 +90,9 @@ class AssetsManager {
 		//查找真实路径,先从当前模块查找
 		$ismodcss = false;
 		$ismodjs  = false;
+		if (empty($this->css) && empty($this->js)) {
+			return "";
+		}
 		$cssname  = md5(implode($this->css));
 		$jsname   = md5(implode($this->js));
 		$csscache = STYLE_CACHE_DIR . MODULE_NAME . '/' . $cssname . '.css';
@@ -129,11 +132,23 @@ class AssetsManager {
 			}
 		}
 		if (!APP_DEBUG) {
-			mkdir(dirname($csscache), 0777, true);
-			$ismodcss && file_put_contents($csscache, $this->cssstr);
-			$ismodjs && file_put_contents($jscache, $this->jsstr);
-			$this->cssstr = '<link href="' . substr($csscache, 1) . '" type="text/css" rel="stylesheet" />' . "\n";
-			$this->jsstr  = '<script src="' . substr($jscache, 1) . '" type="text/javascript" ></script>' . "\n";
+			if (!file_exists(dirname($csscache))) {
+				mkdir(dirname($csscache), 0777, true);
+			}
+
+			if (!file_exists(dirname($jscache))) {
+				mkdir(dirname($jscache), 0777, true);
+			}
+
+			($ismodcss || !file_exists($csscache)) && file_put_contents($csscache, $this->cssstr);
+			($ismodjs || !file_exists($jscache)) && file_put_contents($jscache, $this->jsstr);
+			if (!empty($this->css)) {
+				$this->cssstr = '<link href="' . substr($csscache, 1) . '" type="text/css" rel="stylesheet" />' . "\n";
+			}
+			if (!empty($this->js)) {
+				$this->jsstr = '<script src="' . substr($jscache, 1) . '" type="text/javascript" ></script>' . "\n";
+			}
+
 		}
 		return $this->cssstr . $this->jsstr;
 	}
