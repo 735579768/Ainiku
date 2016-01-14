@@ -409,6 +409,20 @@ function getModel($model_id = '', $field = '') {
 	return empty($field) ? $data : $data[$field];
 }
 /**
+ * 通过模型属性来返回一个状态文本
+ * @return [type] [description]
+ */
+function getStatus($val = '', $model_id = '', $field = 'status') {
+	if (empty($val)) {
+		return '';
+	} else {
+		$arr = getModelAttr($model_id, $field, 'extra');
+		//trace($arr);
+		return $arr[$val];
+	}
+
+}
+/**
  *取表单模型数据数组
  *@param $model_id 模型id或标识
  *@param $field   模型的字段值
