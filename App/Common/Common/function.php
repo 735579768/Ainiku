@@ -584,7 +584,6 @@ function createAccount() {
 function getAccountType($str) {
 	if (preg_match('/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/i', $str)) {return 'email';}
 	if (preg_match('/^1[34578]\d{9}$/', $str)) {return 'mobile';}
-	if (preg_match('/^\d+$/', $str)) {return 'account';}
 	return 'username';
 }
 
