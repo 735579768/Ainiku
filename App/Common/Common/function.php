@@ -16,10 +16,10 @@ function is_login() {
 /**
  *前台自动登陆判断
  */
+/**
+ *前台自动登陆判断
+ */
 function auto_login() {
-	$user = cookie('token');
-	if (empty($user)) {session('user_auth', null);return 0;}
-	;
 	$uid = is_login();
 	if (!$uid) {
 		$uid = autologin();

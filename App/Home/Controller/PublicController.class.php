@@ -66,7 +66,7 @@ class PublicController extends HomeController {
 			}
 		}
 	}
-	public function register($member_group_id = 11, $username = null, $password = null, $email = null, $mobile = null) {
+	public function register($member_group_id = 2, $username = null, $password = null, $email = null, $mobile = null) {
 		if (IS_POST) {
 			$data = array(
 				'member_group_id' => $member_group_id,
@@ -83,7 +83,7 @@ class PublicController extends HomeController {
 			//if(empty($data['mobile'])) unset($data['mobile']);
 			$user = D('Member');
 			/* 添加用户 */
-			if ($user->create()) {
+			if ($user->create($data)) {
 				$user->password        = ainiku_ucenter_md5($user->password);
 				$user->member_group_id = $member_group_id;
 				$result                = $user->add();
@@ -118,7 +118,7 @@ class PublicController extends HomeController {
 			'member_id'      => $uid,
 			'update_time'    => NOW_TIME,
 			'last_login_ip'  => $ip,
-			'last_login_adr' => $location['country'] . $location['area'],
+			'last_login_adr' => $location,
 		);
 		M('Member')->where("member_id=$uid")->setInc('login');
 		M('Member')->save($data);
@@ -127,7 +127,7 @@ class PublicController extends HomeController {
 			array(
 				'member_id'   => $uid,
 				'ip'          => $Ip,
-				'adr'         => $location['country'] . $location['area'],
+				'adr'         => $location,
 				'create_time' => NOW_TIME,
 			)
 		);
