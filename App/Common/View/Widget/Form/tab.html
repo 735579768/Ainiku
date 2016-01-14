@@ -41,7 +41,7 @@ $(function(){
 
 <eq name="formjs.editornum" value="1">
 <script>
-	window.UEDITOR_HOME_URL='__STATIC__/ueditor/';
+  window.UEDITOR_HOME_URL='__STATIC__/ueditor/';
 </script>
 <!--ue编辑器js start-->
 <eq name="formjs.editor" value="1">
@@ -74,8 +74,8 @@ $(function(){
  <div class="tabdiv">
  </eq>
 <volist name="fieldarr0" id="field">
-  <if condition="(($actionstatus eq 'add') and ($field['is_show'] eq '1')) or (($actionstatus eq 'edit') and ($field['is_show'] eq '2')) or (($field['is_show'] eq '3'))">
-  <!--is_show   1 add   2 edit   3  other-->
+  <if condition="(($actionstatus eq 'add') and ($field['is_show'] eq '1')) or (($actionstatus eq 'edit') and ($field['is_show'] eq '2')) or (($field['is_show'] eq '3')) or (($field['is_show'] eq '4')and($Think.const.MODULE_NAME =='Admin'))">
+  <!--is_show   1 add   2 edit   3other 4 admin is show-->
     <div class="form-group cl">
       <div class="form-label">{$field['title']}<notempty name="field['note']"><span class="form-tip">（{$field['note']}）</span>
       </notempty>
@@ -104,7 +104,7 @@ $(function(){
             <input name="{$field['name']}" type="text" readonly class="form-control input-middle time" style="width:145px;" value="<empty name="field['data']">{:date('Y-m-d')}<else />{$field['data']|time_format}</empty>" placeholder="请选择时间" />
             </case>
               <case value="color">
-				 <input name="{$field['name']}"  type="text" class="selectcolor form-control input-small" value="{$field['data']|default='#ffffff'}">
+         <input name="{$field['name']}"  type="text" class="selectcolor form-control input-small" value="{$field['data']|default='#ffffff'}">
             </case>
           <case value="bool">
             <select name="{$field['name']}" class="form-control input-middle">
@@ -117,10 +117,10 @@ $(function(){
           <case value="select">
             <select name="{$field['name']}" class="form-control input-middle">
             <php>
-            	 foreach($field['extra'] as $key=>$val){
-                 	$sel='';
-            		if($field['data']==$key){
-                    	$sel='selected';
+               foreach($field['extra'] as $key=>$val){
+                  $sel='';
+                if($field['data']==$key){
+                      $sel='selected';
                     }
                     if(isset($_REQUEST[$field['name']])){
                         $se=I($field['name']);
@@ -128,7 +128,7 @@ $(function(){
                             $sel='selected';
                         }
                     }
-            	echo "<option value='$key' $sel >".trim($val)."</option>";
+              echo "<option value='$key' $sel >".trim($val)."</option>";
                 }
             </php>
             </select>
@@ -160,22 +160,22 @@ $(function(){
     {$field['data']}
 </script>
 <script>
-	//保存编辑器初始化数据
-	var uescr{$field['name']}=null;
+  //保存编辑器初始化数据
+  var uescr{$field['name']}=null;
     var ue{$field['name']} = UE.getEditor("{$field['name']}",{
-		    serverUrl:ainiku.ueupload,
-			initialFrameHeight:300,
-			//serverUrl:serverPath+"php/controller.php",
+        serverUrl:ainiku.ueupload,
+      initialFrameHeight:300,
+      //serverUrl:serverPath+"php/controller.php",
             imagePath:'',
             focus: true
 
-		});
-		ue{$field['name']}.addListener('focus',function(editor){
-			uescr{$field['name']}=ue{$field['name']}.getContent();
-			});
-		ue{$field['name']}.addListener('blur',function(editor){
-			delEditorImg(uescr{$field['name']},ue{$field['name']}.getContent());
-			});
+    });
+    ue{$field['name']}.addListener('focus',function(editor){
+      uescr{$field['name']}=ue{$field['name']}.getContent();
+      });
+    ue{$field['name']}.addListener('blur',function(editor){
+      delEditorImg(uescr{$field['name']},ue{$field['name']}.getContent());
+      });
 </script>
           </case>
           <case value="umeditor">
@@ -185,22 +185,22 @@ $(function(){
     {$field['data']}
 </script>
 <script>
-	//保存编辑器初始化数据
-	var uescr{$field['name']}=null;
+  //保存编辑器初始化数据
+  var uescr{$field['name']}=null;
     var ue{$field['name']} = UE.getEditor("{$field['name']}",{
-		    serverUrl:ainiku.ueupload,
-			initialFrameHeight:300,
-			//serverUrl:serverPath+"php/controller.php",
+        serverUrl:ainiku.ueupload,
+      initialFrameHeight:300,
+      //serverUrl:serverPath+"php/controller.php",
             imagePath:'',
             focus: true
 
-		});
-		ue{$field['name']}.addListener('focus',function(editor){
-			uescr{$field['name']}=ue{$field['name']}.getContent();
-			});
-		ue{$field['name']}.addListener('blur',function(editor){
-			delEditorImg(uescr{$field['name']},ue{$field['name']}.getContent());
-			});
+    });
+    ue{$field['name']}.addListener('focus',function(editor){
+      uescr{$field['name']}=ue{$field['name']}.getContent();
+      });
+    ue{$field['name']}.addListener('blur',function(editor){
+      delEditorImg(uescr{$field['name']},ue{$field['name']}.getContent());
+      });
 </script>
           </case>
           <case value="batchpicture">
@@ -230,70 +230,70 @@ $(function(){
 ////上传图片
 ///* 初始化上传插件 */
 //$("#upload_picture_{$field['name']}").uploadify({
-//	"height"          : 30,
-//	"swf"             : "__STATIC__/uploadify/uploadify.swf",
-//	"fileObjName"     : "filelist",
-//	"buttonText"      : "上传图片",
-//	"uploader"        : "{:U('File/uploadpic',array('session_id'=>session_id()))}",
-//	"width"           : 120,
-//	'removeTimeout'	  : 1,
-//	'fileTypeExts'	  : '*.jpg; *.png; *.gif;',
-//	"onUploadSuccess" : uploadPicture{$field['name']},
-//	'onFallback' : function() {
-//		alert('未检测到兼容版本的Flash.');
-//	}
+//  "height"          : 30,
+//  "swf"             : "__STATIC__/uploadify/uploadify.swf",
+//  "fileObjName"     : "filelist",
+//  "buttonText"      : "上传图片",
+//  "uploader"        : "{:U('File/uploadpic',array('session_id'=>session_id()))}",
+//  "width"           : 120,
+//  'removeTimeout'   : 1,
+//  'fileTypeExts'    : '*.jpg; *.png; *.gif;',
+//  "onUploadSuccess" : uploadPicture{$field['name']},
+//  'onFallback' : function() {
+//    alert('未检测到兼容版本的Flash.');
+//  }
 //});
 
 
             if (window.applicationCache) {
   $(function(){
-	 // 把原来的上传按钮去掉
-	$('#upload_picture_{$field['name']}').remove();
-	$('#demohtml5upload{$field['name']}btn').click(function(e) {
+   // 把原来的上传按钮去掉
+  $('#upload_picture_{$field['name']}').remove();
+  $('#demohtml5upload{$field['name']}btn').click(function(e) {
         var aaa=$(this).text();
-    	if(aaa=='展开'){
-			$('#demohtml5upload{$field['name']}').slideDown();
-			$(this).html('收缩');
-			}else{
-				$(this).html('展开');
-			$('#demohtml5upload{$field['name']}').slideUp();
-				}
-	});
-	// 初始化插件
-	$("#demohtml5upload{$field['name']}").zyUpload({
-		parentsel		:'#demohtml5upload{$field['name']}',
-		width            :   "80%",                 // 宽度
-		height           :   "auto",                 // 宽度
-		itemWidth        :   "120px",                 // 文件项的宽度
-		itemHeight       :   "100px",                 // 文件项的高度
-		url              :   "{:U('File/uploadpic',array('session_id'=>session_id()))}",  // 上传文件的路径
-		data             :{myname:'your name'},
-		multiple         :   true,                    // 是否可以多个文件上传
-		dragDrop         :   true,                    // 是否可以拖动上传文件
-		del              :   true,                    // 是否可以删除文件
-		finishDel        :   true,  				  // 是否在上传文件完成后删除预览
-		/* 外部获得的回调接口 */
-		onSelect: function(files, allFiles){                    // 选择文件的回调方法
+      if(aaa=='展开'){
+      $('#demohtml5upload{$field['name']}').slideDown();
+      $(this).html('收缩');
+      }else{
+        $(this).html('展开');
+      $('#demohtml5upload{$field['name']}').slideUp();
+        }
+  });
+  // 初始化插件
+  $("#demohtml5upload{$field['name']}").zyUpload({
+    parentsel   :'#demohtml5upload{$field['name']}',
+    width            :   "80%",                 // 宽度
+    height           :   "auto",                 // 宽度
+    itemWidth        :   "120px",                 // 文件项的宽度
+    itemHeight       :   "100px",                 // 文件项的高度
+    url              :   "{:U('File/uploadpic',array('session_id'=>session_id()))}",  // 上传文件的路径
+    data             :{myname:'your name'},
+    multiple         :   true,                    // 是否可以多个文件上传
+    dragDrop         :   true,                    // 是否可以拖动上传文件
+    del              :   true,                    // 是否可以删除文件
+    finishDel        :   true,            // 是否在上传文件完成后删除预览
+    /* 外部获得的回调接口 */
+    onSelect: function(files, allFiles){                    // 选择文件的回调方法
 
-		},
-		onDelete: function(file, surplusFiles){                     // 删除一个文件的回调方法
+    },
+    onDelete: function(file, surplusFiles){                     // 删除一个文件的回调方法
 
-		},
-		onSuccess: function(file,response){                    // 文件上传成功的回调方法
-		uploadPicture{$field['name']}(file,response);
+    },
+    onSuccess: function(file,response){                    // 文件上传成功的回调方法
+    uploadPicture{$field['name']}(file,response);
 
-		},
-		onFailure: function(file){                    // 文件上传失败的回调方法
+    },
+    onFailure: function(file){                    // 文件上传失败的回调方法
 },
-		onComplete: function(responseInfo){           // 上传完成的回调方法
+    onComplete: function(responseInfo){           // 上传完成的回调方法
 
-		}
-	});
+    }
+  });
 });
             } else {
               //  alert("你的浏览器不支持HTML5");
-	$('#demohtml5upload{$field['name']}btn').remove();
-	$('#demohtml5upload{$field['name']}').remove();
+  $('#demohtml5upload{$field['name']}btn').remove();
+  $('#demohtml5upload{$field['name']}').remove();
     //上传图片
     /* 初始化上传插件 */
     $("#upload_picture_{$field['name']}").uploadify({
@@ -303,36 +303,36 @@ $(function(){
         "buttonText"      : "上传图片",
         "uploader"        : "{:U('File/uploadpic',array('session_id'=>session_id()))}",
         "width"           : 120,
-        'removeTimeout'	  : 1,
-        'fileTypeExts'	  : '*.jpg; *.png; *.gif;*.bmp;',
+        'removeTimeout'   : 1,
+        'fileTypeExts'    : '*.jpg; *.png; *.gif;*.bmp;',
         "onUploadSuccess" : uploadPicture{$field['name']},
         'onFallback' : function() {
             alert('未检测到兼容版本的Flash.');
         }
     });
-			}
+      }
 
 
 function uploadPicture{$field['name']}(file, data){
-	var data = $.parseJSON(data);
-	var src = '';
-	if(data.status){
-		var a=$("#cover_id_{$field['name']}").val();
-		a=a.replace(/\s+/g,'');
-		if(a==''){a=data.id;}else{a+='|'+data.id}
-		$("#cover_id_{$field['name']}").val(a);
-		src = data.url ||data.path
-		$("#uploadimg_{$field['name']}").append(
-			"<div class='imgblock'><div class='upload-img-box uploadimg'><div class='upload-pre-item'><img src='" + src + "' /></div></div><a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
-		);
-		$(function(){binddel();});
-	} else {
-		topmsg(data);
-		setTimeout(function(){
-			$('#top-alert').find('button').click();
-			$(that).removeClass('disabled').prop('disabled',false);
-		},1500);
-	}
+  var data = $.parseJSON(data);
+  var src = '';
+  if(data.status){
+    var a=$("#cover_id_{$field['name']}").val();
+    a=a.replace(/\s+/g,'');
+    if(a==''){a=data.id;}else{a+='|'+data.id}
+    $("#cover_id_{$field['name']}").val(a);
+    src = data.url ||data.path
+    $("#uploadimg_{$field['name']}").append(
+      "<div class='imgblock'><div class='upload-img-box uploadimg'><div class='upload-pre-item'><img src='" + src + "' /></div></div><a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
+    );
+    $(function(){binddel();});
+  } else {
+    topmsg(data);
+    setTimeout(function(){
+      $('#top-alert').find('button').click();
+      $(that).removeClass('disabled').prop('disabled',false);
+    },1500);
+  }
 }
 </script>
           </case>
@@ -358,53 +358,53 @@ function uploadPicture{$field['name']}(file, data){
 
             if (window.applicationCache) {
   $(function(){
-	 // 把原来的上传按钮去掉
-	$('#upload_picture_{$field['name']}').remove();
-	$('#demohtml5upload{$field['name']}btn').click(function(e) {
+   // 把原来的上传按钮去掉
+  $('#upload_picture_{$field['name']}').remove();
+  $('#demohtml5upload{$field['name']}btn').click(function(e) {
         var aaa=$(this).text();
-    	if(aaa=='展开'){
-			$('#demohtml5upload{$field['name']}').slideDown();
-			$(this).html('收缩');
-			}else{
-				$(this).html('展开');
-			$('#demohtml5upload{$field['name']}').slideUp();
-				}
-	});
-	// 初始化插件
-	$("#demohtml5upload{$field['name']}").zyUpload({
-		parentsel		:'#demohtml5upload{$field['name']}',
-		width            :   "80%",                 // 宽度
-		height           :   "auto",                 // 宽度
-		itemWidth        :   "120px",                 // 文件项的宽度
-		itemHeight       :   "100px",                 // 文件项的高度
-		url              :   "{:U('File/uploadpic',array('session_id'=>session_id()))}",  // 上传文件的路径
-		data             :{myname:'your name'},
-		multiple         :  false,                    // 是否可以多个文件上传
-		dragDrop         :   true,                    // 是否可以拖动上传文件
-		del              :   true,                    // 是否可以删除文件
-		finishDel        :   true,  				  // 是否在上传文件完成后删除预览
-		/* 外部获得的回调接口 */
-		onSelect: function(files, allFiles){                    // 选择文件的回调方法
+      if(aaa=='展开'){
+      $('#demohtml5upload{$field['name']}').slideDown();
+      $(this).html('收缩');
+      }else{
+        $(this).html('展开');
+      $('#demohtml5upload{$field['name']}').slideUp();
+        }
+  });
+  // 初始化插件
+  $("#demohtml5upload{$field['name']}").zyUpload({
+    parentsel   :'#demohtml5upload{$field['name']}',
+    width            :   "80%",                 // 宽度
+    height           :   "auto",                 // 宽度
+    itemWidth        :   "120px",                 // 文件项的宽度
+    itemHeight       :   "100px",                 // 文件项的高度
+    url              :   "{:U('File/uploadpic',array('session_id'=>session_id()))}",  // 上传文件的路径
+    data             :{myname:'your name'},
+    multiple         :  false,                    // 是否可以多个文件上传
+    dragDrop         :   true,                    // 是否可以拖动上传文件
+    del              :   true,                    // 是否可以删除文件
+    finishDel        :   true,            // 是否在上传文件完成后删除预览
+    /* 外部获得的回调接口 */
+    onSelect: function(files, allFiles){                    // 选择文件的回调方法
 
-		},
-		onDelete: function(file, surplusFiles){                     // 删除一个文件的回调方法
+    },
+    onDelete: function(file, surplusFiles){                     // 删除一个文件的回调方法
 
-		},
-		onSuccess: function(file,response){                    // 文件上传成功的回调方法
-		uploadPicture{$field['name']}(file,response);
+    },
+    onSuccess: function(file,response){                    // 文件上传成功的回调方法
+    uploadPicture{$field['name']}(file,response);
 
-		},
-		onFailure: function(file){                    // 文件上传失败的回调方法
+    },
+    onFailure: function(file){                    // 文件上传失败的回调方法
 },
-		onComplete: function(responseInfo){           // 上传完成的回调方法
+    onComplete: function(responseInfo){           // 上传完成的回调方法
 
-		}
-	});
+    }
+  });
 });
             } else {
               //  alert("你的浏览器不支持HTML5");
-	$('#demohtml5upload{$field['name']}btn').remove();
-	$('#demohtml5upload{$field['name']}').remove();
+  $('#demohtml5upload{$field['name']}btn').remove();
+  $('#demohtml5upload{$field['name']}').remove();
     //上传图片
     /* 初始化上传插件 */
     $("#upload_picture_{$field['name']}").uploadify({
@@ -414,14 +414,14 @@ function uploadPicture{$field['name']}(file, data){
         "buttonText"      : "上传图片",
         "uploader"        : "{:U('File/uploadpic',array('session_id'=>session_id()))}",
         "width"           : 120,
-        'removeTimeout'	  : 1,
-        'fileTypeExts'	  : '*.jpg; *.png; *.gif;*.bmp;',
+        'removeTimeout'   : 1,
+        'fileTypeExts'    : '*.jpg; *.png; *.gif;*.bmp;',
         "onUploadSuccess" : uploadPicture{$field['name']},
         'onFallback' : function() {
             alert('未检测到兼容版本的Flash.');
         }
     });
-			}
+      }
 
 
     function uploadPicture{$field['name']}(file, data){
@@ -429,8 +429,8 @@ function uploadPicture{$field['name']}(file, data){
         var src = '';
         if(data.status){
             var sid=$("#cover_id_{$field['name']}").val();
-		    if(sid!=""){$.get(ainiku.delimg,{id:sid})}
-			$("#cover_id_{$field['name']}").val(data.id);
+        if(sid!=""){$.get(ainiku.delimg,{id:sid})}
+      $("#cover_id_{$field['name']}").val(data.id);
             src = data.url ||  data.path
             $("#uploadimg_{$field['name']}").html(
                 "<div class='imgblock'><div class='upload-img-box uploadimg'><div class='upload-pre-item'><img src='" + src + "' /></div></div><a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
@@ -460,102 +460,102 @@ function uploadPicture{$field['name']}(file, data){
               </div>
             </div>
             <script type="text/javascript">
-			var sessionid="{:session_id()}";
-			$(function(){binddelattach();});
+      var sessionid="{:session_id()}";
+      $(function(){binddelattach();});
 
 
            if (window.applicationCache) {
 
   $(function(){
-	 // 把原来的上传按钮去掉
-	$('upload_file_{$field['name']}').remove();
-		$('#demohtml5upload_file_{$field['name']}btn').click(function(e) {
+   // 把原来的上传按钮去掉
+  $('upload_file_{$field['name']}').remove();
+    $('#demohtml5upload_file_{$field['name']}btn').click(function(e) {
         var aaa=$(this).text();
-    	if(aaa=='展开'){
-			$('#demohtml5upload_file_{$field['name']}').slideDown();
-			$(this).html('收缩');
-			}else{
-				$(this).html('展开');
-			$('#demohtml5upload_file_{$field['name']}').slideUp();
-				}
-	});
-	// 初始化插件
-	$("#demohtml5upload_file_{$field['name']}").zyUpload({
-		parentsel		:'#demohtml5upload_file_{$field['name']}',
-		width            :   "80%",                 // 宽度
-		height           :   "auto",                 // 宽度
-		itemWidth        :   "120px",                 // 文件项的宽度
-		itemHeight       :   "100px",                 // 文件项的高度
-		url              :   "{:U('File/uploadfile',array('session_id'=>session_id()))}",  // 上传文件的路径
-		data             :{'session_id':"'"+sessionid+"'",'type':'attach'},
-		multiple         :  false,                    // 是否可以多个文件上传
-		dragDrop         :   true,                    // 是否可以拖动上传文件
-		del              :   true,                    // 是否可以删除文件
-		finishDel        :   true,  				  // 是否在上传文件完成后删除预览
-		/* 外部获得的回调接口 */
-		onSelect: function(files, allFiles){                    // 选择文件的回调方法
+      if(aaa=='展开'){
+      $('#demohtml5upload_file_{$field['name']}').slideDown();
+      $(this).html('收缩');
+      }else{
+        $(this).html('展开');
+      $('#demohtml5upload_file_{$field['name']}').slideUp();
+        }
+  });
+  // 初始化插件
+  $("#demohtml5upload_file_{$field['name']}").zyUpload({
+    parentsel   :'#demohtml5upload_file_{$field['name']}',
+    width            :   "80%",                 // 宽度
+    height           :   "auto",                 // 宽度
+    itemWidth        :   "120px",                 // 文件项的宽度
+    itemHeight       :   "100px",                 // 文件项的高度
+    url              :   "{:U('File/uploadfile',array('session_id'=>session_id()))}",  // 上传文件的路径
+    data             :{'session_id':"'"+sessionid+"'",'type':'attach'},
+    multiple         :  false,                    // 是否可以多个文件上传
+    dragDrop         :   true,                    // 是否可以拖动上传文件
+    del              :   true,                    // 是否可以删除文件
+    finishDel        :   true,            // 是否在上传文件完成后删除预览
+    /* 外部获得的回调接口 */
+    onSelect: function(files, allFiles){                    // 选择文件的回调方法
 
-		},
-		onDelete: function(file, surplusFiles){                     // 删除一个文件的回调方法
+    },
+    onDelete: function(file, surplusFiles){                     // 删除一个文件的回调方法
 
-		},
-		onSuccess: function(file,response){                    // 文件上传成功的回调方法
-		 uploadFile{$field['name']}(file,response);
+    },
+    onSuccess: function(file,response){                    // 文件上传成功的回调方法
+     uploadFile{$field['name']}(file,response);
 
-		},
-		onFailure: function(file){                    // 文件上传失败的回调方法
+    },
+    onFailure: function(file){                    // 文件上传失败的回调方法
 },
-		onComplete: function(responseInfo){           // 上传完成的回调方法
+    onComplete: function(responseInfo){           // 上传完成的回调方法
 
-		}
-	});
+    }
+  });
 });
             } else {
               //  alert("你的浏览器不支持HTML5");
-	$('#demohtml5upload_file_{$field['name']}').remove();
-	$('#demohtml5upload_file_{$field['name']}btn').remove();
+  $('#demohtml5upload_file_{$field['name']}').remove();
+  $('#demohtml5upload_file_{$field['name']}btn').remove();
     //上传图片
     /* 初始化上传插件 */
 /* 初始化上传插件 */
 
 $("#upload_file_{$field['name']}").uploadify({
-	"formData"		  :{'session_id':"'"+sessionid+"'",'type':'attach'},
-	"height"          : 30,
-	"swf"             : "__STATIC__/uploadify/uploadify.swf",
-	"fileObjName"     : "filelist",
-	"buttonText"      : "上传附件",
-	"uploader"        : "{:U('File/uploadfile',array('session_id'=>session_id()))}",
-	"width"           : 120,
-	'removeTimeout'	  : 1,
-	"onUploadSuccess" : uploadFile{$field['name']},
-	'onFallback' : function() {
-		alert('未检测到兼容版本的Flash.');
-	}
+  "formData"      :{'session_id':"'"+sessionid+"'",'type':'attach'},
+  "height"          : 30,
+  "swf"             : "__STATIC__/uploadify/uploadify.swf",
+  "fileObjName"     : "filelist",
+  "buttonText"      : "上传附件",
+  "uploader"        : "{:U('File/uploadfile',array('session_id'=>session_id()))}",
+  "width"           : 120,
+  'removeTimeout'   : 1,
+  "onUploadSuccess" : uploadFile{$field['name']},
+  'onFallback' : function() {
+    alert('未检测到兼容版本的Flash.');
+  }
 });
-			}
+      }
 
 
 //上传附件
 
 function uploadFile{$field['name']}(file, data){
-	var data = $.parseJSON(data);
-	if(data.status){
-		var name = "{$field['name']}";
-		var sid=$("input[name="+name+"]").val();
-		if(sid!=""){$.get(ainiku.delattach,{id:sid})}
-		$("input[name="+name+"]").val(data.id);
+  var data = $.parseJSON(data);
+  if(data.status){
+    var name = "{$field['name']}";
+    var sid=$("input[name="+name+"]").val();
+    if(sid!=""){$.get(ainiku.delattach,{id:sid})}
+    $("input[name="+name+"]").val(data.id);
 
-		$("input[name="+name+"]").parent().find('.upload-img-box').html(
-			"<div class=\"upload-pre-file\"><span class=\"upload_icon_all\"></span>" + data.info + "<a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
-		);
-		binddelattach();
-	} else {
-		topmsg(data);
-		setTimeout(function(){
-			$('#top-alert').find('button').click();
-			$(that).removeClass('disabled').prop('disabled',false);
-		},1500);
-	}
+    $("input[name="+name+"]").parent().find('.upload-img-box').html(
+      "<div class=\"upload-pre-file\"><span class=\"upload_icon_all\"></span>" + data.info + "<a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
+    );
+    binddelattach();
+  } else {
+    topmsg(data);
+    setTimeout(function(){
+      $('#top-alert').find('button').click();
+      $(that).removeClass('disabled').prop('disabled',false);
+    },1500);
+  }
 }
 </script>
           </case>
@@ -574,33 +574,33 @@ cityselect.create("ssq{$field['name']},Province{$field['name']},city{$field['nam
 </script>
           </case>
           <case value="attribute">
-          		<select class="form-control" id="goodstype_form" name="goods_type_id">
-                		<option value="0">请选择--</option>
-                	<volist name=":getGoodsTypeList()" id="vo">
-                    	<option value="{$vo.goods_type_id}">{$vo.title}</option>
+              <select class="form-control" id="goodstype_form" name="goods_type_id">
+                    <option value="0">请选择--</option>
+                  <volist name=":getGoodsTypeList()" id="vo">
+                      <option value="{$vo.goods_type_id}">{$vo.title}</option>
                     </volist>
                 </select>
                 <div id="goodsattribute" style="  padding: 20px 0px 0px 20px;" class="">
 
                 </div>
                 <script>
-                	$(function(){
-						$('#goodstype_form').bind('propertychange change',function(){
-							var idd=$(this).val();
-							var productid=$('#productid').val();
-							//productid产品的id在编辑表单里面首先用js写上这个变量值为当前产品的id
-							$.ajax({
-								'type':'POST',
-								'url':"{:U('Goodstypeattribute/formlist')}",
-								'data':{goods_type_id:idd,mainid:productid},
-								'success': function(da){
-									$('#goodsattribute').html(da);
-									}
-								});
-							});
-							$('#goodstype_form').val('{$field['data']}');
-							$('#goodstype_form').change();
-						});
+                  $(function(){
+            $('#goodstype_form').bind('propertychange change',function(){
+              var idd=$(this).val();
+              var productid=$('#productid').val();
+              //productid产品的id在编辑表单里面首先用js写上这个变量值为当前产品的id
+              $.ajax({
+                'type':'POST',
+                'url':"{:U('Goodstypeattribute/formlist')}",
+                'data':{goods_type_id:idd,mainid:productid},
+                'success': function(da){
+                  $('#goodsattribute').html(da);
+                  }
+                });
+              });
+              $('#goodstype_form').val('{$field['data']}');
+              $('#goodstype_form').change();
+            });
                 </script>
 
           </case>
@@ -706,8 +706,8 @@ cityselect.create("ssq{$field['name']},Province{$field['name']},city{$field['nam
         var src = '';
         if(data.status){
             var sid=$("#cutpicture_id_{$field['name']}").val();
-		    if(sid!=""){$.get(ainiku.delimg,{id:sid})}
-			$("#cutpicture_id_{$field['name']}").val(data.id);
+        if(sid!=""){$.get(ainiku.delimg,{id:sid})}
+      $("#cutpicture_id_{$field['name']}").val(data.id);
             src = data.ImgUrl || '__ROOT__' + data.path
             $("#uploadimg_{$field['name']}").html(
                 "<div class='imgblock'><div class='upload-img-box uploadimg'><div class='upload-pre-item'><img src='" + src + "' /></div></div><a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
@@ -721,7 +721,7 @@ cityselect.create("ssq{$field['name']},Province{$field['name']},city{$field['nam
             },1500);
         }
     }
-	//剪切比例
+  //剪切比例
 var bil="{$field['extra']['bili']}";
 var cutpictureW="{$field['extra']['width']}";
 var cutpictureH="{$field['extra']['Height']}";
@@ -729,25 +729,25 @@ var cutpictureH="{$field['extra']['Height']}";
 (cutpictureH=="")&&(cutpictureH=400);
 (bil=="")&&(bil=1);
 var Cutpicture={
-	bili:parseFloat(bil),
-	cwidth:cutpictureW,
-	cheight:cutpictureH,
-	chuliurl:"{:U('Cutpicture/cutp')}",//后端处理地址
-	uploadurl:"{:U('Cutpicture/uploadf')}",
-	complete2:function(data){
-		document.getElementById("completeA").onclick=function(){
-			$('#cutpicture').hide();
-			 uploadPicture{$field['name']}(data[0]);
-			};
-		//$('#cutpicture').hide();
-		//截图成功后返回来的json值
-/*		document.getElementById("completeA").onclick=function(){
-			//绑定截图完成后的操作
+  bili:parseFloat(bil),
+  cwidth:cutpictureW,
+  cheight:cutpictureH,
+  chuliurl:"{:U('Cutpicture/cutp')}",//后端处理地址
+  uploadurl:"{:U('Cutpicture/uploadf')}",
+  complete2:function(data){
+    document.getElementById("completeA").onclick=function(){
+      $('#cutpicture').hide();
+       uploadPicture{$field['name']}(data[0]);
+      };
+    //$('#cutpicture').hide();
+    //截图成功后返回来的json值
+/*    document.getElementById("completeA").onclick=function(){
+      //绑定截图完成后的操作
 
-			};*/
-	console.log(data);
-	}
-	};
+      };*/
+  console.log(data);
+  }
+  };
 </script>
 </div>
 <ank:insert name="ShearPhoto" dir="__STATIC__/cutpicture/css"  />
@@ -773,7 +773,7 @@ var Cutpicture={
 </div>
 <script>
 $(function(){
-	   $('.tab').mytab({navcls:'.tabnav',divcls:'.tabdiv',effect:'show',ev:'click',navhovercls:'hover'});
-	});
+     $('.tab').mytab({navcls:'.tabnav',divcls:'.tabdiv',effect:'show',ev:'click',navhovercls:'hover'});
+  });
 </script>
 </eq>
