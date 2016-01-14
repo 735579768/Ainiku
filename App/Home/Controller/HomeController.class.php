@@ -43,7 +43,12 @@ class HomeController extends CommonController {
 		$str            = $this->fetch($templateFile);
 		$patterns[]     = '/\n\s*\r/';
 		$replacements[] = '';
-		$regstr         = C('TPL_REG');
+
+		if (!APP_DEBUG) {
+			$patterns[]     = '/<\!\-\-.*?\-\->/';
+			$replacements[] = '';
+		}
+		$regstr = C('TPL_REG');
 
 		$tema = explode('\n', $regstr);
 		foreach ($tema as $val) {
