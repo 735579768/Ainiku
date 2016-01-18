@@ -104,10 +104,13 @@ class Goods extends TagLib {
 		$parse .= 'endif;';
 		$parse .= '$' . $pagenavid . '=$__SHOW__;';
 		$parse .= ' ?>';
-
+		$parse .= '<notempty name="__PAGE_LIST__">';
 		$parse .= '<volist empty="没有内容" name="__PAGE_LIST__" id="' . $name . '">';
 		$parse .= $content;
 		$parse .= '</volist>';
+		$parse .= '<else />';
+		$parse .= '<span class="emptytext">没有内容</span>';
+		$parse .= '</notempty>';
 		return $parse;
 	}
 	//取分页导航
