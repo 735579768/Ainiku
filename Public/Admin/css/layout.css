@@ -247,7 +247,7 @@ body{overflow:hidden;padding:62px 0px 0px 179px;}
 #admintheme{display:inline-block;margin:15px 10px 0px 0px;}
 #admintheme li{display:block;float:left;width:10px;cursor:pointer;height:10px;margin-left:1px;border:solid 2px #fff;}
 #admintheme li.selected{border:solid 2px #71886C;}
-.right-tool{position:absolute;right:0px;top:10px;}
+.right-tool{position:absolute;right:0px;top:10px;width: 370px;}
 
 /**定位css**/
 .topcenter{position:fixed;top:25px;left:20px;z-index:99;display:none;}
