@@ -1,9 +1,7 @@
-//页面主色调
-@maincolor:#01a3a5;
-//页面主宽度
-@mainwidth:1100px;
-//导航高
-@navheight:40px;
+@maincolor:#01a3a5;//页面主色调
+@btncolor:#01a3a5;//按钮主色调
+@mainwidth:1100px;//页面主宽度
+@navheight:40px;//导航高
 
 //标题的高度
 .m-title(@h:40px){
@@ -11,6 +9,8 @@
 	line-height:@h;
 }
 
+@import "reset.less";
+@import "common.less";
 /**标题**/
 .m-title{
 	.m-title();

@@ -1,0 +1,53 @@
+.fl{float:left!important;}
+.fr{float:right!important;}
+.pdl10{padding-left:10px;}
+.pdr10{padding-right:10px;}
+.pdt10{padding-top:10px;}
+.pdb10{padding-bottom:10px;}
+.mgt10{margin-top:10px;}
+.mgr10{margin-right:10px;}
+.mgb10{margin-bottom:10px;}
+.mgl10{margin-left:10px;}
+.disabled{cursor:not-allowed;}
+.a-left{text-align:left!important;}
+.a-center{text-align:center!important;}
+.el{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;width:100%;}
+
+/*箭头向上*/
+.arrow-up{width:0;height:0;border-left:30px solid transparent;border-right:30px solid transparent;border-bottom:30px solid #fff;}
+
+/*箭头向下*/
+.arrow-down{width:0;height:0;border-left:20px solid transparent;border-right:20px solid transparent;border-top:20px solid #0066cc;}
+
+/*箭头向左*/
+.arrow-left{width:0;height:0;border-top:30px solid transparent;border-bottom:30px solid transparent;border-right:30px solid yellow;}
+
+/*箭头向右*/
+.arrow-right{width:0;height:0;border-top:50px solid transparent;border-bottom:50px solid transparent;border-left:50px solid green;}
+
+/***验证检查***/
+.msgok,.yzok{background:url("../images/yzico1.png") no-repeat;color:#339966;}
+.msgerr,.yzerr{background:url("../images/yzico2.png") no-repeat;color:#f00;}
+.msgts,.yzth1{background:url("../images/yzico3.png") no-repeat;}
+.yzth2{background:url("../images/yzico4.png") no-repeat;}
+.msgok,.msgerr,.msgts{display:inline-block;width:20px;height:20px;vertical-align:top;margin-right:10px;}
+.yzok,.yzerr,.yzth1,.yzth2{height:35px;line-height:35px;padding-left:30px;background-size:20px 20px;background-position:0px center;display:inline-block;position:absolute;}
+.autoyz-wrap span{position:absolute;top:0px;display:none;white-space:nowrap;top:0px;}
+
+/****分页样式*****/
+.page{margin:10px 0;*zoom:1;}
+.page:before,.page:after{display:table;content:"";}
+.page:after{clear:both;}
+.page a,.page span{float:left;margin-left:-1px;padding:0 14px;height:30px;line-height:30px;color:#000;border-top:1px solid #CCCCCC;border-bottom:1px solid #CCCCCC;/*background-color:#4bbd00;*/}
+.page a:hover{text-decoration:none;background-color:@maincolor;color:#fff;}
+.page .current{border-top:1px solid @maincolor;background-color:@maincolor;color:#fff;}
+.page .next,.page .prev{font-family:"microsoft yahei";}
+.page .rows{}
+.page .page-inner{background:#fff;}
+.page div{display:inline-block;}
+
+/**页脚样式**/
+.flink{margin:0px auto;}
+.flink .fitem{float:left;}
+.flink .fitem span,.flink .fitem a{display:inline-block;padding:5px 10px;color:#616c7f;}
+.flink .fitem span{padding:5px 0px;}
