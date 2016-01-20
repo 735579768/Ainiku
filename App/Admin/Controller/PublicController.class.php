@@ -77,7 +77,7 @@ class PublicController extends Controller {
 					}
 					cookie('__uid__', $u, $b);
 				}
-				return $autologin ? $uid : ($this->success('登录成功！', U('Index/index', array('mainmenu' => 'true'))));
+				return $autologin ? $user['member_id'] : ($this->success('登录成功！', U('Index/index', array('mainmenu' => 'true'))));
 			}
 
 		} else {
