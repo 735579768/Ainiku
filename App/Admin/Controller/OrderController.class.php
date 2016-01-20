@@ -4,8 +4,33 @@ defined("ACCESS_ROOT") || die("Invalid access");
 class OrderController extends AdminController {
 	public function index() {
 		$this->assign('meta_title', '订单列表');
-		$order_sn = I('order_sn');
-		$map      = array();
+		$order_sn     = I('order_sn');
+		$order_status = I('order_status');
+
+		$field = array(
+			'field'   => 'order_status',
+			'name'    => 'order_status',
+			'type'    => 'select',
+			'title'   => '订单状态',
+			'note'    => '',
+			'extra'   => array(
+				0 => '全部订单',
+				1 => '等待付款',
+				2 => '已经支付',
+				3 => '已经发货',
+				4 => '已经收货',
+				5 => '交易完成',
+			),
+			'is_show' => 3,
+			'value'   => $order_status,
+		);
+		$this->assign('orderstatus', $field);
+
+		$map = array();
+		if ($order_status != '0' && !empty($order_status)) {
+			$map['order_status'] = $order_status;
+		}
+
 		empty($order_sn) || ($map['order_sn'] = $order_sn);
 		$list = $this->pages(array(
 			'where' => $map,
