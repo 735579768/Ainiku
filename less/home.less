@@ -1,0 +1,62 @@
+//页面主色调
+@maincolor:#01a3a5;
+//页面主宽度
+@mainwidth:1100px;
+//导航高
+@navheight:40px;
+
+//标题的高度
+.m-title(@h:40px){
+	height: @h;
+	line-height:@h;
+}
+
+/**标题**/
+.m-title{
+	.m-title();
+	.m-t{
+		display: inline-block;
+		font-size: 16px;
+	}
+	.more{
+		display: inline-block;
+		float: right;
+	}
+}
+/**页头**/
+#header {
+	width:100%;
+	.header-inner{
+		width:@mainwidth;
+		margin: 0px auto;
+		.logo{
+			float: left;
+		}
+	}
+}
+/**导航**/
+#nav{
+	width:100%;
+	.nav-inner{
+		width:@mainwidth;
+		margin: 0px auto;
+		.nav-item{
+			float: left;
+			a{display: block;padding: 0px 20px;height: @navheight;}
+		}
+	}
+}
+/**容器**/
+.container{
+	width:@mainwidth;
+	margin: 0px auto;
+}
+
+/**页脚**/
+#footer{
+	width:100%;
+	.footer-inner{
+		width:@mainwidth;
+		margin: 0px auto;
+	}
+}
