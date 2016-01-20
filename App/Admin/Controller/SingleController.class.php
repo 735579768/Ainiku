@@ -10,8 +10,31 @@ namespace Admin\Controller;
  */
 class SingleController extends AdminController {
 	public function index() {
-		$title        = I('title');
+		$title           = I('title');
+		$ptitle          = I('ptitle');
+		$ptitlelist      = M('Single')->field('ptitle')->group('`ptitle`')->order('`ptitle` asc')->select();
+		$plist['全部'] = '全部';
+		$plist['默认'] = '默认';
+		foreach ($ptitlelist as $key => $value) {
+			$plist[$value['ptitle']] = $value['ptitle'];
+		}
+		trace($plist);
+		$field = array(
+			'field'   => 'ptitle',
+			'name'    => 'ptitle',
+			'type'    => 'select',
+			'title'   => '所属归类',
+			'note'    => '',
+			'extra'   => $plist,
+			'is_show' => 3,
+			'value'   => I('ptitle'),
+		);
+		$this->assign('plist', $field);
 		$map['title'] = array('like', '%' . $title . '%');
+		if ($ptitle != '全部' && !empty($ptitle)) {
+			$map['ptitle'] = array('like', '%' . $ptitle . '%');
+		}
+
 		$this->pages(array(
 			'model' => 'Single',
 			'where' => $map,
