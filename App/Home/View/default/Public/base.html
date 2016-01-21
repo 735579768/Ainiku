@@ -11,9 +11,9 @@
 </block>
 <block name="meta">
 <title><notempty name="info">{$info.title}_</notempty><notempty name="category"><notempty name="category.meta_title">{$category.meta_title}_<else />{$category.title}_</notempty></notempty>{:C('WEB_SITE_TITLE')}</title>
-<meta name="keywords" content="<notempty name="category.meta_keywords">{$category.meta_keywords},</notempty><notempty name="info.seo_keywords">{$info.seo_keywords},</notempty>{:C('WEB_SITE_KEYWORD')}" />
+<meta name="keywords" content="<notempty name="category.meta_keywords">{$category.meta_keywords},</notempty><notempty name="info.meta_keywords">{$info.meta_keywords},</notempty>{:C('WEB_SITE_KEYWORD')}" />
 <meta name="description" content="<notempty name="category.meta_descr">{$category.meta_descr},</notempty>
-<notempty name="arcinfo"><notempty name="arcinfo.seo_descr">{$info.seo_descr},<else/>{$arcinfo.content|removeHTML=0,100}</notempty></notempty>
+<notempty name="arcinfo"><notempty name="arcinfo.meta_descr">{$info.meta_descr},<else/>{$arcinfo.content|removeHTML=0,100}</notempty></notempty>
 {:C('WEB_SITE_DESCRIPTION')}" />
 </block>
 </head>
