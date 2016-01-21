@@ -9,15 +9,16 @@ defined("ACCESS_ROOT") || die("Invalid access");
  */
 class FileController extends AdminController {
 	private function checksha($filepath = '') {
-		if (is_file($filepath)) {
-			$sha1 = sha1_file('.' . $filepath);
+		$fpath = '.' . $filepath;
+		if (is_file($fpath)) {
+			$sha1 = sha1_file($fpath);
 			$list = M('Picture')->where("sha1='$sha1'")->find();
 			if (empty($list)) {
-				return $filepath;
+				return array('path' => $filepath, 'sha1' => $sha1);
 			} else {
 				//删除当前路径文件
-				unlink('.' . $filepath);
-				return $list['path'];
+				unlink($fpath);
+				return $list;
 			}
 		} else {
 			return $filepath;
@@ -46,7 +47,7 @@ class FileController extends AdminController {
 				} else {
 					F('resetshalist', null);
 					F('resetshalistnum', null);
-					$this->success('sha1重置成功,总共有' . $total . '张图片');
+					$this->success('SHA1重置成功,总共有' . $total . '张图片');
 				}
 				break;
 			}
@@ -242,6 +243,9 @@ class FileController extends AdminController {
 		$return       = array('status' => 1, 'info' => '上传成功', 'path' => '', 'id' => '', 'url' => '', 'data' => '');
 		$SITE_PATH    = __SITE_ROOT__; //网站根目录
 		$targetFolder = C('FILE_UPLOAD.rootPath'); //保存图片的根目录
+		$JDtargetPath = '';
+		$return       = array();
+		$data         = array();
 		if (!empty($_FILES)) {
 			$tempFile = $_FILES['filelist']['tmp_name'];
 			//生成的文件名字
@@ -339,6 +343,8 @@ class FileController extends AdminController {
 		$return       = array('status' => 1, 'info' => '上传成功', 'path' => '', 'id' => '', 'url' => '', 'data' => '');
 		$SITE_PATH    = __SITE_ROOT__; //网站根目录
 		$targetFolder = pathA(C('FILE_UPLOAD.rootPath')); //保存图片的根目录
+		$JDtargetPath = '';
+		$data         = array();
 		if (!empty($_FILES)) {
 			$tempFile = $_FILES['filelist']['tmp_name'];
 			//生成的文件名字
@@ -381,43 +387,20 @@ class FileController extends AdminController {
 				$this->ajaxreturn($return);
 			}
 
-//			$thumbPath=$targetFolder.$foldertype;
-			//
-			//
-			//
-			//			//原图和缩略图的相对路径到文件名字
-			//			//原图和缩略图的相对路径到文件名字
-			//			$XDtargetPath=$targetFolder.'/'.date('Ymd');
-			//			$XDthumbPath=$thumbPath.'/'.date('Ymd');
-			//			if(!createFolder($XDtargetPath)){
-			//					$return['info']='创建目录错误：'.$XDtargetPath;
-			//					 $return['status']=0;
-			//					 $this->ajaxreturn($return);
-			//				}
-			//			if(!createFolder($XDthumbPath)){
-			//					$return['info']='创建目录错误：'.$XDthumbPath;
-			//					 $return['status']=0;
-			//					 $this->ajaxreturn($return);
-			//				}
 			$JDtargetPath = $targetFolder . '/' . date('Ymd') . '/' . $filename;
-//			$JDthumbPath=$targetFolder.$foldertype.'/'.date('Ymd').'/'.$filename;
-			//			//原图和缩略图的绝对路径目录
-			//			$targetPath = $SITE_PATH .$targetFolder.'/'.date('Ymd');//保存原文件的绝对路径
-			//			$thumbPath = $SITE_PATH .$thumbPath.'/'.date('Ymd');//保存缩略图的绝对路径
-
-//			//原图和缩略图的绝对路径到文件名字
-			//			$JDtargetPath=$targetPath.'/'. $filename;
-			//			$JDthumbPath =$thumbPath.'/'. $filename;
 
 			// Validate the file type
-			$fileTypes = array('jpg', 'jpeg', 'gif', 'png', 'rar', 'mp4'); // File extensions
+			$fileTypes = array('jpg', 'jpeg', 'gif', 'png'); // File extensions
 
 			if (in_array($extend[$va], $fileTypes)) {
 				$bl = move_uploaded_file($tempFile, $JDtargetPath);
-				//判断是不是已经上传过类似图片
-				$JDtargetPath = $SITE_PATH . $this->checksha(str_replace($SITE_PATH, '', $JDtargetPath));
-				$JDthumbPath  = str_replace('/image/', '/image/thumb/', $JDtargetPath);
+
+				$JDthumbPath = str_replace('/image/', '/image/thumb/', $JDtargetPath);
 				if ($bl) {
+					//判断是不是已经上传过类似图片
+					$shafile      = $this->checksha(str_replace($SITE_PATH, '', $JDtargetPath));
+					$JDtargetPath = $SITE_PATH . $shafile['path'];
+					$data['sha1'] = $shafile['sha1'];
 					//如果是图片就生成缩略图
 					if (in_array($extend[$va], array('jpg', 'jpeg', 'gif', 'png', 'bmp'))) {
 						//生成缩略图
@@ -443,9 +426,9 @@ class FileController extends AdminController {
 		}
 
 		//保存文件信息到数据库
-		$cupath              = pathR($JDtargetPath);
-		$data['path']        = $cupath;
-		$data['sha1']        = sha1_file('.' . $cupath);
+		$cupath       = pathR($JDtargetPath);
+		$data['path'] = $cupath;
+		//$data['sha1']        = $shafile['sha1'];
 		$data['thumbpath']   = pathR($JDthumbPath);
 		$data['destname']    = $filename;
 		$data['srcname']     = $_FILES['filelist']['name'];
@@ -531,7 +514,8 @@ class FileController extends AdminController {
 			//保存到数据库
 			$result = json_decode($result, true);
 			//判断是不是已经上传过类似图片
-			$result['url'] = $this->checksha($result['url']);
+			$shafile       = $this->checksha($result['url']);
+			$result['url'] = $shafile['path'];
 			if (!empty($result['url'])) {
 				if ($action == 'uploadimage') {
 					$thumb      = str_replace("/Uploads/image/", "/Uploads/image/thumb/", $result['url']);
@@ -545,7 +529,7 @@ class FileController extends AdminController {
 					$re      = img2thumb($srcpath, $JDthumb, C('THUMB_WIDTH'), C('THUMB_HEIGHT'));
 					$thumb   = file_exists('.' . $thumb) ? $thumb : $result['url'];
 					M('Picture')->add(array(
-						'sha1'        => sha1_file('.' . $result['url']),
+						'sha1'        => $shafile['sha1'],
 						'srcname'     => $result['original'],
 						'destname'    => $result['title'],
 						'path'        => $result['url'],
@@ -577,47 +561,6 @@ class FileController extends AdminController {
 		}
 		exit();
 	}
-////umeditor编辑器上传图片
-	//public function umeupload(){
-	//    $result=include __SITE_ROOT__.__STATIC__."/umeditor/php/imageUp.php";
-	//	//保存到数据库
-	//	//$result=json_decode($result,true);
-	//	//var_dump($result);
-	//		//判断是不是已经上传过类似图片
-	//	$result['url']=$this->checksha($result['url']);
-	//	if(!empty($result['url'])){
-	//	$thumb=str_replace("/Uploads/image/","/Uploads/image/thumb/",$result['url']);
-	//
-	//	$JDthumb=__SITE_ROOT__.$thumb;
-	//	if(!createFolder(dirname($JDthumb))){
-	//		$return['info']='创建目录错误：'.$JDthumb;
-	//		 $return['status']=0;
-	//		 $this->ajaxreturn($return);
-	//	}
-	//	//生成缩略图
-	//	$srcpath=__SITE_ROOT__.$result['url'];
-	//	$srcpath=str_replace('\\','/',$srcpath);
-	//	$re=img2thumb($srcpath,$JDthumb,C('THUMB_WIDTH'),C('THUMB_HEIGHT'));
-	//
-	//	//if($picture->create())
-	//	//查看缩略图生成成功没有
-	//	$thumb=file_exists('.'.$thumb)?$thumb:$result['url'];
-	//	M('Picture')->add(array(
-	//			'sha1'=>sha1_file('.'.$result['url']),
-	//			'srcname'=>$result['originalName'],
-	//			'destname'=>$result['name'],
-	//			'path'=>$result['url'],
-	//			'thumbpath'=>$thumb,
-	//			'create_time'=>time(),
-	//			'from'=>'umeditor',
-	//			'uid'=>UID
-	//	));
-	//	//添加水印
-	//	$this->markpic($JDthumb);
-	//	$this->markpic(realpath('.'.$result['url']));
-	//	}
-	//	exit();
-	//	}
 	//图片添加水印
 	private function markpic($dst = null) {
 		//取水印图片
@@ -753,26 +696,6 @@ class FileController extends AdminController {
 				),
 			);
 			$this->assign('fieldarr1', $field);
-
-//				//产品分类树
-			//			$catelist=F('sys_goodscat_tree');
-			//			if(empty($catelist)){
-			//				$catelist=F_getCatelist(true,'goods');
-			//				F('sys_goodscat_tree',$catelist);
-			//				}
-			//			$catelist[0]='全部分类';
-			//			$field=array(
-			//					array(
-			//						'field'=>'category_id',
-			//						'name'=>'category_id',
-			//						'type'=>'select',
-			//						'title'=>'产品分类',
-			//						'note'=>'',
-			//						'extra'=>$catelist,
-			//						'is_show'=>1
-			//					)
-			//			);
-			//		$this->assign('fieldarr2',$field);
 			$this->display();
 
 		}
