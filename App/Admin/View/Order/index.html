@@ -65,7 +65,7 @@
         //表格着色
         $('tr:even').css('background', '#f7f7f7');
         //分类过滤
-        $('select[name="category_id"],select[name="position"]').change(function(e) {
+        $('select[name="order_status"]').change(function(e) {
             $(this).parents('form').submit();
         });
         $('select[name="category_id"]').val("{:I('category_id',0)}");

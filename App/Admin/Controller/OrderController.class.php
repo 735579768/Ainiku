@@ -7,6 +7,8 @@ class OrderController extends AdminController {
 		$order_sn     = I('order_sn');
 		$order_status = I('order_status');
 
+		($order_status === '') && $order_status = 6;
+
 		$field = array(
 			'field'   => 'order_status',
 			'name'    => 'order_status',
@@ -14,7 +16,8 @@ class OrderController extends AdminController {
 			'title'   => '订单状态',
 			'note'    => '',
 			'extra'   => array(
-				0 => '全部订单',
+				6 => '全部订单',
+				0 => '失效订单',
 				1 => '等待付款',
 				2 => '已经支付',
 				3 => '已经发货',
@@ -27,15 +30,19 @@ class OrderController extends AdminController {
 		$this->assign('orderstatus', $field);
 
 		$map = array();
-		if ($order_status != '0' && !empty($order_status)) {
-			$map['order_status'] = $order_status;
+		if ($order_status !== '') {
+			if ($order_status == '6') {
+				$map['order_status'] = array('neq', '0');
+			} else {
+				$map['order_status'] = $order_status;
+			}
 		}
 
 		empty($order_sn) || ($map['order_sn'] = $order_sn);
 		$list = $this->pages(array(
 			'where' => $map,
 			'model' => 'OrderView',
-			'order' => 'order_id desc',
+			'order' => 'order_status asc,order_id desc',
 		));
 		$this->display();
 	}
