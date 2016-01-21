@@ -95,7 +95,7 @@
     </table>
     <table class="leftalign" width="100%" border="1" bordercolor="#ededed">
         <tr>
-            <th class="tdt" colspan="5">商品信息</th>
+            <th class="tdt" colspan="6">商品信息</th>
         </tr>
         <tr>
             <th>产品ID</th>
@@ -103,6 +103,7 @@
             <th>价格</th>
             <th>数量</th>
             <th>小计</th>
+            <th>状态</th>
         </tr>
         <volist name="_list" id="vo">
             <tr>
@@ -115,9 +116,17 @@
                 <td>{$vo.price}元</td>
                 <td>{$vo.num}</td>
                 <td>{$vo.total}元</td>
+                <td>
+                        <eq name="vo.status" value="0">已失效</eq>
+                        <eq name="vo.status" value="1">等待付款</eq>
+                        <eq name="vo.status" value="2">已付款,等待发货</eq>
+                        <eq name="vo.status" value="3">已发货,等待收货</eq>
+                        <eq name="vo.status" value="4">已收货</eq>
+                        <eq name="vo.status" value="5">交易完成</eq>
+
+                </td>
             </tr>
         </volist>
-        </tr>
     </table>
     <table class="leftalign" width="100%" border="1" bordercolor="#ededed">
         <tr>

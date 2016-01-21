@@ -57,9 +57,10 @@ class OrderController extends AdminController {
 		$this->success(L('_DELETE_SUCCESS_'));
 	}
 	public function updateorder() {
-		$model = M('Order');
+		$model    = M('Order');
+		$order_id = I('order_id');
+		$status   = I('order_status');
 		if ($model->create()) {
-			$status = I('order_status');
 			switch ($status) {
 			case '2':
 				$model->pay_time = NOW_TIME;
@@ -76,6 +77,7 @@ class OrderController extends AdminController {
 				break;
 			}
 			$result = $model->save();
+			M('OrderGoods')->where("order_id=$order_id")->setField('status', $status);
 			($result > 0) ? $this->success('设置成功') : $this->error('没有更改');
 		} else {
 			$this->error($model->geterror());
