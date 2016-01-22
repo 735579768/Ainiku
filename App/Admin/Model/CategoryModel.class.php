@@ -87,7 +87,7 @@ class CategoryModel extends BaseModel {
 			$map['category_type'] = $category_type;
 		}
 
-		$list = $this->field($field)->where($map)->order('sort asc,category_id asc')->select();
+		$list = $this->field($field)->where($map)->order('status desc,sort asc,category_id asc')->select();
 		$list = list_to_tree($list, $pk = 'category_id', $pid = 'pid', $child = '_', $root = $id);
 		/* 获取返回数据 */
 		if (isset($info)) {
