@@ -102,21 +102,25 @@ class AlipayPlugin extends \Plugins\Plugin {
 	public function return_url() {
 		if ($this->yanzheng()) {
 			//验证成功后把信息添加到你的数据库
-			$data['order_sn']     = $_POST['out_trade_no']; //商户订单号
+			$order_sn             = $_POST['out_trade_no']; //商户订单号
 			$data['trade_no']     = $_POST['trade_no']; //支付宝交易号
 			$data['trade_status'] = $_POST['trade_status']; //交易状态//各个状态请查看api或插件下面的示例处理函数
-			$data                 = array(
+			$money                = I('post.total_fee', 0, 'floatval');
+			//$money = I('post.price', 0, 'floatval');
+
+			$data = array(
 				'status'   => 1,
-				'mark'     => '支付宝',
+				'pay_type' => '支付宝',
 				'str'      => '验签成功',
-				'order_sn' => $_POST['out_trade_no'],
+				'money'    => $money,
+				'order_sn' => $order_sn,
 			);
 			return $data;
 		} else {
 			return array(
-				'status' => 0,
-				'mark'   => '支付宝',
-				'str'    => '验签失败',
+				'status'   => 0,
+				'pay_type' => '支付宝',
+				'str'      => '验签失败',
 			);
 		}
 	}
@@ -127,14 +131,30 @@ class AlipayPlugin extends \Plugins\Plugin {
 			$trade_no     = $_POST['trade_no']; //支付宝交易号
 			$trade_status = $_POST['trade_status']; //交易状态//各个状态请查看api或插件下面的示例处理函数
 			if ($trade_status == 'TRADE_SUCCESS' || $trade_status == 'TRADE_FINISHED' || $trade_status == 'WAIT_SELLER_SEND_GOODS') {
-				//设置为已经支付
-				$info = M('Order')->where("order_sn=$order_sn")->save(array(
-					'pay_time'     => NOW_TIME,
-					'pay_type'     => '支付宝',
-					'pay_trade_no' => $$trade_no,
-					'order_status' => 2,
-				));
+/*				//设置为已经支付
+$info = M('Order')->where("order_sn=$order_sn")->save(array(
+'pay_time'     => NOW_TIME,
+'pay_type'     => '支付宝',
+'pay_trade_no' => $trade_no,
+'order_status' => 2,
+));*/
+				$money = I('post.total_fee', 0, 'floatval');
+				//$money = I('post.price', 0, 'floatval');
+				return array(
+					'status'   => 1,
+					'str'      => '验签成功',
+					'pay_type' => '支付宝',
+					'money'    => $money,
+					'order_sn' => $order_sn,
+					'extra'    => '',
+				);
 			}
+		} else {
+			return array(
+				'status'   => 0,
+				'pay_type' => '支付宝',
+				'str'      => '验签失败',
+			);
 		}
 	}
 	//钩子默认的调用方法

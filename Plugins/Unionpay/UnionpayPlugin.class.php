@@ -97,7 +97,7 @@ class UnionpayPlugin extends \Plugins\Plugin {
 			$data    = array(
 				'status'   => 1,
 				'str'      => '验签成功',
-				'mark'     => '中国银联',
+				'pay_type' => '中国银联',
 				'money'    => I('post.txnAmt', 0, 'floatval') / 100,
 				'order_sn' => I('post.orderId'),
 				'extra'    => I('post.reqReserved'),
@@ -105,9 +105,9 @@ class UnionpayPlugin extends \Plugins\Plugin {
 			return $data;
 		} else {
 			return array(
-				'status' => 0,
-				'mark'   => '中国银联',
-				'str'    => '验签失败',
+				'status'   => 0,
+				'pay_type' => '中国银联',
+				'str'      => '验签失败',
 			);
 		}
 
@@ -117,16 +117,16 @@ class UnionpayPlugin extends \Plugins\Plugin {
 			return array(
 				'status'   => 1,
 				'str'      => '验签成功',
-				'mark'     => '中国银联',
+				'pay_type' => '中国银联',
 				'money'    => I('post.txnAmt', 0, 'floatval') / 100,
 				'order_sn' => I('post.orderId'),
 				'extra'    => I('post.reqReserved'),
 			);
 		} else {
 			return array(
-				'status' => 0,
-				'mark'   => '中国银联',
-				'str'    => '验签失败',
+				'status'   => 0,
+				'pay_type' => '中国银联',
+				'str'      => '验签失败',
 			);
 		}
 	}
