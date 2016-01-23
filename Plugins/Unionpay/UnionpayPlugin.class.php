@@ -18,7 +18,7 @@ class UnionpayPlugin extends \Plugins\Plugin {
 	private function daoru() {
 
 	}
-	public function dopay($money = null, $order = null, $ordername = null) {
+	public function dopay($money = null, $order = null, $ordername = null, $reqReserved = '') {
 		//取插件配置参数
 		$conf = F('pluginunionpay');
 		if (empty($conf) || APP_DEBUG) {
@@ -59,7 +59,7 @@ class UnionpayPlugin extends \Plugins\Plugin {
 			'txnAmt'       => $money * 100, //交易金额，单位分
 			'currencyCode' => '156', //交易币种
 			'orderDesc'    => $ordername, //订单描述，可不上送，上送时控件中会显示该信息
-			'reqReserved'  => ' 透传信息', //请求方保留域，透传字段，查询、通知、对账文件中均会原样出现
+			'reqReserved'  => $reqReserved, //请求方保留域，透传字段，查询、通知、对账文件中均会原样出现
 		);
 
 		// 签名
@@ -93,13 +93,14 @@ class UnionpayPlugin extends \Plugins\Plugin {
 		echo $str;*/
 
 		if ($this->yanzheng()) {
-
 			$orderId = $_POST['orderId'];
 			$data    = array(
 				'status'   => 1,
 				'str'      => '验签成功',
 				'mark'     => '中国银联',
-				'order_sn' => $orderId,
+				'money'    => I('post.txnAmt', 0, 'floatval') / 100,
+				'order_sn' => I('post.orderId'),
+				'extra'    => I('post.reqReserved'),
 			);
 			return $data;
 		} else {
@@ -113,14 +114,20 @@ class UnionpayPlugin extends \Plugins\Plugin {
 	}
 	public function notify_url() {
 		if ($this->yanzheng()) {
-			$orderId = $_POST['orderId'];
-			$queryId = $_POST['queryId'];
-			$info    = M('Order')->where("order_sn=$orderId")->save(array(
-				'pay_time'     => NOW_TIME,
-				'pay_trade_no' => $queryId,
-				'pay_type'     => '中国银联',
-				'order_status' => 2,
-			));
+			return array(
+				'status'   => 1,
+				'str'      => '验签成功',
+				'mark'     => '中国银联',
+				'money'    => I('post.txnAmt', 0, 'floatval') / 100,
+				'order_sn' => I('post.orderId'),
+				'extra'    => I('post.reqReserved'),
+			);
+		} else {
+			return array(
+				'status' => 0,
+				'mark'   => '中国银联',
+				'str'    => '验签失败',
+			);
 		}
 	}
 	public function getConfig() {
