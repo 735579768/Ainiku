@@ -1,5 +1,8 @@
 # Ainiku
 Ainiku
+2016-1-23   更新
+添加充值数据表kl_chongzhi
+
 2016-1-21   更新
 添加系统后台order_goods中status字段控制订单中单击个产品的发货状态
 
