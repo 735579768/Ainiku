@@ -53,7 +53,7 @@
   //表格着色
   $('tr:even').css('background','#f7f7f7');
   //分类过滤
-  $('select[name="cat_id"]').change(function(e) {
+  $('select[name="ptitle"]').change(function(e) {
         $(this).parents('form').submit();
     });
   $('select[name="cat_id"]').val("{:I('cat_id',0)}");
