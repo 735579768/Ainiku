@@ -7,7 +7,7 @@ $(function() {
 			if (!o) {
 				return false;
 			}
-			this.width=0;
+			this.width = 0;
 			this.s_src = o;
 			this.s_dest = null;
 			this.op_block = null;
@@ -25,11 +25,11 @@ $(function() {
 			init: function() {
 				var _t = this;
 				var _s_src = this.s_src;
-				if(!_s_src.prev().hasClass('kl-sel')){
+				if (!_s_src.prev().hasClass('kl-sel')) {
 					_s_src.before(_t.s_html);
 				}
 				this.s_dest = _s_src.prev();
-				(this.width==0) && this.s_dest.width(this.s_src.outerWidth()+40);
+				(this.width == 0) && this.s_dest.width(this.s_src.outerWidth() + 40);
 				_s_src.hide();
 				this.op_block = this.s_dest.find('.kl-sel-op-block');
 				this.op_value = this.s_dest.find('.selvalue');
@@ -48,9 +48,9 @@ $(function() {
 					var oo = $(this);
 					tem.append('<div class="kl-sel-op" title="' + oo.text() + '" value="' + oo.val() + '">' + oo.text() + '</div>');
 				});
-/*				this.op_value.next().click(function(event) {
-					_t.op_block.show();
-				});*/
+				/*				this.op_value.next().click(function(event) {
+									_t.op_block.show();
+								});*/
 				this.op_value.parent().click(function(event) {
 					_t.op_block.show();
 				});
@@ -82,33 +82,33 @@ $(function() {
 		hideSelect.findById = function(selectid) {
 			return allselect['hideselect__id__' + selectid];
 		};
-		hideSelect.getAll= function() {
+		hideSelect.getAll = function() {
 			return allselect;
 		};
-		hideSelect.tongbuByName=function(selectname) {
+		hideSelect.tongbuByName = function(selectname) {
 			this.findByName(selectname).tongbu();
 		};
-		hideSelect.tongbuById=function(selectid) {
+		hideSelect.tongbuById = function(selectid) {
 			this.findById(selectid).tongbu();
 		};
 		/**传入一个jquery select 对象初始并隐藏原来的select**/
 		hideSelect.hide = function(oo) {
-			var tem=[];
+			var tem = [];
 			var arg = arguments;
 			oo.each(function(index, el) {
-				var o=$(this);
+				var o = $(this);
 				var b = new f(o);
 				if (arg[1]) {
 					if (/^\d+$/.test(arg[1])) {
-						b.width=arg[1];
+						b.width = arg[1];
 						b.s_dest.width(arg[1]);
 					} else {
 						b.s_dest.addClass(arg[1]);
 					}
 				}
-				var na='id__'+b.s_src.attr('id');
-				(na=='id__undefined')&&(na='name__'+b.s_src.attr('name'));
-				(na=='name__undefined')&&(na=index);
+				var na = 'id__' + b.s_src.attr('id');
+				(na == 'id__undefined') && (na = 'name__' + b.s_src.attr('name'));
+				(na == 'name__undefined') && (na = index);
 				var id = 'hideselect__' + na;
 				allselect[id] = b;
 				b.s_dest.attr('id', id);
