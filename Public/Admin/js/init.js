@@ -379,4 +379,8 @@ $(function() {
 	//		});
 	//		$('tr th:last-child').css('width',ww+10);
 	//	},1000);
+	//替换select
+
+	hideSelect.hide($('select[name="category_id"]'),300);
+	hideSelect.hide($('select'));
 });

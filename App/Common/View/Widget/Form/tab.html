@@ -563,13 +563,18 @@ function uploadFile{$field['name']}(file, data){
 <ank:insert type="js"  name="city" />
             <style>select.selarea{ width:150px; overflow:hidden;}</style>
 <input type="hidden" id="ssq{$field['name']}"  name="{$field['name']}"  value="{$field['data']}" />
- <select id="Province{$field['name']}" class="form-control selarea"><option value="0">请选择--</option></select>
+<select id="Province{$field['name']}" class="form-control selarea"><option value="0">请选择--</option></select>
 <select id="city{$field['name']}" class="form-control selarea"><option value="0">请选择--</option></select>
 <select id="area1{$field['name']}" class="form-control selarea"><option value="0">请选择--</option></select>
-<select id="area11{$field['name']}" class="form-control selarea" style="display:none;"><option value="0">请选择--</option></select>
 <script>
 $(function(){
 cityselect.create("ssq{$field['name']},Province{$field['name']},city{$field['name']},area1{$field['name']}");
+/*if(typeof(hideSelect)!='undefined'){
+$("#Province{$field['name']}").change(function(event) {
+  var tid=$(this).attr('id');
+hideSelect.tongbuById("Province{$field['name']}");
+});
+}*/
 });
 </script>
           </case>

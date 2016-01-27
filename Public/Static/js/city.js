@@ -57,6 +57,7 @@
 					str += '<option value="' + a + '">' + selectdata['sheng'][a] + '</option>';
 				}
 				sheng.html(str);
+				sheng.change();
 				sheng.change(function(event) {
 					var va = sheng.val();
 					var str = '<option value="0">请选择--</option>';
@@ -74,6 +75,7 @@
 						str += '<option value="' + a + '">' + selectdata['qu'][va][a] + '</option>';
 					}
 					qu.html(str);
+					qu.change();
 					_this.setvalue();
 				});
 				qu.change(function(event) {
@@ -89,6 +91,7 @@
 					shi.val(diqu[1]);
 					shi.change();
 					qu.val(diqu[2]);
+					qu.change();
 				}
 			};
 			this.init();
