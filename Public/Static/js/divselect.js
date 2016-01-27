@@ -29,7 +29,7 @@ $(function() {
 					_s_src.before(_t.s_html);
 				}
 				this.s_dest = _s_src.prev();
-				(this.width == 0) && this.s_dest.width(this.s_src.outerWidth() + 10);
+				(this.width == 0) && this.s_dest.width(this.s_src.outerWidth() + 15);
 				_s_src.hide();
 				this.op_block = this.s_dest.find('.kl-sel-op-block');
 				this.op_value = this.s_dest.find('.selvalue');
