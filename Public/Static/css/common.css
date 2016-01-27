@@ -61,7 +61,7 @@
 .kl-sel .kl-sel-op-block{display:none;position:absolute;left:-1px;top:31px;width:100%;height:auto;overflow:hidden;overflow-y:auto;max-height:300px;border:solid 1px #ccc;border-top:none;background:#fff;z-index:9999999999;}
 .kl-sel .kl-sel-op:hover{background:#ededed;}
 .kl-sel .kl-sel-op{display:block;padding:0px 20px;cursor:pointer;white-space:nowrap;}
-.kl-sel .kl-showtext .selvalue{cursor:pointer;padding:0px 20px;display:block;float:left;}
+.kl-sel .kl-showtext .selvalue{cursor:pointer;padding:0px 0px 0px 10px;display:block;float:left;}
 .kl-sel .kl-showtext  .selico{display:block;float:right;width:30px;background:url(../images/xia.png) no-repeat;background-position:5px 2px;}
 /**自定义select样式内阴影**/
 .form-group .kl-sel{transition:all .3s;-webkit-transition:all .3s;-moz-transition:all .3s;-o-transition:all .3s;border-radius:4px;-webkit-box-shadow:inset 1px 1px 1px rgba(0,0,0,0.25);box-shadow:inset 1px 1px 1px rgba(0,0,0,0.25);-webkit-transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;box-shadow:inset 1px 1px 1px rgba(107,176,95,0.25);}
