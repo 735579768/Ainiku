@@ -60,7 +60,7 @@
 .kl-sel .kl-showtext,.kl-sel .kl-sel-op{font-size:14px;text-overflow:ellipsis;overflow:hidden;}
 .kl-sel .kl-sel-op-block{display:none;position:absolute;left:-1px;top:31px;width:100%;height:auto;overflow:hidden;overflow-y:auto;max-height:300px;border:solid 1px #ccc;border-top:none;background:#fff;z-index:9999999999;}
 .kl-sel .kl-sel-op:hover{background:#ededed;}
-.kl-sel .kl-sel-op{display:block;padding:0px 0px 0px 10px;cursor:pointer;white-space:nowrap;}
+.kl-sel .kl-sel-op{text-align: left; display:block;padding:0px 0px 0px 10px;cursor:pointer;white-space:nowrap;}
 .kl-sel .kl-showtext .selvalue{cursor:pointer;padding:0px 0px 0px 10px;display:block;float:left;}
 .kl-sel .kl-showtext  .selico{display:block;float:right;width:30px;background:url(../images/xia.png) no-repeat;background-position:5px 2px;}
 /**自定义select样式内阴影**/
