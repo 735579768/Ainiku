@@ -7,6 +7,7 @@ $(function() {
 			if (!o) {
 				return false;
 			}
+			this.width=0;
 			this.s_src = o;
 			this.s_dest = null;
 			this.op_block = null;
@@ -24,11 +25,12 @@ $(function() {
 			init: function() {
 				var _t = this;
 				var _s_src = this.s_src;
-				_s_src.hide();
 				if(!_s_src.prev().hasClass('kl-sel')){
 					_s_src.before(_t.s_html);
 				}
 				this.s_dest = _s_src.prev();
+				(this.width==0) && this.s_dest.width(this.s_src.outerWidth()+40);
+				_s_src.hide();
 				this.op_block = this.s_dest.find('.kl-sel-op-block');
 				this.op_value = this.s_dest.find('.selvalue');
 				this.tongbu();
@@ -98,6 +100,7 @@ $(function() {
 				var b = new f(o);
 				if (arg[1]) {
 					if (/^\d+$/.test(arg[1])) {
+						b.width=arg[1];
 						b.s_dest.width(arg[1]);
 					} else {
 						b.s_dest.addClass(arg[1]);
