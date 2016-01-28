@@ -6,6 +6,7 @@
 <!--left start-->
 
 <div id="west" class="layout-west left">
+
 <block name="left">
 <volist name="_GROUPLIST_" id="vo">
 <dl class="menu">
@@ -24,6 +25,26 @@
 <!--south start-->
 <div id="south" class="layout-south hide">{:C('ADMIN_TITLE')}</div>
 </if>
+<script>
+	//判断是不是在iframe中
+	var iframename = self.frameElement;
+	var ifuri = window.location.pathname;
+	((ifuri == '/') ||(ifuri == '/index.php')) && (ifuri = "{:U(CONTROLLER_NAME.'/'.ACTION_NAME)}");
+	//ifuri="{:U(CONTROLLER_NAME.'/'.ACTION_NAME)}";
+	if (iframename == null) {
+		// 页面不在iframe中时处理
+		if ($('#closewest').length <= 0) {
+
+			window.location.href = ifuri + '&mainmenu=true';
+		}
+
+	} else {
+		//页面在iframe中
+		if (ifuri.indexOf('&mainmenu=true') != -1) {
+			window.location.href = ifuri.replace('&mainmenu=true', '');
+		}
+	}
+</script>
 <!--left end-->
 <if condition="!($MAIN_IFRAME eq 'true')">
 <style>
