@@ -7,7 +7,7 @@
 body{overflow:hidden;padding:62px 0px 0px 179px;}
 
 /****页面整体布局****/
-.layout-north,.layout-south,.layout-center{background:#fff;/*border:solid 1px #ccc;*/padding:10px;padding-bottom:0px;}
+.layout-north,.layout-south,.layout-center{background:#fff;/*border:solid 1px #ccc;*/padding:0px 10px;}
 .layout-north{position:fixed;z-index:99;left:0px;top:0px;height:35px;width:100%;padding:10px 0px;border-left:none;border-right:none;}
 .layout-south{text-align:center;position:fixed;bottom:0px;overflow:hidden;right:0px;height:20px;width:98%;padding:5px 0px;border:none;}
 .layout-west{position:fixed;z-index:1;border-top:none;width:175px;top:59px;left:0px;overflow:hidden;overflow-y:auto;height:100%;}
@@ -60,7 +60,7 @@ body{overflow:hidden;padding:62px 0px 0px 179px;}
 .menuopenico{display:inline-block;background:url('../images/ico.png') -109px -56px no-repeat;width:23px;height:23px;float:left;margin:6px 5px 0px 10px;}
 
 /******右边模块样式********/
-.title-tool{margin-bottom:10px;display:block;border-bottom:solid 1px #ededed;}
+.title-tool{margin-bottom:5px;display:block;border-bottom:solid 1px #ededed;}
 .title-tool .title{float:left;display:inline-block;height:30px;line-height:30px;font-size:16px;font-weight:bolder;}
 .title-tool .title a{font-size:16px;padding:0px 2px;}
 .title-tool .title a.hover{font-weight:bolder;}
