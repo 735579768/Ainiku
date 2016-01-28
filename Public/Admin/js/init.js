@@ -381,4 +381,6 @@ $(function() {
 	//	},1000);
 	//替换select
 	hideSelect.hide($('select'));
+	hideCheckbox.hide($('input[type="checkbox"]'));
+    hideRadio.hide($('input[type="radio"]'));
 });
