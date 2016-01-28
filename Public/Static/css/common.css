@@ -75,3 +75,5 @@
 .kl-radio{cursor:pointer;display:inline-block;width:16px;height:16px;background:url(../images/inputico.png) 0px -37px no-repeat;}
 .kl-checkbox.kl-selected{background-position:0px -16px;}
 .kl-radio.kl-selected{background-position:0px -55px;}
+/**后台radio样式***/
+.kl-checkbox,.kl-radio{margin:0px 5px 0px 10px;vertical-align:middle;}

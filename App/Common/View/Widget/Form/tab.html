@@ -136,7 +136,7 @@ $(function(){
           <case value="radio">
           <div class="controls">
             <volist name="field['extra']" id="vo">
-              <input type="radio" value="{$key}" name="{$field['name']}" <eq name="field['data']" value="$key">checked="checked"</eq> >{$vo}
+              <input type="radio" value="{$key}" name="{$field['name']}" <eq name="field['data']" value="$key">checked="checked"</eq> ><span>{$vo}</span>
             </volist>
             </div>
           </case>
@@ -145,9 +145,9 @@ $(function(){
             echo '<input type="hidden" value="0" name="'.$field['name'].'[]"  />';
              foreach($field['extra'] as $key=>$val){
                 if(strpos($field['data'],$key.'')!==false){
-                echo '<span class="form-checkbox"><input type="checkbox" value="'.$key.'" name="'.$field['name'].'[]"  checked="checked" > <b title="'.$val.'">'.$val.'</b></span>';
+                echo '<span class="form-checkbox"><input type="checkbox" value="'.$key.'" name="'.$field['name'].'[]"  checked="checked" > <span title="'.$val.'">'.$val.'</span></span>';
                 }else{
-                echo '<span class="form-checkbox"> <input type="checkbox" value="'.$key.'" name="'.$field['name'].'[]"   ><b title="'.$val.'"> '.$val.'</b></span>';
+                echo '<span class="form-checkbox"> <input type="checkbox" value="'.$key.'" name="'.$field['name'].'[]"   ><span title="'.$val.'"> '.$val.'</span></span>';
                 }
 
               }

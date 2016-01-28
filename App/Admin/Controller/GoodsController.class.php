@@ -25,7 +25,7 @@ class GoodsController extends AdminController {
 		$this->assign('data', null);
 		/* 查询条件初始化 */
 		$map           = array();
-		$map['status'] = 1;
+		$map['status'] = array('egt', 0);
 		$title         = I('title');
 		$category_id   = I('category_id');
 		$position      = I('position');
