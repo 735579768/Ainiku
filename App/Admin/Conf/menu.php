@@ -5,6 +5,7 @@ return array(
 	'ADMIN_CUSTOM_MENU' => array(
 		'默认'       => array(
 			array('title' => '系统首页', 'url' => 'Index/index'),
+			array('title' => '网站设置', 'url' => 'Config/group'),
 			array('title' => '导航列表', 'url' => 'Nav/index'),
 			array('title' => '文章列表', 'url' => 'Article/index'),
 			array('title' => '产品列表', 'url' => 'Goods/index'),
