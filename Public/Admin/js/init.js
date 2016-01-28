@@ -192,9 +192,9 @@ $(function() {
 	//选择全部
 	$('.check-all').click(function(e) {
 		if ($(this).is(':checked')) {
-			$('.check-item').prop('checked', true);
+			$('.check-item').prop('checked', true).change();
 		} else {
-			$('.check-item').prop('checked', false);
+			$('.check-item').prop('checked', false).change();
 		}
 	});
 	//绑定列表中的图片显示功能
