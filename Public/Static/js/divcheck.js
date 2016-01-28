@@ -59,20 +59,8 @@ $(function() {
 		};
 		window.hidecheckbox = {};
 		/**通过id查找checkbox对象 id前缀为hidecheckbox_加上原来checkbox的name属性**/
-		hidecheckbox.findByName = function(checkboxname) {
-			return allcheckbox['hidecheckbox__name__' + checkboxname];
-		};
-		hidecheckbox.findById = function(checkboxid) {
-			return allcheckbox['hidecheckbox__id__' + checkboxid];
-		};
 		hidecheckbox.getAll = function() {
 			return allcheckbox;
-		};
-		hidecheckbox.tongbuByName = function(checkboxname) {
-			this.findByName(checkboxname).tongbu();
-		};
-		hidecheckbox.tongbuById = function(checkboxid) {
-			this.findById(checkboxid).tongbu();
 		};
 		/**传入一个jquery checkbox 对象初始并隐藏原来的checkbox**/
 		hidecheckbox.hide = function(oo) {
@@ -89,10 +77,7 @@ $(function() {
 						b.s_dest.addClass(arg[1]);
 					}
 				}
-				var na = 'id__' + b.s_src.prop('id');
-				(na == 'id__undefined') && (na = 'name__' + b.s_src.prop('name'));
-				(na == 'name__undefined') && (na = index);
-				var id = 'hidecheckbox__' + na;
+				var id = 'hidecheckbox_' + index;
 				allcheckbox[id] = b;
 				b.s_dest.prop('id', id);
 				b.id = id;

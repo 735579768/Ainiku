@@ -4,11 +4,11 @@
 <style>
 #itemblock{}
 .tab-pane dl{ width:150px; background:#fff;}
-.tab-pane dt{ font-size:14px; font-weight:bolder; color:#000;}
+.tab-pane dt{ font-size:14px; font-weight:bolder; color:#333;}
 .tab-pane dl dd{ display:block;color:#454545;line-height:30px;  margin:5px 10px;  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;}
-.tab-pane dl dd label{ color:#000; padding:0px 5px;}
+.tab-pane dl dd label{ padding:0px 5px;}
 .tab-pane dl dd{text-align:left;}
 .tab-wrap{ padding-bottom:50px;}
 </style>
@@ -52,20 +52,20 @@ $(function() {
 	var auth = {$data.auth |default = '[]'};
 	for (var i = 0; i < auth.length; i++) {
 		//console.log(auth[i]);
-		$("input[name='auth[]'][value=" + auth[i] + ']').prop("checked", true);
+		$("input[name='auth[]'][value=" + auth[i] + ']').prop("checked", true).change();
 	}
 
 	$('.tab-pane dl dt input').bind('click', function() {
 		if ($(this).is(':checked')) {
-			$(this).parent().parent().find('dd input').prop("checked", true);
+			$(this).parent().parent().find('dd input').prop("checked", true).change();
 		} else {
-			$(this).parent().parent().find('dd input').prop("checked", false);
+			$(this).parent().parent().find('dd input').prop("checked", false).change();
 		}
 
 	});
 	$('dd input.authitem').bind('click', function() {
 		if ($(this).is(':checked')) {
-			$(this).parent().parent().find('dt input').prop("checked", true);
+			$(this).parent().parent().find('dt input').prop("checked", true).change();
 		}
 	});
 });
