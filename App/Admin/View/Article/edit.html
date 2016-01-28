@@ -23,8 +23,7 @@
     //	}
     $(function() {
         if (typeof draftboxtimeid != 'undefined') clearInterval(draftboxtimeid);
-        var opendraftbox = '{:C('
-        OPEN_DRAFTBOX ')}';
+        var opendraftbox = '{:C('OPEN_DRAFTBOX')}';
         var subobj = $('#submitbtn');
         var srctext = subobj.html();
         if (opendraftbox == '1') {
@@ -38,7 +37,7 @@
                     var title = $('input[name="title"]').val();
                     if (title != '') {
                         $('#submitbtn').html('保存草稿(' + jiantime + ')');
-                        $('input[name="status"][type="radio"][value="2"]').attr('checked', 'checked');
+                        $('input[name="status"][type="radio"][value="2"]').prop('checked', true).change();
                         if ((jiantime--) <= 0) {
                             jiantime = draftboxtime;
                             submitcg();
