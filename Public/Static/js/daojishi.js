@@ -67,7 +67,7 @@
 			}
 		}
 	};
-	aa.daojishi = function(da, id, end) {
-		return new djs(da, id, end);
+	aa.daojishi = function(endtime, id, endtext) {
+		return new djs(endtime, id, endtext);
 	};
 })(window);

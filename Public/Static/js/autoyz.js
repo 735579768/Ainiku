@@ -27,9 +27,10 @@ $(function() {
 		},
 		init: function() {
 			var _this = this;
-			$('input.autoyz').wrap('<div class="autoyz-wrap" style="position:relative;display:inline-block;"></div>');
-			$('input.autoyz').parent().append('<span></span>');
-			$('input.autoyz').focus(function(e) {
+			var dobj=$('input.autoyz');
+			dobj=.wrap('<div class="autoyz-wrap" style="position:relative;display:inline-block;"></div>');
+			dobj.parent().append('<span></span>');
+			dobj.focus(function(e) {
 				if (!_this.isregok($(this))) {
 					var s1 = $(this).attr('data-ts');
 					var ob = $(this).parent().find('span');
@@ -50,7 +51,7 @@ $(function() {
 					ob.show();
 				}
 			});
-			$('input.autoyz').blur(function(e) {
+			dobj.blur(function(e) {
 				if (_this.isregok($(this))) {
 					//正确
 					var s1 = $(this).attr('data-ok');
