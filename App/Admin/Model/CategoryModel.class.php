@@ -15,11 +15,11 @@ class CategoryModel extends BaseModel {
 	protected $_validate = array(
 
 		array('title', 'require', '名称不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
-		array('title', '', '分类名称已经存在', self::VALUE_VALIDATE, 'unique', self::MODEL_BOTH),
+		array('title', '', '分类名称已经存在', self::VALUE_VALIDATE, 'unique', self::MODEL_INSERT),
 
 		array('category_type', 'require', '分类类型标识不能为空', self::EXISTS_VALIDATE, 'regex', self::MODEL_BOTH),
 
-		array('name', '', '标识已经存在', self::VALUE_VALIDATE, 'unique', self::MODEL_BOTH),
+		array('name', '', '标识已经存在', self::VALUE_VALIDATE, 'unique', self::MODEL_INSERT),
 
 		array('meta_title', '1,50', '网页标题不能超过50个字符', self::VALUE_VALIDATE, 'length', self::MODEL_BOTH),
 		array('keywords', '1,255', '网页关键字不能超过255个字符', self::VALUE_VALIDATE, 'length', self::MODEL_BOTH),
@@ -87,7 +87,7 @@ class CategoryModel extends BaseModel {
 			$map['category_type'] = $category_type;
 		}
 
-		$list = $this->field($field)->where($map)->order('status desc,sort asc,category_id asc')->select();
+		$list = $this->field($field)->where($map)->order('sort asc,category_id asc')->select();
 		$list = list_to_tree($list, $pk = 'category_id', $pid = 'pid', $child = '_', $root = $id);
 		/* 获取返回数据 */
 		if (isset($info)) {
