@@ -8,6 +8,7 @@ return array(
 			array('title' => '网站设置', 'url' => 'Config/group'),
 			array('title' => '导航列表', 'url' => 'Nav/index'),
 			array('title' => '文章列表', 'url' => 'Article/index'),
+			array('title' => '单页列表', 'url' => 'Single/index'),
 			array('title' => '产品列表', 'url' => 'Goods/index'),
 			array('title' => '广告位列表', 'url' => 'Modulepos/index'),
 			array('title' => '用户列表', 'url' => 'Member/index'),

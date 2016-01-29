@@ -6,7 +6,7 @@ defined("ACCESS_ROOT") || die("Invalid access");
 class SingleModel extends BaseModel {
 	protected $_validate = array(
 		array('title', 'require', '标题不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
-		array('title', '', '已经存在同样标题', 0, 'unique', 1),
+		//	array('title', '', '已经存在同样标题', 0, 'unique', 1),
 	);
 	protected $_auto = array(
 		//  array('model', 'arr2str', self::MODEL_BOTH, 'function'),

@@ -38,7 +38,7 @@ class SingleController extends AdminController {
 		$this->pages(array(
 			'model' => 'Single',
 			'where' => $map,
-			'order' => 'status asc,single_id desc',
+			'order' => 'convert(ptitle using gbk) asc ,sort asc,status asc,single_id desc',
 		));
 		$this->meta_title = '单页管理';
 		$this->display();

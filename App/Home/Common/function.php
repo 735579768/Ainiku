@@ -44,11 +44,64 @@ function F_getOrderGoodsList($order_id = '') {
 	return $data;
 }
 /**
- * 取指定分类内容列表
+ * 取指定分类列表
  */
-function getCategoryList($category_id = 0, $model = 'Article', $rows = 10) {
-	$map['category_id'] = $category_id;
+function getCategoryList($category_id = 0) {
+	$map['pid']    = $category_id;
+	$map['status'] = 1;
+	$list          = M('Category')->where($map)->limit($rows)->select();
+	return $list;
+}
+/**
+ * 取分类的最上级父类
+ */
+function getCategoryParentId($category_id = 0) {
+	$skey   = 'categoryparentid_' . $category_id;
+	$redata = F($skey);
+	if (empty($redata) || APP_DEBUG) {
+		if (is_array($category_id)) {
+			if ($category_id['pid'] == 0) {
+				$redata = $category_id['category_id'];
+			} else {
+				$map['category_id'] = $category_id['pid'];
+				$info               = M('Category')->where($map)->find();
+				$redata             = getCategoryParentId($info);
+			}
+		} else {
+			$map['category_id'] = $category_id;
+			$info               = M('Category')->where($map)->find();
+			$redata             = getCategoryParentId($info);
+		}
+		F($skey, $redata);
+	}
+	return $redata;
+}
+
+/**
+ * 取指定分类文章
+ */
+function getCatetoryArticle($category_id = '', $rows = '8') {
+	if (empty($category_id)) {return '';}
+	$rearr              = array();
+	$category_id        = getCategoryAllChild($category_id);
+	$map['category_id'] = array('in', "$category_id");
 	$map['status']      = 1;
-	$list               = M($model)->where($map)->limit($rows)->select();
+	$skey               = 'homearticlelist' . $category_id;
+	$rearr              = S($skey);
+	if (empty($rearr) || APP_DEBUG) {
+		$rearr = M('Article')->where($map)->order('article_id desc')->limit($rows)->select();
+		S($skey, $rearr);
+	}
+	return $rearr;
+}
+/**
+ * 取单页列表
+ */
+function getSingleList($singlename = '') {
+	if (empty($singlename)) {
+		return "";
+	}
+	$map['ptitle'] = $singlename;
+	$list          = M('Single')->where($map)->field('title,name,ptitle')->order('sort asc')->select();
 	return $list;
 }
