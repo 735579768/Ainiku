@@ -271,10 +271,10 @@ class FileController extends AdminController {
 				break;
 			}
 			//原文件的相对路径到文件名字
-			$XDtargetPath    = $targetFolder . '/' . date('Ymd') . '/' . $filename;
-			$temarr          = explode('.', $XDtargetPath);
-			$XDtargetPathdir = str_replace($filename, '', $XDtargetPath);
-			createFolder($XDtargetPathdir);
+			$XDtargetPath = $targetFolder . '/' . date('Ymd') . '/' . $filename;
+/*			$temarr          = explode('.', $XDtargetPath);
+$XDtargetPathdir = str_replace($filename, '', $XDtargetPath);*/
+			createFolder(dirname($XDtargetPath));
 			//原图文件绝对路径目录
 			$targetPath = $SITE_PATH . $targetFolder . '/' . date('Ymd'); //保存原文件的绝对路径
 
@@ -518,11 +518,11 @@ class FileController extends AdminController {
 			$result['url'] = $shafile['path'];
 			if (!empty($result['url'])) {
 				if ($action == 'uploadimage') {
-					$thumb      = str_replace("/Uploads/image/", "/Uploads/image/thumb/", $result['url']);
-					$JDthumb    = pathA($thumb);
-					$temarr     = explode('.', $JDthumb);
-					$JDthumbdir = str_replace($temarr[count($temarr) - 1], '', $JDthumb);
-					createFolder($JDthumbdir);
+					$thumb   = str_replace("/Uploads/image/", "/Uploads/image/thumb/", $result['url']);
+					$JDthumb = pathA($thumb);
+/*					$temarr     = explode('.', $JDthumb);
+$JDthumbdir = str_replace($temarr[count($temarr) - 1], '', $JDthumb);*/
+					createFolder(dirname($JDthumb));
 					//生成缩略图
 					$srcpath = pathA($result['url']);
 					$srcpath = str_replace('\\', '/', $srcpath);
