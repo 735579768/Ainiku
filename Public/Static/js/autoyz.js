@@ -28,7 +28,7 @@ $(function() {
 		init: function() {
 			var _this = this;
 			var dobj=$('input.autoyz');
-			dobj=.wrap('<div class="autoyz-wrap" style="position:relative;display:inline-block;"></div>');
+			dobj.wrap('<div class="autoyz-wrap" style="position:relative;display:inline-block;"></div>');
 			dobj.parent().append('<span></span>');
 			dobj.focus(function(e) {
 				if (!_this.isregok($(this))) {
