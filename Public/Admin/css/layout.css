@@ -7,7 +7,7 @@
 body{overflow:hidden;padding:62px 0px 0px 179px;}
 
 /****页面整体布局****/
-.layout-north,.layout-south,.layout-center{background:#fff;/*border:solid 1px #ccc;*/padding:0px 10px;}
+.layout-north,.layout-south,.layout-center{background:#fff;/*border:solid 1px #ccc;*/padding:10px;}
 .layout-north{position:fixed;z-index:99;left:0px;top:0px;height:35px;width:100%;padding:10px 0px;border-left:none;border-right:none;}
 .layout-south{text-align:center;position:fixed;bottom:0px;overflow:hidden;right:0px;height:20px;width:98%;padding:5px 0px;border:none;}
 .layout-west{position:fixed;z-index:1;border-top:none;width:175px;top:59px;left:0px;overflow:hidden;overflow-y:auto;height:100%;}
