@@ -61,29 +61,28 @@ function getCategoryParent($id = null, $top = true) {
  *取分类树
  */
 function getCategoryTree($pid = 0, $child = false) {
-	$rearr           = array();
-	$where['status'] = 1;
-	$where['pid']    = $pid;
-	$list            = M('Category')->where($where)->order('sort asc')->select();
-	if ($list) {
-		foreach ($list as $key => $val) {
-			$child               = getCategoryTree($val['category_id']);
-			$list[$key]['child'] = $child;
+	$cachekey     = md5('homecategorytree');
+	$categorytree = F($cachekey);
+	if (empty($categorytree) || APP_DEBUG) {
+		$rearr           = array();
+		$where['status'] = 1;
+		$where['pid']    = $pid;
+		$categorytree    = M('Category')->where($where)->order('sort asc')->select();
+		if ($categorytree) {
+			foreach ($categorytree as $key => $val) {
+				$child                       = getCategoryTree($val['category_id']);
+				$categorytree[$key]['child'] = $child;
+			}
 		}
+		F($cachekey, $categorytree);
 	}
-	return $list;
+	return $categorytree;
 }
 /**
  *取系统缓存分类
  */
 function F_getCategoryTree($pid = 0, $child = false) {
-	$cachekey     = md5('homecategorytree');
-	$categorytree = F($cachekey);
-	if (empty($categorytree)) {
-		$categorytree = getCategoryTree($pid, $child);
-		F($cachekey, $categorytree);
-	}
-	return $categorytree;
+	return getCategoryTree($pid, $child);
 }
 /*
 // * 获取分类信息并缓存分类
