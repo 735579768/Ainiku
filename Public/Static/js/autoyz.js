@@ -27,9 +27,9 @@ $(function() {
 		},
 		init: function() {
 			var _this = this;
-			$('.autoyz').wrap('<div class="autoyz-wrap" style="position:relative;display:inline-block;"></div>');
-			$('.autoyz').parent().append('<span></span>');
-			$('.autoyz').focus(function(e) {
+			$('input.autoyz').wrap('<div class="autoyz-wrap" style="position:relative;display:inline-block;"></div>');
+			$('input.autoyz').parent().append('<span></span>');
+			$('input.autoyz').focus(function(e) {
 				if (!_this.isregok($(this))) {
 					var s1 = $(this).attr('data-ts');
 					var ob = $(this).parent().find('span');
@@ -50,7 +50,7 @@ $(function() {
 					ob.show();
 				}
 			});
-			$('.autoyz').blur(function(e) {
+			$('input.autoyz').blur(function(e) {
 				if (_this.isregok($(this))) {
 					//正确
 					var s1 = $(this).attr('data-ok');
