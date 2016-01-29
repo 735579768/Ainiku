@@ -37,7 +37,8 @@ class ArticleController extends AdminController {
 		}
 
 		if (!empty($category_id)) {
-			$map['category_id'] = $category_id;
+			$allid              = getCategoryAllChild($category_id);
+			$map['category_id'] = array('in', "$allid");
 		}
 
 		$field = 'article_id,title,pic,position,category_id,status,update_time,create_time';
