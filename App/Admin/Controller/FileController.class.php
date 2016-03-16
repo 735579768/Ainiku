@@ -510,12 +510,12 @@ $XDtargetPathdir = str_replace($filename, '', $XDtargetPath);*/
 			}
 		} else {
 
-			echo $result;
 			//保存到数据库
 			$result = json_decode($result, true);
 			//判断是不是已经上传过类似图片
 			$shafile       = $this->checksha($result['url']);
 			$result['url'] = $shafile['path'];
+			echo json_encode($result);
 			if (!empty($result['url'])) {
 				if ($action == 'uploadimage') {
 					$thumb   = str_replace("/Uploads/image/", "/Uploads/image/thumb/", $result['url']);
