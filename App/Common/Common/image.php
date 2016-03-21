@@ -45,7 +45,7 @@ function markimg($info = array(
 	$white_alpha = imagecolorallocatealpha($dst_im, 255, 255, 255, 127);
 	imagefill($dst_im, 0, 0, $white_alpha);
 	if ($info['str'] != '') {
-		$font_size = 14;
+		$font_size = intval(C('SHUIYIN_TEXT_SIZE'));
 		$fontname  = 'C:\WINDOWS\Fonts\simkai.ttf';
 		$colorf    = hextorgb(C('SHUIYIN_TEXT_COLOR'));
 		$black     = imagecolorallocate($dst_im, $colorf[0], $colorf[1], $colorf[2]);
@@ -54,16 +54,27 @@ function markimg($info = array(
 		$ww        = abs($arr[2] - $arr[0]);
 
 		switch ($pos) {
-		case 'right':
-			//右下角
+		case 'top_left':
+			imagettftext($dst_im, $font_size, 0, $dst_info[0] - $ww - 10, 10, $black, $fontname, $info['str']);
+			break;
+		case 'top_center':
+			imagettftext($dst_im, $font_size, 0, ($dst_info[0] - $ww - 10) / 2, 10, $black, $fontname, $info['str']);
+			break;
+
+		case 'top_right':
+			imagettftext($dst_im, $font_size, 0, $dst_info[0] - $ww - 10, 10, $black, $fontname, $info['str']);
+			break;
+		case 'center_center':
+			imagettftext($dst_im, $font_size, 0, ($dst_info[0] - $ww) / 2, ($dst_info[1] - $hh) / 2, $black, $fontname, $info['str']);
+			break;
+
+		case 'bottom_right':
 			imagettftext($dst_im, $font_size, 0, $dst_info[0] - $ww - 10, $dst_info[1] - $hh + 10, $black, $fontname, $info['str']);
 			break;
-		case 'center':
-			//正中间
+		case 'bottom_center':
 			imagettftext($dst_im, $font_size, 0, ($dst_info[0] - $ww - 10) / 2, $dst_info[1] - $hh + 10, $black, $fontname, $info['str']);
 			break;
 		default:
-			//左下角
 			imagettftext($dst_im, $font_size, 0, 10, $dst_info[1] - $hh + 10, $black, $fontname, $info['str']);
 		}
 
@@ -88,13 +99,23 @@ function markimg($info = array(
 		imagefill($src_im, 0, 0, $alpha);
 
 		switch ($pos) {
-		case 'right':
-			//右下角
+		case 'top_left':
+			imagecopy($dst_im, $src_im, $dst_info[0] - $src_info[0] - 10, 10, 0, 0, $src_info[0], $src_info[1]);
+			break;
+		case 'top_right':
+			imagecopy($dst_im, $src_im, $dst_info[0] - $src_info[0] - 10, 10, 0, 0, $src_info[0], $src_info[1]);
+			break;
+		case 'top_center':
+			imagecopy($dst_im, $src_im, ($dst_info[0] - $src_info[0]) / 2, 10, 0, 0, $src_info[0], $src_info[1]);
+			break;
+		case 'center_center':
+			imagecopy($dst_im, $src_im, ($dst_info[0] - $src_info[0]) / 2, ($dst_info[1] - $src_info[1]) / 2, 0, 0, $src_info[0], $src_info[1]);
+			break;
+		case 'bottom_right':
 			imagecopy($dst_im, $src_im, $dst_info[0] - $src_info[0] - 10, $dst_info[1] - $src_info[1] - 10, 0, 0, $src_info[0], $src_info[1]);
 			break;
-		case 'center':
-			//正中间
-			imagecopy($dst_im, $src_im, ($dst_info[0] - $src_info[0]) / 2, ($dst_info[1] - $src_info[1]) / 2, 0, 0, $src_info[0], $src_info[1]);
+		case 'bottom_center':
+			imagecopy($dst_im, $src_im, ($dst_info[0] - $src_info[0]) / 2, $dst_info[1] - $src_info[1] - 10, 0, 0, $src_info[0], $src_info[1]);
 			break;
 		default:
 			//左下角
