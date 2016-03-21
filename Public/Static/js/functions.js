@@ -136,7 +136,7 @@ $(function() {
                     $("#klbg").remove();
                     $(".disabled").removeClass("disabled");
                     //如果返回的有地址的话就直接转向
-                    if (data.url != "" && data.url != "undefined") {
+                    if (data && data.url != "" && data.url != "undefined") {
                         window.location = data.url;
                     }
                     //最后处理代码在此添加(如果没有回调函数的话)

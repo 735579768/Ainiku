@@ -40,8 +40,10 @@ function markimg($info = array(
 		break;
 	default:return ("不支持的文件类型1");
 	}
-	imagesavealpha($dst, true); //这里很重要;
-
+	imagealphablending($dst_im, false);
+	imagesavealpha($dst_im, true);
+	$white_alpha = imagecolorallocatealpha($dst_im, 255, 255, 255, 127);
+	imagefill($dst_im, 0, 0, $white_alpha);
 	if ($info['str'] != '') {
 		$font_size = 14;
 		$fontname  = 'C:\WINDOWS\Fonts\simkai.ttf';
@@ -50,11 +52,6 @@ function markimg($info = array(
 		$arr       = imagettfbbox($font_size, 0, $fontname, $info['str']);
 		$hh        = abs($arr[7] - $arr[1]);
 		$ww        = abs($arr[2] - $arr[0]);
-
-		imagealphablending($dst_im, false);
-		imagesavealpha($dst_im, true);
-		$white_alpha = imagecolorallocatealpha($dst_im, 255, 255, 255, 127);
-		imagefill($dst_im, 0, 0, $white_alpha);
 
 		switch ($pos) {
 		case 'right':
