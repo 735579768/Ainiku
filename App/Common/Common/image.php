@@ -40,6 +40,7 @@ function markimg($info = array(
 		break;
 	default:return ("不支持的文件类型1");
 	}
+	imagesavealpha($dst, true); //这里很重要;
 
 	if ($info['str'] != '') {
 		$font_size = 14;
@@ -49,6 +50,12 @@ function markimg($info = array(
 		$arr       = imagettfbbox($font_size, 0, $fontname, $info['str']);
 		$hh        = abs($arr[7] - $arr[1]);
 		$ww        = abs($arr[2] - $arr[0]);
+
+		imagealphablending($dst_im, false);
+		imagesavealpha($dst_im, true);
+		$white_alpha = imagecolorallocatealpha($dst_im, 255, 255, 255, 127);
+		imagefill($dst_im, 0, 0, $white_alpha);
+
 		switch ($pos) {
 		case 'right':
 			//右下角
@@ -78,6 +85,11 @@ function markimg($info = array(
 		default:return ("不支持的文件类型1");
 		}
 		//支持png本身透明度的方式
+		$alpha = imagecolorallocatealpha($src_im, 255, 255, 255, 127);
+		imagealphablending($src_im, false); //这里很重要,意思是不合并颜色,直接用$img图像颜色替换,包括透明色;
+		imagesavealpha($src_im, true); //这里很重要,意思是不要丢了$thumb图像的透明色
+		imagefill($src_im, 0, 0, $alpha);
+
 		switch ($pos) {
 		case 'right':
 			//右下角
