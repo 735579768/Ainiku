@@ -114,7 +114,7 @@ $(function() {
                             content: da.info,
                             info: da.info,
                             success: function(da) {
-                                if (da.info.url != '') window.location = da.info.url;
+                                if (typeof(da.info.url)!='undefined') window.location = da.info.url;
                             }
                         });
                         _this.removeClass("disabled");

@@ -18,7 +18,7 @@ class CommentsPlugin extends \Plugins\Plugin {
 		$map['pid']    = $pid;
 		$map['arc_id'] = I('post.arc_id');
 		$list          = $this->pages(array(
-			'model' => 'Comments',
+			'model' => 'PluginComments',
 			'where' => $map,
 			'order' => 'create_time desc',
 			'rows'  => 2,
@@ -35,10 +35,10 @@ class CommentsPlugin extends \Plugins\Plugin {
 	}
 	public function gettree($pid = 0) {
 		if ($pid === 0) {return '';}
-		$info          = M('Comments')->field('name')->find($pid);
+		$info          = M('PluginComments')->field('name')->find($pid);
 		$map['pid']    = $pid;
 		$map['status'] = 1;
-		$list          = M('Comments')->where($map)->order('create_time desc')->select();
+		$list          = M('PluginComments')->where($map)->order('create_time desc')->select();
 		$this->assign('pname', $info['name']);
 		$this->assign('_list', $list);
 		if (empty($list)) {
@@ -55,12 +55,12 @@ class CommentsPlugin extends \Plugins\Plugin {
 			if (!check_verify($verify)) {
 				$this->error('验证码输入错误！');
 			}
-			$model = new \Plugins\Comments\CommentsModel();
+			$model = new \Plugins\Comments\PluginCommentsModel();
 			if ($model->create()) {
 				$model->url = preg_replace('/http\:\/\//i', '', $model->url);
 				$result     = $model->add();
 				if (0 < $result) {
-					$list[] = M('Comments')->find($result);
+					$list[] = M('PluginComments')->find($result);
 					$this->assign('_list', $list);
 					$str = $this->fetch('ajaxlist');
 					$this->success(array(
@@ -93,8 +93,8 @@ class CommentsPlugin extends \Plugins\Plugin {
 
 		$prefix = C('DB_PREFIX');
 		$sql    = <<<sql
-				DROP TABLE IF EXISTS `{$prefix}comments`;
-				CREATE TABLE `{$prefix}comments` (
+				DROP TABLE IF EXISTS `{$prefix}plugin_comments`;
+				CREATE TABLE `{$prefix}plugin_comments` (
 				  `id` int(11) NOT NULL AUTO_INCREMENT,
 				  `pid` int(11)  NULL DEFAULT 0 ,
 				  `arc_id` int(11)  NULL DEFAULT 0 ,
@@ -144,7 +144,7 @@ sql;
 		$map['name'] = array('like', '%' . $name . '%');
 		//$map['status']=array('egt',0);
 		$this->pages(array(
-			'model' => 'Comments',
+			'model' => 'PluginComments',
 			'where' => $map,
 			'order' => 'status asc,id desc',
 		));
@@ -166,9 +166,8 @@ sql;
 
 		$id = I('get.id');
 		empty($id) && die('ID不能为空');
-		$data = M('Comments')->find($id);
+		$data = M('PluginComments')->find($id);
 		$this->assign('info', $data);
-		//M('comments')->where("id=$id")->setInc('is_view',1);
 		$this->display('check');
 		die();
 	}
@@ -184,7 +183,7 @@ sql;
 			$this->error('请先进行选择');
 		}
 
-		$model  = M('Comments');
+		$model  = M('PluginComments');
 		$result = $model->where("id in ($id)")->delete();
 		if (result) {
 			$this->success('已经彻底删除');
@@ -198,7 +197,7 @@ sql;
 			die('');
 		}
 
-		$result = M('Comments')->where("1=1")->delete();
+		$result = M('PluginComments')->where("1=1")->delete();
 		if (result) {
 			$this->success('已经清空', U('index'));
 		} else {
@@ -213,7 +212,7 @@ sql;
 
 		$prefix = C('DB_PREFIX');
 		$sql    = <<<sql
-						DROP TABLE IF EXISTS `{$prefix}comments`;
+						DROP TABLE IF EXISTS `{$prefix}plugin_comments`;
 sql;
 		$arr = explode(';', $sql);
 		foreach ($arr as $val) {

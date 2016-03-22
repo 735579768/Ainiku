@@ -2,7 +2,7 @@
 // | Author: 枫叶 <735579768@qq.com> <http://www.zhaokeli.com>
 // +----------------------------------------------------------------------
 
-namespace Plugins\Comments;
+namespace Plugins\PluginComments;
 use Think\Model;
 
 /**
@@ -10,7 +10,7 @@ use Think\Model;
  * @author 寞枫 <735579768@qq.com>
  */
 
-class CommentsModel extends Model {
+class PluginCommentsModel extends Model {
 	/* 用户模型自动验证 */
 	protected $_validate = array(
 
