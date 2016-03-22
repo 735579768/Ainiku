@@ -1,0 +1,48 @@
+<!--tool start-->
+<div class="btn-tool">
+<a href="{:UP('Fangke/set')}" class="btn">访客配置</a>
+<a href="{:UP('Fangke/del')}" class="btn btn-danger klbatch">批量删除</a>
+<a href="{:UP('Fangke/delall')}" class="btn btn-danger ajax-href">全部清空</a>
+<div class="searchform">
+<form class="form-h form-group-h" action="{:UP('Fangke/lists')}" method="post">
+<div class="form-group">
+<input name="name" type="text" value="{:I('name')}" class="form-control input-mid" placeholder="请输入姓名" />
+</div>
+
+<a class="sch-btn" href="javascript:;" id="search" ><i class="btn-search"></i></a>
+</form>
+</div>
+
+
+</div>
+
+<!--tool end-->
+<!--content start -->
+<div class="content">
+<table class="leftalign" width="100%" border="1" bordercolor="#ededed">
+        <tr class="th">
+        <th width="30" style="text-align:center;"><input class="check-all" type="checkbox" /></th>
+		<th width="50" style="text-align:center;">序号</th>
+		<th>访问地址</th>
+        <th>来源地址</th>
+        <th>IP</th>
+        <th>访问时间</th>
+		<th width="120" style=" text-align:center;">操作</th>
+		</tr>
+<volist name="_list" id="vo">
+  <tr>
+  <td style="text-align:center;"><input class="check-item" type="checkbox" name="id[]" value="{$vo.id}"/></td>
+    <td style="text-align:center;">{$key+1}</td>
+    <td>{$vo.request_url}</td>
+    <td>{$vo.referer_url}</td>
+    <td>{$vo.ip}</td>
+ <td>{$vo.enter_time|time_format}</td>
+    <td>
+      <a href="{:UP('Fangke/del?id='.$vo['id'])}" class="btn btn-danger ajax-list-del">删除</a>
+    </td>
+  </tr>
+</volist>
+</table>
+<div id="page" class="page">{$_page}</div>
+</div>
+<!--content end-->

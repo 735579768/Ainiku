@@ -10,7 +10,7 @@ class CommentsPlugin extends \Plugins\Plugin {
 	);
 	//钩子默认的调用方法
 	public function run() {
-		$this->display('content');
+		$this->add();
 	}
 	public function ajaxlist($arc_id = '', $pid = 0) {
 		// empty($arc_id)&&die('没有评论');

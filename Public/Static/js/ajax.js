@@ -112,7 +112,7 @@ $(function() {
                         da.status == '1' && _this.parent().parent().remove();
                         ank.msg({
                             content: da.info,
-                            info: da,
+                            info: da.info,
                             success: function(da) {
                                 if (da.info.url != '') window.location = da.info.url;
                             }

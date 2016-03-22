@@ -26,18 +26,18 @@
                     </td>
                     <td>
                         <if condition="$vo.install eq '0'">
-                            <a class="btn btn-primary ajax-href" href='{:U(' Addons/install?mark='.$vo[' mark '])}'>安装</a>
+                            <a class="btn btn-primary ajax-href" href='{:U('Addons/install?mark='.$vo['mark'])}'>安装</a>
                             <else />
                             <if condition="$vo.status eq '0'">
-                                <a class="btn btn-warning ajax-href" href='{:U(' Addons/qiyong?id='.$vo[' id '])}'>已禁用</a>
+                                <a class="btn btn-warning ajax-href" href='{:U('Addons/qiyong?id='.$vo['id'])}'>已禁用</a>
                                 <else />
-                                <a class="btn btn ajax-href" href='{:U(' Addons/jinyong?id='.$vo[' id '])}'>已启用</a>
+                                <a class="btn btn ajax-href" href='{:U('Addons/jinyong?id='.$vo['id'])}'>已启用</a>
                             </if>
                             <notempty name="vo['setmenu']">
-                                <a class="btn btn-primary" href='{:U($vo[' setmenu ']['url '])}'>管理</a>
+                                <a class="btn btn-primary" href='{:U($vo['setmenu']['url'])}'>管理</a>
                             </notempty>
                             <if condition="$vo.type neq 'system'">
-                                <a class='btn btn-warning ajax-href' href='{:U(' Addons/uninstall?id='.$vo[' id '])}'>卸载</a>
+                                <a class='btn btn-warning ajax-href' href='{:U('Addons/uninstall?id='.$vo['id'])}'>卸载</a>
                             </if>
                         </if>
                     </td>

@@ -135,6 +135,9 @@ function plugin($name, $param = array()) {
 	try {
 		//包含插件目录
 		$narr = explode('/', $name);
+		if (count($narr) == 1) {
+			$narr[1] = 'run';
+		}
 		require_once ADDONS_PATH . $narr[0] . '/' . $narr[0] . 'Plugin.class.php';
 		$str    = "\\" . ADDONS_DIR_NAME . "\\{$narr[0]}\\" . $narr[0] . 'Plugin';
 		$temobj = new $str();
