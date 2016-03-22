@@ -38,8 +38,8 @@ class FangkePlugin extends \Plugins\Plugin {
 		$onehour = strtotime('2015-06-01 01:00:00') - strtotime('2015-06-01 00:00:00');
 
 		//查询每个小时的访问量
-		$viewnums   = array();
-		$duliipnums = array();
+		$viewnums   = array(0);
+		$duliipnums = array(0);
 
 		//设置坐标点
 		$_y = 0;
