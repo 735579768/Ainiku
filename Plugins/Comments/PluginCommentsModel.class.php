@@ -2,7 +2,7 @@
 // | Author: 枫叶 <735579768@qq.com> <http://www.zhaokeli.com>
 // +----------------------------------------------------------------------
 
-namespace Plugins\PluginComments;
+namespace Plugins\Comments;
 use Think\Model;
 
 /**
