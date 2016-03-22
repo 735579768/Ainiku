@@ -39,7 +39,12 @@ class CommentsPlugin extends \Plugins\Plugin {
 		$list          = M('Comments')->where($map)->order('create_time desc')->select();
 		$this->assign('pname', $info['name']);
 		$this->assign('_list', $list);
-		echo $this->fetch('tree');
+		if (empty($list)) {
+			echo '';
+		} else {
+			echo $this->fetch('tree');
+		}
+
 	}
 	public function add() {
 		if (IS_POST) {
