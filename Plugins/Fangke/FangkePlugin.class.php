@@ -32,6 +32,57 @@ class FangkePlugin extends \Plugins\Plugin {
 		);
 		M('PluginFangke')->add($data);
 	}
+	public function chart() {
+		//当前一天0点时间
+		$curday  = strtotime(date(NOW_TIME, 'Y/m/d') . '00:00:00');
+		$onehour = strtotime('2015-06-01 01:00:00') - strtotime('2015-06-01 00:00:00');
+
+		//查询每个小时的访问量
+		$viewnums   = array();
+		$duliipnums = array();
+
+		//设置坐标点
+		$_y = 0;
+		//查询浏览次数
+		for ($i = 1; $i < 24; $i++) {
+			$map['enter_time'] = array(array('gt', $curday), array('lt', $curday + $onehour), 'and');
+			$nums              = M('PluginFangke')->field('sum(views) views')->where($map)->select();
+			$nums              = $nums[0]['views'];
+			$nums              = empty($nums) ? 0 : $nums;
+			$viewnums[]        = $nums;
+			if ($nums > $_y) {
+				$_y = $nums;
+			}
+
+			$curday += $onehour;
+		}
+		//查找独立ip数据
+		$curday = strtotime(date(NOW_TIME, 'Y/m/d') . '00:00:00');
+		for ($i = 1; $i < 24; $i++) {
+			$map['enter_time'] = array(array('gt', $curday), array('lt', $curday + $onehour), 'and');
+			$nums              = M('PluginFangke')->distinct(true)->where($map)->count();
+			$nums              = empty($nums) ? 0 : $nums;
+			$duliipnums[]      = $nums;
+			if ($nums > $_y) {
+				$_y = $nums;
+			}
+
+			$curday += $onehour;
+		}
+
+		//平均Y轴
+		//$_y    = 100;
+		$ydata = array();
+		$_y    = ($_y < 6) ? 6 : $_y;
+		$dijia = (($_y % 6) > 0) ? (($_y + (6 - ($_y % 6))) / 6) : ($_y / 6);
+		for ($i = 0; $i <= 6 * $dijia; $i += $dijia) {
+			$ydata[] = $i;
+		}
+		$this->assign('viewnums', $viewnums);
+		$this->assign('duliipnums', $duliipnums);
+		$this->assign('ydata', $ydata);
+		return $this->fetch('content');
+	}
 	/**
 	 * 访问列表后台查看信息
 	 */
@@ -104,7 +155,7 @@ class FangkePlugin extends \Plugins\Plugin {
 				  `referer_url` varchar(255) DEFAULT NULL,
 				  `request_url` varchar(255) DEFAULT NULL,
 				  `ip` varchar(255) DEFAULT NULL,
-				  `views` int(11) DEFAULT NULL,
+				  `views` int(11) DEFAULT 1,
 				  `enter_time` int(11) DEFAULT NULL,
 				  `out_time` int(11) DEFAULT NULL,
 				  PRIMARY KEY (`id`)
