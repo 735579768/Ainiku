@@ -44,7 +44,7 @@ class FangkePlugin extends \Plugins\Plugin {
 		//设置坐标点
 		$_y = 0;
 		//查询浏览次数
-		for ($i = 1; $i < 24; $i++) {
+		for ($i = 1; $i <= 24; $i++) {
 			$map['enter_time'] = array(array('gt', $curday), array('lt', $curday + $onehour), 'and');
 			$nums              = M('PluginFangke')->field('sum(views) views')->where($map)->select();
 			$nums              = $nums[0]['views'];
@@ -58,9 +58,10 @@ class FangkePlugin extends \Plugins\Plugin {
 		}
 		//查找独立ip数据
 		$curday = strtotime(date(NOW_TIME, 'Y/m/d') . '00:00:00');
-		for ($i = 1; $i < 24; $i++) {
+		for ($i = 1; $i <= 24; $i++) {
 			$map['enter_time'] = array(array('gt', $curday), array('lt', $curday + $onehour), 'and');
-			$nums              = M('PluginFangke')->distinct(true)->where($map)->count();
+			$nums              = M('PluginFangke')->distinct(true)->field('ip')->where($map)->select();
+			$nums              = count($nums);
 			$nums              = empty($nums) ? 0 : $nums;
 			$duliipnums[]      = $nums;
 			if ($nums > $_y) {
@@ -173,7 +174,7 @@ sql;
 		$data = array(
 			'title' => '访客记录', //插件后台菜单名字
 			'pid'   => ADDONS_MENU, //不用改变
-			'url'   => 'Addons/plugin?pn=Fangke&pm=info', //填写后台菜单url名称和方法
+			'url'   => 'Addons/plugin?pn=Fangke&pm=chart', //填写后台菜单url名称和方法
 			'group' => '已装插件', //不用改变
 			'type'  => 'Fangke', //填写自己的插件名字
 		);
