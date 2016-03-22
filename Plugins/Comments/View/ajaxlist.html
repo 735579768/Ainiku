@@ -20,13 +20,13 @@
 <script>
 $(function(){
 $('#commentspages a').click(function(e) {
-	cancelhuifu();
-	var uri=$(this).attr('href');
+	commentsobj.cancelhuifu();
+	var uri=$(this).attr('data-url');
 	ank.ajax({
 		type:'post',
 		url:uri,
 		success:function(da){
-			$('#comments-list').html(da);
+			$('#comments-list').html(da.data);
 			}
 		});
     return false;

@@ -21,13 +21,15 @@ class CommentsPlugin extends \Plugins\Plugin {
 			'model' => 'Comments',
 			'where' => $map,
 			'order' => 'create_time desc',
-			'rows'  => 5,
+			'rows'  => 2,
 		));
 		if (empty($list)) {
 			die('没有评论');
 		} else {
 			$this->assign('_list', $list);
-			echo $this->fetch('ajaxlist');
+			$this->_page = preg_replace('/href\=\"(.*?)\"/i', 'href="javascript:;" data-url="$1"', $this->_page);
+			$info        = $this->fetch('ajaxlist');
+			$this->ajaxreturn(array('status' => 1, 'data' => $info));
 		}
 		die();
 	}

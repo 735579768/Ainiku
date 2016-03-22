@@ -191,5 +191,13 @@ $(function() {
   };
   commentsobj.init(commentsconf);
   commentsobj.initfocus();
-  ank.loadhtml(commentsobj.conf.url, {}, $('#comments-list'), 'POST');
+  //ank.loadhtml(commentsobj.conf.url, {}, , 'POST');
+  $.ajax({
+    url: commentsobj.conf.url,
+    type: 'POST',
+    success:function(da){
+      $('#comments-list').append(da.data);
+    }
+  });
+
 });
