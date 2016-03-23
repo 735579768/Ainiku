@@ -19,7 +19,9 @@ class SpiderPlugin extends \Plugins\Plugin {
 	);
 	//钩子默认的调用方法
 	public function run() {
-
+		$this->addinfo();
+	}
+	public function chart() {
 		//当前一天0点时间
 		$curday  = strtotime(date(NOW_TIME, 'Y/m/d') . '00:00:00');
 		$onehour = strtotime('2015-06-01 01:00:00') - strtotime('2015-06-01 00:00:00');
@@ -54,7 +56,7 @@ class SpiderPlugin extends \Plugins\Plugin {
 
 			foreach ($spiderarr as $val) {
 				$map['spider_name']     = $val['name'];
-				$data[$val['name']][$i] = M('Spider')->field('sum(views) views')->where($map)->select();
+				$data[$val['name']][$i] = M('PluginSpider')->field('sum(views) views')->where($map)->select();
 				$data[$val['name']][$i] = empty($data[$val['name']][$i][0]['views']) ? 0 : $data[$val['name']][$i][0]['views'];
 				if ($data[$val['name']][$i] > $_y) {
 					$_y = $data[$val['name']][$i];
@@ -123,13 +125,13 @@ class SpiderPlugin extends \Plugins\Plugin {
 		$map['spider_name'] = array('like', "%$spidername%");
 		$this->pages(array(
 			'where' => $map,
-			'model' => 'Spider',
+			'model' => 'PluginSpider',
 			'order' => 'id desc',
 		));
 		return $this->fetch('lists');
 	}
 	public function delall() {
-		$result = M('Spider')->where('1=1')->delete();
+		$result = M('PluginSpider')->where('1=1')->delete();
 		if ($result > 0) {
 			$this->success('清空成功');
 		} else {
@@ -143,11 +145,11 @@ class SpiderPlugin extends \Plugins\Plugin {
 			$data['url']         = $_SERVER['REQUEST_URI'];
 			$data['ip']          = get_client_ip();
 			$data['location']    = getIpLocation($data['ip']);
-			//$result=M('Spider')->where($data)->setInc('views');
+			//$result=M('PluginSpider')->where($data)->setInc('views');
 			//if(!$result){
 			$data['views']       = 1;
 			$data['create_time'] = NOW_TIME;
-			M('Spider')->add($data);
+			M('PluginSpider')->add($data);
 			//}
 		}
 	}
@@ -157,8 +159,8 @@ class SpiderPlugin extends \Plugins\Plugin {
 	public function install() {
 		$prefix = C('DB_PREFIX');
 		$sql    = <<<sql
-				DROP TABLE IF EXISTS `{$prefix}spider`;
-				CREATE TABLE `{$prefix}spider` (
+				DROP TABLE IF EXISTS `{$prefix}plugin_spider`;
+				CREATE TABLE `{$prefix}plugin_spider` (
 				  `id` int(11) NOT NULL AUTO_INCREMENT,
 				  `spider_name` varchar(255) DEFAULT NULL,
 				  `spider_title` varchar(255) DEFAULT NULL,
@@ -181,7 +183,7 @@ sql;
 		$data = array(
 			'title' => '蜘蛛访问', //插件后台菜单名字
 			'pid'   => ADDONS_MENU, //不用改变
-			'url'   => 'Addons/plugin?pn=Spider&pm=lists', //填写后台菜单url名称和方法
+			'url'   => 'Addons/plugin?pn=Spider&pm=chart', //填写后台菜单url名称和方法
 			'group' => '已装插件', //不用改变
 			'type'  => 'Spider', //填写自己的插件名字
 		);
@@ -196,7 +198,7 @@ sql;
 	public function uninstall() {
 		$prefix = C('DB_PREFIX');
 		$sql    = <<<sql
-						DROP TABLE IF EXISTS `{$prefix}spider`;
+						DROP TABLE IF EXISTS `{$prefix}plugin_spider`;
 sql;
 		$arr = explode(';', $sql);
 		foreach ($arr as $val) {

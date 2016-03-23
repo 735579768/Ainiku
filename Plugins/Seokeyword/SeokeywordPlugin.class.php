@@ -13,7 +13,7 @@ class SeokeywordPlugin extends \Plugins\Plugin {
 		$this->display('content');
 	}
 	public function replace($str) {
-		$list = M('Seokeyword')->field('keyword,url')->select();
+		$list = M('PluginSeokeyword')->field('keyword,url')->select();
 		$str  = $str[0];
 		foreach ($list as $val) {
 			$patte = "/(>[^<]*?)({$val['keyword']})([^>]*?<)/";
@@ -71,13 +71,13 @@ class SeokeywordPlugin extends \Plugins\Plugin {
 		$map['keyword'] = array('like', "%$keyword%");
 		$this->pages(array(
 			'where' => $map,
-			'model' => 'Seokeyword',
+			'model' => 'PluginSeokeyword',
 			'order' => 'id desc',
 		));
 		return $this->fetch('lists');
 	}
 	public function delall() {
-		$result = M('Seokeyword')->where('1=1') > delete();
+		$result = M('PluginSeokeyword')->where('1=1') > delete();
 		if ($result > 0) {
 			$this->success('清空成功');
 		} else {
@@ -86,7 +86,7 @@ class SeokeywordPlugin extends \Plugins\Plugin {
 	}
 	public function add() {
 		$id    = I('id');
-		$model = DP('Seokeyword', 'Seokeyword');
+		$model = DP('PluginSeokeyword', 'Seokeyword');
 		if (IS_POST) {
 
 			if ($model->create()) {
@@ -154,11 +154,11 @@ class SeokeywordPlugin extends \Plugins\Plugin {
 			$data['url']             = $_SERVER['REQUEST_URI'];
 			$data['ip']              = get_client_ip();
 			$data['location']        = getIpLocation($data['ip']);
-			//$result=M('Seokeyword')->where($data)->setInc('views');
+			//$result=M('PluginSeokeyword')->where($data)->setInc('views');
 			//if(!$result){
 			$data['views']       = 1;
 			$data['create_time'] = NOW_TIME;
-			M('Seokeyword')->add($data);
+			M('PluginSeokeyword')->add($data);
 			//}
 		}
 	}
@@ -168,8 +168,8 @@ class SeokeywordPlugin extends \Plugins\Plugin {
 	public function install() {
 		$prefix = C('DB_PREFIX');
 		$sql    = <<<sql
-				DROP TABLE IF EXISTS `{$prefix}seokeyword`;
-				CREATE TABLE `{$prefix}seokeyword` (
+				DROP TABLE IF EXISTS `{$prefix}plugin_seokeyword`;
+				CREATE TABLE `{$prefix}plugin_seokeyword` (
 				  `id` int(11) NOT NULL AUTO_INCREMENT,
 				  `keyword` varchar(255) DEFAULT NULL,
 				  `url` varchar(255) DEFAULT NULL,
@@ -203,7 +203,7 @@ sql;
 	public function uninstall() {
 		$prefix = C('DB_PREFIX');
 		$sql    = <<<sql
-						DROP TABLE IF EXISTS `{$prefix}seokeyword`;
+						DROP TABLE IF EXISTS `{$prefix}plugin_seokeyword`;
 sql;
 		$arr = explode(';', $sql);
 		foreach ($arr as $val) {
