@@ -1,5 +1,5 @@
 /* CSS Document */
-body,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td{margin:0;padding:0}
+body,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td{margin:0;padding:0; font:12px/1.7 'microsoft yahei';}
 fieldset,img{border:0}
 :focus{outline:0}
 .disabled{background: #b0b0b0;}
