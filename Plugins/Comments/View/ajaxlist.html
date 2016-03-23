@@ -21,6 +21,7 @@
 $(function(){
 $('#commentspages a').click(function(e) {
 	commentsobj.cancelhuifu();
+	commentsobj.initfocus();
 	var uri=$(this).attr('data-url');
 	ank.ajax({
 		type:'post',
