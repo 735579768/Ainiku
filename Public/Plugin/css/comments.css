@@ -1,6 +1,6 @@
 #comments-form{padding:20px;}
 #comments-list .comments-con{margin-bottom:15px;}
-#comments-list a,#comments-list{color:#000;font-size:14px;}
+#comments-list a,#comments-list{font-size:14px;}
 #comments-list dt a{text-decoration:none;}
 #comments-list dt a:hover{text-decoration:underline;color:#f00;}
 #comments-list .line{display:block;height:0px;border-bottom:dashed 1px #ccc;}
