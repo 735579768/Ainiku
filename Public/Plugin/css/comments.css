@@ -1,4 +1,4 @@
-#comments-form{padding:20px;}
+#comments-form{padding:20px; height: 210px;}
 #comments-list .comments-con{margin-bottom:15px;}
 #comments-list a,#comments-list{font-size:14px;}
 #comments-list dt a{text-decoration:none;}
