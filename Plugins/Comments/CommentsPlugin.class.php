@@ -9,14 +9,14 @@ class CommentsPlugin extends \Plugins\Plugin {
 		'descr'   => '留言',
 	);
 	//钩子默认的调用方法
-	public function run() {
-		$this->add();
+	public function run($arc_id = 0) {
+		$this->add($arc_id);
 	}
-	public function ajaxlist($arc_id = '', $pid = 0) {
+	public function ajaxlist($arc_id = 0, $pid = 0) {
 		// empty($arc_id)&&die('没有评论');
 		$map['status'] = 1;
 		$map['pid']    = $pid;
-		$map['arc_id'] = I('post.arc_id');
+		$map['arc_id'] = I('get.arc_id');
 		$list          = $this->pages(array(
 			'model' => 'PluginComments',
 			'where' => $map,
@@ -48,7 +48,8 @@ class CommentsPlugin extends \Plugins\Plugin {
 		}
 
 	}
-	public function add() {
+	public function add($arc_id = 0) {
+
 		if (IS_POST) {
 			$verify = I('verify');
 			if (empty($verify)) {$this->error('请输入验证码!');}
@@ -82,6 +83,7 @@ class CommentsPlugin extends \Plugins\Plugin {
 				$conf = json_decode($data['param'], true);
 				F('plugin_comments', $conf);
 			}
+			$this->assign('arc_id', $arc_id);
 			$this->assign('conf', $conf);
 			$this->display('add');
 		}

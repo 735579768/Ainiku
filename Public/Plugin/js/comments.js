@@ -194,7 +194,7 @@ $(function() {
   //ank.loadhtml(commentsobj.conf.url, {}, , 'POST');
   $.ajax({
     url: commentsobj.conf.url,
-    type: 'POST',
+    type: 'GET',
     success:function(da){
       $('#comments-list').append(da.data);
     }

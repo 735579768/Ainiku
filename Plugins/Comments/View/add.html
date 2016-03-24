@@ -48,7 +48,7 @@
 </php>
 <script>
 var commentsconf={
-url:"{:UP('Comments/ajaxlist')}",
+url:"{:UP('Comments/ajaxlist',array('arc_id'=>$arc_id))}",
 name:<eq name="conf.name" value="1">true<else />false</eq>,
 email:<eq name="conf.email" value="1">true<else />false</eq>,
 homeurl:<eq name="conf.url" value="1">true<else />false</eq>
