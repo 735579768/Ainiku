@@ -2,7 +2,7 @@
 defined("ACCESS_ROOT") || die("Invalid access");
 return array(
 	//'VIEW_PATH'=>'View/',
-	'DEFAULT_FILTER'  => 'filter_html',
+	'DEFAULT_FILTER'  => 'htmlspecialchars',
 	'DEFAULT_THEME'   => 'default',
 	'URL_ROUTER_ON'   => true, //开启路由
 	'URL_ROUTE_RULES' => array( //定义路由规则
