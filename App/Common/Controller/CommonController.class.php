@@ -4,12 +4,13 @@ namespace Common\Controller;
 use Think\Controller;
 
 class CommonController extends Controller {
+	protected $assets;
 	public function __construct() {
 		parent::__construct();
 		import('Ainiku.AssetsManager');
-		$assets = \Ainiku\AssetsManager::getInstance();
+		$this->assets = \Ainiku\AssetsManager::getInstance();
 		//设置资源路径
-		$assets->addSourcePath(array(
+		$this->assets->addSourcePath(array(
 			__ROOT__ . '/Public/' . MODULE_NAME . '/' . C('DEFAULT_THEME') . '/css',
 			__ROOT__ . '/Public/' . MODULE_NAME . '/' . C('DEFAULT_THEME') . '/js',
 			__ROOT__ . '/Public/Static/css',

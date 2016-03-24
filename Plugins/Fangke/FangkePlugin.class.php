@@ -10,27 +10,42 @@ class FangkePlugin extends \Plugins\Plugin {
 	);
 	//钩子默认的调用方法plugin('Fangke')
 	public function run($a, $b) {
-		$this->record();
+		//注册js文件
+		$this->assets->registerjs('fangke');
+		//$this->record();
 	}
 	/**
 	 * 记录访客信息
 	 */
 	public function record() {
+
 		$enter_time  = NOW_TIME;
 		$ip          = get_client_ip();
 		$referer_url = $_SERVER['HTTP_REFERER'];
 		$request_url = $_SERVER['REQUEST_URI'];
-
+		$useragent   = $_SERVER['HTTP_USER_AGENT'];
+		$views       = cookie('fangke');
 		//当前日期的0点
 		$cur_time = strtotime(date('Y/m/d'));
+		$gqtime   = 24 * 3600 - (NOW_TIME - strtotime(date('Y/m/d'))) - 2;
+		if (empty($views)) {
+			$views = 1;
+			cookie('fangke', $views, $gqtime);
+		} else {
+			$views++;
+			cookie('fangke', $views, $gqtime);
+		}
 		//var_dump($_SERVER);
 		$data = array(
 			'ip'          => $ip,
 			'referer_url' => $referer_url,
 			'request_url' => $request_url,
 			'enter_time'  => $enter_time,
+			'user-agent'  => $useragent,
+			'views'       => $views,
 		);
 		M('PluginFangke')->add($data);
+		die();
 	}
 	public function chart() {
 		//当前一天0点时间
@@ -155,6 +170,7 @@ class FangkePlugin extends \Plugins\Plugin {
 				  `id` int(11) NOT NULL AUTO_INCREMENT,
 				  `referer_url` varchar(255) DEFAULT NULL,
 				  `request_url` varchar(255) DEFAULT NULL,
+				  `user-agent` varchar(255) DEFAULT NULL,
 				  `ip` varchar(255) DEFAULT NULL,
 				  `views` int(11) DEFAULT 1,
 				  `enter_time` int(11) DEFAULT NULL,

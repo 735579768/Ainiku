@@ -22,6 +22,7 @@ return array(
 		//		'Modulepos/:data'=>'Document\Modulepos/:1',
 	),
 //	'CONTROLLER_LEVEL'      =>  2,
+	'DEFAULT_THEME'              => '',
 	'IS_DEV'                     => false, //开发模式
 	'DEFAULT_FILTER'             => '',
 	//'配置项'=>'配置值'

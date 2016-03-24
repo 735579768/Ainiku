@@ -35,7 +35,7 @@ class Plugin extends CommonController {
 	public $custom_adminlist = '';
 	public $access_url       = array();
 
-	public function __construct() {
+	protected function _initialize() {
 		$this->view                         = \Think\Think::instance('Think\View');
 		$this->addon_path                   = ADDONS_PATH . $this->getName() . '/View/';
 		$TMPL_PARSE_STRING                  = C('TMPL_PARSE_STRING');
