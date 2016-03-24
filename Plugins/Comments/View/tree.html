@@ -2,8 +2,8 @@
 <dl  style="padding-left:20px;" id="comments-{$v.id}">
 <dt>
 <span class="fl">
-<a name="comments{$v.id}"  rel="nofollow" target="_blank" href="<empty name="v.url">javascript:;<else />{:UP('Comments/redirect',array('url'=>ainiku_encrypt($v['url'])))}</empty>">{$v.name|default="匿名"}</a>@<a  href="#comments{$v.pid}">{$pname}</a>
-<a href="javascript:;" class="huifu" onClick="commentsobj.huifuclick(this,{$v.pid},{$v.id});">回复此留言</a>
+<a class="nick-name" name="comments{$v.id}"  rel="nofollow" target="_blank" href="<empty name="v.url">javascript:;<else />{:UP('Comments/redirect',array('url'=>ainiku_encrypt($v['url'])))}</empty>">{$v.name|default="匿名"}</a>@<a class="nick-name"  href="#comments{$v.pid}">{$pname}</a>
+<a href="javascript:;" class="huifu" onClick="commentsobj.huifuclick(this,{$v.pid},{$v.id});">回复</a>
 </span>
 <span class="fr ptime">时间:{$v.create_time|time_format}</span></dt>
 <dd>

@@ -1,4 +1,5 @@
 #comments-form{padding:20px;height:210px;}
+#comments-list .nick-name{color: #3299da;}
 #comments-list .comments-con{margin-bottom:15px;}
 #comments-list a,#comments-list{font-size:14px;}
 #comments-list dt a{text-decoration:none;}
