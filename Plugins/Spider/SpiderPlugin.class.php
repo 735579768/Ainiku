@@ -73,7 +73,7 @@ class SpiderPlugin extends \Plugins\Plugin {
 		}
 		$this->assign('spider', $spiderarr);
 		$this->assign('data', $data);
-		$this->display('content');
+		return $this->fetch('content');
 	}
 	public function lists() {
 		$starttime = strtotime(I('starttime'));
