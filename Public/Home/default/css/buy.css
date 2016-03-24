@@ -67,6 +67,7 @@
 .s-address .s-title,.sh-box .s-title{text-align:left;font-size:20px;margin-bottom:20px;}
 .s-address{margin-bottom:10px;padding:20px;background:#fff;font-size:14px;}
 .s-address .s-adr{position:relative;cursor:pointer;float:left;width:220px;height:160px;padding:10px 12px;border:1px solid #e0e0e0;margin-left:15px;margin-top:20px;}
+.s-address .s-adr .empty-address,
 .s-address .s-adr .add-new-address{text-align:center;color:#b0b0b0;display:block;line-height:160px;height:160px;font-size:16px;}
 .s-address .s-adr:hover{border-color:#b0b0b0;}
 .s-address .s-adr.selected{border-color:#ff6700;}

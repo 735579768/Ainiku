@@ -14,7 +14,18 @@
 </div>
 <div class="sh-box cl">
     <div class="s-address cl">
-        <div class="s-title">收货地址</div>
+        <div class="s-title">联系方式/收货地址</div>
+        <dl data-id="0" onclick="buyobj.selectedAddress(this);" id="consignee_address0" class="s-adr cl hide">
+            <dt class="hide"></dt>
+            <dd class="hide">
+                <div class="s-mobile"></div>
+                <div class="s-diqu">此订单无须地址
+               </div>
+            </dd>
+            <dd class='action hide'></dd>
+
+            <a  onclick="javascript:;" class="empty-address" href="javascript:;"><span class="add-btn">此订单无须地址</span></a>
+        </dl>
         <volist name="addresslist" id="vo">
         <dl data-id="{$vo.consignee_address_id}" onclick="buyobj.selectedAddress(this);" id="consignee_address{$vo.consignee_address_id}" class="s-adr cl">
             <dt>{$vo.consignee_name}</dt>
