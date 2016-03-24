@@ -53,6 +53,16 @@
     <span>可用余额:</span><em>150</em>元</li>
     </ul>
 
+     <div class="cart-bar cl">
+    <div class="section-left">
+       订单总额: <em class="totalprice">{$info.order_total}</em> 元
+    </div>
+     <div class="section-right">
+     <input type="hidden"  id="payOnlineBank" value=""  />
+     <a href="javascript:;" onclick="buyobj.dopay({$info.order_id});" class="a-btn r-btn">确定支付</a>
+     </div>
+     </div>
+    <div class="cl"></div>
     <div class="s-title">选择以下支付方式充值</div>
     <div class="zf-type-title">支付平台</div>
     <ul class="online-pay cl">
@@ -92,7 +102,7 @@
     </div>
      <div class="section-right">
      <input type="hidden"  id="payOnlineBank" value=""  />
-     <a href="javascript:;" onclick="buyobj.dopay({$info.order_id});" class="a-btn r-btn">去支付</a>
+     <a href="javascript:;" onclick="buyobj.dopay({$info.order_id});" class="a-btn r-btn">去充值</a>
      </div>
      </div>
 </div>
