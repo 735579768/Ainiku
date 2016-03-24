@@ -42,7 +42,7 @@ class FangkePlugin extends \Plugins\Plugin {
 			'request_url' => $request_url,
 			'enter_time'  => $enter_time,
 			'user-agent'  => $useragent,
-			'views'       => $views,
+			'views'       => 1,
 		);
 		M('PluginFangke')->add($data);
 		die();
