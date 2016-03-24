@@ -1,5 +1,6 @@
 <volist name="_list" id="vo">
 <dl id="comments-{$vo.id}" class="top-huifu">
+<i class="toux"><img src="__STATIC__/images/toux.gif" width="42" height="42" /> </i>
 <dt>
 <span class="fl">
 <a name="comments{$vo.id}" rel="nofollow" target="_blank" href="<empty name="vo.url">javascript:;<else />{:UP('Comments/redirect',array('url'=>ainiku_encrypt($vo['url'])))}</empty>">{$vo.name|default="匿名"}</a>

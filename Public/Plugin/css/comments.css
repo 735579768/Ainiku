@@ -1,9 +1,12 @@
-#comments-form{padding:20px; height: 210px;}
+#comments-form{padding:20px;height:210px;}
 #comments-list .comments-con{margin-bottom:15px;}
 #comments-list a,#comments-list{font-size:14px;}
 #comments-list dt a{text-decoration:none;}
 #comments-list dt a:hover{text-decoration:underline;color:#f00;}
 #comments-list .line{display:block;height:0px;border-bottom:dashed 1px #ccc;}
+#comments-list dl .toux{display:inline-block;position:absolute;left:-45px;top:0px;border-radius:20px;overflow:hidden;    box-shadow: 2px 3px 5px #ccc;}
+#comments-list dl .toux img{width:42px;height:42px;}
+#comments-list dl.top-huifu{margin-left:50px;position:relative;}
 #comments-list dl{margin:10px 0px;margin-top:0px;}
 #comments-list dl dl{border:dashed 1px #ccc;margin-left:20px;border-right:none;margin-right:-10px;}
 #comments-list dl dl:hover{}
