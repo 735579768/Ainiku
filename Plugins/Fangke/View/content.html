@@ -1,3 +1,21 @@
+<!--tool start-->
+<div class="btn-tool">
+<a href="{:UP('Fangke/lists')}" class="btn">访客列表</a>
+<a href="{:UP('Fangke/chart')}" class="btn">访问图表</a>
+<div class="searchform">
+<form class="form-h form-group-h" action="{:UP('Fangke/lists')}" method="post">
+<div class="form-group">
+<input name="name" type="text" value="{:I('name')}" class="form-control input-mid" placeholder="请输入姓名" />
+</div>
+
+<a class="sch-btn" href="javascript:;" id="search" ><i class="btn-search"></i></a>
+</form>
+</div>
+
+
+</div>
+<!--content start -->
+<div class="content">
 <ank:insert type="js" name="highcharts" />
 <script type="text/javascript">
 $(function () {
@@ -70,3 +88,4 @@ $(function () {
 		</script>
 
 <div id="container" style="min-width: 310px; margin-left:-300px;height: 400px; margin: 0 auto"></div>
+</div>
