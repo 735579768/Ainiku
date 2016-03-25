@@ -237,38 +237,46 @@ $this->error($model->geterror());
 
 	}
 	//支付成功后前台跳转通知
-	public function payok($order_id = '') {
-		//支付宝通知
-		$data1 = runPluginMethod('Alipay', 'return_url');
-		//dump($data);
-		//($data['status'] == 1) && exit();
-		//财付通通知
-		$data2 = runPluginMethod('Tenpay', 'return_url');
-		//dump($data);
-		//银联通知
-		$data3 = runPluginMethod('Unionpay', 'return_url');
-		//dump($data);
-		//($data['status'] == 1) && exit();
-		$chongzhi_sn = '';
-		$money       = 0;
-		if ($data1['status']) {
-			$chongzhi_sn = $data1['order_sn'];
-			$money       = $data1['money'];
-		} else if ($data2['status']) {
-			$chongzhi_sn = $data2['order_sn'];
-			$money       = $data2['money'];
-		} else if ($data3['status']) {
-			$chongzhi_sn = $data3['order_sn'];
-			$money       = $data3['money'];
-		}
-		if ($chongzhi_sn) {
-			var_dump($_POST);
-			echo "$chongzhi_sn $money success";
+	public function payok($chongzhi_sn = '') {
+
+		if (IS_POST) {
+
+			//支付宝通知
+			$data1 = runPluginMethod('Alipay', 'return_url');
+			//dump($data);
+			//($data['status'] == 1) && exit();
+			//财付通通知
+			$data2 = runPluginMethod('Tenpay', 'return_url');
+			//dump($data);
+			//银联通知
+			$data3 = runPluginMethod('Unionpay', 'return_url');
+			//dump($data);
+			//($data['status'] == 1) && exit();
+			$chongzhi_sn = '';
+			$money       = 0;
+			if ($data1['status']) {
+				$chongzhi_sn = $data1['order_sn'];
+				$money       = $data1['money'];
+			} else if ($data2['status']) {
+				$chongzhi_sn = $data2['order_sn'];
+				$money       = $data2['money'];
+			} else if ($data3['status']) {
+				$chongzhi_sn = $data3['order_sn'];
+				$money       = $data3['money'];
+			}
+
+			if ($chongzhi_sn) {
+				var_dump($_POST);
+				echo "$chongzhi_sn $money success";
+			} else {
+				echo 'fail';
+			}
+			//测试后台通知
+			$this->dopayok();
 		} else {
-			echo 'fail';
+			$info = M('Chongzhi')->where("chongzhi_sn='$chongzhi_sn'")->find();
+			var_dump($info);
 		}
-		//测试后台通知
-		$this->dopayok();
 		exit();
 	}
 	//支付结果后台通知
@@ -317,11 +325,10 @@ $this->error($model->geterror());
 		exit();
 	}
 	//前台查询支付状态url
-	public function checkpay($order_id) {
-		$order_id = I('order_id');
-		$info     = M('Order')->field('order_status')->where("order_id=$order_id")->find();
-		if ($info['order_status'] == 2) {
-			$this->success('支付成功', U('Buy/payok', array('order_id' => $order_id)));
+	public function checkpay($chongzhi_sn = '') {
+		$info = M('Chongzhi')->where(array('chongzhi_sn' => $chongzhi_sn, 'status' => 2))->find();
+		if (!empty($info)) {
+			$this->success('支付成功', U('Buy/payok', array('chongzhi_sn' => $chongzhi_sn)));
 		} else {
 			$this->error('未支付');
 		}
@@ -343,9 +350,11 @@ $this->error($model->geterror());
 	 */
 	function chongzhi() {
 		$rearr = array(
-			'status' => 1,
-			'info'   => $this->fetch(),
-			'data'   => '',
+			'status'       => 1,
+			'chongzhi_sn'  => '',
+			'chongzhi_url' => '',
+			'info'         => $this->fetch(),
+			'data'         => '',
 		);
 		$online_pay  = strtolower(I('online_pay')); //支付类型
 		$order_total = floatval(I('money')); //支付金额
@@ -372,8 +381,10 @@ $this->error($model->geterror());
 			$rearr['status'] = 0;
 			$this->ajaxreturn($rearr);
 		}
-		$order_sn = $order_sn . $result;
-		$data     = '';
+		$order_sn              = $order_sn . $result;
+		$rearr['chongzhi_sn']  = $order_sn;
+		$rearr['chongzhi_url'] = U('Buy/payok', array('chongzhi_sn' => $order_sn));
+		$data                  = '';
 		if (strpos($online_pay, 'payOnlineBank_') !== false) {
 			//支付宝网银
 		} else if (strpos($online_pay, 'alipay_') !== false) {

@@ -277,19 +277,19 @@ $(function() {
             });
 
         },
-        verifyPay: function(orderid) {
+        verifyPay: function(chongzhisn) {
             var _this = this;
             $.ajax({
                 type: 'POST',
                 url: _this.url.checkpay,
                 data: {
-                    order_id: orderid
+                    chongzhi_sn: chongzhisn
                 },
                 success: function(da) {
                     if (da.status == 1) {
                         clearInterval(buyobj.verifyid);
                         $('#pay_status_text').html('支付成功!');
-                        window.location.href = da.url;
+                       // window.location.href = da.url;
                     }
                 }
             });
@@ -329,21 +329,20 @@ $(function() {
                             content: da.info,
                             btn: true,
                             oktitle: '支付完成',
-                            canceltitle: '支付失败',
+                            canceltitle: '关闭',
                             ok: function() {
-                                var uri = window.location.pathname;
-                                uri = uri.replace('pay/order_id', 'payok/order_id');
-                                window.location.href = uri;
+                                //var uri = da.chongzhi_url;
+                                //window.location.href = uri;
                                 clearInterval(buyobj.verifyid);
                             },
                             cancel: function() {
                                 clearInterval(buyobj.verifyid);
                             }
                         });
-/*                        //验证支付状态是否成功
+                        //验证支付状态是否成功
                         buyobj.verifyid = setInterval(function() {
-                            buyobj.verifyPay(da.order_id);
-                        }, 3000);*/
+                            buyobj.verifyPay(da.chongzhi_sn);
+                        }, 3000);
                     } else {
                         ank.msg(da.info);
                     }
