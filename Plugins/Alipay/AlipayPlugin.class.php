@@ -69,7 +69,7 @@ class AlipayPlugin extends \Plugins\Plugin {
 				die('支付宝接口没有配置');
 			}
 			$alipayconf = array(
-				//必填
+//必填
 				'sellerid'    => $conf['appid'], //合作身份者pid
 				'sellerkey'   => $conf['appkey'], //安全检验码
 				'selleruname' => $conf['account'], //收款账号
@@ -79,7 +79,7 @@ class AlipayPlugin extends \Plugins\Plugin {
 				'money'       => $money, //交易金额
 				'return_url'  => C('WEBDOMIN') . C('return_url'),
 				'notify_url'  => C('WEBDOMIN') . C('notify_url'),
-				//必填
+//必填
 			);
 
 			$alipayconf = array_merge($alipayconf, $conf);
@@ -90,22 +90,50 @@ class AlipayPlugin extends \Plugins\Plugin {
 		}
 
 	}
-	private function yanzheng() {
+	private function yanzheng($type = 1) {
+		//取插件配置参数
+		$conf = F('pluginalipay');
+		if (empty($conf) || APP_DEBUG) {
+			$data = M('Addons')->field('param')->where("mark='Alipay'")->find();
+			$conf = json_decode($data['param'], true);
+			F('pluginalipay', $conf);
+		}
+		$conf['api']                        = json_decode($conf['api']);
+		$alipay_config['partner']           = $conf['appid'];
+		$alipay_config['seller_id']         = $conf['account'];
+		$alipay_config['key']               = $conf['appkey'];
+		$alipay_config['notify_url']        = C('WEBDOMIN') . C('notify_url');
+		$alipay_config['return_url']        = C('WEBDOMIN') . C('return_url');
+		$alipay_config['sign_type']         = strtoupper('MD5');
+		$alipay_config['input_charset']     = strtolower('utf-8');
+		$alipay_config['cacert']            = getcwd() . '\\Plugins\\Alipay\\cacert.pem';
+		$alipay_config['transport']         = 'http';
+		$alipay_config['payment_type']      = "1";
+		$alipay_config['service']           = "create_direct_pay_by_user";
+		$alipay_config['anti_phishing_key'] = '';
+
+// 客户端的IP地址 非局域网的外网IP地址，如：221.0.0.1
+		$alipay_config['exter_invoke_ip'] = "";
 		//计算得出通知验证结果
 		import('Ainiku.Alipay.core');
 		import('Ainiku.Alipay.md5');
 		import('Ainiku.Alipay.notify');
 		import('Ainiku.Alipay.submit');
 		$alipayNotify = new \Ainiku\Alipay\AlipayNotify($alipay_config);
-		return $alipayNotify->verifyNotify();
+		if ($type == 1) {
+			return $alipayNotify->verifyReturn();
+		} else {
+			return $alipayNotify->verifyNotify();
+		}
+
 	}
 	public function return_url() {
 		if ($this->yanzheng()) {
 			//验证成功后把信息添加到你的数据库
-			$order_sn             = $_POST['out_trade_no']; //商户订单号
-			$data['trade_no']     = $_POST['trade_no']; //支付宝交易号
-			$data['trade_status'] = $_POST['trade_status']; //交易状态//各个状态请查看api或插件下面的示例处理函数
-			$money                = I('post.total_fee', 0, 'floatval');
+			$order_sn             = I('out_trade_no'); //商户订单号
+			$data['trade_no']     = I('trade_no'); //支付宝交易号
+			$data['trade_status'] = I('trade_status'); //交易状态//各个状态请查看api或插件下面的示例处理函数
+			$money                = I('total_fee', 0, 'floatval');
 			//$money = I('post.price', 0, 'floatval');
 
 			$data = array(
@@ -125,11 +153,11 @@ class AlipayPlugin extends \Plugins\Plugin {
 		}
 	}
 	public function notify_url() {
-		if ($this->yanzheng()) {
+		if ($this->yanzheng(2)) {
 			//验证成功后把信息添加到你的数据库
-			$order_sn     = $_POST['out_trade_no']; //商户订单号
-			$trade_no     = $_POST['trade_no']; //支付宝交易号
-			$trade_status = $_POST['trade_status']; //交易状态//各个状态请查看api或插件下面的示例处理函数
+			$order_sn     = I('out_trade_no'); //商户订单号
+			$trade_no     = I('trade_no'); //支付宝交易号
+			$trade_status = I('trade_status'); //交易状态//各个状态请查看api或插件下面的示例处理函数
 			if ($trade_status == 'TRADE_SUCCESS' || $trade_status == 'TRADE_FINISHED' || $trade_status == 'WAIT_SELLER_SEND_GOODS') {
 /*				//设置为已经支付
 $info = M('Order')->where("order_sn=$order_sn")->save(array(

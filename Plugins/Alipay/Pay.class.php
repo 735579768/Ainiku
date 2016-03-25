@@ -69,7 +69,7 @@ class Pay extends Controller {
 		$alipay_config['input_charset'] = strtolower('utf-8');
 		//ca证书路径地址，用于curl中ssl校验
 		//请保证cacert.pem文件在当前文件夹目录中
-		$alipay_config['cacert']    = getcwd() . '\\cacert.pem';
+		$alipay_config['cacert']    = getcwd() . '\\Plugins\\Alipay\\cacert.pem';
 		$alipay_config['transport'] = 'http';
 
 		//必填
@@ -158,7 +158,7 @@ class Pay extends Controller {
 		$alipay_config['input_charset'] = strtolower('utf-8');
 		//ca证书路径地址，用于curl中ssl校验
 		//请保证cacert.pem文件在当前文件夹目录中
-		$alipay_config['cacert']    = getcwd() . '\\cacert.pem';
+		$alipay_config['cacert']    = getcwd() . '\\Plugins\\Alipay\\cacert.pem';
 		$alipay_config['transport'] = 'http';
 
 		//必填
@@ -234,7 +234,7 @@ class Pay extends Controller {
 		$alipay_config['input_charset'] = strtolower('utf-8');
 		//ca证书路径地址，用于curl中ssl校验
 		//请保证cacert.pem文件在当前文件夹目录中
-		$alipay_config['cacert']    = getcwd() . '\\cacert.pem';
+		$alipay_config['cacert']    = getcwd() . '\\Plugins\\Alipay\\cacert.pem';
 		$alipay_config['transport'] = 'http';
 
 		//必填
@@ -352,7 +352,7 @@ class Pay extends Controller {
 		$conf['input_charset'] = strtolower('utf-8');
 		//ca证书路径地址，用于curl中ssl校验
 		//请保证cacert.pem文件在当前文件夹目录中
-		$conf['cacert']    = getcwd() . '\\cacert.pem';
+		$conf['cacert']    = getcwd() . '\\Plugins\\Alipay\\cacert.pem';
 		$conf['transport'] = 'http';
 
 //构造要请求的参数数组，无需改动

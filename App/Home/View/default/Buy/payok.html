@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>充值结果</title>
+<ank:insert name="reset,common,index,buy" />
+<ank:insert name="jquery-1.9.1.min,ainiku,functions,ajax,jquery.SuperSlide.2.1.1" type="js"  />
+</head>
+
+<body>
+<div class="buy-flow-block">
+<div class="cart-header">
+<div class="cart-title">充值结果</div>
+</div>
+<div class="order-box cl">
+	<div class="order-info">
+		<div class="order-title" style="font-size:40px; height:50px;line-height:50px;    margin-bottom: 40px;">
+		 <switch name="info.status">
+		<case value="1">
+		充值失败!&nbsp;&nbsp;:(
+		</case>
+		<case value="2">
+		成功充值 <em style="color:#f00;">{$info.money}</em> 元！&nbsp;&nbsp;:)
+		</case>
+		 </switch>
+		</div>
+		<div class="order-line"></div>
+	</div>
+</div>
+</div>
+</body>
+</html>
