@@ -69,7 +69,7 @@ class AlipayController extends HomeController {
 		);
 		if ($info['chongzhi'] == '0' and ($info['status'] == 'TRADE_SUCCESS' or $info['status'] == 'TRADE_FINISHED')) {
 			//添加在线充值日志
-			addlog(UID, '在线充值', $info['money']);
+			//addlog(UID, '在线充值', $info['money']);
 
 			//会员添加钱数
 			$result = M('member')->where("id=" . UID)->setInc('points', $info['money']);

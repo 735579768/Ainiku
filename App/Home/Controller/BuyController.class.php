@@ -203,13 +203,12 @@ $this->error($model->geterror());
 		$this->assign('_list', $list);
 		$this->display();
 	}
-	//调用支付接口完成支付
+
 	public function dopay() {
 		$dopaylock = S('dopaylock');
 		//empty($dopaylock) || $this->error('为避免重复支付,请等待1分钟后再尝试支付!');
 		//S('dopaylock', true, 60);
-		$order_id   = I('order_id');
-		$online_pay = strtolower(I('online_pay')); //支付类型
+		$order_id = I('order_id');
 		empty($order_id) && $this->error('参数错误!');
 		//查询订单
 		$info = M('Order')->find($order_id);
@@ -217,39 +216,25 @@ $this->error($model->geterror());
 		$order_sn    = $info['order_sn'];
 		$order_title = '产品订单支付:' . $info['order_sn'];
 		$order_total = $info['order_total'];
-		$rearr       = array(
-			'order_id' => $order_id,
-			'status'   => 1,
-			'info'     => $this->fetch(),
-			'url'      => '',
-			'data'     => '',
-		);
-		$data = '';
-		if (strpos($online_pay, 'payOnlineBank_') !== false) {
-			//支付宝网银
-		} else if (strpos($online_pay, 'alipay_') !== false) {
+		$info        = M('Member')->field('money')->find(UID);
+		if ($info['money'] >= $order_total) {
+			//扣款
+			$result = M('Member')->where(array('member_id' => UID))->setDec('money', $order_total);
+			if ($result) {
+				$resu = M('Order')->where(array('order_id' => $order_id))->setField('order_status', 2);
+				if ($resu) {
+					$this->error('支付成功!', U('Buy/checkpay', array('order_id' => $order_id)));
+				} else {
+					$this->error('支付失败请联系客服!');
+				}
 
-			$rearr['data'] = runPluginMethod('Alipay', 'dopay', array($order_total, $order_sn, $order_title, $online_pay));
-		} else {
-			//其它支付平台
-			switch ($online_pay) {
-/*			case 'alipay':
-$rearr['data'] = runPluginMethod('Alipay', 'dopay', array($order_total, $order_sn, $order_title));
-break;*/
-			case 'unionpay':
-				$rearr['data'] = runPluginMethod('Unionpay', 'dopay', array($order_total, $order_sn, $order_title));
-				break;
-			case 'tenpay':
-				$rearr['data'] = runPluginMethod('Tenpay', 'dopay', array($order_total, $order_sn, $order_title));
-				break;
-			default:
-				$rearr['data']   = '支付接口调用失败';
-				$rearr['status'] = 0;
-				break;
+			} else {
+				$this->error('支付失败请联系客服!');
 			}
+		} else {
+			$this->error('余额不足请充值!');
 		}
-		echo (strpos('alipay_', $online_pay));
-		$this->ajaxreturn($rearr);
+
 	}
 	//支付成功后前台跳转通知
 	public function payok($order_id = '') {
@@ -269,25 +254,52 @@ break;*/
 		empty($order_id) && ($order = I('get.order_id'));
 		empty($order_id) && $this->error('参数错误!');
 		//查询订单
-		$info = M('Order')->where("order_id=$order_id")->find();
+		//$info = M('Order')->where("order_id=$order_id")->find();
 		//($info['order_status'] != 1) && $this->error('此订单已经支付,请不要重复支付!');
-		empty($info) && $this->error('没有此订单!');
-		$this->assign('info', $info);
-		$list = D('OrderGoodsView')->where("order_id=$order_id")->select();
-		$this->assign('_list', $list);
-		$this->display();
+		//empty($info) && $this->error('没有此订单!');
+		//$this->assign('info', $info);
+		//$list = D('OrderGoodsView')->where("order_id=$order_id")->select();
+		//$this->assign('_list', $list);
+		echo 'success';
+		exit();
 	}
 	//支付结果后台通知
 	public function dopayok() {
+		/*$data格式 array(
+			'status'   => 1,
+			'str'      => '验签成功',
+			'pay_type' => '支付宝',
+			'money'    => $money,
+			'order_sn' => $order_sn,
+			'extra'    => '',
+		*/
 		//支付宝通知
-		$data = runPluginMethod('Alipay', 'notify_url');
-		($data['status'] == 1) && exit();
+		$data1 = runPluginMethod('Alipay', 'notify_url');
+		//($data1['status'] == 1) && exit();
 		//财付通通知
-		$data = runPluginMethod('Tenpay', 'notify_url');
-		($data['status'] == 1) && exit();
+		$data2 = runPluginMethod('Tenpay', 'notify_url');
+		//($data2['status'] == 1) && exit();
 		//银联通知
-		$data = runPluginMethod('Unionpay', 'notify_url');
-		($data['status'] == 1) && exit();
+		$data3 = runPluginMethod('Unionpay', 'notify_url');
+		//($data3['status'] == 1) && exit();
+
+		$chongzhi_sn = '';
+		$money       = 0;
+		if ($data1['status']) {
+			$chongzhi_sn = $data1['order_sn'];
+			$money       = $data1['money'];
+		} else if ($data2['status']) {
+			$chongzhi_sn = $data2['order_sn'];
+			$money       = $data2['money'];
+		} else if ($data3['status']) {
+			$chongzhi_sn = $data3['order_sn'];
+			$money       = $data3['money'];
+		}
+
+		if ($data1['status'] || $data2['status'] || $data3['status']) {
+			$result = M('Chongzhi')->where(array('chongzhi_sn' => $chongzhi_sn))->setField('status', 2);
+			$result = M('Member')->where('member_id=' . UID)->setInc('money', $money);
+		}
 		exit();
 	}
 	//前台查询支付状态url
@@ -299,6 +311,72 @@ break;*/
 		} else {
 			$this->error('未支付');
 		}
+	}
+	/**
+	 * 取余额
+	 */
+	function getyue() {
+		$info = M('Member')->field('money')->find(UID);
+		if (empty($info)) {
+			$this->error(0);
+		} else {
+			$this->success($info['money']);
+		}
+	}
+	/**
+	 * 在线充值
+	 * 调用支付接口完成支付
+	 */
+	function chongzhi() {
+		$rearr = array(
+			'status' => 1,
+			'info'   => $this->fetch(),
+			'data'   => '',
+		);
+		$online_pay  = strtolower(I('online_pay')); //支付类型
+		$order_total = floatval(I('money')); //支付金额
+		$order_sn    = createorder();
+		$order_title = '在线充值';
+		$result      = M('Chongzhi')->add(array(
+			'chongzhi_type' => $online_pay,
+			'money'         => $order_total,
+			'uid'           => UID,
+			'chongzhi_sn'   => $order_sn,
+			'create_time'   => NOW_TIME,
+			'status'        => 1,
+		));
+		if ($result) {
+			M('Chongzhi')->where(array('chongzhi_id' => $result))->setField('chongzhi_sn', $order_sn . $result);
+		} else {
+			$rearr['data']   = '支付接口调用失败';
+			$rearr['status'] = 0;
+			$this->ajaxreturn($rearr);
+		}
+		$order_sn = $order_sn . $result;
+		$data     = '';
+		if (strpos($online_pay, 'payOnlineBank_') !== false) {
+			//支付宝网银
+		} else if (strpos($online_pay, 'alipay_') !== false) {
+
+			$rearr['data'] = runPluginMethod('Alipay', 'dopay', array($order_total, $order_sn, $order_title, $online_pay));
+		} else {
+			//其它支付平台
+			switch ($online_pay) {
+
+			case 'unionpay':
+				$rearr['data'] = runPluginMethod('Unionpay', 'dopay', array($order_total, $order_sn, $order_title));
+				break;
+			case 'tenpay':
+				$rearr['data'] = runPluginMethod('Tenpay', 'dopay', array($order_total, $order_sn, $order_title));
+				break;
+			default:
+				$rearr['data']   = '支付接口调用失败';
+				$rearr['status'] = 0;
+				break;
+			}
+		}
+		//echo (strpos('alipay_', $online_pay));
+		$this->ajaxreturn($rearr);
 	}
 
 }
