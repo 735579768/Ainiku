@@ -18,7 +18,7 @@ class UnionpayPlugin extends \Plugins\Plugin {
 	private function daoru() {
 
 	}
-	public function dopay($money = null, $order = null, $ordername = null, $reqReserved = '') {
+	public function dopay($money = null, $order = null, $ordername = null, $reqReserved = '透传信息') {
 		//取插件配置参数
 		$conf = F('pluginunionpay');
 		if (empty($conf) || APP_DEBUG) {

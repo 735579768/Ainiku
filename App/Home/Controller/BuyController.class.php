@@ -239,28 +239,36 @@ $this->error($model->geterror());
 	//支付成功后前台跳转通知
 	public function payok($order_id = '') {
 		//支付宝通知
-		$data = runPluginMethod('Alipay', 'return_url');
+		$data1 = runPluginMethod('Alipay', 'return_url');
 		//dump($data);
 		//($data['status'] == 1) && exit();
 		//财付通通知
-		$data = runPluginMethod('Tenpay', 'return_url');
+		$data2 = runPluginMethod('Tenpay', 'return_url');
 		//dump($data);
 		//银联通知
-		$data = runPluginMethod('Unionpay', 'return_url');
+		$data3 = runPluginMethod('Unionpay', 'return_url');
 		//dump($data);
 		//($data['status'] == 1) && exit();
-
-		//$order_sn = $data['order_sn'];
-		empty($order_id) && ($order = I('get.order_id'));
-		empty($order_id) && $this->error('参数错误!');
-		//查询订单
-		//$info = M('Order')->where("order_id=$order_id")->find();
-		//($info['order_status'] != 1) && $this->error('此订单已经支付,请不要重复支付!');
-		//empty($info) && $this->error('没有此订单!');
-		//$this->assign('info', $info);
-		//$list = D('OrderGoodsView')->where("order_id=$order_id")->select();
-		//$this->assign('_list', $list);
-		echo 'success';
+		$chongzhi_sn = '';
+		$money       = 0;
+		if ($data1['status']) {
+			$chongzhi_sn = $data1['order_sn'];
+			$money       = $data1['money'];
+		} else if ($data2['status']) {
+			$chongzhi_sn = $data2['order_sn'];
+			$money       = $data2['money'];
+		} else if ($data3['status']) {
+			$chongzhi_sn = $data3['order_sn'];
+			$money       = $data3['money'];
+		}
+		if ($chongzhi_sn) {
+			var_dump($_POST);
+			echo "$chongzhi_sn $money success";
+		} else {
+			echo 'fail';
+		}
+		//测试后台通知
+		$this->dopayok();
 		exit();
 	}
 	//支付结果后台通知
@@ -298,7 +306,13 @@ $this->error($model->geterror());
 
 		if ($data1['status'] || $data2['status'] || $data3['status']) {
 			$result = M('Chongzhi')->where(array('chongzhi_sn' => $chongzhi_sn))->setField('status', 2);
-			$result = M('Member')->where('member_id=' . UID)->setInc('money', $money);
+			if ($result) {
+				$resu = M('Member')->where('member_id=' . UID)->setInc('money', $money);
+				if (!$resu) {
+					//记录失败日志
+				}
+			}
+
 		}
 		exit();
 	}
@@ -337,8 +351,14 @@ $this->error($model->geterror());
 		$order_total = floatval(I('money')); //支付金额
 		$order_sn    = createorder();
 		$order_title = '在线充值';
-		$result      = M('Chongzhi')->add(array(
-			'chongzhi_type' => $online_pay,
+
+		$pay_title = array(
+			'unionpay'     => '中国银联',
+			'alipay_jishi' => '支付宝',
+			'tenpay'       => '财付通',
+		);
+		$result = M('Chongzhi')->add(array(
+			'chongzhi_type' => $pay_title[$online_pay],
 			'money'         => $order_total,
 			'uid'           => UID,
 			'chongzhi_sn'   => $order_sn,
