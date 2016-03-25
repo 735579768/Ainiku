@@ -223,7 +223,7 @@ $this->error($model->geterror());
 			if ($result) {
 				$resu = M('Order')->where(array('order_id' => $order_id))->setField('order_status', 2);
 				if ($resu) {
-					$this->error('支付成功!', U('Buy/checkpay', array('order_id' => $order_id)));
+					$this->error('支付成功!', U('Buy/orderstatus', array('order_id' => $order_id)));
 				} else {
 					$this->error('支付失败请联系客服!');
 				}
@@ -235,6 +235,19 @@ $this->error($model->geterror());
 			$this->error('余额不足请充值!');
 		}
 
+	}
+	public function orderstatus($order_id = '') {
+		//$order_sn = $data['order_sn'];
+		empty($order_id) && ($order = I('get.order_id'));
+		empty($order_id) && $this->error('参数错误!');
+		//查询订单
+		$info = M('Order')->where(array("order_id" => $order_id, 'uid' => UID))->find();
+		//($info['order_status'] != 1) && $this->error('此订单已经支付,请不要重复支付!');
+		empty($info) && $this->error('没有此订单!');
+		$this->assign('info', $info);
+		$list = D('OrderGoodsView')->where("order_id=$order_id")->select();
+		$this->assign('_list', $list);
+		$this->display();
 	}
 	//支付成功后前台跳转通知
 	public function payok($chongzhi_sn = '') {
@@ -277,7 +290,7 @@ $this->error($model->geterror());
 			$info = M('Chongzhi')->where("chongzhi_sn='$chongzhi_sn'")->find();
 			var_dump($info);
 		}
-		exit();
+		$this->display();
 	}
 	//支付结果后台通知
 	public function dopayok() {
