@@ -14,12 +14,12 @@
 <ul class="top-tool fl">
                  <if condition="auto_login()">
                             <notpresent name="Think.session.openid">
-                                <li><a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding-left:0;padding-right:0">{$Think.CONST.UID|getMember='username'} </a></li>
+                                <li><a href="{:U('Member/portal')}" class="dropdown-toggle" data-toggle="dropdown" style="padding-left:0;padding-right:0">{$Think.CONST.UID|getMember='username'} </a></li>
                             <else />
-                              
+
                             <li><img src='{$Think.session.qqimg}' width='25' height='25' />
                             <a href="javascript:;"  style="padding-left:0;padding-right:0">{$Think.session.qqname} </a></li>
-                            
+
                             </notpresent>
                              <li><a  href="{:U('Member/logout')}"><s class="s">|</s> 退出</a></li>
                 <else/>
@@ -28,8 +28,8 @@
             function toQzoneLogin()
             {
 window.location="{:UP('Qlogin/qcon')}";
-            } 
-            
+            }
+
             function closeChildWindow()
             {
                 childWindow.close();
@@ -38,8 +38,8 @@ window.location="{:UP('Qlogin/qcon')}";
 
        <li > <a href="javascript:;" onclick="loginbtn();" > 登录 </a></li>
         <li ><a  href="{:U('Public/register')}"  ><s class="s">|</s> 注册</a></li>
-        
- 
+
+
                 </if>
 
     </ul>
@@ -74,13 +74,13 @@ function SetHome(obj,vrl){
                         prefs.setCharPref('browser.startup.homepage',vrl);
                  }else{
                      alert("您的浏览器不支持，请按照下面步骤操作：1.打开浏览器设置。2.点击设置网页。3.输入："+vrl+"点击确定。");
-                 }             
+                 }
         }
 }
- 
+
 // 加入收藏 兼容360和IE6
 function shoucang(sTitle,sURL)
-{      
+{
        try
         {
             window.external.addFavorite(sURL, sTitle);
@@ -96,7 +96,7 @@ function shoucang(sTitle,sURL)
                 alert("加入收藏失败，请使用Ctrl+D进行添加");
             }
         }
-}   
+}
     </script>
   <!--qq互联登陆 end-->
   </div>
@@ -127,4 +127,4 @@ function shoucang(sTitle,sURL)
         </volist>
       </ul>
     </div>
-<!--nav end --> 
+<!--nav end -->
