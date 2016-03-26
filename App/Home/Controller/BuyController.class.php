@@ -275,17 +275,22 @@ $this->error($model->geterror());
 			$chongzhi_sn = $data3['order_sn'];
 			$money       = $data3['money'];
 		}
-		if ($chongzhi_sn) {
-			var_dump($_POST);
-			echo "$chongzhi_sn $money success";
-		} else {
-			echo 'fail';
-		}
+/*		if ($chongzhi_sn) {
+echo "$chongzhi_sn $money success";
+} else {
+echo 'fail';
+}*/
 		//测试后台通知
 		$this->dopayok();
+		if ($chongzhi_sn) {
+			$info = M('Chongzhi')->where("chongzhi_sn='$chongzhi_sn'")->find();
+			$this->assign('info', $info);
+		} else {
+			$this->assign('info', array(
+				'status' => 0,
+			));
+		}
 
-		$info = M('Chongzhi')->where("chongzhi_sn='$chongzhi_sn'")->find();
-		$this->assign('info', $info);
 		$this->display();
 
 		exit();
