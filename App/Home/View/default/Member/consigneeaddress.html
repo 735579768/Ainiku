@@ -3,6 +3,9 @@
     <div class="mem-hd-title cl">{$member_title}</div>
     <div class="divline"></div>
   <div class="s-address cl">
+        <dl class="s-adr add-adr-box cl">
+            <a id="add-new-address" onclick="buyobj.addNewAddress();" class="add-new-address" href="javascript:;"><span class="add-btn"><i class="fa fa-plus"></i><em style="display:none;">+</em>添加新地址</span></a>
+        </dl>
         <volist name="_list" id="vo">
         <dl data-id="{$vo.consignee_address_id}" onclick="buyobj.selectedAddress(this);" id="consignee_address{$vo.consignee_address_id}" class="s-adr cl">
             <dt>{$vo.consignee_name}</dt>
@@ -19,9 +22,7 @@
         </dl>
         </volist>
 
-        <dl class="s-adr add-adr-box cl">
-            <a id="add-new-address" onclick="buyobj.addNewAddress();" class="add-new-address" href="javascript:;"><span class="add-btn"><em>+</em>添加新地址</span></a>
-        </dl>
+
     </div>
 <script type="text/javascript">
 $(function() {
