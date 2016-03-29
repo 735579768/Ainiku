@@ -19,7 +19,7 @@
                     <td class="center">{$data.compress}</td>
                     <td class="center">{$data.size|format_bytes}</td>
                     <td class="center">{$key}</td>
-                    <td class="center"><a href="/Data/DataBak/{$data.time|date='Ymd-His',###}-1.sql.gz" target="_blank">下载</a></td>
+                    <td class="center"><a href="/Data/DataBak/{$data.time|date='Ymd-His',###}-1.sql.gz" target="_blank" class="download"></a></td>
                     <td class="action center">
                         <a class="db-import btn btn-primary" href="{:U('import?time='.$data['time'])}">还原</a>&nbsp;
                         <a class="ajax-href-del confirm btn btn-danger" href="{:U('del?time='.$data['time'])}">删除</a>
