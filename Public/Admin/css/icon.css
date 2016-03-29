@@ -1,7 +1,7 @@
 /**
  * 图标覆盖
  */
-.menuopenico,.menucloseico,.y,.n,.icon-fold,.icon-unfold,.icon-add,.btn-search,.kl-radio,.kl-checkbox{font:normal normal normal 18px/1 FontAwesome;background:none!important;text-rendering:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+.prinfo,.menuopenico,.menucloseico,.y,.n,.icon-fold,.icon-unfold,.icon-add,.btn-search,.kl-radio,.kl-checkbox{font:normal normal normal 18px/1 FontAwesome;background:none!important;text-rendering:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
 .kl-checkbox:before{content:"\f096"!important;}
 .kl-checkbox.kl-selected:before{content:"\f14a"!important;}
 .kl-radio:before{content:"\f10c"!important;}
@@ -16,3 +16,5 @@
 .menuopenico,.menucloseico{padding-top:5px;}
 .menuopenico:before{content:"\f115"!important;}
 .menucloseico:before{content:"\f114"!important;}
+.prinfo{line-height:23px;}
+.prinfo:before{content:"\f007"!important;}
