@@ -1,6 +1,7 @@
 /**
  * 图标覆盖
  */
+.kl-tab-nav .close,
 .title-tool .tico,.prinfo,.menuopenico,.menucloseico,.y,.n,.icon-fold,.icon-unfold,.icon-add,.btn-search,.kl-radio,.kl-checkbox{font:normal normal normal 18px/1 FontAwesome;background:none!important;text-rendering:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
 .kl-checkbox,.kl-radio{padding-bottom:3px;}
 .kl-checkbox:before{content:"\f096"!important;}
@@ -21,3 +22,7 @@
 .prinfo:before{content:"\f007"!important;}
 .title-tool .tico{font-size:20px;padding-top:5px;}
 .title-tool .tico:before{content:"\f00b"!important;}
+.kl-tab-nav .close{font-size: 0px;}
+.kl-tab-nav.hover .close:before,
+.kl-tab-nav .close:before{content: "\f057"!important;font-size: 18px; display: inline-block; padding-top: 2px; color: #fff;}
+.kl-tab-nav .close:before{    color: #C1C1C1;}
