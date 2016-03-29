@@ -1,0 +1,19 @@
+/**
+ * 图标覆盖
+ */
+.btn-search,
+.kl-radio,
+.kl-checkbox{font:normal normal normal 16px/1 FontAwesome;background: none !important; text-rendering:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+.kl-checkbox:before{content:"\f096"!important;}
+.kl-checkbox.kl-selected:before{
+    content: "\f14a" !important;
+}
+.kl-radio:before{
+    content: "\f10c" !important;
+}
+.kl-radio.kl-selected:before{
+	content: "\f111" !important;
+}
+.btn-search:before{
+    content: "\f002" !important;
+}

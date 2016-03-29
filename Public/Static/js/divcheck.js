@@ -15,7 +15,7 @@ $(function() {
 			this.init();
 		};
 		f.prototype = {
-			s_html: '<s  class="kl-checkbox"></s>',
+			s_html: '<i  class="kl-checkbox"></i>',
 			init: function() {
 				var _t = this;
 				var _s_src = this.s_src;
@@ -106,7 +106,7 @@ $(function() {
 			this.init();
 		};
 		f.prototype = {
-			s_html: '<s  class="kl-radio"></s>',
+			s_html: '<i  class="kl-radio"></i>',
 			init: function() {
 				var _t = this;
 				var _s_src = this.s_src;
