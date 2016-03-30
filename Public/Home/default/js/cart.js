@@ -42,6 +42,16 @@ $(function() {
 				cartobj.setCartidStr();
 				cartobj.updateTotalPrice();
 			});
+			//如果全部选中的话把all也选中
+			var isselect=true;
+			$('.check-item').each(function(index, el) {
+				if(!$(this).hasClass('icon-check-selected')){
+					isselect=false;
+				}
+			});
+			if(isselect){
+				$('#all-selected').click();
+			}
 			//数量改变
 			$('.input-num').bind('change', function(event) {
 				var _this = $(this);
@@ -109,7 +119,7 @@ $(function() {
 				if($(this).parents('.list-body').find('.icon-check-selected').length>0){
 					t += parseFloat($(this).html());
 				}
-				
+
 			});
 			$('#totalprice').html(t);
 		},

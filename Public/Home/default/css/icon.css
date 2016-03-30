@@ -1,0 +1,8 @@
+/**
+ * 图标覆盖
+ */
+.icon-check,.icon-check-selected{color: #666; font:normal normal normal 18px/1 FontAwesome;background:none!important;text-rendering:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+.icon-check{border: none;}
+.icon-check:before{content:"\f096"!important; }
+.icon-check-selected a{background: none;}
+.icon-check-selected:before{content:"\f14a"!important;}
