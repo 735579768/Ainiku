@@ -25,7 +25,7 @@
             <volist name="_list" id="vo">
                 <tr>
                     <td style="text-align:center;">{$key+1}</td>
-                    <td>{$vo.srcname}</td>
+                    <td><i class="attachment"></i>{$vo.srcname}</td>
                     <td>{$vo['size'] / 1000}KB</td>
                     <td>
                         {$vo.create_time|time_format}

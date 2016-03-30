@@ -1,7 +1,7 @@
 /**
  * 图标覆盖
  */
-.btn-edit,.btn-delete,.download,.closewest,.kl-tab-nav .close,.title-tool .tico,.prinfo,.menuopenico,.menucloseico,.y,.n,.icon-fold,.icon-unfold,.icon-add,.btn-search,.kl-radio,.kl-checkbox{font:normal normal normal 18px/1 FontAwesome;background:none!important;text-rendering:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+.attachment,.btn-edit,.btn-delete,.download,.closewest,.kl-tab-nav .close,.title-tool .tico,.prinfo,.menuopenico,.menucloseico,.y,.n,.icon-fold,.icon-unfold,.icon-add,.btn-search,.kl-radio,.kl-checkbox{font:normal normal normal 18px/1 FontAwesome;background:none!important;text-rendering:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
 .kl-checkbox,.kl-radio{padding-bottom:3px;}
 .kl-checkbox:before{content:"\f096"!important;}
 .kl-checkbox.kl-selected:before{content:"\f14a"!important;}
@@ -9,6 +9,7 @@
 .kl-radio.kl-selected:before{content:"\f111"!important;}
 .btn-search:before{content:"\f002"!important;}
 .icon-add:before{content:"\f055"!important;}
+.icon-fold,.icon-unfold{margin-top:0px!important;}
 .icon-unfold:before{content:"\f147"!important;}
 .icon-fold:before{content:"\f196"!important;}
 .y,.n{font-size:28px;}
@@ -26,5 +27,7 @@
 .kl-tab-nav .close:before{color:#C1C1C1;}
 .closewest:before{content:"\f07e"!important;font-size:24px;}
 .download:before{content:"\f019";}
-.btn-edit:before{content:"\f14b"!important; }
+.btn-edit:before{content:"\f14b"!important;}
 .btn-delete:before{content:"\f1f8"!important;}
+.attachment{margin:0px 10px;}
+.attachment:before{content:"\f0c6"!important;}
