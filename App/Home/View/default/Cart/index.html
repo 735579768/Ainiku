@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <title>购物车</title>
-<ank:insert name="reset,common,index,buy" />
+<ank:insert name="reset,common,index,buy,font-awesome.min" />
 <ank:insert name="jquery-1.9.1.min,ainiku,functions,ajax,jquery.SuperSlide.2.1.1" type="js"  />
 </head>
 
 <body>
 <div class="buy-flow-block">
 <div class="cart-header">
-<div class="cart-title">购物车</div>
+<div class="cart-title"><i class="fa fa-shopping-cart"></i> 购物车</div>
 </div>
 <div class="cart-list-box cl">
 <notempty name="_list">
@@ -34,9 +34,9 @@
     <li class="col col-price">{$vo.price}元</li>
     <li class="col col-num">
    	  <div class="cart-num">
-        <span onclick="cartobj.jian(this);" class="jian">-</span>
+        <span onclick="cartobj.jian(this);" class="jian fa fa-minus"></span>
         <input class="input-num" autocomplete="off" name="num" value="{$vo.num}" />
-        <span onclick="cartobj.jia(this);" class="jia">+</span>
+        <span onclick="cartobj.jia(this);" class="jia fa fa-plus"></span>
         </div>
     </li>
     <li class="col col-total">{$vo['price']*$vo['num']}元</li>

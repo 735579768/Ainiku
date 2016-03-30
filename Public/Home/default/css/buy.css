@@ -26,7 +26,7 @@
 .cart-list-box .col-num{width:150px;}
 .cart-list-box .cart-num,.cart-list-box .cart-num .input-num,.cart-list-box .cart-num span{height:40px;line-height:40px;float:left;}
 .cart-list-box .cart-num{border:solid 1px #E0E0E0;width:150px;margin-top:19px;}
-.cart-list-box .cart-num span{cursor:pointer;font-size:25px;display:inline-block;width:40px;}
+.cart-list-box .cart-num span{cursor:pointer;font-size:16px;display:inline-block;width:40px; color: #666;}
 .cart-list-box .cart-num span:hover{background-color:#e0e0e0;}
 .cart-list-box .cart-num .input-num{text-align:center;vertical-align:top;border:none;width:70px;display:inline-block;}
 .cart-list-box .col-total{width:150px;}

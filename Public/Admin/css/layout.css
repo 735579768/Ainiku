@@ -1,5 +1,5 @@
 /* CSS Document */
-
+body{min-width: 1100px;}
 /******公用样式*****/
 .fl{float:left;}
 .fr{float:right;}
