@@ -1,6 +1,10 @@
 /**
  * 图标覆盖
  */
+.fa {
+    color: #666;
+}
+.fa-trash{font-size: 20px;}
 .icon-check,.icon-check-selected{color: #666; font:normal normal normal 18px/1 FontAwesome;background:none!important;text-rendering:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
 .icon-check{border: none;}
 .icon-check:before{content:"\f096"!important; }
