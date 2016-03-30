@@ -22,7 +22,7 @@ QQ399195513
 以后的后续升级也不会有JQUERY的存在！shearphoto的原则：免费，开源，兼容目前所有浏览器，纯原生JS和PHP编写。
 有人问：为什么只有PHP后端，没有JAVA和NET，很遗含告诉你，本人不懂JAVA和NET，但是以后的升级我会加上去的，当然你JAVA和NET玩得牛B，你可以在我的JS基础上编写。
 目前shearphoto只支持PHP，如果你把JAVA或NET写了，可以发我一份,那么你就是shearphoto开发者之一！呵呵！
-      
+
       shearphoto的应用范围：
 1：网站会员头像截取，shearphoto能自由设置按比例截图或不按比例截图，也可以对图片旋转，在线拍照，你可以截取不同比例的，不同大小，各种旋转的图片。后台 前台均有设置接口，非常简单
 2：商城商品图片切割，例如这个商品图片，有的图像部份我要去掉，那么shearphoto就能帮助你进行切割，又例如这个图片太大了，我想切小点，shearphoto也能帮你实现
@@ -32,7 +32,7 @@ shearphoto的官方网站：www.shearphoto.com,网站有开发文档，以及she
 你也可以加入shearphoto官方QQ群：461550716，分享与我进行交流。
 
     shearphoto是属于大家的，shearphoto创造崭新截图环境，希望大家喜欢shearphoto  本程序版本号：shearphoto1.3
-    
+
                                                         版本号:shearphoto1.3
                                                         shearphoto官网：www.shearphoto.com
                                                         shearphoto官方QQ群：461550716
@@ -47,9 +47,9 @@ window.webcam = {
           protocol:location.protocol.match(/https/i) ? "https" :"http",
           callback:null,
           // user callback for completed uploads
-          swf_url:"images/webcam.swf",
+          swf_url:"/Public/Static/cutpicture/images/webcam.swf",
           // URI to webcam.swf movie (defaults to cwd)
-          shutter_url:"images/shutter.mp3",
+          shutter_url:"/Public/Static/cutpicture/images/shutter.mp3",
           // URI to shutter.mp3 sound
           api_url:"",
           // URL to upload script
