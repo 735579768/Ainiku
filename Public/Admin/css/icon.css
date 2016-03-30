@@ -1,7 +1,7 @@
 /**
  * 图标覆盖
  */
-.download,.closewest,.kl-tab-nav .close,.title-tool .tico,.prinfo,.menuopenico,.menucloseico,.y,.n,.icon-fold,.icon-unfold,.icon-add,.btn-search,.kl-radio,.kl-checkbox{font:normal normal normal 18px/1 FontAwesome;background:none!important;text-rendering:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+.btn-edit,.btn-delete,.download,.closewest,.kl-tab-nav .close,.title-tool .tico,.prinfo,.menuopenico,.menucloseico,.y,.n,.icon-fold,.icon-unfold,.icon-add,.btn-search,.kl-radio,.kl-checkbox{font:normal normal normal 18px/1 FontAwesome;background:none!important;text-rendering:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
 .kl-checkbox,.kl-radio{padding-bottom:3px;}
 .kl-checkbox:before{content:"\f096"!important;}
 .kl-checkbox.kl-selected:before{content:"\f14a"!important;}
@@ -26,3 +26,5 @@
 .kl-tab-nav .close:before{color:#C1C1C1;}
 .closewest:before{content:"\f07e"!important;font-size:24px;}
 .download:before{content:"\f019";}
+.btn-edit:before{content:"\f14b"!important; }
+.btn-delete:before{content:"\f1f8"!important;}
