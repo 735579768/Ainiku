@@ -106,10 +106,12 @@ $(function() {
         content: '',
         cancel: function() {
           $('#comments-form').append(commentsobj.formhtml);
+          $('#comments-name').val(readCookie('ankc_homecomment_name'));
           commentsobj.initfocus();
         }
       });
       $('#dialog-conn').append(this.formhtml);
+      $('#comments-name').val(readCookie('ankc_homecomment_name'));
       // pid = pid ? pid : id;
       $('#commentpid').val(id);
       commentsobj.initfocus();
@@ -118,6 +120,7 @@ $(function() {
     //取消回复按钮
     cancelhuifu: function(obj) {
       $('#comments-form').html($('#commentsform'));
+      $('#comments-name').val(readCookie('ankc_homecomment_name'));
       $('#commentsform').show();
       $('#commentpid').val(0);
       $('#cancelbtn').hide();
