@@ -253,7 +253,7 @@ $(function() {
             expire = new Date(new Date().getTime() + hours * 36e5);
             expire = "; expires=" + expire.toGMTString();
         }
-        document.cookie = name + "=" + escape(value) + expire;
+        document.cookie = name + "=" + encodeURI(value) + expire;
     };
 
     ///////////////////////////////////////////////////////////////用cookies名字读它的值////////////////////////////
@@ -266,7 +266,7 @@ $(function() {
                 offset += search.length;
                 end = document.cookie.indexOf(";", offset);
                 if (end == -1) end = document.cookie.length;
-                cookieValue = unescape(document.cookie.substring(offset, end));
+                cookieValue = decodeURI(document.cookie.substring(offset, end));
             }
         }
         return cookieValue;

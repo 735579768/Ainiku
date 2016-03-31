@@ -3,10 +3,12 @@ $(function() {
     conf: {},
     formhtml: '',
     init: function(conf) {
+      $('#comments-name').val(readCookie('ankc_homecomment_name'));
       if (this.formhtml == '') {
         this.formhtml = $('#comments-form').html();
       }
       this.conf = conf;
+
     },
     initfocus: function() {
 
@@ -163,6 +165,7 @@ $(function() {
         data: postdata,
         success: function(da) {
           if (da.status == '1') {
+            commentsobj.cancelhuifu();
             ank.msg(da.info.msg);
             var o = $('#comments-huifulist-' + da.info.pid);
             if (da.info.pid == 0) {

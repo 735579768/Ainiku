@@ -59,7 +59,8 @@ class CommentsPlugin extends \Plugins\Plugin {
 			$model = new \Plugins\Comments\PluginCommentsModel();
 			if ($model->create()) {
 				$model->url = preg_replace('/http\:\/\//i', '', $model->url);
-				$result     = $model->add();
+				cookie('comment_name', $model->name, 3600 * 24 * 365);
+				$result = $model->add();
 				if (0 < $result) {
 					$list[] = M('PluginComments')->find($result);
 					$this->assign('_list', $list);
