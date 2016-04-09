@@ -127,6 +127,15 @@ class AddonsController extends AdminController {
 			if (empty($title) || empty($name) || empty($author) || empty($descr)) {
 				$this->error('插件信息不能为空!');
 			}
+			//查找是不是存在相同标识的插件
+			$dirlist   = getDirList(__SITE_ROOT__ . '/Plugins/');
+			$dirlist   = str_replace('Plugin', '', $dirlist);
+			$addoninfo = array();
+			if (in_array($name, $dirlist)) {
+				$temarr = runPluginMethod($name, 'getConfig');
+				$this->error("插件标识符已经存在!,插件名字：{$temarr['name']}");
+			}
+
 			$p_content = file_get_contents('./Data/tpldata/plugin/TestPlugin.class.php');
 			$p_config  = file_get_contents('./Data/tpldata/plugin/View/config.html');
 			$p_con     = file_get_contents('./Data/tpldata/plugin/View/content.html');
@@ -158,7 +167,7 @@ $p_content = str_replace('[PLUGIN_DESCR]', $descr, $p_content);*/
 					'field'   => 'name',
 					'name'    => 'name',
 					'type'    => 'string',
-					'title'   => '插件标识',
+					'title'   => '插件标识符',
 					'note'    => '只能用英文名(单词第一个字母大写)',
 					'extra'   => null,
 					'is_show' => 3,
@@ -177,7 +186,7 @@ $p_content = str_replace('[PLUGIN_DESCR]', $descr, $p_content);*/
 					'name'    => 'descr',
 					'type'    => 'string',
 					'title'   => '插件描述',
-					'note'    => ')',
+					'note'    => '',
 					'extra'   => null,
 					'is_show' => 3,
 				),
