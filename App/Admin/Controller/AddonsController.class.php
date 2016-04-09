@@ -120,6 +120,27 @@ class AddonsController extends AdminController {
 	 */
 	public function newadd() {
 		if (IS_POST) {
+			$title  = I('post.title');
+			$name   = I('post.name');
+			$author = I('post.author');
+			$descr  = I('post.descr');
+			if (empty($title) || empty($name) || empty($author) || empty($descr)) {
+				$this->error('插件信息不能为空!');
+			}
+			$p_content = file_get_contents('./Data/tpldata/plugin/TestPlugin.class.php');
+			$p_config  = file_get_contents('./Data/tpldata/plugin/View/config.html');
+			$p_con     = file_get_contents('./Data/tpldata/plugin/View/content.html');
+			$p_content = str_replace('Test', $name, $p_content);
+			$p_content = str_replace(array('[PLUGIN_TITLE]', '[PLUGIN_AUTHOR]', '[PLUGIN_DESCR]'), array($title, $author, $descr), $p_content);
+/*			$p_content = str_replace('[PLUGIN_NAME]', $author, $p_content);
+$p_content = str_replace('[PLUGIN_DESCR]', $descr, $p_content);*/
+			$p_config = str_replace('Test', $name, $p_config);
+			$p_con    = str_replace('Test', $name, $p_con);
+			createFolder("./Plugins/$name/View");
+			file_put_contents("./Plugins/$name/{$name}Plugin.class.php", $p_content);
+			file_put_contents("./Plugins/$name/View/content.html", $p_con);
+			file_put_contents("./Plugins/$name/View/config.html", $p_config);
+			$this->success(L('_ADD_SUCCESS_'));
 		} else {
 			//$field            = getModelAttr('plugin');
 			$field = array(
