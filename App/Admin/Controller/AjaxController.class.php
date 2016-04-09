@@ -47,18 +47,14 @@ class AjaxController extends AdminController {
 		$controll_name = $match[2];
 		$action_name   = $match[3];
 		$current       = array();
-		if (empty($menu_id)) {
-			$act      = $controll_name;
-			$url      = $act . "/" . $action_name;
-			$url_sha1 = sha1($url);
-			$current  = F('sys_current_url' . $url_sha1);
-			if (empty($current) || APP_DEBUG) {
+		$act           = $controll_name;
+		$url           = $act . "/" . $action_name;
+		$url_sha1      = sha1($url);
+		$current       = F('sys_current_url' . $url_sha1);
+		if (empty($current) || APP_DEBUG) {
 
-				$current = M('Menu')->where(" url like '%" . $url . "%'")->find();
-				F('sys_current_url' . $url_sha1, $current);
-			}
-		} else {
-			$current = M('Menu')->find($menu_id);
+			$current = M('Menu')->where(" url like '%" . $url . "%'")->find();
+			F('sys_current_url' . $url_sha1, $current);
 		}
 
 		if (empty($current)) {

@@ -1,5 +1,19 @@
 <extend name="Public:base" />
 <block name="right">
+    <!--tool start-->
+    <div class="btn-tool">
+        <a href="{:U('Addons/index')}" class="btn btn-parmary">已装插件</a>
+        <a href="{:U('Addons/newinstall')}" title="插件已放到安装目录中" class="btn btn-parmary">安装新插件</a>
+        <a href="{:U('Addons/newadd')}" class="btn btn-parmary">新建插件</a>
+        <div class="searchform">
+            <form class="form-h form-group-h" action="{:U('')}" method="post">
+                <div class="form-group">
+                    <input name="title" type="text" value="{:I('title')}" class="form-control input-middle" placeholder="请输入标题" />
+                </div>
+                <a class="sch-btn" href="javascript:;" id="search"><i class="btn-search"></i></a>
+            </form>
+        </div>
+    </div>
     <div class="content">
         <table class="leftalign" width='100%'>
             <tr class="th">

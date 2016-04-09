@@ -27,7 +27,53 @@ class AddonsController extends AdminController {
 					'type'    => $model['type'],
 					'setmenu' => $setmenu,
 				);
-			} else {
+			}
+		}
+		//trace($addoninfo);
+		$list0 = array();
+		//  $list1=array();
+		//排序
+		foreach ($addoninfo as $key => $a) {
+			if ($a['install'] == '0') {
+				$list0[] = $addoninfo[$key];
+				unset($addoninfo[$key]);
+				//     }else{
+				//  $list1[]=$addoninfo[$key];
+			}
+		}
+		foreach ($addoninfo as $key => $a) {
+			if ($a['status'] == '0') {
+				$list0[] = $addoninfo[$key];
+				unset($addoninfo[$key]);
+			}
+		}
+		foreach ($addoninfo as $key => $a) {
+			if ($a['status'] == '1') {
+				$list0[] = $addoninfo[$key];
+				unset($addoninfo[$key]);
+			}
+		}
+		//$addoninfo=array_merge($list0,$list1);
+		$page        = new \Ainiku\Arrpage($list0, I('pg'), 10);
+		$this->_list = $page->cur_page_data;
+		$this->_page = $page->showpage(false);
+
+		//$this->assign('_list',$list0);
+		$this->display();
+	}
+	/**
+	 * 安装新的插件
+	 */
+	public function newinstall() {
+		$this->meta_title = '插件管理';
+		$dirlist          = getDirList(__SITE_ROOT__ . '/Plugins/');
+		$dirlist          = str_replace('Plugin', '', $dirlist);
+		$addoninfo        = array();
+		foreach ($dirlist as $a) {
+			$temarr = runPluginMethod($a, 'getConfig');
+			$mark   = $a; //strtolower($temarr['mark']);
+			$model  = M('Addons')->where("mark='$mark'")->find();
+			if (empty($model)) {
 				//没有信息说明还没有安装
 				$temarr['mark']    = $a; //strtolower($temarr['mark']);
 				$temarr['install'] = 0;
@@ -66,7 +112,60 @@ class AddonsController extends AdminController {
 		$this->_page = $page->showpage(false);
 
 		//$this->assign('_list',$list0);
-		$this->display();
+		$this->display('index');
+
+	}
+	/**
+	 * 新添加插件
+	 */
+	public function newadd() {
+		if (IS_POST) {
+		} else {
+			//$field            = getModelAttr('plugin');
+			$field = array(
+				array(
+					'field'   => 'title',
+					'name'    => 'title',
+					'type'    => 'string',
+					'title'   => '插件名字',
+					'note'    => '名称',
+					'extra'   => null,
+					'value'   => '测试',
+					'is_show' => 3,
+				),
+				array(
+					'field'   => 'name',
+					'name'    => 'name',
+					'type'    => 'string',
+					'title'   => '插件标识',
+					'note'    => '只能用英文名(单词第一个字母大写)',
+					'extra'   => null,
+					'is_show' => 3,
+				),
+				array(
+					'field'   => 'author',
+					'name'    => 'author',
+					'type'    => 'string',
+					'title'   => '插件作者',
+					'note'    => '',
+					'extra'   => null,
+					'is_show' => 3,
+				),
+				array(
+					'field'   => 'descr',
+					'name'    => 'descr',
+					'type'    => 'string',
+					'title'   => '插件描述',
+					'note'    => ')',
+					'extra'   => null,
+					'is_show' => 3,
+				),
+			);
+			$this->meta_title = '添加新插件';
+			$this->assign('fieldarr', $field);
+			$this->assign('data', null);
+			$this->display();
+		}
 	}
 	/*
 		     * 禁用插件
