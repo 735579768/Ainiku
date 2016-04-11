@@ -14,7 +14,7 @@ class QloginPlugin extends \Plugins\Plugin {
 		$data = M('Addons')->field('param')->where("mark='Qlogin'")->find();
 		$data = json_decode($data['param'], true);
 		define('Q_APPID', $data['appid']);
-		define('Q_APPKEY', $data['appid']);
+		define('Q_APPKEY', $data['appkey']);
 		define('Q_CALLBACK', $data['callback'] . UP('Qlogin/qcallfunc'));
 	}
 	function run() {
@@ -29,11 +29,14 @@ class QloginPlugin extends \Plugins\Plugin {
 
 		if (session('openid') != '') {
 			$uid = $this->QQregister(session('openid'));
-			//不管注册成功不成功都要到下面去登陆
-			$uid = $this->login(session('openid'), '', 5);
-			if (0 < $uid) {
-				//UC登录成功
-				redirect(U('/'));
+			if ($uid) {
+				$uid = $this->login(session('openid'), '', 5);
+				if (0 < $uid) {
+					//UC登录成功
+					redirect(U('/'));
+				}
+			} else {
+				die('error');
 			}
 
 		}
@@ -42,22 +45,24 @@ class QloginPlugin extends \Plugins\Plugin {
 		$qqinfo                  = session('qqinfo');
 		$data['openid']          = $openid;
 		$data['member_group_id'] = 2;
-		$data['nickname']        = $qqinfo['nickname'];
-		$data['username']        = $qqinfo['nickname'];
-		$mem                     = M('Member');
-		$re                      = $mem->where("openid='$openid'")->select();
+		//$data['account']         = createAccount();
+		$data['nickname'] = $qqinfo['nickname'];
+
+		$mem = M('Member');
+		$re  = $mem->where("openid='$openid'")->find();
 		if (!empty($re)) {
-			$data['member_id'] = $re[0]['member_id'];
+			$data['member_id'] = $re['member_id'];
 			if ($mem->create($data)) {
 				//保存或更新qq的信息到数据库
 				$mem->save();
 			}
 			//已经是登陆用户
-			return $re[0]['member_id'];
+			return $re['member_id'];
 		} else {
 			/* 添加用户 */
 			$data['last_login_ip'] = get_client_ip();
 			$data['account']       = createAccount();
+			$data['username']      = $data['account'];
 			//生成用户名
 			$uid = $mem->add($data);
 			return $uid ? $uid : 0; //0-未知错误，大于0-注册成功
@@ -94,8 +99,7 @@ class QloginPlugin extends \Plugins\Plugin {
 		}
 
 		/* 获取用户数据 */
-		$user = M('Member')->where($map)->select();
-		$user = $user[0];
+		$user = M('Member')->where($map)->find();
 		if (!empty($user) && $user['status'] == '1') {
 			/* 验证用户密码 */
 			/* 记录登录SESSION和COOKIES */
