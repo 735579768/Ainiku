@@ -39,6 +39,8 @@ class QloginPlugin extends \Plugins\Plugin {
 				die('error');
 			}
 
+		} else {
+			die('error');
 		}
 	}
 	public function QQregister($openid) {
@@ -108,10 +110,13 @@ class QloginPlugin extends \Plugins\Plugin {
 				'username'        => $user['username'],
 				'last_login_time' => $user['last_login_time'],
 			);
+
 			session('user_auth', $auth);
 			session('uinfo', $user);
 			session('user_auth_sign', data_auth_sign($auth));
 
+/*			var_dump($_SESSION);
+die();*/
 			$this->updateLogin($user['member_id']); //更新用户登录信息
 			return $user['member_id']; //登录成功，返回用户ID
 		} else {

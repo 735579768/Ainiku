@@ -6,44 +6,52 @@
 .top-tool{margin-right:10px;}
 .top-tool li{ float:left;}
 .top-tool li a{ padding:0px 5px; line-height:30px; color:#666; display:inline-block;}
-.top-tool li a:hover{ color:#F27522;}
+.top-tool li a:hover{ color:#000;}
 .topnav .s{ color:#ccc; margin:0px 5px; display:inline-block;}
 .topnav-inner{ width:1000px; margin:0px auto;}
 </style>
 <div class="topnav-inner">
-    <ul class="top-tool fl">
+<ul class="top-tool fl">
+                   <if condition="auto_login()">
+                          <li><img src='{:session('qqimg')}' width='25' height='25' /></li>
+                            <li><a href="javascript:;"  style="padding-left:0;padding-right:0">({:session('uinfo.username')}){:session('uinfo.nickname')} </a></li>
+                             <li><a  href="{:U('Public/logout')}"><s class="s">|</s> 退出</a></li>
+                <else/>
+            <script type="text/javascript">
+                     var childWindow;
+
+                     function toQzoneLogin() {
+                         window.location = "{:UP('Qlogin/qcon')}";
+                     }
+
+                     function closeChildWindow() {
+                         childWindow.close();
+                     }
+
+            </script>
+        <li><a onclick="toQzoneLogin();" href="javascript:;"  >QQ登录</a></li>
+        {:plugin('Qlogin')}
+       <li class=""> <a href="javascript:;" onclick="loginbtn();"  ><s class="s">|</s> 登录 </a></li>
+        <li class=""><a  href="{:U('Public/register')}"  ><s class="s">|</s> 注册</a></li>
+
+
+                </if>
 
     </ul>
     <ul class="top-tool fr">
-        <if condition="auto_login()">
-            <li><a href="{:U('Member/portal')}" class="dropdown-toggle" data-toggle="dropdown" style="padding-left:0;padding-right:0">{$Think.CONST.UID|getMember='username'} (您好)</a><s class="s">|</s></li>
-            <li>
-                <a href="{:U('Member/portal')}">
-                     个人中心<s class="s">|</s></a>
-            </li>
-            <li>
-                <a href="{:U('Public/logout')}">
-                     退出<s class="s">|</s></a>
-            </li>
-            <else/>
-            <li>
-                <a href="{:U('Member/login')}">
-                     登录 <s class="s">|</s></a>
-            </li>
-            <li>
-                <a href="{:U('Member/register')}">
-                     注册<s class="s">|</s></a>
-            </li>
-        </if>
-        <li><a href="javascript:void(0)" onclick="SetHome(this,window.location)">设为首页</a></li>
-        <li>
-            <a href="javascript:void(0)" onclick="shoucang(document.title,window.location)">
-                <s class="s">|</s>加入收藏</a>
-        </li>
-    </ul>
-</div>
-
+     <li><a href="javascript:void(0)" onclick="SetHome(this,window.location)">设为首页</a></li>
+ <li><a href="javascript:void(0)" onclick="shoucang(document.title,window.location)"><s class="s">|</s>加入收藏</a></li>
+ </ul>
+    </div>
     <script>
+//登陆按钮
+var loginbtn = function() {
+  ank.msgDialog({
+    title: '用户登陆',
+    url: '{:U('Public/login')}',
+  });
+
+};
  // 设置为主页
 function SetHome(obj,vrl){
         try{
