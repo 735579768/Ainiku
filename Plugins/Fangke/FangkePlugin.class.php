@@ -63,7 +63,7 @@ class FangkePlugin extends \Plugins\Plugin {
 		);
 		$this->assign('fieldarr', $field);
 		$this->assign('data', null);
-		trace($starttime);
+		//trace($starttime);
 		//当前一天0点时间
 		$curday  = strtotime($starttime);
 		$onehour = strtotime('2015-06-01 01:00:00') - strtotime('2015-06-01 00:00:00');
