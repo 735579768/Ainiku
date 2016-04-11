@@ -17,19 +17,6 @@
                             <li><a href="javascript:;"  style="padding-left:0;padding-right:0">({:session('uinfo.username')}){:session('uinfo.nickname')} </a></li>
                              <li><a  href="{:U('Public/logout')}"><s class="s">|</s> 退出</a></li>
                 <else/>
-            <script type="text/javascript">
-                     var childWindow;
-
-                     function toQzoneLogin() {
-                         window.location = "{:UP('Qlogin/qcon')}";
-                     }
-
-                     function closeChildWindow() {
-                         childWindow.close();
-                     }
-
-            </script>
-        <li><a onclick="toQzoneLogin();" href="javascript:;"  >QQ登录</a></li>
         {:plugin('Qlogin')}
        <li class=""> <a href="javascript:;" onclick="loginbtn();"  ><s class="s">|</s> 登录 </a></li>
         <li class=""><a  href="{:U('Public/register')}"  ><s class="s">|</s> 注册</a></li>
