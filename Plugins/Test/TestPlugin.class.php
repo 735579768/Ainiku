@@ -9,7 +9,7 @@ class TestPlugin extends \Plugins\Plugin {
 		'descr'   => '插件描述',
 	);
 	//钩子默认的调用方法
-	public function run($a, $b) {
+	public function run($a = '', $b = '') {
 		$this->assign('a', $a);
 		$this->assign('b', $b);
 		$this->display('content');

@@ -9,7 +9,7 @@ class FangkePlugin extends \Plugins\Plugin {
 		'descr'   => '分析网站访问记录',
 	);
 	//钩子默认的调用方法plugin('Fangke')
-	public function run($a, $b) {
+	public function run($a = '', $b = '') {
 		//注册js文件
 		$this->assets->registerjs('fangke');
 		//$this->record();
