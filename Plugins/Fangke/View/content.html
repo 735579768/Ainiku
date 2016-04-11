@@ -3,12 +3,10 @@
 <a href="{:UP('Fangke/lists')}" class="btn">访客列表</a>
 <a href="{:UP('Fangke/chart')}" class="btn">访问图表</a>
 <div class="searchform">
-<form class="form-h form-group-h" action="{:UP('Fangke/lists')}" method="post">
+<form id="submitform" class="form-h form-group-h" action="{:UP('Fangke/chart')}" method="post">
 <div class="form-group">
-<input name="name" type="text" value="{:I('name')}" class="form-control input-mid" placeholder="请输入姓名" />
+ {:getForm($fieldarr['start'],$data)}
 </div>
-
-<a class="sch-btn" href="javascript:;" id="search" ><i class="btn-search"></i></a>
 </form>
 </div>
 
@@ -19,6 +17,10 @@
 <ank:insert type="js" name="highcharts" />
 <script type="text/javascript">
 $(function () {
+    $('input[name="starttime"]').change(function(event) {
+        /* Act on the event */
+        document.getElementById('submitform').submit();
+    });
         $('#container').highcharts({
             title: {
                 text: '网站访问量统计表',

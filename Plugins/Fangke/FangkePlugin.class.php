@@ -48,8 +48,24 @@ class FangkePlugin extends \Plugins\Plugin {
 		die();
 	}
 	public function chart() {
+		$starttime = I('post.starttime', date('Y-m-d', NOW_TIME) . ' 00:00:00');
+		$field     = array(
+			'start' => array(
+				'field'   => 'starttime',
+				'name'    => 'starttime',
+				'type'    => 'datetime',
+				'title'   => '时间',
+				'note'    => '',
+				'extra'   => null,
+				'is_show' => 3,
+				'value'   => $starttime,
+			),
+		);
+		$this->assign('fieldarr', $field);
+		$this->assign('data', null);
+		trace($starttime);
 		//当前一天0点时间
-		$curday  = strtotime(date(NOW_TIME, 'Y/m/d') . '00:00:00');
+		$curday  = strtotime($starttime);
 		$onehour = strtotime('2015-06-01 01:00:00') - strtotime('2015-06-01 00:00:00');
 
 		//查询每个小时的访问量
@@ -72,7 +88,8 @@ class FangkePlugin extends \Plugins\Plugin {
 			$curday += $onehour;
 		}
 		//查找独立ip数据
-		$curday = strtotime(date(NOW_TIME, 'Y/m/d') . '00:00:00');
+		//$curday = strtotime(date('Y-m-d', NOW_TIME) . ' 00:00:00');
+		$curday = strtotime($starttime);
 		for ($i = 1; $i <= 24; $i++) {
 			$map['enter_time'] = array(array('gt', $curday), array('lt', $curday + $onehour), 'and');
 			$nums              = M('PluginFangke')->distinct(true)->field('ip')->where($map)->select();
