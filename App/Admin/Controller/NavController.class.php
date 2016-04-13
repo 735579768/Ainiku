@@ -36,12 +36,12 @@ class NavController extends AdminController {
 		$map  = array('status' => array('gt', -1), 'pid' => $pid);
 		$list = array();
 		if ($allrows) {
-			$list = M('Nav')->field($field)->where($map)->order('sort asc')->select();
+			$list = M('Nav')->field($field)->where($map)->order('status desc,sort asc')->select();
 		} else {
 			$list = $this->pages(array(
 				'model'  => 'Nav',
 				'where'  => $map,
-				'order'  => 'sort asc',
+				'order'  => 'status desc,sort asc',
 				'$field' => $field,
 				'rows'   => 10,
 			));
