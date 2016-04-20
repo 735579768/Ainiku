@@ -47,6 +47,7 @@ textarea.form-control{height:100px;display:block;}
 select.form-control{display:inline-block;width:auto;height:30px;}
 .controls input{display:inline-block;margin:5px 5px 5px 10px;}
 .form-tip{display:inline-block;margin:0px 5px;color:#aaa;}
+.form-group-h .form-controls,
 .form-group-h .form-control,.form-group-h .form-label{display:inline-block;}
 .form-group-h .form-label{min-width:65px; text-align:right;}
 .form-h .form-group{display:inline-block;vertical-align: top;margin-bottom: 0px;}
