@@ -22,80 +22,96 @@
  	 * @param  id,id,id,id   表单id  sheng   shi   qu   id列表
  	 * cityselect.create('diqu1,ld-sheng1,ld-shi1,ld-qu1');
  	 */
-	window.cityselect = {
-		create: function(selid) {
-			if (!selid) {
-				alert('城市联动参数不对');
-				return;
-			}
-			selid = selid.split(',');
-			if (selid.length != 4) {
-				alert('城市联动id不对');
-				return;
-			}
-			return new this.city(selid);
-		},
-		city: function(arr) {
-			this.selid = arr;
-			this.setvalue = function() {
-				var diqu = $('#' + this.selid[0]);
-				var sheng = $('#' + this.selid[1]).val();
-				var shi = $('#' + this.selid[2]).val();
-				var qu = $('#' + this.selid[3]).val();
-				diqu.val(sheng + ',' + shi + ',' + qu);
-			};
-			this.init = function() {
-				var _this = this;
-				var diqu = $('#' + this.selid[0]).val();
-				var sheng = $('#' + this.selid[1]);
-				var shi = $('#' + this.selid[2]);
-				var qu = $('#' + this.selid[3]);
+ 	window.cityselect = {
+ 		keytype: 1, //为1 时value为id值 2时为文本
+ 		create: function(selid) {
+ 			var arg = arguments;
+ 			if (typeof(arg[1]) != 'undefined') this.keytype = arg[1];
+ 			if (!selid) {
+ 				alert('城市联动参数不对');
+ 				return;
+ 			}
+ 			selid = selid.split(',');
+ 			if (selid.length != 4) {
+ 				alert('城市联动id不对');
+ 				return;
+ 			}
+ 			return new this.city(selid);
+ 		},
+ 		city: function(arr) {
+ 			var _this = this;
+ 			this.selid = arr;
+ 			this.setvalue = function() {
+ 				var diqu = $('#' + this.selid[0]);
+ 				var sheng = $('#' + this.selid[1]).val();
+ 				var shi = $('#' + this.selid[2]).val();
+ 				var qu = $('#' + this.selid[3]).val();
+ 				diqu.val(sheng + ',' + shi + ',' + qu);
+ 			};
+ 			this.init = function() {
+ 				var _this = this;
+ 				var diqu = $('#' + this.selid[0]).val();
+ 				var sheng = $('#' + this.selid[1]);
+ 				var shi = $('#' + this.selid[2]);
+ 				var qu = $('#' + this.selid[3]);
 
-				//初始化省份数据
-				var str = '<option value="0">请选择--</option>';
-				for (var a in selectdata['sheng']) {
-					str += '<option value="' + a + '">' + selectdata['sheng'][a] + '</option>';
-				}
-				sheng.html(str);
-				sheng.change();
-				sheng.change(function(event) {
-					var va = sheng.val();
-					var str = '<option value="0">请选择--</option>';
-					for (var a in selectdata['shi'][va]) {
-						str += '<option value="' + a + '">' + selectdata['shi'][va][a] + '</option>';
-					}
-					shi.html(str);
-					shi.change();
-					_this.setvalue();
-				});
-				shi.change(function(event) {
-					var va = shi.val();
-					var str = '<option value="0">请选择--</option>';
-					for (var a in selectdata['qu'][va]) {
-						str += '<option value="' + a + '">' + selectdata['qu'][va][a] + '</option>';
-					}
-					qu.html(str);
-					qu.change();
-					_this.setvalue();
-				});
-				qu.change(function(event) {
-					_this.setvalue();
-				});
-				//初始化数据
-				if (diqu) {
-					diqu = diqu.split(',');
-				}
-				if (diqu && diqu.length >= 3) {
-					sheng.val(diqu[0]);
-					sheng.change();
-					shi.val(diqu[1]);
-					shi.change();
-					qu.val(diqu[2]);
-					qu.change();
-				}
-			};
-			this.init();
-		}
+ 				//初始化省份数据
+ 				var str = '<option value="0">请选择--</option>';
+ 				for (var a in selectdata['sheng']) {
+ 					var val = a;
+ 					if (_this.keytype != 1) {
+ 						val = selectdata['sheng'][a];
+ 					}
+ 					str += '<option data-id="' + a + '" value="' + val + '">' + selectdata['sheng'][a] + '</option>';
+ 				}
+ 				sheng.html(str);
+ 				sheng.change();
+ 				sheng.change(function(event) {
+ 					var va = sheng.find('option:checked').attr('data-id');
+ 					var str = '<option value="0">请选择--</option>';
+ 					for (var a in selectdata['shi'][va]) {
+ 						var val = a;
+ 						if (_this.keytype != 1) {
+ 							val = selectdata['shi'][va][a];
+ 						}
+ 						str += '<option data-id="' + a + '"  value="' + val + '">' + selectdata['shi'][va][a] + '</option>';
+ 					}
+ 					shi.html(str);
+ 					shi.change();
+ 					_this.setvalue();
+ 				});
+ 				shi.change(function(event) {
+ 					var va = shi.find('option:checked').attr('data-id');
+ 					var str = '<option value="0">请选择--</option>';
+ 					for (var a in selectdata['qu'][va]) {
+ 						var val = a;
+ 						if (_this.keytype != 1) {
+ 							val = selectdata['qu'][va][a];
+ 						}
+ 						str += '<option data-id="' + a + '"  value="' + val + '">' + selectdata['qu'][va][a] + '</option>';
+ 					}
+ 					qu.html(str);
+ 					qu.change();
+ 					_this.setvalue();
+ 				});
+ 				qu.change(function(event) {
+ 					_this.setvalue();
+ 				});
+ 				//初始化数据
+ 				if (diqu) {
+ 					diqu = diqu.split(',');
+ 				}
+ 				if (diqu && diqu.length >= 3) {
+ 					sheng.val(diqu[0]);
+ 					sheng.change();
+ 					shi.val(diqu[1]);
+ 					shi.change();
+ 					qu.val(diqu[2]);
+ 					qu.change();
+ 				}
+ 			};
+ 			this.init();
+ 		}
 
-	};
-});
+ 	};
+ });
