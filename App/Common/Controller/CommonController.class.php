@@ -169,7 +169,7 @@ dump($assets);*/
 
 		$str    = preg_replace($patterns, $replacements, $str);
 		$cssjss = \Ainiku\AssetsManager::getInstance()->registerend();
-		str_replace('</head>', "$cssjss\n</head>");
+		str_replace('</head>', "$cssjss\n</head>", $str);
 		echo $str;
 	}
 }
