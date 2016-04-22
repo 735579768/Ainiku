@@ -11,7 +11,7 @@
 .disabled{cursor:not-allowed;}
 .a-left{text-align:left!important;}
 .a-center{text-align:center!important;}
-.el{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;width:100%;}
+.el{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block;}
 
 /*箭头向上*/
 .arrow-up{width:0;height:0;border-left:30px solid transparent;border-right:30px solid transparent;border-bottom:30px solid #fff;}
