@@ -54,7 +54,7 @@ class PublicController extends HomeController {
 				define('UID', $user['member_id']);
 				//更新用户登录信息
 				self::updateLogin($user['member_id']);
-				$this->success('登陆成功', U('/'));
+				$this->success('登陆成功', U('Member/portal'));
 			}
 
 		} else {
