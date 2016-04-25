@@ -18,9 +18,9 @@ class ConfigApi {
 	 */
 	public static function lists($config_module = 'default') {
 		//  $map    = array('status' => 1);
-		$map                  = array();
-		$map['config_module'] = $config_module;
-		$data                 = M('Config')->where($map)->field('type,name,value')->select();
+		$map                                           = array();
+		empty($config_module) || $map['config_module'] = $config_module;
+		$data                                          = M('Config')->where($map)->field('type,name,value')->select();
 
 		$config = array();
 		if ($data && is_array($data)) {
