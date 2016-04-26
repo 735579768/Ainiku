@@ -106,7 +106,7 @@ class MemberController extends LoginController {
 	public function emailactivate($yz = '') {
 		$uinfo = $this->uinfo;
 		if (empty($yz)) {
-			$yzm = ainiku_ucenter_md5($uinfo['username'] . $uinfo['password']);
+			$yzm = ainiku_ucenter_md5($uinfo['username'] . $uinfo['password'] . date('Y/m/d H:i:s'));
 			$url = C('WEBDOMIN') . U("Member/emailactivate", array('yz' => $yzm));
 			$str = <<<eot
 		此链接10分钟内有效
@@ -123,7 +123,7 @@ eot;
 
 			));
 			if ($result) {
-				S('emailactivate' . UID, $yzm, true, 600);
+				S('emailactivate' . UID, $yzm, 600);
 				$this->success('激活邮件已经发送成功!');
 			} else {
 				$this->error('邮件发送失败!');
