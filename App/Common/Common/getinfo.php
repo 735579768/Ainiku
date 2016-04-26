@@ -20,9 +20,8 @@ function getCategoryAllChild($id) {
 				$result1 = M('Category')->where("pid=" . $temid)->select();
 				if (!empty($result1)) {
 					$temid = getCategoryAllChild($temid);
-				} else {
-					$restr .= ',' . $temid;
 				}
+				$restr .= ',' . $temid;
 
 			}
 		}
@@ -46,9 +45,8 @@ function getCategoryParent($id = null, $top = true) {
 		if ($top) {
 			if ($info['pid'] != 0) {
 				$reid = getCategoryParent($info['pid'], true);
-			} else {
-				$reid = $info['category_id'];
 			}
+			$reid = $info['category_id'];
 
 		} else {
 			$reid = $info['pid'];
