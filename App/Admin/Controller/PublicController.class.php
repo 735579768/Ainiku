@@ -144,4 +144,19 @@ class PublicController extends Controller {
 		);
 
 	}
+	/* 退出登录 */
+	public function logout($modpassword = false) {
+		if (is_login()) {
+			//session('user_auth', null);
+			//session('user_auth_sign', null);
+			//  session('[destroy]');
+			session(null);
+			cookie(null);
+			if (!$modpassword) {
+				$this->success('退出成功！', U('Public/login'));
+			}
+		} else {
+			$this->redirect(U('Public/login'));
+		}
+	}
 }

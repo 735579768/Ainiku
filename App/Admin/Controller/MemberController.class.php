@@ -144,7 +144,8 @@ class MemberController extends AdminController {
 				$model->password = ainiku_ucenter_md5($model->password);
 				$result          = $model->save();
 				if (0 < $result) {
-					$this->success(L('_UPDATE_SUCCESS_'));
+					A('Public')->logout(true);
+					$this->success('密码更新成功!请重新登陆!', U('Public/login'));
 				} else {
 					$this->error('密码相同,没有更改');
 				}
