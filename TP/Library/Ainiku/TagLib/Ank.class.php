@@ -50,6 +50,7 @@ class Ank extends TagLib {
 		$parse .= '$temarr=explode(",","' . $hname . '");';
 		$parse .= '$newname=\'' . sha1($hname) . '\';';
 		//$parse .='$newname=str_replace(",","_","'.$hname.'");';
+		$parse .= '$suijinum=\'r=\'.rand(10000,99999);';
 		if ($htype == 'js') {
 			//把文件转成对应的路径
 			$parse .= 'foreach($temarr as $key=>$val):';
@@ -60,7 +61,7 @@ class Ank extends TagLib {
 
 			if (APP_DEBUG) {
 				$parse .= 'foreach($temarr as $val):';
-				$parse .= '$jscss.=\'<script src="\'.$val.\'" type="text/javascript" ></script>\'."\r\n";';
+				$parse .= '$jscss.=\'<script src="\'.$val."?".$suijinum.\'" type="text/javascript" ></script>\'."\r\n";';
 				$parse .= 'endforeach;';
 			} else {
 				$parse .= 'if(file_ismod($temarr)||!file_exists(pathA(STYLE_CACHE_DIR.MODULE_NAME.\'/\'.$newname.".js"))):';
@@ -85,7 +86,7 @@ class Ank extends TagLib {
 
 			if (APP_DEBUG) {
 				$parse .= 'foreach($temarr as $val):';
-				$parse .= '$jscss.=\'<link href="\'.$val.\'" type="text/css" rel="stylesheet" />\'."\r\n";';
+				$parse .= '$jscss.=\'<link href="\'.$val."?".$suijinum.\'" type="text/css" rel="stylesheet" />\'."\r\n";';
 				$parse .= 'endforeach;';
 			} else {
 				$parse .= 'if(file_ismod($temarr)||!file_exists(pathA(STYLE_CACHE_DIR.MODULE_NAME.\'/\'.$newname.".css"))):';
