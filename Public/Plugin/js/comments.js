@@ -75,7 +75,11 @@ $(function() {
       $('.huifu-list').each(function(index, el) {
         var dle = $(this).children('dl');
         if (dle.length > 0) {
-          $(this).parent().prev().find('span').eq(0).after('<a class="check-huifu" onClick="commentsobj.checkMore(this);" href="javascript:;">收起>></a>');
+          var o = $(this).parent().prev().find('span').eq(0);
+          if (!o.next().hasClass('check-huifu')) {
+            o.after('<a class="check-huifu" onClick="commentsobj.checkMore(this);" href="javascript:;">收起>></a>');
+          }
+
         }
 
       });
