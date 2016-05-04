@@ -3,7 +3,7 @@ $(function() {
     conf: {},
     formhtml: '',
     init: function(conf) {
-      $('#comments-name').val(readCookie('ankc_homecomment_name'));
+      $('#comments-name').val(commentsobj.readCookie('ankc_homecomment_name'));
       if (this.formhtml == '') {
         this.formhtml = $('#comments-form').html();
       }
@@ -106,12 +106,12 @@ $(function() {
         content: '',
         cancel: function() {
           $('#comments-form').append(commentsobj.formhtml);
-          $('#comments-name').val(readCookie('ankc_homecomment_name'));
+          $('#comments-name').val(commentsobj.readCookie('ankc_homecomment_name'));
           commentsobj.initfocus();
         }
       });
       $('#dialog-conn').append(this.formhtml);
-      $('#comments-name').val(readCookie('ankc_homecomment_name'));
+      $('#comments-name').val(commentsobj.readCookie('ankc_homecomment_name'));
       // pid = pid ? pid : id;
       $('#commentpid').val(id);
       commentsobj.initfocus();
@@ -120,7 +120,7 @@ $(function() {
     //取消回复按钮
     cancelhuifu: function(obj) {
       $('#comments-form').html($('#commentsform'));
-      $('#comments-name').val(readCookie('ankc_homecomment_name'));
+      $('#comments-name').val(commentsobj.readCookie('ankc_homecomment_name'));
       $('#commentsform').show();
       $('#commentpid').val(0);
       $('#cancelbtn').hide();
@@ -193,7 +193,32 @@ $(function() {
 
       });
       return false;
+    },
+    writeCookie: function(name, value, hours) {
+      var expire = "";
+      if (hours != null) {
+        expire = new Date(new Date().getTime() + hours * 36e5);
+        expire = "; expires=" + expire.toGMTString();
+      }
+      document.cookie = name + "=" + encodeURI(value) + expire;
+    },
+
+    ///////////////////////////////////////////////////////////////用cookies名字读它的值////////////////////////////
+    readCookie: function(name) {
+      var cookieValue = "";
+      var search = name + "=";
+      if (document.cookie.length > 0) {
+        offset = document.cookie.indexOf(search);
+        if (offset != -1) {
+          offset += search.length;
+          end = document.cookie.indexOf(";", offset);
+          if (end == -1) end = document.cookie.length;
+          cookieValue = decodeURI(document.cookie.substring(offset, end));
+        }
+      }
+      return cookieValue;
     }
+
   };
   commentsobj.init(commentsconf);
   commentsobj.initfocus();
@@ -201,7 +226,7 @@ $(function() {
   $.ajax({
     url: commentsobj.conf.url,
     type: 'GET',
-    success:function(da){
+    success: function(da) {
       $('#comments-list').append(da.data);
     }
   });
