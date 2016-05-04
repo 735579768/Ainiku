@@ -102,12 +102,13 @@ class CommentsPlugin extends \Plugins\Plugin {
 		$url = C('WEBDOMIN') . "/article/{$rows['arc_id']}.html";
 		//给站长发邮件
 		$site_email = C('SITE_EMAIL');
+		$site_title = C('WEB_SITE_TITLE');
 		if (!empty($site_email)) {
 			$result = sendMail(array(
 				'to'       => $site_email,
-				'toname'   => C('WEB_SITE_TITLE') . '站长你好',
-				'subject'  => C('WEB_SITE_TITLE') . '有最新留言请查看',
-				'fromname' => C('WEB_SITE_TITLE'),
+				'toname'   => $site_title . '站长你好',
+				'subject'  => "你有一条最新留言 ( $site_title )",
+				'fromname' => $site_title,
 				'body'     => "文章留言链接 <a target='_blank' href='$url'>点击查看: $url</a>",
 
 			));
@@ -124,8 +125,8 @@ class CommentsPlugin extends \Plugins\Plugin {
 				$result = sendMail(array(
 					'to'       => $rows['email'],
 					'toname'   => '你好' . $rows['name'],
-					'subject'  => '你好 . $rows['name'] . ': 赵克立博客有您的留言回复',
-					'fromname' => C('WEB_SITE_TITLE'),
+					'subject'  => '你好' . $rows['name'] . ': 赵克立博客有您的留言回复',
+					'fromname' => $site_title,
 					'body'     => "回复链接 <a target='_blank' href='$url'>点击查看回复: $url</a>",
 
 				));
