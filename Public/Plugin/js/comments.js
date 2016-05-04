@@ -3,7 +3,8 @@ $(function() {
     conf: {},
     formhtml: '',
     init: function(conf) {
-      $('#comments-name').val(commentsobj.readCookie('ankc_homecomment_name'));
+      //$('#comments-name').val(commentsobj.readCookie('ankc_homecomment_name'));
+      commentsobj.setliuyan();
       if (this.formhtml == '') {
         this.formhtml = $('#comments-form').html();
       }
@@ -106,12 +107,14 @@ $(function() {
         content: '',
         cancel: function() {
           $('#comments-form').append(commentsobj.formhtml);
-          $('#comments-name').val(commentsobj.readCookie('ankc_homecomment_name'));
+          //$('#comments-name').val(commentsobj.readCookie('ankc_homecomment_name'));
+          commentsobj.setliuyan();
           commentsobj.initfocus();
         }
       });
       $('#dialog-conn').append(this.formhtml);
-      $('#comments-name').val(commentsobj.readCookie('ankc_homecomment_name'));
+      //$('#comments-name').val(commentsobj.readCookie('ankc_homecomment_name'));
+      commentsobj.setliuyan();
       // pid = pid ? pid : id;
       $('#commentpid').val(id);
       commentsobj.initfocus();
@@ -120,10 +123,20 @@ $(function() {
     //取消回复按钮
     cancelhuifu: function(obj) {
       $('#comments-form').html($('#commentsform'));
-      $('#comments-name').val(commentsobj.readCookie('ankc_homecomment_name'));
+      // //$('#comments-name').val(commentsobj.readCookie('ankc_homecomment_name'));
+      commentsobj.setliuyan();
       $('#commentsform').show();
       $('#commentpid').val(0);
       $('#cancelbtn').hide();
+    },
+    /**
+     * 初始化留言框
+     */
+    setliuyan: function() {
+
+      $('#comments-name').val(decodeURIComponent(commentsobj.readCookie('ankc_homecomment_name')));
+      $('#comments-email').val(decodeURIComponent(commentsobj.readCookie('ankc_homecomment_email')));
+      $('#comments-homeurl').val(decodeURIComponent(commentsobj.readCookie('ankc_homecomment_url')));
     },
     //提交评论
     addcomments: function() {
@@ -152,7 +165,8 @@ $(function() {
         }
       }
       if (this.conf.homeurl) {
-        if (!(/^http(s?):\/\/(?:[A-za-z0-9-]+\.)+[A-za-z]{2,4}(:\d+)?(?:[\/\?#][\/=\?%\-&~`@[\]\':+!\.#\w]*)?$/.test($('#comments-homeurl').val()))) {
+        //if (!(/^http(s?):\/\/(?:[A-za-z0-9-]+\.)+[A-za-z]{2,4}(:\d+)?(?:[\/\?#][\/=\?%\-&~`@[\]\':+!\.#\w]*)?$/.test($('#comments-homeurl').val()))) {
+        if (!(/^(?:[A-za-z0-9-]+\.)+[A-za-z]{2,4}(:\d+)?(?:[\/\?#][\/=\?%\-&~`@[\]\':+!\.#\w]*)?$/.test($('#comments-homeurl').val()))) {
           ank.msg('请填入正确的网址!');
           return false;
         }

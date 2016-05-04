@@ -26,11 +26,17 @@
   </div>
       <div class="form-section">
     <label class="input-label">验证码</label>
-    <input type="text" name="verify" id="verifyimg" class="auto-label verifyinput" data-msg="请输入验证码" placeholder="验证码">
+    <input type="text" name="verify" id="verifyimg" style="width:100px;" class="auto-label verifyinput" data-msg="请输入验证码" placeholder="验证码">
 <div id="verify" class="verifyimg" style="display:inline-block;">
     <img style="cursor:pointer; vertical-align:middle;" class="reloadverify"  id="verifyimg" alt="点击切换" onclick="this.src='{:U('Public/verify')}?random='+Math.random();" src="{:U('public/verify')}">
+
     </div>
-    <div class="commentsbtn">
+
+  </div>
+  <div class="form-section">
+    <span class="email-notify">
+    <input name="email_notify" value="1" type="checkbox" checked="checked" />有回复时邮件通知我
+      </span> <div class="commentsbtn">
     <input name="arc_id" type="hidden" value="{$arc_id|default=0}" />
     <input id="commentpid" name="pid" type="hidden" value="0" />
     <a href="javascript:;" onclick="commentsobj.addcomments();" id="addcommentsbtn"  class="btn btn-large">提交评论</a>

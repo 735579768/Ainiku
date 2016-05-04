@@ -1,4 +1,4 @@
-#comments-form{padding:20px;height:210px;}
+#comments-form{padding:20px;height:auto;}
 #comments-list .nick-name{color: #3299da;}
 #comments-list .comments-con{margin-bottom:15px;}
 #comments-list a,#comments-list{font-size:14px;}
@@ -23,7 +23,7 @@
 #comments-list .check-huifu{margin-left:20px;color:#969696;}
 #commentsform{width:auto;margin:10px;}
 #commentsform textarea:focus,#commentsform input:focus{border-color:#ff6700}
-#commentsform textarea,#commentsform input{border-radius:5px;display:block;outline:none;border:solid 1px #e0e0e0;height:30px;line-height:30px;padding:5px 10px;margin-top:10px;width:98%;}
+#commentsform textarea,#commentsform input[type="text"]{border-radius:5px;display:block;outline:none;border:solid 1px #e0e0e0;height:30px;line-height:30px;padding:5px 10px;margin-top:10px;width:98%;}
 #commentsform .verifyinput{width:100px;}
 #commentsform .verifyimg{position:absolute;top:-10px;left:130px;}
 #commentsform input:hover{border-color:#b0b0b0;}
@@ -36,3 +36,4 @@
 #commentsform .address-btn .btn-cancel{background:#C3A200;}
 .form-section select{padding:0px 0px 0px 10px;-webkit-appearance:none;-moz-appearance:none;appearance:none;border:solid 1px #e0e0e0;height:38px;line-height:38px;}
 #commentsform .commentsbtn{position:absolute;right:0px;top:0px;}
+#commentsform .email-notify{}

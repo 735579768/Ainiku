@@ -60,11 +60,15 @@ class CommentsPlugin extends \Plugins\Plugin {
 			if ($model->create()) {
 				$model->url = preg_replace('/http\:\/\//i', '', $model->url);
 				cookie('comment_name', $model->name, 3600 * 24 * 365);
+				cookie('comment_email', $model->email, 3600 * 24 * 365);
+				cookie('comment_url', $model->url, 3600 * 24 * 365);
 				$result = $model->add();
 				if (0 < $result) {
 					$list[] = M('PluginComments')->find($result);
 					$this->assign('_list', $list);
 					$str = $this->fetch('ajaxlist');
+					//检测发送邮件
+					$this->sendemail();
 					$this->success(array(
 						'content' => $str,
 						'msg'     => '留言成功',
@@ -89,6 +93,37 @@ class CommentsPlugin extends \Plugins\Plugin {
 			$this->display('add');
 		}
 	}
+	/**
+	 * 有留言时回复
+	 * @return [type]       [description]
+	 */
+	private function sendemail() {
+		$pid = I('post.pid', 0);
+		if ($pid == 0) {
+			return;
+		} else {
+			$rows = M('PluginComments')->field('name,arc_id,email,email_notify')->find($pid);
+			if (empty($rows) || empty($rows['email'])) {
+				return;
+			} else {
+				if ($rows['email_notify'] != '1') {
+					return;
+				}
+				$url    = C('WEBDOMIN') . "/article/{$rows['arc_id']}.html";
+				$result = sendMail(array(
+					'to'       => $rows['email'],
+					'toname'   => '你好' . $rows['name'],
+					'subject'  => '你好\'' . $rows['name'] . ' \'赵克立博客有您的留言回复',
+					'fromname' => C(':WEB_SITE_TITLE'),
+					'body'     => "回复链接 <a target='_blank' href='$url'>点击查看回复: $url</a>",
+
+				));
+				if ($result !== true) {
+					\Think\log::write('留言发送发送邮件时出错:' . $result, 'WARN');
+				}
+			}
+		}
+	}
 	public function install() {
 		if (MODULE_NAME !== 'Admin') {
 			die('');
@@ -109,6 +144,7 @@ class CommentsPlugin extends \Plugins\Plugin {
 				  `url` varchar(255) DEFAULT NULL,
 				  `qq` varchar(255) DEFAULT NULL,
 				  `status` tinyint(1)  NULL DEFAULT 1 ,
+				  `email_notify` tinyint(1)  NULL DEFAULT 1 ,
 				  `ip` varchar(255) DEFAULT NULL,
 				  `location` varchar(255) DEFAULT NULL,
 				  `create_time` int(11) DEFAULT NULL,
