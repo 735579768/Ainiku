@@ -95,6 +95,11 @@ class AssetsManager {
 		}
 		$cssname  = md5(implode($this->css));
 		$jsname   = md5(implode($this->js));
+		$suijinum = F('assetsversion');
+		if (empty($suijinum) || APP_DEBUG) {
+			$suijinum = '?r=' . rand(10000, 99999);
+			F('assetsversion', $suijinum);
+		}
 		$csscache = STYLE_CACHE_DIR . MODULE_NAME . '/' . $cssname . '.css';
 		$jscache  = STYLE_CACHE_DIR . MODULE_NAME . '/' . $jsname . '.js';
 		//查找css文件
@@ -103,7 +108,7 @@ class AssetsManager {
 			if ($filepath) {
 				$this->css[$k] = $filepath;
 				if (APP_DEBUG) {
-					$this->cssstr .= '<link href="' . $filepath . '" type="text/css" rel="stylesheet" />' . "\n";
+					$this->cssstr .= '<link href="' . $filepath . $suijinum . '" type="text/css" rel="stylesheet" />' . "\n";
 				} else {
 					if (file_ismod('.' . $filepath) || !file_exists($csscache)) {
 						$ismodcss = true;
@@ -120,7 +125,7 @@ class AssetsManager {
 			if ($filepath) {
 				$this->js[$k] = $filepath;
 				if (APP_DEBUG) {
-					$this->jsstr .= '<script src="' . $filepath . '" type="text/javascript" ></script>' . "\n";
+					$this->jsstr .= '<script src="' . $filepath . $suijinum . '" type="text/javascript" ></script>' . "\n";
 				} else {
 					if (file_ismod('.' . $filepath) || !file_exists($jscache)) {
 						$ismodjs = true;
@@ -143,10 +148,10 @@ class AssetsManager {
 			($ismodcss || !file_exists($csscache)) && file_put_contents($csscache, $this->cssstr);
 			($ismodjs || !file_exists($jscache)) && file_put_contents($jscache, $this->jsstr);
 			if (!empty($this->css)) {
-				$this->cssstr = '<link href="' . substr($csscache, 1) . '" type="text/css" rel="stylesheet" />' . "\n";
+				$this->cssstr = '<link href="' . substr($csscache, 1) . $suijinum . '" type="text/css" rel="stylesheet" />' . "\n";
 			}
 			if (!empty($this->js)) {
-				$this->jsstr = '<script src="' . substr($jscache, 1) . '" type="text/javascript" ></script>' . "\n";
+				$this->jsstr = '<script src="' . substr($jscache, 1) . $suijinum . '" type="text/javascript" ></script>' . "\n";
 			}
 
 		}
