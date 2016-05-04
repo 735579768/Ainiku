@@ -199,24 +199,24 @@ $(function() {
 	});
 	//绑定列表中的图片显示功能
 	$('.popupthumb').hover(function() {
-		var _this=$(this);
+		var _this = $(this);
 		var len = _this.find('img').length;
 		if (len == 0) {
 			var src = $(this).find('.imgbox').attr('_src');
 			$(this).find('.wrapimg').append('<img src="' + src + '" width="" height="" />');
 		}
 		//查找位置
-		var top=_this.offset().top;
-		var sh=$(window).height();
-		var ih=$(this).find('.imgbox').height();
+		var top = _this.offset().top;
+		var sh = $(window).height();
+		var ih = $(this).find('.imgbox').height();
 		//console.log(top,sh);
-		if(sh-top-20<ih && top>=sh-top){
+		if (sh - top - 20 < ih && top >= sh - top) {
 			$(this).find('.imgbox').css({
-				top:'-'+ih+'px'
+				top: '-' + ih + 'px'
 			});
-		}else{
+		} else {
 			$(this).find('.imgbox').css({
-				top:'35px'
+				top: '35px'
 			});
 		}
 		$(this).find('.imgbox').show();
@@ -382,5 +382,5 @@ $(function() {
 	//替换select
 	hideSelect.hide($('select'));
 	hideCheckbox.hide($('input[type="checkbox"]'));
-    hideRadio.hide($('input[type="radio"]'));
+	hideRadio.hide($('input[type="radio"]'));
 });
