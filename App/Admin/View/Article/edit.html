@@ -8,7 +8,7 @@
             <input type="hidden" id="productid" value="{$data.article_id}" /> {:getForm($fieldarr,$data)}
             <div class="form-group center">
                 <input type="hidden" name="article_id" value="{$data.article_id}" />
-                <a href="javascript:;" id="submitbtn" class="btn btn-parmary btn-large ajax-post">
+                <a href="javascript:;" id="submitbtn" onclick="submitcg(this);" class="btn btn-parmary btn-large">
                     <empty name="data.article_id">确定添加
                         <else />确定更新</empty>
                 </a>
@@ -56,8 +56,8 @@
         }
 
         //提交文章草稿
-        window.submitcg = function() {
-            var formobj = subobj.parents("form");
+        window.submitcg = function(obj) {
+            var formobj = $(obj).parents("form");
             formobj.submit(function(e) {
                 return false;
             });
