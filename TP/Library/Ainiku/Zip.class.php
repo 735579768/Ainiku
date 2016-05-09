@@ -1,4 +1,12 @@
 <?php
+/**
+ * 使用方法
+ * $zip        = new \Ainiku\Zip();
+ * 压缩
+ * $zip->compress('./', array('.svn', 'DataBak'), $webzipname);
+ * 解压
+ * decompress($zip_filename, $dir = './')
+ */
 namespace Ainiku;
 /**
  * zip
@@ -13,6 +21,13 @@ class Zip {
 	protected $old_offset    = 0;
 	protected $total_files   = 0;
 	protected $total_folders = 0;
+	/**
+	 * 压缩
+	 * @param  [type] $dir          [压缩目录]
+	 * @param  array  $nodir        [忽略的文件或目录]
+	 * @param  string $zip_filename [文件名]
+	 * @return [type]               [description]
+	 */
 	public function compress($dir, $nodir = array(), $zip_filename = 'data.gz') {
 		//echo($dir);
 		if (function_exists('gzcompress')) {
@@ -35,6 +50,12 @@ class Zip {
 		}
 		return false;
 	}
+	/**
+	 * 解压
+	 * @param  [type] $zip_filename [文件名]
+	 * @param  string $dir          [目录]
+	 * @return [type]               [description]
+	 */
 	public function decompress($zip_filename, $dir = './') {
 		$index = array(-1);
 		$stat  = array();
