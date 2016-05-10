@@ -158,6 +158,9 @@ $(function() {
 		};
 		/**传入一个jquery radio 对象初始并隐藏原来的radio**/
 		hideradio.hide = function(oo) {
+			if (!oo) {
+				return;
+			}
 			var tem = [];
 			var arg = arguments;
 			oo.each(function(index, el) {
