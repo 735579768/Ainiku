@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <title>{$meta_title}_{:C('ADMIN_TITLE')}{:C('DEFAULT_THEME')}</title>
 <include file="Public:head" />
-<ank:insert name="jquery-1.9.1.min,divselect,divcheck,flashcopy-min,functions,ainiku,msg,ajax,tabclose,jquery.resizableColumns,autoyz" type="js"/>
+<ank:insert name="jquery-1.9.1.min,divselect,divcheck,flashcopy-min,functions,ainiku,msg,ajax,tabclose,jquery.resizableColumns,init,autoyz" type="js"/>
 <ank:insert name="reset,common,animation,layout,icon" />
 <link href="__CSS__/{:C('DEFAULT_COLOR')}color.css" type="text/css" rel="stylesheet" />
 <!--[if IE]><ank:insert name="iefix" /> <![endif]-->
@@ -29,7 +29,13 @@ $(function() {
 <include file="Public:menu" />
 </if>
 <img id="loadingimg" class="rotate topcenter" src="__STATIC__/images/loading.png">
-<ank:insert type="js" name="init" />
+<script type="text/javascript">
+	$(function(){
+	hideSelect.hide($('select'));
+	hideCheckbox.hide($('input[type="checkbox"]'));
+	hideRadio.hide($('input[type="radio"]'));
+	});
+</script>
 </body>
 </html>
 
