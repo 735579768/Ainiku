@@ -34,8 +34,11 @@
 	if (iframename == null) {
 		// 页面不在iframe中时处理
 		if ($('#closewest').length <= 0) {
-
-			window.location.href = ifuri + '&mainmenu=true';
+			if(ifuri.indexOf('?')>0){
+				window.location.href = ifuri + '&mainmenu=true';
+			}else{
+				window.location.href = ifuri + '?mainmenu=true';
+			}
 		}
 
 	} else {
