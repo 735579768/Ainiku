@@ -252,3 +252,4 @@ body{overflow:hidden;padding:62px 0px 0px 179px;}
 
 /**定位css**/
 .topcenter{position:fixed;top:25px;left:20px;z-index:99;display:none;}
+.content  .btn{font-size: 12px;}
