@@ -31,3 +31,20 @@
 .btn-delete:before{content:"\f1f8"!important;}
 .attachment{margin:0px 10px;}
 .attachment:before{content:"\f0c6"!important;}
+/**
+ * 表单选择样式
+ */
+input[type="radio"],input[type="checkbox"]{
+    font: normal normal normal 18px/1 FontAwesome;
+    background: none!important;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-appearance: none;
+    -moz-appearance:none;
+   /*  vertical-align: top; */
+}
+input[type="radio"]:before{content: "\f10c"!important;font-size: 18px!important;color: #324b5e;}
+input[type="radio"]:checked:before{font-size: 18px!important;content: "\f111"!important;font-size: 18px!important;color: #324b5e;}
+input[type="checkbox"]:before{content: "\f096"!important;font-size: 18px!important;color: #324b5e;}
+input[type="checkbox"]:checked:before{font-size: 16px;content: "\f14a"!important;font-size: 18px!important;color: #324b5e;}
