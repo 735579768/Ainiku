@@ -107,7 +107,7 @@ class FormController extends Controller {
 			}
 
 			$this->assign('formjs', $GLOBALS['formjs']);
-			$formstr = $this->fetch('./App/Common/View/Widget/Form/tab.html');
+			$formstr = $this->fetch(T('Common@Widget/Form/tab'));
 			F('_dataform/' . $cacheform, $formstr);
 		}
 		return $formstr;
