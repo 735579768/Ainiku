@@ -122,7 +122,7 @@ class NodeController extends AdminController {
 		if (!empty($tem)) {
 			$this->error('请删除子节点后再操作');
 		} else {
-			$result = M('Node')->where("id=$node_id")->delete();
+			$result = M('Node')->where("node_id=$node_id")->delete();
 			if ($result) {
 				$this->success(L('_DELETE_SUCCESS_'));
 			} else {
