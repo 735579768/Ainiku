@@ -782,7 +782,7 @@ function compress_css($path) {
 				$src_new = str_replace("../images", $dirname . "/images", $v); //源绝对路径
 				$src_new = str_replace('css/', '', $src_new);
 				$new     = str_replace("../images", STYLE_CACHE_DIR . MODULE_NAME . "/images", $v); //设置新路径
-				$new     = __SITE_ROOT__ . __ROOT__ . str_replace('./', '/', $new);
+				$new     = __ROOT_PATH__ . str_replace('./', '/', $new);
 				createFolder(dirname($new));
 				if (file_exists($src_new)) { //判断是否存在
 					copy($src_new, $new); //复制到新目录
@@ -867,14 +867,14 @@ function get_naps_bot() {
  *把路径格式化为本地文件的绝对路径
  */
 function pathA($path) {
-	$path = str_replace(array('\\', './', __SITE_ROOT__ . __ROOT__, __SITE_ROOT__, __ROOT__), array('/', '/', '', '', ''), $path);
-	return __SITE_ROOT__ . __ROOT__ . $path;
+	$path = str_replace(array('\\', './', __ROOT_PATH__, __SITE_ROOT__, __ROOT__), array('/', '/', '', '', ''), $path);
+	return __ROOT_PATH__ . $path;
 }
 /**
  *把路径格式化为相对于网站根目录的路径
  */
 function pathR($path) {
-	$path = str_replace(array('\\', './', __SITE_ROOT__ . __ROOT__, __SITE_ROOT__, __ROOT__), array('/', '/', '', '', ''), $path);
+	$path = str_replace(array('\\', './', __ROOT_PATH__, __SITE_ROOT__, __ROOT__), array('/', '/', '', '', ''), $path);
 	return __ROOT__ . $path;
 }
 /**

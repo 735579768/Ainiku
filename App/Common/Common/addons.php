@@ -1,6 +1,6 @@
 <?php
 defined('ADDONS_MENU') or define('ADDONS_MENU', 280);
-defined('ADDONS_PATH') or define('ADDONS_PATH', './Plugins/');
+defined('ADDONS_PATH') or define('ADDONS_PATH', __ROOT_PATH__ . '/Plugins/');
 defined('ADDONS_DIR_NAME') or define('ADDONS_DIR_NAME', 'Plugins');
 /**
  * 返回一个目录中的目录列表(只返回一级)
