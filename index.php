@@ -8,7 +8,7 @@ if (version_compare(PHP_VERSION, '5.3.0', '<')) {
 
 //常量定义
 define('ACCESS_ROOT', true);
-define('APP_DEBUG', true);
+define('APP_DEBUG', false);
 APP_DEBUG or define('BUILD_LITE_FILE', true);
 // 绑定访问Admin模块
 //define('BIND_MODULE','Daili');
@@ -24,8 +24,8 @@ define('__ROOT_PATH__', __SITE_ROOT__ . __ROOT__);
 // 定义应用目录
 define('APP_PATH', __ROOT_PATH__ . '/App/');
 define('DATA_DIR_PATH', __ROOT_PATH__ . '/Data/'); //系统自动生成的数据缓存目录
-define('DATA_DIR_NAME', 'Data');
-define('__STATIC__', __ROOT__ . '/Public/Static'); //定义静态文件目录
+//define('DATA_DIR_NAME', 'Data');
+//define('__STATIC__', __ROOT__ . '/Public/Static'); //定义静态文件目录
 define('IMAGE_CACHE_DIR', DATA_DIR_PATH . 'cache/imgcache/'); //图片缓存目录
 define('STYLE_CACHE_DIR', DATA_DIR_PATH . 'cache/scache/'); //样式图片缓存
 define('DATA_PATH', DATA_DIR_PATH . 'cache/Runtime/Data/'); //缓存数据的路径

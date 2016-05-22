@@ -148,10 +148,10 @@ class AssetsManager {
 			($ismodcss || !file_exists($csscache)) && file_put_contents($csscache, $this->cssstr);
 			($ismodjs || !file_exists($jscache)) && file_put_contents($jscache, $this->jsstr);
 			if (!empty($this->css)) {
-				$this->cssstr = '<link href="' . substr($csscache, 1) . $suijinum . '" type="text/css" rel="stylesheet" />' . "\n";
+				$this->cssstr = '<link href="' . pathR($csscache) . $suijinum . '" type="text/css" rel="stylesheet" />' . "\n";
 			}
 			if (!empty($this->js)) {
-				$this->jsstr = '<script src="' . substr($jscache, 1) . $suijinum . '" type="text/javascript" ></script>' . "\n";
+				$this->jsstr = '<script src="' . pathR($jscache) . $suijinum . '" type="text/javascript" ></script>' . "\n";
 			}
 
 		}
