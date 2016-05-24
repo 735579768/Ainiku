@@ -16,9 +16,9 @@ class CustomFormController extends Controller {
 		//查找系统标签
 		$_list = M('tag')->order('id desc')->select();
 		$this->assign('_list', $_list);
-		return $this->fetch('./App/Common/View/Widget/CustomForm/' . $this->filename . '.html');
+		return $this->fetch(T('Common@Widget/CustomForm/' . $this->filename));
 	}
 	public function testmail($name = null, $value = null) {
-		return $this->fetch('./App/Common/View/Widget/CustomForm/' . $this->filename . '.html');
+		return $this->fetch(T('Common@Widget/CustomForm/' . $this->filename));
 	}
 }
