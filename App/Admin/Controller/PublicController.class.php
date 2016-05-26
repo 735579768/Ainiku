@@ -77,12 +77,13 @@ class PublicController extends Controller {
 					}
 					cookie('__uid__', $u, $b);
 				}
-				return $autologin ? $user['member_id'] : ($this->success('登录成功！', U('Index/index', array('mainmenu' => 'true'))));
+				return $autologin ? $user['member_id'] : ($this->success('登录成功！', U($user['admin_index'], array('mainmenu' => 'true'))));
 			}
 
 		} else {
 			if (is_login()) {
-				redirect(U('Index/index', array('mainmenu' => 'true')));
+				$user = session('uinfo');
+				redirect(U($user['admin_index'], array('mainmenu' => 'true')));
 			} else {
 				$this->display();
 
