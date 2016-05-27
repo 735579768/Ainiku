@@ -81,7 +81,7 @@ class Auth {
 							}
 							$pattern .= '/i';
 							$pattern = str_replace('[tag]', '([^<|^>]*?)', $pattern);
-							trace($pattern);
+							//trace($pattern);
 							$str = preg_replace($pattern, '', $str);
 						}
 						//echo $pattern.'--<br>';
