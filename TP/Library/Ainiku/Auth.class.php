@@ -14,7 +14,7 @@ class Auth {
 			$node_idlist            = implode(',', json_decode($uinfoauth['auth'], true));
 			$node_idlist            = empty($node_idlist) ? '*' : $node_idlist;
 			$this->noaccessnodelist = M('Node')->where(array(
-				'pid'     => array('neq', 0),
+				'name'    => array('neq', ''),
 				'status'  => 1,
 				'node_id' => array('not in', $node_idlist),
 			))->select();
@@ -60,23 +60,32 @@ class Auth {
 					$url = trim($val['name']);
 					if (!empty($url)) {
 						$pattern = '/';
-						$url     = U($url);
-						$url     = str_replace(array('.' . C('URL_HTML_SUFFIX')), array(''), $url);
-						$url     = preg_quote($url);
-						$url     = str_replace('/', '\/', $url);
-						//把链接按钮(带有btn的操作)替换掉
-						if ($val['is_all'] == 1) {
-							$pattern .= '<[tag]' . $url . '[tag]>[tag]<[tag]>';
-							$pattern .= '|<([^<|^>|^\/]*?)>[tag]<[tag]' . $url . '[tag]>[tag]<\/[tag]>[tag]<\/[tag]>';
+						if (strpos($url, '/') === false) {
+							$pattern .= '<[tag]>[tag]<[tag]' . preg_quote($url) . '[tag]>[tag]<[tag]>[tag]<[tag]>';
+							$pattern .= '/';
+							$pattern = str_replace('[tag]', '([^<|^>]*?)', $pattern);
+							$str     = preg_replace($pattern, '', $str);
 						} else {
-							//$url=preg_replace('/(\?)|(\=)|(\/)|(\.)/i','\\\$1$2$3$4',$url);
-							$pattern .= '<[tag]' . $url . '[tag]>[tag]<[tag]>';
-							$pattern .= '|<([^<|^>|^\/]*?)>[tag]<[tag]' . $url . '[tag]>[tag]<\/[tag]>[tag]<\/[tag]>';
+							$url = U($url);
+							$url = str_replace(array('.' . C('URL_HTML_SUFFIX')), array(''), $url);
+							$url = preg_quote($url);
+							$url = str_replace('/', '\/', $url);
+//把链接按钮(带有btn的操作)替换掉
+							if ($val['is_all'] == 1) {
+								$pattern .= '<[tag]' . $url . '[tag]>[tag]<[tag]>';
+								$pattern .= '|<([^<|^>|^\/]*?)>[tag]<[tag]' . $url . '[tag]>[tag]<\/[tag]>[tag]<\/[tag]>';
+							} else {
+//$url=preg_replace('/(\?)|(\=)|(\/)|(\.)/i','\\\$1$2$3$4',$url);
+								$pattern .= '<[tag]' . $url . '[tag]>[tag]<[tag]>';
+								$pattern .= '|<([^<|^>|^\/]*?)>[tag]<[tag]' . $url . '[tag]>[tag]<\/[tag]>[tag]<\/[tag]>';
+							}
+							$pattern .= '/i';
+							$pattern = str_replace('[tag]', '([^<|^>]*?)', $pattern);
+							trace($pattern);
+							$str = preg_replace($pattern, '', $str);
 						}
-						$pattern .= '/i';
-						$pattern = str_replace('[tag]', '([^<|^>]*?)', $pattern);
 						//echo $pattern.'--<br>';
-						$str = preg_replace($pattern, '', $str);
+
 					}
 				}
 				//移除后台左边空的菜单项目

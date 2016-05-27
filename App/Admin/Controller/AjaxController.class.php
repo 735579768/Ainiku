@@ -22,7 +22,7 @@ class AjaxController extends AdminController {
 
 			}
 		}
-		$this->success('数据保存成功');
+		$this->ajaxReturn('数据保存成功');
 		die();
 	}
 	/*设置后台默认主题色*/
@@ -34,7 +34,7 @@ class AjaxController extends AdminController {
 	function getmenu($url = '') {
 		empty($url) || $this->getchildmenu($url);
 		$str = $this->fetch();
-		$this->success($str);
+		$this->ajaxReturn($str);
 		die();
 	}
 	/**

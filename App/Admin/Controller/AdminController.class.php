@@ -204,4 +204,25 @@ class AdminController extends CommonController {
 		}
 		echo $str;
 	}
+		/**
+	 * Ajax方式返回数据到客户端
+	 * @access protected
+	 * @param mixed $data 要返回的数据
+	 * @param String $type AJAX返回数据格式
+	 * @param int $json_option 传递给json_encode的option参数
+	 * @return void
+	 */
+	protected function ajaxReturn($data) {
+		$str = array(
+			'url'    => '',
+			'info'   => $data,
+			'status' => 1,
+		);
+		// 返回JSON数据格式到客户端 包含状态信息
+		header('Content-Type:application/json; charset=utf-8');
+		$str = json_encode($str);
+
+		$str = $this->auth->replaceurl($str);
+		exit($str);
+	}
 }
