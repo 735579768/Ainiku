@@ -1,4 +1,4 @@
-<?php if(!APP_DEBUG ){ 
+<?php if(!APP_DEBUG ){
     	header('HTTP/1.1 404 Not Found');
 		header("status: 404 Not Found");
 ?>
@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>页面找不到喽</title>
-<link rel="stylesheet" type="text/css" href="__STATIC__/404.css" media="all">
+<link rel="stylesheet" type="text/css" href="<?php echo __STATIC__;?>/css/404.css" media="all">
 </head>
 <body class="body-bg">
 <div class="main">

@@ -7,12 +7,15 @@ defined("ACCESS_ROOT") || die("Invalid access");
 class PublicController extends Controller {
 	protected function _empty() {
 		//后台统一的404页面
-		$this->display('Public:404');
+		if (!APP_DEBUG) {
+			$this->display('Public/404');
+		}
 	}
 	public function index() {
 		$this->redirect('login');
 	}
 	protected function _initialize() {
+
 		//先读取缓存配置
 		$config = F('DB_CONFIG_DATA');
 		if (!$config) {
@@ -25,6 +28,13 @@ class PublicController extends Controller {
 		defined('__DB_PREFIX__') or define('__DB_PREFIX__', C('DB_PREFIX'));
 		//主题默认为空
 		C('DEFAULT_THEME', '');
+
+		C('TMPL_PARSE_STRING', array(
+			'__STATIC__' => __ROOT__ . '/Public/Static',
+			'__IMG__'    => __ROOT__ . '/Public/' . MODULE_NAME . '/' . C('DEFAULT_THEME') . '/images',
+			'__CSS__'    => __ROOT__ . '/Public/' . MODULE_NAME . '/' . C('DEFAULT_THEME') . '/css',
+			'__JS__'     => __ROOT__ . '/Public/' . MODULE_NAME . '/' . C('DEFAULT_THEME') . '/js',
+		));
 	}
 	public function login($username = null, $password = null, $verify = null, $autologin = false) {
 		if (IS_POST || $autologin) {

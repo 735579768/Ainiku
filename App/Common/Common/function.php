@@ -799,12 +799,14 @@ function compress_css($path) {
  *压缩JS文件并替换JS嵌套include文件
  */
 function compress_js($jspath) {
-//	import('Ainiku.JavaScriptPacker');
-	//    $packer = new JavaScriptPacker($js, 'Normal', true, false);
-	//    return $packer->pack();
 	$js = file_get_contents($jspath);
-	import('Ainiku.JSMin');
-	return JSMin::minify($js);
+	import('Ainiku.JavaScriptPacker');
+	$packer = new JavaScriptPacker($js, 'Normal', true, false);
+	$js     = $packer->pack();
+
+	// import('Ainiku.JSMin');
+	// return JSMin::minify($js);
+	return $js;
 }
 /**
  *写字符串到文件
