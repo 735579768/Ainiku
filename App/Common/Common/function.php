@@ -800,9 +800,9 @@ function compress_css($path) {
  */
 function compress_js($jspath) {
 	$js = file_get_contents($jspath);
-	import('Ainiku.JavaScriptPacker');
-	$packer = new JavaScriptPacker($js, 'Normal', true, false);
-	$js     = $packer->pack();
+	// import('Ainiku.JavaScriptPacker');
+	// $packer = new JavaScriptPacker($js, 'Normal', true, false);
+	// $js     = $packer->pack();
 
 	// import('Ainiku.JSMin');
 	// return JSMin::minify($js);
