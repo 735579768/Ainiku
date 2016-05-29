@@ -1,4 +1,5 @@
 <ul id="youmenu" class="youmenu">
+<li class="menuitem"><a href="javascript:;" onClick="closeTab();">关闭所有标签</a></li>
 <li class="menuitem"><a href="javascript:;" onClick="window.history.go(-1);$('#youmenu').hide();">返回上一页</a></li>
 <li class="menuitem"><a href="javascript:;" onClick="window.history.go(1);$('#youmenu').hide();">转到下一页</a></li>
 <li class="menuitem"><a href="javascript:;" onClick="javascript:window.location.reload();$('#youmenu').hide();">刷新页面</a></li>
@@ -7,6 +8,15 @@
 <script>
 
 $(function(){
+window.closeTab=function(){
+	//debugger;
+	if(self.frameElement){
+		console.log(parent);
+		parent.closeTab();
+	}
+	$('#nav-block li').remove();
+	$('#div-block .kl-tab-div').remove();
+};
 FlashCopy.setSwfPath('__STATIC__/js/flashcopy.swf');
 FlashCopy.init('copybtn').onCopy({
 	alias:'FlashCopy',
@@ -20,21 +30,21 @@ FlashCopy.init('copybtn').onCopy({
 			$('#youmenu').hide();
 		}
 	});
-	
+
 $('#youmenu').hover(function(){
 $('#youmenu').show();
 },function(){
-$('#youmenu').hide();	
-}); 
+$('#youmenu').hide();
+});
 //右键菜单
-document.oncontextmenu=function(e){ 
+document.oncontextmenu=function(e){
 try{
  if(window.event) e = window.event;
 $('#youmenu').css({left:e.clientX-5,top:e.clientY-5});
 $('#youmenu').show();
 }catch(e){
 	}
-return false; 
+return false;
 };
 });
 </script>
