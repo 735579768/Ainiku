@@ -61,7 +61,11 @@ class Auth {
 					if (!empty($url)) {
 						$pattern = '/';
 						if (strpos($url, '/') === false) {
-							$pattern .= '<[tag]>[tag]<[tag]' . preg_quote($url) . '[tag]>[tag]<[tag]>[tag]<[tag]>';
+							$url1 = U("{$url}/index");
+							$url  = preg_replace('/\&a\=.*/', '', $url1);
+							$url  = preg_quote($url);
+							$url  = substr($url, 1);
+							$pattern .= '<[tag]>[tag]<[tag]' . $url . '[tag]>[tag]<[tag]>[tag]<[tag]>';
 							$pattern .= '/';
 							$pattern = str_replace('[tag]', '([^<|^>]*?)', $pattern);
 							$str     = preg_replace($pattern, '', $str);
