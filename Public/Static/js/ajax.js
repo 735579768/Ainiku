@@ -70,6 +70,7 @@ $(function() {
 
     //给元素注册触发ajax-post操作的事件
     $(".ajax-post").bind("click", function() {
+        debugger;
         if ($('#yzerr').length > 0) {
             ank.msg('请按格式填写!');
             return false;
@@ -110,13 +111,7 @@ $(function() {
                     url: url,
                     success: function(da) {
                         da.status == '1' && _this.parent().parent().remove();
-                        ank.msg({
-                            content: da.info,
-                            info: da.info,
-                            success: function(da) {
-                                if (typeof(da.info.url)!='undefined') window.location = da.info.url;
-                            }
-                        });
+                        ank.msg(da.info);
                         _this.removeClass("disabled");
                         $('#klbg').remove();
                     },

@@ -57,19 +57,20 @@ $(function() {
             postdata = formobj.serialize();
             a = "{" + a + "}";
             b = eval("(" + a + ")");
-            $("body").append('<div id="klbg" class="bg">');
+            // $("body").append('<div id="klbg" class="bg">');
             $.ajax({
                 url: url,
                 type: "POST",
                 datatype: "JSON",
                 data: postdata,
                 success: function(da) {
-                    topmsg(da, function() {
-                        thisobj.removeClass("disabled");
-                        if (typeof callback === "function") {
-                            callback(da);
-                        }
-                    });
+                    ank.msg(da.info);
+                    // topmsg(da, function() {
+                    //     thisobj.removeClass("disabled");
+                    //     if (typeof callback === "function") {
+                    //         callback(da);
+                    //     }
+                    // });
                 }
             });
         } catch (e) {
@@ -81,7 +82,7 @@ $(function() {
     window.topmsg = function(da, callback) {
         var str = (typeof da === "string") ? da : da.info;
         var data = {
-            status:1,
+            status: 1,
             url: '',
             info: str,
             msgtime: 2
@@ -96,7 +97,7 @@ $(function() {
         $("body").css("position", "relative");
         $("#topmsg").remove();
         //var xiaolian = da.status == "0" ? ">_<" : "o_0";
-        data.status==1?xiaolian='msgok':xiaolian='msgerr';
+        data.status == 1 ? xiaolian = 'msgok' : xiaolian = 'msgerr';
         $("body").append('<div id="topmsg" style="display:none;top:30%;z-index:99999;padding:15px 20px;font-weight:bolder;text-align:center; color:#f00;display:block;position:fixed; background:#fff; left:50%;border-radius: 10px;-webkit-box-shadow: 0px 4px 13px rgba(0,0,0,0.30);-moz-box-shadow: 0px 4px 13px rgba(0,0,0,0.30);box-shadow: 0px 4px 13px rgba(0,0,0,0.30);_left:45%;_position:absolute;_bottom:auto;_top:expression(eval(document.documentElement.scrollTop));"><div style="margin-top: 2px;" class="' + xiaolian + '" ></div>' + data.info + "<span>," + msgtime + "</span></div>");
         var msgo = $("#topmsg");
         msgo.css({

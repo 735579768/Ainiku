@@ -4,10 +4,32 @@
 <meta charset="utf-8">
 <title>{$meta_title}_{:C('ADMIN_TITLE')}{:C('DEFAULT_THEME')}</title>
 <include file="Public:head" />
-<ank:insert name="jquery-1.9.1.min,divselect,divcheck,flashcopy-min,functions,ainiku,msg,ajax,tabclose,jquery.resizableColumns,init,autoyz" type="js"/>
+<ank:insert name="jquery-1.9.1.min,divselect,divcheck,flashcopy-min,functions,ainiku,msg,tabclose,adminfunc" type="js"/>
 <ank:insert name="reset,common,animation,layout,icon" />
 <link href="__CSS__/{:C('DEFAULT_COLOR')}color.css" type="text/css" rel="stylesheet" />
 <!--[if IE]><ank:insert name="iefix" /> <![endif]-->
+<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+<script type="text/javascript">
+	$(function(){
+		window.ank= window.ank || {};
+		window.ank.open=function(){
+			var arg=arguments;
+			if(parent){
+			parent.layer.open.apply(parent.layer,arg);
+			}else{
+			layer.open.apply(parent.layer,arg);
+			}
+		};
+		window.ank.msg=function(){
+			var arg=arguments;
+			if(parent){
+			parent.layer.msg.apply(parent.layer,arg);
+			}else{
+			layer.msg.apply(parent.layer,arg);
+			}
+		};
+	});
+</script>
 <style type="text/css">
 @font-face {
 font-family: 'FontAwesome';
@@ -44,6 +66,7 @@ $(function() {
 	//hideRadio.hide($('input[type="radio"]'));
 	});
 </script>
+<ank:insert type="js" name="init,ajax,jquery.resizableColumns,autoyz" />
 </body>
 </html>
 

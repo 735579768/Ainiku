@@ -8,7 +8,7 @@ if (version_compare(PHP_VERSION, '5.3.0', '<')) {
 
 //常量定义
 define('ACCESS_ROOT', true);
-define('APP_DEBUG', false);
+define('APP_DEBUG', true);
 APP_DEBUG or define('BUILD_LITE_FILE', true);
 // 绑定访问Admin模块
 //define('BIND_MODULE','Daili');
