@@ -172,4 +172,11 @@ dump($assets);*/
 		str_replace('</head>', "$cssjss\n</head>", $str);
 		echo $str;
 	}
+	protected function returnExit($result = 0) {
+		if ($result > 0) {
+			$this->success('操作成功');
+		} else {
+			$this->error('操作失败');
+		}
+	}
 }
