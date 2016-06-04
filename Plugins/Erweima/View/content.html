@@ -1,9 +1,9 @@
 <div class="">
 <pre>
 在模板中使用(注意 中间不要有空格)
-< img src="{ :UP('Erweima/create',array('200','这个是测试内容','./Plugins/Erweima/logo.jpg')) }" />
+< img src="{ :UP('Erweima/create',array('whsize'=>'300','content'=>'这个是测试内容','logo'=>'./Plugins/Erweima/logo.jpg'))}" />
 
 在php脚本中使用
-runPluginMethod('Erweima','create',array('200','这个是测试内容','./Plugins/Erweima/logo.jpg'));
+runPluginMethod('Erweima','create',array('whsize'=>'300','content'=>'这个是测试内容','logo'=>'./Plugins/Erweima/logo.jpg'));
 </pre>
 </div>

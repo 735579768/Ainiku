@@ -10,7 +10,9 @@ class ErweimaPlugin extends \Plugins\Plugin {
 		'descr'   => '生成二维码',
 	);
 	//钩子默认的调用方法
-	public function create($whsize = 200, $content = '', $logo = './Plugins/Erweima/logo.jpg') {
+	public function create($whsize = '', $content = '', $logo = './Plugins/Erweima/logo.jpg') {
+		empty($whsize) && $whsize   = I('get.whsize', '');
+		empty($content) && $content = I('get.content', '');
 /*		$im = $this->imgradius();
 header('Content-type: image/png');
 imagepng($im);
