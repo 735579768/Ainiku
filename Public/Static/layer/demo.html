@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <title>layer-更懂你的web弹窗解决方案</title>
 <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
-<script src="layer.js"></script>
+<script src="layer/layer.js"></script>
 
 <style>
 html{background-color:#E3E3E3; font-size:14px; color:#000; font-family:'微软雅黑'}
@@ -23,7 +23,7 @@ pre{font-family:'微软雅黑'}
 <div class="box">
 <pre>
  @Name：layer-v<script>document.write(layer.v)</script> 弹层组件说明
- @Author：贤心
+ @Author：贤心 
  @Blog：<a href="http://sentsin.com" target="_blank">http://sentsin.com</a>
  @Site：<a href="http://layer.layui.com/?form=local"  target="_blank">http://layer.layui.com</a>
  @Github：<a href="https://github.com/sentsin/layer"  target="_blank">https://github.com/sentsin/layer</a>
@@ -43,7 +43,7 @@ pre{font-family:'微软雅黑'}
     <h2 style="padding-bottom:20px;">扩展模块：图片查看器（相册层）</h2>
     <div id="photosDemo" class="photos-demo">
         <!-- layer-src表示大图  layer-pid表示图片id  src表示缩略图-->
-
+        
         <img layer-src="http://static.oschina.net/uploads/space/2014/0516/012728_nAh8_1168184.jpg" layer-pid="" src="http://static.oschina.net/uploads/space/2014/0516/012728_nAh8_1168184.jpg" alt="layer宣传图">
         <img layer-src="http://sentsin.qiniudn.com/sentsinmy5.jpg" layer-pid="" src="http://sentsin.qiniudn.com/sentsinmy5.jpg" alt="我入互联网这五年">
         <img layer-src="" layer-pid="" src="http://sentsin.qiniudn.com/sentsin_39101a660cf4671b7ec297a74cc652c74152104f.jpg" alt="微摄影">
@@ -64,13 +64,8 @@ pre{font-family:'微软雅黑'}
 <script>
 ;!function(){
 
-//加载扩展模块
-layer.config({
-    extend: 'extend/layer.ext.js'
-});
-
 //页面一打开就执行，放入ready是为了layer所需配件（css、扩展模块）加载完毕
-layer.ready(function(){
+layer.ready(function(){ 
     //官网欢迎页
     layer.open({
         type: 2,
@@ -85,9 +80,9 @@ layer.ready(function(){
             layer.tips('试试相册模块？', '#photosDemo', {tips: 1})
         }
     });
-
+    
     //layer.msg('欢迎使用layer');
-
+    
     //使用相册
     layer.photos({
         photos: '#photosDemo'
