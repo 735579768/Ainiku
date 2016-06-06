@@ -267,7 +267,7 @@ function sendMail($conf = array()) {
 	$uname      = isset($conf['username']) ? $conf['username'] : '';
 	$pwd        = isset($conf['password']) ? $conf['password'] : '';
 	$attachment = isset($conf['attachment']) ? $conf['attachment'] : '';
-	$fromemail  = isset($conf['fromemail']) ? $conf['fromemail'] : 'service@ainiku.com'; //来源邮箱
+	$fromemail  = isset($conf['fromemail']) ? $conf['fromemail'] : C('MAIL_SMTP_FROMEMAIL'); //来源邮箱
 
 	$host  = empty($host) ? C('MAIL_SMTP_HOST') : $host;
 	$port  = empty($port) ? C('MAIL_SMTP_PORT') : $port;
