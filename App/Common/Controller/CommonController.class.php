@@ -176,7 +176,7 @@ dump($assets);*/
 		if ($result > 0) {
 			empty($url) ? $this->success('操作成功') : $this->success('操作成功', $url);
 		} else {
-			empty($url) ? $this->error('操作失败') : $this->error('操作失败', $url);
+			$this->error('操作失败');
 		}
 	}
 }
