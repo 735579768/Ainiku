@@ -70,7 +70,6 @@ $(function() {
 
     //给元素注册触发ajax-post操作的事件
     $(".ajax-post").bind("click", function() {
-        debugger;
         if ($('#yzerr').length > 0) {
             ank.msg('请按格式填写!');
             return false;

@@ -17,6 +17,9 @@
 		window.ank= window.ank || {};
 		window.ank.open=function(){
 			var arg=arguments;
+			if(typeof(arg[0]=='object')){
+				arg[0]=arg[0]['info'];
+			}
 			if(parent){
 			parent.layer.open.apply(parent.layer,arg);
 			}else{
@@ -25,6 +28,9 @@
 		};
 		window.ank.msg=function(){
 			var arg=arguments;
+			if(typeof(arg[0]=='object')){
+				arg[0]=arg[0]['info'];
+			}
 			if(parent){
 			parent.layer.msg.apply(parent.layer,arg);
 			}else{

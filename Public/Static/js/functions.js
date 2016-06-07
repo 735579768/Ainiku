@@ -18,9 +18,27 @@ $(function() {
             type: "POST",
             url: url,
             success: function(da) {
-                topmsg(da, function() {
-                    obj.removeClass("disabled");
-                });
+                if (da.status == '0') {
+                    layer.msg(da.info, {
+                        shift: 6
+                    }, function() {
+                        if (typeof callback === "function") {
+                            callback(da);
+                        }
+                    })
+                } else {
+                    layer.msg(da.info, {
+                        shift: 0
+                    }, function() {
+                        // thisobj.removeClass("disabled");
+                        if (typeof callback === "function") {
+                            callback(da);
+                        }
+                    });
+                }
+                // topmsg(da, function() {
+                //     obj.removeClass("disabled");
+                // });
             },
             dataType: "JSON"
         });
@@ -64,13 +82,24 @@ $(function() {
                 datatype: "JSON",
                 data: postdata,
                 success: function(da) {
-                    ank.msg(da.info);
-                    // topmsg(da, function() {
-                    //     thisobj.removeClass("disabled");
-                    //     if (typeof callback === "function") {
-                    //         callback(da);
-                    //     }
-                    // });
+                    if (da.status == '0') {
+                        layer.msg(da.info, {
+                            shift: 6
+                        }, function() {
+                            if (typeof callback === "function") {
+                                callback(da);
+                            }
+                        })
+                    } else {
+                        layer.msg(da.info, {
+                            shift: 0
+                        }, function() {
+                            // thisobj.removeClass("disabled");
+                            if (typeof callback === "function") {
+                                callback(da);
+                            }
+                        });
+                    }
                 }
             });
         } catch (e) {
