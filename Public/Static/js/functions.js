@@ -8,12 +8,12 @@ $(function() {
     };
     window.ajaxhref = function(obj) {
         obj = $(obj);
-        obj.addClass("disabled");
+        //obj.addClass("disabled");
         if (typeof arguments[2] != "undefined") reloadbool = arguments[2];
         if (typeof arguments[1] != "undefined") msgtime = arguments[1];
         url = obj.attr("href");
         if (typeof url == "undefined") url = obj.attr("url");
-        $("body").append('<div id="klbg" class="bg">');
+        // $("body").append('<div id="klbg" class="bg">');
         $.ajax({
             type: "POST",
             url: url,
@@ -55,7 +55,7 @@ $(function() {
      */
     window.ajaxform = function(thisobj, callback) {
         thisobj = $(thisobj);
-        thisobj.addClass("disabled");
+        // thisobj.addClass("disabled");
         if (typeof arguments[2] != "undefined") reloadbool = arguments[2];
         if (typeof arguments[1] != "undefined") msgtime = arguments[1];
         try {
