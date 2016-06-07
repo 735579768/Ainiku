@@ -81,30 +81,47 @@ $(function(){
       </notempty>
       <eq name="field['is_require']" value="1"><span style="color:red;">(必填)</span></eq>
         </div>
+
         <switch name="field['type']">
           <case value="number">
+          <div class="form-wrap">
             <input type="text"  <notempty name="field.data_reg">  class="form-control input-small autoyz" data-reg="{$field.data_reg}" data-ts="{$field.data_ts}" data-ok="{$field.data_ok}" data-err="{$field.data_err}"<else />  class="form-control input-small"</notempty>    placeholder="请输入{$field['title']}" name="{$field['name']}" value="{$field['data']}" />
+          </div>
           </case>
            <case value="double">
+           <div class="form-wrap">
             <input type="text"  <notempty name="field.data_reg">  class="form-control input-small autoyz" data-reg="{$field.data_reg}" data-ts="{$field.data_ts}" data-ok="{$field.data_ok}" data-err="{$field.data_err}"<else />  class="form-control input-small"</notempty>    placeholder="请输入{$field['title']}" name="{$field['name']}" value="{$field['data']}" />
+          </div>
           </case>
           <case value="string">
+          <div class="form-wrap">
             <input type="text" <notempty name="field.data_reg">  class="form-control input-large autoyz" data-reg="{$field.data_reg}" data-ts="{$field.data_ts}" data-ok="{$field.data_ok}" data-err="{$field.data_err}"<else />  class="form-control input-large"</notempty>   placeholder="请输入{$field['title']}"  name="{$field['name']}" value="{$field['data']}" />
+          </div>
           </case>
           <case value="password">
+          <div class="form-wrap">
             <input type="password"  <notempty name="field.data_reg">  class="form-control input-small autoyz" data-reg="{$field.data_reg}" data-ts="{$field.data_ts}" data-ok="{$field.data_ok}" data-err="{$field.data_err}"<else />  class="form-control input-small"</notempty>    placeholder="请输入{$field['title']}" name="{$field['name']}" value="{$field['data']}" />
+          </div>
           </case>
           <case value="textarea">
+          <div class="form-wrap">
             <textarea  rows=1 cols=40 style='overflow:scroll;overflow-y:hidden;;overflow-x:hidden;' onfocus="window.activeobj=this;this.clock=setInterval(function(){if(activeobj.scrollHeight>=112){activeobj.style.height=(activeobj.scrollHeight-12)+'px';}},10);" onblur="clearInterval(this.clock);"   <notempty name="field.data_reg">  class="form-control input-large autoyz" data-reg="{$field.data_reg}" data-ts="{$field.data_ts}" data-ok="{$field.data_ok}" data-err="{$field.data_err}"<else />  class="form-control input-large"</notempty>  placeholder="请输入{$field['title']}"  name="{$field['name']}">{$field['data']}</textarea>
+          </div>
           </case>
           <case value="bigtextarea">
+          <div class="form-wrap">
             <textarea rows=1 cols=40 style='overflow:scroll;overflow-y:hidden;;overflow-x:hidden;width:96%;' onfocus="window.activeobj=this;this.clock=setInterval(function(){if(activeobj.scrollHeight>=112){activeobj.style.height=(activeobj.scrollHeight-12)+'px';}},10);" onblur="clearInterval(this.clock);"   <notempty name="field.data_reg">  class="form-control  autoyz" data-reg="{$field.data_reg}" data-ts="{$field.data_ts}" data-ok="{$field.data_ok}" data-err="{$field.data_err}"<else />  class="form-control "</notempty>  placeholder="请输入{$field['title']}"  name="{$field['name']}">{$field['data']}</textarea>
+          </div>
           </case>
           <case value="datetime">
+          <div class="form-wrap">
             <input name="{$field['name']}" type="text" readonly class="form-control input-middle time" style="width:145px;" value="<empty name="field['data']">{:date('Y-m-d')}<else />{$field['data']|time_format}</empty>" placeholder="请选择时间" />
+          </div>
             </case>
               <case value="color">
+              <div class="form-wrap">
          <input name="{$field['name']}"  type="text" class="selectcolor form-control input-small" value="{$field['data']|default='#ffffff'}">
+       </div>
             </case>
           <case value="bool">
             <select name="{$field['name']}" class="form-control input-middle">
