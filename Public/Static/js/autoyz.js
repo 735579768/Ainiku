@@ -27,7 +27,7 @@ $(function() {
 		},
 		init: function() {
 			var _this = this;
-			var dobj=$('input.autoyz');
+			var dobj = $('input.autoyz');
 			dobj.wrap('<div class="autoyz-wrap" style="position:relative;display:inline-block;"></div>');
 			dobj.parent().append('<span></span>');
 			dobj.focus(function(e) {
@@ -37,7 +37,7 @@ $(function() {
 					ob.removeAttr('class');
 					ob.addClass('yzth1');
 					ob.html(s1);
-					ob.css('right', '-' + (ob.width() + 40) + 'px');
+					ob.css('right', '-' + (ob.width() + 60) + 'px');
 					ob.show();
 				} else {
 					//正确
@@ -47,7 +47,7 @@ $(function() {
 					ob.removeAttr('class');
 					ob.addClass('yzok');
 					ob.html(s1);
-					ob.css('right', '-' + (ob.width() + 40) + 'px');
+					ob.css('right', '-' + (ob.width() + 60) + 'px');
 					ob.show();
 				}
 			});
@@ -60,7 +60,7 @@ $(function() {
 					ob.removeAttr('class');
 					ob.addClass('yzok');
 					ob.html(s1);
-					ob.css('right', '-' + (ob.width() + 40) + 'px');
+					ob.css('right', '-' + (ob.width() + 60) + 'px');
 					ob.show();
 				} else {
 					//错误
@@ -70,7 +70,7 @@ $(function() {
 					ob.removeAttr('class');
 					ob.addClass('yzerr');
 					ob.html(s1);
-					ob.css('right', '-' + (ob.width() + 40) + 'px');
+					ob.css('right', '-' + (ob.width() + 60) + 'px');
 					ob.show();
 					$(this).val('');
 				}
