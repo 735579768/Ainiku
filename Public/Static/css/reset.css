@@ -38,7 +38,7 @@ a:hover{color:#000;}
 
 /*********************************表单样式***********************************/
 .form-group{margin-bottom:10px;}
-.form-label{padding:5px 5px 2px 0px;font-weight:bolder;color:#666;font-size:14px;display:block;}
+.form-label{padding:0px 10px;height:30px;line-height:30px;font-weight:bolder;color:#666;font-size:14px;display:block;background:#fff;}
 .form-control{transition:all .3s;-webkit-transition:all .3s;-moz-transition:all .3s;-o-transition:all .3s;border-radius:4px;display:block;width:100%;height:24px;padding:3px 5px;font-size:14px;line-height:1.428571429;vertical-align:middle;background-image:none;-webkit-box-shadow:inset 1px 1px 1px rgba(0,0,0,0.25);box-shadow:inset 1px 1px 1px rgba(0,0,0,0.25);-webkit-transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;box-shadow:inset 1px 1px 1px rgba(107,176,95,0.25);}
 .form-control:hover{box-shadow:inset 0 1px 2px rgba(0,0,0,0.175);}
 .form-control:focus{outline:0;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,0.6);box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,0.6);}
@@ -47,8 +47,24 @@ select.form-control{display:inline-block;width:auto;height:30px;}
 .controls input{display:inline-block;margin:5px 5px 5px 10px;}
 .form-tip{display:inline-block;margin:0px 5px;color:#aaa;}
 .form-group-h .form-controls,.form-group-h .form-control,.form-group-h .form-label{display:inline-block;}
-.form-group-h .form-label{min-width:65px;text-align:right;}
-.form-h .form-group{display:inline-block;vertical-align:top;margin-bottom:0px;}
+.form-group-h .form-label{width:150px;text-align:left;position:relative;}
+.form-group-h .form-group .form-label:hover .form-tip{display:block;}
+.form-group-h .form-label .form-tip{width: 200px;padding:10px;word-break: break-all;color: #111; display:none;background: #ededed; position:absolute;left:50px;bottom:50px;border:solid 1px #ededed;z-index:9999999;box-shadow: 2px 2px 8px #ccc;}
+.form-group-h .form-label .form-tip:before {
+
+    content: '';
+    position: absolute;
+    left: 20px;
+    border-style: solid;
+ 	width:0;
+    height:0;
+    border-left:20px solid transparent;
+    border-right:20px solid transparent;
+    border-top:20px solid #ededed;
+    border-bottom: 0px;
+    bottom: -20px;
+}
+.form-h .form-group{display:inline-block;vertical-align:top;margin-left:10px;}
 
 /***表单长度***/
 .input-large{width:400px;}

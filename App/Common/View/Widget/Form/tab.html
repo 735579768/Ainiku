@@ -77,7 +77,7 @@ $(function(){
   <if condition="(($actionstatus eq 'add') and ($field['is_show'] eq '1')) or (($actionstatus eq 'edit') and ($field['is_show'] eq '2')) or (($field['is_show'] eq '3')) or (($field['is_show'] eq '4')and($Think.const.MODULE_NAME =='Admin'))">
   <!--is_show   1 add   2 edit   3other 4 admin is show-->
     <div class="form-group cl">
-      <div class="form-label">{$field['title']}<notempty name="field['note']"><span class="form-tip">（{$field['note']}）</span>
+    <div class="form-label"><b>{$field['title']}</b><notempty name="field['note']"><span class="form-tip">（{$field['note']}）</span>
       </notempty>
       <eq name="field['is_require']" value="1"><span style="color:red;">(必填)</span></eq>
         </div>
@@ -119,9 +119,9 @@ $(function(){
           </div>
             </case>
               <case value="color">
-              <div class="form-wrap">
+
          <input name="{$field['name']}"  type="text" class="selectcolor form-control input-small" value="{$field['data']|default='#ffffff'}">
-       </div>
+
             </case>
           <case value="bool">
             <select name="{$field['name']}" class="form-control input-middle">
