@@ -74,11 +74,9 @@ $(function() {
             ank.msg('请按格式填写!');
             return false;
         }
-        $(this).addClass("disabled");
         ajaxform($(this));
     });
     $(".ajax-href").bind("click", function() {
-        $(this).addClass("disabled");
         return ajaxhref($(this));
     });
     $(".ajax-href-del").bind("click", function() {
