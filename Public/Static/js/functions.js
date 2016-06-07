@@ -25,6 +25,7 @@ $(function() {
                         if (typeof callback === "function") {
                             callback(da);
                         }
+
                     })
                 } else {
                     layer.msg(da.info, {
@@ -36,6 +37,7 @@ $(function() {
                         }
                     });
                 }
+                da.url && (window.location.href = da.url);
                 // topmsg(da, function() {
                 //     obj.removeClass("disabled");
                 // });
@@ -100,6 +102,7 @@ $(function() {
                             }
                         });
                     }
+                    da.url && (window.location.href = da.url);
                 }
             });
         } catch (e) {
