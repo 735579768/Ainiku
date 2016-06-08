@@ -3,7 +3,10 @@
 namespace Admin\Controller;
 class IndexController extends AdminController {
 	public function index() {
-		//$this->display();
-		redirect(U($this->uinfo['admin_index'], array('mainmenu' => 'true')));
+		if (MAIN_IFRAME != 'true') {
+			redirect(U($this->uinfo['admin_index']));
+		} else {
+			$this->display();
+		}
 	}
 }
