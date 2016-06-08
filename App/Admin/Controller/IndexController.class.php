@@ -4,7 +4,11 @@ namespace Admin\Controller;
 class IndexController extends AdminController {
 	public function index() {
 		if (MAIN_IFRAME != 'true') {
-			redirect(U($this->uinfo['admin_index']));
+			if (strtolower($this->uinfo['admin_index']) != 'index/index') {
+				redirect(U($this->uinfo['admin_index']));
+			} else {
+				$this->display();
+			}
 		} else {
 			$this->display();
 		}
