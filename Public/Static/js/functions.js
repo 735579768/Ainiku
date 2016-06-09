@@ -18,29 +18,7 @@ $(function() {
             type: "POST",
             url: url,
             success: function(da) {
-                if (da.status == '0') {
-                    layer.msg(da.info, {
-                        shift: 6
-                    }, function() {
-                        if (typeof callback === "function") {
-                            callback(da);
-                        }
-
-                    })
-                } else {
-                    layer.msg(da.info, {
-                        shift: 0
-                    }, function() {
-                        // thisobj.removeClass("disabled");
-                        if (typeof callback === "function") {
-                            callback(da);
-                        }
-                    });
-                }
-                da.url && (window.location.href = da.url);
-                // topmsg(da, function() {
-                //     obj.removeClass("disabled");
-                // });
+                ank.msg(da);
             },
             dataType: "JSON"
         });
@@ -84,25 +62,7 @@ $(function() {
                 datatype: "JSON",
                 data: postdata,
                 success: function(da) {
-                    if (da.status == '0') {
-                        layer.msg(da.info, {
-                            shift: 6
-                        }, function() {
-                            if (typeof callback === "function") {
-                                callback(da);
-                            }
-                        })
-                    } else {
-                        layer.msg(da.info, {
-                            shift: 0
-                        }, function() {
-                            // thisobj.removeClass("disabled");
-                            if (typeof callback === "function") {
-                                callback(da);
-                            }
-                        });
-                    }
-                    da.url && (window.location.href = da.url);
+                    ank.msg(da);
                 }
             });
         } catch (e) {

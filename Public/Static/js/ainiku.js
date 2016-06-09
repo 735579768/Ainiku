@@ -160,11 +160,11 @@
 			var style = "<style>.bg{position:fixed;_position:absolute;z-index:" + (this.config.zindex - 1) + ";top:0px;left:0px;width:100%;_width:expression(document.documentElement.scrollWidth);height:100%;_height:expression(document.documentElement.scrollHeight);background:rgb(0,0,0);background:url(../images/loading.gif) center center no-repeat rgba(0,0,0,0.1);filter:alpha(opacity=0.1);}#dialog-wrap *{font-family:Microsoft Yahei;}#dialog-wrap a{text-decoration:none;}#dialog{overflow:hidden;position:fixed;z-index:" + this.config.zindex + ";top:45%;left:50%;font-size:14px;color:#333;opacity:1;_position:absolute;_width:expression((this.clientWidth<100)?'100px':'auto');_height:expression((this.clientHidth<50)?'50px':'auto');_bottom:auto;_top:expression(eval(document.documentElement.scrollTop+(document.documentElement.clientHeight-this.offsetHeight)/2));_padding-bottom:10px;}#dialog h2{font-size:14px;line-height:31px;white-space:nowrap;overflow:hidden;padding:0 10px;height:31px;font-weight:bolder;}#dialog .t_l,#dialog .t_c,#dialog .t_r,#dialog .m_l,#dialog .m_r,#dialog .b_l,#dialog .b_c,#dialog .b_r{overflow:hidden;background:#000;opacity:0.2;filter:alpha(opacity=20);}#dialog .t_l,#dialog .t_r,#dialog .b_l,#dialog .b_r{width:6px;height:6px;}#dialog .t_c,#dialog .b_c{height:6px;}#dialog .m_l,#dialog .m_r{width:6px;}#dialog .t_l{-moz-border-radius:6px 0 0 0;-webkit-border-radius:6px 0 0 0;border-radius:6px 0 0 0;}#dialog .t_r{-moz-border-radius:0 6px 0 0;-webkit-border-radius:0 6px 0 0;border-radius:0 6px 0 0;}#dialog .b_l{-moz-border-radius:0 0 0 6px;-webkit-border-radius:0 0 0 6px;border-radius:0 0 0 6px;}#dialog .b_r{-moz-border-radius:0 0 6px 0;-webkit-border-radius:0 0 6px 0;border-radius:0 0 6px 0;}#dialog .m_c{background:#FFF;}#dialog .m_c .tb{margin:0 0 10px;padding:0 10px;}#dialog .m_c .c{padding:0;}#dialog .m_c .o{padding:8px 6px 8px 20px;height:26px;text-align:right;border-top:1px solid #ededed;background:#F7F7F7;}#dialog .m_c .el{width:420px;}#dialog .m_c .el li{padding:0;border:none;}#dialog .flbc{float:right;margin:3px;font-size:16px;font-weight:bolder;position:relative;right:0px;display:inline-block;overflow:hidden;margin-right:10px;}#dialog .flbc:hover{color:#f00;}#dialog .bm_h{background:#fdfdfd;border-bottom:1px solid #ededed;}#dialog #dialog-con{padding:10px 20px;}#dialog .bm_h{border-bottom:1px solid #CDCDCD;}</style>";
 			opts.btn || (btn = '');
 			$("body").append('<div id="dialog-wrap">' + style + '<div class="bg" style="background-image:none;"></div><table class="dialog" id="dialog" cellpadding="0" cellspacing="0"><tr><td class="t_l"></td><td class="t_c"></td><td class="t_r"></td></tr><tr><td class="m_l"></td><td class="m_c">		<div class="bm">				<div class="bm_h cl"><span><a href="javascript:;" class="flbc" id="dialog-close" title="关闭">X</a></span><h2 class="dialogh2">' + opts.title + '</h2></div><div class="bm_c" id="dialog-con"><div id="dialog-conn"></div></div>' + btn + '</div></td><td class="m_r"></td></tr><tr><td class="b_l"></td><td class="b_c"></td><td class="b_r"></td></tr></table></div>');
-			var dialogwrap=$('#dialog-wrap');
-			var dialog=$('#dialog');
-			var dialogcon=$('#dialog-con');
-			var dialogconn=$('#dialog-conn');
-			var dialogclose=$("#dialog-close");
+			var dialogwrap = $('#dialog-wrap');
+			var dialog = $('#dialog');
+			var dialogcon = $('#dialog-con');
+			var dialogconn = $('#dialog-conn');
+			var dialogclose = $("#dialog-close");
 			var setdialog = function() {
 				_this.drag({
 					obj: dialog
@@ -282,46 +282,70 @@
 
 		//弹出消息框并自己消失
 		msg: function(options, callback) {
-			($('#kl-msg-wrap').length >= 1) && $('#kl-msg-wrap').remove();
-			var _this = this;
-			var args = arguments;
-			var conf = {
-				status:1,
-				content: '没有消息哦！',
-				style: '', //算定义样式
-				delay: 2,
-				success: function() {}
-			};
-			if(typeof(args[0])==='object'){
-				for (var name in args[0]) {
-					conf[name] = args[0][name];
-				}
-				conf.content=args[0]['info'];
-			}else if (args[0] && args[1] && args[2]) {
-				conf.content = args[0], conf.success = args[1], conf.delay = parseInt(args[2]);
-				_gtype(args[1]) === 'number' && (conf.delay = parseInt(args[1]));
-				_gtype(args[1]) === 'function' && (conf.success = args[1]);
-			} else if (args[0] && args[1]) {
-				conf.content = args[0];
-				_gtype(args[1]) === 'number' && (conf.delay = parseInt(args[1]));
-				_gtype(args[1]) === 'function' && (conf.success = args[1]);
-			} else {
-				_gtype(options) === 'string' && (conf.content = options);
-				_gtype(options) === 'object' && (conf = this.extend(options, conf));
+			var texiao = 0; //默认动画效果
+			var content = '没有消息!';
+			var url = '';
+			if (typeof(options == 'object')) {
+				content = options['info'];
+				(options.status == '0') && (texiao = 6);
+				url = options.url;
 			}
-			conf.status==1?conf.status='msgok':conf.status='msgts';
-			var style = "<style>#kl-msg-wrap *{font:14px/1.5 'microsoft yahei';}#kl-msg{position:fixed;top:40%;left:50%;border:solid 2px #C3C3C3;z-index:" + this.config.zindex + ";background:#fff;padding:10px 20px;}" + conf.style + "</style>";
-			var html = '<div id="kl-msg-wrap">' + style + '<div id="kl-msg"><span class="'+conf.status+'"></span>' + conf.content + '</div></div>';
-			$('body').append(html);
-			var obj = $('#kl-msg');
-			obj.css({
-				marginLeft: -obj.outerWidth() / 2,
-				marginTop: -obj.outerHeight() / 2
-			});
-			setTimeout(function() {
-				typeof(conf.success) === 'function' && conf.success(conf);
-				$('#kl-msg-wrap').remove();
-			}, conf.delay * 1000);
+
+			var param = [
+				content, {
+					shift: texiao,
+				},
+				function() {
+					(typeof(callback) == 'function') && callback(options);
+					(url != '') && (window.location.href = url);
+				}
+			];
+
+			if (parent) {
+				parent.layer.msg.apply(parent.layer, param);
+			} else {
+				layer.msg.apply(layer, param);
+			}
+			// ($('#kl-msg-wrap').length >= 1) && $('#kl-msg-wrap').remove();
+			// var _this = this;
+			// var args = arguments;
+			// var conf = {
+			// 	status:1,
+			// 	content: '没有消息哦！',
+			// 	style: '', //算定义样式
+			// 	delay: 2,
+			// 	success: function() {}
+			// };
+			// if(typeof(args[0])==='object'){
+			// 	for (var name in args[0]) {
+			// 		conf[name] = args[0][name];
+			// 	}
+			// 	conf.content=args[0]['info'];
+			// }else if (args[0] && args[1] && args[2]) {
+			// 	conf.content = args[0], conf.success = args[1], conf.delay = parseInt(args[2]);
+			// 	_gtype(args[1]) === 'number' && (conf.delay = parseInt(args[1]));
+			// 	_gtype(args[1]) === 'function' && (conf.success = args[1]);
+			// } else if (args[0] && args[1]) {
+			// 	conf.content = args[0];
+			// 	_gtype(args[1]) === 'number' && (conf.delay = parseInt(args[1]));
+			// 	_gtype(args[1]) === 'function' && (conf.success = args[1]);
+			// } else {
+			// 	_gtype(options) === 'string' && (conf.content = options);
+			// 	_gtype(options) === 'object' && (conf = this.extend(options, conf));
+			// }
+			// conf.status==1?conf.status='msgok':conf.status='msgts';
+			// var style = "<style>#kl-msg-wrap *{font:14px/1.5 'microsoft yahei';}#kl-msg{position:fixed;top:40%;left:50%;border:solid 2px #C3C3C3;z-index:" + this.config.zindex + ";background:#fff;padding:10px 20px;}" + conf.style + "</style>";
+			// var html = '<div id="kl-msg-wrap">' + style + '<div id="kl-msg"><span class="'+conf.status+'"></span>' + conf.content + '</div></div>';
+			// $('body').append(html);
+			// var obj = $('#kl-msg');
+			// obj.css({
+			// 	marginLeft: -obj.outerWidth() / 2,
+			// 	marginTop: -obj.outerHeight() / 2
+			// });
+			// setTimeout(function() {
+			// 	typeof(conf.success) === 'function' && conf.success(conf);
+			// 	$('#kl-msg-wrap').remove();
+			// }, conf.delay * 1000);
 		},
 
 		//冒泡信息提示
