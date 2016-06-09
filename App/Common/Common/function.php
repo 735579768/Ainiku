@@ -799,14 +799,22 @@ function compress_css($path) {
  *压缩JS文件并替换JS嵌套include文件
  */
 function compress_js($jspath) {
-	$js = file_get_contents($jspath);
+	//查找是否有压缩文件存在
+	$farr                     = explode('.', $jspath);
+	$farr[[count($farr) - 1]] = 'min.js';
+	$minjs                    = implode('.', $farr);
+	if (file_exists($minjs)) {
+		return file_get_contents($minjs);
+	} else {
+		return file_get_contents($jspath);
+	}
+
 	// import('Ainiku.JavaScriptPacker');
 	// $packer = new JavaScriptPacker($js, 'Normal', true, false);
 	// $js     = $packer->pack();
 
 	// import('Ainiku.JSMin');
 	// return JSMin::minify($js);
-	return $js;
 }
 /**
  *写字符串到文件
