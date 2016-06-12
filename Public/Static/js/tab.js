@@ -1,51 +1,52 @@
+/**
+ * 使用方法
+ * 		$('#mytab').mytab({
+			ev: "mouseover", //事件
+			navcls: ".kl-tab-nav", //导航
+			divcls: ".kl-tab-div", //显示块
+			navhovercls: "hover", //选中后的类
+			divshowcls: "hover", //显示后的类
+			showdiv: 1 //显示第一个div块
+		});
+ */
+
 ;
 (function($) {
 	$.fn.mytab = function(options) {
 		var thissel = $(this).selector;
 		var defaults = {
-			ev: "mouseover",
-			navcls: ".kl-tab-nav",
-			divcls: ".kl-tab-div",
-			navhovercls: "n1",
-			divshowcls: "d1",
-			showdiv: 1,
-			lnav: ".lnav",
-			rnav: ".rnav",
-			effect: "fade"
+			ev: "mouseover", //事件
+			navcls: ".kl-tab-nav", //导航
+			divcls: ".kl-tab-div", //显示块
+			navhovercls: "hover", //选中后的类
+			divshowcls: "hover", //显示后的类
+			showdiv: 1 //显示第一个div块
 		};
 		var opts = $.extend(defaults, options);
-		$(thissel + " " + opts.divcls).each(function(index, element) {
-			$(this).attr("markid", index)
+		var navlist = $(thissel + " " + opts.navcls);
+		var divlist = $(thissel + " " + opts.divcls);
+		divlist.each(function(index, element) {
+			$(this).data('tab-index', index);
 		});
-		$(thissel + " " + opts.navcls).each(function(index, element) {
-			$(this).attr("markid", index)
+		navlist.each(function(index, element) {
+			$(this).data('tab-index', index);
 		});
-		$(thissel + " " + opts.lnav).click(function(e) {});
-		$(thissel + " " + opts.divcls).hide();
-		$(thissel + " " + opts.navcls).bind(opts.ev, function() {
+		navlist.bind(opts.ev, function() {
 			var obj = $(this);
-			obj.parents(thissel).find(opts.navcls).removeClass(opts.navhovercls);
+			var tabindex = obj.data('tab-index');
+			navlist.not(opts.navhovercls).removeClass(opts.navhovercls);
 			obj.addClass(opts.navhovercls);
-			obj.parents(thissel).find(opts.divcls).hide();
-			obj.parents(thissel).find(opts.divcls).removeClass(opts.divshowcls);
-			obj.parents(thissel).find(opts.navcls).each(function(i) {
-				if ($(this).attr("markid") == obj.attr("markid")) {
-					obj.parents(thissel).find(opts.divcls).eq(i).addClass(opts.divshowcls);
-					var temobj = obj.parents(thissel).find(opts.divcls).eq(i);
-					if (opts.effect == "fade") {
-						temobj.css({
-							opacity: "0",
-							display: "block"
-						});
-						temobj.animate({
-							opacity: 1
-						}, 200)
-					} else {
-						temobj.show()
-					}
+			divlist.not(opts.divshowcls).hide();
+			divlist.each(function(i) {
+				var temobj = divlist.eq(i);
+				if ($(this).data('tab-index') == tabindex) {
+					temobj.addClass(opts.divshowcls);
+					temobj.show();
+				} else {
+					temobj.removeClass(opts.divshowcls);
 				}
 			})
 		});
-		$(thissel + " " + opts.navcls + ":first-child").trigger(opts.ev)
+		navlist.eq(opts.showdiv - 1).trigger(opts.ev);
 	}
 })(jQuery);
