@@ -45,7 +45,7 @@
 				} else {
 					temobj.removeClass(opts.divshowcls);
 				}
-			})
+			});
 		});
 		navlist.eq(opts.showdiv - 1).trigger(opts.ev);
 	}

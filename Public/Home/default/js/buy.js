@@ -289,7 +289,7 @@ $(function() {
                     if (da.status == 1) {
                         clearInterval(buyobj.verifyid);
                         $('#pay_status_text').html('支付成功!');
-                       // window.location.href = da.url;
+                        // window.location.href = da.url;
                     }
                 }
             });
@@ -318,7 +318,7 @@ $(function() {
                 url: _this.url.chongzhiurl,
                 data: {
                     online_pay: zftype,
-                    money:mon
+                    money: mon
                 },
                 success: function(da) {
                     if (da.status == 1) {
