@@ -348,6 +348,13 @@
 			// }, conf.delay * 1000);
 		},
 
+		open: function() {
+			if (parent) {
+				parent.layer.open.apply(parent.layer, arguments);
+			} else {
+				layer.open.apply(layer, arguments);
+			}
+		},
 		//冒泡信息提示
 		maopao: function(options) {
 			var conf = {
