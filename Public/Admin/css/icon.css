@@ -23,8 +23,8 @@
 .title-tool .tico{font-size:20px;padding-top:5px;}
 .title-tool .tico:before{content:"\f00b"!important;}
 .kl-tab-nav .close{font-size:0px;}
-.kl-tab-nav.hover .close:before,.kl-tab-nav .close:before{content:"\f057"!important;font-size:18px;display:inline-block;padding-top:2px;color:#fff;}
-.kl-tab-nav .close:before{color:#C1C1C1;}
+.kl-tab-nav.hover .close:before,.kl-tab-nav .close:before{content:"\f057"!important;font-size:18px;display:inline-block;padding-top:2px;color:#BFBFBF;}
+.kl-tab-nav .close:before{}
 .closewest:before{content:"\f07e"!important;font-size:24px;}
 .download:before{content:"\f019";}
 .btn-edit:before{content:"\f14b"!important;}
