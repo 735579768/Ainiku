@@ -101,8 +101,9 @@ function setIframeHeight(iframe) {
 	<li class="chrome-tab kl-tab-nav">{$meta_title}<span class="close">X</span><em></em></li>
 </ul>
 <!--tabnav end-->
+<!-- 默认首页地址 -->
     <div id="div-block" class="kl-tab-div-block cl">
-        <div class="kl-tab-div"><span class="iframeloading">正在加载...</span><iframe class="con-iframe" marginWidth=0 frameSpacing=0 marginHeight=0  onload="setIframeHeight(this);" frameborder="0" style="display:none;" border="0" src="{:str_replace(array('&mainmenu=true','/mainmenu/true','?mainmenu=true'),'','__SELF__')}" noResize width="100%" scrolling=auto  vspale="0"></iframe></div>
+        <div class="kl-tab-div"><span class="iframeloading">正在加载...</span><iframe class="con-iframe" marginWidth=0 frameSpacing=0 marginHeight=0  onload="setIframeHeight(this);" frameborder="0" style="display:none;" border="0" src="{:U($uinfo['admin_index'])}" noResize width="100%" scrolling=auto  vspale="0"></iframe></div>
     </div>
 </div>
 </if>
