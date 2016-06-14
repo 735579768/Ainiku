@@ -16,8 +16,10 @@ body{overflow:hidden;padding:62px 0px 0px 179px;}
 .index-center{margin:63px 10px 0px 10px;overflow-y:scroll;}
 .header{box-shadow:0 2px 3px rgba(0,0,0,0.15),inset 0 -1px 0 0 #fcfcfc;-moz-box-shadow:0 2px 3px rgba(0,0,0,0.15),inset 0 -1px 0 0 #fcfcfc;-webkit-box-shadow:0 2px 3px rgba(0,0,0,0.15),inset 0 -1px 0 0 #fcfcfc;border-top:4px solid #67ad03;border-left:4px solid #67ad03;}
 .left{padding-bottom:50px;padding-top:3px;border-left:4px solid #67ad03;border:solid 1px #ededed\9;box-shadow:0 2px 3px rgba(0,0,0,0.15),inset 0 -1px 0 0 #fcfcfc;-moz-box-shadow:0 2px 3px rgba(0,0,0,0.15),inset 0 -1px 0 0 #fcfcfc;-webkit-box-shadow:0 2px 3px rgba(0,0,0,0.15),inset 0 -1px 0 0 #fcfcfc;}
-.closewest{display:inline-block;background:url('../images/ico.png') -40px -216px no-repeat;width:23px;height:23px;position:fixed;top:60px;cursor:pointer;left:165px;z-index:9999;}
-
+.closewest{display:inline-block;background:url('../images/icon_arrow.png')  no-repeat 0 0!important;width:17px;height:61px;position:fixed;top:50%;left:180px;margin-top:-30px;cursor:pointer;z-index:9999;}
+.closewest:hover{    background-position: right 0!important;}
+.closewest.open{    background-position: 0 -61px!important;}
+.closewest.open:hover{    background-position: right -61px!important;}
 /***头部***/
 .logo{float:left;width:200px;text-align:center;letter-spacing:2px;font-size:25px;font-weight:bold;color:#666;}
 

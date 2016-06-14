@@ -13,51 +13,81 @@ $(function() {
 		$(this).find('ul').hide();
 	});
 	//侧栏关闭
-	$('#closewest').click(function(e) {
-		if ($(this).css('left') == '165px') {
-			$('#west').animate({
+	var leftside = $('#west');
+	var closewest = $('#closewest');
+	closewest.click(function(e) {
+		var _t = $(this);
+		if (_t.css('left') == '180px') {
+			// _t.css({
+			// 	'left': '-0px'
+			// });
+			// leftside.css({
+			// 	'overflow': 'hidden',
+			// 	'left': '-180px'
+			// });
+			// $('body').css({
+			// 	'paddingLeft': '0px'
+			// });
+
+
+			_t.animate({
+				'left': '-0px'
+			}, 200,function(){
+				_t.addClass('open');
+			});
+			leftside.animate({
 				'overflow': 'hidden',
-				//'padding':'10px 0px 50px 0px',
-				'left': '-179'
-			}, 500);
-			//$('#center').animate({'marginLeft':'0'},500);
+				'left': '-180px'
+			}, 200);
 			$('body').animate({
-				'paddingLeft': '0'
-			}, 500);
-			$(this).animate({
-				'left': '-10'
-			}, 500);
+				'paddingLeft': '0px'
+			}, 200);
+
 			writeCookie('leftside', 0);
 		} else {
-			//$('#center').animate({'marginLeft':'179'},500);
-			$('body').animate({
-				'paddingLeft': '179'
-			}, 500);
-			//$('#west').show();
-			$('#west').animate({
+			// _t.css({
+			// 	'left': '180px'
+			// });
+			// leftside.css({
+			// 	'overflow': 'hidden',
+			// 	'left': '0px'
+			// });
+			// $('body').css({
+			// 	'paddingLeft': '180px'
+			// });
+
+			_t.animate({
+				'left': '180px'
+			}, 200,function(){
+				_t.removeClass('open');
+			});
+			leftside.animate({
 				'overflow': 'hidden',
-				//'padding':'10px 10px 50px 10px',
-				'left': '0',
+				'left': '0px',
 				'overflowY': 'scroll'
-			}, 500);
-			$(this).animate({
-				'left': '165'
-			}, 500);
+			}, 200);
+			$('body').animate({
+				'paddingLeft': '180px'
+			}, 200);
+
+
 			writeCookie('leftside', 1);
 		}
 	});
 	if (readCookie('leftside') === '0') {
-		//$('#west').hide();
-		$('#west').css({
+		//leftside.hide();
+		leftside.css({
 			'overflow': 'hidden',
 			'padding': '10px 0px 50px 0px',
-			'left': '-198px'
+			'left': '-180px'
 		});
+
 		//$('#center').css('margin-left','0px');
 		$('body').css({
 			'paddingLeft': '0'
 		});
-		$('#closewest').css('left', '-10px');
+		closewest.css('left', '0px');
+		closewest.addClass('open');
 	}
 	//设置默认主菜单
 
@@ -71,7 +101,7 @@ $(function() {
 	});
 	$('#mainnav li a').click(function(e) {
 		$('#loadingimg').show();
-		var obj = $('#west');
+		var obj = leftside;
 		var shtml = obj.html();
 		var dataurl = $(this).attr('data-url');
 		$.ajax({
@@ -83,7 +113,7 @@ $(function() {
 			success: function(da) {
 				$('#loadingimg').hide();
 				if (da.status == '1') {
-					$('#west').html(da.info);
+					leftside.html(da.info);
 				} else {
 					ank.msg(da.info);
 				}
