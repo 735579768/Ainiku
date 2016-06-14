@@ -1,3 +1,29 @@
+<script>
+$(function(){
+	//判断是不是在iframe中
+	var iframename = self.frameElement;
+	var ifuri = window.location.pathname;
+	((ifuri == '/') ||(ifuri == '/index.php')) && (ifuri = "{:U(CONTROLLER_NAME.'/'.ACTION_NAME)}");
+	//ifuri="{:U(CONTROLLER_NAME.'/'.ACTION_NAME)}";
+	if (iframename == null) {
+		// 页面不在iframe中时处理
+		if ($('#closewest').length <= 0) {
+			if(ifuri.indexOf('?')>0){
+				window.location.href = ifuri + '&mainmenu=true';
+			}else{
+				window.location.href = ifuri + '?mainmenu=true';
+			}
+		}
+
+	} else {
+		//页面在iframe中
+		if (ifuri.indexOf('&mainmenu=true') != -1) {
+			window.location.href = ifuri.replace('&mainmenu=true', '');
+		}
+	}
+});
+
+</script>
 <if condition="$MAIN_IFRAME eq 'true'">
 <!--header start-->
 <i class="closewest" title="点击打开/关闭侧栏" id="closewest"></i>
@@ -25,37 +51,8 @@
 <!--south start-->
 <div id="south" class="layout-south hide">{:C('ADMIN_TITLE')}</div>
 </if>
-<script>
-	//判断是不是在iframe中
-	var iframename = self.frameElement;
-	var ifuri = window.location.pathname;
-	((ifuri == '/') ||(ifuri == '/index.php')) && (ifuri = "{:U(CONTROLLER_NAME.'/'.ACTION_NAME)}");
-	//ifuri="{:U(CONTROLLER_NAME.'/'.ACTION_NAME)}";
-	if (iframename == null) {
-		// 页面不在iframe中时处理
-		if ($('#closewest').length <= 0) {
-			if(ifuri.indexOf('?')>0){
-				window.location.href = ifuri + '&mainmenu=true';
-			}else{
-				window.location.href = ifuri + '?mainmenu=true';
-			}
-		}
 
-	} else {
-		//页面在iframe中
-		if (ifuri.indexOf('&mainmenu=true') != -1) {
-			window.location.href = ifuri.replace('&mainmenu=true', '');
-		}
-	}
-</script>
 <!--left end-->
-<if condition="!($MAIN_IFRAME eq 'true')">
-<style>
-.index-center, .layout-center{ margin-left:0px; margin-top:0px;}
-#center{ padding-left:0px;}
-body{ padding:0px; overflow-y:auto;min-width: 100px;}
-</style>
-</if>
 <!--center start-->
 <div id="center" class="layout-center right">
 <!--tab qiehuan start-->
@@ -93,8 +90,6 @@ function setIframeHeight(iframe) {
 };
 </script>
 
-
-
 <div class="kl-tab cl">
 <!--tabnav start-->
 <ul id="nav-block" class="kl-tab-nav-block cl">
@@ -106,9 +101,9 @@ function setIframeHeight(iframe) {
         <div class="kl-tab-div"><span class="iframeloading">正在加载...</span><iframe class="con-iframe" marginWidth=0 frameSpacing=0 marginHeight=0  onload="setIframeHeight(this);" frameborder="0" style="display:none;" border="0" src="{:U($uinfo['admin_index'])}" noResize width="100%" scrolling=auto  vspale="0"></iframe></div>
     </div>
 </div>
-</if>
+
 <!--tab qiehuan end-->
-<if condition="!($MAIN_IFRAME eq 'true')">
+<else />
 <!--导航标题位置-->
 <div class="title-tool cl"><div class="tico"></div><div class="title">
 <block name="maintitle">
@@ -119,12 +114,15 @@ function setIframeHeight(iframe) {
 <span style="float:left; font-size:17px; font-weight:bolder;">></span><a href="javascript:window.history.go(-1);" class="title fl" style="float:left;">返回</a>
 <i class="fa fa-refresh fr btn" title="点击刷新" onclick="window.location.reload();"></i>
 </div>
-</if>
-
-<if condition="!($MAIN_IFRAME eq 'true')">
 <block name="right">
 	<include file="Public:right" />
 </block>
+
+<style>
+.index-center, .layout-center{ margin-left:0px; margin-top:0px;}
+#center{ padding-left:0px;}
+body{ padding:0px; overflow-y:auto;min-width: 100px;}
+</style>
 </if>
 </div>
 <!--center end-->
