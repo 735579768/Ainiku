@@ -12,7 +12,7 @@ body{overflow:hidden;padding:62px 0px 0px 180px;}
 .layout-north{position:fixed;z-index:99;left:0px;top:0px;height:35px;width:100%;padding:10px 0px;border-left:none;border-right:none;}
 .layout-south{text-align:center;position:fixed;bottom:0px;overflow:hidden;right:0px;height:20px;width:98%;padding:5px 0px;border:none;}
 .layout-west{position:fixed;z-index:1;border-top:none;width:176px;top:59px;left:0px;overflow:hidden;overflow-y:auto;height:100%;}
-.index-center,.layout-center{/*position:relative;*//*margin-left:179px;margin-top:63px;*/border-bottom:none;margin:0px 0px 0px 20px;padding: 0px;}
+.index-center,.layout-center{border-bottom:none;margin:0px;padding: 0px;}
 .index-center{margin:63px 10px 0px 10px;overflow-y:scroll;}
 .header{box-shadow:0 2px 3px rgba(0,0,0,0.15),inset 0 -1px 0 0 #fcfcfc;-moz-box-shadow:0 2px 3px rgba(0,0,0,0.15),inset 0 -1px 0 0 #fcfcfc;-webkit-box-shadow:0 2px 3px rgba(0,0,0,0.15),inset 0 -1px 0 0 #fcfcfc;border-top:4px solid #67ad03;border-left:4px solid #67ad03;}
 .left{padding-bottom:50px;padding-top:3px;border-left:4px solid #67ad03;border:solid 1px #ededed\9;box-shadow:0 2px 3px rgba(0,0,0,0.15),inset 0 -1px 0 0 #fcfcfc;-moz-box-shadow:0 2px 3px rgba(0,0,0,0.15),inset 0 -1px 0 0 #fcfcfc;-webkit-box-shadow:0 2px 3px rgba(0,0,0,0.15),inset 0 -1px 0 0 #fcfcfc;}
@@ -224,7 +224,7 @@ body{overflow:hidden;padding:62px 0px 0px 180px;}
 .kl-tab-nav:hover,.kl-tab-nav.hover{background:#5cb85c;color:#fff;}
 .kl-tab-nav.hover  .close{color:#f00;background:#fff;}
 .kl-tab .kl-tab-nav-block,.kl-tab .kl-tab-div-block{display:block;width:100%;float:left;}
-.kl-tab .kl-tab-div{width:100%;}
+.kl-tab .kl-tab-div{width:100%;margin-left: 18px;}
 .kl-tab .kl-tab-div .con-iframe{width:100%;}
 
 /*tab谷歌新样式*/
