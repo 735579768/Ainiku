@@ -230,7 +230,7 @@ body{overflow:hidden;padding:62px 0px 0px 180px;}
 /*tab谷歌新样式*/
 .chrome-tab{font-size: 14px; padding:0px 30px;margin-top:5px;background:url('../images/tabbg.png') no-repeat!important;color:#000!important;height:26px;line-height:26px;position:relative;}
 .chrome-tab:hover,.chrome-tab.hover{ background-position: 0 -120px!important;}
-.chrome-tab:hover em,.chrome-tab.hover em{background-position: right -150px!important;}
+.chrome-tab:hover em,.chrome-tab.hover em{z-index: 99; background-position: right -150px!important;}
 .chrome-tab:hover .close:before,.chrome-tab.hover  .close:before{color:#f00!important;background:transparent!important;}
 .chrome-tab em{background-image:url('../images/tabbg.png');background-position:right -30px;position:absolute;right:-16px;height:26px;width:16px;top:0px;}
 
