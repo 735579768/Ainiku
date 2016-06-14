@@ -37,6 +37,9 @@
 		// 	layer.msg.apply(layer,arg);
 		// 	}
 		// };
+	hideSelect.hide($('select'));
+	//hideCheckbox.hide($('input[type="checkbox"]'));
+	//hideRadio.hide($('input[type="radio"]'));
 	});
 </script>
 <style type="text/css">
@@ -68,13 +71,6 @@ $(function() {
 <include file="Public:menu" />
 </if>
 <img id="loadingimg" class="rotate topcenter" src="__STATIC__/images/loading.png">
-<script type="text/javascript">
-	$(function(){
-	hideSelect.hide($('select'));
-	//hideCheckbox.hide($('input[type="checkbox"]'));
-	//hideRadio.hide($('input[type="radio"]'));
-	});
-</script>
 <ank:insert type="js" name="init,ajax,jquery.resizableColumns,autoyz" />
 </body>
 </html>
