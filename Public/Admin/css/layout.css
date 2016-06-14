@@ -218,7 +218,7 @@ body{overflow:hidden;padding:62px 0px 0px 180px;}
 
 /*******tab 框架面板样式****/
 .kl-tab{padding-top:32px;}
-#nav-block{position:fixed;top:60px;border-bottom:solid 1px #ededed;margin-bottom:2px;padding-top:5px;background:#fff;}
+#nav-block{position:fixed;top:60px;border-bottom:solid 1px #ededed;margin-bottom:2px;background:#fff;}
 .kl-tab-nav{cursor:pointer;display:block;height:26px;float:left;line-height:26px;text-align:center;border-right:solid 1px #ccc;position:relative;background:#fff;color:#000;padding:1px 10px;padding-right:25px;}
 .kl-tab-nav .close{z-index:999999999999;cursor:pointer;display:inline-block;position:absolute;color:#666;width:20px;height:20px;top:3px;right:2px;background:#efefef;font-weight:bolder;line-height:20px;border-radius:10px;}
 .kl-tab-nav:hover,.kl-tab-nav.hover{background:#5cb85c;color:#fff;}
@@ -228,7 +228,7 @@ body{overflow:hidden;padding:62px 0px 0px 180px;}
 .kl-tab .kl-tab-div .con-iframe{width:100%;}
 
 /*tab谷歌新样式*/
-.chrome-tab{font-size: 14px; padding:0px 30px;background:url('../images/tabbg.png') no-repeat!important;color:#000!important;height:26px;line-height:26px;position:relative;}
+.chrome-tab{font-size: 14px; padding:0px 30px;margin-top:5px;background:url('../images/tabbg.png') no-repeat!important;color:#000!important;height:26px;line-height:26px;position:relative;}
 .chrome-tab:hover,.chrome-tab.hover{ background-position: 0 -120px!important;}
 .chrome-tab:hover em,.chrome-tab.hover em{background-position: right -150px!important;}
 .chrome-tab:hover .close:before,.chrome-tab.hover  .close:before{color:#f00!important;background:transparent!important;}

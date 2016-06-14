@@ -97,6 +97,7 @@ $(function() {
 			}
 		});
 		if (isyou) return true;
+		$('#nav-block').width($('#div-block').width());
 		$('#nav-block').append(' <li class="chrome-tab kl-tab-nav">' + title + '<span class="close">X</span><em></em></li>');
 		$('#div-block').append(' <div class="kl-tab-div"><span class="iframeloading"></span><iframe class="con-iframe" marginWidth=0 frameSpacing=0 marginHeight=0  onload="setIframeHeight(this);" frameborder="0" border="0" src="' + url + '"  noResize width="100%" scrolling=auto  vspale="0"></iframe></div>');
 		$('.kl-tab').mytab();
