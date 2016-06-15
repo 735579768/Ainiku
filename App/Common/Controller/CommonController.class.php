@@ -86,7 +86,7 @@ dump($assets);*/
 		$join  = isset($conf['join']) ? $conf['join'] : '';
 		$field = isset($conf['field']) ? $conf['field'] : '';
 		$order = isset($conf['order']) ? $conf['order'] : '';
-		$rows  = isset($conf['rows']) ? $conf['rows'] : 10;
+		$rows  = isset($conf['rows']) ? $conf['rows'] : 15;
 		$url   = isset($conf['url']) ? $conf['url'] : '';
 		$User  = preg_match('/[a-zA-Z0-9]+View/', $model) ? D($model) : M($model);
 		$count = 0;
