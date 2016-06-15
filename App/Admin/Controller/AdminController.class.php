@@ -101,56 +101,6 @@ class AdminController extends CommonController {
 			}
 			$this->assign('_MAINNAV_', $nav);
 		}
-
-//			//查到当前页面地址
-		//			$current=array();
-		//			if(empty($menu_id)){
-		//				$act=CONTROLLER_NAME;
-		//				if(C('CONTROLLER_LEVEL' )>1){
-		//					$act=explode('\\',CONTROLLER_NAME);
-		//					$act=$act[1];
-		//					}
-		//				$url=$act."/".ACTION_NAME;
-		//				$url_sha1=sha1($url);
-		//				$current=F('sys_current_url'.$url_sha1);
-		//				if(empty($current)||APP_DEBUG){
-		//
-		//					$current = M('Menu')->where(" url like '%".$url."%'")->find();
-		//					F('sys_current_url'.$url_sha1,$current);
-		//				}
-		//			}else{
-		//				$current=M('Menu')->find($menu_id);
-		//				}
-		//
-		//			if(empty($current))return false;
-		//			$curid='';
-		//			 if($current['pid']!=0){
-		//				$curid=$current['pid'];
-		//				 }else{
-		//				$curid=$current['id'];
-		//					 }
-		//
-		//			 //取当前分组列表
-		//			 $grouplist=F('sys_grouplist'.$curid);
-		//			 $childnav=F('sys_childnavlist'.$curid);
-		//			 if(APP_DEBUG||empty($grouplist)||empty($childnav)){
-		//				$map['hide']=0;
-		//				$map['pid']=$curid;
-		//				$model=M('menu');
-		//				 $grouplist=$model->where($map)->group('`group`')->order('`group` asc')->select();
-		//				 foreach($grouplist as $key=>$val){
-		//					 $grouplist[$key]['group']=preg_replace('/\d*/','',$val['group']);
-		//					 }
-		//
-		//				$childnav=M('menu')->where($map)->order('sort asc')->select();
-		//				 foreach($childnav as $key=>$val){
-		//					 $childnav[$key]['group']=preg_replace('/\d*/','',$val['group']);
-		//					 }
-		//				 F('sys_grouplist'.$curid,$grouplist);
-		//				 F('sys_childnavlist'.$curid,$childnav);
-		//			 }
-		//			$this->assign('_GROUPLIST_',$grouplist);
-		//		 	$this->assign('_CHILDNNAV_',$childnav);
 	}
 	/**
 	 *后台模块通用改变状态
