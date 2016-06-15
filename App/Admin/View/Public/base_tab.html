@@ -50,6 +50,12 @@ $(function(){
 
 <!--south start-->
 <div id="south" class="layout-south hide">{:C('ADMIN_TITLE')}</div>
+<else />
+<style>
+.index-center, .layout-center{ margin-left:0px; margin-top:0px;}
+#center{ padding-left:0px;}
+body{ padding:0px; overflow-y:auto;min-width: 100px;}
+</style>
 </if>
 
 <!--left end-->
@@ -117,12 +123,6 @@ function setIframeHeight(iframe) {
 <block name="right">
 	<include file="Public:right" />
 </block>
-
-<style>
-.index-center, .layout-center{ margin-left:0px; margin-top:0px;}
-#center{ padding-left:0px;}
-body{ padding:0px; overflow-y:auto;min-width: 100px;}
-</style>
 </if>
 </div>
 <!--center end-->
