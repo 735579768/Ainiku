@@ -24,7 +24,9 @@ define('__ROOT_PATH__', __SITE_ROOT__ . __ROOT__);
 
 // 定义应用目录
 define('APP_PATH', __ROOT_PATH__ . '/App/');
-define('DATA_DIR_PATH', __ROOT_PATH__ . '/Data/'); //系统自动生成的数据缓存目录
+
+$entername = str_replace('.php', '', strtolower(basename(__FILE__)));
+define('DATA_DIR_PATH', __ROOT_PATH__ . '/Data/cache/' . $entername . '/'); //系统自动生成的数据缓存目录
 //define('DATA_DIR_NAME', 'Data');
 define('__STATIC__', __ROOT__ . '/Public/Static'); //定义静态文件目录
 define('IMAGE_CACHE_DIR', DATA_DIR_PATH . 'cache/imgcache/'); //图片缓存目录
