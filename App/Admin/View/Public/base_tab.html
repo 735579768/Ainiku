@@ -1,13 +1,11 @@
 <script>
-$(function(){
 	//判断是不是在iframe中
 	var iframename = self.frameElement;
-	var ifuri = window.location.pathname;
-	((ifuri == '/') ||(ifuri == '/index.php')) && (ifuri = "{:U(CONTROLLER_NAME.'/'.ACTION_NAME)}");
-	//ifuri="{:U(CONTROLLER_NAME.'/'.ACTION_NAME)}";
+	var curhref=window.location.href;
+	var ifuri=curhref.replace(window.location.protocol+'//','').replace(window.location.hostname,'');
 	if (iframename == null) {
 		// 页面不在iframe中时处理
-		if ($('#closewest').length <= 0) {
+		if (ifuri.indexOf('mainmenu=true') == -1) {
 			if(ifuri.indexOf('?')>0){
 				window.location.href = ifuri + '&mainmenu=true';
 			}else{
@@ -17,12 +15,10 @@ $(function(){
 
 	} else {
 		//页面在iframe中
-		if (ifuri.indexOf('&mainmenu=true') != -1) {
+		if (ifuri.indexOf('mainmenu=true') != -1) {
 			window.location.href = ifuri.replace('&mainmenu=true', '');
 		}
 	}
-});
-
 </script>
 <if condition="$MAIN_IFRAME eq 'true'">
 <!--header start-->
