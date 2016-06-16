@@ -29,10 +29,10 @@ $entername = str_replace('.php', '', strtolower(basename(__FILE__)));
 define('DATA_DIR_PATH', __ROOT_PATH__ . '/Data/cache/' . $entername . '/'); //系统自动生成的数据缓存目录
 //define('DATA_DIR_NAME', 'Data');
 define('__STATIC__', __ROOT__ . '/Public/Static'); //定义静态文件目录
-define('IMAGE_CACHE_DIR', DATA_DIR_PATH . 'cache/imgcache/'); //图片缓存目录
-define('STYLE_CACHE_DIR', DATA_DIR_PATH . 'cache/scache/'); //样式图片缓存
-define('DATA_PATH', DATA_DIR_PATH . 'cache/Runtime/Data/'); //缓存数据的路径
-defined('RUNTIME_PATH') or define('RUNTIME_PATH', DATA_DIR_PATH . 'cache/Runtime/');
+define('IMAGE_CACHE_DIR', DATA_DIR_PATH . 'imgcache/'); //图片缓存目录
+define('STYLE_CACHE_DIR', DATA_DIR_PATH . 'scache/'); //样式图片缓存
+define('DATA_PATH', DATA_DIR_PATH . 'Runtime/Data/'); //缓存数据的路径
+defined('RUNTIME_PATH') or define('RUNTIME_PATH', DATA_DIR_PATH . 'Runtime/');
 //定义cookies域
 // $domain = explode('.', $_SERVER['HTTP_HOST']);
 // define('COOKIES_DOMIN', '.' . $domain[count($domain) - 1]);
