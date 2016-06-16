@@ -10,7 +10,7 @@ return array(
 	'DB_PWD'                => 'adminrootkl', // 密码
 	'DB_PORT'               => '3306', // 端口
 	'DB_PREFIX'             => 'kl_', // 数据库表前缀
-	'COOKIE_DOMAIN'         => COOKIES_DOMIN, // Cookie有效域名
+	// 'COOKIE_DOMAIN'         => COOKIES_DOMIN, // Cookie有效域名
 	'APP_SUB_DOMAIN_DEPLOY' => 1, // 开启子域名或者IP配置
 	'APP_SUB_DOMAIN_RULES'  => array(
 		'ainiku.lix'       => 'Home',
