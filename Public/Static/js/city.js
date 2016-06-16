@@ -49,7 +49,7 @@
  				diqu.val(sheng + ',' + shi + ',' + qu);
  			};
  			this.init = function() {
- 				var _this = this;
+ 				// var _this = this;
  				var diqu = $('#' + this.selid[0]).val();
  				var sheng = $('#' + this.selid[1]);
  				var shi = $('#' + this.selid[2]);
@@ -59,7 +59,7 @@
  				var str = '<option value="0">请选择--</option>';
  				for (var a in selectdata['sheng']) {
  					var val = a;
- 					if (_this.keytype != 1) {
+ 					if (cityselect.keytype != 1) {
  						val = selectdata['sheng'][a];
  					}
  					str += '<option data-id="' + a + '" value="' + val + '">' + selectdata['sheng'][a] + '</option>';
@@ -71,7 +71,7 @@
  					var str = '<option value="0">请选择--</option>';
  					for (var a in selectdata['shi'][va]) {
  						var val = a;
- 						if (_this.keytype != 1) {
+ 						if (cityselect.keytype != 1) {
  							val = selectdata['shi'][va][a];
  						}
  						str += '<option data-id="' + a + '"  value="' + val + '">' + selectdata['shi'][va][a] + '</option>';
@@ -85,7 +85,7 @@
  					var str = '<option value="0">请选择--</option>';
  					for (var a in selectdata['qu'][va]) {
  						var val = a;
- 						if (_this.keytype != 1) {
+ 						if (cityselect.keytype != 1) {
  							val = selectdata['qu'][va][a];
  						}
  						str += '<option data-id="' + a + '"  value="' + val + '">' + selectdata['qu'][va][a] + '</option>';
