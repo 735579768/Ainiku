@@ -4,11 +4,11 @@ defined("ACCESS_ROOT") || die("Invalid access");
 class AddonsController extends AdminController {
 	public function index() {
 		$this->meta_title = '插件管理';
-		$dirlist          = getDirList(__SITE_ROOT__ . '/Plugins/');
+		$dirlist          = get_dir_list(__SITE_ROOT__ . '/Plugins/');
 		$dirlist          = str_replace('Plugin', '', $dirlist);
 		$addoninfo        = array();
 		foreach ($dirlist as $a) {
-			$temarr = runPluginMethod($a, 'getConfig');
+			$temarr = run_plugin_method($a, 'getConfig');
 			$mark   = $a; //strtolower($temarr['mark']);
 			$model  = M('Addons')->where("mark='$mark'")->find();
 			if (!empty($model)) {
@@ -66,11 +66,11 @@ class AddonsController extends AdminController {
 	 */
 	public function newinstall() {
 		$this->meta_title = '插件管理';
-		$dirlist          = getDirList(__SITE_ROOT__ . '/Plugins/');
+		$dirlist          = get_dir_list(__SITE_ROOT__ . '/Plugins/');
 		$dirlist          = str_replace('Plugin', '', $dirlist);
 		$addoninfo        = array();
 		foreach ($dirlist as $a) {
-			$temarr = runPluginMethod($a, 'getConfig');
+			$temarr = run_plugin_method($a, 'getConfig');
 			$mark   = $a; //strtolower($temarr['mark']);
 			$model  = M('Addons')->where("mark='$mark'")->find();
 			if (empty($model)) {
@@ -128,11 +128,11 @@ class AddonsController extends AdminController {
 				$this->error('插件信息不能为空!');
 			}
 			//查找是不是存在相同标识的插件
-			$dirlist   = getDirList(__SITE_ROOT__ . '/Plugins/');
+			$dirlist   = get_dir_list(__SITE_ROOT__ . '/Plugins/');
 			$dirlist   = str_replace('Plugin', '', $dirlist);
 			$addoninfo = array();
 			if (in_array($name, $dirlist)) {
-				$temarr = runPluginMethod($name, 'getConfig');
+				$temarr = run_plugin_method($name, 'getConfig');
 				$this->error("插件标识符已经存在!,插件名字：{$temarr['name']}");
 			}
 
@@ -151,7 +151,7 @@ $p_content = str_replace('[PLUGIN_DESCR]', $descr, $p_content);*/
 			file_put_contents("./Plugins/$name/View/config.html", $p_config);
 			$this->success(L('_ADD_SUCCESS_'));
 		} else {
-			//$field            = getModelAttr('plugin');
+			//$field            = get_model_attr('plugin');
 			$field = array(
 				array(
 					'field'   => 'title',
@@ -224,12 +224,12 @@ $p_content = str_replace('[PLUGIN_DESCR]', $descr, $p_content);*/
 		if (empty($mark)) {
 			$this->error('非法安装');
 		} else {
-			$result = runPluginMethod($mark, 'install');
+			$result = run_plugin_method($mark, 'install');
 			if (!$result) {
 				$this->error('插件安装失败,请联系做作者');
 			}
 
-			$data           = runPluginMethod($mark, 'getConfig');
+			$data           = run_plugin_method($mark, 'getConfig');
 			$data['mark']   = $mark; //strtolower($data['mark']);
 			$data['status'] = 0;
 			$model          = D('Addons');
@@ -251,7 +251,7 @@ $p_content = str_replace('[PLUGIN_DESCR]', $descr, $p_content);*/
 		if (empty($mark)) {
 			$this->error('卸载失败');
 		} else {
-			$result = runPluginMethod($mark, 'uninstall');
+			$result = run_plugin_method($mark, 'uninstall');
 			if (!$result) {
 				$this->error('插件卸载失败,请联系做作者');
 			}
@@ -270,7 +270,7 @@ $p_content = str_replace('[PLUGIN_DESCR]', $descr, $p_content);*/
 		     * 运行插件方法
 	*/
 	public function plugin($pn = null, $pm = null) {
-		$str = runPluginMethod($pn, $pm);
+		$str = run_plugin_method($pn, $pm);
 		$this->assign('plugincontent', $str);
 		$this->display();
 	}

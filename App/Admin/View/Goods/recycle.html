@@ -35,7 +35,7 @@
                     </td>
                     <td>{$key+1}</td>
                     <td>{$vo.title}</td>
-                    <td>{$vo.category_id|getCategoryTitle}</td>
+                    <td>{$vo.category_id|get_category_title}</td>
                     <td>{$vo.status|totext}</td>
                     <td>
                         <a href="{:U('Goods/huifu?goods_id='.$vo['goods_id'])}" class="btn btn-primary ajax-href">恢复</a>

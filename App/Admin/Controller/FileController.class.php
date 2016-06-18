@@ -564,7 +564,7 @@ $JDthumbdir = str_replace($temarr[count($temarr) - 1], '', $JDthumb);*/
 	//图片添加水印
 	private function markpic($dst = null) {
 		//取水印图片
-		$src       = realpath('.' . getPicture(C('SHUIYIN_IMG')));
+		$src       = realpath('.' . get_picture(C('SHUIYIN_IMG')));
 		$shuiyinon = C('SHUIYIN_ON');
 		if ($shuiyinon == '1' && $dst !== false && $src !== false) {
 			image_water($dst,$src,$dst);
@@ -628,7 +628,7 @@ $JDthumbdir = str_replace($temarr[count($temarr) - 1], '', $JDthumb);*/
 			$i = 0;
 			for ($i; $i < $num; $i++) {
 				if (count($thumbpath) > 0) {
-					$spath   = getPicture($thumbpath[$i], 'path');
+					$spath   = get_picture($thumbpath[$i], 'path');
 					$thupath = str_replace('image/', 'image/thumb/', $spath);
 
 					$spath = pathA($spath);

@@ -26,7 +26,7 @@
 
  <ul class="rimglist cl">
   <article:list position="3" rows="14">
-  <li class="rimglistitem bd"><a target="_blank" href="{:U('detail/'.$vo['article_id'])}"><img src="{$vo.pic|getPicture='thumbpath','90_80'}" alt="{$vo.title}"  title="{$vo.title}"  /></a><a href="{:U('detail/'.$vo['article_id'])}" target="_blank" title="{$vo.title}" class="imgtitle">{$vo.title}</a></li>
+  <li class="rimglistitem bd"><a target="_blank" href="{:U('detail/'.$vo['article_id'])}"><img src="{$vo.pic|get_picture='thumbpath','90_80'}" alt="{$vo.title}"  title="{$vo.title}"  /></a><a href="{:U('detail/'.$vo['article_id'])}" target="_blank" title="{$vo.title}" class="imgtitle">{$vo.title}</a></li>
   </article:list>
  </ul>
  </div>

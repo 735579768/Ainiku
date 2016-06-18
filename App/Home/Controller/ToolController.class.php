@@ -336,7 +336,7 @@ echo "var qu={{$qu}};";*/
 		}
 
 		//取文章的标记自动添加标记
-		//$mark=getModelAttr('Article','extra');
+		//$mark=get_model_attr('Article','extra');
 		$data1   = M('ModelAttr')->field('extra')->find(11);
 		$posiarr = $this->extraToArray($data1['extra']);
 		foreach ($posiarr as $key => $val) {
@@ -406,7 +406,7 @@ $pattern[]='/<div>[\s|\r|\n|\t]*(\d+[．|、][\s\S]*?)<\/div>/is';//换掉div外
 //图片添加水印
 	private function markpic($dst='') {
 		//取水印图片
-		$src       = realpath('.' . getPicture(C('SHUIYIN_IMG')));
+		$src       = realpath('.' . get_picture(C('SHUIYIN_IMG')));
 		$shuiyinon = C('SHUIYIN_ON');
 		if ($shuiyinon == '1' && $dst !== false && $src !== false) {
 			image_water($dst,$src,$dst);

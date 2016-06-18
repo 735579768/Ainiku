@@ -107,7 +107,7 @@ class MemberController extends DailiController {
 			}
 		} else {
 			//$field=Api('Model/memberModel',array('add'));
-			$field = getModelAttr('member');
+			$field = get_model_attr('member');
 			$this->assign('fieldarr', $field);
 			//$this->assign('data',$data);
 			$this->meta_title = '新增用户';
@@ -139,7 +139,7 @@ class MemberController extends DailiController {
 			}
 
 		} else {
-			$field = getModelAttr('member');
+			$field = get_model_attr('member');
 			$data  = M('Member')->find($member_id);
 			$this->assign('fieldarr', $field);
 			$this->assign('data', $data);

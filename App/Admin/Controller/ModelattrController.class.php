@@ -31,7 +31,7 @@ class ModelattrController extends AdminController {
 			'where' => $map,
 			'order' => __DB_PREFIX__ . 'model_attr.sort asc,' . __DB_PREFIX__ . 'model_attr.status asc,' . __DB_PREFIX__ . 'model_attr.model_attr_id asc',
 		));
-		$this->meta_title = '表单模型>' . getModelTitle($model_id);
+		$this->meta_title = '表单模型>' . get_model_title($model_id);
 		$this->display();
 	}
 	public function add() {
@@ -73,8 +73,8 @@ class ModelattrController extends AdminController {
 			}
 		} else {
 			//$field=Api('Model/ModeattrlModel');
-			$field            = getModelAttr('modelattr');
-			$this->meta_title = '表单模型>' . getModelTitle(I('model_id')) . '>添加表单';
+			$field            = get_model_attr('modelattr');
+			$this->meta_title = '表单模型>' . get_model_title(I('model_id')) . '>添加表单';
 			$this->assign('fieldarr', $field);
 			$this->display('edit');
 		}
@@ -86,7 +86,7 @@ class ModelattrController extends AdminController {
 
 		//查询模型对应的表名字
 		$modeltable = M('Model')->field('table')->find($Modelattr['model_id']);
-		$table_name = getTable($modeltable['table']);
+		$table_name = get_table($modeltable['table']);
 
 		$sql = "Describe {$table_name} `{$Modelattr['field']}`";
 		$res = M()->execute($sql);
@@ -144,8 +144,8 @@ class ModelattrController extends AdminController {
 			$data = D('ModelAttr')->where("model_attr_id=$model_attr_id")->find();
 
 			//$field=Api('Model/ModeattrlModel');
-			$field            = getModelAttr('modelattr');
-			$this->meta_title = '表单模型>' . getModelTitle(I('model_id')) . '>编辑表单';
+			$field            = get_model_attr('modelattr');
+			$this->meta_title = '表单模型>' . get_model_title(I('model_id')) . '>编辑表单';
 			$this->assign('fieldarr', $field);
 			$this->assign('data', $data);
 			$this->display();
@@ -157,7 +157,7 @@ class ModelattrController extends AdminController {
 		if ($Modelattr['type'] != 'custom') {
 			//查询模型对应的表名字
 			$modeltable = M('Model')->field('table')->find($Modelattr['model_id']);
-			$table_name = getTable($modeltable['table']);
+			$table_name = get_table($modeltable['table']);
 
 			$sql = "Describe {$table_name} `{$Modelattr['field']}`";
 			$res = M()->execute($sql);

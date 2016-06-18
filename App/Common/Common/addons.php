@@ -6,7 +6,7 @@ defined('ADDONS_DIR_NAME') or define('ADDONS_DIR_NAME', 'Plugins');
  * 返回一个目录中的目录列表(只返回一级)
  * @param string $path
  */
-function getDirList($dir) {
+function get_dir_list($dir) {
 	$dirArray[] = NULL;
 	if (false != ($handle = opendir($dir))) {
 		$i = 0;
@@ -50,11 +50,11 @@ function hook($name, $param = array()) {
 			$model = M('addons')->where("id=$a")->find();
 			if (!empty($model) && $model['status'] === '1') {
 				$method = isset($param['method']) ? $param['method'] : 'run';
-				$str .= runPluginMethod($model['mark'], $method, $param);
+				$str .= run_plugin_method($model['mark'], $method, $param);
 			} elseif ($model['status'] === 0) {
 				trace("插件:[名字]{$model['name']},[标识]{$model['mark']} 被禁用");
 			} elseif (!empty($model['id'])) {
-				removePluginFromHook($rows['id'], $a);
+				remove_plugin_fromhook($rows['id'], $a);
 				trace("插件id: $a 对应的插件不存在,已从钩子列表中移除");
 			}
 		}
@@ -82,7 +82,7 @@ function UP($name = null, $param = array()) {
 	//查找参数字符串
 	preg_match('/\w+\/\w+\?(.*)/', $name, $out);
 	if (!empty($out[1])) {
-		$data = array_merge($data, parseParam($out[1]));
+		$data = array_merge($data, parse_param($out[1]));
 	}
 
 	//C('URL_MODEL',0);
@@ -103,12 +103,12 @@ function RP($name = null, $param = array()) {
 		'pn' => $a[0],
 		'pm' => $a[1],
 	);
-	return runPluginMethod($a[0], $a[1], $param);
+	return run_plugin_method($a[0], $a[1], $param);
 }
 /**
  *参数转成数组
  */
-function parseParam($str) {
+function parse_param($str) {
 	$arr   = explode('&', $str);
 	$rearr = array();
 	foreach ($arr as $val) {
@@ -124,7 +124,7 @@ function parseParam($str) {
  * @param string $param一维数组传参数,返数组顺序传参
  * 返回方法的返回值
  */
-function runPluginMethod($pn = null, $pm = null, $param = array()) {
+function run_plugin_method($pn = null, $pm = null, $param = array()) {
 	//包含插件目录
 	require_once ADDONS_PATH . $pn . '/' . $pn . 'Plugin.class.php';
 	$str    = "\\" . ADDONS_DIR_NAME . "\\$pn\\" . $pn . 'Plugin';
@@ -182,7 +182,7 @@ function plugin($name, $param = array()) {
  * @param string $aid 插件id,支持多个用,分隔
  * 成功返回true，失败返回false
  * */
-function removePluginFromHook($hid, $aid) {
+function remove_plugin_fromhook($hid, $aid) {
 	$model  = M('Hooks')->where("id=$hid")->field('pluginid')->find();
 	$temarr = explode(',', $model['pluginid']);
 	$result = array();
@@ -206,7 +206,7 @@ function removePluginFromHook($hid, $aid) {
  * @param string $aid 插件id,支持多个用,分隔
  * 成功返回true，失败返回false
  * */
-function addPluginToHook($hid, $aid) {
+function add_plugin_tohook($hid, $aid) {
 	$model = M('Hooks')->where("id=$hid")->field('pluginid')->find();
 	$str1  = $model['pluginid'];
 	$str   = '';

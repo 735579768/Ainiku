@@ -4,7 +4,7 @@
 <ul class="imglist cl">
 <volist name="_list" id="vo">
 <li class="imgitem">
-<img src="{$vo.pic|getPicture='thumbpath'}" />
+<img src="{$vo.pic|get_picture='thumbpath'}" />
 <h1 class="stitle" ><a target="_blank" href="{:U('detail/'.$vo['article_id'])}">{$vo.title}</a></h1>
 <div class="scon">{$vo.content|removeHTML=0,150}</div>
 </li>

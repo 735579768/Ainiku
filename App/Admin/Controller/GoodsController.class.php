@@ -9,13 +9,13 @@ class GoodsController extends AdminController {
 	 * @author 枫叶 <735579768@qq.com>
 	 */
 	public function index() {
-		$field          = getModelAttr('Goods', 'category_id');
+		$field          = get_model_attr('Goods', 'category_id');
 		$field['title'] = '分类';
 		$this->assign('fieldarr', $field);
 
 		//附加属性
 		//$field1=Api('Model/GoodsModel');
-		$field1             = getModelAttr('Goods', 'position');
+		$field1             = get_model_attr('Goods', 'position');
 		$field1['type']     = 'select';
 		$field1['title']    = '位置';
 		$field1['extra'][0] = '全部';
@@ -98,7 +98,7 @@ class GoodsController extends AdminController {
 			}
 		} else {
 			//$field=Api('Model/GoodsModel');
-			$field            = getModelAttr('Goods');
+			$field            = get_model_attr('Goods');
 			$this->meta_title = '添加产品';
 			$this->assign('fieldarr', $field);
 			$this->assign('data', $data);
@@ -184,7 +184,7 @@ class GoodsController extends AdminController {
 				$this->error('获取产品信息错误');
 			}
 			//$field=Api('Model/GoodsModel');
-			$field = getModelAttr('Goods');
+			$field = get_model_attr('Goods');
 			$this->assign('data', $info);
 			$this->assign('fieldarr', $field);
 			$this->meta_title = '编辑产品';

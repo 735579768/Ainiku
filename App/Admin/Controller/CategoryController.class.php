@@ -54,7 +54,7 @@ class CategoryController extends AdminController {
 			/* 获取分类信息 */
 			$data = $category_id ? $model->info($category_id) : '';
 			//$field=Api('Model/categoryModel');
-			$field = getModelAttr('category');
+			$field = get_model_attr('category');
 			$this->assign('fieldarr', $field);
 			$this->assign('data', $data);
 			$this->meta_title = '编辑分类';
@@ -77,7 +77,7 @@ class CategoryController extends AdminController {
 
 		} else {
 			//$field=Api('Model/categoryModel');
-			$field = getModelAttr('category');
+			$field = get_model_attr('category');
 
 			$data['pid']           = $pid;
 			$data['category_type'] = I('category_type');

@@ -17,7 +17,7 @@ class GoodstypeattributeController extends AdminController {
 			'where' => $map,
 			'model' => 'GoodsTypeAttribute',
 		));
-		$typename = getField('goodsType', I('goods_type_id'), 'title');
+		$typename = get_field('goodsType', I('goods_type_id'), 'title');
 		$this->assign('typename', $typename);
 		$this->meta_title = '类型>' . $typename . '>属性列表';
 		$this->display();
@@ -28,7 +28,7 @@ class GoodstypeattributeController extends AdminController {
 			return '';
 		}
 
-		$list = getGoodsTypeModel($goods_type_id);
+		$list = get_goods_type_model($goods_type_id);
 		//查询属性数据
 		$map['goods_id'] = $mainid;
 		//$map['goods_type_id']=$goods_type_id;
@@ -60,10 +60,10 @@ class GoodstypeattributeController extends AdminController {
 			/* 获取分类信息 */
 			$data = $goods_type_attribute_id ? $GoodsTypeAttribute->info($goods_type_attribute_id) : '';
 			//$field=Api('Model/goodstypeattrModel');
-			$field = getModelAttr('goodstypeattr');
+			$field = get_model_attr('goodstypeattr');
 			$this->assign('fieldarr', $field);
 			$this->assign('data', $data);
-			$this->meta_title = '类型>' . getField('goodsType', $data['goods_type_id'], 'title') . '>编辑属性>' . getField('goodsTypeAttribute', $goods_type_attribute_id, 'title');
+			$this->meta_title = '类型>' . get_field('goodsType', $data['goods_type_id'], 'title') . '>编辑属性>' . get_field('goodsTypeAttribute', $goods_type_attribute_id, 'title');
 			$this->display();
 		}
 	}
@@ -85,11 +85,11 @@ class GoodstypeattributeController extends AdminController {
 
 		} else {
 			//$field=Api('Model/goodstypeattrModel');
-			$field = getModelAttr('goodstypeattr');
+			$field = get_model_attr('goodstypeattr');
 			$this->assign('fieldarr', $field);
 			$data = array('goods_type_id' => $goods_type_id);
 			$this->assign('data', $data);
-			$this->meta_title = '类型>' . getField('goodsType', $data['goods_type_id'], 'title') . '>添加属性';
+			$this->meta_title = '类型>' . get_field('goodsType', $data['goods_type_id'], 'title') . '>添加属性';
 			$this->display('edit');
 		}
 	}
@@ -104,7 +104,7 @@ class GoodstypeattributeController extends AdminController {
 			$this->error('有商品使用此属性不能删除');
 		}
 
-		$goods_type_id = getField('GoodsTypeAttribute', $goods_type_attribute_id, 'goods_type_id');
+		$goods_type_id = get_field('GoodsTypeAttribute', $goods_type_attribute_id, 'goods_type_id');
 		$result        = M('GoodsTypeAttribute')->delete($goods_type_attribute_id);
 		if ($result) {
 			$this->success('删除成功', U('index', array('goods_type_id' => $goods_type_id)));

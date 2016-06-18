@@ -58,7 +58,7 @@ class SingleController extends AdminController {
 			}
 		} else {
 			//$field=Api('Model/SingleModel');
-			$field            = getModelAttr('single');
+			$field            = get_model_attr('single');
 			$this->meta_title = '添加单页';
 			$this->assign('fieldarr', $field);
 			$this->display('edit');
@@ -87,7 +87,7 @@ class SingleController extends AdminController {
 			$data = M('Single')->where("single_id=$single_id")->find();
 
 			//$field=Api('Model/SingleModel');
-			$field            = getModelAttr('single');
+			$field            = get_model_attr('single');
 			$this->meta_title = '编辑单页';
 			$this->assign('fieldarr', $field);
 			$this->assign('data', $data);

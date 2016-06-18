@@ -6,7 +6,7 @@
 	<div class="bd">
 		<ul>
          <ank:module modulepos_id="3" name="vo">
- <li _src="url({$vo.pic|getPicture})" style="background:#E2025E center 0 no-repeat;"><a href="{$vo.url}"></a></li>
+ <li _src="url({$vo.pic|get_picture})" style="background:#E2025E center 0 no-repeat;"><a href="{$vo.url}"></a></li>
  </ank:module>
 		</ul>
 	</div>
@@ -44,7 +44,7 @@ $(".fullSlide").slide({
 <article:list position='1'  name='vo'>
 	<div class="diyi_div fleft">
 		<div class="diyi">
-			<div class="imgdiv"><img src="{$vo.pic|getPicture}" width="205" height="116" title="{$vo.title}" /></div>
+			<div class="imgdiv"><img src="{$vo.pic|get_picture}" width="205" height="116" title="{$vo.title}" /></div>
 			<h1 class="htext"><a target="_blank" href="{:U('detail/'.$vo['article_id'])}">{$vo.title}</a></h1>
 			<p class="pp1">{$vo.content|removeHTML=0,30}</p>
 			<p class="more1"><a target="_blank" href="{:U('detail/'.$vo['article_id'])}"></a></p>

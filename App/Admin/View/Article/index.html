@@ -41,10 +41,10 @@
                     <td>{$key+1}</td>
                     <td class="popupthumb" style="text-align:left;"><a href="{:U('Article/edit?article_id='.$vo['article_id'])}" class="el">{$vo.title}</a>
                         <notempty name="vo.pic">
-                            <div class="imgbox" _src="{$vo.pic|getPicture=###,'thumbpath'}"><span class="wrapimg"></span></div>
+                            <div class="imgbox" _src="{$vo.pic|get_picture=###,'thumbpath'}"><span class="wrapimg"></span></div>
                         </notempty>
                     </td>
-                    <td>{$vo.category_id|getCategoryTitle}</td>
+                    <td>{$vo.category_id|get_category_title}</td>
                     <td style="text-align:left;" title="单击更改" id="position{$vo.article_id}" onClick="setPosition('article','{$vo.article_id}','position',$(this).children().eq(0).val(),'#position{$vo.article_id}')">
                         <input name="position" value="{$vo.position}" type="hidden" />
                         <span class="markbs">{$vo.position|tomark='article','position'}</span></td>

@@ -253,14 +253,14 @@ $this->error($model->geterror());
 	public function payok($chongzhi_sn = '') {
 
 		//支付宝通知
-		$data1 = runPluginMethod('Alipay', 'return_url');
+		$data1 = run_plugin_method('Alipay', 'return_url');
 		//dump($data);
 		//($data['status'] == 1) && exit();
 		//财付通通知
-		$data2 = runPluginMethod('Tenpay', 'return_url');
+		$data2 = run_plugin_method('Tenpay', 'return_url');
 		//dump($data);
 		//银联通知
-		$data3 = runPluginMethod('Unionpay', 'return_url');
+		$data3 = run_plugin_method('Unionpay', 'return_url');
 		//dump($data);
 		//($data['status'] == 1) && exit();
 		$chongzhi_sn = '';
@@ -306,13 +306,13 @@ echo 'fail';
 			'extra'    => '',
 		*/
 		//支付宝通知
-		$data1 = runPluginMethod('Alipay', 'notify_url');
+		$data1 = run_plugin_method('Alipay', 'notify_url');
 		//($data1['status'] == 1) && exit();
 		//财付通通知
-		$data2 = runPluginMethod('Tenpay', 'notify_url');
+		$data2 = run_plugin_method('Tenpay', 'notify_url');
 		//($data2['status'] == 1) && exit();
 		//银联通知
-		$data3 = runPluginMethod('Unionpay', 'notify_url');
+		$data3 = run_plugin_method('Unionpay', 'notify_url');
 		//($data3['status'] == 1) && exit();
 
 		$chongzhi_sn = '';
@@ -405,16 +405,16 @@ echo 'fail';
 			//支付宝网银
 		} else if (strpos($online_pay, 'alipay_') !== false) {
 
-			$rearr['data'] = runPluginMethod('Alipay', 'dopay', array($order_total, $order_sn, $order_title, $online_pay));
+			$rearr['data'] = run_plugin_method('Alipay', 'dopay', array($order_total, $order_sn, $order_title, $online_pay));
 		} else {
 			//其它支付平台
 			switch ($online_pay) {
 
 			case 'unionpay':
-				$rearr['data'] = runPluginMethod('Unionpay', 'dopay', array($order_total, $order_sn, $order_title));
+				$rearr['data'] = run_plugin_method('Unionpay', 'dopay', array($order_total, $order_sn, $order_title));
 				break;
 			case 'tenpay':
-				$rearr['data'] = runPluginMethod('Tenpay', 'dopay', array($order_total, $order_sn, $order_title));
+				$rearr['data'] = run_plugin_method('Tenpay', 'dopay', array($order_total, $order_sn, $order_title));
 				break;
 			default:
 				$rearr['data']   = '支付接口调用失败';

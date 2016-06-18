@@ -30,7 +30,7 @@ class ArclistWidget extends Controller {
 		$list = S(json_encode($map) . $rows);
 		if (empty($list) || APP_DEBUG) {
 			$list = M('Article')->where($map)->limit($rows)->select();
-			$this->assign('info', getCategory($category_id));
+			$this->assign('info', get_category($category_id));
 			$this->assign('list', $list);
 			$list = $this->fetch('Widget:textlist');
 			S(json_encode($map) . $rows, $list);
@@ -49,7 +49,7 @@ class ArclistWidget extends Controller {
 		$list = S(json_encode($map) . $rows);
 		if (empty($list) || APP_DEBUG) {
 			$list = M('Article')->where($map)->limit($rows)->select();
-			$this->assign('info', getCategory($category_id));
+			$this->assign('info', get_category($category_id));
 			$this->assign('list', $list);
 			$list = $this->fetch('Widget:rtextlist');
 			S(json_encode($map) . $rows, $list);

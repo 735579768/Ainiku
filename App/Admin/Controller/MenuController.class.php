@@ -82,7 +82,7 @@ class MenuController extends AdminController {
 			}
 		} else {
 			//$field=Api('Model/menuModel');
-			$field = getModelAttr('menu');
+			$field = get_model_attr('menu');
 			$this->assign('fieldarr', $field);
 			$data = array();
 			if (!empty($pid)) {
@@ -117,7 +117,7 @@ class MenuController extends AdminController {
 			$info = array();
 			/* 获取数据 */
 			$data  = M('Menu')->find($id);
-			$field = getModelAttr('menu');
+			$field = get_model_attr('menu');
 			$this->assign('fieldarr', $field);
 			$this->assign('data', $data);
 			$this->meta_title = '编辑菜单';

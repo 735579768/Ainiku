@@ -5,11 +5,11 @@ use Think\Controller;
 class FileController extends AdminController {
 	public function index() {
 		$this->meta_title = '插件管理';
-		$dirlist          = getDirList(__SITE_ROOT__ . '/Plugins/');
+		$dirlist          = get_dir_list(__SITE_ROOT__ . '/Plugins/');
 		$dirlist          = str_replace('Plugin', '', $dirlist);
 		$addoninfo        = array();
 		foreach ($dirlist as $a) {
-			$temarr = runPluginMethod($a, 'getConfig');
+			$temarr = run_plugin_method($a, 'getConfig');
 			$mark   = $a; //strtolower($temarr['mark']);
 			$model  = M('Addons')->where("mark='$mark'")->find();
 			if (!empty($model)) {
@@ -92,12 +92,12 @@ class FileController extends AdminController {
 		if (empty($mark)) {
 			$this->error('非法安装');
 		} else {
-			$result = runPluginMethod($mark, 'install');
+			$result = run_plugin_method($mark, 'install');
 			if (!$result) {
 				$this->error('插件安装失败,请联系做作者');
 			}
 
-			$data           = runPluginMethod($mark, 'getConfig');
+			$data           = run_plugin_method($mark, 'getConfig');
 			$data['mark']   = $mark; //strtolower($data['mark']);
 			$data['status'] = 0;
 			$model          = D('Addons');
@@ -119,7 +119,7 @@ class FileController extends AdminController {
 		if (empty($mark)) {
 			$this->error('卸载失败');
 		} else {
-			$result = runPluginMethod($mark, 'uninstall');
+			$result = run_plugin_method($mark, 'uninstall');
 			if (!$result) {
 				$this->error('插件卸载失败,请联系做作者');
 			}
@@ -138,7 +138,7 @@ class FileController extends AdminController {
 		     * 运行插件方法
 	*/
 	public function plugin($name = null, $method = null) {
-		$str = runPluginMethod($name, $method);
+		$str = run_plugin_method($name, $method);
 		$this->assign('plugincontent', $str);
 		$this->display();
 	}

@@ -5,7 +5,7 @@ use Think\Controller;
 defined("ACCESS_ROOT") || die("Invalid access");
 class ArticleController extends HomeController {
 	public function index($cate = null) {
-		$info = getCategory($cate);
+		$info = get_category($cate);
 		if (empty($info)) {$this->_empty();}
 
 		$tpl = empty($info['list_tpl']) ? 'index' : $info['list_tpl'];
@@ -21,7 +21,7 @@ class ArticleController extends HomeController {
 		$info          = M('Article')->where($map)->find($article_id);
 		if (empty($info)) {$this->_empty();}
 
-		$category = getCategory($info['category_id']);
+		$category = get_category($info['category_id']);
 		$tpl      = empty($info['detail_tpl']) ? 'detail' : $info['detail_tpl'];
 
 		M('Article')->where("article_id=$article_id")->save(array('views' => $info['views'] + 1));

@@ -3,7 +3,7 @@
  *使用方法
  *$field="'diqu,goods_id,num,create_time";
  *$fieldtitle="市场,产品名字,数量,下单时间";
- *$str=runPluginMethod('Phpexcel','export',array($list,
+ *$str=run_plugin_method('Phpexcel','export',array($list,
  *'shichang-tongji',
  *array($field,$fieldtitle)
  *)

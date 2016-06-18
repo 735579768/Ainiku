@@ -37,7 +37,7 @@
     <td style="text-align:center;"><input class="check-item" type="checkbox" name="id[]" value="{$vo.article_id}"/></td>
     <td>{$key+1}</td>
     <td>{$vo.title}</td>
-    <td>{$vo.category_id|getCategoryTitle}</td>
+    <td>{$vo.category_id|get_category_title}</td>
     <td>{$vo.status|totext}</td>
     <td>
     	<a href="{:U('Article/huifu?article_id='.$vo['article_id'])}"  class="btn btn-primary ajax-list-del">恢复</a>

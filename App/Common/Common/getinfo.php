@@ -1,14 +1,14 @@
 <?php
 /* 根据ID获取分类名称 */
 /* 根据ID获取分类名称 */
-function getCategoryTitle($id) {
-	$title = getCategory($id, 'title');
+function get_category_title($id) {
+	$title = get_category($id, 'title');
 	return empty($title) ? '默认分类' : $title;
 }
 /**
  *取当前分类的所有子类树
  */
-function getCategoryAllChild($id) {
+function get_category_allchild($id) {
 	$restr = F('cateallchild' . $id);
 	if (empty($restr) || APP_DEBUG) {
 		$restr      = $id;
@@ -19,7 +19,7 @@ function getCategoryAllChild($id) {
 				$temid   = $val['category_id'];
 				$result1 = M('Category')->where("pid=" . $temid)->select();
 				if (!empty($result1)) {
-					$temid = getCategoryAllChild($temid);
+					$temid = get_category_allchild($temid);
 				}
 				$restr .= ',' . $temid;
 
@@ -33,7 +33,7 @@ function getCategoryAllChild($id) {
 /**
  *取分类的顶级父类
  ***/
-function getCategoryParent($id = null, $top = true) {
+function get_category_parent($id = null, $top = true) {
 	if (empty($id)) {
 		return '';
 	}
@@ -44,7 +44,7 @@ function getCategoryParent($id = null, $top = true) {
 		$info = M('Category')->find($id);
 		if ($top) {
 			if ($info['pid'] != 0) {
-				$reid = getCategoryParent($info['pid'], true);
+				$reid = get_category_parent($info['pid'], true);
 			}
 			$reid = $info['category_id'];
 
@@ -58,7 +58,7 @@ function getCategoryParent($id = null, $top = true) {
 /**
  *取分类树
  */
-function getCategoryTree($pid = 0, $child = false) {
+function get_category_tree($pid = 0, $child = false) {
 	$cachekey     = md5('homecategorytree');
 	$categorytree = F($cachekey);
 	if (empty($categorytree) || APP_DEBUG) {
@@ -68,7 +68,7 @@ function getCategoryTree($pid = 0, $child = false) {
 		$categorytree    = M('Category')->where($where)->order('sort asc')->select();
 		if ($categorytree) {
 			foreach ($categorytree as $key => $val) {
-				$child                       = getCategoryTree($val['category_id']);
+				$child                       = get_category_tree($val['category_id']);
 				$categorytree[$key]['child'] = $child;
 			}
 		}
@@ -79,8 +79,8 @@ function getCategoryTree($pid = 0, $child = false) {
 /**
  *取系统缓存分类
  */
-function F_getCategoryTree($pid = 0, $child = false) {
-	return getCategoryTree($pid, $child);
+function F_get_category_tree($pid = 0, $child = false) {
+	return get_category_tree($pid, $child);
 }
 /*
 // * 获取分类信息并缓存分类
@@ -88,7 +88,7 @@ function F_getCategoryTree($pid = 0, $child = false) {
 // * @param  string  $field 要获取的字段名
 // * @return string         分类信息
  */
-function getCategory($id = null, $field = null) {
+function get_category($id = null, $field = null) {
 	$map = array();
 	/* 非法分类ID */
 	if (empty($id)) {
@@ -118,7 +118,7 @@ function getCategory($id = null, $field = null) {
  * @return 完整的数据  或者  指定的$field字段值
  * @author huajie <banhuajie@163.com>
  */
-function getPicture($id = null, $field = null, $wh = null) {
+function get_picture($id = null, $field = null, $wh = null) {
 	$revalue = '';
 	$id      = trim($id);
 	if (empty($id)) {
@@ -176,7 +176,7 @@ function getPicture($id = null, $field = null, $wh = null) {
  * @return 完整的数据  或者  指定的$field字段值
  * @author huajie <banhuajie@163.com>
  */
-function getFile($id = null, $field = null) {
+function get_file($id = null, $field = null) {
 	$revalue = null;
 	$id      = trim($id);
 	if (empty($id)) {
@@ -199,7 +199,7 @@ function getFile($id = null, $field = null) {
  *取文章信息
  *
  **/
-function getArticle($id = null, $whe = array(), $field = null) {
+function get_article($id = null, $whe = array(), $field = null) {
 	if (empty($id) || !is_numeric($id)) {
 		return '';
 	}
@@ -231,7 +231,7 @@ function getGoods($id = null, $whe = null, $field = null) {
 			return null;
 		}
 
-		$info2 = getGoodsAttribute($id);
+		$info2 = get_goods_attribute($id);
 		$info  = array_merge($info, $info2);
 		S('goods' . $id, $info);
 	}
@@ -285,7 +285,7 @@ function getMemberGroupList() {
 /**
  *输出指定的文章列表
  */
-function getArticleList($whe = null, $order = null) {
+function get_article_list($whe = null, $order = null) {
 	$skey = $whe . $order;
 	$list = S($skey);
 	if (empty($list) || APP_DEBUG) {
@@ -298,7 +298,7 @@ function getArticleList($whe = null, $order = null) {
 /**
  *万能查询函数
  */
-function getField($table = null, $id = null, $field = null) {
+function get_field($table = null, $id = null, $field = null) {
 	if (empty($table) || empty($id) || empty($field)) {
 		return '';
 	}
@@ -316,7 +316,7 @@ function getField($table = null, $id = null, $field = null) {
 // * @param  string  $field 要获取的字段名
 // * @return string         分类信息
  */
-function getSingle($id = null, $field = null) {
+function get_single($id = null, $field = null) {
 	$map = array();
 	/* 非法分类ID */
 	if (empty($id)) {
@@ -350,14 +350,14 @@ function getGoodsType($id = '', $field = '') {
 /**
  *取产品类型列表
  */
-function getGoodsTypeList() {
+function get_goods_type_list() {
 	$list = M('GoodsType')->where('status=1')->select();
 	return $list;
 }
 /**
  *取产品类型属性列表
  */
-function getGoodsTypeAttributeList($id = null) {
+function get_goods_type_attribute_list($id = null) {
 	if (empty($id)) {
 		return null;
 	}
@@ -368,7 +368,7 @@ function getGoodsTypeAttributeList($id = null) {
 /**
  *取一个产品的属性
  **/
-function getGoodsAttribute($goods_id = null, $field = null) {
+function get_goods_attribute($goods_id = null, $field = null) {
 	$map['goods_id'] = $goods_id;
 	$jon             = __DB_PREFIX__ . "goods_type_attribute as a on a.goods_type_attribute_id=" . __DB_PREFIX__ . "goods_attribute.goods_type_attribute_id";
 	$fie             = "*,a.name as attrname,a.title as attrtitle," . __DB_PREFIX__ . "goods_attribute.value as attrvalue";
@@ -413,7 +413,7 @@ function getStatus($val = '', $model_id = '', $field = 'status') {
 	if (empty($val)) {
 		return '';
 	} else {
-		$arr = getModelAttr($model_id, $field, 'extra');
+		$arr = get_model_attr($model_id, $field, 'extra');
 		//trace($arr);
 		return $arr[$val];
 	}
@@ -426,7 +426,7 @@ function getStatus($val = '', $model_id = '', $field = 'status') {
  *@param $attr 字段的属性值 如  title   note  name field  extra type......等  常用的有extra文章属性标记返回的是一个数组
  *
  **/
-function getModelAttr($model_id = null, $field = null, $attr = null) {
+function get_model_attr($model_id = null, $field = null, $attr = null) {
 	$skey   = $model_id . '_' . $field . '_' . $attr;
 	$relist = F('_modelform/' . $skey);
 	if (empty($relist) || APP_DEBUG) {
@@ -560,7 +560,7 @@ function getCustomForm($metch, $name, $data) {
  * 返回一个动态自动验证的数组
  */
 function getModelRules($model_id = '') {
-	$relus = getModelAttr($model_id);
+	$relus = get_model_attr($model_id);
 	$rearr = array();
 	foreach ($relus as $key => $val) {
 		//查找出必填项

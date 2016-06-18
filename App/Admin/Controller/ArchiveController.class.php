@@ -28,7 +28,7 @@ class ArchiveController extends AdminController {
 		}
 
 		$this->assign('model', $this->m_info);
-		$this->assign('preid', getTable($this->m_info['table'], false) . '_id');
+		$this->assign('preid', get_table($this->m_info['table'], false) . '_id');
 	}
 	/**
 	 *存档列表
@@ -76,7 +76,7 @@ class ArchiveController extends AdminController {
 		$this->pages(array(
 			'where' => $map,
 			'model' => $this->m_info['table'],
-			'order' => getTable($this->m_info['table'], false) . '_id  desc',
+			'order' => get_table($this->m_info['table'], false) . '_id  desc',
 		));
 		$this->meta_title = $this->m_info['title'] . '列表';
 
@@ -119,7 +119,7 @@ class ArchiveController extends AdminController {
 		$this->pages(array(
 			'where' => $map,
 			'model' => $this->m_info['table'],
-			'order' => getTable($this->m_info['table'], false) . '_id  desc',
+			'order' => get_table($this->m_info['table'], false) . '_id  desc',
 		));
 		$this->meta_title = $this->m_info['title'] . '回收站';
 		$this->display('index');
@@ -140,7 +140,7 @@ class ArchiveController extends AdminController {
 			}
 		} else {
 			$this->assign('model_id', $this->m_info['model_id']);
-			$field = getModelAttr($this->m_info['model_id']);
+			$field = get_model_attr($this->m_info['model_id']);
 			$this->assign('fieldarr', $field);
 			$this->assign('data', $data);
 			$this->meta_title = '添加' . $this->m_info['title'];
@@ -174,7 +174,7 @@ class ArchiveController extends AdminController {
 				$this->error($Document->getError());
 			}
 			$this->assign('model_id', $this->m_info['model_id']);
-			$field = getModelAttr($this->m_info['model_id']);
+			$field = get_model_attr($this->m_info['model_id']);
 			$this->assign('fieldarr', $field);
 			$this->assign('data', $data);
 			$this->meta_title = '编辑' . $this->m_info['title'];
@@ -191,7 +191,7 @@ class ArchiveController extends AdminController {
 			$this->error('请先进行选择');
 		}
 
-		$preid  = getTable($this->m_info['table'], false) . '_id';
+		$preid  = get_table($this->m_info['table'], false) . '_id';
 		$result = M($this->m_info['table'])->where("{$preid} in($id)")->save(array('status' => -1));
 		$result > 0 ? $this->success(L('_TO_RECYCLE_'), U('recycle', array('model_id' => I('model_id')))) : $this->error(L('_CAOZUO_FAIL_'));
 	}
@@ -204,7 +204,7 @@ class ArchiveController extends AdminController {
 			$this->error('请先进行选择');
 		}
 
-		$preid  = getTable($this->m_info['table'], false) . '_id';
+		$preid  = get_table($this->m_info['table'], false) . '_id';
 		$result = M($this->m_info['table'])->where("{$preid} in ($id)")->delete();
 		$result > 0 ? $this->success(L('_CHEDI_DELETE_'), U('recycle', array('model_id' => I('model_id')))) : $this->error(L('_CAOZUO_FAIL_'));
 	}
@@ -214,7 +214,7 @@ class ArchiveController extends AdminController {
 			$this->error('请先进行选择');
 		}
 
-		$preid = getTable($this->m_info['table'], false) . '_id';
+		$preid = get_table($this->m_info['table'], false) . '_id';
 		$uid   = M($this->m_info['table'])->where("{$preid} in($id)")->save(array('status' => 1));
 		if (0 < $uid) {
 			$this->success(L('_TO_HUIFU_'), U('index', array('model_id' => I('model_id'))));

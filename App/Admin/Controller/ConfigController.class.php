@@ -51,7 +51,7 @@ class ConfigController extends AdminController {
 				$this->error($Config->getError());
 			}
 		} else {
-			$field = getModelAttr('config');
+			$field = get_model_attr('config');
 			$this->assign('fieldarr', $field);
 			$this->assign('data', $data);
 			$this->display('edit');
@@ -85,7 +85,7 @@ class ConfigController extends AdminController {
 			if (false === $info) {
 				$this->error('获取配置信息错误');
 			}
-			$field = getModelAttr('config');
+			$field = get_model_attr('config');
 			$this->assign('data', $info);
 			$this->assign('fieldarr', $field);
 			$this->meta_title = '编辑配置';

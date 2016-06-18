@@ -37,7 +37,7 @@ class LinkController extends AdminController {
 			}
 		} else {
 			//$field=Api('Model/linkModel');
-			$field            = getModelAttr('link');
+			$field            = get_model_attr('link');
 			$this->meta_title = '添加友情链接';
 			$this->assign('fieldarr', $field);
 			$this->display('edit');
@@ -65,7 +65,7 @@ class LinkController extends AdminController {
 			}
 
 			$data             = D('Link')->where("link_id=$link_id")->find();
-			$field            = getModelAttr('link');
+			$field            = get_model_attr('link');
 			$this->meta_title = '编辑友情链接';
 			$this->assign('fieldarr', $field);
 			$this->assign('data', $data);

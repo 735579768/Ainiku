@@ -55,7 +55,7 @@ function getCategoryList($category_id = 0) {
 /**
  * 取分类的最上级父类
  */
-function getCategoryParentId($category_id = 0) {
+function get_category_parentid($category_id = 0) {
 	$skey   = 'categoryparentid_' . $category_id;
 	$redata = F($skey);
 	if (empty($redata) || APP_DEBUG) {
@@ -65,12 +65,12 @@ function getCategoryParentId($category_id = 0) {
 			} else {
 				$map['category_id'] = $category_id['pid'];
 				$info               = M('Category')->where($map)->find();
-				$redata             = getCategoryParentId($info);
+				$redata             = get_category_parentid($info);
 			}
 		} else {
 			$map['category_id'] = $category_id;
 			$info               = M('Category')->where($map)->find();
-			$redata             = getCategoryParentId($info);
+			$redata             = get_category_parentid($info);
 		}
 		F($skey, $redata);
 	}
@@ -83,7 +83,7 @@ function getCategoryParentId($category_id = 0) {
 function getCatetoryArticle($category_id = '', $rows = '8') {
 	if (empty($category_id)) {return '';}
 	$rearr              = array();
-	$category_id        = getCategoryAllChild($category_id);
+	$category_id        = get_category_allchild($category_id);
 	$map['category_id'] = array('in', "$category_id");
 	$map['status']      = 1;
 	$skey               = 'homearticlelist' . $category_id;
@@ -97,7 +97,7 @@ function getCatetoryArticle($category_id = '', $rows = '8') {
 /**
  * 取单页列表
  */
-function getSingleList($singlename = '') {
+function get_single_list($singlename = '') {
 	if (empty($singlename)) {
 		return "";
 	}

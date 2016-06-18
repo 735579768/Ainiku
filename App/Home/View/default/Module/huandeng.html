@@ -11,7 +11,7 @@ jQuery("#huandeng").slide({titCell:'.hnav', mainCell:".imglist",effect:"left",au
 <ul class="imglist cl">
 <article:list category_id="80" rows="6"  position="3"  >
 <li class="imgitem  shadow">
-<img class="preload"  src="{$vo.pic|getPicture='thumbpath'}" />
+<img class="preload"  src="{$vo.pic|get_picture='thumbpath'}" />
 <h1 class="stitle" ><a target="_blank" href="{:U('detail/'.$vo['article_id'])}">{$vo.title}</a></h1>
 <div class="scon">{$vo.content|removeHTML=0,150}</div>
 </li>

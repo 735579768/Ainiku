@@ -233,7 +233,7 @@ $(function(){
                   echo "
                   <div class='imgblock'>
                     <div class='upload-img-box uploadimg'>
-                      <div class='upload-pre-item'><a  href='".getPicture($a,'path')."' data-lightbox='example-set' data-title='".getPicture($a,'destname')."'><img src='".getPicture($a,'thumbpath')."'\/></a></div>
+                      <div class='upload-pre-item'><a  href='".get_picture($a,'path')."' data-lightbox='example-set' data-title='".get_picture($a,'destname')."'><img src='".get_picture($a,'thumbpath')."'\/></a></div>
                     </div>
                     <a href='javascript:;' class='btn btn-danger' dataid='".$a."' >删除</a></div>
                   ";
@@ -345,7 +345,7 @@ function uploadPicture{$field['name']}(file, data){
 <notempty name="field['data']">
 <div class='imgblock'>
 <div class="upload-img-box  uploadimg">
-<div class="upload-pre-item"> <a class="" href="{:getPicture($field['data'],'path')}" data-lightbox="example-{$field['data']}" data-title="{:getPicture($field['data'],'destname')}"> <img class="example-image" src="{:getPicture($field['data'],'thumbpath')}"/></a> </div>
+<div class="upload-pre-item"> <a class="" href="{:get_picture($field['data'],'path')}" data-lightbox="example-{$field['data']}" data-title="{:get_picture($field['data'],'destname')}"> <img class="example-image" src="{:get_picture($field['data'],'thumbpath')}"/></a> </div>
 </div>
 <a href='javascript:;' class='btn btn-danger'  dataid='{$field['data']}'>删除</a> </div>
 <script>$(function(){binddel();});</script>
@@ -454,7 +454,7 @@ function uploadPicture{$field['name']}(file, data){
               <input type="hidden" name="{$field['name']}" value="{$field['data']}"/>
               <div class="upload-img-box">
                 <notempty name="field['data']">
-                  <div class="upload-pre-file"><span class="upload_icon_all"></span>{$field['data']|getFile=###,'srcname'}<a href='javascript:;' class='btn btn-danger' dataid='{$field['data']}' >删除</a></div>
+                  <div class="upload-pre-file"><span class="upload_icon_all"></span>{$field['data']|get_file=###,'srcname'}<a href='javascript:;' class='btn btn-danger' dataid='{$field['data']}' >删除</a></div>
                 </notempty>
               </div>
             </div>
@@ -574,7 +574,7 @@ cityselect.create("ssq{$field['name']},Province{$field['name']},city{$field['nam
           <case value="attribute">
               <select class="form-control" id="goodstype_form" name="goods_type_id">
                     <option value="0">请选择--</option>
-                  <volist name=":getGoodsTypeList()" id="vo">
+                  <volist name=":get_goods_type_list()" id="vo">
                       <option value="{$vo.goods_type_id}">{$vo.title}</option>
                     </volist>
                 </select>
@@ -610,7 +610,7 @@ cityselect.create("ssq{$field['name']},Province{$field['name']},city{$field['nam
 <notempty name="field['data']">
 <div class='imgblock'>
 <div class="upload-img-box  uploadimg">
-<div class="upload-pre-item"> <a class="" href="{:getPicture($field['data'],'path')}" data-lightbox="example-{$field['data']}" data-title="{:getPicture($field['data'],'destname')}"> <img class="example-image" src="{:getPicture($field['data'],'thumbpath')}"/></a> </div>
+<div class="upload-pre-item"> <a class="" href="{:get_picture($field['data'],'path')}" data-lightbox="example-{$field['data']}" data-title="{:get_picture($field['data'],'destname')}"> <img class="example-image" src="{:get_picture($field['data'],'thumbpath')}"/></a> </div>
 </div>
 <a href='javascript:;' class='btn btn-danger'  dataid='{$field['data']}'>删除</a> </div>
 <script>$(function(){binddel();});</script>

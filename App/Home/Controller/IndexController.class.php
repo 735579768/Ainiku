@@ -10,8 +10,8 @@ class IndexController extends HomeController {
 		// var_dump(image_water('./testimg/1.jpg', './testimg/water.png', './testimg/1.jpg', ''));
 
 		// var_dump(getIpLocation('219.157.153.157'));
-		die();
-//runPluginMethod('Erweima','create',array('200','这个是测试内容','./Uploads/image/thumb/20151008/144429065269885.png'));
+		//die();
+		//run_plugin_method('Erweima','create',array('200','这个是测试内容','./Uploads/image/thumb/20151008/144429065269885.png'));
 		$model = D("Goods");
 //	$map['jiage']='100-600';
 		$map  = array();

@@ -12,7 +12,7 @@ function getCategoryDocument($category_id = null, $category_type = 'article') {
 }
 //把标记转成对应的文字
 function tomark($value, $model, $field, $html = false) {
-	$arr    = getModelAttr($model, $field);
+	$arr    = get_model_attr($model, $field);
 	$arr    = $arr['extra'];
 	$restr  = '';
 	$temarr = explode(',', $value);
@@ -123,7 +123,7 @@ function getFormType($key = null, $datatype = false) {
 /**
  *取表单模型数据数组
  */
-function getModelTitle($model_id = null) {
+function get_model_title($model_id = null) {
 	if (empty($model_id)) {
 		return '未知';
 	}
@@ -134,7 +134,7 @@ function getModelTitle($model_id = null) {
 /**
  *取产品类型表单模型数据数组
  */
-function getGoodsTypeModel($goods_type_id = null) {
+function get_goods_type_model($goods_type_id = null) {
 	if (empty($goods_type_id)) {
 		return null;
 	}
@@ -218,7 +218,7 @@ function format_bytes($size, $delimiter = '') {
  *清理缓存很实用,哈哈
  *@author qiaokeli <735579768@qq.com>  www.zhaokeli.com
  */
-function delAllFile($fpath, $delself = false, $delfolder = true) {
+function del_allfile($fpath, $delself = false, $delfolder = true) {
 	defined('YPATH') OR define('YPATH', $fpath);
 	$files    = array();
 	$filepath = iconv('gb2312', 'utf-8', $fpath);
@@ -226,7 +226,7 @@ function delAllFile($fpath, $delself = false, $delfolder = true) {
 		if ($dh = opendir($fpath)) {
 			while (($file = readdir($dh)) !== false) {
 				if ($file != '.' && $file != '..') {
-					$temarr = delAllFile($fpath . '/' . $file);
+					$temarr = del_allfile($fpath . '/' . $file);
 					$files  = array_merge($files, $temarr);
 				}
 			}
@@ -255,7 +255,7 @@ function delAllFile($fpath, $delself = false, $delfolder = true) {
 /**
  *检测目录大小
  */
-function getDirSize($dir) {
+function get_dir_size($dir) {
 	$sizeResult = 0;
 	$handle     = opendir($dir); //打开文件流
 	while (false !== ($FolderOrFile = readdir($handle))) //循环判断文件是否可读
@@ -263,7 +263,7 @@ function getDirSize($dir) {
 		if ($FolderOrFile != "." && $FolderOrFile != "..") {
 			if (is_dir("$dir/$FolderOrFile")) //判断是否是目录
 			{
-				$sizeResult += getDirSize("$dir/$FolderOrFile"); //递归调用
+				$sizeResult += get_dir_size("$dir/$FolderOrFile"); //递归调用
 			} else {
 				$sizeResult += filesize("$dir/$FolderOrFile");
 			}
@@ -283,7 +283,7 @@ function get_list_field($data, $grid, $model) {
 		if (isset($array[1])) {
 			if ($array[1] == '[extra]') {
 				//使用模型的extra字段解析成数组
-				$val  = getModelAttr($model['model_id'], $array[0], 'extra');
+				$val  = get_model_attr($model['model_id'], $array[0], 'extra');
 				$temp = $val[$temp];
 			} else {
 				$temp = call_user_func($array[1], $temp);
@@ -328,7 +328,7 @@ function get_list_field($data, $grid, $model) {
 /**
  *返回一个完整的表名字
  */
-function getTable($tablename, $prefix = true) {
+function get_table($tablename, $prefix = true) {
 	$tablename = lcfirst($tablename);
 	$tablename = preg_replace('/([A-Z]{1})/', '_$1', $tablename);
 	return $prefix ? strtolower(__DB_PREFIX__ . $tablename) : strtolower($tablename);

@@ -35,7 +35,7 @@
 					<ul class="order-goods-list cl">
 					<volist name=":F_getOrderGoodsList($vo['order_id'])" id="v">
 						<li class="cl">
-						<img src="{$v.pic|getPicture='thumbpath','80_80'}" />
+						<img src="{$v.pic|get_picture='thumbpath','80_80'}" />
 						<span><a href="{:U('Goods/'.$v['goods_id'])}">{$v.title}</a><br>
 						{$v.price} 元 X {$v.num}
 						</span></li>

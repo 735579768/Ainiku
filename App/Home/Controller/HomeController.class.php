@@ -25,7 +25,7 @@ class HomeController extends CommonController {
 		defined('__DB_PREFIX__') or define('__DB_PREFIX__', C('DB_PREFIX'));
 		defined('UID') or define('UID', is_login());
 		if (C('WEB_SITE_CLOSE') && UID != 1) {$this->show('网站维护中请稍后访问');die();}
-		$str = runPluginMethod('Spider', 'addinfo');
+		$str = run_plugin_method('Spider', 'addinfo');
 		//var_dump($config);
 		if (UID) {
 			//登陆的情况

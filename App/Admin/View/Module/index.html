@@ -39,7 +39,7 @@
         <td class="popupthumb">{$vo.title}
     
      <notempty name="vo.pic">
-   <div class="imgbox" _src="{$vo.pic|getPicture=###,'thumbpath'}" ><span class="wrapimg"></span></div></notempty></td>
+   <div class="imgbox" _src="{$vo.pic|get_picture=###,'thumbpath'}" ><span class="wrapimg"></span></div></notempty></td>
     <td>{$vo.postitle}</td>
     <td><a target="_blank" href="{$vo.url}">{$vo.url}</a></td>
     <td>    <span data-table="Module" data-id="{$vo.module_id}" data-field="status"  data-value="{$vo.status}" class="yn"></span></td>

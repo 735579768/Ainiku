@@ -32,10 +32,10 @@ class GoodstypeController extends AdminController {
 			/* 获取分类信息 */
 			$data = $goods_type_id ? $GoodsType->info($goods_type_id) : '';
 			//$field=Api('Model/GoodsTypeModel');
-			$field = getModelAttr('goodstype');
+			$field = get_model_attr('goodstype');
 			$this->assign('fieldarr', $field);
 			$this->assign('data', $data);
-			$this->meta_title = '类型>' . getField('goodsType', $goods_type_id, 'title') . '>编辑类型';
+			$this->meta_title = '类型>' . get_field('goodsType', $goods_type_id, 'title') . '>编辑类型';
 			$this->display();
 		}
 	}
@@ -57,7 +57,7 @@ class GoodstypeController extends AdminController {
 
 		} else {
 			//$field=Api('Model/GoodsTypeModel');
-			$field = getModelAttr('goodstype');
+			$field = get_model_attr('goodstype');
 			$this->assign('fieldarr', $field);
 			$data = array('pid' => $pid);
 			$this->assign('data', $data);

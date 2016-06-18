@@ -34,7 +34,7 @@ class AddonsController extends HomeController {
 		     * 运行插件方法
 	*/
 	public function plugin($pn = null, $pm = null) {
-		$str = runPluginMethod($pn, $pm);
+		$str = run_plugin_method($pn, $pm);
 		$this->assign('plugincontent', $str);
 		$this->display();
 	}

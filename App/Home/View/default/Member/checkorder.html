@@ -13,7 +13,7 @@
 		<ul class="order-goods-list cl">
 		<volist name="_list" id="vo">
 			<li class="cl">
-			<img src="{$vo.pic|getPicture='thumbpath','80_80'}" />
+			<img src="{$vo.pic|get_picture='thumbpath','80_80'}" />
 			<span><a target="_blank" href="{:U('Goods/'.$vo['goods_id'])}">{$vo.title}</a><br>
 			{$vo.price} 元 X {$vo.num}
 			</span></li>

@@ -36,7 +36,7 @@
     <ul class="cartlist cl">
     <volist name="_list" id="vo">
         <li class="cl">
-        <img src="{$vo.pic|getPicture='thumbpath','50_50'}">
+        <img src="{$vo.pic|get_picture='thumbpath','50_50'}">
         <a href="{:U('Goods/'.$vo['goods_id'])}" target="_blank" class="z-title">{$vo.title}</a>
         <div class="pricecolor z-price">{$vo.price}元 X {$vo.num}</div>
         </li>

@@ -54,9 +54,9 @@
     <td>{$key+1}</td>
     <td class="popupthumb"><a href="{:U('Article/edit?article_id='.$vo['article_id'])}" class="ajax-loadhtml">{$vo.title}</a>
     <notempty name="vo.pic">
-   <div class="imgbox" _src="{$vo.pic|getPicture=###,'thumbpath'}" ><span class="wrapimg"></span></div></notempty>
+   <div class="imgbox" _src="{$vo.pic|get_picture=###,'thumbpath'}" ><span class="wrapimg"></span></div></notempty>
     </td>
-    <td>{$vo.category_id|getCategoryTitle}</td>
+    <td>{$vo.category_id|get_category_title}</td>
     <td><span data-table="Article" data-id="{$vo.article_id}" data-field="status"  data-value="{$vo.status}" class="yn"></span></td>
     <td>
     	<a href="{:U('Article/edit?article_id='.$vo['article_id'])}"  class="btn btn-primary">编辑</a>

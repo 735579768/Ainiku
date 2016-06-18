@@ -40,14 +40,14 @@ class ModelController extends AdminController {
 				$this->error($model->geterror());
 			}
 		} else {
-			$field                 = getModelAttr('model');
+			$field                 = get_model_attr('model');
 			$data['search_format'] = <<<eot
 title:标题
 eot;
 			$data['list_format'] = <<<eot
 article_id:编号
 title:标题|<span class="el">[title]</span>
-category_id|getCategoryTitle:分类|<span class="el">[category_id]</span>
+category_id|get_category_title:分类|<span class="el">[category_id]</span>
 update_time|time_format:最后更新
 status|[extra]:状态
 views:浏览
@@ -56,7 +56,7 @@ eot;
 			$data['recycle_format'] = <<<eot
 article_id:编号
 title:标题|<span class="el">[title]</span>
-category_id|getCategoryTitle:分类|<span class="el">[category_id]</span>
+category_id|get_category_title:分类|<span class="el">[category_id]</span>
 update_time|time_format:最后更新
 status|[extra]:状态
 views:浏览
@@ -71,8 +71,8 @@ eot;
 	}
 	//判断有没有这个数据表没有的话添加
 	private function addnewtable($table_name) {
-		$tablename  = getTable($table_name);
-		$table_name = getTable($table_name, false);
+		$tablename  = get_table($table_name);
+		$table_name = get_table($table_name, false);
 		$sql        = "SHOW TABLES LIKE '{$tablename}'";
 		$res        = M()->execute($sql);
 		if ($res <= 0) {
@@ -108,7 +108,7 @@ sql;
 			}
 
 			$data             = D('Model')->where("model_id=$model_id")->find();
-			$field            = getModelAttr('model');
+			$field            = get_model_attr('model');
 			$this->meta_title = '编辑模型';
 			$this->assign('fieldarr', $field);
 			$this->assign('data', $data);
@@ -129,7 +129,7 @@ sql;
 		$result = D('Model')->where("model_id=$model_id")->delete();
 		if ($result > 0) {
 			//删除数据表
-			$tablename = getTable($table_name);
+			$tablename = get_table($table_name);
 			$sql       = "DROP TABLE IF EXISTS `{$tablename}`";
 			$res       = M()->execute($sql);
 			$this->success(L('_DELETE_SUCCESS_'), U('index'));

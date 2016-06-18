@@ -110,7 +110,7 @@
                 <td>{$vo.goods_id}</td>
                 <td class="popupthumb" style="text-align:left;"><a href="javascript:;" class="">{$vo.title}</a>
                     <notempty name="vo.pic">
-                        <div class="imgbox" _src="{$vo.pic|getPicture=###,'thumbpath'}"><span class="wrapimg"></span></div>
+                        <div class="imgbox" _src="{$vo.pic|get_picture=###,'thumbpath'}"><span class="wrapimg"></span></div>
                     </notempty>
                 </td>
                 <td>{$vo.price}元</td>

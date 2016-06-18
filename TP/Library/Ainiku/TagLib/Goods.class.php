@@ -42,7 +42,7 @@ class Goods extends TagLib {
 		$parse .= '$maplist[\'status\']=1;';
 
 		if (!empty($catid)) {
-			$parse .= '$maplist[\'category_id\']=array(\'in\',getCategoryAllChild(' . $catid . '));';
+			$parse .= '$maplist[\'category_id\']=array(\'in\',get_category_allchild(' . $catid . '));';
 		}
 
 		if (!empty($position)) {
@@ -77,7 +77,7 @@ class Goods extends TagLib {
 		$parse .= '$map2=array();';
 		$parse .= '$map2[\'status\']=1;';
 		if (!empty($catid)) {
-			$parse .= '$map2[\'category_id\']=array(\'in\',getCategoryAllChild(' . $catid . '));';
+			$parse .= '$map2[\'category_id\']=array(\'in\',get_category_allchild(' . $catid . '));';
 		}
 
 		if (!empty($position)) {
