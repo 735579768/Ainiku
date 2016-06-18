@@ -87,11 +87,8 @@ echo "var qu={{$qu}};";*/
 		echo $i;
 	}
 	function shuiyin() {
-		markimg(array(
-			'dst' => './test.jpg', //原始图像
-			'str' => C('SHUIYIN_TEXT'),
-			'pos' => C('SHUIYIN_POS'), //水印位置('left,right,center')
-		));
+
+
 
 	}
 	function newarea() {
@@ -218,7 +215,7 @@ echo "var qu={{$qu}};";*/
 	}
 	//缩略图测试
 	function slt() {
-		img2thumb('./test.jpg', './test_thumb.jpg', $width = 210, $height = 200, $cut = 0, $proportion = true);
+		create_thumb('./test.jpg', './test_thumb.jpg', $width = 210, $height = 200);
 	}
 	function delcate() {
 		$clist  = M('Category')->where("category_type='article'")->select();
@@ -267,7 +264,7 @@ echo "var qu={{$qu}};";*/
 		foreach ($out[1] as $val) {
 			if (!empty($val)) {
 				$thumbpath = str_replace('/image', '/image/thumb', $val);
-				img2thumb('.' . $val, '.' . $thumbpath, C('THUMB_WIDTH'), C('THUMB_HEIGHT'));
+				create_thumb('.' . $val, '.' . $thumbpath, C('THUMB_WIDTH'), C('THUMB_HEIGHT'));
 				$this->markpic('.' . $val);
 				$result = M('Picture')->add(array(
 					'uid'         => 1,
@@ -407,22 +404,14 @@ $pattern[]='/<div>[\s|\r|\n|\t]*(\d+[．|、][\s\S]*?)<\/div>/is';//换掉div外
 		//		echo  $info;
 	}
 //图片添加水印
-	private function markpic($dst = null) {
+	private function markpic($dst='') {
 		//取水印图片
 		$src       = realpath('.' . getPicture(C('SHUIYIN_IMG')));
 		$shuiyinon = C('SHUIYIN_ON');
 		if ($shuiyinon == '1' && $dst !== false && $src !== false) {
-			markimg(array(
-				'dst' => $dst, //原始图像
-				'src' => $src, //水印图像
-				'pos' => C('SHUIYIN_POS'), //水印位置('left,right,center')
-			));
+			image_water($dst,$src,$dst);
 		} else if ($shuiyinon == '2' && $dst !== false && $src !== false) {
-			markimg(array(
-				'dst' => $dst, //原始图像
-				'str' => C('SHUIYIN_TEXT'),
-				'pos' => C('SHUIYIN_POS'), //水印位置('left,right,center')
-			));
+			image_water($dst,'',$dst,C('SHUIYIN_TEXT'));
 		}
 	}
 }

@@ -28,7 +28,7 @@ class ImgController extends HomeController {
 		}
 
 		$imgpath = '.' . $info['path'];
-		img2thumb($imgpath, '', $width, $height, $createimg = false, $proportion = true);
+		//img2thumb($imgpath, '', $width, $height, $createimg = false, $proportion = true);
 
 	}
 	protected function _empty() {

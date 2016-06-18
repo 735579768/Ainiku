@@ -141,7 +141,7 @@ function getPicture($id = null, $field = null, $wh = null) {
 					$revalue = substr($revalue, 0, strrpos($revalue, '.')) . '_' . $wh . substr($revalue, strrpos($revalue, '.'));
 					//判断之前是不是已经生成
 					if (!file_exists(pathA($revalue))) {
-						$result = img2thumb(pathA($picture['path']), pathA($revalue), $wharr[0], $wharr[1], true, false);
+						$result = create_thumb(pathA($picture['path']), pathA($revalue), $wharr[0], $wharr[1]);
 						if ($result !== true) {
 							$revalue = $picture['path'];
 						}
@@ -151,7 +151,7 @@ function getPicture($id = null, $field = null, $wh = null) {
 				$revalue = $picture[$field];
 				if ($field == 'thumbpath') {
 					if (!file_exists(pathA($revalue))) {
-						$result = img2thumb(pathA($picture['path']), pathA($revalue), C('THUMB_WIDTH'), C('THUMB_HEIGHT'), true, false);
+						$result = create_thumb(pathA($picture['path']), pathA($revalue), C('THUMB_WIDTH'), C('THUMB_HEIGHT'));
 						if ($result !== true) {
 							$revalue = $picture['path'];
 						}

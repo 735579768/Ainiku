@@ -405,8 +405,8 @@ $XDtargetPathdir = str_replace($filename, '', $XDtargetPath);*/
 					if (in_array($extend[$va], array('jpg', 'jpeg', 'gif', 'png', 'bmp'))) {
 						//生成缩略图
 						//缩略图路径
-						$re = img2thumb($JDtargetPath, $JDthumbPath, C('THUMB_WIDTH'), C('THUMB_HEIGHT'));
-						if ($re === false) {
+						$re = create_thumb($JDtargetPath, $JDthumbPath, C('THUMB_WIDTH'), C('THUMB_HEIGHT'));
+						if ($re!==true) {
 							$JDthumbPath = $JDtargetPath;
 						}
 
@@ -526,7 +526,7 @@ $JDthumbdir = str_replace($temarr[count($temarr) - 1], '', $JDthumb);*/
 					//生成缩略图
 					$srcpath = pathA($result['url']);
 					$srcpath = str_replace('\\', '/', $srcpath);
-					$re      = img2thumb($srcpath, $JDthumb, C('THUMB_WIDTH'), C('THUMB_HEIGHT'));
+					$re      = create_thumb($srcpath, $JDthumb, C('THUMB_WIDTH'), C('THUMB_HEIGHT'));
 					$thumb   = file_exists('.' . $thumb) ? $thumb : $result['url'];
 					M('Picture')->add(array(
 						'sha1'        => $shafile['sha1'],
@@ -567,17 +567,9 @@ $JDthumbdir = str_replace($temarr[count($temarr) - 1], '', $JDthumb);*/
 		$src       = realpath('.' . getPicture(C('SHUIYIN_IMG')));
 		$shuiyinon = C('SHUIYIN_ON');
 		if ($shuiyinon == '1' && $dst !== false && $src !== false) {
-			markimg(array(
-				'dst' => $dst, //原始图像
-				'src' => $src, //水印图像
-				'pos' => C('SHUIYIN_POS'), //水印位置('left,right,center')
-			));
+			image_water($dst,$src,$dst);
 		} else if ($shuiyinon == '2' && $dst !== false && $src !== false) {
-			markimg(array(
-				'dst' => $dst, //原始图像
-				'str' => C('SHUIYIN_TEXT'),
-				'pos' => C('SHUIYIN_POS'), //水印位置('left,right,center')
-			));
+			image_water($dst,'',$dst,C('SHUIYIN_TEXT'));
 		}
 	}
 //批量生成缩略图
@@ -648,8 +640,8 @@ $JDthumbdir = str_replace($temarr[count($temarr) - 1], '', $JDthumb);*/
 							unlink($dpath);
 						}
 
-						$result = img2thumb($spath, $dpath, C('THUMB_WIDTH'), C('THUMB_HEIGHT'));
-						if ($result) {
+						$result = create_thumb($spath, $dpath, C('THUMB_WIDTH'), C('THUMB_HEIGHT'));
+						if ($result===true) {
 							M('Picture')->where("id={$thumbpath[$i]}")->save(array('thumbpath' => $thupath));
 
 							$jishu++;
