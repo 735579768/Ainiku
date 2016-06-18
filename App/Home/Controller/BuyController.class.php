@@ -29,7 +29,7 @@ class BuyController extends LoginController {
 				$data['address_id'] = $model->consignee_address_id;
 				$data['name']       = $model->consignee_name;
 				$data['mobile']     = $model->consignee_mobile;
-				$data['diqu']       = getRegion($model->consignee_diqu) . '<br>' . $model->consignee_detail;
+				$data['diqu']       = get_region($model->consignee_diqu) . '<br>' . $model->consignee_detail;
 				if (empty($model->consignee_address_id)) {
 					//$model->create_time=NOW_TIME;
 					//$model->update_time=NOW_TIME;
@@ -156,7 +156,7 @@ $this->error($model->geterror());
 			$data['order_total']      = $order_total;
 			$data['consignee_name']   = $info['consignee_name'];
 			$data['consignee_mobile'] = $info['consignee_mobile'];
-			$data['consignee_diqu']   = getRegion($info['consignee_diqu']);
+			$data['consignee_diqu']   = get_region($info['consignee_diqu']);
 			$data['consignee_detail'] = $info['consignee_detail'];
 			$data['youbian']          = $info['consignee_youbian'];
 			$data['order_status']     = 1;

@@ -5,7 +5,7 @@
     <!--content start -->
     <div class="content">
         <form class="autosubmit" action="{:U('')}" method="post">
-            {:getForm($fieldarr,$data)}
+            {:get_form($fieldarr,$data)}
             <div class="form-group center">
                 <input type="hidden" name="{$preid}" value="{$data[$preid]}" />
                 <input type="hidden" name="model_id" value="{$model['model_id']}" />

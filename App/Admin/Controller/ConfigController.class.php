@@ -13,7 +13,7 @@ class ConfigController extends AdminController {
 	 */
 	public function index() {
 		/* 查询条件初始化 */
-		$grouplist = extratoarray(C('CONFIG_GROUP'));
+		$grouplist = extra_to_array(C('CONFIG_GROUP'));
 		$this->assign('group', $grouplist);
 
 		$group = I('group', 0);
@@ -29,7 +29,7 @@ class ConfigController extends AdminController {
 			'order' => 'sort asc,config_id desc',
 		));
 
-		// $this->assign('group',extraToArray(C('CONFIG_GROUP')));
+		// $this->assign('group',extra_to_array(C('CONFIG_GROUP')));
 		// $this->assign('group_id',I('get.group',0));
 		$this->meta_title = '配置列表';
 		$this->display();
@@ -99,7 +99,7 @@ class ConfigController extends AdminController {
 	function group($id = null) {
 		$this->meta_title = '网站配置';
 		$id               = $id ? $id : 1;
-		$grouplist        = extratoarray(C('CONFIG_GROUP'));
+		$grouplist        = extra_to_array(C('CONFIG_GROUP'));
 		$this->assign('group', $grouplist);
 		$this->assign('id', $id);
 		//循环每个分组的模型
@@ -119,7 +119,7 @@ class ConfigController extends AdminController {
 			$data[$k]['note']    = $v['note'] . '。标识:' . $nme;
 			$data[$k]['is_show'] = 3;
 			if (!empty($v['extra']) && $v['type'] != 'custom') {
-				$data[$k]['extra'] = extraToArray($v['extra']);
+				$data[$k]['extra'] = extra_to_array($v['extra']);
 			}
 
 		}

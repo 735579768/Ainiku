@@ -34,7 +34,7 @@ return array(
 		'name'    => 'type',
 		'title'   => '配置类型',
 		'note'    => '系统会根据不同的类型解析配置值',
-		'extra'   => getFormType(),
+		'extra'   => get_form_type(),
 		'is_show' => 3,
 	),
 	array(
@@ -43,7 +43,7 @@ return array(
 		'name'    => 'group',
 		'title'   => '配置分组',
 		'note'    => '默认的是添加到默认分组',
-		'extra'   => extratoarray(C('CONFIG_GROUP')),
+		'extra'   => extra_to_array(C('CONFIG_GROUP')),
 		'is_show' => 3,
 	),
 	array(

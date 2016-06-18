@@ -154,7 +154,7 @@ class GoodsController extends AdminController {
 			if ($model->create()) {
 				//$model->position=implode(',',I('position'));
 				//取原来的产品类型
-				$srcid = getGoods($goods_id);
+				$srcid = get_goods($goods_id);
 				$srcid = $srcid['goods_type_id'];
 				if (!$model->pic) {
 					$model->pic = $this->getFirstPicture($model->content);
@@ -272,7 +272,7 @@ class GoodsController extends AdminController {
 			//分类树
 			$catelist = F('sys_category_tree');
 			if (empty($catelist)) {
-				$catelist = A_getCatelist();
+				$catelist = A_get_cate_list();
 				F('sys_category_tree', $catelist);
 			}
 			unset($catelist[0]);

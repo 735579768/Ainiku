@@ -28,7 +28,7 @@ dump($assets);*/
 		//查询黑名单
 		$ip     = get_client_ip();
 		$iplist = C('IP_BLACKLIST');
-		$iplist = extratoarray($iplist);
+		$iplist = extra_to_array($iplist);
 		if (!empty($iplist)) {
 			if (in_array($ip, $iplist)) {
 				die('ip is no access!');

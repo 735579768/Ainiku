@@ -10,7 +10,7 @@
         </form>
         <div class="searchform">
             <form class="form-h form-group-h" action="{:U('')}" method="post">
-                {:getForm($fieldarr1,$data)} {:getForm($fieldarr,$data)}
+                {:get_form($fieldarr1,$data)} {:get_form($fieldarr,$data)}
                 <div class="form-group">
                     <input name="title" type="text" value="{:I('title')}" class="form-control input-middle" placeholder="请输入标题" />
                 </div>
@@ -47,7 +47,7 @@
                     <td>{$vo.category_id|get_category_title}</td>
                     <td style="text-align:left; cursor:pointer;" title="单击更改" id="position{$vo.goods_id}" onClick="setPosition('Goods','{$vo.goods_id}','position',$(this).children().eq(0).val(),'#position{$vo.goods_id}')">
                         <input name="position" value="{$vo.position}" type="hidden" />
-                        <span class="markbs">{$vo.position|tomark='goods','position'}</span></td>
+                        <span class="markbs">{$vo.position|status_to_text='goods','position'}</span></td>
                     <td><span data-table="Goods" data-id="{$vo.goods_id}" data-field="status" data-value="{$vo.status}" class="yn"></span></td>
                     <td>
                         <a href="{:U('Goods/edit?goods_id='.$vo['goods_id'])}" class="btn btn-primary">编辑</a>

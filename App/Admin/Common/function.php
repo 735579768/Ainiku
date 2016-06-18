@@ -1,17 +1,6 @@
 <?php
-/**
- *取分类文档数
- **/
-function getCategoryDocument($category_id = null, $category_type = 'article') {
-	if (empty($category_id)) {
-		return 0;
-	}
-
-	$map['category_id'] = $category_id;
-	return M($category_type)->where($map)->count();
-}
 //把标记转成对应的文字
-function tomark($value, $model, $field, $html = false) {
+function status_to_text($value, $model, $field, $html = false) {
 	$arr    = get_model_attr($model, $field);
 	$arr    = $arr['extra'];
 	$restr  = '';
@@ -55,14 +44,14 @@ function totext($a = 1) {
 /**
  *取配置分组列表
  */
-function getGroupName($id) {
-	$config = extratoarray(C('CONFIG_GROUP'));
+function get_group_name($id) {
+	$config = extra_to_array(C('CONFIG_GROUP'));
 	return empty($config[$id]) ? '默认' : $config[$id];
 }
 /**
  *表单类型
  */
-function getFormType($key = null, $datatype = false) {
+function get_form_type($key = null, $datatype = false) {
 	// TODO 可以加入系统配置
 	$formtype = array(
 		'string'       => '字符串',
@@ -154,7 +143,7 @@ function get_goods_type_model($goods_type_id = null) {
 				$func                = $val['extra'];
 				$list[$key]['extra'] = $func();
 			} else {
-				$list[$key]['extra'] = extraToArray($val['extra']);
+				$list[$key]['extra'] = extra_to_array($val['extra']);
 			}
 
 		}

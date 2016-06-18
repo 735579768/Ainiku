@@ -12,7 +12,7 @@ class ModuleController extends AdminController {
 	public function index() {
 		$moduleposlist = F('sys_modulepos_tree');
 		if (empty($menulist)) {
-			$moduleposlist = F_getmoduleposList();
+			$moduleposlist = F_get_modulepos_list();
 			F('sys_modulepos_tree', $moduleposlist);
 		}
 		$moduleposlist[0] = '全部位置';
@@ -37,7 +37,7 @@ class ModuleController extends AdminController {
 		//if(!empty($cat_id))$map['modulepos_id']=$cat_id;
 		if (!empty($modulepos_id)) {
 			$map[__DB_PREFIX__ . 'module.modulepos_id'] = $modulepos_id;
-			$this->meta_title                           = '模块信息列表>模块信息位置>' . getmoduleposTitle($modulepos_id);
+			$this->meta_title                           = '模块信息列表>模块信息位置>' . get_modulepos_title($modulepos_id);
 		} else {
 			$this->meta_title = '模块信息列表';
 		}

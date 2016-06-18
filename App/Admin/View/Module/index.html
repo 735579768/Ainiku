@@ -3,11 +3,11 @@
 
 <!--tool start-->
 <div class="btn-tool">
-<a href="{:U('Module/add',array('modulepos_id'=>I('modulepos_id')))}" class="btn btn-parmary">添加{:getmoduleposTitle(I('modulepos_id'))}模块信息</a>
+<a href="{:U('Module/add',array('modulepos_id'=>I('modulepos_id')))}" class="btn btn-parmary">添加{:get_modulepos_title(I('modulepos_id'))}模块信息</a>
 
 <div class="searchform">
 <form class="form-group-h form-h" action="{:U('')}" method="post">
-{:getForm($fieldarr,$data)}
+{:get_form($fieldarr,$data)}
 <div class="form-group cl">
 <input name="title" type="text" value="{:I('title')}" class="form-control input-middle" placeholder="请输入模块标题" />
 </div>

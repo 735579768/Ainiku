@@ -202,7 +202,7 @@ class ArticleController extends AdminController {
 			//分类树
 			$catelist = F('sys_category_tree');
 			if (empty($catelist)) {
-				$catelist = A_getCatelist();
+				$catelist = A_get_cate_list();
 				F('sys_category_tree', $catelist);
 			}
 			unset($catelist[0]);

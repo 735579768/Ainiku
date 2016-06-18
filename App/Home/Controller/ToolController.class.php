@@ -338,7 +338,7 @@ echo "var qu={{$qu}};";*/
 		//取文章的标记自动添加标记
 		//$mark=get_model_attr('Article','extra');
 		$data1   = M('ModelAttr')->field('extra')->find(11);
-		$posiarr = $this->extraToArray($data1['extra']);
+		$posiarr = $this->extra_to_array($data1['extra']);
 		foreach ($posiarr as $key => $val) {
 			//查询标题中如果跟标记文字有类似的就添加上标记
 			if (strpos($data['title'], $val) === false) {
@@ -356,7 +356,7 @@ echo "var qu={{$qu}};";*/
 
 		die();
 	}
-	function extraToArray($extra) {
+	function extra_to_array($extra) {
 		$extra = str_replace(' ', '', $extra);
 		$jg    = "\n";
 		if (strpos($extra, ',') !== false) {

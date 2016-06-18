@@ -7,7 +7,7 @@ class HomeController extends CommonController {
 	 * 前台台控制器初始化
 	 */
 	protected function _initialize() {
-		plugin('Fangke');
+		// plugin('Fangke');
 		/* 读取数据库中的配置 */
 		$config = F('DB_CONFIG_DATA');
 

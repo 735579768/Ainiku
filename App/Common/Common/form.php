@@ -4,7 +4,7 @@
 /**
  *取模型列表
  */
-function A_getModellist() {
+function A_get_model_list() {
 	$rearr = array();
 	$list  = M('Model')->where('status=1')->select();
 	foreach ($list as $val) {
@@ -13,7 +13,7 @@ function A_getModellist() {
 	return $rearr;
 }
 /**返回几个空白字符串***/
-function A_getSpace($num) {
+function A_get_space($num) {
 	$str = '';
 	for ($i = 0; $i < $num; $i++) {
 		$str .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
@@ -24,10 +24,10 @@ function A_getSpace($num) {
 /**
  *取后台菜单列表缓存
  */
-function F_getMenuList($first = true) {
+function F_get_menu_list($first = true) {
 	$menulist = F('sys_menu_tree');
 	if (empty($menulist)) {
-		$menulist = getMenuList();
+		$menulist = get_menu_list();
 		F('sys_menu_tree', $menulist);
 	}
 	if (!$first) {
@@ -40,7 +40,7 @@ function F_getMenuList($first = true) {
  *取后台菜单列表
  */
 $menu_lev = 0;
-function getMenuList($pid = 0, $child = false) {
+function get_menu_list($pid = 0, $child = false) {
 	global $menu_lev;
 	$menu_lev++;
 	$rearr = array();
@@ -56,11 +56,11 @@ function getMenuList($pid = 0, $child = false) {
 		foreach ($list as $val) {
 			if ($child) {
 
-				$rearr[$val['id']] = A_getSpace($menu_lev) . $val['title'] . "->({$val['url']})";
+				$rearr[$val['id']] = A_get_space($menu_lev) . $val['title'] . "->({$val['url']})";
 			} else {
 				$rearr[$val['id']] = $val['title'] . "->({$val['url']})";
 			}
-			$temarr = getMenuList($val['id'], true);
+			$temarr = get_menu_list($val['id'], true);
 			foreach ($temarr as $key => $v) {$rearr[$key] = $v;}
 		}
 	}
@@ -70,10 +70,10 @@ function getMenuList($pid = 0, $child = false) {
 /**
  *取分类导航树缓存
  */
-function F_getNavlist() {
+function F_get_nav_list() {
 	$navlist = F('sys_nav_tree');
 	if (empty($catelist)) {
-		$navlist = A_getNavList();
+		$navlist = A_get_nav_list();
 		F('sys_nav_tree', $navlist);
 	}
 	return $navlist;
@@ -81,7 +81,7 @@ function F_getNavlist() {
 /**
  *取分类导航树
  */
-function A_getNavList($pid = 0, $child = false) {
+function A_get_nav_list($pid = 0, $child = false) {
 	global $menu_lev;
 	$menu_lev++;
 	$rearr = array();
@@ -95,11 +95,11 @@ function A_getNavList($pid = 0, $child = false) {
 	if ($list) {
 		foreach ($list as $val) {
 			if ($child) {
-				$rearr[$val['nav_id']] = A_getSpace($menu_lev) . $val['title'];
+				$rearr[$val['nav_id']] = A_get_space($menu_lev) . $val['title'];
 			} else {
 				$rearr[$val['nav_id']] = $val['title'];
 			}
-			$temarr = A_getNavList($val['nav_id'], true);
+			$temarr = A_get_nav_list($val['nav_id'], true);
 			foreach ($temarr as $key => $v) {$rearr[$key] = $v;}
 		}
 	}
@@ -109,10 +109,10 @@ function A_getNavList($pid = 0, $child = false) {
 /**
  *取模块位置置列表带缓存
  */
-function F_getmoduleposList() {
+function F_get_modulepos_list() {
 	$menulist = F('sys_modulepos_tree');
 	if (empty($menulist) || APP_DEBUG) {
-		$menulist = getmoduleposList();
+		$menulist = get_modulepos_list();
 		F('sys_modulepos_tree', $menulist);
 	}
 	return $menulist;
@@ -120,7 +120,7 @@ function F_getmoduleposList() {
 /**
  *取模块位置置列表
  */
-function getmoduleposList() {
+function get_modulepos_list() {
 	$rows     = M('modulepos')->select();
 	$rearr[1] = '默认位置';
 	foreach ($rows as $val) {
@@ -131,7 +131,7 @@ function getmoduleposList() {
 /**
  *取模块位置置标题
  */
-function getmoduleposTitle($posid = null) {
+function get_modulepos_title($posid = null) {
 	if (empty($posid)) {
 		return '';
 	}
@@ -139,24 +139,24 @@ function getmoduleposTitle($posid = null) {
 	$rows = M('modulepos')->find($posid);
 	return $rows['title'];
 }
-function F_getGoodsCatelist($first = true) {
+function F_get_goods_catelist($first = true) {
 //	$catelist=F(md5('sys_category_goods_tree'));
 	//	if(empty($catelist)){
-	//		$catelist=A_getCatelist(0,false,'goods');
+	//		$catelist=A_get_cate_list(0,false,'goods');
 	//		F(md5('sys_category_goods_tree'),$catelist);
 	//	}
 	//	if(!$first)unset($catelist[0]);
 	//	return $catelist;
 
-	return F_getCatelist(true, 'goods');
+	return F_get_cate_list(true, 'goods');
 }
 
-function F_getCatelist($first = true, $type = null) {
+function F_get_cate_list($first = true, $type = null) {
 	$catetype      = I('category_type');
 	$category_type = empty($type) ? (empty($catetype) ? 'article' : $catetype) : $type;
 	$catelist      = F('sys_category_' . $category_type . '_tree');
 	if (empty($catelist) || APP_DEBUG) {
-		$catelist = A_getCatelist(0, false, $category_type);
+		$catelist = A_get_cate_list(0, false, $category_type);
 		F('sys_category_' . $category_type . '_tree', $catelist);
 	}
 	if (!$first) {
@@ -165,7 +165,7 @@ function F_getCatelist($first = true, $type = null) {
 
 	return $catelist;
 }
-function A_getCatelist($pid = 0, $child = false, $type = 'article') {
+function A_get_cate_list($pid = 0, $child = false, $type = 'article') {
 	global $menu_lev;
 	$menu_lev++;
 	$rearr = array();
@@ -181,11 +181,11 @@ function A_getCatelist($pid = 0, $child = false, $type = 'article') {
 	if ($list) {
 		foreach ($list as $val) {
 			if ($child) {
-				$rearr[$val['category_id']] = A_getSpace($menu_lev) . $val['title'];
+				$rearr[$val['category_id']] = A_get_space($menu_lev) . $val['title'];
 			} else {
 				$rearr[$val['category_id']] = $val['title'];
 			}
-			$temarr = A_getCatelist($val['category_id'], true, $type);
+			$temarr = A_get_cate_list($val['category_id'], true, $type);
 			foreach ($temarr as $key => $v) {$rearr[$key] = $v;}
 		}
 	}

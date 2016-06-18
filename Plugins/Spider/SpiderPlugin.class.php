@@ -144,7 +144,7 @@ class SpiderPlugin extends \Plugins\Plugin {
 			$data['spider_name'] = strtolower($mar);
 			$data['url']         = $_SERVER['REQUEST_URI'];
 			$data['ip']          = get_client_ip();
-			$data['location']    = getIpLocation($data['ip']);
+			$data['location']    = get_iplocation($data['ip']);
 			//$result=M('PluginSpider')->where($data)->setInc('views');
 			//if(!$result){
 			$data['views']       = 1;

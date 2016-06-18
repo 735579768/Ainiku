@@ -85,7 +85,7 @@ class MembergroupController extends AdminController {
 			$this->error('非法访问');
 		}
 
-		$this->meta_title = '访问授权->' . getMemberGroup($member_group_id, 'title');
+		$this->meta_title = '访问授权->' . get_membergroup($member_group_id, 'title');
 		if (IS_POST) {
 			//处理权限数据
 			$model = D('MemberGroup');
@@ -108,13 +108,13 @@ class MembergroupController extends AdminController {
 		}
 
 		//分组信息
-		$data = getMemberGroup($member_group_id);
+		$data = get_membergroup($member_group_id);
 		if (!empty($data['auth'])) {
 			$data['auth'] = json_decode($data['auth'], true);
 			$data['auth'] = '[' . implode(',', $data['auth']) . ']';
 		}
 		$this->assign('data', $data);
-		$this->assign('_list', getNodeList());
+		$this->assign('_list', get_node_list());
 		$this->display('managergroup');
 	}
 }

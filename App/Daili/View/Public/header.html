@@ -1,7 +1,7 @@
 <div id="north" class="layout-north header">
     <div class="logo fl">管理平台</div>
     <ul class="tool">
-        <li><a href="javascript:;" title="({$uinfo.member_group_id|getMemberGroup=###,'title'}),登陆地址:({$uinfo['last_login_ip']}){$uinfo['last_login_adr']}" style="color:green;">您好::<notempty name="uinfo.nickname">{$uinfo['nickname']}<else />{$uinfo['username']}</notempty></a></li>
+        <li><a href="javascript:;" title="({$uinfo.member_group_id|get_membergroup=###,'title'}),登陆地址:({$uinfo['last_login_ip']}){$uinfo['last_login_adr']}" style="color:green;">您好::<notempty name="uinfo.nickname">{$uinfo['nickname']}<else />{$uinfo['username']}</notempty></a></li>
         <li style="position:relative;" class="downmenu"><a href="javascript:;"><i class="prinfo"></i>个人信息</a>
             <ul class="pwdinfo">
                 <li><a class="" href="javascript:dialogAjax('{:U('Member/updatepwd')}','修改密码');">修改密码</a></li>

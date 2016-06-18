@@ -10,7 +10,7 @@
 <!--content start -->
 <div class="content">
 <form class="autosubmit" action="{:U('')}" method="post">
-{:getForm($fieldarr,$data)}
+{:get_form($fieldarr,$data)}
 <div class="form-group center">
 <input type="hidden" name="module_id" value="{$data.module_id}" />
 <a href="javascript:;" class="btn btn-parmary btn-large ajax-post"><empty name="data.module_id">确定添加<else />确定更新</empty></a>

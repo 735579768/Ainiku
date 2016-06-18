@@ -142,7 +142,7 @@ class MemberModel extends BaseModel {
 	//     */
 	//    protected function updateLogin($uid){
 	//		$ip=get_client_ip();
-	//		$location=getIpLocation($ip);
+	//		$location=get_iplocation($ip);
 	//        $data = array(
 	//            'member_id'              => $uid,
 	//            'update_time' => NOW_TIME,

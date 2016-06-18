@@ -122,14 +122,14 @@ class AdminController extends CommonController {
 			$postr    = implode(',', $position);
 			$result   = M($table)->where($table . '_id=' . $id)->save(array($field => $postr));
 			if (0 < $result) {
-				$this->success(array(tomark($postr, $table, $field), $postr));
+				$this->success(array(status_to_text($postr, $table, $field), $postr));
 			}
 		} else {
 			$str = '<form id="positionform" method="post" action="' . U('setposition') . '">
 				  <input type="hidden" name="table" value="' . $table . '" />
 				  <input type="hidden" name="id" value="' . $id . '" />
 				  <input type="hidden" name="field" value="' . $field . '" />
-				  ' . tomark($value, $table, $field, true) . '
+				  ' . status_to_text($value, $table, $field, true) . '
 				  </form>';
 			$this->success($str);
 		}

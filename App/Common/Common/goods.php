@@ -6,7 +6,7 @@ defined("ACCESS_ROOT") or die("Invalid access");
 /*
  *取产品分类类型
  */
-function F_getGoodsType() {
+function F_get_goods_type() {
 	$rearr = F('sys_goodstype_tree');
 	if (empty($rearr) || APP_DEBUG) {
 		$rows  = M('GoodsType')->where('status>0')->order('sort asc')->select();
@@ -24,7 +24,7 @@ function F_getGoodsType() {
 //	foreach($rows as $key=>$val){
 //			$rows[$key]['name']=$val['name'].'__'.$val['id'];
 //		if(!empty($val['extra'])){
-//			$rows[$key]['extra']=A_extratoarray($val['extra']);
+//			$rows[$key]['extra']=A_extra_to_array($val['extra']);
 //			}
 //		}
 //	return $rows;
@@ -32,14 +32,14 @@ function F_getGoodsType() {
 /*
  *取属性所属的类型
  */
-function getAtrrType($id = '', $field = '') {
+function get_attr_type($id = '', $field = '') {
 	$rows = M('GoodsType')->find($id);
 	return empty($field) ? $rows['title'] : $rows[$field];
 }
 /**
  *取一个分类的扩展属性(在前台输出搜索筛选时有用)
  */
-function getGoodsCatAttr($cat_id = null) {
+function get_goods_cate_attr($cat_id = null) {
 	if (empty($cat_id)) {
 		return false;
 	}
@@ -51,7 +51,7 @@ function getGoodsCatAttr($cat_id = null) {
 		foreach ($tema as $val) {
 			$extra = $val['extra'];
 			if (!empty($extra)) {
-				$extra = A_extratoarray($extra);
+				$extra = extra_to_array($extra);
 			}
 
 			$rearr[] = array(
@@ -66,7 +66,7 @@ function getGoodsCatAttr($cat_id = null) {
 /**
  *取当个产品的属性详细信息
  */
-function getGoodsInfo($goods_id = null) {
+function get_goods_info($goods_id = null) {
 	if (empty($goods_id)) {
 		return false;
 	}

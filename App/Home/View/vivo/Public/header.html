@@ -3,7 +3,7 @@
     <div class="head clearfix">
       <h1 class="logo fl"><a target="_blank" href="javascript:;">步步高vivo智能手机官方网站</a></h1>
       <ul class="nav fl">
-      	<volist name=":F_getNavTree(0,true)" id="vo">
+      	<volist name=":F_get_nav_tree(0,true)" id="vo">
          <li class="nav-item"><a href="{$vo.url}" <eq name="vo.target" value="1"> target="_blank" </eq>>{$vo.title}</a>
          <notempty name="vo.child">
          		<ul>

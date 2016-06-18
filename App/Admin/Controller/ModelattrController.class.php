@@ -92,7 +92,7 @@ class ModelattrController extends AdminController {
 		$res = M()->execute($sql);
 		if ($res == null) {
 			//添加字段
-			$sql = "alter table {$table_name} add `{$Modelattr['field']}` " . getFormType($Modelattr['type'], true) . ' COMMENT \'' . $Modelattr['title'] . '\'';
+			$sql = "alter table {$table_name} add `{$Modelattr['field']}` " . get_form_type($Modelattr['type'], true) . ' COMMENT \'' . $Modelattr['title'] . '\'';
 			$res = M()->execute($sql);
 		}
 

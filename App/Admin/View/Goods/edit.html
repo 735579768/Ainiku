@@ -5,7 +5,7 @@
     <!--content start -->
     <div class="content">
         <form class="autosubmit" action="{:U('')}" method="post">
-            <input type="hidden" id="productid" value="{$data.goods_id}" /> {:getForm($fieldarr,$data)}
+            <input type="hidden" id="productid" value="{$data.goods_id}" /> {:get_form($fieldarr,$data)}
             <div class="form-group center">
                 <input type="hidden" name="goods_id" value="{$data.goods_id}" />
                 <a href="javascript:;" id="submitbtn" class="btn btn-parmary btn-large ajax-post">

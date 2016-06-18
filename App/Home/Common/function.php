@@ -2,14 +2,14 @@
 /**
  *取分类导航树
  */
-function getNavTree($pid = 0, $child = false) {
+function get_nav_tree($pid = 0, $child = false) {
 	$rearr           = array();
 	$where['status'] = 1;
 	$where['pid']    = $pid;
 	$list            = M('Nav')->where($where)->order('sort asc')->select();
 	if ($list) {
 		foreach ($list as $key => $val) {
-			$child               = getNavTree($val['nav_id']);
+			$child               = get_nav_tree($val['nav_id']);
 			$list[$key]['child'] = $child;
 		}
 	}
@@ -18,11 +18,11 @@ function getNavTree($pid = 0, $child = false) {
 /**
  *取系统缓存导航
  */
-function F_getNavTree($pid = 0, $child = false) {
+function F_get_nav_tree($pid = 0, $child = false) {
 	$cachekey = md5('homenavtree');
 	$navtree  = F($cachekey);
 	if (empty($navtree) || APP_DEBUG) {
-		$navtree = getNavTree($pid, $child);
+		$navtree = get_nav_tree($pid, $child);
 		F($cachekey, $navtree);
 	}
 	return $navtree;
@@ -30,7 +30,7 @@ function F_getNavTree($pid = 0, $child = false) {
 /**
  *取订单产品列表
  */
-function F_getOrderGoodsList($order_id = '') {
+function F_get_order_goods_list($order_id = '') {
 	if (empty($order_id)) {
 		return '';
 	}
@@ -46,7 +46,7 @@ function F_getOrderGoodsList($order_id = '') {
 /**
  * 取指定分类列表
  */
-function getCategoryList($category_id = 0) {
+function get_category_list($category_id = 0) {
 	$map['pid']    = $category_id;
 	$map['status'] = 1;
 	$list          = M('Category')->where($map)->limit($rows)->select();
@@ -80,7 +80,7 @@ function get_category_parentid($category_id = 0) {
 /**
  * 取指定分类文章
  */
-function getCatetoryArticle($category_id = '', $rows = '8') {
+function get_category_article($category_id = '', $rows = '8') {
 	if (empty($category_id)) {return '';}
 	$rearr              = array();
 	$category_id        = get_category_allchild($category_id);

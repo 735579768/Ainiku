@@ -10,7 +10,7 @@ class ArchiveController extends AdminController {
 		$model_id     = I('model_id');
 		$this->m_name = $model_id;
 		if (is_numeric($model_id)) {
-			$this->m_info = getModel($model_id);
+			$this->m_info = get_model($model_id);
 		} else {
 			$this->m_info = M('Model')->where("`table`='{$model_id}'")->find();
 		}

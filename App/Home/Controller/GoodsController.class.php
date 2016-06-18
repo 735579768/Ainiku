@@ -14,7 +14,7 @@ class GoodsController extends HomeController {
 			$this->_empty();
 		}
 
-		$info = getGoods($goods_id, 'status=1');
+		$info = get_goods($goods_id, 'status=1');
 		if (empty($info)) {
 			$this->_empty();
 		}

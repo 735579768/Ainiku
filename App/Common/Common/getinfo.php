@@ -219,7 +219,7 @@ function get_article($id = null, $whe = array(), $field = null) {
  *取产品信息
  *
  **/
-function getGoods($id = null, $whe = null, $field = null) {
+function get_goods($id = null, $whe = null, $field = null) {
 	if (empty($id) || !is_numeric($id)) {
 		return '';
 	}
@@ -241,7 +241,7 @@ function getGoods($id = null, $whe = null, $field = null) {
  *取会员信息
  *
  **/
-function getMember($id = null, $field = null) {
+function get_member($id = null, $field = null) {
 	if (empty($id) || !is_numeric($id)) {
 		return '';
 	}
@@ -256,7 +256,7 @@ function getMember($id = null, $field = null) {
 /*
  * 取用户组信息
  * */
-function getMemberGroup($id = null, $field = null) {
+function get_membergroup($id = null, $field = null) {
 	if (empty($id) || !is_numeric($id)) {
 		return '';
 	}
@@ -271,7 +271,7 @@ function getMemberGroup($id = null, $field = null) {
 /*
  *返回用户分组列表
  */
-function getMemberGroupList() {
+function get_membergroup_list() {
 	$membergroup = F('sys_membergroup_list');
 	if (empty($membergroup)) {
 		$temlist = D('MemberGroup')->select();
@@ -343,7 +343,7 @@ function get_single($id = null, $field = null) {
 /*
  *取属性所属的类型
  */
-function getGoodsType($id = '', $field = '') {
+function get_goods_type($id = '', $field = '') {
 	$rows = M('GoodsType')->find($id);
 	return empty($field) ? $rows : $rows[$field];
 }
@@ -382,7 +382,7 @@ function get_goods_attribute($goods_id = null, $field = null) {
 /**
  *取模型信息
  */
-function getModel($model_id = '', $field = '') {
+function get_model($model_id = '', $field = '') {
 	$map = array();
 	/* 非法分类ID */
 	$model_id = strtolower($model_id);
@@ -435,7 +435,7 @@ function get_model_attr($model_id = null, $field = null, $attr = null) {
 			return null;
 		}
 
-		$data = getModel($model_id);
+		$data = get_model($model_id);
 		if (empty($data)) {
 			return null;
 		}
@@ -459,7 +459,7 @@ function get_model_attr($model_id = null, $field = null, $attr = null) {
 
 				} else {
 					//如果是数组格式就转化成数组
-					$list[$key]['extra'] = extraToArray($val['extra']);
+					$list[$key]['extra'] = extra_to_array($val['extra']);
 				}
 
 			}
@@ -484,7 +484,7 @@ function get_model_attr($model_id = null, $field = null, $attr = null) {
 /**
  *解析extra字符串数据
  */
-function extraToArray($extra) {
+function extra_to_array($extra) {
 	$extra = preg_replace(array('/\n/i', '/\s/i'), array(',', ''), $extra);
 	$dest  = array();
 	$tema  = explode(',', $extra);
@@ -504,7 +504,7 @@ function extraToArray($extra) {
 /**
  *取区域名字
  **/
-function getRegion($id = null) {
+function get_region($id = null) {
 	$idarr = explode(',', $id);
 	$key   = md5('area' . json_encode($idarr));
 	$data  = F($key);
@@ -521,7 +521,7 @@ function getRegion($id = null) {
 /**
  *取ip的物理地址
  ***/
-function getIpLocation($ip = "127.0.0.1") {
+function get_iplocation($ip = "127.0.0.1") {
 	if (file_exists(__SITE_ROOT__ . __ROOT__ . '/TP/Library/Org/Net/UTFWry.dat')) {
 		$Ip   = new \Org\Net\IpLocation('UTFWry.dat'); // 实例化类 参数表示IP地址库文件
 		$area = $Ip->getlocation($ip); // 获取某个IP地址所在的位置
@@ -545,21 +545,21 @@ function getIpLocation($ip = "127.0.0.1") {
 /**
  *生成表单
  */
-function getForm($field, $da = array()) {
+function get_form($field, $da = array()) {
 	$form = new \Common\Controller\FormController($field, $da);
 	return $form->getData();
 }
 /**
  *取自定义表单
  */
-function getCustomForm($metch, $name, $data) {
+function get_custom_form($metch, $name, $data) {
 	$form = new \Common\Controller\CustomFormController($metch, $name, $data);
 	return $form->$metch();
 }
 /**
  * 返回一个动态自动验证的数组
  */
-function getModelRules($model_id = '') {
+function get_model_rules($model_id = '') {
 	$relus = get_model_attr($model_id);
 	$rearr = array();
 	foreach ($relus as $key => $val) {

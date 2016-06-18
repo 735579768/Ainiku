@@ -3,7 +3,7 @@
 <a href="{:UP('Spider/set')}" class="btn">设置</a>
 <form method="post" id="spiders" action="{:UP('Spider/lists')}">
 <div class="form-h form-group-h">
-{:getForm($fieldarr,$data)}
+{:get_form($fieldarr,$data)}
 <div class="form-group">
 	<div class="form-label">蜘蛛:</div>
     <select class="form-control" name="spider_name" id="spidername" onChange="spiders.submit();">

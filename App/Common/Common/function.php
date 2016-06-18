@@ -67,7 +67,7 @@ function autologin() {
 
 			$uid      = $info['member_id'];
 			$ip       = get_client_ip();
-			$location = getIpLocation($ip);
+			$location = get_iplocation($ip);
 			$data     = array(
 				'member_id'      => $uid,
 				'update_time'    => NOW_TIME,

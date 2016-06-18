@@ -1,7 +1,7 @@
 <extend name="Public/base" />
 <block name="right">
     <form action="{:U()}" method="post" class="form-horizontal">
-        {:getForm($fieldarr,$data)}
+        {:get_form($fieldarr,$data)}
         <div class="form-group">
             <a class="btn ajax-post btn-large">确 定</a>
             <a class="btn btn-warning btn-large" href="javascript:history.go(-1);">返 回</a>

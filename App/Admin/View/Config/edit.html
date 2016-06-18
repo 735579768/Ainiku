@@ -1,7 +1,7 @@
 <extend name="Public/base" />
 <block name="right">
     <form action="{:U("")}" method="post">
-        {:getForm($fieldarr,$data)}
+        {:get_form($fieldarr,$data)}
         <div class="form-group center">
             <input type="hidden" name="config_id" value="{$data.config_id}" />
             <a href="javascript:;" class="btn btn-parmary btn-large ajax-post">

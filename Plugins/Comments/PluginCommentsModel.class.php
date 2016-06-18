@@ -31,7 +31,7 @@ class PluginCommentsModel extends Model {
 		array('status', '1', self::MODEL_INSERT),
 	);
 	protected function getadr() {
-		return getIpLocation(get_client_ip());
+		return get_iplocation(get_client_ip());
 	}
 	protected function getip() {
 		return get_client_ip();

@@ -1,7 +1,7 @@
 <extend name="Public/base" />
 <block name="right">
 <form method="post" action="{:U('')}">
-{:getForm($fieldarr,$data)}
+{:get_form($fieldarr,$data)}
 <div class="form-group center">
 <input type="hidden" name="model_id" value="{$data['model_id']}" />
 <a href="javascript:;" class="btn btn-large ajax-post"><empty name="data.model_id">确定添加<else />确定更新</empty></a>

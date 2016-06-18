@@ -672,7 +672,7 @@ $JDthumbdir = str_replace($temarr[count($temarr) - 1], '', $JDthumb);*/
 			//文章分类树
 			$catelist = F('sys_category_tree');
 			if (empty($catelist)) {
-				$catelist = F_getCatelist(true, 'article');
+				$catelist = F_get_cate_list(true, 'article');
 				F('sys_category_tree', $catelist);
 			}
 			$catelist[0] = '全部分类';

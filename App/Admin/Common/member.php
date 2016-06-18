@@ -2,7 +2,7 @@
 /**
  *取节点数组
  */
-function getNodeList() {
+function get_node_list() {
 	$list = M('Node')->where('status=1 and pid=0')->order('name asc,node_id desc')->select();
 	if (!empty($list)) {
 		foreach ($list as $key => $val) {
@@ -14,16 +14,16 @@ function getNodeList() {
 /**
  *取节点数组
  */
-function getAllMenuList() {
-	$list = M('Menu')->where('status=1 and pid=0')->order('url asc,id desc')->select();
-	if (!empty($list)) {
-		foreach ($list as $key => $val) {
-			$list[$key]['_'] = M('Menu')->where('status=1 and pid=' . $val['id'])->select();
-		}
-	}
-	return $list;
-}
-function getNodeTree() {
+//function get_allmenu_list() {
+//	$list = M('Menu')->where('status=1 and pid=0')->order('url asc,id desc')->select();
+//	if (!empty($list)) {
+//		foreach ($list as $key => $val) {
+//			$list[$key]['_'] = M('Menu')->where('status=1 and pid=' . $val['id'])->select();
+//		}
+//	}
+//	return $list;
+//}
+function get_node_tree() {
 	$rearr         = array();
 	$rearr[0]      = '顶级节点';
 	$map['status'] = 1;

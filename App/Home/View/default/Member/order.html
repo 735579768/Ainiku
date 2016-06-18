@@ -33,7 +33,7 @@
 				</eq>
 					<a href="{:U('Member/checkorder',array('order_id'=>$vo['order_id']))}" class="btn">订单详情</a>
 					<ul class="order-goods-list cl">
-					<volist name=":F_getOrderGoodsList($vo['order_id'])" id="v">
+					<volist name=":F_get_order_goods_list($vo['order_id'])" id="v">
 						<li class="cl">
 						<img src="{$v.pic|get_picture='thumbpath','80_80'}" />
 						<span><a href="{:U('Goods/'.$v['goods_id'])}">{$v.title}</a><br>

@@ -47,8 +47,8 @@
                 <td class="center">{$vo.config_id}</td>
                 <td>{$vo.name}</td>
                 <td><span title="{$vo.note}">{$vo.title}</span></td>
-                <td>{$vo.group|getGroupName}</td>
-                <td class="center">{$vo.type|getFormType}</td>
+                <td>{$vo.group|get_group_name}</td>
+                <td class="center">{$vo.type|get_form_type}</td>
                 <eq name="Think.const.APP_DEBUG" value="true">
                     <td class="center">
                         <span data-table="config" data-id="{$vo.config_id}" data-field="no_del" data-value="{$vo.no_del}" class="yn"> </span></td>
