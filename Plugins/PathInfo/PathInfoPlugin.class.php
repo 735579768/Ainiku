@@ -44,7 +44,7 @@ class PathInfoPlugin extends \Plugins\Plugin {
 		//取缓存目录大小
 		$dirsize = F('dirsize');
 		if (empty($dirsize)) {
-			$dirsize = (getDirSize($rutimepath = str_replace(MODULE_NAME . '/', '', RUNTIME_PATH)) / 1000) . 'k';
+			$dirsize = (get_dir_size($rutimepath = str_replace(MODULE_NAME . '/', '', RUNTIME_PATH)) / 1000) . 'k';
 			F('dirsize', $dirsize);
 		}
 		$runsize = F('runtimecachesize');

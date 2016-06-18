@@ -38,7 +38,7 @@ body{overflow:hidden;padding:62px 0px 0px 180px;}
 /**主导航**/
 .mainnav,.tool{margin:5px 0px;}
 .mainnav li,.tool li{float:left;}
-.mainnav li a,.tool li a{display:inline-block;padding:5px 10px;font-size:14px;border-bottom:solid 4px #ededed;}
+.mainnav li a,.tool li a{display:inline-block;padding:5px 10px;font-size:12px;border-bottom:solid 4px #ededed;}
 .mainnav li a:hover,.tool li a:hover{border-bottom:solid 4px #67ad03;color:#000;}
 .mainnav li a.hover{border-bottom:solid 4px #44b549;color:#000;}
 
@@ -54,7 +54,7 @@ body{overflow:hidden;padding:62px 0px 0px 180px;}
 
 /***左边列表**/
 .menu{}
-.menu .mt a,.menu .mitem a{text-align:left;display:block;height:40px;line-height:40px;font-size:14px;}
+.menu .mt a,.menu .mitem a{text-align:left;display:block;height:40px;line-height:40px;font-size:12px;}
 .menu .mitem a{padding-left:35px;}
 .menu .mt a:hover,.menu .mitem a:hover{background:#ededed;color:#000;}
 .menu .mt a.hover,.menu .mitem a.hover{background:#44b549;color:#fff;}
@@ -96,7 +96,7 @@ body{overflow:hidden;padding:62px 0px 0px 180px;}
 
 /*****多级分类列表样式******/
 .category{margin:10px 0;border-bottom-width:0;background-color:#fff;}
-.category a{font-size:14px;}
+.category a{font-size:12px;}
 .category .hd{font-weight:bold;border-bottom:1px solid #d4d4d4;color:#fff;background-color:#6bb05f;}
 .category .cate-item.th dt{padding-top:0px;}
 .category .cate-item dt{/*border-bottom:1px solid #E7E7E7;*/padding:2px 0px;}
@@ -229,7 +229,7 @@ body{overflow:hidden;padding:62px 0px 0px 180px;}
 .kl-tab .kl-tab-div .con-iframe{width:100%;}
 
 /*tab谷歌新样式*/
-.chrome-tab{font-size:14px;padding:0px 30px;margin-top:5px;background:url('../images/tabbg.png') no-repeat!important;color:#000!important;height:26px;line-height:26px;position:relative;}
+.chrome-tab{font-size:12px;padding:0px 30px;margin-top:5px;background:url('../images/tabbg.png') no-repeat!important;color:#000!important;height:26px;line-height:26px;position:relative;}
 .chrome-tab:hover,.chrome-tab.hover{background-position:0 -120px!important;}
 .chrome-tab:hover em,.chrome-tab.hover em{z-index:99;background-position:right -150px!important;}
 .chrome-tab:hover .close:before,.chrome-tab.hover  .close:before{color:#f00!important;background:transparent!important;}
@@ -237,7 +237,7 @@ body{overflow:hidden;padding:62px 0px 0px 180px;}
 
 /****表格拖动****/
 .listext th{background:#eee;color:#3366cc;}
-.listext th,.listext td{border:solid 1px #ddd;text-align:left;padding:10px;font-size:14px;}
+.listext th,.listext td{border:solid 1px #ddd;text-align:left;padding:10px;font-size:12px;}
 .rc-handle-container{position:relative;}
 .rc-handle{position:absolute;width:7px;cursor:ew-resize;*cursor:pointer;margin-left:-3px;}
 .btn-tool .form-label{font-weight:lighter;min-width:inherit;}
