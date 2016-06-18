@@ -23,7 +23,7 @@
 .title-tool .tico{font-size:16px;}
 .title-tool .tico:before{content:"\f00b"!important;}
 .kl-tab-nav .close{font-size:0px;}
-.kl-tab-nav.hover .close:before,.kl-tab-nav .close:before{content:"\f057"!important;font-size:18px;display:inline-block;padding-top:2px;color:#BFBFBF;}
+.kl-tab-nav.hover .close:before,.kl-tab-nav .close:before{content:"\f057"!important;font-size:14px;margin-top: 1px; display:inline-block;padding-top:2px;color:#dad6d6;;}
 .kl-tab-nav .close:before{}
 
 /*.closewest:before{content:"07e"!important;font-size:24px;}*/
