@@ -57,7 +57,7 @@
 
 /* .kl-sel .sanjiao{border:solid 6px #a0a0a0;border-color:#a0a0a0 transparent transparent transparent;display:inline-block;margin-top:12px;margin-left:10px;} */
 .kl-sel .kl-showtext{}
-.kl-sel .kl-showtext,.kl-sel .kl-sel-op{font-size:14px;text-overflow:ellipsis;overflow:hidden;}
+.kl-sel .kl-showtext,.kl-sel .kl-sel-op{text-overflow:ellipsis;overflow:hidden;}
 .kl-sel .kl-sel-op-block{display:none;position:absolute;left:-1px;top:31px;width:100%;height:auto;overflow:hidden;overflow-y:auto;max-height:300px;border:solid 1px #ccc;border-top:none;background:#fff;z-index:9999999999;}
 .kl-sel .kl-sel-op:hover{background:#ededed;}
 .kl-sel .kl-sel-op{text-align:left;display:block;padding:0px 0px 0px 10px;cursor:pointer;white-space:nowrap;}

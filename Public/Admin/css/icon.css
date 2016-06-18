@@ -12,7 +12,7 @@
 .icon-fold,.icon-unfold{margin-top:0px!important;}
 .icon-unfold:before{content:"\f147"!important;}
 .icon-fold:before{content:"\f196"!important;}
-.y,.n{font-size:28px;}
+.y,.n{font-size:24px;}
 .y:before{content:"\f205"!important;}
 .n:before{content:"\f204"!important;}
 .menuopenico,.menucloseico{padding-top:5px;}
@@ -25,26 +25,19 @@
 .kl-tab-nav .close{font-size:0px;}
 .kl-tab-nav.hover .close:before,.kl-tab-nav .close:before{content:"\f057"!important;font-size:18px;display:inline-block;padding-top:2px;color:#BFBFBF;}
 .kl-tab-nav .close:before{}
-/*.closewest:before{content:"\f07e"!important;font-size:24px;}*/
+
+/*.closewest:before{content:"07e"!important;font-size:24px;}*/
 .download:before{content:"\f019";}
 .btn-edit:before{content:"\f14b"!important;}
 .btn-delete:before{content:"\f1f8"!important;}
 .attachment{margin:0px 10px;}
 .attachment:before{content:"\f0c6"!important;}
+
 /**
  * 表单选择样式
  */
-input[type="radio"],input[type="checkbox"]{
-    font: normal normal normal 18px/1 FontAwesome;
-    background: none!important;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-appearance: none;
-    -moz-appearance:none;
-   /*  vertical-align: top; */
-}
-input[type="radio"]:before{content: "\f10c"!important;font-size: 18px!important;color: #324b5e;}
-input[type="radio"]:checked:before{font-size: 18px!important;content: "\f111"!important;font-size: 18px!important;color: #324b5e;}
-input[type="checkbox"]:before{content: "\f096"!important;font-size: 18px!important;color: #324b5e;}
-input[type="checkbox"]:checked:before{font-size: 16px;content: "\f14a"!important;font-size: 18px!important;color: #324b5e;}
+input[type="radio"],input[type="checkbox"]{font:normal normal normal 16px/1 FontAwesome;background:none!important;text-rendering:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;-webkit-appearance:none;-moz-appearance:none;vertical-align: middle;}
+input[type="radio"]:before{content:"\f10c"!important;font-size:16px!important;color:#324b5e;}
+input[type="radio"]:checked:before{font-size:16px!important;content:"\f111"!important;color:#324b5e;}
+input[type="checkbox"]:before{content:"\f096"!important;font-size:16px!important;color:#324b5e;}
+input[type="checkbox"]:checked:before{font-size:16px;content:"\f14a"!important;color:#324b5e;}

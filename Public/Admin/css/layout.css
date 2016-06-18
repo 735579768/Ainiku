@@ -78,7 +78,7 @@ body{overflow:hidden;padding:62px 0px 0px 180px;}
 /****右边表格列表样式*****/
 .right .th,.right .th th{height:30px;line-height:30px;font-weight:bolder;background:#f6f6f6;color:#67ad03;overflow:hidden;text-align:center;}
 .right table{border-collapse:collapse;border:none;}
-.right th,.right td{padding:1px;/* text-align:center*/;border:solid 1px #ededed;white-space:nowrap;max-width:150px;text-overflow:ellipsis;padding:0px 5px;font-size:12px;height:30px;}
+.right th,.right td{border:solid 1px #ededed;white-space:nowrap;max-width:150px;text-overflow:ellipsis;padding:0px 5px;font-size:12px;height:30px;}
 .right td:last-child{text-align:left;}
 
 /***右边搜索框*****/
@@ -253,7 +253,8 @@ body{overflow:hidden;padding:62px 0px 0px 180px;}
 #positionform ul li{display:inline-block;width:60px;}
 #positionform span{display:inline-block;padding-right:5px;}
 #positionform .markinput{vertical-align:middle;}
-.form-checkbox{width:100px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;display:inline-block;}
+.form-checkbox{white-space:nowrap;text-overflow:ellipsis;overflow:hidden;display:inline-block;}
+.form-checkbox span{vertical-align: middle;}
 #admintheme{display:inline-block;margin:15px 10px 0px 0px;}
 #admintheme li{display:block;float:left;width:10px;cursor:pointer;height:10px;margin-left:1px;border:solid 2px #fff;}
 #admintheme li.selected{border:solid 2px #71886C;}
@@ -261,7 +262,7 @@ body{overflow:hidden;padding:62px 0px 0px 180px;}
 
 /**定位css**/
 .topcenter{position:fixed;top:25px;left:20px;z-index:99;display:none;}
-.content  .btn{font-size:12px;}
+.content  td .btn{font-size:12px;padding: 3px 8px;}
 .content tr:hover{background:#ededed;}
 .fa-refresh{margin-right:20px;display:inline-block;}
 .fa-refresh:before{font-size:18px;cursor:pointer;}
