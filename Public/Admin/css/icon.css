@@ -20,7 +20,7 @@
 .menucloseico:before{content:"\f114"!important;}
 .prinfo{line-height:23px;}
 .prinfo:before{content:"\f007"!important;}
-.title-tool .tico{font-size:20px;padding-top:5px;}
+.title-tool .tico{font-size:16px;}
 .title-tool .tico:before{content:"\f00b"!important;}
 .kl-tab-nav .close{font-size:0px;}
 .kl-tab-nav.hover .close:before,.kl-tab-nav .close:before{content:"\f057"!important;font-size:18px;display:inline-block;padding-top:2px;color:#BFBFBF;}

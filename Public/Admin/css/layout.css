@@ -65,10 +65,10 @@ body{overflow:hidden;padding:62px 0px 0px 180px;}
 
 /******右边模块样式********/
 .title-tool{margin-bottom:5px;display:block;border-bottom:solid 1px #ededed;}
-.title-tool .title{float:left;display:inline-block;height:30px;line-height:30px;font-size:16px;font-weight:bolder;}
+.title-tool .title{float:left;display:inline-block;height:30px;line-height:30px;font-size:14px;font-weight:bolder;}
 .title-tool .title a{font-size:16px;padding:0px 2px;}
 .title-tool .title a.hover{font-weight:bolder;}
-.title-tool .tico{float:left;background:url(../images/ico.png) -140px -31px no-repeat;display:inline-block;width:23px;height:29px;margin-right:5px;}
+.title-tool .tico{float:left;background:url(../images/ico.png) -140px -31px no-repeat;display:inline-block;width:23px; padding-top:7px;}
 .right .btn-tool:after{content:"";visibility:hidden;display:block;font-size:0;content:'';clear:both;height:0;}
 .right .btn-tool{padding-bottom:5px;display:block;}
 .right .btn-tool .btn{display:inline-block;}
