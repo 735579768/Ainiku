@@ -10,8 +10,8 @@
  *));
  */
 function markimg($info = array(
-	'det' => null,
-	'src' => null,
+	'det' => '',
+	'src' => '',
 	'pos' => 'bottom_right',
 	'str' => '',
 )) {
