@@ -522,11 +522,25 @@ function getRegion($id = null) {
  *取ip的物理地址
  ***/
 function getIpLocation($ip = "127.0.0.1") {
-	$uri = "http://www.ip138.com/ips138.asp?ip=$ip";
-	$str = file_get_contents($uri);
-	$str = iconv('gbk', 'utf-8', $str);
-	preg_match('/本站主数据：(.*?)<\/li>/si', $str, $out);
-	return preg_replace('/\s+/', '', $out[1]);
+	if (file_exists(__SITE_ROOT__ . __ROOT__ . '/TP/Library/Org/Net/UTFWry.dat')) {
+		$Ip   = new \Org\Net\IpLocation('UTFWry.dat'); // 实例化类 参数表示IP地址库文件
+		$area = $Ip->getlocation($ip); // 获取某个IP地址所在的位置
+		return $area['country'] . $area['area'];
+	} else {
+		$uri  = "http://www.ip138.com/ips138.asp?ip=$ip";
+		$opts = array(
+			'http' => array(
+				'method'  => 'GET',
+				'timeout' => 2,
+			),
+		);
+		$context = stream_context_create($opts);
+		$str     = @file_get_contents($uri, false, $context);
+		$str     = iconv('gbk', 'utf-8', $str);
+		preg_match('/本站主数据：(.*?)<\/li>/si', $str, $out);
+		return preg_replace('/\s+/', '', $out[1]);
+	}
+
 }
 /**
  *生成表单

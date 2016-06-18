@@ -5,6 +5,8 @@ use Think\Controller;
 defined("ACCESS_ROOT") || die("Invalid access");
 class IndexController extends HomeController {
 	public function index() {
+		var_dump(getIpLocation('219.157.153.157'));
+		die();
 //runPluginMethod('Erweima','create',array('200','这个是测试内容','./Uploads/image/thumb/20151008/144429065269885.png'));
 		$model = D("Goods");
 //	$map['jiage']='100-600';
