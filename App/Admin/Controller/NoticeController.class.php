@@ -3,7 +3,7 @@ namespace Admin\Controller;
 class NoticeController extends AdminController {
 	public function sendtestmail() {
 
-//				$result=sendMail(array(
+//				$result=send_mail(array(
 		//			'to'=>'735579768@qq.com',
 		//			'toname'=>'赵克立',
 		//			'subject'=>'邮件主题',//主题标题
@@ -27,7 +27,7 @@ class NoticeController extends AdminController {
 		);
 		$sendmaillock = S('sendmaillock');
 		if (empty($sendmaillock)) {
-			$result = sendMail($conf);
+			$result = send_mail($conf);
 			if ($result === true) {
 				//设置邮件锁60秒后才可以再发送
 				S('sendmaillock', true, 60);

@@ -113,7 +113,7 @@ class MemberController extends LoginController {
 		<a target="_blank" href="{$url}">点击以激活邮箱</a>或复制这个链接并打开
 		{$url}
 eot;
-			$result = sendMail(array(
+			$result = send_mail(array(
 				'to'       => $uinfo['email'],
 				'toname'   => $uinfo['email'],
 				'subject'  => C('WEB_SITE_TITLE') . '的邮件验证', //主题标题

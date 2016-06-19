@@ -104,7 +104,7 @@ class CommentsPlugin extends \Plugins\Plugin {
 		$site_email = C('SITE_EMAIL');
 		$site_title = C('WEB_SITE_TITLE');
 		if (!empty($site_email)) {
-			$result = sendMail(array(
+			$result = send_mail(array(
 				'to'       => $site_email,
 				'toname'   => $site_title . '站长你好',
 				'subject'  => "你有一条最新留言 ( $site_title )",
@@ -122,7 +122,7 @@ class CommentsPlugin extends \Plugins\Plugin {
 				if ($rows['email_notify'] != '1') {
 					return;
 				}
-				$result = sendMail(array(
+				$result = send_mail(array(
 					'to'       => $rows['email'],
 					'toname'   => '你好' . $rows['name'],
 					'subject'  => '你好' . $rows['name'] . ': 赵克立博客有您的留言回复',

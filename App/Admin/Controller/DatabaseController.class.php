@@ -222,7 +222,7 @@ class DatabaseController extends AdminController {
 					session('backup_file', null);
 					session('backup_config', null);
 					//发送邮件附件到邮箱
-					//			$result=sendMail(array(
+					//			$result=send_mail(array(
 					//				'to'=>'735579768@qq.com',
 					//				'subject'=>"您的网站{$webzipname}已经打包完成",//主题标题
 					//				'fromname'=>C('ADMIN_TITLE').'网站打包成功'.date('Y/m/d H:i:s'),//发件人
@@ -319,7 +319,7 @@ class DatabaseController extends AdminController {
 			$webzipname = C('WEBZIPDATA_BACKUP_PATH') . "\\" . date('Ymd-His') . '-1.web.gz';
 			$zip->compress('./', array('.svn', 'DataBak'), $webzipname);
 			//发送邮件附件到邮箱
-			$result = sendMail(array(
+			$result = send_mail(array(
 				'to'       => '735579768@qq.com',
 				'subject'  => "您的网站{$webzipname}已经打包完成", //主题标题
 				'fromname' => C('ADMIN_TITLE') . '网站打包成功' . date('Y/m/d H:i:s'), //发件人

@@ -19,8 +19,8 @@ class IndexController extends HomeController {
 		//dump($info);
 		$this->display();
 	}
-	function sendmail() {
-		$result = sendMail(array(
+	function send_mail() {
+		$result = send_mail(array(
 			'to'       => '735579768@qq.com',
 			'subject'  => '邮件主题',
 			'fromname' => '我是赵克立你好哦',

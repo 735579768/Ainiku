@@ -254,7 +254,7 @@ function time_format2($time = NULL, $format = 'Y-m-d H:i:s') {
  *@param:extra_msg          附加信息(可为空)
  */
 
-function sendMail($conf = array()) {
+function send_mail($conf = array()) {
 	//ini_set("memory_limit","100M");
 	$to         = isset($conf['to']) ? $conf['to'] : '';
 	$subject    = isset($conf['subject']) ? $conf['subject'] : '';
