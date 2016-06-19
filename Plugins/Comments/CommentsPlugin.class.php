@@ -1,6 +1,6 @@
 <?php
 namespace Plugins\Comments;
-require_once pathA('/Plugins/Plugin.class.php');
+require_once path_a('/Plugins/Plugin.class.php');
 class CommentsPlugin extends \Plugins\Plugin {
 	protected $config = array(
 		'version' => '1.0',

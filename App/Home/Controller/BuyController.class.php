@@ -125,7 +125,7 @@ $this->error($model->geterror());
 			$map['selected'] = 1;
 			$cartlist        = D('CartView')->where($map)->select();
 			empty($cartlist) && $this->error('购物车是空的!', U('Cart/index'));
-			$ordernum    = createOrderSn();
+			$ordernum    = create_ordersn();
 			$order_total = 0.00; //订单总额
 
 			//把购物车中的产品生成订单保存到order_goods
@@ -374,7 +374,7 @@ echo 'fail';
 		);
 		$online_pay  = strtolower(I('online_pay')); //支付类型
 		$order_total = floatval(I('money')); //支付金额
-		$order_sn    = createorder();
+		$order_sn    = create_randsn();
 		$order_title = '在线充值';
 
 		$pay_title = array(

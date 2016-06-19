@@ -78,10 +78,10 @@ class MemberController extends AdminController {
 				'mobile'          => $mobile,
 				'create_time'     => NOW_TIME,
 				'update_time'     => NOW_TIME,
-				'account'         => createAccount(),
+				'account'         => create_account(),
 			);
 			//自动判断用户名是哪个字段
-			$data[getAccountType($username)] = $username;
+			$data[get_account_type($username)] = $username;
 			$mem                             = D('Member');
 			/* 添加用户 */
 			if ($mem->create($data)) {

@@ -250,8 +250,8 @@ echo "var qu={{$qu}};";*/
 		//取出所有分类并自动归类
 		$clist           = M('Category')->where("category_type='article'")->select();
 		$data            = array();
-		$data['title']   = toUtf8(I('title'));
-		$data['content'] = toUtf8($_POST['content']);
+		$data['title']   = to_utf8(I('title'));
+		$data['content'] = to_utf8($_POST['content']);
 		$patt            = array(
 			'/([a-zA-z]+\.)+[a-zA-z]{2,3}/i', //去掉域名
 		);
@@ -297,7 +297,7 @@ echo "var qu={{$qu}};";*/
 		//}
 
 		//查询分类
-		$catetitle = toUtf8(I('fenlei'));
+		$catetitle = to_utf8(I('fenlei'));
 		//$catetitle=explode('>',$catetitle);
 		//$catetitle=empty($catetitle[count($catetitle)-1])?$catetitle[count($catetitle)-2]:$catetitle[count($catetitle)-1];
 		$catetitle = trim($catetitle);

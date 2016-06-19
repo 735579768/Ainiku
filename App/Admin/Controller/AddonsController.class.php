@@ -145,7 +145,7 @@ class AddonsController extends AdminController {
 $p_content = str_replace('[PLUGIN_DESCR]', $descr, $p_content);*/
 			$p_config = str_replace('Test', $name, $p_config);
 			$p_con    = str_replace('Test', $name, $p_con);
-			createFolder("./Plugins/$name/View");
+			create_folder("./Plugins/$name/View");
 			file_put_contents("./Plugins/$name/{$name}Plugin.class.php", $p_content);
 			file_put_contents("./Plugins/$name/View/content.html", $p_con);
 			file_put_contents("./Plugins/$name/View/config.html", $p_config);

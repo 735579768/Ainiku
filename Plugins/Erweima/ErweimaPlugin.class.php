@@ -27,7 +27,7 @@ imagedestroy($im);*/
 		$matrixPointSize      = $imgsize / 37; //生成图片大小
 		//生成二维码图片
 		$filename = IMAGE_CACHE_DIR . 'erweima/qrcode.png';
-		createfolder(dirname($filename));
+		create_folder(dirname($filename));
 		\QRcode::png($value, $filename, $errorCorrectionLevel, $matrixPointSize, 2);
 		//$logo = './Plugins/Erweima/logo.jpg';//准备好的logo图片
 		$QR = $filename; //已经生成的原始二维码图

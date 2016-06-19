@@ -92,7 +92,7 @@ class FileController extends AdminController {
 			return false;
 		}
 
-		$result = delfile($id);
+		$result = del_file($id);
 		if ($result) {
 			$this->success('删除成功', U('attach'));
 		} else {
@@ -197,7 +197,7 @@ class FileController extends AdminController {
 		}
 
 		//删除本地文件
-		$result = delimage($id);
+		$result = del_image($id);
 		if ($result !== false) {
 			$this->success('删除成功');
 		} else {
@@ -274,7 +274,7 @@ class FileController extends AdminController {
 			$XDtargetPath = $targetFolder . '/' . date('Ymd') . '/' . $filename;
 /*			$temarr          = explode('.', $XDtargetPath);
 $XDtargetPathdir = str_replace($filename, '', $XDtargetPath);*/
-			createFolder(dirname($XDtargetPath));
+			create_folder(dirname($XDtargetPath));
 			//原图文件绝对路径目录
 			$targetPath = $SITE_PATH . $targetFolder . '/' . date('Ymd'); //保存原文件的绝对路径
 
@@ -342,7 +342,7 @@ $XDtargetPathdir = str_replace($filename, '', $XDtargetPath);*/
 		/* 返回标准数据 */
 		$return       = array('status' => 1, 'info' => '上传成功', 'path' => '', 'id' => '', 'url' => '', 'data' => '');
 		$SITE_PATH    = __SITE_ROOT__; //网站根目录
-		$targetFolder = pathA(C('FILE_UPLOAD.rootPath')); //保存图片的根目录
+		$targetFolder = path_a(C('FILE_UPLOAD.rootPath')); //保存图片的根目录
 		$JDtargetPath = '';
 		$data         = array();
 		if (!empty($_FILES)) {
@@ -375,13 +375,13 @@ $XDtargetPathdir = str_replace($filename, '', $XDtargetPath);*/
 				break;
 			}
 			$imgpath = $targetFolder . '/' . date('Ymd');
-			if (!createFolder($imgpath)) {
+			if (!create_folder($imgpath)) {
 				$return['info']   = '创建目录错误：' . $imgpath;
 				$return['status'] = 0;
 				$this->ajaxreturn($return);
 			}
 			$imgpath2 = $targetFolder . $foldertype . '/' . date('Ymd');
-			if (!createFolder($imgpath)) {
+			if (!create_folder($imgpath)) {
 				$return['info']   = '创建目录错误：' . $imgpath;
 				$return['status'] = 0;
 				$this->ajaxreturn($return);
@@ -411,7 +411,7 @@ $XDtargetPathdir = str_replace($filename, '', $XDtargetPath);*/
 						}
 
 					}
-					$return['path'] = pathR($JDthumbPath);
+					$return['path'] = path_r($JDthumbPath);
 				} else {
 					$return['info']   = '上传错误' . $tempFile . '->' . $JDtargetPath;
 					$return['status'] = 0;
@@ -426,10 +426,10 @@ $XDtargetPathdir = str_replace($filename, '', $XDtargetPath);*/
 		}
 
 		//保存文件信息到数据库
-		$cupath       = pathR($JDtargetPath);
+		$cupath       = path_r($JDtargetPath);
 		$data['path'] = $cupath;
 		//$data['sha1']        = $shafile['sha1'];
-		$data['thumbpath']   = pathR($JDthumbPath);
+		$data['thumbpath']   = path_r($JDthumbPath);
 		$data['destname']    = $filename;
 		$data['srcname']     = $_FILES['filelist']['name'];
 		$data['create_time'] = time();
@@ -450,7 +450,7 @@ $XDtargetPathdir = str_replace($filename, '', $XDtargetPath);*/
 	}
 
 	public function ueupload() {
-		$CONFIG = json_decode(preg_replace("/\/\*[\s\S]+?\*\//", "", file_get_contents(pathA(__STATIC__ . "/ueditor/php/config.json"))), true);
+		$CONFIG = json_decode(preg_replace("/\/\*[\s\S]+?\*\//", "", file_get_contents(path_a(__STATIC__ . "/ueditor/php/config.json"))), true);
 //"imagePathFormat": "/Uploads/image/{yyyy}{mm}{dd}/{time}{rand:6}",
 		$CONFIG['imagePathFormat']      = __ROOT__ . "/Uploads/image/{yyyy}{mm}{dd}/{time}{rand:6}";
 		$CONFIG['scrawlPathFormat']     = __ROOT__ . "/Uploads/image/{yyyy}{mm}{dd}/{time}{rand:6}";
@@ -475,21 +475,21 @@ $XDtargetPathdir = str_replace($filename, '', $XDtargetPath);*/
 		case 'uploadvideo':
 		/* 上传文件 */
 		case 'uploadfile':
-			$result = include pathA(__STATIC__ . "/ueditor/php/action_upload.php");
+			$result = include path_a(__STATIC__ . "/ueditor/php/action_upload.php");
 			break;
 
 		/* 列出图片 */
 		case 'listimage':
-			$result = include pathA(__STATIC__ . "/ueditor/php/action_list.php");
+			$result = include path_a(__STATIC__ . "/ueditor/php/action_list.php");
 			break;
 		/* 列出文件 */
 		case 'listfile':
-			$result = include pathA(__STATIC__ . "/ueditor/php/action_list.php");
+			$result = include path_a(__STATIC__ . "/ueditor/php/action_list.php");
 			break;
 
 		/* 抓取远程文件 */
 		case 'catchimage':
-			$result = include pathA(__STATIC__ . "/ueditor/php/action_crawler.php");
+			$result = include path_a(__STATIC__ . "/ueditor/php/action_crawler.php");
 			break;
 
 		default:
@@ -519,12 +519,12 @@ $XDtargetPathdir = str_replace($filename, '', $XDtargetPath);*/
 			if (!empty($result['url'])) {
 				if ($action == 'uploadimage') {
 					$thumb   = str_replace("/Uploads/image/", "/Uploads/image/thumb/", $result['url']);
-					$JDthumb = pathA($thumb);
+					$JDthumb = path_a($thumb);
 /*					$temarr     = explode('.', $JDthumb);
 $JDthumbdir = str_replace($temarr[count($temarr) - 1], '', $JDthumb);*/
-					createFolder(dirname($JDthumb));
+					create_folder(dirname($JDthumb));
 					//生成缩略图
-					$srcpath = pathA($result['url']);
+					$srcpath = path_a($result['url']);
 					$srcpath = str_replace('\\', '/', $srcpath);
 					$re      = create_thumb($srcpath, $JDthumb, C('THUMB_WIDTH'), C('THUMB_HEIGHT'));
 					$thumb   = file_exists('.' . $thumb) ? $thumb : $result['url'];
@@ -631,7 +631,7 @@ $JDthumbdir = str_replace($temarr[count($temarr) - 1], '', $JDthumb);*/
 					$spath   = get_picture($thumbpath[$i], 'path');
 					$thupath = str_replace('image/', 'image/thumb/', $spath);
 
-					$spath = pathA($spath);
+					$spath = path_a($spath);
 
 					$dpath = str_replace('image/', 'image/thumb/', $spath);
 					if (file_exists($spath)) {

@@ -1,6 +1,6 @@
 <?php
 namespace Plugins\PathInfo;
-require_once pathA('/Plugins/Plugin.class.php');
+require_once path_a('/Plugins/Plugin.class.php');
 class PathInfoPlugin extends \Plugins\Plugin {
 	protected $config = array(
 		'version' => '1.0',

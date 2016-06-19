@@ -60,7 +60,7 @@ class Ank extends TagLib {
 			//把文件转成对应的路径
 			$parse .= 'foreach($temarr as $key=>$val):';
 			$parse .= '$filepath="' . $dir . '/".$val.".js";';
-			$parse .= 'if(!file_exists(pathA($filepath))):$filepath=\'__STATIC__/js/\'.$val.".js";endif;';
+			$parse .= 'if(!file_exists(path_a($filepath))):$filepath=\'__STATIC__/js/\'.$val.".js";endif;';
 			$parse .= '$temarr[$key]=$filepath;';
 			$parse .= 'endforeach;';
 
@@ -69,15 +69,15 @@ class Ank extends TagLib {
 				$parse .= '$jscss.=\'<script src="\'.$val.$suijinum.\'" type="text/javascript" ></script>\'."\r\n";';
 				$parse .= 'endforeach;';
 			} else {
-				$parse .= 'if(file_ismod($temarr)||!file_exists(pathA(STYLE_CACHE_DIR.MODULE_NAME.\'/\'.$newname.".js"))):';
+				$parse .= 'if(file_ismod($temarr)||!file_exists(path_a(STYLE_CACHE_DIR.MODULE_NAME.\'/\'.$newname.".js"))):';
 				$parse .= '$compressstr=\'\';';
 				$parse .= 'foreach($temarr as $val):';
 				$parse .= '$filepath=".".$val;';
-				$parse .= '$compressstr.=";".compress_js(pathA($filepath));';
+				$parse .= '$compressstr.=";".compress_js(path_a($filepath));';
 				$parse .= 'endforeach;';
-				$parse .= 'writetofile(pathA(STYLE_CACHE_DIR.MODULE_NAME.\'/\'.$newname.".js"),$compressstr);';
+				$parse .= 'write_tofile(path_a(STYLE_CACHE_DIR.MODULE_NAME.\'/\'.$newname.".js"),$compressstr);';
 				$parse .= 'endif;';
-				$parse .= '$jscss.=\'<script src="\'.pathR(STYLE_CACHE_DIR.MODULE_NAME.\'/\'.$newname.\'.js\').$suijinum.\'" type="text/javascript" ></script>\'."\r\n";';
+				$parse .= '$jscss.=\'<script src="\'.path_r(STYLE_CACHE_DIR.MODULE_NAME.\'/\'.$newname.\'.js\').$suijinum.\'" type="text/javascript" ></script>\'."\r\n";';
 			}
 
 		} else {
@@ -85,7 +85,7 @@ class Ank extends TagLib {
 			//把文件转成对应的路径
 			$parse .= 'foreach($temarr as $key=>$val):';
 			$parse .= '$filepath="' . $dir . '/".$val.".css";';
-			$parse .= 'if(!file_exists(pathA($filepath))):$filepath=\'__STATIC__/css/\'.$val.".css";endif;';
+			$parse .= 'if(!file_exists(path_a($filepath))):$filepath=\'__STATIC__/css/\'.$val.".css";endif;';
 			$parse .= '$temarr[$key]=$filepath;';
 			$parse .= 'endforeach;';
 
@@ -94,16 +94,16 @@ class Ank extends TagLib {
 				$parse .= '$jscss.=\'<link href="\'.$val.$suijinum.\'" type="text/css" rel="stylesheet" />\'."\r\n";';
 				$parse .= 'endforeach;';
 			} else {
-				$parse .= 'if(file_ismod($temarr)||!file_exists(pathA(STYLE_CACHE_DIR.MODULE_NAME.\'/\'.$newname.".css"))):';
+				$parse .= 'if(file_ismod($temarr)||!file_exists(path_a(STYLE_CACHE_DIR.MODULE_NAME.\'/\'.$newname.".css"))):';
 				$parse .= '$compressstr=\'\';';
 				$parse .= 'foreach($temarr as $val):';
 				//$parse .='$jscss.=\'<link href="'.$dir.'/\'.$val.\'.css" type="text/css" rel="stylesheet" />\'."\r\n";';
 				$parse .= '$filepath=".".$val;';
-				$parse .= '$compressstr.=compress_css(pathA($filepath));';
+				$parse .= '$compressstr.=compress_css(path_a($filepath));';
 				$parse .= 'endforeach;';
-				$parse .= 'writetofile(pathA(STYLE_CACHE_DIR.MODULE_NAME.\'/\'.$newname.".css"),$compressstr);';
+				$parse .= 'write_tofile(path_a(STYLE_CACHE_DIR.MODULE_NAME.\'/\'.$newname.".css"),$compressstr);';
 				$parse .= 'endif;';
-				$parse .= '$jscss.=\'<link href="\'.pathR(STYLE_CACHE_DIR.MODULE_NAME.\'/\'.$newname.\'.css\').$suijinum.\'" type="text/css" rel="stylesheet" />\'."\r\n";';
+				$parse .= '$jscss.=\'<link href="\'.path_r(STYLE_CACHE_DIR.MODULE_NAME.\'/\'.$newname.\'.css\').$suijinum.\'" type="text/css" rel="stylesheet" />\'."\r\n";';
 			}
 
 //		$parse .='else:';

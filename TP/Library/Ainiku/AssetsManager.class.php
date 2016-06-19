@@ -148,10 +148,10 @@ class AssetsManager {
 			($ismodcss || !file_exists($csscache)) && file_put_contents($csscache, $this->cssstr);
 			($ismodjs || !file_exists($jscache)) && file_put_contents($jscache, $this->jsstr);
 			if (!empty($this->css)) {
-				$this->cssstr = '<link href="' . pathR($csscache) . $suijinum . '" type="text/css" rel="stylesheet" />' . "\n";
+				$this->cssstr = '<link href="' . path_r($csscache) . $suijinum . '" type="text/css" rel="stylesheet" />' . "\n";
 			}
 			if (!empty($this->js)) {
-				$this->jsstr = '<script src="' . pathR($jscache) . $suijinum . '" type="text/javascript" ></script>' . "\n";
+				$this->jsstr = '<script src="' . path_r($jscache) . $suijinum . '" type="text/javascript" ></script>' . "\n";
 			}
 
 		}
@@ -197,7 +197,7 @@ class AssetsManager {
 					$src_new = str_replace('css/', '', $src_new);
 					$new     = str_replace("../images", STYLE_CACHE_DIR . MODULE_NAME . "/images", $v); //设置新路径
 					$new     = __SITE_ROOT__ . __ROOT__ . str_replace('./', '/', $new);
-					createFolder(dirname($new));
+					create_folder(dirname($new));
 					if (file_exists($src_new)) { //判断是否存在
 						copy($src_new, $new); //复制到新目录
 					}

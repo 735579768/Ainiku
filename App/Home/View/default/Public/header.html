@@ -4,7 +4,7 @@
     <form method="post" id="searform" action="{:U('Sear/index')}">
     <i class="btn-search" onClick="searform.submit();"></i>
     <div class="form-group">
-        <input class="form-control input-large" name="keywords" type="text" value="{:toutf8(I('keywords'))}" placeholder="请输入关键字" />
+        <input class="form-control input-large" name="keywords" type="text" value="{:to_utf8(I('keywords'))}" placeholder="请输入关键字" />
     </div>
     </form>
     </div>

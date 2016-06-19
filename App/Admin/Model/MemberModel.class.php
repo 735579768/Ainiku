@@ -82,7 +82,7 @@ class MemberModel extends BaseModel {
 	//            'mobile'   => $mobile,
 	//			'create_time'=>NOW_TIME,
 	//			'update_time'=>NOW_TIME,
-	//			'account'=>createAccount()
+	//			'account'=>create_account()
 	//        );
 	//
 	//        //验证手机
@@ -107,7 +107,7 @@ class MemberModel extends BaseModel {
 	//     */
 	//    public function login($username, $password, $type = 1){
 	//        $map = array();
-	//		$map[getAccountType($username)]=$username;
+	//		$map[get_account_type($username)]=$username;
 	//		$map['password']=ainiku_ucenter_md5($password);
 	//		$jin=__DB_PREFIX__."member_group as a on ".__DB_PREFIX__."member.member_group_id=a.member_group_id";
 	//		$field="*,".__DB_PREFIX__."member.status as status";

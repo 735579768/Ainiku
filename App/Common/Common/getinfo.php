@@ -1,5 +1,53 @@
 <?php
-/* 根据ID获取分类名称 */
+/*
+// * 获取分类信息并缓存分类
+// * @param  integer $id    分类ID
+// * @param  string  $field 要获取的字段名
+// * @return string         分类信息
+ */
+function get_category($id = null, $field = null) {
+	$map = array();
+	/* 非法分类ID */
+	if (empty($id)) {
+		return '';
+	}
+	if (!is_numeric($id)) {
+		$map['name'] = $id;
+	} else {
+		$map['category_id'] = $id;
+	}
+	/* 读取缓存数据 */
+	$cate = F('sys_category_list' . $id);
+	if (empty($cate) || APP_DEBUG) {
+		$cate = M('Category')->where($map)->find();
+		if (!$cate || 1 != $cate['status']) {
+			//不存在分类，或分类被禁用
+			return '';
+		}
+		F('sys_category_list' . $id, $cate); //更新缓存
+	}
+	return is_null($field) ? $cate : $cate[$field];
+}
+/*
+ *取文章信息
+ *
+ **/
+function get_article($id = null, $whe = array(), $field = null) {
+	if (empty($id) || !is_numeric($id)) {
+		return '';
+	}
+
+	$info = S('Article' . $id);
+	if (empty($info) || APP_DEBUG) {
+		$info = M('Article')->where($whe)->find($id);
+		if (empty($info)) {
+			return null;
+		}
+
+		S('Article' . $id, $info);
+	}
+	return is_null($field) ? $info : $info[$field];
+}
 /* 根据ID获取分类名称 */
 function get_category_title($id) {
 	$title = get_category($id, 'title');
@@ -82,35 +130,7 @@ function get_category_tree($pid = 0, $child = false) {
 function F_get_category_tree($pid = 0, $child = false) {
 	return get_category_tree($pid, $child);
 }
-/*
-// * 获取分类信息并缓存分类
-// * @param  integer $id    分类ID
-// * @param  string  $field 要获取的字段名
-// * @return string         分类信息
- */
-function get_category($id = null, $field = null) {
-	$map = array();
-	/* 非法分类ID */
-	if (empty($id)) {
-		return '';
-	}
-	if (!is_numeric($id)) {
-		$map['name'] = $id;
-	} else {
-		$map['category_id'] = $id;
-	}
-	/* 读取缓存数据 */
-	$cate = F('sys_category_list' . $id);
-	if (empty($cate) || APP_DEBUG) {
-		$cate = M('Category')->where($map)->find();
-		if (!$cate || 1 != $cate['status']) {
-			//不存在分类，或分类被禁用
-			return '';
-		}
-		F('sys_category_list' . $id, $cate); //更新缓存
-	}
-	return is_null($field) ? $cate : $cate[$field];
-}
+
 /**
  * 获取图片
  * @param int $id
@@ -140,8 +160,8 @@ function get_picture($id = null, $field = null, $wh = null) {
 					$revalue = str_replace('/Uploads/image/', IMAGE_CACHE_DIR, $picture['path']);
 					$revalue = substr($revalue, 0, strrpos($revalue, '.')) . '_' . $wh . substr($revalue, strrpos($revalue, '.'));
 					//判断之前是不是已经生成
-					if (!file_exists(pathA($revalue))) {
-						$result = create_thumb(pathA($picture['path']), pathA($revalue), $wharr[0], $wharr[1]);
+					if (!file_exists(path_a($revalue))) {
+						$result = create_thumb(path_a($picture['path']), path_a($revalue), $wharr[0], $wharr[1]);
 						if ($result !== true) {
 							$revalue = $picture['path'];
 						}
@@ -150,8 +170,8 @@ function get_picture($id = null, $field = null, $wh = null) {
 			} else if (!empty($field)) {
 				$revalue = $picture[$field];
 				if ($field == 'thumbpath') {
-					if (!file_exists(pathA($revalue))) {
-						$result = create_thumb(pathA($picture['path']), pathA($revalue), C('THUMB_WIDTH'), C('THUMB_HEIGHT'));
+					if (!file_exists(path_a($revalue))) {
+						$result = create_thumb(path_a($picture['path']), path_a($revalue), C('THUMB_WIDTH'), C('THUMB_HEIGHT'));
 						if ($result !== true) {
 							$revalue = $picture['path'];
 						}
@@ -167,7 +187,7 @@ function get_picture($id = null, $field = null, $wh = null) {
 	} else {
 		$revalue = $id;
 	}
-	return empty($revalue) ? '' : pathR($revalue);
+	return empty($revalue) ? '' : path_r($revalue);
 }
 /**
  * 获取附件
@@ -195,26 +215,7 @@ function get_file($id = null, $field = null) {
 	}
 	return $revalue;
 }
-/*
- *取文章信息
- *
- **/
-function get_article($id = null, $whe = array(), $field = null) {
-	if (empty($id) || !is_numeric($id)) {
-		return '';
-	}
 
-	$info = S('Article' . $id);
-	if (empty($info) || APP_DEBUG) {
-		$info = M('Article')->where($whe)->find($id);
-		if (empty($info)) {
-			return null;
-		}
-
-		S('Article' . $id, $info);
-	}
-	return is_null($field) ? $info : $info[$field];
-}
 /*
  *取产品信息
  *
@@ -409,7 +410,7 @@ function get_model($model_id = '', $field = '') {
  * 通过模型属性来返回一个状态文本
  * @return [type] [description]
  */
-function getStatus($val = '', $model_id = '', $field = 'status') {
+function get_status($val = '', $model_id = '', $field = 'status') {
 	if (empty($val)) {
 		return '';
 	} else {

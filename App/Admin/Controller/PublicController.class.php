@@ -43,7 +43,7 @@ class PublicController extends Controller {
 				$this->error('验证码输入错误！');
 			}
 			//自动判断用户名是哪个字段的
-			$map[getAccountType($username)] = $username;
+			$map[get_account_type($username)] = $username;
 			$map['password']                = ainiku_ucenter_md5($password);
 			$map['status']                  = 1;
 			//$map['member_group_id']=1;

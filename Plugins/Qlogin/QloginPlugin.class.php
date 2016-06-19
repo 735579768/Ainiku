@@ -47,7 +47,7 @@ class QloginPlugin extends \Plugins\Plugin {
 		$qqinfo                  = session('qqinfo');
 		$data['openid']          = $openid;
 		$data['member_group_id'] = 2;
-		//$data['account']         = createAccount();
+		//$data['account']         = create_account();
 		$data['nickname'] = $qqinfo['nickname'];
 
 		$mem = M('Member');
@@ -63,7 +63,7 @@ class QloginPlugin extends \Plugins\Plugin {
 		} else {
 			/* 添加用户 */
 			$data['last_login_ip'] = get_client_ip();
-			$data['account']       = createAccount();
+			$data['account']       = create_account();
 			$data['username']      = $data['account'];
 			//生成用户名
 			$uid = $mem->add($data);

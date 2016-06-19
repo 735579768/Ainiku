@@ -2,7 +2,7 @@
 namespace Plugins\Editor;
 use Think\Upload;
 
-require_once pathA('/Plugins/Plugin.class.php');
+require_once path_a('/Plugins/Plugin.class.php');
 class EditorPlugin extends \Plugins\Plugin {
 	public $uploader  = null;
 	protected $config = array(

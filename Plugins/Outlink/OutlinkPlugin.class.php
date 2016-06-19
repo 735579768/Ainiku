@@ -1,6 +1,6 @@
 <?php
 namespace Plugins\Outlink;
-require_once pathA('/Plugins/Plugin.class.php');
+require_once path_a('/Plugins/Plugin.class.php');
 class OutlinkPlugin extends \Plugins\Plugin {
 	protected $config = array(
 		'version' => '1.0',
@@ -29,7 +29,7 @@ class OutlinkPlugin extends \Plugins\Plugin {
 
 			foreach ($arr as $val) {
 				$v        = explode(',', $val);
-				$k        = toutf8(preg_replace('/(\.\w+)\/.*/i', '$1', $v[1]));
+				$k        = to_utf8(preg_replace('/(\.\w+)\/.*/i', '$1', $v[1]));
 				$data[$k] = isset($data[$k]) ? (++$data[$k]) : 1;
 			}
 			//去掉小于1的链接

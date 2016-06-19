@@ -1,7 +1,7 @@
 <?php
 namespace Plugins\Tenpay;
 define('TENPAY_PATH', str_replace('\\', '/', dirname(__FILE__)));
-require_once pathA('/Plugins/Plugin.class.php');
+require_once path_a('/Plugins/Plugin.class.php');
 class TenpayPlugin extends \Plugins\Plugin {
 	protected $config = array(
 		'version' => '1.0',

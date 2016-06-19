@@ -28,7 +28,7 @@ class AjaxController extends AdminController {
 	/*设置后台默认主题色*/
 	function setdefaultcolor($color) {
 		M('Config')->where("name='DEFAULT_COLOR'")->setField('value', $color);
-		updateConfig();
+		update_config();
 	}
 	/*取自定义菜单列表*/
 	function getmenu($url = '') {

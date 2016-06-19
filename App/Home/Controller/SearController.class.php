@@ -6,7 +6,7 @@ defined("ACCESS_ROOT") || die("Invalid access");
 class SearController extends HomeController {
 	public function index() {
 		$position = I('position');
-		$keywords = toutf8(I('keywords'));
+		$keywords = to_utf8(I('keywords'));
 		if (!empty($position)) {
 			$map['_string'] = "find_in_set('$position',position)";
 		}

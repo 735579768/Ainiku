@@ -34,7 +34,7 @@ class PublicController extends HomeController {
 			$error                          = '';
 			$map                            = array();
 			$dbprefix                       = __DB_PREFIX__;
-			$map[getAccountType($username)] = $username;
+			$map[get_account_type($username)] = $username;
 			$map['password']                = ainiku_ucenter_md5($password);
 			$map['status']                  = 1;
 			$map['member_group_id']         = 2; //前台只允许会员登陆
@@ -74,7 +74,7 @@ class PublicController extends HomeController {
 				'password'        => $password,
 				'email'           => $email,
 				'mobile'          => $mobile,
-				'account'         => createAccount(),
+				'account'         => create_account(),
 				'create_time'     => NOW_TIME,
 				'update_time'     => NOW_TIME,
 			);

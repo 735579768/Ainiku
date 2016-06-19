@@ -147,7 +147,7 @@ class ConfigController extends AdminController {
 			}
 
 //			F('DB_CONFIG_DATA',null);
-			updateConfig();
+			update_config();
 			$this->success('配置保存成功！');
 		} else {
 			$this->error('非法访问');

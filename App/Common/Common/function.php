@@ -276,7 +276,7 @@ function send_mail($conf = array()) {
 
 	$fromname = empty($fromname) ? $uname : $fromname;
 	$body     = empty($body) ? C('MAIL_SMTP_CE') : $body;
-	$body     = toutf8($body);
+	$body     = to_utf8($body);
 
 	if (empty($uname)) {
 		return '收件人邮箱不能为空';
@@ -330,7 +330,7 @@ function send_mail($conf = array()) {
 /**
  *删除系统上传的图片
  */
-function delimage($id = null) {
+function del_image($id = null) {
 	if (empty($id)) {
 		return false;
 	}
@@ -400,7 +400,7 @@ function delimage($id = null) {
 /**
  *删除系统上传的附件/文件
  **/
-function delfile($id = null) {
+function del_file($id = null) {
 	if (empty($id)) {
 		return false;
 	}
@@ -423,15 +423,15 @@ function delfile($id = null) {
 		return false;
 	}
 }
-//生成不重复的订单号
-function createorder() {
-	return substr(date("YmdHis") . mt_rand(1000, 9999), 2);
+//生成随机字符串
+function create_randsn() {
+	return date("ymdHis") . mt_rand(1000, 9999);
 }
 /**
  * 得到新订单号
  * @return  string
  */
-function createOrderSn() {
+function create_ordersn() {
 	/* 选择一个随机的方案 */
 	while (true) {
 		mt_srand((double) microtime() * 1000000);
@@ -478,7 +478,7 @@ function msubstr($str, $start = 0, $length, $charset = "utf-8", $suffix = false)
  *@param $str 字符串
  *@param $charset 字符串编码
  */
-function mbstringtoarray($str, $charset) {
+function mbstring_toarray($str, $charset) {
 	$strlen = mb_strlen($str);
 	while ($strlen) {
 		$array[] = mb_substr($str, 0, 1, $charset);
@@ -571,7 +571,7 @@ function check_dir_iswritable($dir_path) {
 /**
  *生成账号
  **/
-function createAccount() {
+function create_account() {
 	while (true) {
 		$num            = rand(10000000, 99999999);
 		$map['account'] = $num;
@@ -584,7 +584,7 @@ function createAccount() {
 /**
  *判断账号是什么类型
  **/
-function getAccountType($str) {
+function get_account_type($str) {
 	if (preg_match('/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/i', $str)) {return 'email';}
 	if (preg_match('/^1[34578]\d{9}$/', $str)) {return 'mobile';}
 	return 'username';
@@ -754,7 +754,7 @@ function is_utf8($str) {
  *把字符串转成utf
  *
  **/
-function toUtf8($str = null) {
+function to_utf8($str = null) {
 	if (is_utf8($str)) {
 		return $str;
 	} else {
@@ -783,7 +783,7 @@ function compress_css($path) {
 				$src_new = str_replace('css/', '', $src_new);
 				$new     = str_replace("../images", STYLE_CACHE_DIR . MODULE_NAME . "/images", $v); //设置新路径
 				$new     = str_replace('./', '/', $new);
-				createFolder(dirname($new));
+				create_folder(dirname($new));
 				if (file_exists($src_new)) { //判断是否存在
 					copy($src_new, $new); //复制到新目录
 				}
@@ -819,8 +819,8 @@ function compress_js($jspath) {
 /**
  *写字符串到文件
  */
-function writetofile($filename, $str) {
-	if (createFolder(dirname($filename))) {
+function write_tofile($filename, $str) {
+	if (create_folder(dirname($filename))) {
 		return file_put_contents($filename, $str);
 	} else {
 		//\Think\Log::write("mkdir err: ".$dirname($fpath));
@@ -831,8 +831,8 @@ function writetofile($filename, $str) {
 /**
  *创建文件夹
  */
-function createFolder($path) {
-	$path = pathA($path);
+function create_folder($path) {
+	$path = path_a($path);
 	if (!is_dir($path)) {
 		return mkdir($path, 0777, true); //第三个参数为true即可以创建多极目录
 	} else {
@@ -876,14 +876,14 @@ function get_naps_bot() {
 /**
  *把路径格式化为本地文件的绝对路径
  */
-function pathA($path) {
+function path_a($path) {
 	$path = str_replace(array('\\', './', __ROOT_PATH__, __SITE_ROOT__, __ROOT__), array('/', '/', '', '', ''), $path);
 	return __ROOT_PATH__ . $path;
 }
 /**
  *把路径格式化为相对于网站根目录的路径
  */
-function pathR($path) {
+function path_r($path) {
 	$path = str_replace(array('\\', './', __ROOT_PATH__, __SITE_ROOT__, __ROOT__), array('/', '/', '', '', ''), $path);
 	return __ROOT__ . $path;
 }
@@ -898,7 +898,7 @@ function file_ismod($filepath) {
 		$filearr[] = $filepath;
 	}
 	foreach ($filearr as $val) {
-		$sval    = pathA($val);
+		$sval    = path_a($val);
 		$modtime = date('Y-m-d h:i:s', filemtime($sval));
 		if ($modtime) {
 			$path     = str_replace(array('/', '\\'), array('_'), $val);
@@ -916,7 +916,7 @@ function file_ismod($filepath) {
 /**
  *更新缓存配置
  */
-function updateConfig() {
+function update_config() {
 	//重新添加配置
 	$config = F('DB_CONFIG_DATA');
 	$config = api('Config/lists');
@@ -947,7 +947,7 @@ function http_post($url, $post_data) {
  * @param  [type] $hex [description]
  * @return [type]      [description]
  */
-function hextorgb($hex) {
+function hex_torgb($hex) {
 	$hex = str_replace("#", "", $hex);
 
 	if (strlen($hex) == 3) {
@@ -967,7 +967,7 @@ function hextorgb($hex) {
  * @param  [type] $rgb [description]
  * @return [type]      [description]
  */
-function rgbtohex($rgb) {
+function rgb_tohex($rgb) {
 	$hex = "#";
 	$hex .= str_pad(dechex($rgb[0]), 2, "0", STR_PAD_LEFT);
 	$hex .= str_pad(dechex($rgb[1]), 2, "0", STR_PAD_LEFT);

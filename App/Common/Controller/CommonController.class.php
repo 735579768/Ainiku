@@ -125,7 +125,7 @@ dump($assets);*/
 		if (is_array($mp)) {
 			foreach ($mp as $key => $val) {
 				if (!is_array($val)) {
-					$Page->parameter[$key] = toUtf8($val);
+					$Page->parameter[$key] = to_utf8($val);
 				}
 			}
 		}
