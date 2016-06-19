@@ -20,9 +20,9 @@ function get_category($id = null, $field = null) {
 	$cate = F('sys_category_list' . $id);
 	if (empty($cate) || APP_DEBUG) {
 		$cate = M('Category')->where($map)->find();
-		if (!$cate || 1 != $cate['status']) {
+		if (empty($cate)) {
 			//不存在分类，或分类被禁用
-			return '';
+			return null;
 		}
 		F('sys_category_list' . $id, $cate); //更新缓存
 	}
@@ -32,21 +32,70 @@ function get_category($id = null, $field = null) {
  *取文章信息
  *
  **/
-function get_article($id = null, $whe = array(), $field = null) {
+function get_article($id = null, $field = null) {
 	if (empty($id) || !is_numeric($id)) {
 		return '';
 	}
-
-	$info = S('Article' . $id);
+	$map['article_id'] = $id;
+	$info              = S('article' . $id);
 	if (empty($info) || APP_DEBUG) {
-		$info = M('Article')->where($whe)->find($id);
+		$info = M('Article')->where($map)->find();
 		if (empty($info)) {
 			return null;
 		}
-
-		S('Article' . $id, $info);
+		S('article' . $id, $info);
 	}
 	return is_null($field) ? $info : $info[$field];
+}
+/**
+ * 取产品信息
+ * @param  [type] $id    [description]
+ * @param  [type] $field [description]
+ * @return [type]        [description]
+ */
+function get_goods($id = null, $field = null) {
+	if (empty($id) || !is_numeric($id)) {
+		return '';
+	}
+	$map['goods_id'] = $id;
+	$info            = S('goods' . $id);
+	if (empty($info) || APP_DEBUG) {
+		$info = M('Goods')->where($map)->find();
+		if (empty($info)) {
+			return null;
+		}
+		S('goods' . $id, $info);
+	}
+	return is_null($field) ? $info : $info[$field];
+}
+/*
+// * 获取分类信息并缓存分类
+// * @param  integer $id    分类ID
+// * @param  string  $field 要获取的字段名
+// * @return string         分类信息
+ */
+function get_single($id = null, $field = null) {
+	$map = array();
+	/* 非法分类ID */
+	if (empty($id)) {
+		return '';
+	}
+	if (!is_numeric($id)) {
+		$map['name'] = $id;
+	} else {
+		$map['single_id'] = $id;
+	}
+	/* 读取缓存数据 */
+	$cate = S('sys_single_list' . $id);
+	if (empty($list) || APP_DEBUG) {
+		$cate = M('Single')->where($map)->find();
+		if (empty($cate)) {
+			//不存在分类，或分类被禁用
+			return '';
+		}
+		S('sys_single_list' . $id, $cate); //更新缓存
+	}
+	return is_null($field) ? $cate : $cate[$field];
 }
 /* 根据ID获取分类名称 */
 function get_category_title($id) {
@@ -107,7 +156,7 @@ function get_category_parent($id = null, $top = true) {
  *取分类树
  */
 function get_category_tree($pid = 0, $child = false) {
-	$cachekey     = md5('homecategorytree');
+	$cachekey     = 'homecategorytree';
 	$categorytree = F($cachekey);
 	if (empty($categorytree) || APP_DEBUG) {
 		$rearr           = array();
@@ -123,12 +172,6 @@ function get_category_tree($pid = 0, $child = false) {
 		F($cachekey, $categorytree);
 	}
 	return $categorytree;
-}
-/**
- *取系统缓存分类
- */
-function F_get_category_tree($pid = 0, $child = false) {
-	return get_category_tree($pid, $child);
 }
 
 /**
@@ -217,28 +260,6 @@ function get_file($id = null, $field = null) {
 }
 
 /*
- *取产品信息
- *
- **/
-function get_goods($id = null, $whe = null, $field = null) {
-	if (empty($id) || !is_numeric($id)) {
-		return '';
-	}
-
-	$info = S('goods' . $id);
-	if (empty($info) || APP_DEBUG) {
-		$info = M('goods')->where($whe)->find($id);
-		if (empty($info)) {
-			return null;
-		}
-
-		$info2 = get_goods_attribute($id);
-		$info  = array_merge($info, $info2);
-		S('goods' . $id, $info);
-	}
-	return is_null($field) ? $info : $info[$field];
-}
-/*
  *取会员信息
  *
  **/
@@ -274,7 +295,7 @@ function get_membergroup($id = null, $field = null) {
  */
 function get_membergroup_list() {
 	$membergroup = F('sys_membergroup_list');
-	if (empty($membergroup)) {
+	if (empty($membergroup) || APP_DEBUG) {
 		$temlist = D('MemberGroup')->select();
 		foreach ($temlist as $val) {
 			$membergroup[$val['member_group_id']] = $val['title'];
@@ -282,19 +303,6 @@ function get_membergroup_list() {
 		F('sys_membergroup_list', $membergroup);
 	}
 	return $membergroup;
-}
-/**
- *输出指定的文章列表
- */
-function get_article_list($whe = null, $order = null) {
-	$skey = $whe . $order;
-	$list = S($skey);
-	if (empty($list) || APP_DEBUG) {
-		$map['_string'] = $whe;
-		$list           = M('Article')->where($map)->order($order)->select();
-		S($skey, $list);
-	}
-	return $list;
 }
 /**
  *万能查询函数
@@ -311,35 +319,7 @@ function get_field($table = null, $id = null, $field = null) {
 	}
 	return empty($info) ? '' : (empty($field) ? $info : $info[$field]);
 }
-/*
-// * 获取分类信息并缓存分类
-// * @param  integer $id    分类ID
-// * @param  string  $field 要获取的字段名
-// * @return string         分类信息
- */
-function get_single($id = null, $field = null) {
-	$map = array();
-	/* 非法分类ID */
-	if (empty($id)) {
-		return '';
-	}
-	if (!is_numeric($id)) {
-		$map['name'] = $id;
-	} else {
-		$map['single_id'] = $id;
-	}
-	/* 读取缓存数据 */
-	$cate = S('sys_single_list' . $id);
-	if (empty($list) || APP_DEBUG) {
-		$cate = M('Single')->where($map)->find();
-		if (!$cate || 1 != $cate['status']) {
-			//不存在分类，或分类被禁用
-			return '';
-		}
-		S('sys_single_list' . $id, $cate); //更新缓存
-	}
-	return is_null($field) ? $cate : $cate[$field];
-}
+
 
 /*
  *取属性所属的类型
