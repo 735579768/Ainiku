@@ -82,7 +82,7 @@ class MemberController extends AdminController {
 			);
 			//自动判断用户名是哪个字段
 			$data[get_account_type($username)] = $username;
-			$mem                             = D('Member');
+			$mem                               = D('Member');
 			/* 添加用户 */
 			if ($mem->create($data)) {
 				$mem->password = ainiku_ucenter_md5($mem->password);
@@ -150,7 +150,7 @@ class MemberController extends AdminController {
 					$this->error('密码相同,没有更改');
 				}
 			} else {
-				$this->error($this->showRegError($model->geterror()));
+				$this->error($model->geterror());
 			}
 		}
 		$member_id        = empty($member_id) ? UID : $member_id;

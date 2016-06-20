@@ -1,6 +1,25 @@
 $(function() {
 	window.am = {
 		version: '1.0',
+		/**
+		 * 确认删除
+		 * @param  {[type]} uri [description]
+		 * @return {[type]}     [description]
+		 */
+		okAction: function(uri) {
+			layer.confirm('确认此操作?', {
+					btn: ['确认', '取消']
+				},
+				function(index) {
+					layer.close(index);
+					window.location.href = uri;
+				},
+				function() {
+
+				}
+			);
+
+		},
 		//页面初始化调用
 		init: function() {
 			//给元素注册触发ajax-post操作的事件
@@ -12,16 +31,16 @@ $(function() {
 				am.ajaxForm($(this));
 			});
 			$(".ajax-href").bind("click", function() {
-				return am.ajaxhref($(this));
+				return am.ajaxHref($(this));
 			});
 			$(".ajax-href-del").bind("click", function() {
 				// if (!confirm("确定此操作吗?")) return false;
 				var _this = $(this);
-				msgDialog({
+				ank.msgDialog({
 					'btn': true,
 					'content': '确定此操作吗?',
 					'ok': function() {
-						return am.ajaxhref(_this);
+						return am.ajaxHref(_this);
 					},
 					'cancel': function() {}
 				});
@@ -30,7 +49,7 @@ $(function() {
 			$(".ajax-list-del").bind("click", function() {
 				// if (!confirm("确定此操作吗?")) return false;
 				var _this = $(this);
-				msgDialog({
+				ank.msgDialog({
 					'btn': true,
 					'content': '确定此操作吗?',
 					'ok': function() {
@@ -464,7 +483,7 @@ $(function() {
 				field: field1,
 				value: value1
 			}, function(da) {
-				msgDialog({
+				ank.msgDialog({
 					'title': '修改信息',
 					'content': da.info,
 					'btn': true,
@@ -600,7 +619,7 @@ $(function() {
 		 * @param  {[type]} savetime [保存草稿的时间]
 		 * @return {[type]}          [description]
 		 */
-		saveDraftbox: function(issave,savetime) {
+		saveDraftbox: function(issave, savetime) {
 			am.draftboxtimeid && clearInterval(am.draftboxtimeid);
 			var opendraftbox = issave;
 			var subobj = $('#submitbtn');
@@ -631,6 +650,23 @@ $(function() {
 					}
 				}, 1000);
 			}
+		},
+		updatePwd: function(uri) {
+			//loading层
+			var index = layer.load(1, {
+				time: 0,
+				shade: [0.1, '#fff'] //0.1透明度的白色背景
+			});
+			$.get(uri, function(data) {
+				ank.open({
+					title: "修改密码",
+					type: 1,
+					content: data,
+					area:['300px','350px']
+				});
+				layer.close(index);
+			});
+
 		}
 	};
 	am.init();

@@ -294,7 +294,7 @@ $('#nav-bar a').each(function(index, element) {
 window.setPosition=function(table1,id1,field1,value1,srcid){
 	$('body').append('<div id="markbg" class="bg"></div>');
 	$.get(ainiku.setposition,{table:table1,id:id1,field:field1,value:value1},function(da){
-		msgDialog({
+		ank.msgDialog({
 					'title':'修改信息',
 					'content':da.info,
 					'btn':true,

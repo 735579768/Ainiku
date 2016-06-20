@@ -147,66 +147,66 @@ $(function() {
     //         }
     //     }, 1e3);
     // };
-    window.msgDialog = function(opts) {
-        $('#dialog-wrap').length && $('#dialog-wrap').remove();
-        var defaults = {
-            oktitle: '确定',
-            canceltitle: '取消',
-            title: '提示信息',
-            content: '啊哦没有信息',
-            url: null,
-            btn: false,
-            ok: function(da) {},
-            cancel: function(da) {}
-        };
-        var types = typeof(opts);
-        if (types === 'object') {
-            opts = $.extend(defaults, opts);
-        } else if (types === 'string') {
-            defaults.content = opts;
-        }
-        opts = defaults;
+    // window.msgDialog = function(opts) {
+    //     $('#dialog-wrap').length && $('#dialog-wrap').remove();
+    //     var defaults = {
+    //         oktitle: '确定',
+    //         canceltitle: '取消',
+    //         title: '提示信息',
+    //         content: '啊哦没有信息',
+    //         url: null,
+    //         btn: false,
+    //         ok: function(da) {},
+    //         cancel: function(da) {}
+    //     };
+    //     var types = typeof(opts);
+    //     if (types === 'object') {
+    //         opts = $.extend(defaults, opts);
+    //     } else if (types === 'string') {
+    //         defaults.content = opts;
+    //     }
+    //     opts = defaults;
 
 
-        var btn = '<div class="dialog-btn cl fr" style="margin:5px 5px 5px 100px;"><a class="btn" id="dialog-ok" href="javascript:;">' + opts.oktitle + '</a><a class="btn" id="dialog-cancel" href="javascript:;">' + opts.canceltitle + '</a></div>';
-        if (!opts.btn) btn = '';
-        this.setdialog = function() {
-            var dialog = $("#dialog");
-            dialog.kldrag();
-            $("#dialog-close").click(function(e) {
-                $("#dialog-wrap").remove();
-            });
-            $("#dialog-ok,.bindok").click(function(e) {
-                opts.ok();
-                $("#dialog-wrap").remove();
+    //     var btn = '<div class="dialog-btn cl fr" style="margin:5px 5px 5px 100px;"><a class="btn" id="dialog-ok" href="javascript:;">' + opts.oktitle + '</a><a class="btn" id="dialog-cancel" href="javascript:;">' + opts.canceltitle + '</a></div>';
+    //     if (!opts.btn) btn = '';
+    //     this.setdialog = function() {
+    //         var dialog = $("#dialog");
+    //         dialog.kldrag();
+    //         $("#dialog-close").click(function(e) {
+    //             $("#dialog-wrap").remove();
+    //         });
+    //         $("#dialog-ok,.bindok").click(function(e) {
+    //             opts.ok();
+    //             $("#dialog-wrap").remove();
 
-            });
-            $("#dialog-cancel,.bindcancel").click(function(e) {
-                $("#dialog-wrap").remove();
-                opts.cancel();
-            });
-            var w = dialog.width();
-            var h = dialog.height();
-            dialog.css({
-                marginTop: "-" + h / 2 + "px",
-                marginLeft: "-" + w / 2 + "px"
-            });
-        };
-        if (opts.url === null) {
-            $("body").append('<div id="dialog-wrap"><div class="bg" style="background-image:none;"></div><table class="dialog" id="dialog" cellpadding="0" cellspacing="0"><tr><td class="t_l"></td><td class="t_c"></td><td class="t_r"></td></tr><tr><td class="m_l"></td><td class="m_c">        <div class="bm">                <div class="bm_h cl"><span><a href="javascript:;" class="flbc" id="dialog-close" title="关闭">关闭</a></span><h2 class="dialogh2">' + opts.title + '</h2></div><div class="bm_c" id="dialog-con">' + opts.content + '</div>' + btn + '</div></td><td class="m_r"></td></tr><tr><td class="b_l"></td><td class="b_c"></td><td class="b_r"></td></tr></table></div>');
-            this.setdialog();
-        } else {
-            $("body").append('<div id="dialog-wrap"><div class="bg"></div></div>');
-            $.get(opts.url, function(data) {
-                $('#dialog-wrap .bg').css('backgroundImage', 'none');
-                $('#dialog-wrap').append('<table class="dialog" id="dialog" cellpadding="0" cellspacing="0"><tr><td class="t_l"></td><td class="t_c"></td><td class="t_r"></td></tr><tr><td class="m_l"></td><td class="m_c">       <div class="bm">                <div class="bm_h cl"><span><a href="javascript:;" class="flbc" id="dialog-close" title="关闭">关闭</a></span><h2 class="dialogh2">' + opts.title + '</h2></div><div class="bm_c" id="dialog-con">' + data + '</div>' + btn + '</div></td><td class="m_r"></td></tr><tr><td class="b_l"></td><td class="b_c"></td><td class="b_r"></td></tr></table>');
-            });
-            this.setdialog();
-        }
+    //         });
+    //         $("#dialog-cancel,.bindcancel").click(function(e) {
+    //             $("#dialog-wrap").remove();
+    //             opts.cancel();
+    //         });
+    //         var w = dialog.width();
+    //         var h = dialog.height();
+    //         dialog.css({
+    //             marginTop: "-" + h / 2 + "px",
+    //             marginLeft: "-" + w / 2 + "px"
+    //         });
+    //     };
+    //     if (opts.url === null) {
+    //         $("body").append('<div id="dialog-wrap"><div class="bg" style="background-image:none;"></div><table class="dialog" id="dialog" cellpadding="0" cellspacing="0"><tr><td class="t_l"></td><td class="t_c"></td><td class="t_r"></td></tr><tr><td class="m_l"></td><td class="m_c">        <div class="bm">                <div class="bm_h cl"><span><a href="javascript:;" class="flbc" id="dialog-close" title="关闭">关闭</a></span><h2 class="dialogh2">' + opts.title + '</h2></div><div class="bm_c" id="dialog-con">' + opts.content + '</div>' + btn + '</div></td><td class="m_r"></td></tr><tr><td class="b_l"></td><td class="b_c"></td><td class="b_r"></td></tr></table></div>');
+    //         this.setdialog();
+    //     } else {
+    //         $("body").append('<div id="dialog-wrap"><div class="bg"></div></div>');
+    //         $.get(opts.url, function(data) {
+    //             $('#dialog-wrap .bg').css('backgroundImage', 'none');
+    //             $('#dialog-wrap').append('<table class="dialog" id="dialog" cellpadding="0" cellspacing="0"><tr><td class="t_l"></td><td class="t_c"></td><td class="t_r"></td></tr><tr><td class="m_l"></td><td class="m_c">       <div class="bm">                <div class="bm_h cl"><span><a href="javascript:;" class="flbc" id="dialog-close" title="关闭">关闭</a></span><h2 class="dialogh2">' + opts.title + '</h2></div><div class="bm_c" id="dialog-con">' + data + '</div>' + btn + '</div></td><td class="m_r"></td></tr><tr><td class="b_l"></td><td class="b_c"></td><td class="b_r"></td></tr></table>');
+    //         });
+    //         this.setdialog();
+    //     }
 
 
 
-    };
+    // };
     window.dialogAjax = function(url, title, callback) {
         title = title ? title : "";
         $("body").append('<div id="dialog-wrap"><div class="bg"></div></div>');

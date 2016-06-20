@@ -1,21 +1,27 @@
-<form action="{:U('')}" method="post" class="form-horizontal">
+<form action="{:U('')}" method="post" class="form-horizontal" style="padding:10px;">
     <div class="form-group">
-        <label class="form-label">用户组：</label>
-        {$data.member_group_id|get_membergroup='title'}
-        <label class="form-label">用户名：</label>
-        {$data.username}
+        <label class="form-label">用户组： {$data.member_group_id|get_membergroup='title'}</label>
+
+    </div>
+     <div class="form-group">
+        <label class="form-label">用户名：  {$data.username}</label>
+
     </div>
     <div class="form-group">
         <label class="form-label">新密码：</label>
-        <input type="password" name="password" class="form-control input-large" autocomplete="off" />
+        <div class="form-wrap">
+        <input type="password" name="password" class="form-control input-middle" autocomplete="off" />
+        </div>
     </div>
     <div class="form-group">
         <label class="form-label">确认密码：</label>
-        <input type="password" name="repassword" class="form-control input-large" autocomplete="off" />
+         <div class="form-wrap">
+        <input type="password" name="repassword" class="form-control input-middle" autocomplete="off" />
+        </div>
     </div>
     <div class="form-group center">
         <input type="hidden" name="member_id" value="{$data.member_id}" />
-        <button type="submit" class="btn btn-primary btn-large " onClick="dialogsubmit(this);" target-form="form-horizontal">确 认</button>
+        <button type="submit" class="btn btn-primary btn-large " onClick="am.ajaxForm(this);" target-form="form-horizontal">确 认</button>
         <button class="btn btn-return btn-large btn-warning" onclick="javascript:history.back(-1);return false;">返 回</button>
     </div>
 </form>
