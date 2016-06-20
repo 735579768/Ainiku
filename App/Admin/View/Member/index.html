@@ -47,7 +47,7 @@
                         <neq name="vo.member_id" value="1"><span data-table="Member" data-id="{$vo.member_id}" data-field="status" data-value="{$vo.status}" class="yn"></span></neq>
                     </td>
                     <td>
-                        <a href="{:U('Member/updatepwd?member_id='.$vo['member_id'])}" class="btn btn-primary updatepwd">修改密码</a>
+                        <a onClick="am.updatePwd('{:U('Member/updatepwd?member_id='.$vo['member_id'])}');" href="javascript:;" class="btn btn-primary">修改密码</a>
                         <a href="{:U('Member/edit?member_id='.$vo['member_id'])}" class="btn btn-primary">编辑</a>
                         <neq name="vo.member_id" value="1">
                             <a href="{:U('Member/del?member_id='.$vo['member_id'])}" class="btn btn-danger ajax-list-del">移到回收站</a>
@@ -58,31 +58,5 @@
         </table>
         <div id="page" class="page">{$_page}</div>
     </div>
-    <script>
-    //修改密码
-    $(function() {
-        $('.updatepwd').click(function(e) {
-            $('body').append('<div id="updatebg" class="bg"></div>');
-            var uri = $(this).attr('href');
-            ank.ajax({
-                url: uri,
-                type: 'get',
-                success: function(da) {
-                    $('#updatebg').remove();
-                    ank.msgDialog({
-                        title: '修改密码',
-                        content: da,
-                        ok: function() {
-
-                        }
-                    });
-
-                }
-            });
-            return false;
-        });
-
-    });
-    </script>
     <!--content end-->
 </block>

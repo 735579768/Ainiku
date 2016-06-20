@@ -41,42 +41,39 @@ $(function() {
 				return am.ajaxHref($(this));
 			});
 			$(".ajax-href-del").bind("click", function() {
-				// if (!confirm("确定此操作吗?")) return false;
 				var _this = $(this);
-				ank.msgDialog({
-					'btn': true,
-					'content': '确定此操作吗?',
-					'ok': function() {
-						return am.ajaxHref(_this);
+				layer.confirm('确认此操作吗?', {
+						btn: ['确认', '取消']
 					},
-					'cancel': function() {}
-				});
+					function(index) {
+						layer.close(index);
+						return am.ajaxHref(_this);
+						// window.location.href = uri;
+					}
+				);
 				return false;
 			});
 			$(".ajax-list-del").bind("click", function() {
 				// if (!confirm("确定此操作吗?")) return false;
 				var _this = $(this);
-				ank.msgDialog({
-					'btn': true,
-					'content': '确定此操作吗?',
-					'ok': function() {
-						_this.addClass("disabled");
-						url = _this.attr("href");
-						$("body").append('<div id="klbg" class="bg">');
+
+				layer.confirm('确认此操作吗?', {
+						btn: ['确认', '取消']
+					},
+					function(index) {
+						layer.close(index);
+						var url = _this.attr("href");
 						$.ajax({
 							type: "POST",
 							url: url,
 							success: function(da) {
 								da.status == '1' && _this.parent().parent().remove();
 								ank.msg(da.info);
-								_this.removeClass("disabled");
-								$('#klbg').remove();
 							},
 							dataType: "JSON"
 						});
-					},
-					'cancel': function() {}
-				});
+					}
+				);
 				return false;
 
 			});
@@ -487,36 +484,79 @@ $(function() {
 		},
 
 		setPosition: function(table1, id1, field1, value1, srcid) {
-			$('body').append('<div id="markbg" class="bg"></div>');
-			$.get(ainiku.setposition, {
-				table: table1,
-				id: id1,
-				field: field1,
-				value: value1
-			}, function(da) {
-				ank.msgDialog({
-					'title': '修改信息',
-					'content': da.info,
-					'btn': true,
-					'ok': function() {
-						var formobj = $('#positionform');
-						$.ajax({
-							type: 'POST',
-							url: formobj.attr('action'),
-							data: formobj.serialize(),
-							success: function(da) {
-								var chl = $(srcid).children();
-								if (da.status == 1) {
-									chl.eq(0).val(da.info[1]);
-									chl.eq(1).html(da.info[0]);
-								}
-							}
-						});
-					},
-					'cancel': function() {}
-				});
-				$('#markbg').remove();
+			//loading层
+			var index = layer.load(1, {
+				time: 0,
+				shade: [0.1, '#fff'] //0.1透明度的白色背景
 			});
+			$.get(ainiku.setposition, {
+					table: table1,
+					id: id1,
+					field: field1,
+					value: value1
+				},
+				function(da) {
+					layer.close(index);
+					layer.open({
+						shade: 0,
+						title: "修改标记",
+						type: 1,
+						content: da.info,
+						// area: ['300px', '350px'],
+						btn: ['保存', '取消'],
+						yes: function(index, dom) {
+							var formobj = $('#positionform');
+							$.ajax({
+								type: 'POST',
+								url: formobj.attr('action'),
+								data: formobj.serialize(),
+								success: function(da) {
+									var chl = $(srcid).children();
+									if (da.status == 1) {
+										chl.eq(0).val(da.info[1]);
+										chl.eq(1).html(da.info[0]);
+									}
+									ank.msg('操作成功!');
+								}
+							});
+							layer.close(index);
+						},
+						cancel: function(index, dom) {
+							layer.close(index);
+						}
+					});
+				});
+			//////////////////////////////////////////////////////
+			//$('body').append('<div id="markbg" class="bg"></div>');
+			// $.get(ainiku.setposition, {
+			// 	table: table1,
+			// 	id: id1,
+			// 	field: field1,
+			// 	value: value1
+			// }, function(da) {
+			// 	ank.msgDialog({
+			// 		'title': '修改信息',
+			// 		'content': da.info,
+			// 		'btn': true,
+			// 		'ok': function() {
+			// 			var formobj = $('#positionform');
+			// 			$.ajax({
+			// 				type: 'POST',
+			// 				url: formobj.attr('action'),
+			// 				data: formobj.serialize(),
+			// 				success: function(da) {
+			// 					var chl = $(srcid).children();
+			// 					if (da.status == 1) {
+			// 						chl.eq(0).val(da.info[1]);
+			// 						chl.eq(1).html(da.info[0]);
+			// 					}
+			// 				}
+			// 			});
+			// 		},
+			// 		'cancel': function() {}
+			// 	});
+			// 	$('#markbg').remove();
+			// });
 		},
 		/**
 		 *全局ajax提交form表单数据thisobj为触发事件的元素
@@ -678,6 +718,22 @@ $(function() {
 				layer.close(index);
 			});
 
+		},
+		modPwd: function(uri) {
+			//loading层
+			var index = layer.load(1, {
+				time: 0,
+				shade: [0.1, '#fff'] //0.1透明度的白色背景
+			});
+			$.get(uri, function(data) {
+				ank.open({
+					title: "修改密码",
+					type: 1,
+					content: data,
+					area: ['300px', '350px']
+				});
+				layer.close(index);
+			});
 		}
 	};
 	am.init();

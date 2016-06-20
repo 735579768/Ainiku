@@ -125,7 +125,7 @@ class AdminController extends CommonController {
 				$this->success(array(status_to_text($postr, $table, $field), $postr));
 			}
 		} else {
-			$str = '<form id="positionform" method="post" action="' . U('setposition') . '">
+			$str = '<form id="positionform" class="positionfield" method="post" action="' . U('setposition') . '">
 				  <input type="hidden" name="table" value="' . $table . '" />
 				  <input type="hidden" name="id" value="' . $id . '" />
 				  <input type="hidden" name="field" value="' . $field . '" />

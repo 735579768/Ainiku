@@ -267,3 +267,4 @@ body{overflow:hidden;padding:62px 0px 0px 180px;}
 .content tr:hover{background:#ededed;}
 .fa-refresh{margin-right:20px;display:inline-block;margin-top: 2px;}
 .fa-refresh:before{font-size:12px;cursor:pointer;}
+.positionfield{padding: 10px;}

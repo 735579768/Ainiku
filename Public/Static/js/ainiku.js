@@ -357,6 +357,20 @@
 				layer.open.apply(layer, arguments);
 			}
 		},
+		load: function() {
+			if (parent) {
+				parent.layer.load.apply(parent.layer, arguments);
+			} else {
+				layer.load.apply(layer, arguments);
+			}
+		},
+		close: function() {
+			if (parent) {
+				parent.layer.close.apply(parent.layer, arguments);
+			} else {
+				layer.close.apply(layer, arguments);
+			}
+		},
 		//冒泡信息提示
 		maopao: function(options) {
 			var conf = {
