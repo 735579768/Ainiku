@@ -1,5 +1,6 @@
 $(function() {
 	window.am = {
+		version:'1.0',
 		//页面初始化调用
 		init: function() {
 			//主导航单击后保存状态
@@ -97,7 +98,7 @@ $(function() {
 				});
 				return false;
 			});
-			this.bindleftmenu();
+			this.bindLeftMenu();
 
 			//选择全部
 			$('.check-all').click(function(e) {
@@ -197,7 +198,7 @@ $(function() {
 			});
 		},
 		//绑定左边菜单
-		bindleftmenu: function() {
+		bindLeftMenu: function() {
 			//加载完菜单后进行绑定
 			//菜单合并
 			$('.menu .mt a').click(function(e) {
@@ -291,7 +292,7 @@ $(function() {
 			}
 		},
 		//绑定删除图片的按钮
-		binddel: function() {
+		bindDel: function() {
 			$('.imgblock  .btn-danger').unbind('click');
 			$('.imgblock  .btn-danger').click(function(e) {
 				var a = $(this).attr('dataid');
@@ -326,7 +327,7 @@ $(function() {
 				})
 			}
 		},
-		binddelattach: function() {
+		bindDelAttach: function() {
 			$('.upload-pre-file .btn-danger').unbind('click');
 			$('.upload-pre-file .btn-danger').click(function(e) {
 				var a = $(this).attr('dataid');
@@ -369,6 +370,91 @@ $(function() {
 				});
 				$('#markbg').remove();
 			});
+		},
+		/**
+		 *全局ajax提交form表单数据thisobj为触发事件的元素
+		 *@param thisobj 触发事件的元素
+		 *可以添加另外两个参数第二个控制时间第三个控制刷新
+		 *备注：
+		 *可以添加两个函数：
+		 *_before_post()提交前调用
+		 *_after_post()提交后调用
+		 */
+		ajaxForm: function(thisobj, callback) {
+			thisobj = $(thisobj);
+			// thisobj.addClass("disabled");
+			if (typeof arguments[2] != "undefined") reloadbool = arguments[2];
+			if (typeof arguments[1] != "undefined") msgtime = arguments[1];
+			try {
+				if (typeof _before_post == "function") _before_post();
+				if (typeof _before_func == "function") _before_func();
+				var thisobj, obj, a, url;
+				a = "";
+
+				formobj = thisobj.parents("form");
+				if (!formobj) {
+					return false;
+				}
+				formobj.submit(function(e) {
+					return false;
+				});
+				var url = formobj.attr("action");
+				postdata = formobj.serialize();
+				a = "{" + a + "}";
+				b = eval("(" + a + ")");
+				// $("body").append('<div id="klbg" class="bg">');
+				$.ajax({
+					url: url,
+					type: "POST",
+					datatype: "JSON",
+					data: postdata,
+					success: function(da) {
+						ank.msg(da);
+					}
+				});
+			} catch (e) {
+				alert(e.name + ": " + e.message);
+			}
+		},
+		ajaxHref: function(obj) {
+			obj = $(obj);
+			//obj.addClass("disabled");
+			if (typeof arguments[2] != "undefined") reloadbool = arguments[2];
+			if (typeof arguments[1] != "undefined") msgtime = arguments[1];
+			url = obj.attr("href");
+			if (typeof url == "undefined") url = obj.attr("url");
+			// $("body").append('<div id="klbg" class="bg">');
+			$.ajax({
+				type: "POST",
+				url: url,
+				success: function(da) {
+					ank.msg(da);
+				},
+				dataType: "JSON"
+			});
+			return false;
+		},
+		writeCookie: function(name, value, hours) {
+			var expire = "";
+			if (hours != null) {
+				expire = new Date(new Date().getTime() + hours * 36e5);
+				expire = "; expires=" + expire.toGMTString();
+			}
+			document.cookie = name + "=" + encodeURI(value) + expire;
+		},
+		readCookie: function(name) {
+			var cookieValue = "";
+			var search = name + "=";
+			if (document.cookie.length > 0) {
+				offset = document.cookie.indexOf(search);
+				if (offset != -1) {
+					offset += search.length;
+					end = document.cookie.indexOf(";", offset);
+					if (end == -1) end = document.cookie.length;
+					cookieValue = decodeURI(document.cookie.substring(offset, end));
+				}
+			}
+			return cookieValue;
 		}
 	};
 });
