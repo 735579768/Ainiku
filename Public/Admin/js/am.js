@@ -3,7 +3,7 @@ $(function() {
 		version: '1.0',
 		changeVerify: function() {
 			var obj = document.getElementById('verifyimg');
-			obj && (obj.src = obj.src.replace(/\?.*/, '') + '?' + Math.random());
+			obj && (obj.src = obj.src.replace(/\&r=.*/, '') + '&r=' + Math.random());
 		},
 		/**
 		 * 确认删除
@@ -241,7 +241,8 @@ $(function() {
 				});
 				return false;
 			});
-			this.bindLeftMenu();
+
+
 
 			//选择全部
 			$('.check-all').click(function(e) {
@@ -339,6 +340,9 @@ $(function() {
 					$(this).parent().addClass('on')
 				}
 			});
+			if ($('#west').length > 0) {
+				this.bindLeftMenu();
+			}
 		},
 		//绑定左边菜单
 		bindLeftMenu: function() {
@@ -372,7 +376,7 @@ $(function() {
 
 			//默认折叠
 			$('.menu .mt a').click();
-			window.hasmenu = false;
+			am.hasmenu = false;
 			$('.menu a').each(function(index, element) {
 				var a = window.location.href;
 				a = a.replace(/(.*?)\.(.*?)\//, '/');
@@ -382,12 +386,12 @@ $(function() {
 				//	c=c+".*?";
 				//	console.log(a.match(/c/));
 				if (a == b) {
-					window.hasmenu = true;
+					am.hasmenu = true;
 					$(this).parents('.menu').find('dt a').click();
 					$(this).addClass('hover')
 				}
 			});
-			if (!hasmenu) {
+			if (!am.hasmenu) {
 				var ur = window.location.href;
 				ur = ur.replace(/(.*?)\.(.*?)\//, '/');
 				ur = ur.replace('.html', '');
@@ -410,7 +414,7 @@ $(function() {
 				});
 			}
 
-			if (!hasmenu) {
+			if (!am.hasmenu) {
 				//如果没有查到一样的链接就查找上一次的链接
 				$('.menu a').each(function(index, element) {
 					var a = document.referrer;
@@ -423,7 +427,7 @@ $(function() {
 					}
 				});
 			}
-			if (!hasmenu) {
+			if (!am.hasmenu) {
 				//如果还没有找到就设置默认的链接
 				var objj = $(".menu a[href='" + ainiku.defaultmenu + "']");
 				if (objj.length > 0) {
