@@ -12,7 +12,10 @@ $(function() {
 				},
 				function(index) {
 					layer.close(index);
-					window.location.href = uri;
+					$.get(uri, function(data) {
+						ank.msg(data);
+					});
+					// window.location.href = uri;
 				},
 				function() {
 
@@ -662,7 +665,7 @@ $(function() {
 					title: "修改密码",
 					type: 1,
 					content: data,
-					area:['300px','350px']
+					area: ['300px', '350px']
 				});
 				layer.close(index);
 			});
