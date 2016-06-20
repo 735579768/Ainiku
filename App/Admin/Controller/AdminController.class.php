@@ -125,12 +125,17 @@ class AdminController extends CommonController {
 				$this->success(array(status_to_text($postr, $table, $field), $postr));
 			}
 		} else {
-			$str = '<form id="positionform" class="positionfield" method="post" action="' . U('setposition') . '">
-				  <input type="hidden" name="table" value="' . $table . '" />
-				  <input type="hidden" name="id" value="' . $id . '" />
-				  <input type="hidden" name="field" value="' . $field . '" />
-				  ' . status_to_text($value, $table, $field, true) . '
-				  </form>';
+			$url   = U('setposition');
+			$stext = status_to_text($value, $table, $field, true);
+			$str   = <<<eot
+<form id="positionform" class="positionfield" method="post" action="{$url}">
+<input type="hidden" name="table" value="{$table}" />
+<input type="hidden" name="id" value="{$id}" />
+<input type="hidden" name="field" value="{$field}" />
+{$stext}
+	<a href="javascript:;" onClick=""  style="display:none;">添加</a>
+</form>'
+eot;
 			$this->success($str);
 		}
 	}
