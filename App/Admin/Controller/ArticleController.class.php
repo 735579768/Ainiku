@@ -90,7 +90,13 @@ class ArticleController extends AdminController {
 				}
 				$result = $model->add();
 				if (0 < $result) {
-					$this->success('添加文章成功', U('index', array('category_id' => I('category_id'))));
+					//$this->success('添加文章成功', U('index', array('category_id' => I('category_id'))));
+					$this->ajaxreturn(array(
+						'info'       => '添加文章成功',
+						'status'     => 1,
+						'article_id' => $result,
+						'url'        => U('index', array('category_id' => I('category_id'))),
+					));
 				} else {
 					$this->error('添加文章失败');
 				}

@@ -285,10 +285,12 @@
 			var texiao = 0; //默认动画效果
 			var content = '没有消息!';
 			var url = '';
-			if (typeof(options == 'object')) {
+			if (typeof(options) == 'object') {
 				content = options['info'];
 				(options.status == '0') && (texiao = 6);
-				url = options.url;
+				options.url && (url = options.url.replace(' ', ''));
+			} else {
+				content = options;
 			}
 
 			var param = [

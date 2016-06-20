@@ -8,7 +8,7 @@
             <input type="hidden" id="productid" value="{$data.article_id}" /> {:get_form($fieldarr,$data)}
             <div class="form-group center">
                 <input type="hidden" name="article_id" value="{$data.article_id}" />
-                <a href="javascript:;" id="submitbtn" onclick="submitcg(this);" class="btn btn-parmary btn-large">
+                <a href="javascript:;" id="submitbtn" onclick="am.submitArticle(this);" class="btn btn-parmary btn-large">
                     <empty name="data.article_id">确定添加
                         <else />确定更新</empty>
                 </a>
@@ -17,66 +17,8 @@
         </form>
     </div>
     <script>
-    //function _after_post(da){
-    //	var id=$('input[name="article_id"]').val();
-    //	if(id==''){$('input[name="article_id"]').val(da.article_id)};
-    //	}
     $(function() {
-        if (typeof draftboxtimeid != 'undefined') clearInterval(draftboxtimeid);
-        var opendraftbox = '{:C('OPEN_DRAFTBOX')}';
-        var subobj = $('#submitbtn');
-        var srctext = subobj.html();
-        if (opendraftbox == '1') {
-            var draftboxtime = {: C('DRAFTBOX_TIME')};
-            var jiantime = draftboxtime;
-            window.draftboxtimeid = setInterval(function() {
-                var caogao = $('input[name="status"]:checked').val();
-                var arccid = $('input[name="article_id"]').val();
-               // if (addarticle || caogao == '2') {
-                   if (caogao == '2') {
-                    var title = $('input[name="title"]').val();
-                    if (title != '') {
-                        $('#submitbtn').html('保存草稿(' + jiantime + ')');
-                        //$('input[name="status"][type="radio"][value="2"]').prop('checked', true).change();
-                        if ((jiantime--) <= 0) {
-                            jiantime = draftboxtime;
-                            submitcg();
-                        }
-                    }
-
-                } else {
-                    jiantime = draftboxtime;
-                    if (caogao != 2) {
-                        subobj.html('确定更新');
-                    } else {
-                        subobj.html(srctext);
-                    }
-                }
-            }, 1000);
-        }
-
-        //提交文章草稿
-        window.submitcg = function(obj) {
-            var formobj = $(obj).parents("form");
-            formobj.submit(function(e) {
-                return false;
-            });
-            var url = formobj.attr("action");
-            var postdata = formobj.serialize();
-            $.ajax({
-                url: url,
-                type: "POST",
-                datatype: "JSON",
-                data: postdata,
-                success: function(da) {
-                    ank.msg(da.info);
-                    var id = $('input[name="article_id"]').val();
-                    if (id == '') {
-                        $('input[name="article_id"]').val(da.article_id)
-                    };
-                }
-            });
-        };
+        am.saveDraftbox('{:C('OPEN_DRAFTBOX')}',{: C('DRAFTBOX_TIME')});
     });
     </script>
     <!--content end-->

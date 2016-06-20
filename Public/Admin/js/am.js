@@ -1,8 +1,130 @@
 $(function() {
 	window.am = {
-		version:'1.0',
+		version: '1.0',
 		//页面初始化调用
 		init: function() {
+			//给元素注册触发ajax-post操作的事件
+			$(".ajax-post").bind("click", function() {
+				if ($('#yzerr').length > 0) {
+					ank.msg('请按格式填写!');
+					return false;
+				}
+				debugger;
+				ajaxform($(this));
+			});
+			$(".ajax-href").bind("click", function() {
+				return ajaxhref($(this));
+			});
+			$(".ajax-href-del").bind("click", function() {
+				// if (!confirm("确定此操作吗?")) return false;
+				var _this = $(this);
+				msgDialog({
+					'btn': true,
+					'content': '确定此操作吗?',
+					'ok': function() {
+						_this.addClass("disabled");
+						return ajaxhref(_this);
+					},
+					'cancel': function() {}
+				});
+				return false;
+			});
+			$(".ajax-list-del").bind("click", function() {
+				// if (!confirm("确定此操作吗?")) return false;
+				var _this = $(this);
+				msgDialog({
+					'btn': true,
+					'content': '确定此操作吗?',
+					'ok': function() {
+						_this.addClass("disabled");
+						url = _this.attr("href");
+						$("body").append('<div id="klbg" class="bg">');
+						$.ajax({
+							type: "POST",
+							url: url,
+							success: function(da) {
+								da.status == '1' && _this.parent().parent().remove();
+								ank.msg(da.info);
+								_this.removeClass("disabled");
+								$('#klbg').remove();
+							},
+							dataType: "JSON"
+						});
+					},
+					'cancel': function() {}
+				});
+				return false;
+
+			});
+			//失去焦点提交事件
+			$(".ajax-blur").bind("change", function() {
+				var id1 = $(this).attr("data-id");
+				var table1 = $(this).attr("data-table");
+				var field1 = $(this).attr("data-field");
+				var value1 = $(this).val();
+				$.ajax({
+					type: "POST",
+					url: ainiku.updatefield,
+					data: {
+						id: id1,
+						table: table1,
+						field: field1,
+						value: value1
+					},
+					success: function(da) {
+						ank.msg(da);
+					}
+				});
+			});
+
+			//y n 插件
+			$(".yn").each(function(index, element) {
+				$(this).parent().css('text-align', 'center');
+				var da = parseInt($(this).attr("data-value"));
+				if (da === 1) {
+					$(this).addClass("y");
+				} else {
+					$(this).addClass("n");
+				}
+				$(this).click(function(e) {
+					var _this = $(this);
+					var data1 = parseInt($(this).attr("data-value"));
+					var table1 = $(this).attr("data-table");
+					var field1 = $(this).attr("data-field");
+					var id1 = $(this).attr("data-id");
+					var qh = function() {
+						if (_this.hasClass("y")) {
+							_this.attr("data-value", 0);
+							_this.removeClass("y");
+							_this.addClass("n");
+						} else {
+							_this.attr("data-value", 1);
+							_this.removeClass("n");
+							_this.addClass("y");
+						}
+					};
+					data1 = data1 ? 0 : 1;
+					if (data1 !== "" && table1 !== "" && field1 !== "" && id1 !== "") {
+						qh();
+						$.ajax({
+							type: "POST",
+							data: {
+								id: id1,
+								table: table1,
+								field: field1,
+								value: data1
+							},
+							url: ainiku.updatefield,
+							success: function(da) {
+								if (da.status == "0") {
+									qh();
+									topmsg(da, 1, true);
+								}
+							}
+						});
+					}
+				});
+			});
 			//主导航单击后保存状态
 			$('.mainnav li a').click(function(e) {
 				$('.mainnav li a').removeClass('hover');
@@ -33,7 +155,7 @@ $(function() {
 						'paddingLeft': '0px'
 					}, 200);
 
-					writeCookie('leftside', 0);
+					am.writeCookie('leftside', 0);
 				} else {
 					_t.animate({
 						'left': '180px'
@@ -50,10 +172,10 @@ $(function() {
 					}, 200);
 
 
-					writeCookie('leftside', 1);
+					am.writeCookie('leftside', 1);
 				}
 			});
-			if (readCookie('leftside') === '0') {
+			if (am.readCookie('leftside') === '0') {
 				leftside.css({
 					'overflow': 'hidden',
 					'padding': '10px 0px 50px 0px',
@@ -455,6 +577,66 @@ $(function() {
 				}
 			}
 			return cookieValue;
+		},
+		submitArticle: function(obj) {
+			var formobj = $(obj).parents("form");
+			formobj.submit(function(e) {
+				return false;
+			});
+			var url = formobj.attr("action");
+			var postdata = formobj.serialize();
+			$.ajax({
+				url: url,
+				type: "POST",
+				datatype: "JSON",
+				data: postdata,
+				success: function(da) {
+					ank.msg(da.info);
+					var id = $('input[name="article_id"]').val();
+					if (id == '') {
+						$('input[name="article_id"]').val(da.article_id)
+					};
+				}
+			});
+		},
+		/**
+		 * 文章保存草稿
+		 * @param  {[type]} issave   [是否使用草稿]
+		 * @param  {[type]} savetime [保存草稿的时间]
+		 * @return {[type]}          [description]
+		 */
+		saveDraftbox: function(issave,savetime) {
+			am.draftboxtimeid && clearInterval(am.draftboxtimeid);
+			var opendraftbox = issave;
+			var subobj = $('#submitbtn');
+			var srctext = subobj.html();
+			if (opendraftbox == 1) {
+				var draftboxtime = savetime;
+				var jiantime = draftboxtime;
+				am.draftboxtimeid = setInterval(function() {
+					var caogao = $('input[name="status"]:checked').val();
+					var arccid = $('input[name="article_id"]').val();
+					if (caogao == '2') {
+						var title = $('input[name="title"]').val();
+						if (title != '') {
+							$('#submitbtn').html('保存草稿(' + jiantime + ')');
+							if ((jiantime--) <= 0) {
+								jiantime = draftboxtime;
+								am.submitArticle();
+							}
+						}
+
+					} else {
+						jiantime = draftboxtime;
+						if (caogao != 2) {
+							subobj.html('确定更新');
+						} else {
+							subobj.html(srctext);
+						}
+					}
+				}, 1000);
+			}
 		}
 	};
+	am.init();
 });

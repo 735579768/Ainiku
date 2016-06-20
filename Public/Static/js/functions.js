@@ -240,28 +240,28 @@ $(function() {
     };
     // JavaScript Document
     ///////////////////////////////////////////////////////////////////////js写cookies//////////////////////////////////////////////////
-    window.writeCookie = function(name, value, hours) {
-        var expire = "";
-        if (hours != null) {
-            expire = new Date(new Date().getTime() + hours * 36e5);
-            expire = "; expires=" + expire.toGMTString();
-        }
-        document.cookie = name + "=" + encodeURI(value) + expire;
-    };
+    // window.writeCookie = function(name, value, hours) {
+    //     var expire = "";
+    //     if (hours != null) {
+    //         expire = new Date(new Date().getTime() + hours * 36e5);
+    //         expire = "; expires=" + expire.toGMTString();
+    //     }
+    //     document.cookie = name + "=" + encodeURI(value) + expire;
+    // };
 
-    ///////////////////////////////////////////////////////////////用cookies名字读它的值////////////////////////////
-    window.readCookie = function(name) {
-        var cookieValue = "";
-        var search = name + "=";
-        if (document.cookie.length > 0) {
-            offset = document.cookie.indexOf(search);
-            if (offset != -1) {
-                offset += search.length;
-                end = document.cookie.indexOf(";", offset);
-                if (end == -1) end = document.cookie.length;
-                cookieValue = decodeURI(document.cookie.substring(offset, end));
-            }
-        }
-        return cookieValue;
-    };
+    // ///////////////////////////////////////////////////////////////用cookies名字读它的值////////////////////////////
+    // window.readCookie = function(name) {
+    //     var cookieValue = "";
+    //     var search = name + "=";
+    //     if (document.cookie.length > 0) {
+    //         offset = document.cookie.indexOf(search);
+    //         if (offset != -1) {
+    //             offset += search.length;
+    //             end = document.cookie.indexOf(";", offset);
+    //             if (end == -1) end = document.cookie.length;
+    //             cookieValue = decodeURI(document.cookie.substring(offset, end));
+    //         }
+    //     }
+    //     return cookieValue;
+    // };
 });
