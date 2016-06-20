@@ -44,8 +44,8 @@ class PublicController extends Controller {
 			}
 			//自动判断用户名是哪个字段的
 			$map[get_account_type($username)] = $username;
-			$map['password']                = ainiku_ucenter_md5($password);
-			$map['status']                  = 1;
+			$map['password']                  = ainiku_ucenter_md5($password);
+			$map['status']                    = 1;
 			//$map['member_group_id']=1;
 			$map['is_adminlogin'] = 1;
 			$user                 = D('MemberView')->where($map)->find();
@@ -120,7 +120,7 @@ class PublicController extends Controller {
 	public function verify() {
 		$conf = array(
 			'imageH'   => 40,
-			'imageW'   => 200,
+			'imageW'   => 140,
 			'fontSize' => 20,
 			'bg'       => array(255, 255, 255),
 			'useNoise' => false, // 是否添加杂点
