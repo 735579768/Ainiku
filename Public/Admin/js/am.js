@@ -1,6 +1,10 @@
 $(function() {
 	window.am = {
 		version: '1.0',
+		changeVerify: function() {
+			var obj = document.getElementById('verifyimg');
+			obj && (obj.src = obj.src.replace(/\?.*/, '') + '?' + Math.random());
+		},
 		/**
 		 * 确认删除
 		 * @param  {[type]} uri [description]
@@ -525,8 +529,7 @@ $(function() {
 			if (typeof arguments[2] != "undefined") reloadbool = arguments[2];
 			if (typeof arguments[1] != "undefined") msgtime = arguments[1];
 			try {
-				if (typeof _before_post == "function") _before_post();
-				if (typeof _before_func == "function") _before_func();
+				(typeof _before_func == "function") && _before_func();
 				var thisobj, obj, a, url;
 				a = "";
 
@@ -549,6 +552,7 @@ $(function() {
 					data: postdata,
 					success: function(da) {
 						ank.msg(da);
+						(typeof _after_func == "function") && _after_func();
 					}
 				});
 			} catch (e) {

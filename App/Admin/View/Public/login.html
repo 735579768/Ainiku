@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <title>{:C('ADMIN_TITLE')}</title>
 <ank:insert name="reset,common,login" />
-<ank:insert type="js" name="jquery-1.9.1.min,divselect,ainiku,flashcopy-min,functions,ajax,bgline" />
+<ank:insert type="js" name="jquery-1.9.1.min,divselect,ainiku,flashcopy-min,functions,am,bgline" />
 <script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
 </head>
 
@@ -34,7 +34,7 @@
                             <span class="placeholder_copy placeholder_check">请填写验证码</span>
 
                             <div class="verify-img">
-                                <img id="verifyimg" class="verifyimg reloadverify" alt="点击切换" src="{:U('Public/verify')}" />
+                                <img onclick="am.changeVerify();" id="verifyimg" class="verifyimg reloadverify" alt="点击切换" src="{:U('Public/verify')}" />
                             </div>
 
                             <div class="center" style="border:none;">
@@ -49,7 +49,7 @@
                             </div>
                         </div>
                         <div class="login_btn_panel">
-                            <button  id="loginbtn" class="login-btn ajax-post" type="submit">
+                            <button onclick="am.ajaxForm(this);"  id="loginbtn" class="login-btn" type="submit">
                                 <span class="in"><i class="icon-loading"></i>登 录 中 ...</span>
                                 <span class="on">登 录</span>
                             </button>
@@ -67,11 +67,6 @@
 	// 页面在iframe中时处理
 	window.parent.location.href='/';
 	}
-		$('.verifyimg').bind('click',function(){
-			var verurl="{:U('Public/verify',array('random'=>'suiji'))}";
-			verurl=verurl.replace('suiji',Math.random);
-			$('#verifyimg').attr('src',verurl);
-			});
 	$('#youmenu').hover(function(){
 			$('#youmenu').show();
 			},function(){
@@ -86,7 +81,6 @@
 		function _after_func(){
 			$('#loginbtn .on').show();
 			$('#loginbtn .in').hide();
-			$('#verifyimg').click();
 			}
 
 		</script>
