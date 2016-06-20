@@ -53,12 +53,8 @@
 
         $optimize.add($repair).click(function() {
             $.post(this.href, $form.serialize(), function(data) {
-                if (data.status) {
-                    topmsg(data, 2, false);
-                } else {
-                    topmsg(data, 2, false);
-                }
-                setTimeout(function() {
+					ank.msg(data);
+	                setTimeout(function() {
                     $('#top-alert').find('button').click();
                     //  $(that).removeClass('disabled').prop('disabled',false);
                 }, 1500);
@@ -81,7 +77,7 @@
                             return "正在备份数据库，请不要关闭！"
                         }
                     } else {
-                        topmsg(data, 2, false);
+                        ank.msg(data);
                         $export.parent().children().removeClass("disabled");
                         $export.html("立即备份");
                         setTimeout(function() {
@@ -111,7 +107,7 @@
                     }
                     backup(data.tab, tab.id != data.tab.id);
                 } else {
-                    topmsg(data, 2, false);
+                    ank.msg(data);
                     $export.parent().children().removeClass("disabled");
                     $export.html("立即备份");
                     setTimeout(function() {

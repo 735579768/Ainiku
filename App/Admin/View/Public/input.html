@@ -99,9 +99,9 @@
 							        	$("#uploadimg_{$field['name']}").append(
 							        		"<div class='imgblock'><div class='upload-img-box'><div class='upload-pre-item'><img src='__ROOT__" + src + "' /></div></div><a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
 							        	);
-										$(function(){binddel();});
+										$(function(){am.bindDel();});
 							        } else {
-							        	topmsg(data);
+							        	ank.msg(data);
 							        	setTimeout(function(){
 							                $('#top-alert').find('button').click();
 							                $(that).removeClass('disabled').prop('disabled',false);
@@ -147,9 +147,9 @@
 							        	$("#cover_id_{$field['name']}").parent().find('.upload-img-box').html(
 							        		"<div class='imgblock'><div class='upload-img-box'><div class='upload-pre-item'><img src='__ROOT__" + src + "' /></div></div><a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
 							        	);
-										$(function(){binddel();});
+										$(function(){am.bindDel();});
 							        } else {
-							        	topmsg(data);
+							        	ank.msg(data);
 							        	setTimeout(function(){
 							                $('#top-alert').find('button').click();
 							               // $(that).removeClass('disabled').prop('disabled',false);
@@ -193,7 +193,7 @@
 							        		"<div class=\"upload-pre-file\"><span class=\"upload_icon_all\"></span>" + data.info + "</div>"
 							        	);
 							        } else {
-							        	topmsg(data);
+							        	ank.msg(data);
 							        	setTimeout(function(){
 							                $('#top-alert').find('button').click();
 							                $(that).removeClass('disabled').prop('disabled',false);

@@ -267,11 +267,8 @@ $(function() {
                 },
                 success: function(da) {
 
-                    if (da.status == 1) {
-                        topmsg(da);
-                    } else {
-                        ank.msg(da.info);
-                    }
+                        ank.msg(da);
+
 
                 }
             });

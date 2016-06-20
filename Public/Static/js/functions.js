@@ -6,24 +6,24 @@ $(function() {
             return document.selection.createRange().text;
         }
     };
-    window.ajaxhref = function(obj) {
-        obj = $(obj);
-        //obj.addClass("disabled");
-        if (typeof arguments[2] != "undefined") reloadbool = arguments[2];
-        if (typeof arguments[1] != "undefined") msgtime = arguments[1];
-        url = obj.attr("href");
-        if (typeof url == "undefined") url = obj.attr("url");
-        // $("body").append('<div id="klbg" class="bg">');
-        $.ajax({
-            type: "POST",
-            url: url,
-            success: function(da) {
-                ank.msg(da);
-            },
-            dataType: "JSON"
-        });
-        return false;
-    };
+    // window.ajaxhref = function(obj) {
+    //     obj = $(obj);
+    //     //obj.addClass("disabled");
+    //     if (typeof arguments[2] != "undefined") reloadbool = arguments[2];
+    //     if (typeof arguments[1] != "undefined") msgtime = arguments[1];
+    //     url = obj.attr("href");
+    //     if (typeof url == "undefined") url = obj.attr("url");
+    //     // $("body").append('<div id="klbg" class="bg">');
+    //     $.ajax({
+    //         type: "POST",
+    //         url: url,
+    //         success: function(da) {
+    //             ank.msg(da);
+    //         },
+    //         dataType: "JSON"
+    //     });
+    //     return false;
+    // };
     /**
      *全局ajax提交form表单数据thisobj为触发事件的元素
      *@param thisobj 触发事件的元素
@@ -33,120 +33,120 @@ $(function() {
      *_before_post()提交前调用
      *_after_post()提交后调用
      */
-    window.ajaxform = function(thisobj, callback) {
-        thisobj = $(thisobj);
-        // thisobj.addClass("disabled");
-        if (typeof arguments[2] != "undefined") reloadbool = arguments[2];
-        if (typeof arguments[1] != "undefined") msgtime = arguments[1];
-        try {
-            if (typeof _before_post == "function") _before_post();
-            if (typeof _before_func == "function") _before_func();
-            var thisobj, obj, a, url;
-            a = "";
+    // window.ajaxform = function(thisobj, callback) {
+    //     thisobj = $(thisobj);
+    //     // thisobj.addClass("disabled");
+    //     if (typeof arguments[2] != "undefined") reloadbool = arguments[2];
+    //     if (typeof arguments[1] != "undefined") msgtime = arguments[1];
+    //     try {
+    //         if (typeof _before_post == "function") _before_post();
+    //         if (typeof _before_func == "function") _before_func();
+    //         var thisobj, obj, a, url;
+    //         a = "";
 
-            formobj = thisobj.parents("form");
-            if (!formobj) {
-                return false;
-            }
-            formobj.submit(function(e) {
-                return false;
-            });
-            var url = formobj.attr("action");
-            postdata = formobj.serialize();
-            a = "{" + a + "}";
-            b = eval("(" + a + ")");
-            // $("body").append('<div id="klbg" class="bg">');
-            $.ajax({
-                url: url,
-                type: "POST",
-                datatype: "JSON",
-                data: postdata,
-                success: function(da) {
-                    ank.msg(da);
-                }
-            });
-        } catch (e) {
-            alert(e.name + ": " + e.message);
-        }
-    };
+    //         formobj = thisobj.parents("form");
+    //         if (!formobj) {
+    //             return false;
+    //         }
+    //         formobj.submit(function(e) {
+    //             return false;
+    //         });
+    //         var url = formobj.attr("action");
+    //         postdata = formobj.serialize();
+    //         a = "{" + a + "}";
+    //         b = eval("(" + a + ")");
+    //         // $("body").append('<div id="klbg" class="bg">');
+    //         $.ajax({
+    //             url: url,
+    //             type: "POST",
+    //             datatype: "JSON",
+    //             data: postdata,
+    //             success: function(da) {
+    //                 ank.msg(da);
+    //             }
+    //         });
+    //     } catch (e) {
+    //         alert(e.name + ": " + e.message);
+    //     }
+    // };
 
     //网页上面弹出信息
-    window.topmsg = function(da, callback) {
-        var str = (typeof da === "string") ? da : da.info;
-        var data = {
-            status: 1,
-            url: '',
-            info: str,
-            msgtime: 2
-        };
-        if (typeof da === "object") {
-            for (var name in da) {
-                data[name] = da[name];
-            }
-        }
-        var msgtime = data.msgtime;
-        //信息显示时间
-        $("body").css("position", "relative");
-        $("#topmsg").remove();
-        //var xiaolian = da.status == "0" ? ">_<" : "o_0";
-        data.status == 1 ? xiaolian = 'msgok' : xiaolian = 'msgerr';
-        $("body").append('<div id="topmsg" style="display:none;top:30%;z-index:99999;padding:15px 20px;font-weight:bolder;text-align:center; color:#f00;display:block;position:fixed; background:#fff; left:50%;border-radius: 10px;-webkit-box-shadow: 0px 4px 13px rgba(0,0,0,0.30);-moz-box-shadow: 0px 4px 13px rgba(0,0,0,0.30);box-shadow: 0px 4px 13px rgba(0,0,0,0.30);_left:45%;_position:absolute;_bottom:auto;_top:expression(eval(document.documentElement.scrollTop));"><div style="margin-top: 2px;" class="' + xiaolian + '" ></div>' + data.info + "<span>," + msgtime + "</span></div>");
-        var msgo = $("#topmsg");
-        msgo.css({
-            marginLeft: "-" + msgo.outerWidth() / 2 + "px",
-            marginTop: "-" + msgo.outerHeight() / 2 + "px",
-            opaticy: 0,
-            display: 'block'
-        });
+    // window.topmsg = function(da, callback) {
+    //     var str = (typeof da === "string") ? da : da.info;
+    //     var data = {
+    //         status: 1,
+    //         url: '',
+    //         info: str,
+    //         msgtime: 2
+    //     };
+    //     if (typeof da === "object") {
+    //         for (var name in da) {
+    //             data[name] = da[name];
+    //         }
+    //     }
+    //     var msgtime = data.msgtime;
+    //     //信息显示时间
+    //     $("body").css("position", "relative");
+    //     $("#topmsg").remove();
+    //     //var xiaolian = da.status == "0" ? ">_<" : "o_0";
+    //     data.status == 1 ? xiaolian = 'msgok' : xiaolian = 'msgerr';
+    //     $("body").append('<div id="topmsg" style="display:none;top:30%;z-index:99999;padding:15px 20px;font-weight:bolder;text-align:center; color:#f00;display:block;position:fixed; background:#fff; left:50%;border-radius: 10px;-webkit-box-shadow: 0px 4px 13px rgba(0,0,0,0.30);-moz-box-shadow: 0px 4px 13px rgba(0,0,0,0.30);box-shadow: 0px 4px 13px rgba(0,0,0,0.30);_left:45%;_position:absolute;_bottom:auto;_top:expression(eval(document.documentElement.scrollTop));"><div style="margin-top: 2px;" class="' + xiaolian + '" ></div>' + data.info + "<span>," + msgtime + "</span></div>");
+    //     var msgo = $("#topmsg");
+    //     msgo.css({
+    //         marginLeft: "-" + msgo.outerWidth() / 2 + "px",
+    //         marginTop: "-" + msgo.outerHeight() / 2 + "px",
+    //         opaticy: 0,
+    //         display: 'block'
+    //     });
 
-        if (da.status == "0") {
-            msgo.css({
-                background: "#ff6666",
-                color: "#ffffff"
-            });
-        } else {
-            msgo.css({
-                background: "#4bbd00",
-                color: "#ffffff"
-            });
-        }
+    //     if (da.status == "0") {
+    //         msgo.css({
+    //             background: "#ff6666",
+    //             color: "#ffffff"
+    //         });
+    //     } else {
+    //         msgo.css({
+    //             background: "#4bbd00",
+    //             color: "#ffffff"
+    //         });
+    //     }
 
-        msgo.stop(true).animate({
-            opacity: 1,
-        }, 200, function() {});
-        //倒计时
-        window.msgtimeid = setInterval(function() {
-            if (msgtime > 1) {
-                $("#topmsg span").html("," + --msgtime);
-            } else {
-                clearInterval(msgtimeid);
-                msgo.stop(true).animate({
-                    //   top:$("#topmsg").outerHeight() / 2 + "px",
-                    //  marginTop:"-" + msgo.outerHeight() *2+ "px"
-                    opacity: 0,
-                }, 300, function() {
-                    msgo.remove();
-                    $("#klbg").remove();
-                    $(".disabled").removeClass("disabled");
-                    //如果返回的有地址的话就直接转向
-                    if (data.url) {
-                        window.location = data.url;
-                    }
-                    //最后处理代码在此添加(如果没有回调函数的话)
-                    if (typeof callback == "function") {
-                        callback(da);
-                    }
-                    //如果有后调函数的话调用
-                    if (typeof _after_post == "function") {
-                        _after_post(da);
-                    }
-                    if (typeof _after_func == "function") {
-                        _after_func(da);
-                    }
-                });
-            }
-        }, 1e3);
-    };
+    //     msgo.stop(true).animate({
+    //         opacity: 1,
+    //     }, 200, function() {});
+    //     //倒计时
+    //     window.msgtimeid = setInterval(function() {
+    //         if (msgtime > 1) {
+    //             $("#topmsg span").html("," + --msgtime);
+    //         } else {
+    //             clearInterval(msgtimeid);
+    //             msgo.stop(true).animate({
+    //                 //   top:$("#topmsg").outerHeight() / 2 + "px",
+    //                 //  marginTop:"-" + msgo.outerHeight() *2+ "px"
+    //                 opacity: 0,
+    //             }, 300, function() {
+    //                 msgo.remove();
+    //                 $("#klbg").remove();
+    //                 $(".disabled").removeClass("disabled");
+    //                 //如果返回的有地址的话就直接转向
+    //                 if (data.url) {
+    //                     window.location = data.url;
+    //                 }
+    //                 //最后处理代码在此添加(如果没有回调函数的话)
+    //                 if (typeof callback == "function") {
+    //                     callback(da);
+    //                 }
+    //                 //如果有后调函数的话调用
+    //                 if (typeof _after_post == "function") {
+    //                     _after_post(da);
+    //                 }
+    //                 if (typeof _after_func == "function") {
+    //                     _after_func(da);
+    //                 }
+    //             });
+    //         }
+    //     }, 1e3);
+    // };
     window.msgDialog = function(opts) {
         $('#dialog-wrap').length && $('#dialog-wrap').remove();
         var defaults = {

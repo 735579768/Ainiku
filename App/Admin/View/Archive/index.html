@@ -78,7 +78,7 @@
             });
             idstr = idstr.replace(/\s+/g, '');
             if (idstr == '') {
-                topmsg('请选择后再操作');
+                ank.msg('请选择后再操作');
                 $(this).removeClass('disabled');
                 return false;
             }
@@ -91,7 +91,7 @@
                     model_id: {$model['model_id']}
                 },
                 'success': function(da) {
-                    topmsg(da, function(da) {
+                    ank.msg(da, function(da) {
                         if (da.status == '1') window.location.reload();
                     });
                 },

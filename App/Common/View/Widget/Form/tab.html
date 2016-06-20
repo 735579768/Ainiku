@@ -191,7 +191,7 @@ $(function(){
       uescr{$field['name']}=ue{$field['name']}.getContent();
       });
     ue{$field['name']}.addListener('blur',function(editor){
-      delEditorImg(uescr{$field['name']},ue{$field['name']}.getContent());
+      am.delEditorImg(uescr{$field['name']},ue{$field['name']}.getContent());
       });
 </script>
           </case>
@@ -216,7 +216,7 @@ $(function(){
       uescr{$field['name']}=ue{$field['name']}.getContent();
       });
     ue{$field['name']}.addListener('blur',function(editor){
-      delEditorImg(uescr{$field['name']},ue{$field['name']}.getContent());
+      am.delEditorImg(uescr{$field['name']},ue{$field['name']}.getContent());
       });
 </script>
           </case>
@@ -238,7 +238,7 @@ $(function(){
                     <a href='javascript:;' class='btn btn-danger' dataid='".$a."' >删除</a></div>
                   ";
                   }
-                  echo '<script>$(function(){binddel();});</script>';
+                  echo '<script>$(function(){am.bindDel();});</script>';
                   } </php>
               </div>
             </div>
@@ -324,9 +324,9 @@ function uploadPicture{$field['name']}(file, data){
     $("#uploadimg_{$field['name']}").append(
       "<div class='imgblock'><div class='upload-img-box uploadimg'><div class='upload-pre-item'><img src='" + src + "' /></div></div><a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
     );
-    $(function(){binddel();});
+    $(function(){am.bindDel();});
   } else {
-    topmsg(data);
+    ank.msg(data);
     setTimeout(function(){
       $('#top-alert').find('button').click();
       $(that).removeClass('disabled').prop('disabled',false);
@@ -348,7 +348,7 @@ function uploadPicture{$field['name']}(file, data){
 <div class="upload-pre-item"> <a class="" href="{:get_picture($field['data'],'path')}" data-lightbox="example-{$field['data']}" data-title="{:get_picture($field['data'],'destname')}"> <img class="example-image" src="{:get_picture($field['data'],'thumbpath')}"/></a> </div>
 </div>
 <a href='javascript:;' class='btn btn-danger'  dataid='{$field['data']}'>删除</a> </div>
-<script>$(function(){binddel();});</script>
+<script>$(function(){am.bindDel();});</script>
 </notempty>
 </div>
 </div>
@@ -434,9 +434,9 @@ function uploadPicture{$field['name']}(file, data){
             $("#uploadimg_{$field['name']}").html(
                 "<div class='imgblock'><div class='upload-img-box uploadimg'><div class='upload-pre-item'><img src='" + src + "' /></div></div><a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
             );
-            $(function(){binddel();});
+            $(function(){am.bindDel();});
         } else {
-            topmsg(data);
+            ank.msg(data);
             setTimeout(function(){
                 $('#top-alert').find('button').click();
                // $(that).removeClass('disabled').prop('disabled',false);
@@ -460,7 +460,7 @@ function uploadPicture{$field['name']}(file, data){
             </div>
             <script type="text/javascript">
       var sessionid="{:session_id()}";
-      $(function(){binddelattach();});
+      $(function(){am.bindDelAttach();});
 
 
            if (window.applicationCache) {
@@ -547,9 +547,9 @@ function uploadFile{$field['name']}(file, data){
     $("input[name="+name+"]").parent().find('.upload-img-box').html(
       "<div class=\"upload-pre-file\"><span class=\"upload_icon_all\"></span>" + data.info + "<a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
     );
-    binddelattach();
+    am.bindDelAttach();
   } else {
-    topmsg(data);
+    ank.msg(data);
     setTimeout(function(){
       $('#top-alert').find('button').click();
       $(that).removeClass('disabled').prop('disabled',false);
@@ -613,7 +613,7 @@ cityselect.create("ssq{$field['name']},Province{$field['name']},city{$field['nam
 <div class="upload-pre-item"> <a class="" href="{:get_picture($field['data'],'path')}" data-lightbox="example-{$field['data']}" data-title="{:get_picture($field['data'],'destname')}"> <img class="example-image" src="{:get_picture($field['data'],'thumbpath')}"/></a> </div>
 </div>
 <a href='javascript:;' class='btn btn-danger'  dataid='{$field['data']}'>删除</a> </div>
-<script>$(function(){binddel();});</script>
+<script>$(function(){am.bindDel();});</script>
 </notempty>
 </div>
 
@@ -710,9 +710,9 @@ cityselect.create("ssq{$field['name']},Province{$field['name']},city{$field['nam
             $("#uploadimg_{$field['name']}").html(
                 "<div class='imgblock'><div class='upload-img-box uploadimg'><div class='upload-pre-item'><img src='" + src + "' /></div></div><a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
             );
-            $(function(){binddel();});
+            $(function(){am.bindDel();});
         } else {
-            topmsg(data);
+            ank.msg(data);
             setTimeout(function(){
                 $('#top-alert').find('button').click();
                // $(that).removeClass('disabled').prop('disabled',false);

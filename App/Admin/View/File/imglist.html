@@ -13,7 +13,7 @@
                     if (da.status == '0') {
                         $('#resetsha').click();
                     }
-                    topmsg(da);
+                    ank.msg(da);
                 });
             });
         });
@@ -102,7 +102,7 @@
                         //						  });
                         obj.parents('.item').remove();
                     } else {
-                        topmsg(da);
+                        ank.msg(da);
                     }
                 },
                 dataType: 'JSON'

@@ -9,11 +9,10 @@ $(function() {
 					ank.msg('请按格式填写!');
 					return false;
 				}
-				debugger;
-				ajaxform($(this));
+				am.ajaxForm($(this));
 			});
 			$(".ajax-href").bind("click", function() {
-				return ajaxhref($(this));
+				return am.ajaxhref($(this));
 			});
 			$(".ajax-href-del").bind("click", function() {
 				// if (!confirm("确定此操作吗?")) return false;
@@ -22,8 +21,7 @@ $(function() {
 					'btn': true,
 					'content': '确定此操作吗?',
 					'ok': function() {
-						_this.addClass("disabled");
-						return ajaxhref(_this);
+						return am.ajaxhref(_this);
 					},
 					'cancel': function() {}
 				});
@@ -116,10 +114,7 @@ $(function() {
 							},
 							url: ainiku.updatefield,
 							success: function(da) {
-								if (da.status == "0") {
-									qh();
-									topmsg(da, 1, true);
-								}
+								ank.msg(da);
 							}
 						});
 					}
@@ -272,7 +267,7 @@ $(function() {
 				});
 				idstr = idstr.replace(/\s+/g, '');
 				if (idstr == '') {
-					topmsg('请选择后再操作');
+					ank.msg('请选择后再操作');
 					$(this).removeClass('disabled');
 					return false;
 				}
@@ -284,7 +279,7 @@ $(function() {
 						id: idstr
 					},
 					'success': function(da) {
-						topmsg(da, function(da) {
+						ank.msg(da, function(da) {
 							if (da.status == '1') window.location.reload();
 						});
 					},

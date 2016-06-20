@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <title>{$meta_title}_{:C('ADMIN_TITLE')}{:C('DEFAULT_THEME')}</title>
 <include file="Public:head" />
-<ank:insert name="jquery-1.9.1.min,divselect,divcheck,flashcopy-min,functions,ainiku,msg,tabclose,adminfunc,am" type="js"/>
+<ank:insert name="jquery-1.9.1.min,divselect,divcheck,flashcopy-min,functions,ainiku,msg,tabclose,am" type="js"/>
 <ank:insert name="reset,common,animation,layout,icon,font-awesome.min" />
 <link href="__CSS__/{:C('DEFAULT_COLOR')}color.css" type="text/css" rel="stylesheet" />
 <!--[if IE]><ank:insert name="iefix" /> <![endif]-->
@@ -26,17 +26,6 @@
 			layer.open.apply(parent.layer,arg);
 			}
 		};
-		// window.ank.msg=function(){
-		// 	var arg=arguments;
-		// 	if(typeof(arg[0]=='object')){
-		// 		arg[0]=arg[0]['info'];
-		// 	}
-		// 	if(parent){
-		// 	parent.layer.msg.apply(parent.layer,arg);
-		// 	}else{
-		// 	layer.msg.apply(layer,arg);
-		// 	}
-		// };
 	hideSelect.hide($('select'));
 	//hideCheckbox.hide($('input[type="checkbox"]'));
 	//hideRadio.hide($('input[type="radio"]'));
@@ -71,7 +60,7 @@ $(function() {
 <include file="Public:menu" />
 </if>
 <img id="loadingimg" class="rotate topcenter" src="__STATIC__/images/loading.png">
-<ank:insert type="js" name="init,ajax,jquery.resizableColumns,autoyz" />
+<ank:insert type="js" name="jquery.resizableColumns,autoyz" />
 </body>
 </html>
 

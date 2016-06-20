@@ -39,7 +39,7 @@
         $("#bakweb").click(function() {
             $('body').append('<div id="bg" style="font-size:50px;text-align:center;" class="bg">(请不要关闭页面)正在备份网站请稍等...</div>');
             var _this = $(this);
-            topmsg('网站已经开始备份请等待5分钟后再访问网站');
+            ank.msg('网站已经开始备份请等待5分钟后再访问网站');
             $.ajax({
                 type: 'POST',
                 url: _this.attr('href'),
@@ -49,11 +49,11 @@
                         $(this).remove();
                         window.location.reload();
                     });;
-                    topmsg(da.info);
+                    ank.msg(da);
                 },
                 error: function() {
                     $('#bg').remove();
-                    topmsg('请求超时');
+                    ank.msg('请求超时');
                 }
             });
             return false;
