@@ -250,8 +250,8 @@ body{overflow:hidden;padding:62px 0px 0px 180px;}
 .youmenu .menuitem a{font-size:12px;padding:0px 20px;text-align:left;border-bottom:solid 1px #d2d2d2;height:30px;line-height:30px;display:block;white-space:nowrap;}
 .youmenu .menuitem:hover a,.youmenu .menuitem a:hover{background:#e2e2e2;}
 .markbs{width:80px;display:inline-block;overflow:hidden;text-overflow:ellipsis;cursor:pointer;}
-#positionform ul{width:180px;}
-#positionform ul li{display:inline-block;width:60px;}
+#positionform ul{width:auto;}
+#positionform ul li{display:inline-block;margin-left: 10px;}
 #positionform span{display:inline-block;padding-right:5px;}
 #positionform .markinput{vertical-align:middle;}
 .form-checkbox{white-space:nowrap;text-overflow:ellipsis;overflow:hidden;display:inline-block;}

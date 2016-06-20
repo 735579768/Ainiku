@@ -502,7 +502,7 @@ $(function() {
 						title: "修改标记",
 						type: 1,
 						content: da.info,
-						// area: ['300px', '350px'],
+						area: ['330px'],
 						btn: ['保存', '取消'],
 						yes: function(index, dom) {
 							var formobj = $('#positionform');
