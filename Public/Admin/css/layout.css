@@ -210,6 +210,7 @@ body{overflow:hidden;padding:62px 0px 0px 180px;}
 .show-num-mod dd strong{margin-bottom:5px;height:30px;line-height:30px;}
 .show-num-mod dd span{font-size:12px;letter-spacing:.15em;}
 .show-num-mod dd strong{display:block;font-size:20px;overflow:hidden}
+.show-num-mod i{font-size: 50px;}
 .count-icon{display:inline-block;width:48px;height:48px;vertical-align:middle;background:url(../images/count_icon.png) no-repeat;}
 .user-count-icon{background-position:0 0;}
 .user-action-icon{background-position:0 -50px;}
