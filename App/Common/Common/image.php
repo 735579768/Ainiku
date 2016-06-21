@@ -4,7 +4,9 @@ function image_water($src_img = '', $water_img = '', $dest_img = '', $water_text
 	if ($isshuiyin === 0) {
 		return true;
 	}
-
+	if (!is_file($src_img)) {
+		return '不是文件类型';
+	}
 	if (!file_exists($src_img)) {
 		return '文件不存在';
 	}
@@ -80,6 +82,9 @@ function image_water($src_img = '', $water_img = '', $dest_img = '', $water_text
  * @return [type]           [返回图片对象]
  */
 function create_thumb($src_img, $dst_img, $width = 75, $height = 75) {
+	if (!is_file($src_img)) {
+		return '不是文件类型';
+	}
 	if (!file_exists($src_img)) {
 		return '文件不存在';
 	}
