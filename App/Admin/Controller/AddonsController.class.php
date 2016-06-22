@@ -54,7 +54,7 @@ class AddonsController extends AdminController {
 			}
 		}
 		//$addoninfo=array_merge($list0,$list1);
-		$page        = new \Ainiku\Arrpage($list0, I('pg'), 10);
+		$page        = new \Ainiku\Arrpage($list0, I('pg'), 15);
 		$this->_list = $page->cur_page_data;
 		$this->_page = $page->showpage(false);
 

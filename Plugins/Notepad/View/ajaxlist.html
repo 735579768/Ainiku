@@ -1,0 +1,8 @@
+<table width="100%">
+    <volist name="_list" id="vo">
+        <tr id="notepad_{$vo.notepad_id}">
+            <td><span onclick="notepad.editNotepad('{:UP('Notepad/edit',array('notepad_id'=>$vo['notepad_id']))}');">{$vo.content|msubstr=0,10}...</span></td>
+            <td class="center">{$vo.update_time|time_format} <i onclick="notepad.delNotepad('{:UP('Notepad/delNotepad',array('notepad_id'=>$vo['notepad_id']))}');" class="fa fa-trash"></i></td>
+        </tr>
+    </volist>
+</table>

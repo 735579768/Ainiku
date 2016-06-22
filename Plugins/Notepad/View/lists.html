@@ -1,0 +1,22 @@
+<div class="btn-tool">
+    <a href="{:UP('Notepad/set')}" class="btn">设置</a>
+    <a href="{:UP('Notepad/lists')}" class="btn">列表</a>
+</div>
+<table width="100%">
+    <tr>
+        <th>ID</th>
+        <th>用户</th>
+        <th>内容</th>
+        <th width="200">创建时间</th>
+        <th width="200">更新时间</th>
+    </tr>
+    <volist name="_list" id="vo">
+        <tr>
+            <td>{$vo.notepad_id}</td>
+            <td>{$vo.uid}</td>
+            <td>{$vo.content}</td>
+            <td>{$vo.create_time|time_format}</td>
+            <td>{$vo.update_time|time_format}</td>
+        </tr>
+    </volist>
+</table>

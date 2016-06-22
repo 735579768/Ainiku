@@ -596,7 +596,8 @@ $(function() {
 					data: postdata,
 					success: function(da) {
 						ank.msg(da);
-						(typeof _after_func == "function") && _after_func();
+						(typeof _after_func == "function") && _after_func(da);
+						(typeof callback == "function") && callback(da);
 					}
 				});
 			} catch (e) {

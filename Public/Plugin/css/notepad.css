@@ -1,0 +1,9 @@
+.notepad-wrap{position: fixed; right: 0px; top: 50px; background: #fff; width: 300px; height: 300px;z-index: 99999;    box-shadow: 2px 2px 8px #111;}
+.notepad-wrap .n-title{ height: 30px; line-height: 30px; padding-left: 20px; font-size: 14px;background: #ededed;}
+.notepad-wrap .notepad-list{padding:10px;}
+.notepad-wrap .notepad-list tr{cursor: pointer;}
+.notepad-wrap .notepad-list tr .fa-trash{visibility: hidden; color: #f00;}
+.notepad-wrap .notepad-list tr:hover .fa-trash{visibility:visible; color: #f00;}
+.notepad-content{padding: 10px;}
+.notepad-content textarea{border: none;width: 300px; height: 200px;}
+.notepad-content .textarea-wrap{margin-bottom: 10px;}

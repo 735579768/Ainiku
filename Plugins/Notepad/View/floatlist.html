@@ -1,0 +1,16 @@
+<link rel="stylesheet" type="text/css" href="/Public/Plugin/css/notepad.css" />
+<ank:insert type="js" name="jquery-drag" />
+<script type="text/javascript" src="/Public/Plugin/js/notepad.js"></script>
+<div id="notepad_wrap" class="notepad-wrap">
+    <div class="n-title">记事本 <a href="javascript:;" onclick="notepad.editNotepad('{:UP('Notepad/edit')}');">添加</a></div>
+    <div id="notepad-list" class="notepad-list">
+        <table width="100%">
+            <volist name="_list" id="vo">
+                <tr id="notepad_{$vo.notepad_id}">
+                    <td><span onclick="notepad.editNotepad('{:UP('Notepad/edit',array('notepad_id'=>$vo['notepad_id']))}');">{$vo.content|msubstr=0,10}...</span></td>
+                    <td class="center">{$vo.update_time|time_format} <i onclick="notepad.delNotepad('{:UP('Notepad/delNotepad',array('notepad_id'=>$vo['notepad_id']))}');" class="fa fa-trash"></i></td>
+                </tr>
+            </volist>
+        </table>
+    </div>
+</div>
