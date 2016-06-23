@@ -2,7 +2,11 @@
 <ank:insert type="js" name="jquery-drag" />
 <script type="text/javascript" src="/Public/Plugin/js/notepad.js"></script>
 <div id="notepad_wrap" class="notepad-wrap">
-    <div class="n-title">记事本 <a href="javascript:;" onclick="notepad.editNotepad('{:UP('Notepad/edit')}');">添加</a></div>
+    <div class="n-title">记事本
+    <a href="javascript:;" onclick="notepad.hide();" class="fa fa-minus fr" style="margin: 8px 10px 0px 0px;"></a>
+    <a href="javascript:;" onclick="notepad.editNotepad('{:UP('Notepad/edit')}');" class="fa fa-plus fr" style="margin: 8px 10px 0px 0px;"></a>
+
+    </div>
     <div id="notepad-list" class="notepad-list">
         <table width="100%">
             <volist name="_list" id="vo">
