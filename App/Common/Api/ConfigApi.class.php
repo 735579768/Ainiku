@@ -16,7 +16,7 @@ class ConfigApi {
 	 * 获取数据库中的配置列表
 	 * @return array 配置数组
 	 */
-	public static function lists($config_module = 'default') {
+	public static function lists($config_module = '') {
 		//  $map    = array('status' => 1);
 		$map                                           = array();
 		empty($config_module) || $map['config_module'] = $config_module;
