@@ -800,9 +800,9 @@ function compress_css($path) {
  */
 function compress_js($jspath) {
 	//查找是否有压缩文件存在
-	$farr                     = explode('.', $jspath);
-	$farr[[count($farr) - 1]] = 'min.js';
-	$minjs                    = implode('.', $farr);
+	$farr                   = explode('.', $jspath);
+	$farr[count($farr) - 1] = 'min.js';
+	$minjs                  = implode('.', $farr);
 	if (file_exists($minjs)) {
 		return file_get_contents($minjs);
 	} else {
