@@ -10,13 +10,17 @@ class NotepadPlugin extends \Plugins\Plugin {
 	);
 	//钩子默认的调用方法
 	public function run($a = '', $b = '') {
-		$this->assign('a', $a);
-		$this->assign('b', $b);
+		//当前页和上一页
+		$p = I('get.p', 1);
+		$this->assign('cur_p', $p);
+		$this->assign('next_p', $p + 1);
+		$this->assign('prev_p', ($p === 1) ? 1 : ($p - 1));
 		$map = null;
 		$this->pages(array(
 			'model' => 'PluginNotepad',
 			'where' => $map,
 			'order' => 'notepad_id desc',
+			'rows'  => 10,
 		));
 		$this->display('floatlist');
 	}
@@ -67,13 +71,27 @@ class NotepadPlugin extends \Plugins\Plugin {
 		}
 	}
 	private function getAjaxLists() {
+		//当前页和上一页
+		$p = I('get.p', 1);
+		$this->assign('cur_p', $p);
+		$this->assign('next_p', $p + 1);
+		$this->assign('prev_p', ($p === 1) ? 1 : ($p - 1));
 		$map = null;
 		$this->pages(array(
 			'model' => 'PluginNotepad',
 			'where' => $map,
 			'order' => 'notepad_id desc',
+			'rows'  => 10,
 		));
 		return $this->fetch('ajaxlist');
+	}
+	public function ajaxList() {
+
+		$this->ajaxreturn(array(
+			'status' => 1,
+			'info'   => 'success',
+			'data'   => $this->getAjaxLists(),
+		));
 	}
 	public function edit() {
 		$notepad_id = I('get.notepad_id');

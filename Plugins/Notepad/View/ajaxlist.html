@@ -1,8 +1,15 @@
+<input name="p" id="cur_p" value="{$cur_p}" type="hidden" />
 <table width="100%">
     <volist name="_list" id="vo">
         <tr id="notepad_{$vo.notepad_id}">
-            <td><span onclick="notepad.editNotepad('{:UP('Notepad/edit',array('notepad_id'=>$vo['notepad_id']))}');">{$vo.content|msubstr=0,10}...</span></td>
+            <td><span onclick="notepad.editNotepad('{:UP('Notepad/edit',array('notepad_id'=>$vo['notepad_id']))}');">{$vo.content|msubstr=0,8}...</span></td>
             <td class="center">{$vo.update_time|time_format} <i onclick="notepad.delNotepad('{:UP('Notepad/delNotepad',array('notepad_id'=>$vo['notepad_id']))}');" class="fa fa-trash"></i></td>
         </tr>
     </volist>
+    <tr>
+        <td colspan="2" class="center">
+            <a href="javascript:;" onClick="notepad.nextPage('{:UP('Notepad/ajaxList',array('p'=>$prev_p))}');">上一页</a>
+            <a href="javascript:;" onClick="notepad.nextPage('{:UP('Notepad/ajaxList',array('p'=>$next_p))}');">下一页</a>
+        </td>
+    </tr>
 </table>

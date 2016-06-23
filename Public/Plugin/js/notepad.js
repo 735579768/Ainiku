@@ -11,7 +11,7 @@ $(function() {
       $('#admintheme').after('<i onClick="notepad.show();" style="font-size:16px;" class="fa fa-pencil-square-o"></i>');
       if (am.readCookie('notepad_open') == 1) {
         this.notepad_dom.show();
-      }else{
+      } else {
         am.writeCookie('notepad_open', 0);
       }
       this.notepad_dom.mousemove(function(event) {
@@ -44,6 +44,11 @@ $(function() {
 
     },
     saveNotepad: function(obj) {
+      var _t = $(obj);
+      var _f = _t.parents('form');
+      _f.prop({
+        action: _f.prop('action') + '&p=' + $('#cur_p').val(),
+      })
       am.ajaxForm(obj, function(data) {
         if (data.status == 1) {
           $('#notepad-list').html(data.data);
@@ -70,6 +75,19 @@ $(function() {
       } else {
         am.writeCookie('notepad_open', 1);
       }
+    },
+    /**
+     * 记事本下一页
+     * @param  {[type]} uri [description]
+     * @param  {[type]} p   [description]
+     * @return {[type]}     [description]
+     */
+    nextPage: function(uri) {
+      $.get(uri, function(data) {
+        if (data.status == 1) {
+          $('#notepad-list').html(data.data);
+        }
+      });
     }
 
   };
