@@ -10,6 +10,8 @@ function image_water($src_img = '', $water_img = '', $dest_img = '', $water_text
 	if (!file_exists($src_img)) {
 		return '文件不存在';
 	}
+	//创建目录
+	create_folder(dirname($dst_img));
 	$image = new \Think\Image();
 	empty($pos) && ($pos = intval(C('SHUIYIN_POS')));
 	switch ($pos) {
@@ -88,6 +90,8 @@ function create_thumb($src_img, $dst_img, $width = 75, $height = 75) {
 	if (!file_exists($src_img)) {
 		return '文件不存在';
 	}
+	//创建目录
+	create_folder(dirname($dst_img));
 	$image = new \Think\Image();
 	$image->open($src_img);
 	// $src_w = $image->width(); // 返回图片的宽度
@@ -106,13 +110,13 @@ function create_thumb($src_img, $dst_img, $width = 75, $height = 75) {
 	// $result=$image->thumb($width, $height)->save($dst_img);
 
 	//居中剪切
-	$result = $image->thumb($width, $height, \Think\Image::IMAGE_THUMB_CENTER)->save($dst_img);
+	//$result = $image->thumb($width, $height, \Think\Image::IMAGE_THUMB_CENTER)->save($dst_img);
 
 	//左上剪切
 	// $result=$image->thumb($width, $height, \Think\Image::IMAGE_THUMB_NORTHWEST)->save($dst_img);
 
 	//缩放填充
-	//$result = $image->thumb($width, $height, \Think\Image::IMAGE_THUMB_FILLED)->save($dst_img);
+	$result = $image->thumb($width, $height, \Think\Image::IMAGE_THUMB_FILLED)->save($dst_img);
 
 	//固定大小
 	// $result=$image->thumb($width, $height, \Think\Image::IMAGE_THUMB_FIXED)->save($dst_img);

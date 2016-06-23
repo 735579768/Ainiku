@@ -22,7 +22,7 @@ class ArticleController extends HomeController {
 		if (empty($info)) {$this->_empty();}
 
 		$category = get_category($info['category_id']);
-		$tpl      = empty($info['detail_tpl']) ? 'detail' : $info['detail_tpl'];
+		$tpl      = empty($category['detail_tpl']) ? 'detail' : $category['detail_tpl'];
 
 		M('Article')->where("article_id=$article_id")->save(array('views' => $info['views'] + 1));
 		$this->assign('arcinfo', $info);
