@@ -4,9 +4,7 @@ header("Content-type:text/html;charset=utf-8");
 if (version_compare(PHP_VERSION, '5.3.0', '<')) {
 	die('require PHP > 5.3.0 !');
 }
-
 //ini_set('session.cookie_domain', ".ainiku.com");//跨域访问Session
-
 //常量定义
 define('ACCESS_ROOT', true);
 define('APP_DEBUG', true);
