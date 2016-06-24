@@ -423,7 +423,7 @@ function UPLOADFILE() {
 					html += delHtml; // 删除按钮的html
 					html += '		</div>';
 					html += '	</div>';
-					html += '	<a style="height:' + para.itemHeight + ';width:' + para.itemWidth + ';" href="#" class="imgBox">';
+					html += '	<a style="height:' + para.itemHeight + ';width:' + para.itemWidth + ';" href="javascript:;" class="imgBox">';
 					html += '		<div class="uploadImg" style="width:' + imgWidth + 'px">';
 					html += '			<img id="uploadImage_' + file.index + '" class="upload_image" src="' + e.target.result + '" style="width:expression(this.width > ' + imgWidth + ' ? ' + imgWidth + 'px : this.width)" />';
 					html += '		</div>';
@@ -441,7 +441,7 @@ function UPLOADFILE() {
 					html += delHtml; // 删除按钮的html
 					html += '		</div>';
 					html += '	</div>';
-					html += '	<a style="height:' + para.itemHeight + ';width:' + para.itemWidth + ';" href="#" class="imgBox">';
+					html += '	<a style="height:' + para.itemHeight + ';width:' + para.itemWidth + ';" href="javascript:;" class="imgBox">';
 					html += '		<div class="uploadImg" style="width:' + imgWidth + 'px">';
 					html += '			<img id="uploadImage_' + file.index + '" class="upload_image" src="' + fileImgSrc + '" style="width:expression(this.width > ' + imgWidth + ' ? ' + imgWidth + 'px : this.width)" />';
 					html += '		</div>';
