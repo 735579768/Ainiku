@@ -31,9 +31,6 @@ define('IMAGE_CACHE_DIR', DATA_DIR_PATH . 'imgcache/'); //图片缓存目录
 define('STYLE_CACHE_DIR', DATA_DIR_PATH . 'scache/'); //样式图片缓存
 define('DATA_PATH', DATA_DIR_PATH . 'Runtime/Data/'); //缓存数据的路径
 defined('RUNTIME_PATH') or define('RUNTIME_PATH', DATA_DIR_PATH . 'Runtime/');
-//定义cookies域
-// $domain = explode('.', $_SERVER['HTTP_HOST']);
-// define('COOKIES_DOMIN', '.' . $domain[count($domain) - 1]);
 if (file_exists(realpath(RUNTIME_PATH . 'lite.php')) && !APP_DEBUG) {
 	require RUNTIME_PATH . 'lite.php';
 } else {
