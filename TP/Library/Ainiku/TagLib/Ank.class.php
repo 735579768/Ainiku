@@ -275,7 +275,7 @@ class Ank extends TagLib {
 
 		$parse .= '$__MODULE_LIST__=S(json_encode($mapmodule));';
 		$parse .= 'if(empty($__MODULE_LIST__) || APP_DEBUG):';
-		$parse .= '$__MODULE_LIST__ = M(\'module\')->field(\'*,' . __DB_PREFIX__ . 'module.title as title,' . __DB_PREFIX__ . 'module.pic as pic,b.title as postitle,' . __DB_PREFIX__ . 'module.sort as sort\')->join(\'' . __DB_PREFIX__ . 'modulepos as b on b.modulepos_id=' . __DB_PREFIX__ . 'module.modulepos_id\')->where($mapmodule)->order(\' ' . __DB_PREFIX__ . 'module.sort asc,' . __DB_PREFIX__ . 'module.module_id desc\')->select();';
+		$parse .= '$__MODULE_LIST__ = M(\'Module\')->field(\'*,' . __DB_PREFIX__ . 'module.title as title,' . __DB_PREFIX__ . 'module.pic as pic,b.title as postitle,' . __DB_PREFIX__ . 'module.sort as sort\')->join(\'' . __DB_PREFIX__ . 'modulepos as b on b.modulepos_id=' . __DB_PREFIX__ . 'module.modulepos_id\')->where($mapmodule)->order(\' ' . __DB_PREFIX__ . 'module.sort asc,' . __DB_PREFIX__ . 'module.module_id desc\')->select();';
 		$parse .= 'S(json_encode($mapmodule),$__MODULE_LIST__);';
 		$parse .= 'endif;';
 		$parse .= ' ?>';
