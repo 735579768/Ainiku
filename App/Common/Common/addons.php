@@ -138,6 +138,11 @@ function plugin($name, $param = array()) {
 		if (count($narr) == 1) {
 			$narr[1] = 'run';
 		}
+		//查询是否已经安装
+		$info = M('Addons')->where(array('mark' => $narr[0], 'status' => 1))->find();
+		if (empty($info)) {
+			return '';
+		}
 		require_once ADDONS_PATH . $narr[0] . '/' . $narr[0] . 'Plugin.class.php';
 		$str    = "\\" . ADDONS_DIR_NAME . "\\{$narr[0]}\\" . $narr[0] . 'Plugin';
 		$temobj = new $str();

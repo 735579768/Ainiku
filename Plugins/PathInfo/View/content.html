@@ -4,7 +4,7 @@
     <table>
 <tr>
 	<td>缓存目录</td>
-    <td>{$Think.const.RUNTIME_PATH}</td>
+    <td>{:path_r(RUNTIME_PATH)}</td>
     <td>          <eq name="runtimestatus" value="1">
               <span style="color:green;">可写</span>
           <else />
