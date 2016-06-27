@@ -5,18 +5,6 @@ use Think\Controller;
 defined("ACCESS_ROOT") || die("Invalid access");
 class IndexController extends HomeController {
 	public function index() {
-		// var_dump(create_thumb('./testimg/1.jpg', './testimg/2.jpg', 200, 200));
-		// var_dump(create_thumb('./testimg/1.jpg', './testimg/2.jpg', 200, 200));
-		// var_dump(image_water('./testimg/1.jpg', './testimg/water.png', './testimg/1.jpg', ''));
-
-		// var_dump(get_iplocation('219.157.153.157'));
-		//die();
-		//run_plugin_method('Erweima','create',array('200','这个是测试内容','./Uploads/image/thumb/20151008/144429065269885.png'));
-		$model = D("Goods");
-//	$map['jiage']='100-600';
-		$map  = array();
-		$info = $model->relation(true)->where($map)->select(1);
-		//dump($info);
 		$this->display();
 	}
 	function send_mail() {

@@ -17,31 +17,20 @@ class ArticleController extends HomeController {
 			$this->_empty();
 		}
 
-		$map['status'] = 1;
-		$info          = M('Article')->where($map)->find($article_id);
-		if (empty($info)) {$this->_empty();}
+		$map['status']     = 1;
+		$map['article_id'] = $article_id;
+		$info              = M('Article')->where($map)->find();
+		if (empty($info)) {
+			$this->_empty();
+		}
 
 		$category = get_category($info['category_id']);
 		$tpl      = empty($category['detail_tpl']) ? 'detail' : $category['detail_tpl'];
 
-		M('Article')->where("article_id=$article_id")->save(array('views' => $info['views'] + 1));
+		M('Article')->where("article_id=$article_id")->setInc('views');
 		$this->assign('arcinfo', $info);
-		$this->assign('info', $info);
 		$this->assign('category', $category);
 		$this->display($tpl);
-	}
-	function send_mail() {
-		$result = send_mail(array(
-			'to'       => '735579768@qq.com',
-			'subject'  => '邮件主题',
-			'fromname' => '我是赵克立你好哦',
-
-		));
-		if ($result === true) {
-			echo '发送成功';
-		} else {
-			echo $result;
-		}
 	}
 	function pay() {
 		$alipayconf = array(
