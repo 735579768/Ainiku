@@ -19,9 +19,6 @@
     	<li><a href="{:C('WEBDOMIN')}" target="_blank">查看网站</a></li>
     	<li style="position:relative;" class="downmenu"><a href="javascript:;"><i class="prinfo"></i>个人信息</a>
         	<ul class="pwdinfo">
-    <li><a title="清空系统运行时缓存" href="javascript:;" onClick="am.okAction('{:U('Other/clearcache',array('type'=>'run'))}');" >清空运行缓存</a></li>
-    <li><a title="清空图片缩略图目录" href="javascript:;" onClick="am.okAction('{:U('Other/clearcache',array('type'=>'img'))}');" >清空图片缓存</a></li>
-    <li><a title="清空CSS,图片,JS缓存目录" href="javascript:;" onClick="am.okAction('{:U('Other/clearcache',array('type'=>'data'))}');">清空数据缓存</a></li>
     <li><a title="清空系统所有缓存" href="javascript:;" onClick="am.okAction('{:U('Other/clearcache',array('type'=>'all'))}');">清空全部缓存</a></li>
             	<li><a class="" onclick="am.updatePwd('{:U('Member/updatepwd')}');" href="javascript:;">修改密码</a></li>
                 <li><a href="javascript:;" onClick="am.okAction('{:U('Other/logout')}');" class="">退出系统</a></li>
