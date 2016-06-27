@@ -33,6 +33,7 @@ class OtherController extends AdminController {
 		if ($type == 'run' || $type == 'all') {
 			$arr[] = del_allfile($rutimepath);
 		}
+		$arr[] = del_allfile('./Data/cache/');
 //运行时目录缓存
 		if (is_array($arr)) {
 			//统计缓存大小
