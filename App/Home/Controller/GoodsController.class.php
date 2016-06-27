@@ -4,23 +4,34 @@ use Think\Controller;
 
 defined("ACCESS_ROOT") || die("Invalid access");
 class GoodsController extends HomeController {
-	public function index() {
-//$Ip = new \Org\Net\IpLocation(); // 实例化类
-		//$location = $Ip->getlocation('127.0.0.1'); //
+	public function index($gcate = '') {
+		$info = get_category($gcate);
+		if (empty($info)) {$this->_empty();}
+
+		$tpl = empty($info['list_tpl']) ? 'index' : $info['list_tpl'];
+		$this->assign('category', $info);
+		$this->display($tpl);
 		$this->display();
 	}
 	function detail($goods_id) {
-		if (empty($goods_id)) {
+		if (empty($article_id)) {
 			$this->_empty();
 		}
 
-		$info = get_goods($goods_id, 'status=1');
+		$map['status']   = 1;
+		$map['goods_id'] = $goods_id;
+		$info            = M('Goods')->where($map)->find();
 		if (empty($info)) {
 			$this->_empty();
 		}
 
-		$this->assign('info', $info);
-		$this->display();
+		$category = get_category($info['category_id']);
+		$tpl      = empty($category['detail_tpl']) ? 'detail' : $category['detail_tpl'];
+
+		M('Goods')->where("goods_id=$goods_id")->setInc('views');
+		$this->assign('ginfo', $info);
+		$this->assign('category', $category);
+		$this->display($tpl);
 	}
 	function send_mail() {
 		$result = send_mail(array(
