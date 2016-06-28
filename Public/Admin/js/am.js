@@ -735,6 +735,21 @@ $(function() {
 				});
 				layer.close(index);
 			});
+		},
+		/**
+		 * textarea自动高度
+		 * @return {[type]} [description]
+		 */
+		autoHeight: function(obj) {
+			var _t = $(obj);
+			_t.height(obj.scrollHeight);
+			// am.clock = setInterval(function() {
+			// 	console.log(obj.scrollHeight);
+			// 		var h = _t.outerHeight();
+			// 		if(obj.scrollHeight>h){
+			// 			_t.height(h + 20);
+			// 		}
+			// }, 10);
 		}
 	};
 	am.init();

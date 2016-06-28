@@ -105,12 +105,12 @@ $(function(){
           </case>
           <case value="textarea">
           <div class="form-wrap">
-            <textarea  rows=1 cols=40 style='overflow:scroll;overflow-y:hidden;;overflow-x:hidden;' onfocus="window.activeobj=this;this.clock=setInterval(function(){if(activeobj.scrollHeight>=112){activeobj.style.height=(activeobj.scrollHeight-12)+'px';}},10);" onblur="clearInterval(this.clock);"   <notempty name="field.data_reg">  class="form-control input-large autoyz" data-reg="{$field.data_reg}" data-ts="{$field.data_ts}" data-ok="{$field.data_ok}" data-err="{$field.data_err}"<else />  class="form-control input-large"</notempty>  placeholder="请输入{$field['title']}"  name="{$field['name']}">{$field['data']}</textarea>
+            <textarea  rows=1 cols=40 style='overflow:scroll;overflow-y:hidden;;overflow-x:hidden;' onfocus="am.autoHeight(this);" onblur="clearInterval(am.clock);"   <notempty name="field.data_reg">  class="form-control input-large autoyz" data-reg="{$field.data_reg}" data-ts="{$field.data_ts}" data-ok="{$field.data_ok}" data-err="{$field.data_err}"<else />  class="form-control input-large"</notempty>  placeholder="请输入{$field['title']}"  name="{$field['name']}">{$field['data']}</textarea>
           </div>
           </case>
           <case value="bigtextarea">
           <div class="form-wrap">
-            <textarea rows=1 cols=40 style='overflow:scroll;overflow-y:hidden;;overflow-x:hidden;width:96%;' onfocus="window.activeobj=this;this.clock=setInterval(function(){if(activeobj.scrollHeight>=112){activeobj.style.height=(activeobj.scrollHeight-12)+'px';}},10);" onblur="clearInterval(this.clock);"   <notempty name="field.data_reg">  class="form-control  autoyz" data-reg="{$field.data_reg}" data-ts="{$field.data_ts}" data-ok="{$field.data_ok}" data-err="{$field.data_err}"<else />  class="form-control "</notempty>  placeholder="请输入{$field['title']}"  name="{$field['name']}">{$field['data']}</textarea>
+            <textarea rows=1 cols=40 style='overflow:scroll;overflow-y:hidden;;overflow-x:hidden;width:96%;' onfocus="am.autoHeight(this);" onblur="clearInterval(am.clock);"   <notempty name="field.data_reg">  class="form-control  autoyz" data-reg="{$field.data_reg}" data-ts="{$field.data_ts}" data-ok="{$field.data_ok}" data-err="{$field.data_err}"<else />  class="form-control "</notempty>  placeholder="请输入{$field['title']}"  name="{$field['name']}">{$field['data']}</textarea>
           </div>
           </case>
           <case value="datetime">
