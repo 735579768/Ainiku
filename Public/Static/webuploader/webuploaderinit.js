@@ -165,13 +165,13 @@
             // 实例化
             uploader = WebUploader.create({
                 pick: {
-                    id: '#filePicker',
+                    id: uploaderid + ' .filePicker',
                     label: '点击选择图片'
                 },
                 formData: {
                     uid: 123
                 },
-                dnd: '#dndArea',
+                dnd: uploaderid + ' .dndArea',
                 paste: '#uploader',
                 swf: '../../dist/Uploader.swf',
                 chunked: false,
@@ -223,7 +223,7 @@
 
             // 添加“添加文件”的按钮，
             uploader.addButton({
-                id: '#filePicker2',
+                id: uploaderid + ' .filePicker2',
                 label: '继续添加'
             });
 
