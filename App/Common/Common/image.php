@@ -106,20 +106,44 @@ function create_thumb($src_img, $dst_img, $width = 75, $height = 75) {
 	// IMAGE_THUMB_NORTHWEST =   4 ; //左上角裁剪类型
 	// IMAGE_THUMB_SOUTHEAST =   5 ; //右下角裁剪类型
 	// IMAGE_THUMB_FIXED     =   6 ; //固定尺寸缩放类型
-	//等 比例缩放
-	// $result=$image->thumb($width, $height)->save($dst_img);
+	$model  = C('THUMB_MODEL');
+	$result = null;
+	switch ($model) {
+	case '1':
+		//等 比例缩放
+		$result = $image->thumb($width, $height)->save($dst_img);
+		break;
+	case '2':
+		//缩放填充
+		$result = $image->thumb($width, $height, \Think\Image::IMAGE_THUMB_FILLED)->save($dst_img);
 
-	//居中剪切
-	//$result = $image->thumb($width, $height, \Think\Image::IMAGE_THUMB_CENTER)->save($dst_img);
+		break;
+	case '3':
+		//居中剪切
+		$result = $image->thumb($width, $height, \Think\Image::IMAGE_THUMB_CENTER)->save($dst_img);
 
-	//左上剪切
-	// $result=$image->thumb($width, $height, \Think\Image::IMAGE_THUMB_NORTHWEST)->save($dst_img);
+		break;
+	case '4':
+		//左上剪切
+		$result = $image->thumb($width, $height, \Think\Image::IMAGE_THUMB_NORTHWEST)->save($dst_img);
 
-	//缩放填充
-	$result = $image->thumb($width, $height, \Think\Image::IMAGE_THUMB_FILLED)->save($dst_img);
+		break;
+	case '5':
+		//右下角裁剪类型
+		$result = $image->thumb($width, $height, \Think\Image::IMAGE_THUMB_SOUTHEAST)->save($dst_img);
 
-	//固定大小
-	// $result=$image->thumb($width, $height, \Think\Image::IMAGE_THUMB_FIXED)->save($dst_img);
+		break;
+	case '6':
+		//固定大小
+		$result = $image->thumb($width, $height, \Think\Image::IMAGE_THUMB_FIXED)->save($dst_img);
+		break;
+
+	default:
+		//等 比例缩放
+		$result = $image->thumb($width, $height)->save($dst_img);
+		break;
+	}
+
 	if ($result) {
 		return true;
 	} else {

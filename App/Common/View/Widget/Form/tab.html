@@ -153,7 +153,9 @@ $(function(){
           <case value="radio">
           <div class="controls">
             <volist name="field['extra']" id="vo">
+            <label>
               <input type="radio" value="{$key}" name="{$field['name']}" <eq name="field['data']" value="$key">checked="checked"</eq> ><span>{$vo}</span>
+            </label>
             </volist>
             </div>
           </case>
@@ -162,9 +164,9 @@ $(function(){
             echo '<input type="hidden" value="0" name="'.$field['name'].'[]"  />';
              foreach($field['extra'] as $key=>$val){
                 if(strpos($field['data'],$key.'')!==false){
-                echo '<span class="form-checkbox"><input type="checkbox" value="'.$key.'" name="'.$field['name'].'[]"  checked="checked" > <span title="'.$val.'">'.$val.'</span></span>';
+                echo '<label class="form-checkbox"><input type="checkbox" value="'.$key.'" name="'.$field['name'].'[]"  checked="checked" > <span title="'.$val.'">'.$val.'</span></label>';
                 }else{
-                echo '<span class="form-checkbox"> <input type="checkbox" value="'.$key.'" name="'.$field['name'].'[]"   ><span title="'.$val.'"> '.$val.'</span></span>';
+                echo '<label class="form-checkbox"> <input type="checkbox" value="'.$key.'" name="'.$field['name'].'[]"   ><span title="'.$val.'"> '.$val.'</span></label>';
                 }
 
               }

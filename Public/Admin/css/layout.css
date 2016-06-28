@@ -163,7 +163,7 @@ body{overflow:hidden;padding:62px 0px 0px 180px;}
 /* uploadify插件上传按钮 */
 .uploadify-button{color:#fff;background-color:#6bb05f!important;text-align:center;}
 .uploadify-button-text{line-height:30px;}
-.controls label{padding:0px 20px;}
+.controls label{padding:0px 0px;}
 .yesno{display:block;float:left;margin:4px 2px;}
 .yes,.no{line-height:normal;cursor:pointer;font-weight:bolder;margin:0px;background:#7c7c7c;float:left;color:#a0a0a0;font-size:12px;padding:5px 8px;display:inline-block;}
 .yes{border-radius:5px 0px 0px 5px;}
