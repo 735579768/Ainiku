@@ -10,7 +10,10 @@
             </div>
             <div class="order"><span data-table="Category" data-id="{$vo.category_id}" data-field="status" data-value="{$vo.status}" class="yn"></span></div>
             <div class="name"> <span class="tab-sign"></span>
-                <a class="add-sub-cate" title="添加子分类" href="{:u('Category/add?pid='.$vo['category_id'].'&category_type='.I('category_type'))}"> <i class="icon-add"></i></a><span class="catetitle"><input class="form-control ajax-blur" data-id="{$vo.category_id}" data-table="category" data-field="title"   name="title" type="text" value="{$vo.title}" /></span> </div>
+                <a class="add-sub-cate" title="添加子分类" href="{:u('Category/add?pid='.$vo['category_id'].'&category_type='.I('category_type'))}"> <i class="icon-add"></i></a><span class="catetitle">
+                <input class="form-control ajax-blur" data-id="{$vo.category_id}" data-table="Category" data-field="title"   name="title" type="text" value="{$vo.title}" />
+                <input class="form-control ajax-blur" data-id="{$vo.category_id}" data-table="Category" data-field="name"   name="name" type="text" value="{$vo.name}" />
+                </span> </div>
         </dt>
         <!--cate end-->
         <notempty name="vo['_']">
