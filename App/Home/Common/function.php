@@ -105,3 +105,116 @@ function get_single_list($singlename = '') {
 	$list          = M('Single')->where($map)->field('title,name,ptitle')->order('sort asc')->select();
 	return $list;
 }
+
+/**
+ * 生成seo标题
+ */
+function get_seo_title($category, $single, $article) {
+	$title          = C('WEB_SITE_TITLE');
+	$category_title = '';
+	$single_title   = '';
+	$article_title  = '';
+	if ($category) {
+		if (empty($category['meta_title'])) {
+			$category_title = $category['title'];
+		} else {
+			$category_title = $category['meta_title'];
+
+		}
+		$category_title .= '_';
+	}
+	if ($single) {
+		if (empty($single['meta_title'])) {
+			$single_title = $single['title'];
+		} else {
+			$single_title = $single['meta_title'];
+
+		}
+		$single_title .= '_';
+	}
+	if ($article) {
+		if (empty($article['meta_title'])) {
+			$article_title = $article['title'];
+		} else {
+			$article_title = $article['meta_title'];
+
+		}
+		$article_title .= '_';
+	}
+	return $single_title . $category_title . $article_title . $title;
+}
+
+/**
+ * 生成seo关键字
+ */
+function get_seo_keywords($category, $single, $article) {
+	$keywords          = C('WEB_SITE_KEYWORD');
+	$category_keywords = '';
+	$single_keywords   = '';
+	$article_keywords  = '';
+	if ($category) {
+		if (empty($category['meta_keywords'])) {
+			$category_keywords = $category['title'];
+		} else {
+			$category_keywords = $category['meta_keywords'];
+
+		}
+	}
+	if ($single) {
+		if (empty($single['meta_keywords'])) {
+			$single_keywords = $single['title'];
+		} else {
+			$single_keywords = $single['meta_keywords'];
+
+		}
+	}
+	if ($article) {
+		if (empty($article['meta_keywords'])) {
+			$article_keywords = $article['title'];
+		} else {
+			$article_keywords = $article['meta_keywords'];
+
+		}
+	}
+	if (!empty($single_keywords) || !empty($category_keywords) || !empty($article_keywords)) {
+		return $single_keywords . $category_keywords . $article_keywords;
+	} else {
+		return $keywords;
+	}
+
+}
+/**
+ * 生成seo描述
+ */
+function get_seo_descr($category, $single, $article) {
+	$descr          = C('WEB_SITE_DESCRIPTION');
+	$category_descr = '';
+	$single_descr   = '';
+	$article_descr  = '';
+	if ($category) {
+		if (empty($category['meta_descr'])) {
+			$category_descr = $category['meta_descr'];
+
+		}
+	}
+	if ($single) {
+		if (empty($single['meta_descr'])) {
+			$single_descr = $single['meta_descr'];
+
+		}
+	}
+	if ($article) {
+		if (empty($article['meta_descr'])) {
+			$article_descr = removehtml($article['content'], 0, 100);
+		} else {
+			$article_descr = $article['meta_descr'];
+
+		}
+	}
+	if (!empty($single_descr) || !empty($category_descr) || !empty($article_descr)) {
+		return $single_descr . $category_descr . $article_descr;
+	} else {
+		return $descr;
+	}
+
+}
