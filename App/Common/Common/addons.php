@@ -124,12 +124,23 @@ function parse_param($str) {
  * @param string $param一维数组传参数,返数组顺序传参
  * 返回方法的返回值
  */
+// function run_plugin_method($pn = null, $pm = null, $param = array()) {
+// 	//包含插件目录
+// 	require_once ADDONS_PATH . $pn . '/' . $pn . 'Plugin.class.php';
+// 	$str    = "\\" . ADDONS_DIR_NAME . "\\$pn\\" . $pn . 'Plugin';
+// 	$temobj = new $str();
+// 	return call_user_func_array(array($temobj, $pm), $param);
+// }
 function run_plugin_method($pn = null, $pm = null, $param = array()) {
-	//包含插件目录
-	require_once ADDONS_PATH . $pn . '/' . $pn . 'Plugin.class.php';
-	$str    = "\\" . ADDONS_DIR_NAME . "\\$pn\\" . $pn . 'Plugin';
-	$temobj = new $str();
-	return call_user_func_array(array($temobj, $pm), $param);
+	if ($pn && $pm) {
+		//包含插件目录
+		require_once ADDONS_PATH . $pn . '/' . $pn . 'Plugin.class.php';
+		$str    = "\\" . ADDONS_DIR_NAME . "\\$pn\\" . $pn . 'Plugin';
+		$temobj = new $str();
+		return call_user_func_array(array($temobj, $pm), $param);
+	} else {
+		return false;
+	}
 }
 function plugin($name, $param = array()) {
 	try {
