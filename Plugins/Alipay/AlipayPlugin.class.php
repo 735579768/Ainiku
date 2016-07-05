@@ -23,7 +23,7 @@ $trade_status = $_POST['trade_status'];//交易状态//各个状态请查看api�
 }
  **/
 namespace Plugins\Alipay;
-require_once path_a('/Plugins/Plugin.class.php');
+// require_once path_a('/Plugins/Plugin.class.php');
 class AlipayPlugin extends \Plugins\Plugin {
 	protected $config = array(
 		'version' => '1.0',

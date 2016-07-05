@@ -1,6 +1,6 @@
 <?php
 namespace Plugins\Outlink;
-require_once path_a('/Plugins/Plugin.class.php');
+// require_once path_a('/Plugins/Plugin.class.php');
 class OutlinkPlugin extends \Plugins\Plugin {
 	protected $config = array(
 		'version' => '1.0',

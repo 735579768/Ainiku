@@ -6,6 +6,7 @@ return array(
 	'LOAD_EXT_CONFIG'      => 'db_config,reg_config',
 	'TAGLIB_PRE_LOAD'      => 'Ainiku\\TagLib\\Article,Ainiku\\TagLib\\Ank',
 	'AUTOLOAD_NAMESPACE'   => array(
+		//自动加载扩展命名空间
 		'Plugins' => './Plugins',
 	),
 	'URL_CASE_INSENSITIVE' => false, // 默认false

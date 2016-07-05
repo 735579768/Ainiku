@@ -1,6 +1,6 @@
 <?php
 namespace Plugins\Erweima;
-require_once ADDONS_PATH . 'Plugin.class.php';
+// require_once ADDONS_PATH . 'Plugin.class.php';
 require_once './Plugins/Erweima/phpqrcode.php';
 class ErweimaPlugin extends \Plugins\Plugin {
 	protected $config = array(

@@ -1,7 +1,7 @@
 <?php
 namespace Plugins\Unionpay;
 define('UNIONPAY_PATH', str_replace('\\', '/', dirname(__FILE__)));
-require_once path_a('/Plugins/Plugin.class.php');
+// require_once path_a('/Plugins/Plugin.class.php');
 class UnionpayPlugin extends \Plugins\Plugin {
 	protected $config = array(
 		'version' => '1.0',

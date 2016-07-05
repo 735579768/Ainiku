@@ -1,7 +1,7 @@
 <?php
 namespace Plugins\Qlogin;
 
-require_once ADDONS_PATH . 'Plugin.class.php';
+// require_once ADDONS_PATH . 'Plugin.class.php';
 class QloginPlugin extends \Plugins\Plugin {
 	protected $config = array(
 		'version' => '1.0',

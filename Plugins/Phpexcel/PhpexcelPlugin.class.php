@@ -10,7 +10,7 @@
  *);
  ****/
 namespace Plugins\Phpexcel;
-require_once path_a('/Plugins/Plugin.class.php');
+// require_once path_a('/Plugins/Plugin.class.php');
 class PhpexcelPlugin extends \Plugins\Plugin {
 	protected $config = array(
 		'version' => '1.0',

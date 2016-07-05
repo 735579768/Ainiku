@@ -1,6 +1,6 @@
 <?php
 namespace Plugins\AdminInfo;
-require_once path_a('/Plugins/Plugin.class.php');
+// require_once path_a('/Plugins/Plugin.class.php');
 class AdminInfoPlugin extends \Plugins\Plugin {
 	protected $config = array(
 		'version' => '1.0',
