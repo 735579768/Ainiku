@@ -29,10 +29,12 @@ class Auth {
 			return $rebool;
 		} else {
 			//正则匹配
-			$tembool = false;
+			$tembool = true;
+			//var_dump($this->noaccessnodelist);
 			foreach ($this->noaccessnodelist as $val) {
 				$pattern = '';
-				$url     = str_replace('.' . C('URL_HTML_SUFFIX'), '', U($val['name']));
+				$url     = str_replace('.' . C('URL_HTML_SUFFIX'), '', U($val['name'] . '/ALL_ACTION'));
+				$url     = str_replace('ALL_ACTION', '', $url);
 				$url     = preg_quote($url);
 				$url     = preg_replace('/\//i', '\/', $url);
 				if ($val['is_all'] == 1) {
@@ -41,6 +43,9 @@ class Auth {
 					$pattern = '/(.*)' . $url . '(.*)/i';
 				}
 				$tembool = preg_match($pattern, __SELF__);
+				var_dump(__SELF__);
+				var_dump($pattern);
+				var_dump($tembool);
 				if ($tembool) {
 					$rebool = false;
 					break;}
