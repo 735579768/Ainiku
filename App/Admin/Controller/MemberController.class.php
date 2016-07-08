@@ -139,10 +139,19 @@ class MemberController extends AdminController {
 	 */
 	public function updatepwd($member_id = '') {
 		if (IS_POST) {
-			$model = D('Member');
+			$model      = D('Member');
+			$password   = I('post.password');
+			$repassword = I('post.repassword');
+			if (empty($password)) {
+				$this->error('密码不能为空!');
+			}
+			if ($password != $repassword) {
+				$this->error('两次输入的密码不一样!');
+			}
 			if ($model->create()) {
-				$model->password = ainiku_ucenter_md5($model->password);
-				$result          = $model->save();
+				$model->password    = ainiku_ucenter_md5($model->password);
+				$model->update_time = NOW_TIME;
+				$result             = $model->save();
 				if (0 < $result) {
 					A('Public')->logout(true);
 					$this->success('密码更新成功!请重新登陆!', U('Public/login'));
