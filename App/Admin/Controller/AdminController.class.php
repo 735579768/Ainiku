@@ -46,7 +46,7 @@ class AdminController extends CommonController {
 		import('Ainiku.Auth');
 		$this->auth = new \Ainiku\Auth;
 		if (!$this->auth->check()) {
-			$this->error('啊哦,没有此权限,请联系管理员！', U($user['admin_index']));
+			$this->error('啊哦,没有此权限,请联系管理员！', U(session('uinfo')['admin_index']));
 		}
 
 		$this->addForward();

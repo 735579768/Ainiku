@@ -43,9 +43,9 @@ class Auth {
 					$pattern = '/(.*)' . $url . '(.*)/i';
 				}
 				$tembool = preg_match($pattern, __SELF__);
-				var_dump(__SELF__);
-				var_dump($pattern);
-				var_dump($tembool);
+				// var_dump(__SELF__);
+				// var_dump($pattern);
+				// var_dump($tembool);
 				if ($tembool) {
 					$rebool = false;
 					break;}
