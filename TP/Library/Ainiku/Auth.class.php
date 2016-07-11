@@ -109,7 +109,7 @@ class Auth {
 				$pattern = '/<td([\s\S]*?)>([\s\S]*?)<a([\s\S]*?)btn([\s\S]*?)>([\s\S]*?)<\/a>([\s\S]*?)<\/td>/i';
 				$resu    = preg_match($pattern, $str, $matchs);
 				if ($resu === 0) {
-					$str = preg_replace('/<th(.*?)>(.*?)操作(.*?)<\/th>/', '', $str);
+					$str = preg_replace('/<th(.*?)>(.*?)REPLACE_ACTION(.*?)<\/th>/', '', $str);
 				}
 			}
 			return $str;
