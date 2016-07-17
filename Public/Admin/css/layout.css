@@ -54,12 +54,12 @@ body{overflow:hidden;padding:62px 0px 0px 180px;}
 
 /***左边列表**/
 .menu{}
-.menu .mt a,.menu .mitem a{text-align:left;display:block;height:40px;line-height:40px;font-size:12px;}
+.menu .mt a,.menu .mitem a{border-bottom:solid 1px #ededed;text-align:left;display:block;height:40px;line-height:40px;font-size:12px;}
 .menu .mitem a{padding-left:35px;}
 .menu .mt a:hover,.menu .mitem a:hover{background:#ededed;color:#000;}
 .menu .mt a.hover,.menu .mitem a.hover{background:#44b549;color:#fff;}
 .menu .mt a{text-align:left;font-weight:bolder;border-bottom:solid 1px #ededed;background:#f8f8f8;}
-.menu .mitem{display:none;border-bottom:solid 1px #ededed;}
+.menu .mitem{display:none;}
 .menucloseico{display:inline-block;background:url('../images/ico.png') -170px -118px no-repeat;width:23px;height:23px;float:left;margin:6px 5px 0px 10px;}
 .menuopenico{display:inline-block;background:url('../images/ico.png') -109px -56px no-repeat;width:23px;height:23px;float:left;margin:6px 5px 0px 10px;}
 
