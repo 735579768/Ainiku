@@ -86,7 +86,11 @@ function UP($name = null, $param = array()) {
 	}
 
 	//C('URL_MODEL',0);
-	return U('Addons/plugin', $data);
+	C('URL_MODEL', 0);
+	$uri = U('Addons/plugin', $data);
+	C('URL_MODEL', 1);
+	// return U('Addons/plugin', $data);
+	return $uri;
 }
 /**
  * 调用插件的控制器

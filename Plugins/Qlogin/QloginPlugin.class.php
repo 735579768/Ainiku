@@ -11,29 +11,40 @@ class QloginPlugin extends \Plugins\Plugin {
 	);
 	public function __construct() {
 		parent::__construct();
-		$data = M('Addons')->field('param')->where("mark='Qlogin'")->find();
-		$data = json_decode($data['param'], true);
+		$data = $this->getParam();
 		define('Q_APPID', $data['appid']);
 		define('Q_APPKEY', $data['appkey']);
-		define('Q_CALLBACK', $data['callback'] . UP('Qlogin/qcallfunc'));
 	}
 	function run() {
 		$this->display('content');
 	}
 	function qcon() {
+		$data = $this->getParam();
+		define('Q_CALLBACK', urlencode($data['callback'] . UP('Qlogin/qcallfunc')));
 		Vendor('QQLogin.API.qqlogin');
 		die();
 	}
+	/**
+	 * 取扩展参数
+	 * @return [type] [description]
+	 */
+	private function getParam() {
+		$data = M('Addons')->field('param')->where("mark='Qlogin'")->find();
+		return json_decode($data['param'], true);
+	}
 	function qcallfunc() {
+		$data = $this->getParam();
+		define('Q_CALLBACK', $data['callback'] . UP('Qlogin/qcallfunc'));
 		Vendor('QQLogin.API.qqcallfunc');
-
 		if (session('openid') != '') {
 			$uid = $this->QQregister(session('openid'));
 			if ($uid) {
 				$uid = $this->login(session('openid'), '', 5);
 				if (0 < $uid) {
 					//UC登录成功
-					redirect(U('/'));
+					//redirect(U('/'));
+					echo '<script>window.opener.qqlogin.success();window.close();</script>';
+					die();
 				}
 			} else {
 				die('error');
