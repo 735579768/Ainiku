@@ -2,7 +2,8 @@
              var childWindow;
 
              function toQzoneLogin() {
-                 window.location = "{:UP('Qlogin/qcon')}";
+                var uri= "{:UP('Qlogin/qcon')}";
+                 window.open(uri, 'oauth2Login_10859' ,'height=525,width=585, toolbar=no, menubar=no, scrollbars=no, status=no, location=yes, resizable=yes');
              }
 
              function closeChildWindow() {
