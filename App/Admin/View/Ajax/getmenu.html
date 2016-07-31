@@ -3,17 +3,17 @@
         <dl class="menu">
             <dt class="mt"><a href="javascript:;"><i class="menuopenico"></i>{$key}</a></dt>
             <volist name="vo" id="v">
-                <dd class="mitem"><a class="" href="{$v['url']|U}"><i class=""></i>{$v.title}</a></dd>
+                <dd class="mitem"><a class="" href="{$v['url']|U}">{$v.title}</a></dd>
             </volist>
         </dl>
     </volist>
     <else />
     <volist name="_GROUPLIST_" id="vo">
         <dl class="menu">
-            <dt class="mt"><a href="javascript:;"><i class=""></i>{$vo.group|default='默认'}</a></dt>
+            <dt class="mt"><a href="javascript:;"><i class="menuopenico"></i>{$vo.group|default='默认'}</a></dt>
             <volist name="_CHILDNNAV_" id="v">
                 <if condition="$v['group'] eq $vo['group']">
-                    <dd class="mitem"><a class="" href="{:U($v['url'])}"><i class="menuopenico"></i>{$v.title}</a></dd>
+                    <dd class="mitem"><a class="" href="{:U($v['url'])}">{$v.title}</a></dd>
                 </if>
             </volist>
         </dl>
