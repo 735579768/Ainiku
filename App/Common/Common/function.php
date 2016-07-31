@@ -877,14 +877,14 @@ function get_naps_bot() {
  *把路径格式化为本地文件的绝对路径
  */
 function path_a($path) {
-	$path = str_replace(array('\\', './', __ROOT_PATH__, __SITE_ROOT__, __ROOT__), array('/', '/', '', '', ''), $path);
-	return __ROOT_PATH__ . $path;
+	$path = str_replace(array('\\', './', SITE_PATH, SITE_PATH, __ROOT__), array('/', '/', '', '', ''), $path);
+	return SITE_PATH . $path;
 }
 /**
  *把路径格式化为相对于网站根目录的路径
  */
 function path_r($path) {
-	$path = str_replace(array('\\', './', __ROOT_PATH__, __SITE_ROOT__, __ROOT__), array('/', '/', '', '', ''), $path);
+	$path = str_replace(array('\\', './', SITE_PATH, SITE_PATH, __ROOT__), array('/', '/', '', '', ''), $path);
 	return __ROOT__ . $path;
 }
 /**

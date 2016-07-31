@@ -11,21 +11,19 @@ define('APP_DEBUG', true);
 APP_DEBUG or define('BUILD_LITE_FILE', true);
 // 绑定访问Admin模块
 //define('BIND_MODULE','Daili');
-//站点根路径
-define('__SITE_ROOT__', str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']));
+//站点入口根路径
+define('SITE_PATH', str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']));
 
 //项目相对站点的子目录,子目录以 '/子目录' 形式,没有子目录的话就留空,
+//默认项目目录结构跟入口文件在一个目录,如果项目结构被放在一个子目录里,这个地方需要设置
 define('__ROOT__', '');
 
-//项目绝对路径
-define('__ROOT_PATH__', __SITE_ROOT__ . __ROOT__);
-
 // 定义应用目录
-define('APP_PATH', __ROOT_PATH__ . '/App/');
-
+define('APP_PATH', SITE_PATH . '/App/');
+//插件路径
+define('ADDONS_PATH', SITE_PATH . '/Plugins/');
 $entername = str_replace('.php', '', strtolower(basename(__FILE__)));
-define('DATA_DIR_PATH', __ROOT_PATH__ . '/Data/cache/' . $entername . '/'); //系统自动生成的数据缓存目录
-//define('DATA_DIR_NAME', 'Data');
+define('DATA_DIR_PATH', SITE_PATH . '/Data/cache/' . $entername . '/'); //系统自动生成的数据缓存目录
 define('__STATIC__', __ROOT__ . '/Public/Static'); //定义静态文件目录
 define('IMAGE_CACHE_DIR', DATA_DIR_PATH . 'imgcache/'); //图片缓存目录
 define('STYLE_CACHE_DIR', DATA_DIR_PATH . 'scache/'); //样式图片缓存
@@ -34,5 +32,5 @@ defined('RUNTIME_PATH') or define('RUNTIME_PATH', DATA_DIR_PATH . 'Runtime/');
 if (file_exists(realpath(RUNTIME_PATH . 'lite.php')) && !APP_DEBUG) {
 	require RUNTIME_PATH . 'lite.php';
 } else {
-	require __ROOT_PATH__ . '/TP/ThinkPHP.php';
+	require SITE_PATH . '/TP/ThinkPHP.php';
 }

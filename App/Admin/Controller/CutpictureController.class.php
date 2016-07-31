@@ -40,7 +40,7 @@ class CutpictureController extends AdminController {
 		{
 			$dirname           = pathinfo($ShearPhoto["JSdate"]["url"]);
 			$ShearPhotodirname = $dirname["dirname"] . DIRECTORY_SEPARATOR . "shearphoto.lock"; //认证删除的密钥
-			file_exists(__SITE_ROOT__ . $ShearPhotodirname) && @unlink($ShearPhoto["JSdate"]["url"]); //密钥存在，当然就删掉原图
+			file_exists(SITE_PATH . $ShearPhotodirname) && @unlink($ShearPhoto["JSdate"]["url"]); //密钥存在，当然就删掉原图
 			//保存数据到数据库
 			foreach ($result as $key => $val) {
 				$result[$key]['status'] = 1;
@@ -135,7 +135,7 @@ class CutpictureController extends AdminController {
 
 		file_exists($ini_set['list']) or @mkdir($ini_set['list'], 511, true);
 
-		if (!move_uploaded_file($_FILES['UpFile']['tmp_name'], __SITE_ROOT__ . $UpFile['file_url'])) {
+		if (!move_uploaded_file($_FILES['UpFile']['tmp_name'], SITE_PATH . $UpFile['file_url'])) {
 			HandleError('文件保存失败');
 		}
 		/*
@@ -200,8 +200,8 @@ class ShearPhoto {
 			return false;
 		}
 
-		if (!file_exists(__SITE_ROOT__ . $JSconfig["url"])) {
-			$this->erro = "此图片路径有误" . __SITE_ROOT__ . $JSconfig["url"];
+		if (!file_exists(SITE_PATH . $JSconfig["url"])) {
+			$this->erro = "此图片路径有误" . SITE_PATH . $JSconfig["url"];
 			return false;
 		}
 
@@ -217,7 +217,7 @@ class ShearPhoto {
 			$this->erro = "JS设置的比例和PHP设置不一致";
 			return false;
 		}
-		list($w, $h, $type) = getimagesize(__SITE_ROOT__ . $JSconfig["url"]); //验证是否真图片！
+		list($w, $h, $type) = getimagesize(SITE_PATH . $JSconfig["url"]); //验证是否真图片！
 		$strtype            = image_type_to_extension($type);
 		$type_array         = array(
 			".jpeg",
@@ -235,16 +235,16 @@ class ShearPhoto {
 	protected function createshear($PHPconfig, $w, $h, $type, $strtype, $JSconfig) {
 		switch ($type) {
 		case 1:
-			$src = @imagecreatefromgif(__SITE_ROOT__ . $JSconfig["url"]);
+			$src = @imagecreatefromgif(SITE_PATH . $JSconfig["url"]);
 			break;
 
 		case 2:
-			$src = @imagecreatefromjpeg(__SITE_ROOT__ . $JSconfig["url"]);
+			$src = @imagecreatefromjpeg(SITE_PATH . $JSconfig["url"]);
 
 			break;
 
 		case 3:
-			$src = @imagecreatefrompng(__SITE_ROOT__ . $JSconfig["url"]);
+			$src = @imagecreatefrompng(SITE_PATH . $JSconfig["url"]);
 			break;
 
 		default:
@@ -260,7 +260,7 @@ class ShearPhoto {
 		return $this->compression($dest, $PHPconfig, $JSconfig["IW"], $JSconfig["IH"], $type, $strtype, $JSconfig);
 	}
 	protected function CreateArray($PHPconfig, $JSconfig, $strtype) {
-		$PHPconfig["saveURL"] = __SITE_ROOT__ . $PHPconfig["saveURL"];
+		$PHPconfig["saveURL"] = SITE_PATH . $PHPconfig["saveURL"];
 		$arr                  = array();
 		if ($PHPconfig["proportional"] > 0) {
 			$proportion = $PHPconfig["proportional"];
@@ -364,7 +364,7 @@ class zip_img {
 	protected function saveimg($createsrc, $save_url, $width, $height) {
 		@call_user_func($this->GDfun, $createsrc, $save_url);
 		imagedestroy($createsrc);
-		array_push($this->result, array("ImgUrl" => str_replace(__SITE_ROOT__, '', $save_url), "ImgName" => basename($save_url), "ImgWidth" => $width, "ImgHeight" => $height));
+		array_push($this->result, array("ImgUrl" => str_replace(SITE_PATH, '', $save_url), "ImgName" => basename($save_url), "ImgWidth" => $width, "ImgHeight" => $height));
 	}
 	final function __destruct() {
 		@imagedestroy($this->arg["dest"]);

@@ -241,7 +241,7 @@ class FileController extends AdminController {
 
 		/* 返回标准数据 */
 		$return       = array('status' => 1, 'info' => '上传成功', 'path' => '', 'id' => '', 'url' => '', 'data' => '');
-		$SITE_PATH    = __SITE_ROOT__; //网站根目录
+		$SITE_PATH    = SITE_PATH; //网站根目录
 		$targetFolder = C('FILE_UPLOAD.rootPath'); //保存图片的根目录
 		$JDtargetPath = '';
 		$return       = array();
@@ -341,7 +341,7 @@ $XDtargetPathdir = str_replace($filename, '', $XDtargetPath);*/
 
 		/* 返回标准数据 */
 		$return       = array('status' => 1, 'info' => '上传成功', 'path' => '', 'id' => '', 'url' => '', 'data' => '');
-		$SITE_PATH    = __SITE_ROOT__; //网站根目录
+		$SITE_PATH    = SITE_PATH; //网站根目录
 		$targetFolder = path_a(C('FILE_UPLOAD.rootPath')); //保存图片的根目录
 		$JDtargetPath = '';
 		$data         = array();

@@ -196,7 +196,7 @@ class AssetsManager {
 					$src_new = str_replace("../images", $dirname . "/images", $v); //源绝对路径
 					$src_new = str_replace('css/', '', $src_new);
 					$new     = str_replace("../images", STYLE_CACHE_DIR . MODULE_NAME . "/images", $v); //设置新路径
-					$new     = __SITE_ROOT__ . __ROOT__ . str_replace('./', '/', $new);
+					$new     = SITE_PATH . __ROOT__ . str_replace('./', '/', $new);
 					create_folder(dirname($new));
 					if (file_exists($src_new)) { //判断是否存在
 						copy($src_new, $new); //复制到新目录

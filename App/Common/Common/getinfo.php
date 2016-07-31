@@ -503,7 +503,7 @@ function get_region($id = null) {
  *取ip的物理地址
  ***/
 function get_iplocation($ip = "127.0.0.1") {
-	if (file_exists(__SITE_ROOT__ . __ROOT__ . '/TP/Library/Org/Net/UTFWry.dat')) {
+	if (file_exists(SITE_PATH . __ROOT__ . '/TP/Library/Org/Net/UTFWry.dat')) {
 		$Ip   = new \Org\Net\IpLocation('UTFWry.dat'); // 实例化类 参数表示IP地址库文件
 		$area = $Ip->getlocation($ip); // 获取某个IP地址所在的位置
 		return $area['country'] . $area['area'];

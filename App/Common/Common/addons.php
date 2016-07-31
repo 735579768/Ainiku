@@ -1,7 +1,5 @@
 <?php
 defined('ADDONS_MENU') or define('ADDONS_MENU', 280);
-defined('ADDONS_PATH') or define('ADDONS_PATH', __ROOT_PATH__ . '/Plugins/');
-defined('ADDONS_DIR_NAME') or define('ADDONS_DIR_NAME', 'Plugins');
 /**
  * 返回一个目录中的目录列表(只返回一级)
  * @param string $path
@@ -139,7 +137,7 @@ function run_plugin_method($pn = null, $pm = null, $param = array()) {
 	if ($pn && $pm) {
 		//包含插件目录
 		require_once ADDONS_PATH . $pn . '/' . $pn . 'Plugin.class.php';
-		$str    = "\\" . ADDONS_DIR_NAME . "\\$pn\\" . $pn . 'Plugin';
+		$str    = "\\Plugins\\$pn\\" . $pn . 'Plugin';
 		$temobj = new $str();
 		return call_user_func_array(array($temobj, $pm), $param);
 	} else {
@@ -159,7 +157,7 @@ function plugin($name, $param = array()) {
 			return '';
 		}
 		require_once ADDONS_PATH . $narr[0] . '/' . $narr[0] . 'Plugin.class.php';
-		$str    = "\\" . ADDONS_DIR_NAME . "\\{$narr[0]}\\" . $narr[0] . 'Plugin';
+		$str    = "\\Plugins\\{$narr[0]}\\" . $narr[0] . 'Plugin';
 		$temobj = new $str();
 		return call_user_func_array(array($temobj, $narr[1]), array($param));
 	} catch (Exception $e) {

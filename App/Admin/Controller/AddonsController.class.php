@@ -4,7 +4,7 @@ defined("ACCESS_ROOT") || die("Invalid access");
 class AddonsController extends AdminController {
 	public function index() {
 		$this->meta_title = '插件管理';
-		$dirlist          = get_dir_list(__SITE_ROOT__ . '/Plugins/');
+		$dirlist          = get_dir_list(SITE_PATH . '/Plugins/');
 		$dirlist          = str_replace('Plugin', '', $dirlist);
 		$addoninfo        = array();
 		foreach ($dirlist as $a) {
@@ -66,7 +66,7 @@ class AddonsController extends AdminController {
 	 */
 	public function newinstall() {
 		$this->meta_title = '插件管理';
-		$dirlist          = get_dir_list(__SITE_ROOT__ . '/Plugins/');
+		$dirlist          = get_dir_list(SITE_PATH . '/Plugins/');
 		$dirlist          = str_replace('Plugin', '', $dirlist);
 		$addoninfo        = array();
 		foreach ($dirlist as $a) {
@@ -128,7 +128,7 @@ class AddonsController extends AdminController {
 				$this->error('插件信息不能为空!');
 			}
 			//查找是不是存在相同标识的插件
-			$dirlist   = get_dir_list(__SITE_ROOT__ . '/Plugins/');
+			$dirlist   = get_dir_list(SITE_PATH . '/Plugins/');
 			$dirlist   = str_replace('Plugin', '', $dirlist);
 			$addoninfo = array();
 			if (in_array($name, $dirlist)) {

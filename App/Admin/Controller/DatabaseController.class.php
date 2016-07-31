@@ -314,7 +314,7 @@ class DatabaseController extends AdminController {
 			ignore_user_abort(true);
 			set_time_limit(0);
 			$zip        = new \Ainiku\Zip();
-			$dir        = explode('/', __SITE_ROOT__);
+			$dir        = explode('/', SITE_PATH);
 			$dir        = $dir[count($dir) - 1];
 			$webzipname = C('WEBZIPDATA_BACKUP_PATH') . "\\" . date('Ymd-His') . '-1.web.gz';
 			$zip->compress('./', array('.svn', 'DataBak'), $webzipname);
