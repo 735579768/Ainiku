@@ -20,12 +20,12 @@ class PathInfoPlugin extends \Plugins\Plugin {
 		}
 		$this->assign('runtimestatus', $runtime);
 
-		$download = F('downloadauth');
-		if (empty($download)) {
-			$download = check_dir_iswritable(C('DOWNLOAD_UPLOAD.rootPath'));
-			F('downloadauth', $download);
-		}
-		$this->assign('downloadstatus', $download);
+//		$download = F('downloadauth');
+		//		if (empty($download)) {
+		//			$download = check_dir_iswritable(C('DOWNLOAD_UPLOAD.rootPath'));
+		//			F('downloadauth', $download);
+		//		}
+		//		$this->assign('downloadstatus', $download);
 
 		$picture = F('pictureauth');
 		if (empty($picture)) {
@@ -66,16 +66,18 @@ class PathInfoPlugin extends \Plugins\Plugin {
 	//取上传目录大小
 	public function setuploadssize() {
 		set_time_limit(0);
-		$data['size'] = (getDirSize('./Uploads/') / 1000) . 'k';
+		$data['size'] = (get_dir_size('./Uploads/') / 1000) . 'k';
 		$data['time'] = time();
 		F('uploadssizecache', $data);
+		die("{$data['size']}" . " Time:" . time_format($data['time']));
 	}
-	//取缓存目录大小
+	//取DATA缓存目录总大小
 	public function setrunsize() {
 		set_time_limit(0);
-		$data['size'] = (getDirSize(RUNTIME_PATH) / 1000) . 'k';
+		$data['size'] = (get_dir_size(SITE_PATH . '/Data/cache/') / 1000) . 'k';
 		$data['time'] = time();
 		F('runtimecachesize', $data);
+		die("{$data['size']}" . " Time:" . time_format($data['time']));
 	}
 	public function getConfig() {
 		return $this->config;

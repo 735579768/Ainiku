@@ -3,8 +3,8 @@
     <div class="con">
     <table>
 <tr>
-	<td>缓存目录</td>
-    <td>{:path_r(RUNTIME_PATH)}</td>
+	<td>缓存路径</td>
+    <td>{:path_r(DATA_DIR_PATH)}</td>
     <td>          <eq name="runtimestatus" value="1">
               <span style="color:green;">可写</span>
           <else />
@@ -12,7 +12,7 @@
           </eq>
           </td>
 </tr>
-<tr>
+<!--<tr>
 	<td>附件目录</td>
     <td>{:C('DOWNLOAD_UPLOAD.rootPath')}</td>
     <td>          <eq name="downloadstatus" value="1">
@@ -20,10 +20,10 @@
           <else />
               <span style="color:red;">不可写</span>
           </eq></td>
-</tr>
+</tr>-->
 <tr>
-	<td>图片目录</td>
-    <td>.{:C('FILE_UPLOAD.rootPath')}</td>
+	<td>上传路径</td>
+    <td>{:C('FILE_UPLOAD.rootPath')}</td>
     <td>          <eq name="picturestatus" value="1">
               <span style="color:green;">可写</span>
           <else />
@@ -31,12 +31,12 @@
           </eq></td>
 </tr>
 <tr>
-	<td>缓存目录</td>
-    <td colspan="2"><notempty name="runsize">{$runsize.size} 时间:{$runsize['time']|time_format} </notempty> <a target="_blank" class="checksize" href="{:UP('PathInfo/setrunsize')}">查询</a></td>
+	<td>缓存目录大小</td>
+    <td colspan="2"><notempty name="runsize"><span>{$runsize.size} Time:{$runsize['time']|time_format}</span> </notempty> <a target="_blank" class="checksize" href="{:UP('PathInfo/setrunsize')}">查询</a></td>
 </tr>
 <tr>
-	<td>上传目录</td>
-    <td colspan="2"><notempty name="uploadssize">{$uploadssize.size} 时间:{$uploadssize['time']|time_format} </notempty> <a target="_blank" class="checksize" href="{:UP('PathInfo/setuploadssize')}">查询</a></td>
+	<td>上传目录大小</td>
+    <td colspan="2"><notempty name="uploadssize"><span>{$uploadssize.size} Time:{$uploadssize['time']|time_format}</span> </notempty> <a target="_blank" class="checksize" href="{:UP('PathInfo/setuploadssize')}">查询</a></td>
 </tr>
 </table>
 </div>
@@ -45,8 +45,12 @@
     $(function(){
 		//查询上传目录大小
 		$('.checksize').bind('click',function(){
+			var _t=$(this);
 			$.ajax({
-				url:$(this).attr('href')
+				url:$(this).attr('href'),
+				success: function(data){
+					_t.prev().html(data);
+					}
 				});
 			var da={status:1,url:'',norefresh:1,info:'请求已经发送请稍后刷新查看'};
 			ank.msg(da);

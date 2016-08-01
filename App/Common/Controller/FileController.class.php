@@ -5,7 +5,7 @@ use Think\Controller;
 class FileController extends AdminController {
 	public function index() {
 		$this->meta_title = '插件管理';
-		$dirlist          = get_dir_list(SITE_PATH . '/Plugins/');
+		$dirlist          = get_dir_list(ADDONS_PATH);
 		$dirlist          = str_replace('Plugin', '', $dirlist);
 		$addoninfo        = array();
 		foreach ($dirlist as $a) {

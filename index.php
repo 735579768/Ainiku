@@ -11,20 +11,23 @@ define('APP_DEBUG', true);
 APP_DEBUG or define('BUILD_LITE_FILE', true);
 // 绑定访问Admin模块
 //define('BIND_MODULE','Daili');
-//站点入口根路径
+//站点入口文件根路径
 define('SITE_PATH', str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']));
 
-//项目相对站点的子目录,子目录以 '/子目录' 形式,没有子目录的话就留空,
+//项目相对站点的子目录,结尾不要斜杠
 //默认项目目录结构跟入口文件在一个目录,如果项目结构被放在一个子目录里,这个地方需要设置
+//网站根目录地址,默认为空,如果网站的Public和Uploads在二级目录需要设置下面常量
 define('__ROOT__', '');
 
 // 定义应用目录
 define('APP_PATH', SITE_PATH . '/App/');
 //插件路径
 define('ADDONS_PATH', SITE_PATH . '/Plugins/');
-$entername = str_replace('.php', '', strtolower(basename(__FILE__)));
-define('DATA_DIR_PATH', SITE_PATH . '/Data/cache/' . $entername . '/'); //系统自动生成的数据缓存目录
+//生成当前入口文件名的缓存目录
+define('DATA_DIR_PATH', SITE_PATH . '/Data/cache/' . rtrim(strtolower(basename(__FILE__)), '.php') . '/'); //系统自动生成的数据缓存目录
 define('__STATIC__', __ROOT__ . '/Public/Static'); //定义静态文件目录
+
+//下面配置一般情况不用改变
 define('IMAGE_CACHE_DIR', DATA_DIR_PATH . 'imgcache/'); //图片缓存目录
 define('STYLE_CACHE_DIR', DATA_DIR_PATH . 'scache/'); //样式图片缓存
 define('DATA_PATH', DATA_DIR_PATH . 'Runtime/Data/'); //缓存数据的路径

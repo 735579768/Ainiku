@@ -204,34 +204,34 @@ class FileController extends AdminController {
 			$this->error(L('_DELETE_FAIL_'));
 		}
 	}
-	/**
-	 *上传文件
-	 */
-	public function upload() {
-		$return = array('status' => 1, 'info' => '上传成功', 'data' => '', 'url' => '');
-		/* 调用文件上传组件上传文件 */
-		$File        = D('File');
-		$file_driver = C('DOWNLOAD_UPLOAD_DRIVER');
-		$info        = $File->upload(
-			$_FILES,
-			C('DOWNLOAD_UPLOAD'),
-			C('DOWNLOAD_UPLOAD_DRIVER'),
-			C("UPLOAD_{$file_driver}_CONFIG")
-		);
-
-		/* 记录附件信息 */
-		if ($info) {
-			$return['id'] = $info['download']['id'];
-			// $return['data'] = json_encode($info['download']);
-			$return['info'] = $info['download']['name'];
-		} else {
-			$return['status'] = 0;
-			$return['info']   = $File->getError();
-		}
-
-		/* 返回JSON数据 */
-		$this->ajaxReturn($return);
-	}
+//	/**
+//	 *上传文件
+//	 */
+//	public function upload() {
+//		$return = array('status' => 1, 'info' => '上传成功', 'data' => '', 'url' => '');
+//		/* 调用文件上传组件上传文件 */
+//		$File        = D('File');
+//		$file_driver = C('DOWNLOAD_UPLOAD_DRIVER');
+//		$info        = $File->upload(
+//			$_FILES,
+//			C('DOWNLOAD_UPLOAD'),
+//			C('DOWNLOAD_UPLOAD_DRIVER'),
+//			C("UPLOAD_{$file_driver}_CONFIG")
+//		);
+//
+//		/* 记录附件信息 */
+//		if ($info) {
+//			$return['id'] = $info['download']['id'];
+//			// $return['data'] = json_encode($info['download']);
+//			$return['info'] = $info['download']['name'];
+//		} else {
+//			$return['status'] = 0;
+//			$return['info']   = $File->getError();
+//		}
+//
+//		/* 返回JSON数据 */
+//		$this->ajaxReturn($return);
+//	}
 	/**
 	 * 上传文件
 	 * @author huajie <banhuajie@163.com>
