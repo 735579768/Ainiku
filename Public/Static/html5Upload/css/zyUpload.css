@@ -11,8 +11,8 @@ pre{font-family:'simsun';}
 .upload_choose{padding:1em;}
 .upload_drag_area{display:block;padding:4em 0;margin-left:.5em;border:1px dashed #ddd;background:#fff no-repeat 20px center;color:#999;text-align:center;vertical-align:middle;margin-left:26%;}
 .upload_drag_hover{border-color:#069;box-shadow:inset 2px 2px 4px rgba(0,0,0,.5);color:#333;}
-.upload_preview{/*border-top:1px solid #D2D2D2;border-bottom:1px solid #bbb;*/background-color:#fff;overflow:hidden;_zoom:1;}
-.upload_append_list{height:100%;overflow:hidden;margin:1em;float:left;position:relative;}
+.upload_preview{margin-top:10px;background-color:#fff;overflow:hidden;_zoom:1;}
+.upload_append_list{height:100%;overflow:hidden;margin:0.6em;float:left;position:relative;}
 .upload_append_list:hover{cursor:pointer;}
 .upload_delete{margin-left:2em;}
 .upload_image{/* max-height:135px;*/
@@ -65,3 +65,9 @@ padding:0px;}
 	.convent_choice{/*float:none;*/}
 }
 .addimg{font-weight:bolder;font-size:25px;height:44px;line-height:44px;vertical-align:top;}
+@media screen and (max-width:900px){
+	.html5upload{display:block!important;}
+	.html5uploadbtn{display:none!important;}
+}
+@media screen and (min-width:900px){
+}
