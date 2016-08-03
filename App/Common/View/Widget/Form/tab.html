@@ -448,7 +448,7 @@ function uploadPicture{$field['name']}(file, data){
     </script>
           </case>
           <case value="file">
-            <div class="controls">
+            <div class="controls html5upload-block">
              <a  id="demohtml5upload_file_{$field['name']}btn" class="btn html5uploadbtn" style="margin-bottom:10px;"  href="javascript:;">展开</a>
             <div id="demohtml5upload_file_{$field['name']}" class="demo html5upload"></div>
 
@@ -473,11 +473,11 @@ function uploadPicture{$field['name']}(file, data){
     $('#demohtml5upload_file_{$field['name']}btn').click(function(e) {
         var aaa=$(this).text();
       if(aaa=='展开'){
-      $('#demohtml5upload_file_{$field['name']}').slideDown();
+      $('#demohtml5upload_file_{$field['name']}').show();
       $(this).html('收缩');
       }else{
         $(this).html('展开');
-      $('#demohtml5upload_file_{$field['name']}').slideUp();
+      $('#demohtml5upload_file_{$field['name']}').hide();
         }
   });
   // 初始化插件
