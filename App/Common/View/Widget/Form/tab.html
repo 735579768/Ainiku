@@ -223,10 +223,10 @@ $(function(){
 </script>
           </case>
           <case value="batchpicture">
-            <div class="controls">
+            <div class="controls h5upload-block">
               <input type="file" id="upload_picture_{$field['name']}"   style="display:none;">
-              <a  id="demohtml5upload{$field['name']}btn" class="btn" style="margin-bottom:10px;" href="javascript:;">展开</a>
-              <div id="demohtml5upload{$field['name']}" class="demo"></div>
+              <a  id="demohtml5upload{$field['name']}btn" class="btn html5uploadbtn" style="margin-bottom:10px;" href="javascript:;">展开</a>
+              <div id="demohtml5upload{$field['name']}" class="demo html5upload"></div>
               <input type="hidden" name="{$field['name']}" id="cover_id_{$field['name']}" value="{$field['data']} "/>
               <div id="uploadimg_{$field['name']}" class="image-set">
                 <php> if(!empty($field['data'])){
@@ -338,10 +338,10 @@ function uploadPicture{$field['name']}(file, data){
 </script>
           </case>
           <case value="picture">
-            <div class="controls">
+            <div class="controls h5upload-block">
 <input type="file" name="file" id="upload_picture_{$field['name']}"  style="display:none;">
-<a  id="demohtml5upload{$field['name']}btn" class="btn" style="margin-bottom:10px;"  href="javascript:;">展开</a>
-<div id="demohtml5upload{$field['name']}" class="demo"></div>
+<a  id="demohtml5upload{$field['name']}btn" class="btn  html5uploadbtn" style="margin-bottom:10px;"  href="javascript:;">展开</a>
+<div id="demohtml5upload{$field['name']}" class="demo  html5upload"></div>
 <input type="hidden" name="{$field['name']}" id="cover_id_{$field['name']}" value="{$field['data']}"/>
 <div id="uploadimg_{$field['name']}" class="cl">
 <notempty name="field['data']">
@@ -448,7 +448,7 @@ function uploadPicture{$field['name']}(file, data){
     </script>
           </case>
           <case value="file">
-            <div class="controls html5upload-block">
+            <div class="controls h5upload-block">
              <a  id="demohtml5upload_file_{$field['name']}btn" class="btn html5uploadbtn" style="margin-bottom:10px;"  href="javascript:;">展开</a>
             <div id="demohtml5upload_file_{$field['name']}" class="demo html5upload"></div>
 
