@@ -589,22 +589,28 @@ $(function() {
 				a = "{" + a + "}";
 				b = eval("(" + a + ")");
 				// $("body").append('<div id="klbg" class="bg">');
+				var lindex = parent.layer.load(1, {
+					shade: false //0.1透明度的白色背景
+				});
 				$.ajax({
 					url: url,
 					type: "POST",
 					datatype: "JSON",
 					data: postdata,
 					success: function(da) {
-						ank.msg(da);
-						(typeof _after_func == "function") && _after_func(da);
-						(typeof callback == "function") && callback(da);
+						parent.layer.close(lindex);
+						ank.msg(da, function() {
+							(typeof _after_func == "function") && _after_func(da);
+							(typeof callback == "function") && callback(da);
+						});
+
 					}
 				});
 			} catch (e) {
 				alert(e.name + ": " + e.message);
 			}
 		},
-		ajaxHref: function(obj) {
+		ajaxHref: function(obj, callback) {
 			obj = $(obj);
 			//obj.addClass("disabled");
 			if (typeof arguments[2] != "undefined") reloadbool = arguments[2];
@@ -612,11 +618,19 @@ $(function() {
 			url = obj.attr("href");
 			if (typeof url == "undefined") url = obj.attr("url");
 			// $("body").append('<div id="klbg" class="bg">');
+			var lindex = parent.layer.load(1, {
+				shade: false //0.1透明度的白色背景
+			});
 			$.ajax({
 				type: "POST",
 				url: url,
 				success: function(da) {
-					ank.msg(da);
+					parent.layer.close(lindex);
+					ank.msg(da, function() {
+						(typeof _after_func == "function") && _after_func(da);
+						(typeof callback == "function") && callback(da);
+					});
+
 				},
 				dataType: "JSON"
 			});
@@ -651,12 +665,16 @@ $(function() {
 			});
 			var url = formobj.attr("action");
 			var postdata = formobj.serialize();
+			var lindex = parent.layer.load(1, {
+				shade: false //0.1透明度的白色背景
+			});
 			$.ajax({
 				url: url,
 				type: "POST",
 				datatype: "JSON",
 				data: postdata,
 				success: function(da) {
+					parent.layer.close(lindex);
 					ank.msg(da.info);
 					var id = $('input[name="article_id"]').val();
 					if (id == '') {
