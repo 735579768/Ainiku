@@ -1,3 +1,5 @@
+@charset 'utf-8';
+
 /**
  * 图标覆盖
  */
@@ -23,7 +25,7 @@
 .title-tool .tico{font-size:16px;}
 .title-tool .tico:before{content:"\f00b"!important;}
 .kl-tab-nav .close{font-size:0px;}
-.kl-tab-nav.hover .close:before,.kl-tab-nav .close:before{content:"\f057"!important;font-size:14px;margin-top: 1px; display:inline-block;padding-top:2px;color:#dad6d6;;}
+.kl-tab-nav.hover .close:before,.kl-tab-nav .close:before{content:"\f057"!important;font-size:14px;margin-top:1px;display:inline-block;padding-top:2px;color:#dad6d6;}
 .kl-tab-nav .close:before{}
 
 /*.closewest:before{content:"07e"!important;font-size:24px;}*/
@@ -36,8 +38,9 @@
 /**
  * 表单选择样式
  */
-input[type="radio"],input[type="checkbox"]{font:normal normal normal 16px/1 FontAwesome;background:none!important;text-rendering:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;-webkit-appearance:none;-moz-appearance:none;vertical-align: middle;}
-input[type="radio"]:before{content:"\f10c"!important;font-size:16px!important;color:#324b5e;}
-input[type="radio"]:checked:before{font-size:16px!important;content:"\f111"!important;color:#324b5e;}
-input[type="checkbox"]:before{content:"\f096"!important;font-size:16px!important;color:#324b5e;}
-input[type="checkbox"]:checked:before{font-size:16px;content:"\f14a"!important;color:#324b5e;}
+input[type="radio"],input[type="checkbox"]{font:normal normal normal 18px/1 FontAwesome;background:none!important;text-rendering:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;-webkit-appearance:none;-moz-appearance:none;vertical-align:middle;border:0;outline:0!important;}
+input[type="radio"]:after,input[type="checkbox"]:after{color:#324b5e;display: inline-block; width: 20px; height: 20px;transition:all .3s;-webkit-transition:all .3s;-moz-transition:all .3s;-o-transition:all .3s;}
+input[type="radio"]:after{content:"\f10c"!important;}
+input[type="checkbox"]:after{content:"\f096"!important;}
+input[type="radio"]:checked:after{content:"\f111"!important;color:#324b5e;}
+input[type="checkbox"]:checked:after{content:"\f14a"!important;color:#324b5e;}

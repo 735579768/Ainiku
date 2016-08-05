@@ -1,3 +1,4 @@
+@charset 'utf-8';
 /**旋转动画**/
 .rotate{animation:mytotate 1s infinite linear;-moz-animation:mytotate 1s infinite linear;	/* Firefox */-webkit-animation:mytotate 1s infinite linear;	/* Safari 和 Chrome */-o-animation:mytotate 1s infinite linear;	/* Opera */}
 @keyframes mytotate{
