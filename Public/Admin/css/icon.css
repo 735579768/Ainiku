@@ -44,3 +44,5 @@ input[type="radio"]:after{content:"\f10c"!important;}
 input[type="checkbox"]:after{content:"\f096"!important;}
 input[type="radio"]:checked:after{content:"\f111"!important;color:#324b5e;}
 input[type="checkbox"]:checked:after{content:"\f14a"!important;color:#324b5e;}
+input[type="radio"]:disabled:after,
+input[type="checkbox"]:disabled:after{color: #ccc;}
