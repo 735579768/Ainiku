@@ -37,7 +37,7 @@
   </div>
   <script>
   $(function(){
-    var aliarr={$info.api};
+    var aliarr={$info.api|default=[]};
     for(var i in aliarr){
       $('input[value="'+aliarr[i]+'"]').attr('checked',true);
     }
