@@ -770,5 +770,42 @@ $(function() {
 			// }, 10);
 		}
 	};
+	/**
+	 * 右键菜单绑定
+	 * @type {Object}
+	 */
+	window.rightMenu = {
+		currentTab: null,
+		init: function() {
+			debugger;
+			$('#youmenu').hover(function() {
+				$('#youmenu').show();
+			}, function() {
+				$('#youmenu').hide();
+			});
+			//右键菜单
+			$('.chrome-tab').bind('contextmenu', function() {
+				rightMenu.currentTab = $(this);
+				try {
+					if (window.event) e = window.event;
+					$('#youmenu').css({
+						left: e.clientX - 5,
+						top: e.clientY - 5
+					});
+					$('#youmenu').show();
+				} catch (e) {}
+				return false;
+			});
+		},
+		closeTab: function() {
+			this.currentTab && this.currentTab.find('.close').click();
+			$('#youmenu').hide();
+		},
+		closeOtherTab: function() {
+			$('#nav-block .chrome-tab').not('.hover').find('.close').click();
+			$('#youmenu').hide();
+		}
+	};
 	am.init();
+	rightMenu.init();
 });

@@ -862,7 +862,7 @@ function write_tofile($filename, $str) {
 		return file_put_contents($filename, $str);
 	} else {
 		//\Think\Log::write("mkdir err: ".$dirname($fpath));
-		die($dirname($fpath));
+		die(dirname($filename));
 	}
 
 }
