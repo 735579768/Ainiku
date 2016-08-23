@@ -9,10 +9,8 @@
 <eq name="formjs.datetime" value="1">
 <php>$GLOBALS['formjs']['datetime']++</php>
 <!--日期js start-->
-<ank:insert  name="datetimepicker" dir="__STATIC__/datetimepicker/css" />
-<ank:insert  name="dropdown" dir="__STATIC__/datetimepicker/css" />
-<ank:insert type="js"  name="bootstrap-datetimepicker.min" dir="__STATIC__/datetimepicker/js" />
-<ank:insert type="js"  name="bootstrap-datetimepicker.zh-CN" dir="__STATIC__/datetimepicker/js/locales" />
+<ank:insert  name="datetimepicker/css/datetimepicker,datetimepicker/css/dropdown" />
+<ank:insert type="js"  name="datetimepicker/js/bootstrap-datetimepicker.min,datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN"  />
 <script>
 $(function(){
     $('.time').datetimepicker({
@@ -29,13 +27,8 @@ $(function(){
 <eq name="formjs.picture" value="1">
 <php>$GLOBALS['formjs']['picture']++</php>
 <!--上传图片js start-->
-<ank:insert  name="zyUpload" dir="__STATIC__/html5Upload/css" />
-<ank:insert  name="lightbox" dir="__STATIC__/css/lightbox" />
-<ank:insert  name="uploadify" dir="__STATIC__/uploadify" />
-
-<ank:insert type="js"  name="uploadFile.min" dir="__STATIC__/html5Upload/js" />
-<ank:insert type="js"  name="lightbox" dir="__STATIC__/js" />
-<ank:insert type="js"  name="jquery.uploadify.min" dir="__STATIC__/uploadify" />
+<ank:insert  name="html5Upload/css/zyUpload,lightbox,uploadify/uploadify"  />
+<ank:insert type="js"  name="html5Upload/js/uploadFile.min,lightbox,uploadify/jquery.uploadify.min"  />
 <!--上传图片js end-->
 </eq>
 
@@ -46,16 +39,16 @@ $(function(){
 <!--ue编辑器js start-->
 <eq name="formjs.editor" value="1">
 <php>$GLOBALS['formjs']['editor']++</php>
-<ank:insert type="js"  name="ueditor.config" dir="__STATIC__/ueditor" />
+<script type="text/javascript" src="__STATIC__/ueditor/ueditor.config.js"></script>
 </eq>
 <!--ue编辑器js end-->
  <!--um编辑器js start-->
 <eq name="formjs.umeditor" value="1">
-<ank:insert type="js"  name="umeditor.config" dir="__STATIC__/ueditor" />
+<script type="text/javascript" src="__STATIC__/ueditor/umeditor.config.js"></script>
 </eq>
  <!--um编辑器js end-->
-<script type="text/javascript" charset="utf-8" src="__STATIC__/ueditor/ueditor.all.min.js"></script>
- <ank:insert type="js"  name="zh-cn" dir="__STATIC__/ueditor/lang/zh-cn" />
+ <script type="text/javascript" src="__STATIC__/ueditor/ueditor.all.min.js"></script>
+  <script type="text/javascript" src="__STATIC__/ueditor/lang/zh-cn/zh-cn.js"></script>
 </eq>
 
 <!--要引入的角本文件 end-->

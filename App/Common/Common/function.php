@@ -1014,3 +1014,32 @@ function rgb_tohex($rgb) {
 
 	return $hex;
 }
+
+/**
+ * 查找文件并返回路径
+ * @param  string $filename [description]
+ * @return [type]           [description]
+ */
+function find_file_path($filename = '') {
+	if (empty($filename)) {
+		return '';
+	}
+	$dirarr = array(
+		C('TMPL_PARSE_STRING.__JS__'),
+		C('TMPL_PARSE_STRING.__CSS__'),
+		C('TMPL_PARSE_STRING.__STATIC__') . '/js',
+		C('TMPL_PARSE_STRING.__STATIC__') . '/css',
+		__ROOT__ . '/Public/' . MODULE_NAME . '/' . C('DEFAULT_THEME'),
+		C('TMPL_PARSE_STRING.__STATIC__'),
+	);
+
+	foreach ($dirarr as $key => $value) {
+		$filepath = $value . '/' . $filename;
+		// \Think\Log::write($filepath, 'WARN');
+
+		if (file_exists(path_a($filepath))) {
+			return $filepath;
+		}
+	}
+	return 'http://' . $filename;
+}

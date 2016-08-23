@@ -37,9 +37,11 @@ class Ank extends TagLib {
 		$hname = isset($tag['name']) ? $tag['name'] : '';
 		$htype = isset($tag['type']) ? $tag['type'] : 'css';
 		$dir   = isset($tag['dir']) ? $tag['dir'] : '';
+		//设置查找目录
 		if (empty($dir)) {
 			if ($htype == 'js') {$dir = C('TMPL_PARSE_STRING.__JS__');} else { $dir = C('TMPL_PARSE_STRING.__CSS__');}
 		}
+
 		if (empty($htype) && $htype != 'js' && $htype != 'css') {
 			return '';
 		}
@@ -59,9 +61,12 @@ class Ank extends TagLib {
 		if ($htype == 'js') {
 			//把文件转成对应的路径
 			$parse .= 'foreach($temarr as $key=>$val):';
-			$parse .= '$filepath="' . $dir . '/".$val.".js";';
-			$parse .= 'if(!file_exists(path_a($filepath))):$filepath=\'__STATIC__/js/\'.$val.".js";endif;';
-			$parse .= '$temarr[$key]=$filepath;';
+
+			//$parse .= '$filepath="' . $dir . '/".$val.".js";';
+			$parse .= '$filepath=$val.".js";';
+			// $parse .= 'if(!file_exists(path_a($filepath))):$filepath=\'__STATIC__/js/\'.$val.".js";endif;';
+			$parse .= '$temarr[$key]=find_file_path($filepath);';
+
 			$parse .= 'endforeach;';
 
 			if (APP_DEBUG) {
@@ -75,18 +80,20 @@ class Ank extends TagLib {
 				$parse .= '$filepath=".".$val;';
 				$parse .= '$compressstr.=";".compress_js(path_a($filepath));';
 				$parse .= 'endforeach;';
-				$parse .= 'write_tofile(path_a(STYLE_CACHE_DIR.MODULE_NAME.\'/\'.$newname.".js"),$compressstr);';
+				$parse .= 'writetofile(path_a(STYLE_CACHE_DIR.MODULE_NAME.\'/\'.$newname.".js"),$compressstr);';
 				$parse .= 'endif;';
-				$parse .= '$jscss.=\'<script src="\'.path_r(STYLE_CACHE_DIR.MODULE_NAME.\'/\'.$newname.\'.js\').$suijinum.\'" type="text/javascript" ></script>\'."\r\n";';
+				$parse .= '$jscss.=\'<script src="\'.pathR(STYLE_CACHE_DIR.MODULE_NAME.\'/\'.$newname.\'.js\').$suijinum.\'" type="text/javascript" ></script>\'."\r\n";';
 			}
 
 		} else {
 			//$parse .='if(APP_DEBUG):';
 			//把文件转成对应的路径
 			$parse .= 'foreach($temarr as $key=>$val):';
-			$parse .= '$filepath="' . $dir . '/".$val.".css";';
-			$parse .= 'if(!file_exists(path_a($filepath))):$filepath=\'__STATIC__/css/\'.$val.".css";endif;';
-			$parse .= '$temarr[$key]=$filepath;';
+			$parse .= '$filepath=$val.".css";';
+			// $parse .= '$filepath="' . $dir . '/".$val.".css";';
+			// $parse .= 'if(!file_exists(path_a($filepath))):$filepath=\'__STATIC__/css/\'.$val.".css";endif;';
+			// $parse .= '$temarr[$key]=$filepath;';
+			$parse .= '$temarr[$key]=find_file_path($filepath);';
 			$parse .= 'endforeach;';
 
 			if (APP_DEBUG) {
@@ -101,9 +108,9 @@ class Ank extends TagLib {
 				$parse .= '$filepath=".".$val;';
 				$parse .= '$compressstr.=compress_css(path_a($filepath));';
 				$parse .= 'endforeach;';
-				$parse .= 'write_tofile(path_a(STYLE_CACHE_DIR.MODULE_NAME.\'/\'.$newname.".css"),$compressstr);';
+				$parse .= 'writetofile(path_a(STYLE_CACHE_DIR.MODULE_NAME.\'/\'.$newname.".css"),$compressstr);';
 				$parse .= 'endif;';
-				$parse .= '$jscss.=\'<link href="\'.path_r(STYLE_CACHE_DIR.MODULE_NAME.\'/\'.$newname.\'.css\').$suijinum.\'" type="text/css" rel="stylesheet" />\'."\r\n";';
+				$parse .= '$jscss.=\'<link href="\'.pathR(STYLE_CACHE_DIR.MODULE_NAME.\'/\'.$newname.\'.css\').$suijinum.\'" type="text/css" rel="stylesheet" />\'."\r\n";';
 			}
 
 //		$parse .='else:';
@@ -275,7 +282,7 @@ class Ank extends TagLib {
 
 		$parse .= '$__MODULE_LIST__=S(json_encode($mapmodule));';
 		$parse .= 'if(empty($__MODULE_LIST__) || APP_DEBUG):';
-		$parse .= '$__MODULE_LIST__ = M(\'Module\')->field(\'*,' . __DB_PREFIX__ . 'module.title as title,' . __DB_PREFIX__ . 'module.pic as pic,b.title as postitle,' . __DB_PREFIX__ . 'module.sort as sort\')->join(\'' . __DB_PREFIX__ . 'modulepos as b on b.modulepos_id=' . __DB_PREFIX__ . 'module.modulepos_id\')->where($mapmodule)->order(\' ' . __DB_PREFIX__ . 'module.sort asc,' . __DB_PREFIX__ . 'module.module_id desc\')->select();';
+		$parse .= '$__MODULE_LIST__ = M(\'module\')->field(\'*,' . __DB_PREFIX__ . 'module.title as title,' . __DB_PREFIX__ . 'module.pic as pic,b.title as postitle,' . __DB_PREFIX__ . 'module.sort as sort\')->join(\'' . __DB_PREFIX__ . 'modulepos as b on b.modulepos_id=' . __DB_PREFIX__ . 'module.modulepos_id\')->where($mapmodule)->order(\' ' . __DB_PREFIX__ . 'module.sort asc,' . __DB_PREFIX__ . 'module.module_id desc\')->select();';
 		$parse .= 'S(json_encode($mapmodule),$__MODULE_LIST__);';
 		$parse .= 'endif;';
 		$parse .= ' ?>';
