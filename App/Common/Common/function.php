@@ -902,19 +902,22 @@ function file_ismod($filepath) {
 	} else {
 		$filearr[] = $filepath;
 	}
+	$rebool = false;
 	foreach ($filearr as $val) {
-		$sval    = path_a($val);
-		$modtime = date('Y-m-d h:i:s', filemtime($sval));
+		$sval = pathA($val);
+		// $modtime = date('Y-m-d h:i:s', filemtime($sval));
+		$modtime = filemtime($sval);
 		if ($modtime) {
 			$path     = str_replace(array('/', '\\'), array('_'), $val);
-			$modstime = F('_modfile/' . $path);
-			if ($modtime !== $modstime) {
-				F('_modfile/' . $path, $modtime);
-				return true;
+			$key      = '_modfile/' . $path;
+			$modstime = F($key);
+			if ($modtime !== $modstime['time']) {
+				F($key, ['time' => $modtime, 'path' => $sval]);
+				$rebool = true;
 			}
 		}
 	}
-	return false;
+	return $rebool;
 
 }
 
