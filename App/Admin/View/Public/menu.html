@@ -37,14 +37,16 @@ $('#youmenu').show();
 $('#youmenu').hide();
 });
 //右键菜单
-document.oncontextmenu=function(e){
-try{
+$('.chrome-tab').bind('contextmenu',function(){
+	try{
  if(window.event) e = window.event;
 $('#youmenu').css({left:e.clientX-5,top:e.clientY-5});
 $('#youmenu').show();
 }catch(e){
 	}
 return false;
+});
+document.oncontextmenu=function(e){
 };
 });
 </script>

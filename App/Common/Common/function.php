@@ -805,16 +805,18 @@ function compress_css($path) {
 				$new_url = str_replace("./", STYLE_CACHE_DIR . MODULE_NAME . "/", $src_url); //设置新路径
 				$src_url = str_replace("./", $dirname . "/", $src_url);
 			} else if (substr($src_url, 0, 1) == '/') {
-				$str     = str_replace($src_url, '.' . $fpath, $str);
 				$fpath   = "/source/" . basename($src_url);
+				$str     = str_replace($src_url, '.' . $fpath, $str);
 				$new_url = STYLE_CACHE_DIR . MODULE_NAME . $fpath; //设置新路径
-				$src_url = __SITE_ROOT__ . $src_url;
+				$src_url = SITE_PATH . $src_url;
+				\Think\Log::write($new_url);
+				\Think\Log::write($src_url);
 
 			} else {
 				$new_url = STYLE_CACHE_DIR . MODULE_NAME . "/" . $src_url; //设置新路径
 				$src_url = $dirname . '/' . $src_url;
 			}
-			createFolder(dirname($new_url));
+			create_folder(dirname($new_url));
 			if (file_exists($src_url)) { //判断是否存在
 				copy($src_url, $new_url); //复制到新目录
 			}
@@ -935,7 +937,7 @@ function file_ismod($filepath) {
 	}
 	$rebool = false;
 	foreach ($filearr as $val) {
-		$sval = pathA($val);
+		$sval = path_a($val);
 		// $modtime = date('Y-m-d h:i:s', filemtime($sval));
 		$modtime = filemtime($sval);
 		if ($modtime) {

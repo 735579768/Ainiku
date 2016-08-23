@@ -80,9 +80,9 @@ class Ank extends TagLib {
 				$parse .= '$filepath=".".$val;';
 				$parse .= '$compressstr.=";".compress_js(path_a($filepath));';
 				$parse .= 'endforeach;';
-				$parse .= 'writetofile(path_a(STYLE_CACHE_DIR.MODULE_NAME.\'/\'.$newname.".js"),$compressstr);';
+				$parse .= 'write_tofile(path_a(STYLE_CACHE_DIR.MODULE_NAME.\'/\'.$newname.".js"),$compressstr);';
 				$parse .= 'endif;';
-				$parse .= '$jscss.=\'<script src="\'.pathR(STYLE_CACHE_DIR.MODULE_NAME.\'/\'.$newname.\'.js\').$suijinum.\'" type="text/javascript" ></script>\'."\r\n";';
+				$parse .= '$jscss.=\'<script src="\'.path_r(STYLE_CACHE_DIR.MODULE_NAME.\'/\'.$newname.\'.js\').$suijinum.\'" type="text/javascript" ></script>\'."\r\n";';
 			}
 
 		} else {
@@ -108,9 +108,9 @@ class Ank extends TagLib {
 				$parse .= '$filepath=".".$val;';
 				$parse .= '$compressstr.=compress_css(path_a($filepath));';
 				$parse .= 'endforeach;';
-				$parse .= 'writetofile(path_a(STYLE_CACHE_DIR.MODULE_NAME.\'/\'.$newname.".css"),$compressstr);';
+				$parse .= 'write_tofile(path_a(STYLE_CACHE_DIR.MODULE_NAME.\'/\'.$newname.".css"),$compressstr);';
 				$parse .= 'endif;';
-				$parse .= '$jscss.=\'<link href="\'.pathR(STYLE_CACHE_DIR.MODULE_NAME.\'/\'.$newname.\'.css\').$suijinum.\'" type="text/css" rel="stylesheet" />\'."\r\n";';
+				$parse .= '$jscss.=\'<link href="\'.path_r(STYLE_CACHE_DIR.MODULE_NAME.\'/\'.$newname.\'.css\').$suijinum.\'" type="text/css" rel="stylesheet" />\'."\r\n";';
 			}
 
 //		$parse .='else:';
