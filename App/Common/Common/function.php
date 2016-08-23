@@ -778,18 +778,49 @@ function compress_css($path) {
 //查找出样式文件中的图片
 		preg_match_all("/url\(\s*?[\'|\"]?(.*?)[\'|\"]?\)/", $str, $out);
 		foreach ($out[1] as $v) {
-			if (strpos($v, '../images') !== false) {
-				$src_new = str_replace("../images", $dirname . "/images", $v); //源绝对路径
-				$src_new = str_replace('css/', '', $src_new);
-				$new     = str_replace("../images", STYLE_CACHE_DIR . MODULE_NAME . "/images", $v); //设置新路径
-				$new     = str_replace('./', '/', $new);
-				create_folder(dirname($new));
-				if (file_exists($src_new)) { //判断是否存在
-					copy($src_new, $new); //复制到新目录
-				}
+			// \Think\Log::write($v, 'WARN');
+
+			//复制文件
+			//文件所在的真实路径
+			$src_url = $v;
+			//文件要复制到的目标路径
+			$new_url = '';
+			if (strpos($src_url, '?') !== false) {
+				//如果有参数
+				$num     = strpos($src_url, '?');
+				$src_url = substr($src_url, 0, $num);
 			}
+			//文件所在路径
+			if (substr($src_url, 0, 3) == '../') {
+				$new_url = str_replace("../", STYLE_CACHE_DIR . MODULE_NAME . "/", $src_url); //设置新路径
+				//反回上级目录
+				$arr = explode('/', $dirname);
+				unset($arr[count($arr) - 1]);
+				$dirname2 = implode('/', $arr);
+				$src_url  = str_replace("../", $dirname2 . "/", $src_url);
+
+				// \Think\Log::write($src_url, 'WARN');
+
+			} else if (substr($src_url, 0, 2) == './') {
+				$new_url = str_replace("./", STYLE_CACHE_DIR . MODULE_NAME . "/", $src_url); //设置新路径
+				$src_url = str_replace("./", $dirname . "/", $src_url);
+			} else if (substr($src_url, 0, 1) == '/') {
+				$str     = str_replace($src_url, '.' . $fpath, $str);
+				$fpath   = "/source/" . basename($src_url);
+				$new_url = STYLE_CACHE_DIR . MODULE_NAME . $fpath; //设置新路径
+				$src_url = __SITE_ROOT__ . $src_url;
+
+			} else {
+				$new_url = STYLE_CACHE_DIR . MODULE_NAME . "/" . $src_url; //设置新路径
+				$src_url = $dirname . '/' . $src_url;
+			}
+			createFolder(dirname($new_url));
+			if (file_exists($src_url)) { //判断是否存在
+				copy($src_url, $new_url); //复制到新目录
+			}
+
 		}
-		$str = str_replace('../images', './images', $str);
+		$str = str_replace('../', './', $str);
 	} else {
 		die("path is not found:" . $ipath);
 	}
