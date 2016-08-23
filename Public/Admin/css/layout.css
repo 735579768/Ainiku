@@ -38,7 +38,7 @@ body{overflow:hidden;padding:62px 0px 0px 180px;}
 /**主导航**/
 .mainnav,.tool{margin:5px 0px;}
 .mainnav li,.tool li{float:left;}
-.mainnav li a,.tool li a{display:inline-block;padding:5px 10px;font-size:12px;border-bottom:solid 4px #ededed;}
+.mainnav li a,.tool li a{display:inline-block;padding:5px 10px;font-size:12px;border-bottom:solid 4px #ededed;height: 21px;}
 .mainnav li a:hover,.tool li a:hover{border-bottom:solid 4px #67ad03;color:#000;}
 .mainnav li a.hover{border-bottom:solid 4px #44b549;color:#000;}
 
