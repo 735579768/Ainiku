@@ -785,6 +785,8 @@ $(function() {
 			});
 			//右键菜单
 			$('.chrome-tab').bind('contextmenu', function() {
+				$('#nav-block .chrome-tab').removeClass('currenttab');
+				$(this).addClass('currenttab');
 				rightMenu.currentTab = $(this);
 				try {
 					if (window.event) e = window.event;
@@ -802,7 +804,7 @@ $(function() {
 			$('#youmenu').hide();
 		},
 		closeOtherTab: function() {
-			$('#nav-block .chrome-tab').not('.hover').find('.close').click();
+			$('#nav-block .chrome-tab').not('.currenttab').find('.close').click();
 			$('#youmenu').hide();
 		}
 	};
