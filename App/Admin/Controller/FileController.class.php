@@ -205,33 +205,33 @@ class FileController extends AdminController {
 		}
 	}
 //	/**
-//	 *上传文件
-//	 */
-//	public function upload() {
-//		$return = array('status' => 1, 'info' => '上传成功', 'data' => '', 'url' => '');
-//		/* 调用文件上传组件上传文件 */
-//		$File        = D('File');
-//		$file_driver = C('DOWNLOAD_UPLOAD_DRIVER');
-//		$info        = $File->upload(
-//			$_FILES,
-//			C('DOWNLOAD_UPLOAD'),
-//			C('DOWNLOAD_UPLOAD_DRIVER'),
-//			C("UPLOAD_{$file_driver}_CONFIG")
-//		);
-//
-//		/* 记录附件信息 */
-//		if ($info) {
-//			$return['id'] = $info['download']['id'];
-//			// $return['data'] = json_encode($info['download']);
-//			$return['info'] = $info['download']['name'];
-//		} else {
-//			$return['status'] = 0;
-//			$return['info']   = $File->getError();
-//		}
-//
-//		/* 返回JSON数据 */
-//		$this->ajaxReturn($return);
-//	}
+	//	 *上传文件
+	//	 */
+	//	public function upload() {
+	//		$return = array('status' => 1, 'info' => '上传成功', 'data' => '', 'url' => '');
+	//		/* 调用文件上传组件上传文件 */
+	//		$File        = D('File');
+	//		$file_driver = C('DOWNLOAD_UPLOAD_DRIVER');
+	//		$info        = $File->upload(
+	//			$_FILES,
+	//			C('DOWNLOAD_UPLOAD'),
+	//			C('DOWNLOAD_UPLOAD_DRIVER'),
+	//			C("UPLOAD_{$file_driver}_CONFIG")
+	//		);
+	//
+	//		/* 记录附件信息 */
+	//		if ($info) {
+	//			$return['id'] = $info['download']['id'];
+	//			// $return['data'] = json_encode($info['download']);
+	//			$return['info'] = $info['download']['name'];
+	//		} else {
+	//			$return['status'] = 0;
+	//			$return['info']   = $File->getError();
+	//		}
+	//
+	//		/* 返回JSON数据 */
+	//		$this->ajaxReturn($return);
+	//	}
 	/**
 	 * 上传文件
 	 * @author huajie <banhuajie@163.com>
@@ -305,29 +305,30 @@ $XDtargetPathdir = str_replace($filename, '', $XDtargetPath);*/
 			$this->ajaxReturn($return);
 		}
 
-		//保存文件信息到数据库
-		$data['path']        = str_replace($SITE_PATH, '', $JDtargetPath);
-		$data['destname']    = $filename;
-		$data['srcname']     = $_FILES['filelist']['name'];
-		$data['size']        = $_FILES['filelist']['size'];
-		$data['create_time'] = NOW_TIME;
-		$data['uid']         = UID;
-		$model               = D('File');
-		if ($model->create($data)) {
-			$result = $model->add($data);
-			if (0 < $result) {
-				$return['id'] = $result;
+		if ($return['status'] == 1) {
+			//保存文件信息到数据库
+			$data['path']        = str_replace($SITE_PATH, '', $JDtargetPath);
+			$data['destname']    = $filename;
+			$data['srcname']     = $_FILES['filelist']['name'];
+			$data['size']        = $_FILES['filelist']['size'];
+			$data['create_time'] = NOW_TIME;
+			$data['uid']         = UID;
+			$model               = D('File');
+			if ($model->create($data)) {
+				$result = $model->add($data);
+				if (0 < $result) {
+					$return['id'] = $result;
+				} else {
+					$return['status'] = 0;
+					$return['info']   = '添加到数据库时出错';
+					$this->ajaxReturn($return);
+				}
 			} else {
 				$return['status'] = 0;
-				$return['info']   = '添加到数据库时出错';
+				$return['info']   = $model->geterror();
 				$this->ajaxReturn($return);
 			}
-		} else {
-			$return['status'] = 0;
-			$return['info']   = $model->geterror();
-			$this->ajaxReturn($return);
 		}
-
 		/* 返回JSON数据 */
 		$return['info'] = $data['srcname'];
 		$this->ajaxReturn($return);
@@ -406,7 +407,7 @@ $XDtargetPathdir = str_replace($filename, '', $XDtargetPath);*/
 						//生成缩略图
 						//缩略图路径
 						$re = create_thumb($JDtargetPath, $JDthumbPath, C('THUMB_WIDTH'), C('THUMB_HEIGHT'));
-						if ($re!==true) {
+						if ($re !== true) {
 							$JDthumbPath = $JDtargetPath;
 						}
 
@@ -425,23 +426,25 @@ $XDtargetPathdir = str_replace($filename, '', $XDtargetPath);*/
 			$return['status'] = 0;
 		}
 
-		//保存文件信息到数据库
-		$cupath       = path_r($JDtargetPath);
-		$data['path'] = $cupath;
-		//$data['sha1']        = $shafile['sha1'];
-		$data['thumbpath']   = path_r($JDthumbPath);
-		$data['destname']    = $filename;
-		$data['srcname']     = $_FILES['filelist']['name'];
-		$data['create_time'] = time();
-		$data['uid']         = UID;
-		$model               = M('picture');
-		if ($model->create($data)) {
-			$result = $model->add($data);
-			if ($result) {
-				//添加水印
-				$this->markpic($JDthumbPath);
-				$this->markpic(realpath('.' . $data['path']));
-				$return['id'] = $result;
+		if ($return['status'] == 1) {
+			//保存文件信息到数据库
+			$cupath       = path_r($JDtargetPath);
+			$data['path'] = $cupath;
+			//$data['sha1']        = $shafile['sha1'];
+			$data['thumbpath']   = path_r($JDthumbPath);
+			$data['destname']    = $filename;
+			$data['srcname']     = $_FILES['filelist']['name'];
+			$data['create_time'] = time();
+			$data['uid']         = UID;
+			$model               = M('picture');
+			if ($model->create($data)) {
+				$result = $model->add($data);
+				if ($result) {
+					//添加水印
+					$this->markpic($JDthumbPath);
+					$this->markpic(realpath('.' . $data['path']));
+					$return['id'] = $result;
+				}
 			}
 		}
 
@@ -567,9 +570,9 @@ $JDthumbdir = str_replace($temarr[count($temarr) - 1], '', $JDthumb);*/
 		$src       = realpath('.' . get_picture(C('SHUIYIN_IMG')));
 		$shuiyinon = C('SHUIYIN_ON');
 		if ($shuiyinon == '1' && $dst !== false && $src !== false) {
-			image_water($dst,$src,$dst);
+			image_water($dst, $src, $dst);
 		} else if ($shuiyinon == '2' && $dst !== false && $src !== false) {
-			image_water($dst,'',$dst,C('SHUIYIN_TEXT'));
+			image_water($dst, '', $dst, C('SHUIYIN_TEXT'));
 		}
 	}
 //批量生成缩略图
@@ -641,7 +644,7 @@ $JDthumbdir = str_replace($temarr[count($temarr) - 1], '', $JDthumb);*/
 						}
 
 						$result = create_thumb($spath, $dpath, C('THUMB_WIDTH'), C('THUMB_HEIGHT'));
-						if ($result===true) {
+						if ($result === true) {
 							M('Picture')->where("id={$thumbpath[$i]}")->save(array('thumbpath' => $thupath));
 
 							$jishu++;

@@ -69,7 +69,7 @@ $(function(){
 <volist name="fieldarr0" id="field">
   <if condition="(($actionstatus eq 'add') and ($field['is_show'] eq '1')) or (($actionstatus eq 'edit') and ($field['is_show'] eq '2')) or (($field['is_show'] eq '3')) or (($field['is_show'] eq '4')and($Think.const.MODULE_NAME =='Admin'))">
   <!--is_show   1 add   2 edit   3other 4 admin is show-->
-    <div class="form-group cl">
+    <div class="form-group {$field['name']} cl">
     <div class="form-label"><b>{$field['title']}</b><notempty name="field['note']"><span class="form-tip">（{$field['note']}）</span>
       </notempty>
       <eq name="field['is_require']" value="1"><span style="color:red;">(必填)</span></eq>
