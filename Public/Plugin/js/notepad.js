@@ -88,6 +88,10 @@ $(function() {
           $('#notepad-list').html(data.data);
         }
       });
+    },
+	icoClick:function(){
+      this.notepad_dom.show();
+      writeCookie('notepad_open', 1);
     }
 
   };
