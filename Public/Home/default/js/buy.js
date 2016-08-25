@@ -269,10 +269,12 @@ $(function() {
                     order_note: ordernote
                 },
                 success: function(da) {
-                    ank.msg(da.info);
-                    if (da.url != '') {
-                        window.location.href = da.url;
-                    }
+                    layer.msg(da.info, function() {
+                        if (da.url != '') {
+                            window.location.href = da.url;
+                        }
+                    });
+
                 }
             });
         },
