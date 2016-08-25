@@ -135,7 +135,7 @@ class NotepadPlugin extends \Plugins\Plugin {
 				  `content` varchar(255) DEFAULT '',
 				  `create_time` int(11) DEFAULT 0,
 				  `update_time` int(11) DEFAULT 0,
-				  PRIMARY KEY (`id`)
+				  PRIMARY KEY (`notepad_id`)
 				) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 sql;
 		$arr = explode(';', $sql);
