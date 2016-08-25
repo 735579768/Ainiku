@@ -13,7 +13,7 @@
 <div class="topnav-inner">
 <ul class="top-tool fl">
                    <if condition="auto_login()">
-                          <li><img src='{:session('qqimg')}' width='25' height='25' /></li>
+                          <li><img src-url='{:session('qqimg')}' width='25' height='25' /></li>
                             <li><a href="{:U('Member/portal')}"  style="padding-left:0;padding-right:0">({:session('uinfo.username')}){:session('uinfo.nickname')} </a></li>
                              <li><a  href="{:U('Public/logout')}"><s class="s">|</s> 退出</a></li>
                 <else/>

@@ -170,20 +170,17 @@ $(function() {
 			});
 		},
 		//添加产品到购物车
-		addToCart: function() {
-			var _this = this;
-			var arg = arguments;
-			if (!(arg[0] && arg[1])) {
-				ank.msg('参数不能为空!');
+		addToCart: function(goodsid, numb) {
+			if (!goodsid) {
 				return false;
 			}
-			var goodsid = arg[0];
-			var numb = arg[1];
+			numb || (numb = 1);
+			var _this = this;
+			var arg = arguments;
 			var callback = arg[2];
 			$.ajax({
 				type: 'POST',
-				url: _this.url,
-				addcartgoods,
+				url: _this.url.addcartgoods,
 				data: {
 					goods_id: goodsid,
 					num: numb
@@ -218,7 +215,7 @@ $(function() {
 			// });
 			layer.confirm('确定要删除吗', {
 				title: '删除提醒',
-				btn: ['确定', '不删除'],
+				btn: ['确定', '取消'],
 				yes: function() {
 					var cartid = _this.parents('.list-body').find('.icon-check').attr('data-id');
 					cartobj.delCartGoods(cartid);

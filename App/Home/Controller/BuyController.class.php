@@ -78,21 +78,21 @@ class BuyController extends LoginController {
 			$this->assign('info', $info);
 			$this->success($this->fetch('addaddress'));
 		}
-/* 	if(IS_POST){
-$model=D('ConsigneeAddress');
-if($model->create()){
-//$model->create_time=NEW_TIME;
-$model->update_time=NEW_TIME;
-$result=$model->save();
-if($result>0){
-$this->success('修改成功');
-}else{
-$this->error('修改失败');
-}
-}else{
-$this->error($model->geterror());
-}
-}*/
+		// if (IS_POST) {
+		// 	$model = D('ConsigneeAddress');
+		// 	if ($model->create()) {
+		// 		//$model->create_time=NEW_TIME;
+		// 		$model->update_time = NEW_TIME;
+		// 		$result             = $model->save();
+		// 		if ($result > 0) {
+		// 			$this->success('修改成功');
+		// 		} else {
+		// 			$this->error('修改失败');
+		// 		}
+		// 	} else {
+		// 		$this->error($model->geterror());
+		// 	}
+		// }
 
 	}
 	public function deladdress() {

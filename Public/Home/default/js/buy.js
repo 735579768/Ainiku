@@ -12,7 +12,6 @@ $(function() {
             yueurl: '',
             chongzhiurl: ''
         },
-
         //初始化添加地址框的焦点提示
         initFocusBlur: function() {
             $('.auto-label').focus(function(event) {
@@ -184,12 +183,6 @@ $(function() {
                 },
                 success: function(da) {
                     if (da.status == 1) {
-                        // ank.msgDialog({
-                        //     width: 350,
-                        //     height: 450,
-                        //     title: '修改地址',
-                        //     content: da.info
-                        // });
                         layer.open({
                             type: 1,
                             title: '修改地址',
@@ -206,30 +199,6 @@ $(function() {
         //删除配送地址
         delAddress: function(id) {
             var _this = this;
-            // ank.msgDialog({
-            //     title: '删除提示',
-            //     content: '确定要删除吗?',
-            //     btn: true,
-            //     ok: function() {
-            //         $.ajax({
-            //             url: _this.url.delAddressurl,
-            //             type: 'POST',
-            //             data: {
-            //                 consignee_address_id: id,
-            //                 action: 'del'
-            //             },
-            //             success: function(da) {
-            //                 if (da.status == 1) {
-            //                     $('#consignee_address' + id).remove();
-            //                 }
-            //                 ank.msg(da.info);
-            //             }
-            //         });
-            //     },
-            //     cancel: function() {
-
-            //     }
-            // });
             layer.confirm('确定要删除吗', {
                 title: '删除提示',
                 btn: ['删除', '再考虑一下'],
@@ -355,21 +324,6 @@ $(function() {
                     if (da.status == 1) {
                         $('body').append('<div id="zhifucontainer">' + da.data + '</div>');
                         $('#zhifucontainer').remove();
-                        // ank.msgDialog({
-                        //     title: '支付订单',
-                        //     content: da.info,
-                        //     btn: true,
-                        //     oktitle: '支付完成',
-                        //     canceltitle: '关闭',
-                        //     ok: function() {
-                        //         //var uri = da.chongzhi_url;
-                        //         //window.location.href = uri;
-
-                        //     },
-                        //     cancel: function() {
-
-                        //     }
-                        // });
                         layer.confirm(da.info, {
                             title: '支付订单',
                             btn: ['支付完成', '关闭'],
