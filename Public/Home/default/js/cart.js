@@ -8,7 +8,7 @@ $(function() {
 			addcartgoods: '',
 			delcartgoods: '',
 			setcheck: '',
-			checkout:''
+			checkout: ''
 		},
 		//全部选中或取消
 		init: function() {
@@ -43,13 +43,13 @@ $(function() {
 				cartobj.updateTotalPrice();
 			});
 			//如果全部选中的话把all也选中
-			var isselect=true;
+			var isselect = true;
 			$('.check-item').each(function(index, el) {
-				if(!$(this).hasClass('icon-check-selected')){
-					isselect=false;
+				if (!$(this).hasClass('icon-check-selected')) {
+					isselect = false;
 				}
 			});
-			if(isselect){
+			if (isselect) {
 				$('#all-selected').click();
 			}
 			//数量改变
@@ -116,7 +116,7 @@ $(function() {
 		updateTotalPrice: function() {
 			var t = 0;
 			$('.list-body .col-total').each(function(index) {
-				if($(this).parents('.list-body').find('.icon-check-selected').length>0){
+				if ($(this).parents('.list-body').find('.icon-check-selected').length > 0) {
 					t += parseFloat($(this).html());
 				}
 
@@ -203,11 +203,23 @@ $(function() {
 		//绑定删除购物车产品按钮
 		delListCartGoods: function(obj) {
 			var _this = $(obj);
-			ank.msgDialog({
+			// ank.msgDialog({
+			// 	title: '删除提醒',
+			// 	content: '确定要删除吗?',
+			// 	btn: true,
+			// 	ok: function() {
+			// 		var cartid = _this.parents('.list-body').find('.icon-check').attr('data-id');
+			// 		cartobj.delCartGoods(cartid);
+			// 		return false;
+			// 	},
+			// 	cancel: function() {
+
+			// 	}
+			// });
+			layer.confirm('确定要删除吗', {
 				title: '删除提醒',
-				content: '确定要删除吗?',
-				btn: true,
-				ok: function() {
+				btn: ['确定', '不删除'],
+				yes: function() {
 					var cartid = _this.parents('.list-body').find('.icon-check').attr('data-id');
 					cartobj.delCartGoods(cartid);
 					return false;
@@ -215,18 +227,18 @@ $(function() {
 				cancel: function() {
 
 				}
-			});
+			})
 
 
 		},
 		//购物车结算按钮
-		checkOut:function(){
-			var strid=$('#cartidstr').val();
-			if(strid==''){
+		checkOut: function() {
+			var strid = $('#cartidstr').val();
+			if (strid == '') {
 				ank.msg('请选择产品!');
 				return false;
 			}
-			window.location.href=this.url.checkout;
+			window.location.href = this.url.checkout;
 		}
 	};
 });

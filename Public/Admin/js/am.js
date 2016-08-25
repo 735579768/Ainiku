@@ -777,7 +777,7 @@ $(function() {
 	window.rightMenu = {
 		currentTab: null,
 		init: function() {
-			debugger;
+			// debugger;
 			$('#youmenu').hover(function() {
 				$('#youmenu').show();
 			}, function() {

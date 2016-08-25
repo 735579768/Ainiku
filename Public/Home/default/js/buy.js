@@ -154,10 +154,16 @@ $(function() {
                 type: 'GET',
                 success: function(da) {
                     if (da.status == 1) {
-                        ank.msgDialog({
-                            width: 350,
-                            height: 460,
+                        // ank.msgDialog({
+                        //     width: 350,
+                        //     height: 460,
+                        //     title: '添加新地址',
+                        //     content: da.info
+                        // });
+                        layer.open({
+                            type: 1,
                             title: '添加新地址',
+                            area: ['350px', '520px'],
                             content: da.info
                         });
                     } else {
@@ -178,10 +184,16 @@ $(function() {
                 },
                 success: function(da) {
                     if (da.status == 1) {
-                        ank.msgDialog({
-                            width: 350,
-                            height: 450,
+                        // ank.msgDialog({
+                        //     width: 350,
+                        //     height: 450,
+                        //     title: '修改地址',
+                        //     content: da.info
+                        // });
+                        layer.open({
+                            type: 1,
                             title: '修改地址',
+                            area: ['350px', '520px'],
                             content: da.info
                         });
                     } else {
@@ -194,11 +206,34 @@ $(function() {
         //删除配送地址
         delAddress: function(id) {
             var _this = this;
-            ank.msgDialog({
+            // ank.msgDialog({
+            //     title: '删除提示',
+            //     content: '确定要删除吗?',
+            //     btn: true,
+            //     ok: function() {
+            //         $.ajax({
+            //             url: _this.url.delAddressurl,
+            //             type: 'POST',
+            //             data: {
+            //                 consignee_address_id: id,
+            //                 action: 'del'
+            //             },
+            //             success: function(da) {
+            //                 if (da.status == 1) {
+            //                     $('#consignee_address' + id).remove();
+            //                 }
+            //                 ank.msg(da.info);
+            //             }
+            //         });
+            //     },
+            //     cancel: function() {
+
+            //     }
+            // });
+            layer.confirm('确定要删除吗', {
                 title: '删除提示',
-                content: '确定要删除吗?',
-                btn: true,
-                ok: function() {
+                btn: ['删除', '再考虑一下'],
+                yes: function() {
                     $.ajax({
                         url: _this.url.delAddressurl,
                         type: 'POST',
@@ -213,9 +248,6 @@ $(function() {
                             ank.msg(da.info);
                         }
                     });
-                },
-                cancel: function() {
-
                 }
             });
 
@@ -267,7 +299,7 @@ $(function() {
                 },
                 success: function(da) {
 
-                        ank.msg(da);
+                    ank.msg(da);
 
 
                 }
@@ -321,21 +353,32 @@ $(function() {
                     if (da.status == 1) {
                         $('body').append('<div id="zhifucontainer">' + da.data + '</div>');
                         $('#zhifucontainer').remove();
-                        ank.msgDialog({
+                        // ank.msgDialog({
+                        //     title: '支付订单',
+                        //     content: da.info,
+                        //     btn: true,
+                        //     oktitle: '支付完成',
+                        //     canceltitle: '关闭',
+                        //     ok: function() {
+                        //         //var uri = da.chongzhi_url;
+                        //         //window.location.href = uri;
+
+                        //     },
+                        //     cancel: function() {
+
+                        //     }
+                        // });
+                        layer.confirm(da.info, {
                             title: '支付订单',
-                            content: da.info,
-                            btn: true,
-                            oktitle: '支付完成',
-                            canceltitle: '关闭',
-                            ok: function() {
-                                //var uri = da.chongzhi_url;
-                                //window.location.href = uri;
+                            btn: ['支付完成', '关闭'],
+                            yes: function() {
                                 clearInterval(buyobj.verifyid);
                             },
                             cancel: function() {
                                 clearInterval(buyobj.verifyid);
                             }
                         });
+
                         //验证支付状态是否成功
                         buyobj.verifyid = setInterval(function() {
                             buyobj.verifyPay(da.chongzhi_sn);

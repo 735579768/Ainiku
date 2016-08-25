@@ -1,6 +1,6 @@
-$(function(){
-    setTimeout(function(){
-        hideSelect.hide($('select'));
-    },2000);
+$(function() {
+	setTimeout(function() {
+		// hideSelect.hide($('select'));
+	}, 2000);
 
 });
