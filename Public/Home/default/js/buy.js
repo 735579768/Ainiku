@@ -269,11 +269,14 @@ $(function() {
                     order_note: ordernote
                 },
                 success: function(da) {
-                    layer.msg(da.info, function() {
-                        if (da.url != '') {
-                            window.location.href = da.url;
-                        }
-                    });
+                    ank.msg(da);
+                    // layer.msg(da.info, {
+                    //     shift: 0
+                    // }, function() {
+                    //     if (da.url != '') {
+                    //         window.location.href = da.url;
+                    //     }
+                    // });
 
                 }
             });
@@ -300,10 +303,7 @@ $(function() {
                     order_id: orderid,
                 },
                 success: function(da) {
-
                     ank.msg(da);
-
-
                 }
             });
 

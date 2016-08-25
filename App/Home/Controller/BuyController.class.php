@@ -223,7 +223,7 @@ $this->error($model->geterror());
 			if ($result) {
 				$resu = M('Order')->where(array('order_id' => $order_id))->setField('order_status', 2);
 				if ($resu) {
-					$this->error('支付成功!', U('Buy/orderstatus', array('order_id' => $order_id)));
+					$this->success('支付成功!', U('Buy/orderstatus', array('order_id' => $order_id)));
 				} else {
 					$this->error('支付失败请联系客服!');
 				}
