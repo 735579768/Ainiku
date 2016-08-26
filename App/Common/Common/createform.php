@@ -37,9 +37,11 @@ function create_form($fieldarr, $data = array()) {
 	global $formjs;
 	$static_dir = __STATIC__;
 	$formstr    = '';
-	$formjsstr  = '';
-	$formstr    = F('_formcache/' . $md5key);
+	// $formjsstr  = '';
+	$formstr = F('_formcache/' . $md5key);
 	if (empty($formstr) || APP_DEBUG) {
+		$formstr       = '';
+		$formjsstr     = '';
 		$default_value = [];
 		// dump($fieldarr);
 		foreach ($fieldarr as $key => $value) {
@@ -342,13 +344,13 @@ eot;
 			$formstr .= str_replace('[REPLACE_INPUT]', $tem_input, $tem_formstr);
 		}
 		F('_formcache/' . $md5key, $formstr);
-		F('_formcache/' . $md5key . 'json', $default_value);
-		F('_formcache/' . $md5key . 'js', $formjs);
+		F('_formcache/' . $md5key . '_json', $default_value);
+		F('_formcache/' . $md5key . '_js', $formjs);
 
 	}
 	//要引用的表单js
-	$formjs        = array_merge($formjs, F('_formcache/' . $md5key . 'js'));
-	$default_value = F('_formcache/' . $md5key . 'json');
+	$formjs        = array_merge($formjs, F('_formcache/' . $md5key . '_js'));
+	$default_value = F('_formcache/' . $md5key . '_json');
 	//此表单的默认json字符串值
 	// $default_value = json_encode($default_value);
 	/**
