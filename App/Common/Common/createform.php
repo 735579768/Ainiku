@@ -161,7 +161,9 @@ eot;
 						$sel = 'selected';
 					}
 				}
-				$optionstr .= "<option value='{$key}' {$sel} >" . trim($val) . "</option>\n";
+				$optionstr .= <<<eot
+<option value="{$key}" {$sel} >{$val}</option>\n
+eot;
 			}
 			$tem_input = str_replace('[REPLACE_OPTION]', $optionstr, $tem_input);
 			break;
@@ -179,15 +181,15 @@ eot;
 				if ($setvalue == $key) {
 					$sel = ' checked="checked" ';
 				}
-				if (isset($_REQUEST[$name])) {
-					$se = I($name);
-					if ($se == $key) {
-						$sel = ' checked="checked" ';
-					}
-				}
+				// if (isset($_REQUEST[$name])) {
+				// 	$se = I($name);
+				// 	if ($se == $key) {
+				// 		$sel = ' checked="checked" ';
+				// 	}
+				// }
 				$radiostr .= <<<eot
 <label class="form-radio">
-  <input type="radio" value="{$key}" name="{$name}" {$sel} ><span>{$val}</span>
+  <input type="radio" name="{$name}" value="{$key}" {$sel} /><span>{$val}</span>
 </label>\n
 eot;
 			}
@@ -197,7 +199,7 @@ eot;
 			///////////////////////////////////////////////////////////////////////////
 			$tem_input = <<<eot
 <div class="controls">
-	<input type="hidden" value="0" name="{$name}[]"  />
+	<input type="hidden" name="{$name}[]" value="0"  />
 	[REPLACE_CHECKBOX]
 </div>
 eot;
@@ -211,7 +213,7 @@ eot;
 				}
 				$checkstr = <<<eot
 <label class="form-checkbox">
-	<input type="checkbox" value="{$key}" name="{$name}[]"  {$sel}  />
+	<input type="checkbox" name="{$name}[]" value="{$key}"   {$sel}  />
 	<span title="{$val}">{$val}</span>
 </label>\n
 eot;
@@ -223,9 +225,7 @@ eot;
 			$formjs['editor']++;
 			$tem_input = <<<eot
  <!--style给定宽度可以影响编辑器的最终宽度-->
-<script type="text/plain" id="{$name}" name="{$name}" style="width:99%;height:150px;">
-    [REPLACE_SETVALUE_{$name}]
-</script>
+<script type="text/plain" id="{$name}" name="{$name}" style="width:99%;height:150px;">[REPLACE_SETVALUE_{$name}]</script>
 <script>
 $(function(){
   //保存编辑器初始化数据
@@ -264,7 +264,7 @@ eot;
 			///////////////////////////////////////////////////////////////////////////
 			$formjs['liandong']++;
 			$tem_input = <<<eot
-            <style>select.selarea{ width:150px; overflow:hidden;}</style>
+<style>select.selarea{ width:150px; overflow:hidden;}</style>
 <input type="hidden" id="ssq{$name}"  name="{$name}"  value="[REPLACE_SETVALUE_{$name}]" />
 <select id="Province{$name}" class="form-control selarea"><option value="0">请选择--</option></select>
 <select id="city{$name}" class="form-control selarea"><option value="0">请选择--</option></select>
@@ -416,5 +416,32 @@ eot;
 	if ($formjs['cutpicture'] && $formjs['cutpicture'] !== true) {
 		$formjs['cutpicture'] = true;
 	}
+	//替换成默认值
+	foreach ($data as $key => $value) {
+		//替换文本框的值
+		$formstr = str_replace("[REPLACE_SETVALUE_{$key}]", $value, $formstr);
+		//替换select
+		$pattern = '/<select.*?name\=\"' . preg_quote($key) . '\".*?>.*?<\/select>/is';
+		preg_match($pattern, $formstr, $match);
+		if ($match) {
+			$tstr     = $match[0];
+			$pattern1 = '/(<option.*?value=".*?").*?(>.*?<\/option>)/is';
+			$pattern2 = '/(<option.*?value="' . $value . '").*?(>.*?<\/option>)/is';
+			$tstr2    = preg_replace([$pattern1, $pattern2], ['$1 $2', '$1 selected $2'], $tstr);
+			$formstr  = str_replace($tstr, $tstr2, $formstr);
+		}
+		//替换radio
+		//去掉默认的选中
+		$pattern1 = '/(<input type="radio".*?name\="' . preg_quote($key) . '" value\=".*?").*? \/>/is';
+		$pattern2 = '/(<input type="radio".*?name\="' . preg_quote($key) . '" value\="' . $value . '").*? \/>/is';
+		$formstr  = preg_replace([$pattern1, $pattern2], ['$1 />', '$1 checked="checked" />'], $formstr);
+
+		//替换checkbox
+		$pattern1 = '/(<input type="checkbox".*?name\="' . preg_quote($key) . '\[\]" value\=".*?").*? \/>/is';
+		$pattern2 = '/(<input type="checkbox".*?name\="' . preg_quote($key) . '\[\]" value\="' . $value . '").*? \/>/is';
+		$formstr  = preg_replace([$pattern1, $pattern2], ['$1 />', '$1 checked="checked" />'], $formstr);
+	}
+	//替换掉没有默认值的
+	$formstr = preg_replace("/\[REPLACE\_SETVALUE\_.*?\]/is", '', $formstr);
 	return $formjsstr . $formstr;
 }

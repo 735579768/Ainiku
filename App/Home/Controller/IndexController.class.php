@@ -36,7 +36,11 @@ var ainiku={
 <script src="/Public/Static/js/divselect.js?r=72229" type="text/javascript" ></script>
 eot;
 		echo $str;
-		echo create_form(get_model_attr('article'), null);
+		echo create_form(get_model_attr('article'), [
+			'position'    => '0',
+			'title'       => '标题',
+			'status'      => 0,
+			'category_id' => 90]);
 	}
 	function send_mail() {
 		$result = send_mail(array(
