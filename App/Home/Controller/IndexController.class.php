@@ -31,6 +31,7 @@ var ainiku={
 <link href="/Public/Static/css/font-awesome.min.css?r=24713" type="text/css" rel="stylesheet" />
 <script src="/Public/Home/default/js/jquery-1.9.1.min.js?r=72229" type="text/javascript" ></script>
 <script src="/Public/Static/js/ainiku.js?r=72229" type="text/javascript" ></script>
+<script src="/Public/Static/js/file.js?r=72229" type="text/javascript" ></script>
 <script src="/Public/Static/js/jquery.SuperSlide.2.1.1.js?r=72229" type="text/javascript" ></script>
 <script src="/Public/Static/js/divselect.js?r=72229" type="text/javascript" ></script>
 eot;

@@ -203,8 +203,9 @@ eot;
 
 			$sel      = '';
 			$checkstr = '';
+			$valuearr = explode(',', $setvalue);
 			foreach ($extra as $key => $val) {
-				if (strpos($setvalue, $key . '') !== false) {
+				if (in_array($key, $valuearr)) {
 					$sel = ' checked="checked" ';
 				}
 				$checkstr = <<<eot
@@ -239,7 +240,7 @@ $(function(){
       uescr{$name}=ue{$name}.getContent();
       });
     ue{$name}.addListener('blur',function(editor){
-      am.delEditorImg(uescr{$name},ue{$name}.getContent());
+      file.delEditorImg(uescr{$name},ue{$name}.getContent());
       });
 });
 </script>
