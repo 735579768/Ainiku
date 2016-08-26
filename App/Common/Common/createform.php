@@ -199,7 +199,7 @@ eot;
 			///////////////////////////////////////////////////////////////////////////
 			$tem_input = <<<eot
 <div class="controls">
-	<input type="hidden" name="{$name}[]" value="0"  />
+	<span style="display:none;"><input type="checkbox" name="{$name}[]" value="0"  /></span>
 	[REPLACE_CHECKBOX]
 </div>
 eot;
@@ -420,8 +420,9 @@ eot;
 	foreach ($data as $key => $value) {
 		//替换文本框的值
 		$formstr = str_replace("[REPLACE_SETVALUE_{$key}]", $value, $formstr);
+		$key     = preg_quote($key);
 		//替换select
-		$pattern = '/<select.*?name\=\"' . preg_quote($key) . '\".*?>.*?<\/select>/is';
+		$pattern = '/<select.*?name\=\"' . $key . '\".*?>.*?<\/select>/is';
 		preg_match($pattern, $formstr, $match);
 		if ($match) {
 			$tstr     = $match[0];
@@ -432,14 +433,20 @@ eot;
 		}
 		//替换radio
 		//去掉默认的选中
-		$pattern1 = '/(<input type="radio".*?name\="' . preg_quote($key) . '" value\=".*?").*? \/>/is';
-		$pattern2 = '/(<input type="radio".*?name\="' . preg_quote($key) . '" value\="' . $value . '").*? \/>/is';
+		$pattern1 = '/(<input type="radio".*?name\="' . $key . '" value\=".*?").*? \/>/is';
+		$pattern2 = '/(<input type="radio".*?name\="' . $key . '" value\="' . $value . '").*? \/>/is';
 		$formstr  = preg_replace([$pattern1, $pattern2], ['$1 />', '$1 checked="checked" />'], $formstr);
 
 		//替换checkbox
-		$pattern1 = '/(<input type="checkbox".*?name\="' . preg_quote($key) . '\[\]" value\=".*?").*? \/>/is';
-		$pattern2 = '/(<input type="checkbox".*?name\="' . preg_quote($key) . '\[\]" value\="' . $value . '").*? \/>/is';
-		$formstr  = preg_replace([$pattern1, $pattern2], ['$1 />', '$1 checked="checked" />'], $formstr);
+
+		$valarr   = explode(',', $value);
+		$pattern1 = '/(<input type="checkbox".*?name\="' . $key . '\[\]" value\=".*?").*? \/>/is';
+		$formstr  = preg_replace($pattern1, '$1 />', $formstr);
+		foreach ($valarr as $v) {
+			$pattern2 = '/(<input type="checkbox".*?name\="' . $key . '\[\]" value\="' . $v . '").*? \/>/is';
+			$formstr  = preg_replace($pattern2, '$1 checked="checked" />', $formstr);
+		}
+
 	}
 	//替换掉没有默认值的
 	$formstr = preg_replace("/\[REPLACE\_SETVALUE\_.*?\]/is", '', $formstr);
