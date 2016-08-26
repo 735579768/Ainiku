@@ -42,6 +42,13 @@ eot;
 			'status'      => 0,
 			'color'       => '#ff0000',
 			'category_id' => 90]);
+
+		echo create_form(get_model_attr('article'), [
+			'position'    => '0',
+			'title'       => '标题',
+			'status'      => 0,
+			'color'       => '#ff0000',
+			'category_id' => 90]);
 	}
 	function send_mail() {
 		$result = send_mail(array(
