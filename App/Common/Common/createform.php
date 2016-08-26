@@ -81,7 +81,7 @@ eot;
 
 			$tem_input = <<<eot
 <div class="form-wrap">
-	<input type="text" {$yzstr}  class="form-control input-small {$yzclass}"  placeholder="请输入{$title}" name="{$name}" value="{$setvalue}" />
+	<input type="text" {$yzstr}  class="form-control input-small {$yzclass}"  placeholder="请输入{$title}" name="{$name}" value="[REPLACE_SETVALUE_{$name}]" />
 </div>
 eot;
 			break;
@@ -89,7 +89,7 @@ eot;
 			///////////////////////////////////////////////////////////////////////////
 			$tem_input = <<<eot
 <div class="form-wrap">
-	<input type="text"  class="form-control input-small {$yzclass}"  {$yzstr}     placeholder="请输入{$title}" name="{$name}" value="{$setvalue}" />
+	<input type="text"  class="form-control input-small {$yzclass}"  {$yzstr}     placeholder="请输入{$title}" name="{$name}" value="[REPLACE_SETVALUE_{$name}]" />
 </div>
 eot;
 			break;
@@ -97,7 +97,7 @@ eot;
 			///////////////////////////////////////////////////////////////////////////
 			$tem_input = <<<eot
 <div class="form-wrap">
-	<input type="password"  class="form-control input-small {$yzclass}"  {$yzstr}     placeholder="请输入{$title}" name="{$name}" value="{$setvalue}" />
+	<input type="password"  class="form-control input-small {$yzclass}"  {$yzstr}     placeholder="请输入{$title}" name="{$name}" value="[REPLACE_SETVALUE_{$name}]" />
 </div>
 eot;
 			break;
@@ -105,7 +105,7 @@ eot;
 			///////////////////////////////////////////////////////////////////////////
 			$tem_input = <<<eot
 <div class="form-wrap">
-<textarea  rows=1 cols=40 style='overflow:scroll;overflow-y:hidden;;overflow-x:hidden;' onfocus="am.autoHeight(this);" onblur="clearInterval(am.clock);"   class="form-control input-large {$yzclass}" {$yzstr}  placeholder="请输入{$title}"  name="{$name}">{$setvalue}</textarea>
+<textarea  rows=1 cols=40 style='overflow:scroll;overflow-y:hidden;;overflow-x:hidden;' onfocus="am.autoHeight(this);" onblur="clearInterval(am.clock);"   class="form-control input-large {$yzclass}" {$yzstr}  placeholder="请输入{$title}"  name="{$name}">[REPLACE_SETVALUE_{$name}]</textarea>
 </div>
 eot;
 			break;
@@ -113,7 +113,7 @@ eot;
 			///////////////////////////////////////////////////////////////////////////
 			$tem_input = <<<eot
 <div class="form-wrap">
-<textarea  rows=1 cols=40 style='overflow:scroll;overflow-y:hidden;;overflow-x:hidden;overflow-x:hidden;width:96%;' onfocus="am.autoHeight(this);" onblur="clearInterval(am.clock);"   class="form-control input-large {$yzclass}" {$yzstr}  placeholder="请输入{$title}"  name="{$name}">{$setvalue}</textarea>
+<textarea  rows=1 cols=40 style='overflow:scroll;overflow-y:hidden;;overflow-x:hidden;overflow-x:hidden;width:96%;' onfocus="am.autoHeight(this);" onblur="clearInterval(am.clock);"   class="form-control input-large {$yzclass}" {$yzstr}  placeholder="请输入{$title}"  name="{$name}">[REPLACE_SETVALUE_{$name}]</textarea>
 </div>
 eot;
 			break;
@@ -127,7 +127,7 @@ eot;
 			}
 			$tem_input = <<<eot
 <div class="form-wrap">
-	<input name="{$name}" type="text" readonly class="form-control input-middle time" style="width:145px;" value="{$setvalue}" placeholder="请选择时间" />
+	<input name="{$name}" type="text" readonly class="form-control input-middle time" style="width:145px;" value="[REPLACE_SETVALUE_{$name}]" placeholder="请选择时间" />
 </div>
 eot;
 			break;
@@ -135,7 +135,7 @@ eot;
 			///////////////////////////////////////////////////////////////////////////
 			$formjs['color']++;
 			$tem_input = <<<eot
-<input name="{$name}" type="text" class="selectcolor form-control input-small" value="{$setvalue}" />
+<input name="{$name}" type="text" class="selectcolor form-control input-small" value="[REPLACE_SETVALUE_{$name}]" />
 eot;
 			break;
 		case 'bool':
@@ -148,9 +148,10 @@ eot;
 [REPLACE_OPTION]
 </select>
 eot;
-			$sel       = '';
+
 			$optionstr = '';
 			foreach ($extra as $key => $val) {
+				$sel = '';
 				if ($setvalue == $key) {
 					$sel = 'selected';
 				}
@@ -223,7 +224,7 @@ eot;
 			$tem_input = <<<eot
  <!--style给定宽度可以影响编辑器的最终宽度-->
 <script type="text/plain" id="{$name}" name="{$name}" style="width:99%;height:150px;">
-    {$setvalue}
+    [REPLACE_SETVALUE_{$name}]
 </script>
 <script>
 $(function(){
@@ -264,7 +265,7 @@ eot;
 			$formjs['liandong']++;
 			$tem_input = <<<eot
             <style>select.selarea{ width:150px; overflow:hidden;}</style>
-<input type="hidden" id="ssq{$name}"  name="{$name}"  value="{$setvalue}" />
+<input type="hidden" id="ssq{$name}"  name="{$name}"  value="[REPLACE_SETVALUE_{$name}]" />
 <select id="Province{$name}" class="form-control selarea"><option value="0">请选择--</option></select>
 <select id="city{$name}" class="form-control selarea"><option value="0">请选择--</option></select>
 <select id="area1{$name}" class="form-control selarea"><option value="0">请选择--</option></select>
@@ -305,7 +306,7 @@ $(function(){
 			}
 		});
 	});
-	$('#goodstype_form').val('{$setvalue});
+	$('#goodstype_form').val('[REPLACE_SETVALUE_{$name}]');
 	$('#goodstype_form').change();
 });
 </script>
@@ -322,7 +323,7 @@ eot;
 			///////////////////////////////////////////////////////////////////////////
 			$tem_input = <<<eot
 <div class="form-wrap">
-	<input type="text"  class="form-control input-large {$yzclass}" {$yzstr}   placeholder="请输入{$title}"  name="{$name}" value="{$setvalue}" />
+	<input type="text"  class="form-control input-large {$yzclass}" {$yzstr}   placeholder="请输入{$title}"  name="{$name}" value="[REPLACE_SETVALUE_{$name}]" />
 </div>
 eot;
 			break;
