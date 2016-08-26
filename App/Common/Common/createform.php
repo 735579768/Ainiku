@@ -261,14 +261,62 @@ eot;
 		case 'liandong':
 			///////////////////////////////////////////////////////////////////////////
 			$formjs['liandong']++;
+			$tem_input = <<<eot
+            <style>select.selarea{ width:150px; overflow:hidden;}</style>
+<input type="hidden" id="ssq{$name}"  name="{$name}"  value="{$setvalue}" />
+<select id="Province{$name}" class="form-control selarea"><option value="0">请选择--</option></select>
+<select id="city{$name}" class="form-control selarea"><option value="0">请选择--</option></select>
+<select id="area1{$name}" class="form-control selarea"><option value="0">请选择--</option></select>
+<script>
+$(function(){
+cityselect.create("ssq{$name},Province{$name},city{$name},area1{$name}");
+});
+</script>
+eot;
 			break;
 		case 'attribute':
 			///////////////////////////////////////////////////////////////////////////
+			$opstr = '';
+			$dlist = get_goods_type_list();
+			foreach ($dlist as $key => $vo) {
+				$opstr .= "<option value='{$vo['goods_type_id']}'>{$vo['title']}</option>";
+			}
+			$url       = U('Goodstypeattribute/formlist');
+			$tem_input = <<<eot
+<select class="form-control" id="goodstype_form" name="goods_type_id">
+<option value="0">请选择--</option>
+{$opstr}
+</select>
+<div id="goodsattribute" style="  padding: 20px 0px 0px 20px;" class="">
+</div>
+<script>
+$(function(){
+	$('#goodstype_form').bind('propertychange change',function(){
+	var idd=$(this).val();
+	var productid=$('#productid').val();
+	//productid产品的id在编辑表单里面首先用js写上这个变量值为当前产品的id
+		$.ajax({
+			'type':'POST',
+			'url':"{$url}",
+			'data':{goods_type_id:idd,mainid:productid},
+			'success': function(da){
+			$('#goodsattribute').html(da);
+			}
+		});
+	});
+	$('#goodstype_form').val('{$setvalue});
+	$('#goodstype_form').change();
+});
+</script>
+
+eot;
 			break;
 		case 'cutpicture':
 			///////////////////////////////////////////////////////////////////////////
 			$formjs['cutpicture']++;
 			break;
+		case 'custom':
+			$tem_input = get_custom_form($extra, $name, $setvalue);
 		default:
 			///////////////////////////////////////////////////////////////////////////
 			$tem_input = <<<eot
@@ -287,6 +335,14 @@ eot;
 	/**
 	 * 添加用到的js
 	 */
+	if ($formjs['liandong'] && $formjs['liandong'] !== true) {
+		$formjs['liandong'] = true;
+		$formjsstr .= <<<eot
+<!--城市联动s start-->
+<script type="text/javascript" charset="utf-8" src="{$static_dir}/city.js"></script>
+<!--城市联动js end-->\n
+eot;
+	}
 	if ($formjs['color'] && $formjs['color'] !== true) {
 		$formjs['color'] = true;
 		$formjsstr .= <<<eot
