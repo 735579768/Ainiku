@@ -238,9 +238,9 @@ $(function(){
               </div>
             </div>
             <script type="text/javascript">
-
+$(function(){
             if (window.applicationCache) {
-  $(function(){
+
    // 把原来的上传按钮去掉
   $('#upload_picture_{$field['name']}').remove();
   $('#demohtml5upload{$field['name']}btn').click(function(e) {
@@ -283,7 +283,7 @@ $(function(){
 
     }
   });
-});
+
             } else {
               //  alert("你的浏览器不支持HTML5");
   $('#demohtml5upload{$field['name']}btn').remove();
@@ -305,7 +305,7 @@ $(function(){
         }
     });
       }
-
+});
 
 function uploadPicture{$field['name']}(file, data){
   var data = $.parseJSON(data);
@@ -455,12 +455,12 @@ function uploadPicture{$field['name']}(file, data){
             </div>
             <script type="text/javascript">
       var sessionid="{:session_id()}";
-      $(function(){am.bindDelAttach();});
-
+      $(function(){
+        am.bindDelAttach();
 
            if (window.applicationCache) {
 
-  $(function(){
+
    // 把原来的上传按钮去掉
   $('upload_file_{$field['name']}').remove();
     $('#demohtml5upload_file_{$field['name']}btn').click(function(e) {
@@ -503,7 +503,7 @@ function uploadPicture{$field['name']}(file, data){
 
     }
   });
-});
+
             } else {
               //  alert("你的浏览器不支持HTML5");
   $('#demohtml5upload_file_{$field['name']}').remove();
@@ -527,7 +527,7 @@ $("#upload_file_{$field['name']}").uploadify({
   }
 });
       }
-
+});
 
 //上传附件
 
