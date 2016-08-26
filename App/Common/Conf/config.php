@@ -16,7 +16,7 @@ return array(
 	'MODULE_ALLOW_LIST'    => array('Home', 'Admin', 'Daili', 'User'),
 	'DEFAULT_MODULE'       => '',
 	'MODULE_DENY_LIST'     => array('Common'),
-	"LOAD_EXT_FILE"        => "image,getinfo,addons,goods,form", //扩展函数库
+	"LOAD_EXT_FILE"        => "image,getinfo,addons,goods,form,createform", //扩展函数库
 	'SHOW_PAGE_TRACE'      => true,
 	/* 系统数据加密设置 */
 	'DATA_AUTH_KEY'        => 'e_~FA3XBEu,ha[<WO7gqljG0/@z)!"*1T:JM#>^+', //默认数据加密KEY
