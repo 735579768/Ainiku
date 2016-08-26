@@ -30,6 +30,7 @@ $GLOBALS['formjs'] = array(
 	'cutpicture' => 0,
 );
 function create_form($fieldarr, $data = array()) {
+	$md5key = md5(json_encode($fieldarr));
 	if (isset($fieldarr['title'])) {
 		$fieldarr = [$fieldarr];
 	}
@@ -37,193 +38,199 @@ function create_form($fieldarr, $data = array()) {
 	$static_dir = __STATIC__;
 	$formstr    = '';
 	$formjsstr  = '';
-	// dump($fieldarr);
-	foreach ($fieldarr as $key => $value) {
+	$formstr    = F('_formcache/' . $md5key);
+	if (empty($formstr) || APP_DEBUG) {
+		$default_value = [];
 		// dump($fieldarr);
-		$field      = $value['field'];
-		$type       = $value['type'];
-		$name       = $value['name'];
-		$title      = $value['title'];
-		$note       = $value['note'];
-		$extra      = $value['extra'];
-		$setvalue   = $value['value'];
-		$is_show    = $value['is_show'];
-		$is_require = $value['is_require'];
+		foreach ($fieldarr as $key => $value) {
+			// dump($fieldarr);
+			$field      = $value['field'];
+			$type       = $value['type'];
+			$name       = $value['name'];
+			$title      = $value['title'];
+			$note       = $value['note'];
+			$extra      = $value['extra'];
+			$setvalue   = $value['value'];
+			$is_show    = $value['is_show'];
+			$is_require = $value['is_require'];
 
-		($type == 'umeditor') && ($type = 'editor');
-		//验证表单
-		$data_reg = $value['data_reg'];
-		$data_ok  = $value['data_ok'];
-		$data_ts  = $value['data_ts'];
-		$data_err = $value['data_err'];
-		//处理一些判断必填的
-		$is_require = $is_require ? '<span style="color:red;">(必填)</span>' : '';
+			($type == 'umeditor') && ($type = 'editor');
+			//验证表单
+			$data_reg = $value['data_reg'];
+			$data_ok  = $value['data_ok'];
+			$data_ts  = $value['data_ts'];
+			$data_err = $value['data_err'];
 
-		$yzstr   = '';
-		$yzclass = '';
-		if ($data_reg) {
-			$yzstr   = ' data-reg="{$data_reg}" data-ts="{$data_ts}" data-ok="{$data_ok}" data-err="{$data_err}"';
-			$yzclass = ' autoyz';
-		}
-		//等着替换的模板字符串
-		$tem_formstr = <<<eot
+			//保存默认值
+			$default_value[$name] = $setvalue;
+			//处理一些判断必填的
+			$is_require = $is_require ? '<span style="color:red;">(必填)</span>' : '';
+
+			$yzstr   = '';
+			$yzclass = '';
+			if ($data_reg) {
+				$yzstr   = ' data-reg="{$data_reg}" data-ts="{$data_ts}" data-ok="{$data_ok}" data-err="{$data_err}"';
+				$yzclass = ' autoyz';
+			}
+			//等着替换的模板字符串
+			$tem_formstr = <<<eot
 <div class="form-group cl {$name}">
 	<div class="form-label"><b>{$title}</b><span class="form-tip">{$note}</span>{$is_require}</div>
 	[REPLACE_INPUT]
 </div>\n
 eot;
-		//循环出来的表单
-		$tem_input = '';
-		//循环表单
-		switch ($type) {
-		case 'number':
-			///////////////////////////////////////////////////////////////////////////
+			//循环出来的表单
+			$tem_input = '';
+			//循环表单
+			switch ($type) {
+			case 'number':
+				///////////////////////////////////////////////////////////////////////////
 
-			$tem_input = <<<eot
+				$tem_input = <<<eot
 <div class="form-wrap">
 	<input type="text" {$yzstr}  class="form-control input-small {$yzclass}"  placeholder="请输入{$title}" name="{$name}" value="[REPLACE_SETVALUE_{$name}]" />
 </div>
 eot;
-			break;
-		case 'double':
-			///////////////////////////////////////////////////////////////////////////
-			$tem_input = <<<eot
+				break;
+			case 'double':
+				///////////////////////////////////////////////////////////////////////////
+				$tem_input = <<<eot
 <div class="form-wrap">
 	<input type="text"  class="form-control input-small {$yzclass}"  {$yzstr}     placeholder="请输入{$title}" name="{$name}" value="[REPLACE_SETVALUE_{$name}]" />
 </div>
 eot;
-			break;
-		case 'password':
-			///////////////////////////////////////////////////////////////////////////
-			$tem_input = <<<eot
+				break;
+			case 'password':
+				///////////////////////////////////////////////////////////////////////////
+				$tem_input = <<<eot
 <div class="form-wrap">
 	<input type="password"  class="form-control input-small {$yzclass}"  {$yzstr}     placeholder="请输入{$title}" name="{$name}" value="[REPLACE_SETVALUE_{$name}]" />
 </div>
 eot;
-			break;
-		case 'textarea':
-			///////////////////////////////////////////////////////////////////////////
-			$tem_input = <<<eot
+				break;
+			case 'textarea':
+				///////////////////////////////////////////////////////////////////////////
+				$tem_input = <<<eot
 <div class="form-wrap">
 <textarea  rows=1 cols=40 style='overflow:scroll;overflow-y:hidden;;overflow-x:hidden;' onfocus="am.autoHeight(this);" onblur="clearInterval(am.clock);"   class="form-control input-large {$yzclass}" {$yzstr}  placeholder="请输入{$title}"  name="{$name}">[REPLACE_SETVALUE_{$name}]</textarea>
 </div>
 eot;
-			break;
-		case 'bigtextarea':
-			///////////////////////////////////////////////////////////////////////////
-			$tem_input = <<<eot
+				break;
+			case 'bigtextarea':
+				///////////////////////////////////////////////////////////////////////////
+				$tem_input = <<<eot
 <div class="form-wrap">
 <textarea  rows=1 cols=40 style='overflow:scroll;overflow-y:hidden;;overflow-x:hidden;overflow-x:hidden;width:96%;' onfocus="am.autoHeight(this);" onblur="clearInterval(am.clock);"   class="form-control input-large {$yzclass}" {$yzstr}  placeholder="请输入{$title}"  name="{$name}">[REPLACE_SETVALUE_{$name}]</textarea>
 </div>
 eot;
-			break;
-		case 'datetime':
-			///////////////////////////////////////////////////////////////////////////
-			$formjs['datetime']++;
-			if ($setvalue) {
-				$setvalue = time_format($setvalue);
-			} else {
-				$setvalue = date('Y-m-d');
-			}
-			$tem_input = <<<eot
+				break;
+			case 'datetime':
+				///////////////////////////////////////////////////////////////////////////
+				$formjs['datetime']++;
+				if ($setvalue) {
+					$setvalue = time_format($setvalue);
+				} else {
+					$setvalue = date('Y-m-d');
+				}
+				$tem_input = <<<eot
 <div class="form-wrap">
 	<input name="{$name}" type="text" readonly class="form-control input-middle time" style="width:145px;" value="[REPLACE_SETVALUE_{$name}]" placeholder="请选择时间" />
 </div>
 eot;
-			break;
-		case 'color':
-			///////////////////////////////////////////////////////////////////////////
-			$formjs['color']++;
-			$tem_input = <<<eot
+				break;
+			case 'color':
+				///////////////////////////////////////////////////////////////////////////
+				$formjs['color']++;
+				$tem_input = <<<eot
 <input name="{$name}" type="text" class="selectcolor form-control input-small" value="[REPLACE_SETVALUE_{$name}]" />
 eot;
-			break;
-		case 'bool':
-			///////////////////////////////////////////////////////////////////////////
-			break;
-		case 'select':
-			///////////////////////////////////////////////////////////////////////////
-			$tem_input = <<<eot
+				break;
+			case 'bool':
+				///////////////////////////////////////////////////////////////////////////
+				break;
+			case 'select':
+				///////////////////////////////////////////////////////////////////////////
+				$tem_input = <<<eot
 <select name="{$name}" class="form-control input-middle">
 [REPLACE_OPTION]
 </select>
 eot;
 
-			$optionstr = '';
-			foreach ($extra as $key => $val) {
-				$sel = '';
-				if ($setvalue == $key) {
-					$sel = 'selected';
-				}
-				if (isset($_REQUEST[$name])) {
-					$se = I($name);
-					if ($se == $key) {
-						$sel = 'selected';
-					}
-				}
-				$optionstr .= <<<eot
+				$optionstr = '';
+				foreach ($extra as $key => $val) {
+					$sel = '';
+					// if ($setvalue == $key) {
+					// 	$sel = 'selected';
+					// }
+					// if (isset($_REQUEST[$name])) {
+					// 	$se = I($name);
+					// 	if ($se == $key) {
+					// 		$sel = 'selected';
+					// 	}
+					// }
+					$optionstr .= <<<eot
 <option value="{$key}" {$sel} >{$val}</option>\n
 eot;
-			}
-			$tem_input = str_replace('[REPLACE_OPTION]', $optionstr, $tem_input);
-			break;
+				}
+				$tem_input = str_replace('[REPLACE_OPTION]', $optionstr, $tem_input);
+				break;
 
-		case 'radio':
-			///////////////////////////////////////////////////////////////////////////
-			$tem_input = <<<eot
+			case 'radio':
+				///////////////////////////////////////////////////////////////////////////
+				$tem_input = <<<eot
 <div class="controls">
 	[REPLACE_RADIO]
 </div>
 eot;
-			$sel      = '';
-			$radiostr = '';
-			foreach ($extra as $key => $val) {
-				if ($setvalue == $key) {
-					$sel = ' checked="checked" ';
-				}
-				// if (isset($_REQUEST[$name])) {
-				// 	$se = I($name);
-				// 	if ($se == $key) {
-				// 		$sel = ' checked="checked" ';
-				// 	}
-				// }
-				$radiostr .= <<<eot
+				$sel      = '';
+				$radiostr = '';
+				foreach ($extra as $key => $val) {
+					// if ($setvalue == $key) {
+					// 	$sel = ' checked="checked" ';
+					// }
+					// if (isset($_REQUEST[$name])) {
+					// 	$se = I($name);
+					// 	if ($se == $key) {
+					// 		$sel = ' checked="checked" ';
+					// 	}
+					// }
+					$radiostr .= <<<eot
 <label class="form-radio">
   <input type="radio" name="{$name}" value="{$key}" {$sel} /><span>{$val}</span>
 </label>\n
 eot;
-			}
-			$tem_input = str_replace('[REPLACE_RADIO]', $radiostr, $tem_input);
-			break;
-		case 'checkbox':
-			///////////////////////////////////////////////////////////////////////////
-			$tem_input = <<<eot
+				}
+				$tem_input = str_replace('[REPLACE_RADIO]', $radiostr, $tem_input);
+				break;
+			case 'checkbox':
+				///////////////////////////////////////////////////////////////////////////
+				$tem_input = <<<eot
 <div class="controls">
 	<span style="display:none;"><input type="checkbox" name="{$name}[]" value="0"  /></span>
 	[REPLACE_CHECKBOX]
 </div>
 eot;
 
-			$sel      = '';
-			$checkstr = '';
-			$valuearr = explode(',', $setvalue);
-			foreach ($extra as $key => $val) {
-				if (in_array($key, $valuearr)) {
-					$sel = ' checked="checked" ';
-				}
-				$checkstr = <<<eot
+				$sel      = '';
+				$checkstr = '';
+				$valuearr = explode(',', $setvalue);
+				foreach ($extra as $key => $val) {
+					// if (in_array($key, $valuearr)) {
+					// 	$sel = ' checked="checked" ';
+					// }
+					$checkstr = <<<eot
 <label class="form-checkbox">
 	<input type="checkbox" name="{$name}[]" value="{$key}"   {$sel}  />
 	<span title="{$val}">{$val}</span>
 </label>\n
 eot;
-			}
-			$tem_input = str_replace('[REPLACE_CHECKBOX]', $checkstr, $tem_input);
-			break;
-		case 'editor':
-			///////////////////////////////////////////////////////////////////////////
-			$formjs['editor']++;
-			$tem_input = <<<eot
+				}
+				$tem_input = str_replace('[REPLACE_CHECKBOX]', $checkstr, $tem_input);
+				break;
+			case 'editor':
+				///////////////////////////////////////////////////////////////////////////
+				$formjs['editor']++;
+				$tem_input = <<<eot
  <!--style给定宽度可以影响编辑器的最终宽度-->
 <script type="text/plain" id="{$name}" name="{$name}" style="width:99%;height:150px;">[REPLACE_SETVALUE_{$name}]</script>
 <script>
@@ -246,24 +253,24 @@ $(function(){
 });
 </script>
 eot;
-			break;
+				break;
 
-		case 'batchpicture':
-			///////////////////////////////////////////////////////////////////////////
-			$formjs['picture']++;
-			break;
-		case 'picture':
-			///////////////////////////////////////////////////////////////////////////
-			$formjs['picture']++;
-			break;
-		case 'file':
-			///////////////////////////////////////////////////////////////////////////
-			$formjs['picture']++;
-			break;
-		case 'liandong':
-			///////////////////////////////////////////////////////////////////////////
-			$formjs['liandong']++;
-			$tem_input = <<<eot
+			case 'batchpicture':
+				///////////////////////////////////////////////////////////////////////////
+				$formjs['picture']++;
+				break;
+			case 'picture':
+				///////////////////////////////////////////////////////////////////////////
+				$formjs['picture']++;
+				break;
+			case 'file':
+				///////////////////////////////////////////////////////////////////////////
+				$formjs['picture']++;
+				break;
+			case 'liandong':
+				///////////////////////////////////////////////////////////////////////////
+				$formjs['liandong']++;
+				$tem_input = <<<eot
 <style>select.selarea{ width:150px; overflow:hidden;}</style>
 <input type="hidden" id="ssq{$name}"  name="{$name}"  value="[REPLACE_SETVALUE_{$name}]" />
 <select id="Province{$name}" class="form-control selarea"><option value="0">请选择--</option></select>
@@ -275,16 +282,16 @@ cityselect.create("ssq{$name},Province{$name},city{$name},area1{$name}");
 });
 </script>
 eot;
-			break;
-		case 'attribute':
-			///////////////////////////////////////////////////////////////////////////
-			$opstr = '';
-			$dlist = get_goods_type_list();
-			foreach ($dlist as $key => $vo) {
-				$opstr .= "<option value='{$vo['goods_type_id']}'>{$vo['title']}</option>";
-			}
-			$url       = U('Goodstypeattribute/formlist');
-			$tem_input = <<<eot
+				break;
+			case 'attribute':
+				///////////////////////////////////////////////////////////////////////////
+				$opstr = '';
+				$dlist = get_goods_type_list();
+				foreach ($dlist as $key => $vo) {
+					$opstr .= "<option value='{$vo['goods_type_id']}'>{$vo['title']}</option>";
+				}
+				$url       = U('Goodstypeattribute/formlist');
+				$tem_input = <<<eot
 <select class="form-control" id="goodstype_form" name="goods_type_id">
 <option value="0">请选择--</option>
 {$opstr}
@@ -312,28 +319,38 @@ $(function(){
 </script>
 
 eot;
-			break;
-		case 'cutpicture':
-			///////////////////////////////////////////////////////////////////////////
-			$formjs['cutpicture']++;
-			break;
-		case 'custom':
-			$tem_input = get_custom_form($extra, $name, $setvalue);
-		default:
-			///////////////////////////////////////////////////////////////////////////
-			$tem_input = <<<eot
+				break;
+			case 'cutpicture':
+				///////////////////////////////////////////////////////////////////////////
+				$formjs['cutpicture']++;
+				break;
+			case 'custom':
+				$tem_input = get_custom_form($extra, $name, $setvalue);
+			default:
+				///////////////////////////////////////////////////////////////////////////
+				$tem_input = <<<eot
 <div class="form-wrap">
 	<input type="text"  class="form-control input-large {$yzclass}" {$yzstr}   placeholder="请输入{$title}"  name="{$name}" value="[REPLACE_SETVALUE_{$name}]" />
 </div>
 eot;
-			break;
-		}
+				break;
+			}
 
-		/**
-		 * 替换循环出来的表单
-		 */
-		$formstr .= str_replace('[REPLACE_INPUT]', $tem_input, $tem_formstr);
+			/**
+			 * 替换循环出来的表单
+			 */
+			$formstr .= str_replace('[REPLACE_INPUT]', $tem_input, $tem_formstr);
+		}
+		F('_formcache/' . $md5key, $formstr);
+		F('_formcache/' . $md5key . 'json', $default_value);
+		F('_formcache/' . $md5key . 'js', $formjs);
+
 	}
+	//要引用的表单js
+	$formjs        = array_merge($formjs, F('_formcache/' . $md5key . 'js'));
+	$default_value = F('_formcache/' . $md5key . 'json');
+	//此表单的默认json字符串值
+	// $default_value = json_encode($default_value);
 	/**
 	 * 添加用到的js
 	 */
@@ -416,6 +433,8 @@ eot;
 	if ($formjs['cutpicture'] && $formjs['cutpicture'] !== true) {
 		$formjs['cutpicture'] = true;
 	}
+
+	$data = array_merge($default_value, $data);
 	//替换成默认值
 	foreach ($data as $key => $value) {
 		//替换文本框的值

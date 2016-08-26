@@ -40,6 +40,7 @@ eot;
 			'position'    => '0',
 			'title'       => '标题',
 			'status'      => 0,
+			'color'       => '#ff0000',
 			'category_id' => 90]);
 	}
 	function send_mail() {
