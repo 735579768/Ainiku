@@ -43,7 +43,7 @@ eot;
 			'color'       => '#ff0000',
 			'category_id' => 90]);
 
-		echo create_form(get_model_attr('article'), [
+		echo create_form(get_model_attr('category'), [
 			'position'    => '0',
 			'title'       => '标题',
 			'status'      => 0,
