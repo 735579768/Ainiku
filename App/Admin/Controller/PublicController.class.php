@@ -95,7 +95,9 @@ class PublicController extends Controller {
 				$user = session('uinfo');
 				redirect(U($user['admin_index'], array('mainmenu' => 'true')));
 			} else {
-				$this->display();
+				if (!$this->autologin()) {
+					$this->display();
+				}
 
 			}
 		}
