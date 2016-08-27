@@ -108,7 +108,7 @@ class ArticleController extends AdminController {
 			$field            = get_model_attr('article');
 			$this->meta_title = '添加文章';
 			$this->assign('fieldarr', $field);
-			$this->assign('data', $data);
+			$this->assign('data', null);
 			$this->display('edit');
 		}
 	}

@@ -4,18 +4,21 @@
 // 	'type'    => 'radio',
 // 	'name'    => 'sex',
 // 	'title'   => '性别',
-// 	'note'    => '',
+// 	'note'    => '',   //对标题的说明性文字
 // 	'extra'   => array(
 // 		1 => '男',
 // 		2 => '女',
 // 	),
 // 	'value'   => 1,
 // 	'is_show' => 3,
-// 'data_ts' => '',
-// 'data_err' =>'',
-// 'data_ok' => '',
-// 'data_reg' => '',
+// 	'is_require'=>0, //是否必填
+//  'data_ts' => '', //鼠标放在表单上时的提示文本
+//  'data_err' =>'', //格式不对时的提示文本
+//  'data_ok' => '', //格式正确时的提示文本
+//  'data_reg' => '', //验证格式的正则
 // ),
+/////////////说明//////////////
+//@is_show  1 add状态下显示   2 edit编辑状态下显示   3 add edit状态下都显示  4 只要是超级管理员状态下都显示
 /**
  *系统共用生成表单列表
  */
@@ -26,11 +29,13 @@ $GLOBALS['formjs'] = array(
 	'picture'    => 0,
 	'editor'     => 0,
 	'color'      => 0,
+	'liandong'   => 0,
 	// 'dandu'      => 0,
 	'cutpicture' => 0,
 );
-function create_form($fieldarr, $data = array()) {
+function create_form($fieldarr, $data = []) {
 	$md5key = md5(json_encode($fieldarr));
+	$data || ($data = []);
 	if (isset($fieldarr['title'])) {
 		$fieldarr = [$fieldarr];
 	}
@@ -56,13 +61,14 @@ function create_form($fieldarr, $data = array()) {
 			$is_show    = $value['is_show'];
 			$is_require = $value['is_require'];
 
-			($type == 'umeditor') && ($type = 'editor');
 			//验证表单
 			$data_reg = $value['data_reg'];
 			$data_ok  = $value['data_ok'];
 			$data_ts  = $value['data_ts'];
 			$data_err = $value['data_err'];
 
+			($type == 'umeditor') && ($type = 'editor');
+			($type == 'string') && ($type = 'text');
 			//保存默认值
 			$default_value[$name] = $setvalue;
 			//处理一些判断必填的
@@ -73,6 +79,13 @@ function create_form($fieldarr, $data = array()) {
 			if ($data_reg) {
 				$yzstr   = ' data-reg="{$data_reg}" data-ts="{$data_ts}" data-ok="{$data_ok}" data-err="{$data_err}"';
 				$yzclass = ' autoyz';
+			}
+			//判断当前操作是add  edit
+			$is_add  = (strpos(strtolower(ACTION_NAME), 'add') === false) ? false : true;
+			$is_edit = (strpos(strtolower(ACTION_NAME), 'edit') === false) ? false : true;
+			if (!(($is_add && $is_show == 1) or ($is_edit && $is_show == 2) or ($is_show == 3) or ($is_show == 4 && MODULE_NAME == 'Admin'))) {
+				//不符合条件直接退出本次循环
+				continue;
 			}
 			//等着替换的模板字符串
 			$tem_formstr = <<<eot
@@ -257,17 +270,23 @@ $(function(){
 eot;
 				break;
 
-			case 'batchpicture':
-				///////////////////////////////////////////////////////////////////////////
-				$formjs['picture']++;
-				break;
 			case 'picture':
 				///////////////////////////////////////////////////////////////////////////
 				$formjs['picture']++;
+				$tem_input = get_upload_picture_html($name, $setvalue);
+			case 'batchpicture':
+				///////////////////////////////////////////////////////////////////////////
+				$formjs['picture']++;
+				$tem_input = get_upload_picture_html($name, $setvalue, true);
+				break;
+
 				break;
 			case 'file':
 				///////////////////////////////////////////////////////////////////////////
 				$formjs['picture']++;
+				$tem_input = <<<eot
+
+eot;
 				break;
 			case 'liandong':
 				///////////////////////////////////////////////////////////////////////////
@@ -442,34 +461,183 @@ eot;
 		//替换文本框的值
 		$formstr = str_replace("[REPLACE_SETVALUE_{$key}]", $value, $formstr);
 		$key     = preg_quote($key);
-		//替换select
-		$pattern = '/<select.*?name\=\"' . $key . '\".*?>.*?<\/select>/is';
-		preg_match($pattern, $formstr, $match);
-		if ($match) {
-			$tstr     = $match[0];
-			$pattern1 = '/(<option.*?value=".*?").*?(>.*?<\/option>)/is';
-			$pattern2 = '/(<option.*?value="' . $value . '").*?(>.*?<\/option>)/is';
-			$tstr2    = preg_replace([$pattern1, $pattern2], ['$1 $2', '$1 selected $2'], $tstr);
-			$formstr  = str_replace($tstr, $tstr2, $formstr);
-		}
-		//替换radio
-		//去掉默认的选中
-		$pattern1 = '/(<input type="radio".*?name\="' . $key . '" value\=".*?").*? \/>/is';
-		$pattern2 = '/(<input type="radio".*?name\="' . $key . '" value\="' . $value . '").*? \/>/is';
-		$formstr  = preg_replace([$pattern1, $pattern2], ['$1 />', '$1 checked="checked" />'], $formstr);
+		// $value   = preg_quote($value);
+		//字符小于指定值的才正则设置值
+		if (strlen($value) < 50) {
+			//替换select
+			$pattern = '/<select.*?name\=\"' . $key . '\".*?>.*?<\/select>/is';
+			preg_match($pattern, $formstr, $match);
+			if ($match) {
+				$tstr     = $match[0];
+				$pattern1 = '/(<option.*?value=".*?").*?(>.*?<\/option>)/is';
+				$pattern2 = '/(<option.*?value="' . $value . '").*?(>.*?<\/option>)/is';
+				$tstr2    = preg_replace([$pattern1, $pattern2], ['$1 $2', '$1 selected $2'], $tstr);
+				$formstr  = str_replace($tstr, $tstr2, $formstr);
+			}
 
-		//替换checkbox
+			//替换radio
+			//去掉默认的选中
+			$pattern1 = '/(<input type="radio".*?name\="' . $key . '" value\=".*?").*? \/>/is';
+			$pattern2 = '/(<input type="radio".*?name\="' . $key . '" value\="' . $value . '").*? \/>/is';
+			$formstr  = preg_replace([$pattern1, $pattern2], ['$1 />', '$1 checked="checked" />'], $formstr);
 
-		$valarr   = explode(',', $value);
-		$pattern1 = '/(<input type="checkbox".*?name\="' . $key . '\[\]" value\=".*?").*? \/>/is';
-		$formstr  = preg_replace($pattern1, '$1 />', $formstr);
-		foreach ($valarr as $v) {
-			$pattern2 = '/(<input type="checkbox".*?name\="' . $key . '\[\]" value\="' . $v . '").*? \/>/is';
-			$formstr  = preg_replace($pattern2, '$1 checked="checked" />', $formstr);
+			//替换checkbox
+
+			$valarr   = explode(',', $value);
+			$pattern1 = '/(<input type="checkbox".*?name\="' . $key . '\[\]" value\=".*?").*? \/>/is';
+			$formstr  = preg_replace($pattern1, '$1 />', $formstr);
+			foreach ($valarr as $v) {
+				$pattern2 = '/(<input type="checkbox".*?name\="' . $key . '\[\]" value\="' . $v . '").*? \/>/is';
+				$formstr  = preg_replace($pattern2, '$1 checked="checked" />', $formstr);
+			}
 		}
 
 	}
 	//替换掉没有默认值的
 	$formstr = preg_replace("/\[REPLACE\_SETVALUE\_.*?\]/is", '', $formstr);
 	return $formjsstr . $formstr;
+}
+
+function get_upload_picture_html($name, $setvalue, $muli = false) {
+	$static_dir    = __STATIC__;
+	$preimglist    = '';
+	$fileuploadurl = U('File/uploadpic', array('session_id' => session_id()));
+	if ($setvalue) {
+		if ($muli) {
+			//多图上传
+			$arr = preg_split('/\||\,|\s/', $setvalue);
+			foreach ($arr as $a) {
+				$imgpath     = get_picture($a, 'path');
+				$thumbpath   = get_picture($a, 'thumbpath');
+				$imgdestname = get_picture($a, 'destname');
+				$preimglist .= <<<eot
+                  <div class='imgblock'>
+                    <div class='upload-img-box uploadimg'>
+                      <div class='upload-pre-item'><a  href='{$imgpath}' data-lightbox='example-set' data-title='{$imgdestname}'><img src='{$imgthumbpath}' /></a></div>
+                    </div>
+                    <a href='javascript:;' class='btn btn-danger' dataid='{$a}' >删除</a></div>
+eot;
+			}
+			$preimglist .= '<script>$(function(){file.bindDel();});</script>';
+
+		} else {
+			//单图上传
+			$imgpath     = get_picture($setvalue, 'path');
+			$thumbpath   = get_picture($setvalue, 'thumbpath');
+			$imgdestname = get_picture($setvalue, 'destname');
+			$preimglist  = <<<eot
+<div class='imgblock'>
+<div class="upload-img-box  uploadimg">
+<div class="upload-pre-item"> <a class="" href="{$imgpath}" data-lightbox="example-{$setvalue}" data-title="{$imgdestname}"> <img class="example-image" src="{$imgthumbpath}"/></a> </div>
+</div>
+<a href='javascript:;' class='btn btn-danger'  dataid='{$setvalue}'>删除</a> </div>
+<script>$(function(){file.bindDel();});</script>
+eot;
+		}
+	}
+	$tem_input = <<<eot
+<div class="controls h5upload-block">
+<input type="file" name="file" id="upload_picture_{$name}"  style="display:none;">
+<a  id="demohtml5upload{$name}btn" class="btn  html5uploadbtn" style="margin-bottom:10px;"  href="javascript:;">展开</a>
+<div id="demohtml5upload{$name}" class="demo  html5upload"></div>
+<input type="hidden" name="{$name}" id="cover_id_{$name}" value="{$setvalue}"/>
+<div id="uploadimg_{$name}" class="cl">
+{$preimglist}
+</div>
+</div>
+<script type="text/javascript">
+
+$(function(){
+	if (window.applicationCache) {
+
+   // 把原来的上传按钮去掉
+  $('#upload_picture_{$name}').remove();
+  $('#demohtml5upload{$name}btn').click(function(e) {
+        var aaa=$(this).text();
+      if(aaa=='展开'){
+      $('#demohtml5upload{$name}').slideDown();
+      $(this).html('收缩');
+      }else{
+        $(this).html('展开');
+      $('#demohtml5upload{$name}').slideUp();
+        }
+  });
+  // 初始化插件
+  $("#demohtml5upload{$name}").zyUpload({
+    parentsel   :'#demohtml5upload{$name}',
+    width            :   "80%",                 // 宽度
+    height           :   "auto",                 // 宽度
+    itemWidth        :   "120px",                 // 文件项的宽度
+    itemHeight       :   "100px",                 // 文件项的高度
+    url              :   "{$fileuploadurl}",  // 上传文件的路径
+    data             :{myname:'your name'},
+    multiple         :  false,                    // 是否可以多个文件上传
+    dragDrop         :   true,                    // 是否可以拖动上传文件
+    del              :   true,                    // 是否可以删除文件
+    finishDel        :   true,            // 是否在上传文件完成后删除预览
+    /* 外部获得的回调接口 */
+    onSelect: function(files, allFiles){                    // 选择文件的回调方法
+
+    },
+    onDelete: function(file, surplusFiles){                     // 删除一个文件的回调方法
+
+    },
+    onSuccess: function(file,response){                    // 文件上传成功的回调方法
+    uploadPicture{$name}(file,response);
+
+    },
+    onFailure: function(file){                    // 文件上传失败的回调方法
+},
+    onComplete: function(responseInfo){           // 上传完成的回调方法
+
+    }
+  });
+
+            } else {
+              //  alert("你的浏览器不支持HTML5");
+  $('#demohtml5upload{$name}btn').remove();
+  $('#demohtml5upload{$name}').remove();
+    //上传图片
+    /* 初始化上传插件 */
+    $("#upload_picture_{$name}").uploadify({
+        "height"          : 30,
+        "swf"             : "{$static_dir}/uploadify/uploadify.swf",
+        "fileObjName"     : "filelist",
+        "buttonText"      : "上传图片",
+        "uploader"        : "{$fileuploadurl}",
+        "width"           : 120,
+        'removeTimeout'   : 1,
+        'fileTypeExts'    : '*.jpg; *.png; *.gif;*.bmp;',
+        "onUploadSuccess" : uploadPicture{$name},
+        'onFallback' : function() {
+            alert('未检测到兼容版本的Flash.');
+        }
+    });
+      }
+
+});
+    function uploadPicture{$name}(file, data){
+        var data = $.parseJSON(data);
+        var src = '';
+        if(data.status){
+            var sid=$("#cover_id_{$name}").val();
+        if(sid!=""){
+        	$.get(ainiku.delimg,{id:sid})}
+      $("#cover_id_{$name}").val(data.id);
+            src = data.url ||  data.path
+            $("#uploadimg_{$name}").html(
+                "<div class='imgblock'><div class='upload-img-box uploadimg'><div class='upload-pre-item'><img src='" + src + "' /></div></div><a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
+            );
+            $(function(){am.bindDel();});
+        } else {
+            ank.msg(data);
+            setTimeout(function(){
+                $('#top-alert').find('button').click();
+               // $(that).removeClass('disabled').prop('disabled',false);
+            },1500);
+        }
+    }
+    </script>
+eot;
+	return $tem_input;
 }

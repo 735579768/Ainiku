@@ -65,8 +65,24 @@ function image_water($src_img = '', $water_img = '', $dest_img = '', $water_text
 		//文字水印
 		$color     = C('SHUIYIN_TEXT_COLOR');
 		$color     = empty($color) && ($color = '#000000');
+		$color     = hex_torgb($color);
 		$font_size = intval(C('SHUIYIN_TEXT_SIZE'));
-		$result    = $image->open($src_img)->text($water_text, '', $font_size, $color, $pos)->save($dest_img);
+		//使用验证码的随机字体
+		$fontpath = '';
+		$ttfPath  = THINK_PATH . 'Library/Think/Verify/' . (false ? 'zhttfs' : 'ttfs') . '/';
+
+		$dir  = dir($ttfPath);
+		$ttfs = array();
+		while (false !== ($file = $dir->read())) {
+			if ($file[0] != '.' && (substr($file, -4) == '.ttf' || substr($file, -4) == '.ttf')) {
+				$ttfs[] = $file;
+			}
+		}
+		$dir->close();
+		$fontpath = $ttfs[array_rand($ttfs)];
+		$fontpath = $ttfPath . $fontpath;
+
+		$result = $image->open($src_img)->text($water_text, $fontpath, $font_size, $color, $pos)->save($dest_img);
 
 	}
 	if ($result) {

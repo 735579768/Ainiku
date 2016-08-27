@@ -320,7 +320,6 @@ function get_field($table = null, $id = null, $field = null) {
 	return empty($info) ? '' : (empty($field) ? $info : $info[$field]);
 }
 
-
 /*
  *取属性所属的类型
  */
@@ -527,8 +526,9 @@ function get_iplocation($ip = "127.0.0.1") {
  *生成表单
  */
 function get_form($field, $da = array()) {
-	$form = new \Common\Controller\FormController($field, $da);
-	return $form->getData();
+	// $form = new \Common\Controller\FormController($field, $da);
+	// return $form->getData();
+	return create_form($field, $da);
 }
 /**
  *取自定义表单
