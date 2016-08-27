@@ -244,7 +244,6 @@ class FileController extends AdminController {
 		$SITE_PATH    = SITE_PATH; //网站根目录
 		$targetFolder = C('FILE_UPLOAD.rootPath'); //保存图片的根目录
 		$JDtargetPath = '';
-		$return       = array();
 		$data         = array();
 		if (!empty($_FILES)) {
 			$tempFile = $_FILES['filelist']['tmp_name'];

@@ -284,9 +284,7 @@ eot;
 			case 'file':
 				///////////////////////////////////////////////////////////////////////////
 				$formjs['picture']++;
-				$tem_input = <<<eot
-
-eot;
+				$tem_input = get_upload_picture_html($name, $setvalue, false, true);
 				break;
 			case 'liandong':
 				///////////////////////////////////////////////////////////////////////////
@@ -498,33 +496,69 @@ eot;
 	return $formjsstr . $formstr;
 }
 
-function get_upload_picture_html($name, $setvalue, $muli = false) {
+function get_upload_picture_html($name, $setvalue, $muli = false, $filetype = false) {
 	$static_dir        = __STATIC__;
+	$upload_text       = $filetype ? '上传附件' : '上传图片';
 	$preimglist        = '';
 	$uploadsuccessfunc = '';
 	$fileuploadurl     = U('File/uploadpic', array('session_id' => session_id()));
-	$is_muli_upload    = $muli ? 'true' : 'false';
-
-	if ($muli) {
-		//多图上传
+	$filetype && ($fileuploadurl = U('File/uploadfile', array('session_id' => session_id())));
+	$is_muli_upload = $muli ? 'true' : 'false';
+	//上传附件
+	if ($filetype) {
 		if ($setvalue) {
-			$arr = preg_split('/\||\,|\s/', $setvalue);
-			foreach ($arr as $a) {
-				$imgpath     = get_picture($a, 'path');
-				$thumbpath   = get_picture($a, 'thumbpath');
-				$imgdestname = get_picture($a, 'destname');
-				$preimglist .= <<<eot
+			$filename = get_file($setvalue, 'srcname');
+			$preimglist .= <<<eot
+<div class="upload-pre-file"><span class="upload_icon_all"></span>{$filename}<a href='javascript:;' class='btn btn-danger' dataid='{$setvalue}' >删除</a></div>
+eot;
+		}
+		//上传成功后的函数
+		$uploadsuccessfunc = <<<eot
+function uploadPicture{$name}(file, data){
+ var data = $.parseJSON(data);
+  if(data.status){
+    var name = "{$name}";
+    var sid=$("#cover_id_{$name}").val();
+    if(sid){
+    	$.get(ainiku.delattach,{id:sid})}
+    $("input[name="+name+"]").val(data.id);
+
+    $("#uploadimg_{$name}").html(
+      "<div class=\"upload-pre-file\"><span class=\"upload_icon_all\"></span>" + data.info + "<a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
+    );
+    file.bindDelAttach();
+  } else {
+    ank.msg(data);
+    setTimeout(function(){
+      $('#top-alert').find('button').click();
+      // $(that).removeClass('disabled').prop('disabled',false);
+    },1500);
+  }
+}
+eot;
+	} else {
+		//上传图片
+		if ($muli) {
+			//多图上传
+			if ($setvalue) {
+				$arr = preg_split('/\||\,|\s/', $setvalue);
+				foreach ($arr as $a) {
+					$imgpath     = get_picture($a, 'path');
+					$thumbpath   = get_picture($a, 'thumbpath');
+					$imgdestname = get_picture($a, 'destname');
+					$preimglist .= <<<eot
                   <div class='imgblock'>
                     <div class='upload-img-box uploadimg'>
                       <div class='upload-pre-item'><a  href='{$imgpath}' data-lightbox='example-set' data-title='{$imgdestname}'><img src='{$imgthumbpath}' /></a></div>
                     </div>
                     <a href='javascript:;' class='btn btn-danger' dataid='{$a}' >删除</a></div>
+}
 eot;
+				}
+				$preimglist .= '<script>$(function(){file.bindDel();});</script>';
 			}
-			$preimglist .= '<script>$(function(){file.bindDel();});</script>';
-		}
-		//上传成功后的函数
-		$uploadsuccessfunc = <<<eot
+			//上传成功后的函数
+			$uploadsuccessfunc = <<<eot
 function uploadPicture{$name}(file, data){
   var data = $.parseJSON(data);
   var src = '';
@@ -547,13 +581,13 @@ function uploadPicture{$name}(file, data){
   }
 }
 eot;
-	} else {
-		//单图上传
-		if ($setvalue) {
-			$imgpath     = get_picture($setvalue, 'path');
-			$thumbpath   = get_picture($setvalue, 'thumbpath');
-			$imgdestname = get_picture($setvalue, 'destname');
-			$preimglist  = <<<eot
+		} else {
+			//单图上传
+			if ($setvalue) {
+				$imgpath     = get_picture($setvalue, 'path');
+				$thumbpath   = get_picture($setvalue, 'thumbpath');
+				$imgdestname = get_picture($setvalue, 'destname');
+				$preimglist  = <<<eot
 <div class='imgblock'>
 <div class="upload-img-box  uploadimg">
 <div class="upload-pre-item"> <a class="" href="{$imgpath}" data-lightbox="example-{$setvalue}" data-title="{$imgdestname}"> <img class="example-image" src="{$imgthumbpath}"/></a> </div>
@@ -561,9 +595,9 @@ eot;
 <a href='javascript:;' class='btn btn-danger'  dataid='{$setvalue}'>删除</a> </div>
 <script>$(function(){file.bindDel();});</script>
 eot;
-		}
-		//上传成功后的函数
-		$uploadsuccessfunc = <<<eot
+			}
+			//上传成功后的函数
+			$uploadsuccessfunc = <<<eot
     function uploadPicture{$name}(file, data){
         var data = $.parseJSON(data);
         var src = '';
@@ -586,6 +620,7 @@ eot;
         }
     }
 eot;
+		}
 	}
 	$tem_input = <<<eot
 <div class="controls h5upload-block">
@@ -648,7 +683,7 @@ $(function(){
 	        "height"          : 30,
 	        "swf"             : "{$static_dir}/uploadify/uploadify.swf",
 	        "fileObjName"     : "filelist",
-	        "buttonText"      : "上传图片",
+	        "buttonText"      : "{$upload_text}",
 	        "uploader"        : "{$fileuploadurl}",
 	        "width"           : 120,
 	        'removeTimeout'   : 1,
