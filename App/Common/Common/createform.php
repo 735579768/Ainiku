@@ -499,12 +499,15 @@ eot;
 }
 
 function get_upload_picture_html($name, $setvalue, $muli = false) {
-	$static_dir    = __STATIC__;
-	$preimglist    = '';
-	$fileuploadurl = U('File/uploadpic', array('session_id' => session_id()));
-	if ($setvalue) {
-		if ($muli) {
-			//多图上传
+	$static_dir        = __STATIC__;
+	$preimglist        = '';
+	$uploadsuccessfunc = '';
+	$fileuploadurl     = U('File/uploadpic', array('session_id' => session_id()));
+	$is_muli_upload    = $muli ? 'true' : 'false';
+
+	if ($muli) {
+		//多图上传
+		if ($setvalue) {
 			$arr = preg_split('/\||\,|\s/', $setvalue);
 			foreach ($arr as $a) {
 				$imgpath     = get_picture($a, 'path');
@@ -519,9 +522,34 @@ function get_upload_picture_html($name, $setvalue, $muli = false) {
 eot;
 			}
 			$preimglist .= '<script>$(function(){file.bindDel();});</script>';
-
-		} else {
-			//单图上传
+		}
+		//上传成功后的函数
+		$uploadsuccessfunc = <<<eot
+function uploadPicture{$name}(file, data){
+  var data = $.parseJSON(data);
+  var src = '';
+  if(data.status){
+    var a=$("#cover_id_{$name}").val();
+    a=a.replace(/\s+/g,'');
+    if(a==''){a=data.id;}else{a+='|'+data.id}
+    $("#cover_id_{$name}").val(a);
+    src = data.url ||data.path
+    $("#uploadimg_{$name}").append(
+      "<div class='imgblock'><div class='upload-img-box uploadimg'><div class='upload-pre-item'><img src='" + src + "' /></div></div><a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
+    );
+    $(function(){file.bindDel();});
+  } else {
+    ank.msg(data);
+    setTimeout(function(){
+      $('#top-alert').find('button').click();
+      // $(that).removeClass('disabled').prop('disabled',false);
+    },1500);
+  }
+}
+eot;
+	} else {
+		//单图上传
+		if ($setvalue) {
 			$imgpath     = get_picture($setvalue, 'path');
 			$thumbpath   = get_picture($setvalue, 'thumbpath');
 			$imgdestname = get_picture($setvalue, 'destname');
@@ -534,88 +562,8 @@ eot;
 <script>$(function(){file.bindDel();});</script>
 eot;
 		}
-	}
-	$tem_input = <<<eot
-<div class="controls h5upload-block">
-<input type="file" name="file" id="upload_picture_{$name}"  style="display:none;">
-<a  id="demohtml5upload{$name}btn" class="btn  html5uploadbtn" style="margin-bottom:10px;"  href="javascript:;">展开</a>
-<div id="demohtml5upload{$name}" class="demo  html5upload"></div>
-<input type="hidden" name="{$name}" id="cover_id_{$name}" value="{$setvalue}"/>
-<div id="uploadimg_{$name}" class="cl">
-{$preimglist}
-</div>
-</div>
-<script type="text/javascript">
-
-$(function(){
-	if (window.applicationCache) {
-
-   // 把原来的上传按钮去掉
-  $('#upload_picture_{$name}').remove();
-  $('#demohtml5upload{$name}btn').click(function(e) {
-        var aaa=$(this).text();
-      if(aaa=='展开'){
-      $('#demohtml5upload{$name}').slideDown();
-      $(this).html('收缩');
-      }else{
-        $(this).html('展开');
-      $('#demohtml5upload{$name}').slideUp();
-        }
-  });
-  // 初始化插件
-  $("#demohtml5upload{$name}").zyUpload({
-    parentsel   :'#demohtml5upload{$name}',
-    width            :   "80%",                 // 宽度
-    height           :   "auto",                 // 宽度
-    itemWidth        :   "120px",                 // 文件项的宽度
-    itemHeight       :   "100px",                 // 文件项的高度
-    url              :   "{$fileuploadurl}",  // 上传文件的路径
-    data             :{myname:'your name'},
-    multiple         :  false,                    // 是否可以多个文件上传
-    dragDrop         :   true,                    // 是否可以拖动上传文件
-    del              :   true,                    // 是否可以删除文件
-    finishDel        :   true,            // 是否在上传文件完成后删除预览
-    /* 外部获得的回调接口 */
-    onSelect: function(files, allFiles){                    // 选择文件的回调方法
-
-    },
-    onDelete: function(file, surplusFiles){                     // 删除一个文件的回调方法
-
-    },
-    onSuccess: function(file,response){                    // 文件上传成功的回调方法
-    uploadPicture{$name}(file,response);
-
-    },
-    onFailure: function(file){                    // 文件上传失败的回调方法
-},
-    onComplete: function(responseInfo){           // 上传完成的回调方法
-
-    }
-  });
-
-            } else {
-              //  alert("你的浏览器不支持HTML5");
-  $('#demohtml5upload{$name}btn').remove();
-  $('#demohtml5upload{$name}').remove();
-    //上传图片
-    /* 初始化上传插件 */
-    $("#upload_picture_{$name}").uploadify({
-        "height"          : 30,
-        "swf"             : "{$static_dir}/uploadify/uploadify.swf",
-        "fileObjName"     : "filelist",
-        "buttonText"      : "上传图片",
-        "uploader"        : "{$fileuploadurl}",
-        "width"           : 120,
-        'removeTimeout'   : 1,
-        'fileTypeExts'    : '*.jpg; *.png; *.gif;*.bmp;',
-        "onUploadSuccess" : uploadPicture{$name},
-        'onFallback' : function() {
-            alert('未检测到兼容版本的Flash.');
-        }
-    });
-      }
-
-});
+		//上传成功后的函数
+		$uploadsuccessfunc = <<<eot
     function uploadPicture{$name}(file, data){
         var data = $.parseJSON(data);
         var src = '';
@@ -628,7 +576,7 @@ $(function(){
             $("#uploadimg_{$name}").html(
                 "<div class='imgblock'><div class='upload-img-box uploadimg'><div class='upload-pre-item'><img src='" + src + "' /></div></div><a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
             );
-            $(function(){am.bindDel();});
+            $(function(){file.bindDel();});
         } else {
             ank.msg(data);
             setTimeout(function(){
@@ -637,6 +585,83 @@ $(function(){
             },1500);
         }
     }
+eot;
+	}
+	$tem_input = <<<eot
+<div class="controls h5upload-block">
+<input type="file" name="file" id="upload_picture_{$name}"  style="display:none;">
+<a  id="demohtml5upload{$name}btn" class="btn  html5uploadbtn" style="margin-bottom:10px;"  href="javascript:;">展开</a>
+<div id="demohtml5upload{$name}" class="demo  html5upload"></div>
+<input type="hidden" name="{$name}" id="cover_id_{$name}" value="{$setvalue}"/>
+<div id="uploadimg_{$name}" class="cl">
+{$preimglist}
+</div>
+</div>
+<script type="text/javascript">
+$(function(){
+	if (window.applicationCache) {
+	   // 把原来的上传按钮去掉
+	  $('#upload_picture_{$name}').remove();
+	  $('#demohtml5upload{$name}btn').click(function(e) {
+	      var aaa=$(this).text();
+	      if(aaa=='展开'){
+		      $('#demohtml5upload{$name}').slideDown();
+		      $(this).html('收缩');
+	      }else{
+	        $(this).html('展开');
+	        $('#demohtml5upload{$name}').slideUp();
+	      }
+	  });
+	  // 初始化插件
+	  $("#demohtml5upload{$name}").zyUpload({
+	    parentsel   :'#demohtml5upload{$name}',
+	    width            :   "80%",                 // 宽度
+	    height           :   "auto",                 // 宽度
+	    itemWidth        :   "120px",                 // 文件项的宽度
+	    itemHeight       :   "100px",                 // 文件项的高度
+	    url              :   "{$fileuploadurl}",       // 上传文件的路径
+	    data             :{myname:'your name'},
+	    multiple         :   {$is_muli_upload},        // 是否可以多个文件上传
+	    dragDrop         :   true,                    // 是否可以拖动上传文件
+	    del              :   true,                    // 是否可以删除文件
+	    finishDel        :   true,            // 是否在上传文件完成后删除预览
+	    /* 外部获得的回调接口 */
+	    // 选择文件的回调方法
+	    onSelect: function(files, allFiles){},
+	    // 删除一个文件的回调方法
+	    onDelete: function(file, surplusFiles){},
+	    // 文件上传成功的回调方法
+	    onSuccess: function(file,response){uploadPicture{$name}(file,response);},
+	    //文件上传失败的回调方法
+	    onFailure: function(file){},
+	    // 上传完成的回调方法
+	    onComplete: function(responseInfo){}
+	  });
+
+    } else {
+	  //  alert("你的浏览器不支持HTML5");
+	  $('#demohtml5upload{$name}btn').remove();
+	  $('#demohtml5upload{$name}').remove();
+	    //上传图片
+	    /* 初始化上传插件 */
+	    $("#upload_picture_{$name}").uploadify({
+	        "height"          : 30,
+	        "swf"             : "{$static_dir}/uploadify/uploadify.swf",
+	        "fileObjName"     : "filelist",
+	        "buttonText"      : "上传图片",
+	        "uploader"        : "{$fileuploadurl}",
+	        "width"           : 120,
+	        'removeTimeout'   : 1,
+	        'fileTypeExts'    : '*.jpg; *.png; *.gif;*.bmp;',
+	        "onUploadSuccess" : uploadPicture{$name},
+	        'onFallback' : function() {
+	            alert('未检测到兼容版本的Flash.');
+	        }
+	    });
+    }
+
+});
+{$uploadsuccessfunc}
     </script>
 eot;
 	return $tem_input;
