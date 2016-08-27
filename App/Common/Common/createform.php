@@ -491,6 +491,7 @@ eot;
 		}
 
 	}
+	//替换掉隐藏类型的值
 	//替换掉没有默认值的
 	$formstr = preg_replace("/\[REPLACE\_SETVALUE\_.*?\]/is", '', $formstr);
 	return $formjsstr . $formstr;
@@ -627,7 +628,7 @@ eot;
 <input type="file" name="file" id="upload_picture_{$name}"  style="display:none;">
 <a  id="demohtml5upload{$name}btn" class="btn  html5uploadbtn" style="margin-bottom:10px;"  href="javascript:;">展开</a>
 <div id="demohtml5upload{$name}" class="demo  html5upload"></div>
-<input type="hidden" name="{$name}" id="cover_id_{$name}" value="{$setvalue}"/>
+<input type="hidden" name="{$name}" id="cover_id_{$name}" value="[REPLACE_SETVALUE_{$name}]"/>
 <div id="uploadimg_{$name}" class="cl">
 {$preimglist}
 </div>
