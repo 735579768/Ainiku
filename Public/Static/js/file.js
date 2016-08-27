@@ -47,5 +47,13 @@
 				$(this).parent().remove();
 			});
 		},
+		/**
+		 * textarea自动高度
+		 * @return {[type]} [description]
+		 */
+		autoHeight: function(obj) {
+			var _t = $(obj);
+			_t.height(obj.scrollHeight);
+		}
 	};
 }();
