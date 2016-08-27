@@ -8,6 +8,20 @@ defined("ACCESS_ROOT") || die("Invalid access");
  * 主要用于下载模型的文件上传和下载
  */
 class FileController extends AdminController {
+	public function getFileInfo() {
+		$id    = I('post.id');
+		$type  = I('post.type');
+		$data  = [];
+		$idarr = preg_replace('/\,|\|\s/', ',', $id);
+		if ($type == 'img') {
+			$data = M('Picture')->where(['id' => ['in', "$idarr"]])->select();
+		} else {
+			$model = M('File');
+			$data  = $model->where(['id' => ['in', "$idarr"]])->select();
+			// echo $model->_sql();
+		}
+		$this->success($data);
+	}
 	private function checksha($filepath = '') {
 		$fpath = '.' . $filepath;
 		if (is_file($fpath)) {

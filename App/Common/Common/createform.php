@@ -502,16 +502,18 @@ function get_upload_picture_html($name, $setvalue, $muli = false, $filetype = fa
 	$upload_text       = $filetype ? '上传附件' : '上传图片';
 	$preimglist        = '';
 	$uploadsuccessfunc = '';
+	$preurl            = U('File/getFileInfo');
 	$fileuploadurl     = U('File/uploadpic', array('session_id' => session_id()));
 	$filetype && ($fileuploadurl = U('File/uploadfile', array('session_id' => session_id())));
 	$is_muli_upload = $muli ? 'true' : 'false';
+	$prejs          = ''; //加载图片或附件预览的js
 	//上传附件
 	if ($filetype) {
 		if ($setvalue) {
 			$filename = get_file($setvalue, 'srcname');
-			$preimglist .= <<<eot
-<div class="upload-pre-file"><span class="upload_icon_all"></span>{$filename}<a href='javascript:;' class='btn btn-danger' dataid='{$setvalue}' >删除</a></div>
-eot;
+// 			$preimglist .= <<<eot
+			// <div class="upload-pre-file"><span class="upload_icon_all"></span>{$filename}<a href='javascript:;' class='btn btn-danger' dataid='{$setvalue}' >删除</a></div>
+			// eot;
 		}
 		//上传成功后的函数
 		$uploadsuccessfunc = <<<eot
@@ -527,7 +529,7 @@ function uploadPicture{$name}(file, data){
     $("#uploadimg_{$name}").html(
       "<div class=\"upload-pre-file\"><span class=\"upload_icon_all\"></span>" + data.info + "<a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
     );
-    file.bindDelAttach();
+    file&&file.bindDelAttach();
   } else {
     ank.msg(data);
     setTimeout(function(){
@@ -537,27 +539,57 @@ function uploadPicture{$name}(file, data){
   }
 }
 eot;
+		$prejs = <<<eot
+var sid=$("#cover_id_{$name}").val();
+$.post("{$preurl}",{id:sid,type:'other'},function(data){
+var da=data.info;
+if(da.length>0){
+	var data=da[0];
+    $("#uploadimg_{$name}").html(
+      "<div class=\"upload-pre-file\"><span class=\"upload_icon_all\"></span>" + data.srcname + "<a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
+    );
+}
+
+});
+eot;
 	} else {
+		$prejs = <<<eot
+var sid=$("#cover_id_{$name}").val();
+$.post("{$preurl}",{id:sid,type:'img'},function(data){
+var da=data.info;
+if(da.length>0){
+for(a in da){
+    $("#uploadimg_{$name}").append(
+      "<div class='imgblock'><div class='upload-img-box uploadimg'><div class='upload-pre-item'><img src='" + da[a]['thumbpath'] + "' /></div></div><a href='javascript:;' class='btn btn-danger' dataid='"+da[a]['id']+"' >删除</a></div>"
+    );
+}
+
+   file&&file.bindDel();
+
+}
+
+});
+eot;
 		//上传图片
 		if ($muli) {
 			//多图上传
-			if ($setvalue) {
-				$arr = preg_split('/\||\,|\s/', $setvalue);
-				foreach ($arr as $a) {
-					$imgpath     = get_picture($a, 'path');
-					$thumbpath   = get_picture($a, 'thumbpath');
-					$imgdestname = get_picture($a, 'destname');
-					$preimglist .= <<<eot
-                  <div class='imgblock'>
-                    <div class='upload-img-box uploadimg'>
-                      <div class='upload-pre-item'><a  href='{$imgpath}' data-lightbox='example-set' data-title='{$imgdestname}'><img src='{$imgthumbpath}' /></a></div>
-                    </div>
-                    <a href='javascript:;' class='btn btn-danger' dataid='{$a}' >删除</a></div>
-}
-eot;
-				}
-				$preimglist .= '<script>$(function(){file.bindDel();});</script>';
-			}
+			// if ($setvalue) {
+			// 	$arr = preg_split('/\||\,|\s/', $setvalue);
+			// 	foreach ($arr as $a) {
+			// 		$imgpath     = get_picture($a, 'path');
+			// 		$thumbpath   = get_picture($a, 'thumbpath');
+			// 		$imgdestname = get_picture($a, 'destname');
+			// 		$preimglist .= <<<eot
+			// 		                  <div class='imgblock'>
+			// 		                    <div class='upload-img-box uploadimg'>
+			// 		                      <div class='upload-pre-item'><a  href='{$imgpath}' data-lightbox='example-set' data-title='{$imgdestname}'><img src='{$imgthumbpath}' /></a></div>
+			// 		                    </div>
+			// 		                    <a href='javascript:;' class='btn btn-danger' dataid='{$a}' >删除</a></div>
+			// 		}
+			// 		eot;
+			// 	}
+			// $preimglist .= '<script>$(function(){file.bindDel();});</script>';
+			// }
 			//上传成功后的函数
 			$uploadsuccessfunc = <<<eot
 function uploadPicture{$name}(file, data){
@@ -572,7 +604,7 @@ function uploadPicture{$name}(file, data){
     $("#uploadimg_{$name}").append(
       "<div class='imgblock'><div class='upload-img-box uploadimg'><div class='upload-pre-item'><img src='" + src + "' /></div></div><a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
     );
-    $(function(){file.bindDel();});
+   file&&file.bindDel();
   } else {
     ank.msg(data);
     setTimeout(function(){
@@ -584,19 +616,19 @@ function uploadPicture{$name}(file, data){
 eot;
 		} else {
 			//单图上传
-			if ($setvalue) {
-				$imgpath     = get_picture($setvalue, 'path');
-				$thumbpath   = get_picture($setvalue, 'thumbpath');
-				$imgdestname = get_picture($setvalue, 'destname');
-				$preimglist  = <<<eot
-<div class='imgblock'>
-<div class="upload-img-box  uploadimg">
-<div class="upload-pre-item"> <a class="" href="{$imgpath}" data-lightbox="example-{$setvalue}" data-title="{$imgdestname}"> <img class="example-image" src="{$imgthumbpath}"/></a> </div>
-</div>
-<a href='javascript:;' class='btn btn-danger'  dataid='{$setvalue}'>删除</a> </div>
-<script>$(function(){file.bindDel();});</script>
-eot;
-			}
+			// 			if ($setvalue) {
+			// 				$imgpath     = get_picture($setvalue, 'path');
+			// 				$thumbpath   = get_picture($setvalue, 'thumbpath');
+			// 				$imgdestname = get_picture($setvalue, 'destname');
+			// 				$preimglist  = <<<eot
+			// <div class='imgblock'>
+			// <div class="upload-img-box  uploadimg">
+			// <div class="upload-pre-item"> <a class="" href="{$imgpath}" data-lightbox="example-{$setvalue}" data-title="{$imgdestname}"> <img class="example-image" src="{$imgthumbpath}"/></a> </div>
+			// </div>
+			// <a href='javascript:;' class='btn btn-danger'  dataid='{$setvalue}'>删除</a> </div>
+			// <script>$(function(){file.bindDel();});</script>
+			// eot;
+			// 			}
 			//上传成功后的函数
 			$uploadsuccessfunc = <<<eot
     function uploadPicture{$name}(file, data){
@@ -611,7 +643,7 @@ eot;
             $("#uploadimg_{$name}").html(
                 "<div class='imgblock'><div class='upload-img-box uploadimg'><div class='upload-pre-item'><img src='" + src + "' /></div></div><a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
             );
-            $(function(){file.bindDel();});
+            file&&file.bindDel();
         } else {
             ank.msg(data);
             setTimeout(function(){
@@ -623,6 +655,8 @@ eot;
 eot;
 		}
 	}
+
+	//表单字符串
 	$tem_input = <<<eot
 <div class="controls h5upload-block">
 <input type="file" name="file" id="upload_picture_{$name}"  style="display:none;">
@@ -635,6 +669,8 @@ eot;
 </div>
 <script type="text/javascript">
 $(function(){
+	//自动加载图片或附件预览
+	{$prejs}
 	if (window.applicationCache) {
 	   // 把原来的上传按钮去掉
 	  $('#upload_picture_{$name}').remove();
