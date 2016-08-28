@@ -517,7 +517,7 @@ function get_upload_picture_html($name, $setvalue, $muli = false, $filetype = fa
 		}
 		//上传成功后的函数
 		$uploadsuccessfunc = <<<eot
-function uploadPicture{$name}(file, data){
+function uploadPicture{$name}(upfile, data){
  var data = $.parseJSON(data);
   if(data.status){
     var name = "{$name}";
@@ -592,7 +592,7 @@ eot;
 			// }
 			//上传成功后的函数
 			$uploadsuccessfunc = <<<eot
-function uploadPicture{$name}(file, data){
+function uploadPicture{$name}(upfile, data){
   var data = $.parseJSON(data);
   var src = '';
   if(data.status){

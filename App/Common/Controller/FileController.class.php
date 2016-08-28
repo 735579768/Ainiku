@@ -2,6 +2,8 @@
 // | Author: 枫叶 <735579768@qq.com> <http://www.zhaokeli.com>
 // +----------------------------------------------------------------------
 namespace Common\Controller;
+use Think\Controller;
+
 defined("ACCESS_ROOT") || die("Invalid access");
 /**
  * 文件控制器
@@ -22,7 +24,22 @@ class FileController extends Controller {
 		}
 		$this->success($data);
 	}
-
+	private function checksha($filepath = '') {
+		$fpath = '.' . $filepath;
+		if (is_file($fpath)) {
+			$sha1 = sha1_file($fpath);
+			$list = M('Picture')->where("sha1='$sha1'")->find();
+			if (empty($list)) {
+				return array('path' => $filepath, 'sha1' => $sha1);
+			} else {
+				//删除当前路径文件
+				unlink($fpath);
+				return $list;
+			}
+		} else {
+			return $filepath;
+		}
+	}
 	public function deleditorimg($s = null, $d = null) {
 		$re = '/[&lt;|<]img.*?src=[\'|\"]{1}(.*?)[\'|\"]{1}.*?[&lt;|<]/';
 		preg_match_all($re, $s, $simg);
@@ -290,6 +307,7 @@ class FileController extends Controller {
 	}
 
 	public function ueupload() {
+		// die('run');
 		$CONFIG = json_decode(preg_replace("/\/\*[\s\S]+?\*\//", "", file_get_contents(path_a(__STATIC__ . "/ueditor/php/config.json"))), true);
 		//"imagePathFormat": "/Uploads/image/{yyyy}{mm}{dd}/{time}{rand:6}",
 		$CONFIG['imagePathFormat']      = __ROOT__ . "/Uploads/image/{yyyy}{mm}{dd}/{time}{rand:6}";

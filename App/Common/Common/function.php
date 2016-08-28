@@ -1045,22 +1045,22 @@ function find_file_path($filename = '') {
 	}
 	return 'http://' . $filename;
 }
-/**
- * 上传文件函数
- */
-function upload_file() {
-	return A('Common/File')->uploadfile();
-}
+// /**
+//  * 上传文件函数
+//  */
+// function upload_file() {
+// 	return A('Common/File')->uploadfile();
+// }
 
-/**
- * 上传图片函数
- */
-function upload_pic() {
-	return A('Common/File')->uploadpic();
-}
-/**
- * ue编辑器上传
- */
-function ueupload() {
-	return A('Common/File')->ueupload();
-}
+// /**
+//  * 上传图片函数
+//  */
+// function upload_pic() {
+// 	return A('Common/File')->uploadpic();
+// }
+// /**
+//  * ue编辑器上传
+//  */
+// function ueupload() {
+// 	return A('Common/File')->ueupload();
+// }
