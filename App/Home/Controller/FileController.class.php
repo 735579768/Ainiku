@@ -8,6 +8,20 @@ defined("ACCESS_ROOT") || die("Invalid access");
  * 主要用于下载模型的文件上传和下载
  */
 class FileController extends HomeController {
+	public function getFileInfo() {
+		$id    = I('post.id');
+		$type  = I('post.type');
+		$data  = [];
+		$idarr = preg_replace('/\,|\|\s/', ',', $id);
+		if ($type == 'img') {
+			$data = M('Picture')->where(['id' => ['in', "$idarr"]])->select();
+		} else {
+			$model = M('File');
+			$data  = $model->where(['id' => ['in', "$idarr"]])->select();
+			// echo $model->_sql();
+		}
+		$this->success($data);
+	}
 	private function checksha($filepath = '') {
 		$fpath = '.' . $filepath;
 		if (is_file($fpath)) {
@@ -244,7 +258,6 @@ class FileController extends HomeController {
 		$SITE_PATH    = SITE_PATH; //网站根目录
 		$targetFolder = C('FILE_UPLOAD.rootPath'); //保存图片的根目录
 		$JDtargetPath = '';
-		$return       = array();
 		$data         = array();
 		if (!empty($_FILES)) {
 			$tempFile = $_FILES['filelist']['tmp_name'];
