@@ -1,13 +1,13 @@
 <?php
 // | Author: 枫叶 <735579768@qq.com> <http://www.zhaokeli.com>
 // +----------------------------------------------------------------------
-namespace Home\Controller;
+namespace Common\Controller;
 defined("ACCESS_ROOT") || die("Invalid access");
 /**
  * 文件控制器
  * 主要用于下载模型的文件上传和下载
  */
-class FileController extends HomeController {
+class FileController extends Controller {
 	public function getFileInfo() {
 		$id    = I('post.id');
 		$type  = I('post.type');
@@ -22,64 +22,7 @@ class FileController extends HomeController {
 		}
 		$this->success($data);
 	}
-	private function checksha($filepath = '') {
-		$fpath = '.' . $filepath;
-		if (is_file($fpath)) {
-			$sha1 = sha1_file($fpath);
-			$list = M('Picture')->where("sha1='$sha1'")->find();
-			if (empty($list)) {
-				return array('path' => $filepath, 'sha1' => $sha1);
-			} else {
-				//删除当前路径文件
-				unlink($fpath);
-				return $list;
-			}
-		} else {
-			return $filepath;
-		}
-	}
-	//重新生成文件的sha1
-	function resetsha1() {
-		$list = F('resetshalist');
-		if (empty($list)) {
-			$list = M('Picture')->field('id,path')->select();
-			F('resetshalist', $list);
-			F('resetshalistnum', count($list));
-		}
-		$total = F('resetshalistnum');
-		$i     = 1;
-		foreach ($list as $key => $val) {
-			$i++;
-			$sha1 = sha1_file('.' . $val['path']);
-			M('Picture')->where("id={$val['id']}")->save(array('sha1' => $sha1));
-			unset($list[$key]);
-			if ($i > 1000 || empty($list)) {
-				$num = count($list);
-				if ($num > 0) {
-					F('resetshalist', $list);
-					$this->error('已经处理' . ($total - $num) . ',还有' . $num . '张');
-				} else {
-					F('resetshalist', null);
-					F('resetshalistnum', null);
-					$this->success('SHA1重置成功,总共有' . $total . '张图片');
-				}
-				break;
-			}
 
-		}
-
-	}
-	//附件管理
-	public function attach() {
-		$this->pages(array(
-			'model' => 'File',
-			'rows'  => 24,
-			'where' => $map,
-			'order' => 'create_time desc,id desc',
-		));
-		$this->meta_title = '附件管理';
-		$this->display();
-	}
 	public function deleditorimg($s = null, $d = null) {
 		$re = '/[&lt;|<]img.*?src=[\'|\"]{1}(.*?)[\'|\"]{1}.*?[&lt;|<]/';
 		preg_match_all($re, $s, $simg);
@@ -113,97 +56,7 @@ class FileController extends HomeController {
 			$this->error(L('_DELETE_FAIL_'));
 		}
 	}
-	//图片管理
-	public function imglist() {
-		$starttime = strtotime(I('starttime'));
-		$endtime   = strtotime(I('endtime'));
-		$field     = array(
-			'start' => array(
-				'field'   => 'starttime',
-				'name'    => 'starttime',
-				'type'    => 'datetime',
-				'title'   => '开始时间',
-				'note'    => '',
-				'extra'   => null,
-				'is_show' => 3,
-				'value'   => $starttime,
-			),
-			'end'   => array(
-				'field'   => 'endtime',
-				'name'    => 'endtime',
-				'type'    => 'datetime',
-				'title'   => '结束时间',
-				'note'    => '',
-				'extra'   => null,
-				'is_show' => 3,
-				'value'   => $endtime,
-			),
-		);
-		$this->assign('fieldarr', $field);
-		$this->assign('data', null);
-		$map = null;
-		if (!empty($starttime) && !empty($endtime)) {
-			$map = 'create_time > ' . $starttime . ' and ' . 'create_time < ' . $endtime;
-		} else if (!empty($starttime)) {
-			$map = 'create_time > ' . $starttime;
-		} else if (!empty($endtime)) {
-			$map = 'create_time < ' . $endtime;
-		}
-		$this->pages(array(
-			'model' => 'Picture',
-			'rows'  => 24,
-			'where' => $map,
-			'order' => 'create_time desc,id desc',
-		));
-		$this->meta_title = '图片管理';
-		$this->display();
-	}
-	//显示没有关联的图片
-	public function nolinkimg() {
-		set_time_limit(0);
-		$rows = M('Picture')->select();
-		//查找无效图片
-		//首先查找文章或产品中的图片(去除有效的)
-		foreach ($rows as $key => $val) {
-			$result = M('Article')->where("pic like '%{$val['id']}%'")->select();
-			if (0 < $result) {
-				unset($rows[$key]);
-			}
 
-			$result = M('Goods')->where("pic like '%{$val['id']}%' or xc  like '%{$val['id']}%'")->select();
-			if (0 < $result) {
-				unset($rows[$key]);
-			}
-
-			$result = M('Category')->where("ico like '%{$val['id']}%'")->select();
-			if (0 < $result) {
-				unset($rows[$key]);
-			}
-
-			$result = M('Link')->where("pic like '%{$val['id']}%'")->select();
-			if (0 < $result) {
-				unset($rows[$key]);
-			}
-
-		}
-		foreach ($rows as $key => $val) {
-			$result = M('Article')->where("content like '%{$val['destname']}%'")->select();
-			if (0 < $result) {
-				unset($rows[$key]);
-			}
-
-			$result = M('Goods')->where("content like '%{$val['destname']}%'")->select();
-			if (0 < $result) {
-				unset($rows[$key]);
-			}
-
-		}
-		$page             = new \Ainiku\Arrpage($rows, 1, 10);
-		$this->_list      = $page->cur_page_data;
-		$this->_page      = $page->showpage(false);
-		$this->meta_title = '无效图片管理';
-		$this->display('imglist');
-	}
 	//删除图片
 	public function delimg($id = '') {
 		if (empty($id)) {
@@ -218,34 +71,7 @@ class FileController extends HomeController {
 			$this->error(L('_DELETE_FAIL_'));
 		}
 	}
-//	/**
-	//	 *上传文件
-	//	 */
-	//	public function upload() {
-	//		$return = array('status' => 1, 'info' => '上传成功', 'data' => '', 'url' => '');
-	//		/* 调用文件上传组件上传文件 */
-	//		$File        = D('File');
-	//		$file_driver = C('DOWNLOAD_UPLOAD_DRIVER');
-	//		$info        = $File->upload(
-	//			$_FILES,
-	//			C('DOWNLOAD_UPLOAD'),
-	//			C('DOWNLOAD_UPLOAD_DRIVER'),
-	//			C("UPLOAD_{$file_driver}_CONFIG")
-	//		);
-	//
-	//		/* 记录附件信息 */
-	//		if ($info) {
-	//			$return['id'] = $info['download']['id'];
-	//			// $return['data'] = json_encode($info['download']);
-	//			$return['info'] = $info['download']['name'];
-	//		} else {
-	//			$return['status'] = 0;
-	//			$return['info']   = $File->getError();
-	//		}
-	//
-	//		/* 返回JSON数据 */
-	//		$this->ajaxReturn($return);
-	//	}
+
 	/**
 	 * 上传文件
 	 * @author huajie <banhuajie@163.com>
@@ -285,8 +111,6 @@ class FileController extends HomeController {
 			}
 			//原文件的相对路径到文件名字
 			$XDtargetPath = $targetFolder . '/' . date('Ymd') . '/' . $filename;
-/*			$temarr          = explode('.', $XDtargetPath);
-$XDtargetPathdir = str_replace($filename, '', $XDtargetPath);*/
 			create_folder(dirname($XDtargetPath));
 			//原图文件绝对路径目录
 			$targetPath = $SITE_PATH . $targetFolder . '/' . date('Ymd'); //保存原文件的绝对路径
@@ -467,7 +291,7 @@ $XDtargetPathdir = str_replace($filename, '', $XDtargetPath);*/
 
 	public function ueupload() {
 		$CONFIG = json_decode(preg_replace("/\/\*[\s\S]+?\*\//", "", file_get_contents(path_a(__STATIC__ . "/ueditor/php/config.json"))), true);
-//"imagePathFormat": "/Uploads/image/{yyyy}{mm}{dd}/{time}{rand:6}",
+		//"imagePathFormat": "/Uploads/image/{yyyy}{mm}{dd}/{time}{rand:6}",
 		$CONFIG['imagePathFormat']      = __ROOT__ . "/Uploads/image/{yyyy}{mm}{dd}/{time}{rand:6}";
 		$CONFIG['scrawlPathFormat']     = __ROOT__ . "/Uploads/image/{yyyy}{mm}{dd}/{time}{rand:6}";
 		$CONFIG['snapscreenPathFormat'] = __ROOT__ . "/Uploads/image/{yyyy}{mm}{dd}/{time}{rand:6}";
@@ -536,8 +360,6 @@ $XDtargetPathdir = str_replace($filename, '', $XDtargetPath);*/
 				if ($action == 'uploadimage') {
 					$thumb   = str_replace("/Uploads/image/", "/Uploads/image/thumb/", $result['url']);
 					$JDthumb = path_a($thumb);
-/*					$temarr     = explode('.', $JDthumb);
-$JDthumbdir = str_replace($temarr[count($temarr) - 1], '', $JDthumb);*/
 					create_folder(dirname($JDthumb));
 					//生成缩略图
 					$srcpath = path_a($result['url']);
@@ -588,7 +410,10 @@ $JDthumbdir = str_replace($temarr[count($temarr) - 1], '', $JDthumb);*/
 			image_water($dst, '', $dst, C('SHUIYIN_TEXT'));
 		}
 	}
-//批量生成缩略图
+	/**
+	 * 批量生成缩略图
+	 * @return [type] [description]
+	 */
 	function createthumb() {
 		if (IS_POST) {
 			$info = array(
