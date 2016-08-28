@@ -510,12 +510,6 @@ function get_upload_picture_html($name, $setvalue, $muli = false, $filetype = fa
 	$prejs          = ''; //加载图片或附件预览的js
 	//上传附件
 	if ($filetype) {
-		// if ($setvalue) {
-		// 	// $filename = get_file($setvalue, 'srcname');
-		// 	// 			$preimglist .= <<<eot
-		// 	// <div class="upload-pre-file"><span class="upload_icon_all"></span>{$filename}<a href='javascript:;' class='btn btn-danger' dataid='{$setvalue}' >删除</a></div>
-		// 	// eot;
-		// }
 		//上传成功后的函数
 		$uploadsuccessfunc = <<<eot
 function uploadPicture{$name}(upfile, data){
@@ -578,23 +572,7 @@ eot;
 		//上传图片
 		if ($muli) {
 			//多图上传
-			// if ($setvalue) {
-			// 	$arr = preg_split('/\||\,|\s/', $setvalue);
-			// 	foreach ($arr as $a) {
-			// 		$imgpath     = get_picture($a, 'path');
-			// 		$thumbpath   = get_picture($a, 'thumbpath');
-			// 		$imgdestname = get_picture($a, 'destname');
-			// 		$preimglist .= <<<eot
-			// 		                  <div class='imgblock'>
-			// 		                    <div class='upload-img-box uploadimg'>
-			// 		                      <div class='upload-pre-item'><a  href='{$imgpath}' data-lightbox='example-set' data-title='{$imgdestname}'><img src='{$imgthumbpath}' /></a></div>
-			// 		                    </div>
-			// 		                    <a href='javascript:;' class='btn btn-danger' dataid='{$a}' >删除</a></div>
-			// 		}
-			// 		eot;
-			// 	}
-			// $preimglist .= '<script>$(function(){file.bindDel();});</script>';
-			// }
+
 			//上传成功后的函数
 			$uploadsuccessfunc = <<<eot
 function uploadPicture{$name}(upfile, data){
@@ -609,10 +587,6 @@ function uploadPicture{$name}(upfile, data){
       "<div class='imgblock'><div class='upload-img-box uploadimg'><div class='upload-pre-item'><img  layer-pid='"+data.srcname+"' layer-src='"+data.path+"' src='" + data.thumbpath + "' /></div></div><a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
     );
 
- // layer.photos({
- //   photos: '#uploadimg_{$name}'
- // });
-
    file&&file.bindDel();
   } else {
     ank.msg(data);
@@ -624,23 +598,9 @@ function uploadPicture{$name}(upfile, data){
 }
 eot;
 		} else {
-			//单图上传
-			// 			if ($setvalue) {
-			// 				$imgpath     = get_picture($setvalue, 'path');
-			// 				$thumbpath   = get_picture($setvalue, 'thumbpath');
-			// 				$imgdestname = get_picture($setvalue, 'destname');
-			// 				$preimglist  = <<<eot
-			// <div class='imgblock'>
-			// <div class="upload-img-box  uploadimg">
-			// <div class="upload-pre-item"> <a class="" href="{$imgpath}" data-lightbox="example-{$setvalue}" data-title="{$imgdestname}"> <img class="example-image" src="{$imgthumbpath}"/></a> </div>
-			// </div>
-			// <a href='javascript:;' class='btn btn-danger'  dataid='{$setvalue}'>删除</a> </div>
-			// <script>$(function(){file.bindDel();});</script>
-			// eot;
-			// 			}
 			//上传成功后的函数
 			$uploadsuccessfunc = <<<eot
-    function uploadPicture{$name}(file, data){
+    function uploadPicture{$name}(upfile, data){
         var data = $.parseJSON(data);
         var src = '';
         if(data.status){
@@ -652,9 +612,6 @@ eot;
             $("#uploadimg_{$name}").html(
                 "<div class='imgblock'><div class='upload-img-box uploadimg'><div class='upload-pre-item'><img  layer-pid='"+data['srcname']+"' layer-src='"+data['path']+"' src='" + src + "' /></div></div><a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
             );
-  layer.photos({
-    photos: '#uploadimg_{$name}'
-  });
 
    file&&file.bindDel();
         } else {
