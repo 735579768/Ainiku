@@ -175,7 +175,7 @@ body{overflow:hidden;padding:62px 0px 0px 180px;}
 
 /***上传图片***/
 .uploadimg{height:120px;width:120px;}
-.upload-img-box{display:table-cell;vertical-align:middle;text-align:center;}
+.upload-img-box{display:table-cell;vertical-align:middle;text-align:center;cursor: pointer;}
 .imgblock{float:left;margin:0px 5px;width:120px;height:170px;position:relative;}
 .imgblock .btn-danger{/*position:absolute;left:0px;bottom:0px;*/display:block;width:50%;margin:5px auto;}
 .upload-pre-item img{max-width:120px;max-height:120px;_width:expression(this.width >120 && this.height < this.width ? 120:true);_height:expression(this.height > 120 ? 120:true);}

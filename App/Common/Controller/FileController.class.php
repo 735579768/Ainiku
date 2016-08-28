@@ -14,7 +14,7 @@ class FileController extends Controller {
 		$id    = I('post.id');
 		$type  = I('post.type');
 		$data  = [];
-		$idarr = preg_replace('/\,|\|\s/', ',', $id);
+		$idarr = preg_replace('/\,|\||\s/', ',', $id);
 		if ($type == 'img') {
 			$data = M('Picture')->where(['id' => ['in', "$idarr"]])->select();
 		} else {
@@ -41,6 +41,8 @@ class FileController extends Controller {
 		}
 	}
 	public function deleditorimg($s = null, $d = null) {
+		$s  = I('get.s');
+		$d  = I('get.d');
 		$re = '/[&lt;|<]img.*?src=[\'|\"]{1}(.*?)[\'|\"]{1}.*?[&lt;|<]/';
 		preg_match_all($re, $s, $simg);
 		preg_match_all($re, $d, $dimg);
@@ -61,7 +63,8 @@ class FileController extends Controller {
 		}
 		return null;
 	}
-	public function delattach($id = null) {
+	public function delattach() {
+		$id = I('get.id');
 		if (empty($id)) {
 			return false;
 		}
@@ -75,7 +78,8 @@ class FileController extends Controller {
 	}
 
 	//删除图片
-	public function delimg($id = '') {
+	public function delimg() {
+		$id = I('get.id');
 		if (empty($id)) {
 			$this->error(L('_ID_NOT_NULL_'));
 		}
@@ -195,7 +199,16 @@ class FileController extends Controller {
 		//TODO: 用户登录检测
 
 		/* 返回标准数据 */
-		$return       = array('status' => 1, 'info' => '上传成功', 'path' => '', 'id' => '', 'url' => '', 'data' => '');
+		$return = array(
+			'status'   => 1,
+			'srcname'  => $_FILES['filelist']['name'],
+			'destname' => '',
+			'info'     => '上传成功',
+			'path'     => '',
+			'id'       => '',
+			'url'      => '',
+			'data'     => '',
+		);
 		$SITE_PATH    = SITE_PATH; //网站根目录
 		$targetFolder = path_a(C('FILE_UPLOAD.rootPath')); //保存图片的根目录
 		$JDtargetPath = '';
@@ -303,7 +316,7 @@ class FileController extends Controller {
 		}
 
 		/* 返回JSON数据 */
-		$this->ajaxReturn($return);
+		$this->ajaxReturn(array_merge($return, $data));
 	}
 
 	public function ueupload() {

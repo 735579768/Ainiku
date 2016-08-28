@@ -342,6 +342,7 @@ eot;
 			case 'cutpicture':
 				///////////////////////////////////////////////////////////////////////////
 				$formjs['cutpicture']++;
+				$tem_input = get_upload_picture_html($name, $setvalue);
 				break;
 			case 'custom':
 				$tem_input = get_custom_form($extra, $name, $setvalue);
@@ -467,25 +468,25 @@ eot;
 			preg_match($pattern, $formstr, $match);
 			if ($match) {
 				$tstr     = $match[0];
-				$pattern1 = '/(<option.*?value=".*?").*?(>.*?<\/option>)/is';
-				$pattern2 = '/(<option.*?value="' . $value . '").*?(>.*?<\/option>)/is';
+				$pattern1 = '/(<option.*?value=".*?").*?(>.*?<\/option>)/i';
+				$pattern2 = '/(<option.*?value="' . $value . '").*?(>.*?<\/option>)/i';
 				$tstr2    = preg_replace([$pattern1, $pattern2], ['$1 $2', '$1 selected $2'], $tstr);
 				$formstr  = str_replace($tstr, $tstr2, $formstr);
 			}
 
 			//替换radio
 			//去掉默认的选中
-			$pattern1 = '/(<input type="radio".*?name\="' . $key . '" value\=".*?").*? \/>/is';
-			$pattern2 = '/(<input type="radio".*?name\="' . $key . '" value\="' . $value . '").*? \/>/is';
+			$pattern1 = '/(<input type="radio".*?name\="' . $key . '" value\=".*?").*? \/>/i';
+			$pattern2 = '/(<input type="radio".*?name\="' . $key . '" value\="' . $value . '").*? \/>/i';
 			$formstr  = preg_replace([$pattern1, $pattern2], ['$1 />', '$1 checked="checked" />'], $formstr);
 
 			//替换checkbox
 
 			$valarr   = explode(',', $value);
-			$pattern1 = '/(<input type="checkbox".*?name\="' . $key . '\[\]" value\=".*?").*? \/>/is';
+			$pattern1 = '/(<input type="checkbox".*?name\="' . $key . '\[\]" value\=".*?").*? \/>/i';
 			$formstr  = preg_replace($pattern1, '$1 />', $formstr);
 			foreach ($valarr as $v) {
-				$pattern2 = '/(<input type="checkbox".*?name\="' . $key . '\[\]" value\="' . $v . '").*? \/>/is';
+				$pattern2 = '/(<input type="checkbox".*?name\="' . $key . '\[\]" value\="' . $v . '").*? \/>/i';
 				$formstr  = preg_replace($pattern2, '$1 checked="checked" />', $formstr);
 			}
 		}
@@ -509,12 +510,12 @@ function get_upload_picture_html($name, $setvalue, $muli = false, $filetype = fa
 	$prejs          = ''; //加载图片或附件预览的js
 	//上传附件
 	if ($filetype) {
-		if ($setvalue) {
-			$filename = get_file($setvalue, 'srcname');
-// 			$preimglist .= <<<eot
-			// <div class="upload-pre-file"><span class="upload_icon_all"></span>{$filename}<a href='javascript:;' class='btn btn-danger' dataid='{$setvalue}' >删除</a></div>
-			// eot;
-		}
+		// if ($setvalue) {
+		// 	// $filename = get_file($setvalue, 'srcname');
+		// 	// 			$preimglist .= <<<eot
+		// 	// <div class="upload-pre-file"><span class="upload_icon_all"></span>{$filename}<a href='javascript:;' class='btn btn-danger' dataid='{$setvalue}' >删除</a></div>
+		// 	// eot;
+		// }
 		//上传成功后的函数
 		$uploadsuccessfunc = <<<eot
 function uploadPicture{$name}(upfile, data){
@@ -553,16 +554,20 @@ if(da.length>0){
 });
 eot;
 	} else {
-		$prejs = <<<eot
-var sid=$("#cover_id_{$name}").val();
-$.post("{$preurl}",{id:sid,type:'img'},function(data){
+		//上传图片显示设置的默认图片
+		$sethtml = $muli ? 'append' : 'html';
+		$prejs   = <<<eot
+$.post("{$preurl}",{id:$("#cover_id_{$name}").val(),type:'img'},function(data){
 var da=data.info;
 if(da.length>0){
 for(a in da){
-    $("#uploadimg_{$name}").append(
-      "<div class='imgblock'><div class='upload-img-box uploadimg'><div class='upload-pre-item'><img src='" + da[a]['thumbpath'] + "' /></div></div><a href='javascript:;' class='btn btn-danger' dataid='"+da[a]['id']+"' >删除</a></div>"
+    $("#uploadimg_{$name}").{$sethtml}(
+      "<div class='imgblock'><div class='upload-img-box uploadimg'><div class='upload-pre-item'><img layer-pid='"+da[a]['destname']+"' layer-src='"+da[a]['path']+"' src='" + da[a]['thumbpath'] + "' /></div></div><a href='javascript:;' class='btn btn-danger' dataid='"+da[a]['id']+"' >删除</a></div>"
     );
 }
+  layer.photos({
+    photos: '#uploadimg_{$name}'
+  });
 
    file&&file.bindDel();
 
@@ -594,16 +599,20 @@ eot;
 			$uploadsuccessfunc = <<<eot
 function uploadPicture{$name}(upfile, data){
   var data = $.parseJSON(data);
-  var src = '';
   if(data.status){
     var a=$("#cover_id_{$name}").val();
     a=a.replace(/\s+/g,'');
     if(a==''){a=data.id;}else{a+='|'+data.id}
     $("#cover_id_{$name}").val(a);
-    src = data.url ||data.path
-    $("#uploadimg_{$name}").append(
-      "<div class='imgblock'><div class='upload-img-box uploadimg'><div class='upload-pre-item'><img src='" + src + "' /></div></div><a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
+    var selobj=$("#uploadimg_{$name}");
+    selobj.append(
+      "<div class='imgblock'><div class='upload-img-box uploadimg'><div class='upload-pre-item'><img  layer-pid='"+data.srcname+"' layer-src='"+data.path+"' src='" + data.thumbpath + "' /></div></div><a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
     );
+
+ // layer.photos({
+ //   photos: '#uploadimg_{$name}'
+ // });
+
    file&&file.bindDel();
   } else {
     ank.msg(data);
@@ -641,9 +650,13 @@ eot;
       $("#cover_id_{$name}").val(data.id);
             src = data.url ||  data.path
             $("#uploadimg_{$name}").html(
-                "<div class='imgblock'><div class='upload-img-box uploadimg'><div class='upload-pre-item'><img src='" + src + "' /></div></div><a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
+                "<div class='imgblock'><div class='upload-img-box uploadimg'><div class='upload-pre-item'><img  layer-pid='"+data['srcname']+"' layer-src='"+data['path']+"' src='" + src + "' /></div></div><a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
             );
-            file&&file.bindDel();
+  layer.photos({
+    photos: '#uploadimg_{$name}'
+  });
+
+   file&&file.bindDel();
         } else {
             ank.msg(data);
             setTimeout(function(){
