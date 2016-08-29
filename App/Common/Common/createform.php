@@ -499,28 +499,33 @@ eot;
 			$value = str_replace('/', '\/', $value);
 			//替换select
 			$pattern = '/<select.*?name\=\"' . $key . '\".*?>.*?<\/select>/is';
+
 			preg_match($pattern, $formstr, $match);
 			if ($match) {
+
 				$tstr     = $match[0];
-				$pattern1 = '/(<option.*?value=".*?").*?(>.*?<\/option>)/i';
-				$pattern2 = '/(<option.*?value="' . $value . '").*?(>.*?<\/option>)/i';
-				$tstr2    = preg_replace([$pattern1, $pattern2], ['$1 $2', '$1 selected $2'], $tstr);
-				$formstr  = str_replace($tstr, $tstr2, $formstr);
+				$pattern1 = '/(<option.*?value=\".*?\").*?(>.*?<\/option>)/i';
+				$pattern2 = '/(<option.*?value=\"' . $value . '\").*?(>.*?<\/option>)/i';
+				// trace($pattern);
+				// trace($value);
+				// trace($pattern2);
+				$tstr2   = preg_replace([$pattern1, $pattern2], ['$1 $2', '$1 selected $2'], $tstr);
+				$formstr = str_replace($tstr, $tstr2, $formstr);
 			}
 
 			//替换radio
 			//去掉默认的选中
-			$pattern1 = '/(<input type="radio".*?name\="' . $key . '" value\=".*?").*? \/>/i';
-			$pattern2 = '/(<input type="radio".*?name\="' . $key . '" value\="' . $value . '").*? \/>/i';
+			$pattern1 = '/(<input type=\"radio\".*?name\=\"' . $key . '\" value\=\".*?\").*? \/>/i';
+			$pattern2 = '/(<input type=\"radio\".*?name\=\"' . $key . '\" value\=\"' . $value . '\").*? \/>/i';
 			$formstr  = preg_replace([$pattern1, $pattern2], ['$1 />', '$1 checked="checked" />'], $formstr);
 			// trace($pattern2);
 			//替换checkbox
 
 			$valarr   = explode(',', $value);
-			$pattern1 = '/(<input type="checkbox".*?name\="' . $key . '\[\]" value\=".*?").*? \/>/i';
+			$pattern1 = '/(<input type=\"checkbox\".*?name\=\"' . $key . '\[\]" value\=\".*?\").*? \/>/i';
 			$formstr  = preg_replace($pattern1, '$1 />', $formstr);
 			foreach ($valarr as $v) {
-				$pattern2 = '/(<input type="checkbox".*?name\="' . $key . '\[\]" value\="' . $v . '").*? \/>/i';
+				$pattern2 = '/(<input type=\"checkbox\".*?name\=\"' . $key . '\[\]\" value\=\"' . $v . '\").*? \/>/i';
 				$formstr  = preg_replace($pattern2, '$1 checked="checked" />', $formstr);
 			}
 		}
