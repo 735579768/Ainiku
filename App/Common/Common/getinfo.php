@@ -522,14 +522,14 @@ function get_iplocation($ip = "127.0.0.1") {
 	}
 
 }
-/**
- *生成表单
- */
-function get_form($field, $da = array()) {
-	// $form = new \Common\Controller\FormController($field, $da);
-	// return $form->getData();
-	return create_form($field, $da);
-}
+// /**
+//  *生成表单
+//  */
+// function get_form($field, $da = array()) {
+// 	// $form = new \Common\Controller\FormController($field, $da);
+// 	// return $form->getData();
+// 	return create_form($field, $da);
+// }
 /**
  * 返回一个动态自动验证的数组
  */

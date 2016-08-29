@@ -24,6 +24,7 @@
 //  'data_err' =>'', //格式不对时的提示文本
 //  'data_ok' => '', //格式正确时的提示文本
 //  'data_reg' => '', //验证格式的正则
+//  'attrtype'=>1,    //当输出tab(基础,扩展两个时用到此属性)这个时候请直接调用get_tab_form($fieldarr,$data)
 // ),
 /////////////说明//////////////
 //@is_show  1 add状态下显示   2 edit编辑状态下显示   3 add edit状态下都显示  4 只要是超级管理员状态下都显示
@@ -744,6 +745,47 @@ eot;
 	return ['str' => $tem_input, 'js' => $initjs . $uploadsuccessfunc];
 }
 
+/**
+ * 自动返回一个带tab标签的表单
+ * @return [type] [description]
+ */
+function get_form($fieldarr, $data = []) {
+	$field = ['jc' => null, 'kz' => null];
+	foreach ($fieldarr as $key => $value) {
+		if (isset($value['attrtype']) && $value['attrtype'] == '1') {
+			$field['kz'][] = $fieldarr[$key];
+		} else {
+			$field['jc'][] = $fieldarr[$key];
+		}
+	}
+
+	if ($field['kz']) {
+		$jc  = create_form($field['jc'], $data);
+		$kz  = create_form($field['kz'], $data);
+		$str = <<<eot
+<div class="tab">
+	<ul class="tabnavblock cl">
+	    <li class="tabnav hover"><a href="javascript:;">基础</a></li>
+	    <li class="tabnav"><a href="javascript:;">扩展</a></li>
+	</ul>
+
+	<div class="tabdivblock">
+		<div class="tabdiv">{$jc}</div>
+		<div class="tabdiv" style="display:none;">{$kz}</div>
+	</div>
+</div>
+<script>
+$(function(){
+     $('.tab').mytab({navcls:'.tabnav',divcls:'.tabdiv',effect:'show',ev:'click',navhovercls:'hover'});
+  });
+</script>
+eot;
+		return $str;
+	} else {
+		return create_form($field['jc'], $data);
+	}
+
+}
 /**
  * 取自定义表单
  * @param  [type] $method 方法
