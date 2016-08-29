@@ -19,10 +19,12 @@
 // ),
 /////////////说明//////////////
 //@is_show  1 add状态下显示   2 edit编辑状态下显示   3 add edit状态下都显示  4 只要是超级管理员状态下都显示
-/**
- *系统共用生成表单列表
- */
-//一次请求要引入的表单js
+//自定义表单
+//调用get_custom_form 这个函数
+//在共用模块控制器CustomFormController中添加方法并且返回表单字符串
+//示例请看里面的测试邮件和云标签
+
+//每一次请求要引入的表单js
 $GLOBALS['formjs'] = array(
 	'editornum'  => 0,
 	'datetime'   => 0,
@@ -712,4 +714,16 @@ $(function(){
     </script>
 eot;
 	return $tem_input;
+}
+
+/**
+ * 取自定义表单
+ * @param  [type] $method 方法
+ * @param  [type] $name   表单name
+ * @param  [type] $data   表单值
+ * @return [type]         返回字符串
+ */
+function get_custom_form($method, $name, $data) {
+	$form = new \Common\Controller\CustomFormController($method, $name, $data);
+	return $form->$metch();
 }

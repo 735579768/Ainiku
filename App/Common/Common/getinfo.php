@@ -531,13 +531,6 @@ function get_form($field, $da = array()) {
 	return create_form($field, $da);
 }
 /**
- *取自定义表单
- */
-function get_custom_form($metch, $name, $data) {
-	$form = new \Common\Controller\CustomFormController($metch, $name, $data);
-	return $form->$metch();
-}
-/**
  * 返回一个动态自动验证的数组
  */
 function get_model_rules($model_id = '') {

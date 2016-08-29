@@ -11,13 +11,24 @@ class CustomFormController extends Controller {
 		$data['value']  = $value;
 		$this->assign('data', $data);
 	}
-	//云标签表单
+	/**
+	 * 云标签表单
+	 * @param  [type] $name  表单name
+	 * @param  [type] $value 表单值
+	 * @return [type]        [description]
+	 */
 	public function tag($name = null, $value = null) {
 		//查找系统标签
 		$_list = M('tag')->order('id desc')->select();
 		$this->assign('_list', $_list);
 		return $this->fetch(T('Common@Widget/CustomForm/' . $this->filename));
 	}
+	/**
+	 * 发送测试邮件
+	 * @param  [type] $name  表单name
+	 * @param  [type] $value 表单值
+	 * @return [type]        [description]
+	 */
 	public function testmail($name = null, $value = null) {
 		return $this->fetch(T('Common@Widget/CustomForm/' . $this->filename));
 	}
