@@ -315,7 +315,9 @@ eot;
 			case 'file':
 				///////////////////////////////////////////////////////////////////////////
 				$formjs['picture']++;
-				$tem_input = get_upload_picture_html($name, $setvalue, false, true);
+				$daarr     = get_upload_picture_html($name, $setvalue, false, true);
+				$tem_input = $daarr['str'];
+				$initformjs .= $daarr['js'];
 				break;
 			case 'liandong':
 				///////////////////////////////////////////////////////////////////////////
@@ -395,6 +397,7 @@ eot;
 			/**
 			 * 替换循环出来的表单
 			 */
+
 			$formstr .= str_replace('[REPLACE_INPUT]', $tem_input, $tem_formstr);
 		}
 		F('_formcache/' . $md5key, $formstr);
