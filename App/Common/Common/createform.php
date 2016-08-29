@@ -43,12 +43,14 @@ function create_form($fieldarr, $data = []) {
 	}
 	global $formjs;
 	$static_dir = __STATIC__;
-	$formstr    = '';
+
+	$formstr = '';
 	// $formjsstr  = '';
 	$formstr = F('_formcache/' . $md5key);
 	if (empty($formstr) || APP_DEBUG) {
-		$formstr       = '';
-		$formjsstr     = '';
+		$formstr       = ''; //生成的form字符串
+		$initformjs    = ''; //要初始化的表单js
+		$formjsstr     = ''; //要引入的js文件
 		$default_value = [];
 		// dump($fieldarr);
 		foreach ($fieldarr as $key => $value) {
@@ -147,12 +149,28 @@ eot;
 				if ($setvalue) {
 					$setvalue = time_format($setvalue);
 				} else {
-					$setvalue = date('Y-m-d');
+					$setvalue = date('Y-m-d HH:ii:ss');
 				}
 				$tem_input = <<<eot
 <div class="form-wrap">
-	<input name="{$name}" type="text" readonly class="form-control input-middle time" style="width:145px;" value="[REPLACE_SETVALUE_{$name}]" placeholder="请选择时间" />
+	<input name="{$name}" id="datetime_{$name}" type="text" readonly class="form-control input-middle time" style="width:145px;" value="[REPLACE_SETVALUE_{$name}]" placeholder="请选择时间" />
 </div>
+eot;
+				$initformjs .= <<<eot
+!function(){
+	var dateobj=$('#datetime_{$name}');
+	var formstr='yyyy-mm-dd HH:mm:ss';
+	if(/\d{4}\-\d{2}\-\d{2}/ig.test(dateobj.val())){
+		formstr='yyyy-mm-dd';
+	}
+	dateobj.datetimepicker({
+	    format: formstr,
+	    language:"zh-CN",
+	    minView:2,
+	    autoclose:true
+	});
+}();
+</script>
 eot;
 				break;
 			case 'color':
@@ -250,25 +268,23 @@ eot;
 				$tem_input = <<<eot
  <!--style给定宽度可以影响编辑器的最终宽度-->
 <script type="text/plain" id="{$name}" name="{$name}" style="width:99%;height:150px;">[REPLACE_SETVALUE_{$name}]</script>
-<script>
-$(function(){
-  //保存编辑器初始化数据
-  var uescr{$name}='';
-    var ue{$name} = UE.getEditor("{$name}",{
-        serverUrl:ainiku.ueupload,
-        initialFrameHeight:300,
-        imagePath:'',
-        focus: true
+eot;
+				$initformjs .= <<<eot
+//保存编辑器初始化数据
+var uescr{$name}='';
+var ue{$name} = UE.getEditor("{$name}",{
+    serverUrl:ainiku.ueupload,
+    initialFrameHeight:300,
+    imagePath:'',
+    focus: true
 
-    });
-    ue{$name}.addListener('focus',function(editor){
-      uescr{$name}=ue{$name}.getContent();
-      });
-    ue{$name}.addListener('blur',function(editor){
-      file.delEditorImg(uescr{$name},ue{$name}.getContent());
-      });
 });
-</script>
+ue{$name}.addListener('focus',function(editor){
+  uescr{$name}=ue{$name}.getContent();
+  });
+ue{$name}.addListener('blur',function(editor){
+  file.delEditorImg(uescr{$name},ue{$name}.getContent());
+  });
 eot;
 				break;
 
@@ -389,7 +405,7 @@ eot;
 		$formjs['color'] = true;
 		$formjsstr .= <<<eot
 <!--颜色选择器js start-->
-<script type="text/javascript" charset="utf-8" src="{$static_dir}/jscolor/jscolor.js"></script>
+<script type="text/javascript" charset="utf-8" src="{$static_dir}/jscolor/jscolor.min.js"></script>
 <!--颜色选择器js end-->\n
 eot;
 	}
@@ -401,24 +417,7 @@ eot;
 <link href="{$static_dir}/datetimepicker/css/dropdown.min.css" type="text/css" rel="stylesheet" />
 <script src="{$static_dir}/datetimepicker/js/bootstrap-datetimepicker.min.js" type="text/javascript" ></script>
 <script src="{$static_dir}/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript" ></script>
-<script>
-$(function(){
-	$('.time').each(function(dom,index){
-		var val=$(this).val();
-		var formstr='yyyy-mm-dd HH:mm:ss';
-		if(/\d{4}\-\d{2}\-\d{2}/ig.test(val)){
-			formstr='yyyy-mm-dd';
-		}
-	    $(this).datetimepicker({
-	        format: formstr,
-	        language:"zh-CN",
-	        minView:2,
-	        autoclose:true
-	    });
-	});
 
-});
-</script>
 <!--日期js end->\n
 eot;
 	}
@@ -495,8 +494,16 @@ eot;
 	}
 	//替换掉隐藏类型的值
 	//替换掉没有默认值的
-	$formstr = preg_replace("/\[REPLACE\_SETVALUE\_.*?\]/is", '', $formstr);
-	return $formstr . $formjsstr;
+	$formstr    = preg_replace("/\[REPLACE\_SETVALUE\_.*?\]/is", '', $formstr);
+	$initformjs = <<<eot
+<!--初始化表单js-->
+<script>
+$(function(){
+{$initformjs}
+});
+</script>
+eot;
+	return $formstr . $formjsstr . $initformjs;
 }
 
 function get_upload_picture_html($name, $setvalue, $muli = false, $filetype = false) {
@@ -724,6 +731,8 @@ eot;
  * @return [type]         返回字符串
  */
 function get_custom_form($method, $name, $data) {
+	// dump($method);
+	// die();
 	$form = new \Common\Controller\CustomFormController($method, $name, $data);
-	return $form->$metch();
+	return $form->$method();
 }
