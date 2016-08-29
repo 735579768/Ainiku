@@ -87,7 +87,7 @@ function create_form($fieldarr, $data = []) {
 			$yzstr   = '';
 			$yzclass = '';
 			if ($data_reg) {
-				$yzstr   = ' data-reg="{$data_reg}" data-ts="{$data_ts}" data-ok="{$data_ok}" data-err="{$data_err}"';
+				$yzstr   = " data-reg=\"{$data_reg}\" data-ts=\"{$data_ts}\" data-ok=\"{$data_ok}\" data-err=\"{$data_err}\"";
 				$yzclass = ' autoyz';
 			}
 			//判断当前操作是add  edit
@@ -428,7 +428,7 @@ eot;
 		$formjs['color'] = true;
 		$formjsstr .= <<<eot
 <!--颜色选择器js start-->
-<script type="text/javascript" charset="utf-8" src="{$static_dir}/jscolor/jscolor.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="{$static_dir}/jscolor/jscolor.js"></script>
 <!--颜色选择器js end-->\n
 eot;
 	}
