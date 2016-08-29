@@ -299,7 +299,6 @@ eot;
 			case 'picture':
 				///////////////////////////////////////////////////////////////////////////
 				$formjs['picture']++;
-				echo $name . '1';
 				$daarr     = get_upload_picture_html($name, $setvalue);
 				$tem_input = $daarr['str'];
 				$initformjs .= $daarr['js'];
@@ -307,7 +306,6 @@ eot;
 			case 'batchpicture':
 				///////////////////////////////////////////////////////////////////////////
 				$formjs['picture']++;
-				echo $name . '2';
 				$daarr     = get_upload_picture_html($name, $setvalue, true);
 				$tem_input = $daarr['str'];
 				$initformjs .= $daarr['js'];
@@ -315,7 +313,6 @@ eot;
 			case 'file':
 				///////////////////////////////////////////////////////////////////////////
 				$formjs['picture']++;
-				echo $name . '3';
 				$tem_input = get_upload_picture_html($name, $setvalue, false, true);
 				break;
 			case 'liandong':
