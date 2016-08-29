@@ -13,11 +13,11 @@
 <div class="topnav-inner">
 <ul class="top-tool fl">
                    <if condition="auto_login()">
-                          <li><img src-url='{:session('qqimg')}' width='25' height='25' /></li>
+                          <li><img src='{:session('qqimg')}' width='25' height='25' /></li>
                             <li><a href="{:U('Member/portal')}"  style="padding-left:0;padding-right:0">({:session('uinfo.username')}){:session('uinfo.nickname')} </a></li>
                              <li><a  href="{:U('Public/logout')}"><s class="s">|</s> 退出</a></li>
                 <else/>
-        {:plugin('Qlogin')}
+{:plugin('Qlogin')}
        <li class=""> <a href="javascript:;" onclick="loginbtn();"  ><s class="s">|</s> 登录 </a></li>
         <li class=""><a  href="{:U('Public/register')}"  ><s class="s">|</s> 注册</a></li>
 
@@ -34,9 +34,11 @@
     <script>
 //登陆按钮
 var loginbtn = function() {
-  ank.msgDialog({
+  layer.open({
+    type:2,
     title: '用户登陆',
-    url: '{:U('Public/login')}',
+    area:['500px','400px'],
+    content: '{:U('Public/login')}',
   });
 
 };
