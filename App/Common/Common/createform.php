@@ -80,7 +80,7 @@ function create_form($fieldarr, $data = []) {
 			($type == 'umeditor') && ($type = 'editor');
 			($type == 'string') && ($type = 'text');
 			//保存默认值
-			$default_value[$name] = $setvalue;
+			$default_value[$name] = ['type' => $type, 'value' => $setvalue];
 			//处理一些判断必填的
 			$is_require = $is_require ? '<span style="color:red;">(必填)</span>' : '';
 
@@ -212,7 +212,7 @@ eot;
 					// 	}
 					// }
 					$optionstr .= <<<eot
-<option value="{$key}" {$sel} >{$val}</option>\n
+<option value="{$key}" {$sel}>{$val}</option>\n
 eot;
 				}
 				$tem_input = str_replace('[REPLACE_OPTION]', $optionstr, $tem_input);
@@ -474,7 +474,7 @@ eot;
 		$formjs['cutpicture'] = true;
 	}
 
-	$data = array_merge($default_value, $data);
+	//$data = array_merge($default_value, $data);
 	if ($initformjs) {
 		$initformjs = <<<eot
 <!--初始化表单js-->
@@ -487,37 +487,38 @@ eot;
 	}
 	$formstr .= $formjsstr . $initformjs;
 	//替换成默认值
-	foreach ($data as $key => $value) {
-		//替换文本框的值
-		$formstr = str_replace("[REPLACE_SETVALUE_{$key}]", $value, $formstr);
+	foreach ($default_value as $key => $value) {
+		$setvalue  = $value['value'];
+		$inputtype = $value['type'];
+		isset($data[$key]) && ($setvalue = $data[$key]);
 
-		//字符小于指定值的才正则设置值
-		if (strlen($value) < 50) {
-			$key   = preg_quote($key);
-			$value = preg_quote($value);
-			$key   = str_replace('/', '\/', $key);
-			$value = str_replace('/', '\/', $value);
+		$key   = preg_quote($key);
+		$value = preg_quote($setvalue);
+		$key   = str_replace('/', '\/', $key);
+		$value = str_replace('/', '\/', $value);
+		switch ($inputtype) {
+		case 'select':
 			//替换select
 			$pattern = '/<select[^<|^>|^\/]*?name\=\"' . $key . '\"[^<|^>|^\/]*?>.*?<\/select>/is';
 			$match   = [];
 			preg_match($pattern, $formstr, $match);
 			if ($match) {
-
 				$tstr     = $match[0];
 				$pattern1 = '/(<option.*?value=\".*?\").*?(>.*?<\/option>)/i';
 				$pattern2 = '/(<option.*?value=\"' . $value . '\").*?(>.*?<\/option>)/i';
-				$tstr2    = preg_replace([$pattern1, $pattern2], ['$1 $2', '$1 selected $2'], $tstr);
+				$tstr2    = preg_replace([$pattern1, $pattern2], ['$1$2', '$1 selected$2'], $tstr);
 				$formstr  = str_replace($tstr, $tstr2, $formstr);
 			}
-
+			break;
+		case 'radio':
 			//替换radio
 			//去掉默认的选中
 			$pattern1 = '/(<input type=\"radio\".*?name\=\"' . $key . '\" value\=\".*?\").*? \/>/i';
 			$pattern2 = '/(<input type=\"radio\".*?name\=\"' . $key . '\" value\=\"' . $value . '\").*? \/>/i';
 			$formstr  = preg_replace([$pattern1, $pattern2], ['$1 />', '$1 checked="checked" />'], $formstr);
-			// trace($pattern2);
+			break;
+		case 'checkbox':
 			//替换checkbox
-
 			$valarr   = explode(',', $value);
 			$pattern1 = '/(<input type=\"checkbox\".*?name\=\"' . $key . '\[\]" value\=\".*?\").*? \/>/i';
 			$formstr  = preg_replace($pattern1, '$1 />', $formstr);
@@ -525,6 +526,12 @@ eot;
 				$pattern2 = '/(<input type=\"checkbox\".*?name\=\"' . $key . '\[\]\" value\=\"' . $v . '\").*? \/>/i';
 				$formstr  = preg_replace($pattern2, '$1 checked="checked" />', $formstr);
 			}
+			break;
+
+		default:
+			//替换文本框的值
+			$formstr = str_replace("[REPLACE_SETVALUE_{$key}]", $setvalue, $formstr);
+			break;
 		}
 
 	}
