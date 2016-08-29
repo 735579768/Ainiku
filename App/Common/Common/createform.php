@@ -251,7 +251,7 @@ eot;
 <script>
 $(function(){
   //保存编辑器初始化数据
-  var uescr{$name}=null;
+  var uescr{$name}='';
     var ue{$name} = UE.getEditor("{$name}",{
         serverUrl:ainiku.ueupload,
         initialFrameHeight:300,
@@ -319,7 +319,8 @@ eot;
 </div>
 <script>
 $(function(){
-	$('#goodstype_form').bind('propertychange change',function(){
+	var goodstypeform=$('#goodstype_form');
+	goodstypeform.bind('propertychange change',function(){
 	var idd=$(this).val();
 	var productid=$('#productid').val();
 	//productid产品的id在编辑表单里面首先用js写上这个变量值为当前产品的id
@@ -332,8 +333,8 @@ $(function(){
 			}
 		});
 	});
-	$('#goodstype_form').val('[REPLACE_SETVALUE_{$name}]');
-	$('#goodstype_form').change();
+	goodstypeform.val('[REPLACE_SETVALUE_{$name}]');
+	goodstypeform.change();
 });
 </script>
 
@@ -400,23 +401,17 @@ eot;
 <script src="{$static_dir}/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript" ></script>
 <script>
 $(function(){
-    $('.time').datetimepicker({
-        format: 'yyyy-mm-dd',
-        language:"zh-CN",
-        minView:2,
-        autoclose:true
-    });
-});
-</script>
+	$('.time').each(function(dom,index){
+		var val=$(this).val();
+		var formstr='yyyy-mm-dd HH:mm:ss';
+	    $(this).datetimepicker({
+	        format: 'yyyy-mm-dd',
+	        language:"zh-CN",
+	        minView:2,
+	        autoclose:true
+	    });
+	});
 
-<script>
-$(function(){
-    $('.time').datetimepicker({
-        format: 'yyyy-mm-dd hh:ii:ss',
-        language:"zh-CN",
-        minView:2,
-        autoclose:true
-    });
 });
 </script>
 <!--日期js end->\n
@@ -495,7 +490,7 @@ eot;
 	//替换掉隐藏类型的值
 	//替换掉没有默认值的
 	$formstr = preg_replace("/\[REPLACE\_SETVALUE\_.*?\]/is", '', $formstr);
-	return $formjsstr . $formstr;
+	return $formstr . $formjsstr;
 }
 
 function get_upload_picture_html($name, $setvalue, $muli = false, $filetype = false) {
