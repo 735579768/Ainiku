@@ -512,7 +512,7 @@ function get_upload_picture_html($name, $setvalue, $muli = false, $filetype = fa
 	if ($filetype) {
 		//上传成功后的函数
 		$uploadsuccessfunc = <<<eot
-function uploadPicture{$name}(upfile, data){
+window.uploadPicture{$name}=function(upfile, data){
  var data = $.parseJSON(data);
   if(data.status){
     var name = "{$name}";
@@ -535,39 +535,45 @@ function uploadPicture{$name}(upfile, data){
 }
 eot;
 		$prejs = <<<eot
-var sid=$("#cover_id_{$name}").val();
-$.post("{$preurl}",{id:sid,type:'other'},function(data){
-var da=data.info;
-if(da.length>0){
-	var data=da[0];
-    $("#uploadimg_{$name}").html(
-      "<div class=\"upload-pre-file\"><span class=\"upload_icon_all\"></span>" + data.srcname + "<a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
-    );
-}
+!function(){
+	var sid=$("#cover_id_{$name}").val();
+	if(sid){
+		$.post("{$preurl}",{id:sid,type:'other'},function(data){
+			var da=data.info;
+			if(da.length>0){
+				var data=da[0];
+			    $("#uploadimg_{$name}").html(
+			      "<div class=\"upload-pre-file\"><span class=\"upload_icon_all\"></span>" + data.srcname + "<a href='javascript:;' class='btn btn-danger' dataid='"+data.id+"' >删除</a></div>"
+			    );
+			}
 
-});
+		});
+	}
+}();
 eot;
 	} else {
 		//上传图片显示设置的默认图片
 		$sethtml = $muli ? 'append' : 'html';
 		$prejs   = <<<eot
-$.post("{$preurl}",{id:$("#cover_id_{$name}").val(),type:'img'},function(data){
-var da=data.info;
-if(da.length>0){
-for(a in da){
-    $("#uploadimg_{$name}").{$sethtml}(
-      "<div class='imgblock'><div class='upload-img-box uploadimg'><div class='upload-pre-item'><img layer-pid='"+da[a]['destname']+"' layer-src='"+da[a]['path']+"' src='" + da[a]['thumbpath'] + "' /></div></div><a href='javascript:;' class='btn btn-danger' dataid='"+da[a]['id']+"' >删除</a></div>"
-    );
-}
-  layer.photos({
-    photos: '#uploadimg_{$name}'
-  });
-
-   file&&file.bindDel();
-
-}
-
-});
+!function(){
+	var sid=$("#cover_id_{$name}").val();
+	if(sid){
+		$.post("{$preurl}",{id:sid,type:'img'},function(data){
+			var da=data.info;
+			if(da.length>0){
+			for(a in da){
+			    $("#uploadimg_{$name}").{$sethtml}(
+			      "<div class='imgblock'><div class='upload-img-box uploadimg'><div class='upload-pre-item'><img layer-pid='"+da[a]['destname']+"' layer-src='"+da[a]['path']+"' src='" + da[a]['thumbpath'] + "' /></div></div><a href='javascript:;' class='btn btn-danger' dataid='"+da[a]['id']+"' >删除</a></div>"
+			    );
+			}
+			  layer.photos({
+			    photos: '#uploadimg_{$name}'
+			  });
+			   file&&file.bindDel();
+			}
+		});
+	}
+}();
 eot;
 		//上传图片
 		if ($muli) {
@@ -575,7 +581,7 @@ eot;
 
 			//上传成功后的函数
 			$uploadsuccessfunc = <<<eot
-function uploadPicture{$name}(upfile, data){
+window.uploadPicture{$name}=function(upfile, data){
   var data = $.parseJSON(data);
   if(data.status){
     var a=$("#cover_id_{$name}").val();
@@ -600,7 +606,7 @@ eot;
 		} else {
 			//上传成功后的函数
 			$uploadsuccessfunc = <<<eot
-    function uploadPicture{$name}(upfile, data){
+    window.uploadPicture{$name}=function(upfile, data){
         var data = $.parseJSON(data);
         var src = '';
         if(data.status){
