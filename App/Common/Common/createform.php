@@ -379,6 +379,7 @@ eot;
 				break;
 			case 'custom':
 				$tem_input = get_custom_form($extra, $name, $setvalue);
+				break;
 			default:
 				///////////////////////////////////////////////////////////////////////////
 				$tem_input = <<<eot
