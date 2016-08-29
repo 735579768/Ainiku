@@ -100,8 +100,10 @@ function create_form($fieldarr, $data = []) {
 			//等着替换的模板字符串
 			$tem_formstr = <<<eot
 <div class="form-group cl {$name}">
-	<div class="form-label"><b>{$title}</b><span class="form-tip">{$note}</span>{$is_require}</div>
+	<div class="form-label"><b class="form-title">{$title}</b><span class="form-tip">{$note}</span>{$is_require}</div>
+	<div class="form-area" >
 	[REPLACE_INPUT]
+	</div>
 </div>\n
 eot;
 			//循环出来的表单
