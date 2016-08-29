@@ -498,19 +498,16 @@ eot;
 			$key   = str_replace('/', '\/', $key);
 			$value = str_replace('/', '\/', $value);
 			//替换select
-			$pattern = '/<select.*?name\=\"' . $key . '\".*?>.*?<\/select>/is';
-
+			$pattern = '/<select[^<|^>|^\/]*?name\=\"' . $key . '\"[^<|^>|^\/]*?>.*?<\/select>/is';
+			$match   = [];
 			preg_match($pattern, $formstr, $match);
 			if ($match) {
 
 				$tstr     = $match[0];
 				$pattern1 = '/(<option.*?value=\".*?\").*?(>.*?<\/option>)/i';
 				$pattern2 = '/(<option.*?value=\"' . $value . '\").*?(>.*?<\/option>)/i';
-				// trace($pattern);
-				// trace($value);
-				// trace($pattern2);
-				$tstr2   = preg_replace([$pattern1, $pattern2], ['$1 $2', '$1 selected $2'], $tstr);
-				$formstr = str_replace($tstr, $tstr2, $formstr);
+				$tstr2    = preg_replace([$pattern1, $pattern2], ['$1 $2', '$1 selected $2'], $tstr);
+				$formstr  = str_replace($tstr, $tstr2, $formstr);
 			}
 
 			//替换radio
@@ -533,7 +530,7 @@ eot;
 	}
 	//替换掉隐藏类型的值
 	//替换掉没有默认值的
-	$formstr = preg_replace("/\[REPLACE\_SETVALUE\_.*?\]/is", '', $formstr);
+	$formstr = preg_replace("/\[REPLACE\_SETVALUE\_.*?\]/i", '', $formstr);
 	return $formstr;
 }
 
