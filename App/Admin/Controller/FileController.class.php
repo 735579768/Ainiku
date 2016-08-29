@@ -22,36 +22,7 @@ class FileController extends AdminController {
 			E('没有此该当' . ':' . $method);
 		}
 	}
-	// public function getFileInfo() {
-	// 	$id    = I('post.id');
-	// 	$type  = I('post.type');
-	// 	$data  = [];
-	// 	$idarr = preg_replace('/\,|\|\s/', ',', $id);
-	// 	if ($type == 'img') {
-	// 		$data = M('Picture')->where(['id' => ['in', "$idarr"]])->select();
-	// 	} else {
-	// 		$model = M('File');
-	// 		$data  = $model->where(['id' => ['in', "$idarr"]])->select();
-	// 		// echo $model->_sql();
-	// 	}
-	// 	$this->success($data);
-	// }
-	// private function checksha($filepath = '') {
-	// 	$fpath = '.' . $filepath;
-	// 	if (is_file($fpath)) {
-	// 		$sha1 = sha1_file($fpath);
-	// 		$list = M('Picture')->where("sha1='$sha1'")->find();
-	// 		if (empty($list)) {
-	// 			return array('path' => $filepath, 'sha1' => $sha1);
-	// 		} else {
-	// 			//删除当前路径文件
-	// 			unlink($fpath);
-	// 			return $list;
-	// 		}
-	// 	} else {
-	// 		return $filepath;
-	// 	}
-	// }
+
 	//重新生成文件的sha1
 	function resetsha1() {
 		$list = F('resetshalist');
