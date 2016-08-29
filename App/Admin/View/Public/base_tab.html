@@ -93,10 +93,10 @@ function setIframeHeight(iframe) {
 };
 </script>
 
-<div class="kl-tab cl">
+<div id="iframe_tab" class="kl-tab cl">
 <!--tabnav start-->
 <ul id="nav-block" class="kl-tab-nav-block cl">
-	<li class="chrome-tab kl-tab-nav">{$meta_title}<span class="close">X</span><em></em></li>
+	<li class="chrome-tab kl-tab-nav">{$meta_title}<span class="close" onclick="am.closeTab(this);">X</span><em></em></li>
 </ul>
 <!--tabnav end-->
 <!-- 默认首页地址 -->
