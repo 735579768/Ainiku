@@ -2,6 +2,9 @@
 namespace Common\Controller;
 use Think\Controller;
 
+/**
+ * 系统自定义表单类
+ */
 class CustomFormController extends Controller {
 	private $filename;
 	public function __construct($metch, $name, $value) {
