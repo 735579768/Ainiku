@@ -55,17 +55,17 @@ function create_form($fieldarr, $data = []) {
 			$type       = $value['type'];
 			$name       = $value['name'];
 			$title      = $value['title'];
-			$note       = $value['note'];
-			$extra      = $value['extra'];
-			$setvalue   = $value['value'];
-			$is_show    = $value['is_show'];
-			$is_require = $value['is_require'];
+			$note       = isset($value['note']) ? $value['note'] : '';
+			$extra      = isset($value['extra']) ? $value['extra'] : [];
+			$setvalue   = isset($value['value']) ? $value['value'] : '';
+			$is_show    = isset($value['is_show']) ? $value['is_show'] : 3;
+			$is_require = isset($value['is_require']) ? $value['is_require'] : '0';
 
 			//验证表单
-			$data_reg = $value['data_reg'];
-			$data_ok  = $value['data_ok'];
-			$data_ts  = $value['data_ts'];
-			$data_err = $value['data_err'];
+			$data_reg = isset($value['data_reg']) ? $value['data_reg'] : '';
+			$data_ok  = isset($value['data_ok']) ? $value['data_ok'] : '';
+			$data_ts  = isset($value['data_ts']) ? $value['data_ts'] : '';
+			$data_err = isset($value['data_err']) ? $value['data_err'] : '';
 
 			($type == 'umeditor') && ($type = 'editor');
 			($type == 'string') && ($type = 'text');
@@ -404,8 +404,11 @@ $(function(){
 	$('.time').each(function(dom,index){
 		var val=$(this).val();
 		var formstr='yyyy-mm-dd HH:mm:ss';
+		if(/\d{4}\-\d{2}\-\d{2}/ig.test(val)){
+			formstr='yyyy-mm-dd';
+		}
 	    $(this).datetimepicker({
-	        format: 'yyyy-mm-dd',
+	        format: formstr,
 	        language:"zh-CN",
 	        minView:2,
 	        autoclose:true
@@ -454,10 +457,13 @@ eot;
 	foreach ($data as $key => $value) {
 		//替换文本框的值
 		$formstr = str_replace("[REPLACE_SETVALUE_{$key}]", $value, $formstr);
-		$key     = preg_quote($key);
-		// $value   = preg_quote($value);
+
 		//字符小于指定值的才正则设置值
 		if (strlen($value) < 50) {
+			$key   = preg_quote($key);
+			$value = preg_quote($value);
+			$key   = str_replace('/', '\/', $key);
+			$value = str_replace('/', '\/', $value);
 			//替换select
 			$pattern = '/<select.*?name\=\"' . $key . '\".*?>.*?<\/select>/is';
 			preg_match($pattern, $formstr, $match);
@@ -474,7 +480,7 @@ eot;
 			$pattern1 = '/(<input type="radio".*?name\="' . $key . '" value\=".*?").*? \/>/i';
 			$pattern2 = '/(<input type="radio".*?name\="' . $key . '" value\="' . $value . '").*? \/>/i';
 			$formstr  = preg_replace([$pattern1, $pattern2], ['$1 />', '$1 checked="checked" />'], $formstr);
-
+			// trace($pattern2);
 			//替换checkbox
 
 			$valarr   = explode(',', $value);
