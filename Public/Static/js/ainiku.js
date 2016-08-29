@@ -167,9 +167,11 @@
 		},
 
 		open: function() {
+			// debugger;
 			if (parent) {
 				parent.layer.open.apply(parent.layer, arguments);
 			} else {
+
 				layer.open.apply(layer, arguments);
 			}
 		},
