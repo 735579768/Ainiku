@@ -395,8 +395,8 @@ eot;
 		$formjs['datetime'] = true;
 		$formjsstr .= <<<eot
 <!--日期js start-->
-<link href="{$static_dir}/datetimepicker/css/datetimepicker.css" type="text/css" rel="stylesheet" />
-<link href="{$static_dir}/datetimepicker/css/dropdown.css" type="text/css" rel="stylesheet" />
+<link href="{$static_dir}/datetimepicker/css/datetimepicker.min.css" type="text/css" rel="stylesheet" />
+<link href="{$static_dir}/datetimepicker/css/dropdown.min.css" type="text/css" rel="stylesheet" />
 <script src="{$static_dir}/datetimepicker/js/bootstrap-datetimepicker.min.js" type="text/javascript" ></script>
 <script src="{$static_dir}/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript" ></script>
 <script>
@@ -424,11 +424,9 @@ eot;
 		$formjs['picture'] = true;
 		$formjsstr .= <<<eot
 <!--上传图片js start-->
-<link href="{$static_dir}/html5Upload/css/zyUpload.css?r=32673" type="text/css" rel="stylesheet" />
-<link href="{$static_dir}/css/lightbox.css?r=32673" type="text/css" rel="stylesheet" />
-<link href="{$static_dir}/uploadify/uploadify.css?r=32673" type="text/css" rel="stylesheet" />
+<link href="{$static_dir}/html5Upload/css/zyUpload.min.css?r=32673" type="text/css" rel="stylesheet" />
+<link href="{$static_dir}/uploadify/uploadify.min.css?r=32673" type="text/css" rel="stylesheet" />
 <script src="{$static_dir}/html5Upload/js/uploadFile.min.js?r=16300" type="text/javascript" ></script>
-<script src="{$static_dir}/js/lightbox.js?r=16300" type="text/javascript" ></script>
 <script src="{$static_dir}/uploadify/jquery.uploadify.min.js?r=16300" type="text/javascript" ></script>
 <!--上传图片js end-->\n
 
@@ -441,9 +439,9 @@ eot;
 <script>
 window.UEDITOR_HOME_URL='{$static_dir}/ueditor/';
 </script>
-<script type="text/javascript" src="{$static_dir}/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="{$static_dir}/ueditor/ueditor.config.min.js"></script>
 <script type="text/javascript" src="{$static_dir}/ueditor/ueditor.all.min.js"></script>
-<script type="text/javascript" src="{$static_dir}/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" src="{$static_dir}/ueditor/lang/zh-cn/zh-cn.min.js"></script>
 <!--UE编辑器js end-->\n
 
 eot;
