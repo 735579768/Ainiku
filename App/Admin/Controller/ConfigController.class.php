@@ -123,6 +123,8 @@ class ConfigController extends AdminController {
 			}
 
 		}
+		// dump($data);
+		// die();
 		$this->assign('data', $data);
 		$this->display();
 	}

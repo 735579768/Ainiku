@@ -15,7 +15,7 @@
 	$.fn.mytab = function(options) {
 		var thissel = $(this).selector;
 		var defaults = {
-			ev: "mouseover", //事件
+			ev: "click", //事件
 			navcls: ".kl-tab-nav", //导航
 			divcls: ".kl-tab-div", //显示块
 			navhovercls: "hover", //选中后的类

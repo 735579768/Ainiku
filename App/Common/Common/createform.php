@@ -47,9 +47,6 @@ $GLOBALS['formjs'] = array(
 function create_form($fieldarr, $data = []) {
 	$md5key = md5(json_encode($fieldarr));
 	$data || ($data = []);
-	if (isset($fieldarr['title'])) {
-		$fieldarr = [$fieldarr];
-	}
 	global $formjs;
 	$static_dir = __STATIC__;
 
@@ -302,22 +299,23 @@ eot;
 			case 'picture':
 				///////////////////////////////////////////////////////////////////////////
 				$formjs['picture']++;
+				echo $name . '1';
 				$daarr     = get_upload_picture_html($name, $setvalue);
 				$tem_input = $daarr['str'];
 				$initformjs .= $daarr['js'];
+				break;
 			case 'batchpicture':
 				///////////////////////////////////////////////////////////////////////////
 				$formjs['picture']++;
-				// $tem_input = get_upload_picture_html($name, $setvalue, true);
+				echo $name . '2';
 				$daarr     = get_upload_picture_html($name, $setvalue, true);
 				$tem_input = $daarr['str'];
 				$initformjs .= $daarr['js'];
 				break;
-
-				break;
 			case 'file':
 				///////////////////////////////////////////////////////////////////////////
 				$formjs['picture']++;
+				echo $name . '3';
 				$tem_input = get_upload_picture_html($name, $setvalue, false, true);
 				break;
 			case 'liandong':
@@ -400,13 +398,13 @@ eot;
 			$formstr .= str_replace('[REPLACE_INPUT]', $tem_input, $tem_formstr);
 		}
 		F('_formcache/' . $md5key, $formstr);
-		F('_formcache/' . $md5key . '_json', $default_value);
+		F('_formcache/' . $md5key . '_default_value', $default_value);
 		F('_formcache/' . $md5key . '_importjs', $formjs);
 		F('_formcache/' . $md5key . '_initformjs', $initformjs);
 
 	}
 	//要引用的表单js
-	$default_value = F('_formcache/' . $md5key . '_json');
+	$default_value = F('_formcache/' . $md5key . '_default_value');
 	$formjs        = array_merge($formjs, F('_formcache/' . $md5key . '_importjs'));
 	$initformjs    = F('_formcache/' . $md5key . '_initformjs');
 
@@ -473,8 +471,9 @@ eot;
 		$formjs['cutpicture'] = true;
 	}
 
-	$data       = array_merge($default_value, $data);
-	$initformjs = <<<eot
+	$data = array_merge($default_value, $data);
+	if ($initformjs) {
+		$initformjs = <<<eot
 <!--初始化表单js-->
 <script type="text/javascript">
 $(function(){
@@ -482,6 +481,7 @@ $(function(){
 });
 </script>
 eot;
+	}
 	$formstr .= $formjsstr . $initformjs;
 	//替换成默认值
 	foreach ($data as $key => $value) {
@@ -671,7 +671,7 @@ eot;
 <div id="demohtml5upload{$name}" class="demo  html5upload"></div>
 <input type="hidden" name="{$name}" id="cover_id_{$name}" value="[REPLACE_SETVALUE_{$name}]"/>
 <div id="uploadimg_{$name}" class="cl">
-{$preimglist}
+
 </div>
 </div>
 eot;
@@ -742,6 +742,8 @@ if (window.applicationCache) {
 eot;
 // {$uploadsuccessfunc}
 	// return $tem_input;
+	// echo $initjs . $uploadsuccessfunc;
+	// die();
 	return ['str' => $tem_input, 'js' => $initjs . $uploadsuccessfunc];
 }
 
@@ -751,14 +753,21 @@ eot;
  */
 function get_form($fieldarr, $data = []) {
 	$field = ['jc' => null, 'kz' => null];
-	foreach ($fieldarr as $key => $value) {
-		if (isset($value['attrtype']) && $value['attrtype'] == '1') {
-			$field['kz'][] = $fieldarr[$key];
-		} else {
-			$field['jc'][] = $fieldarr[$key];
+	if (isset($fieldarr['title'])) {
+		$fieldarr    = [$fieldarr];
+		$field['jc'] = $fieldarr;
+	} else {
+		// dump($fieldarr);
+		// die();
+
+		foreach ($fieldarr as $key => $value) {
+			if (isset($value['attrtype']) && $value['attrtype'] == '1') {
+				$field['kz'][] = $fieldarr[$key];
+			} else {
+				$field['jc'][] = $fieldarr[$key];
+			}
 		}
 	}
-
 	if ($field['kz']) {
 		$jc  = create_form($field['jc'], $data);
 		$kz  = create_form($field['kz'], $data);
