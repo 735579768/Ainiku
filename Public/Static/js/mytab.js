@@ -34,16 +34,16 @@
 		navlist.bind(opts.ev, function() {
 			var obj = $(this);
 			var tabindex = obj.data('tab-index');
-			navlist.not(opts.navhovercls).removeClass(opts.navhovercls);
+			navlist.removeClass(opts.navhovercls);
 			obj.addClass(opts.navhovercls);
-			divlist.not(opts.divshowcls).hide();
 			divlist.each(function(i) {
-				var temobj = divlist.eq(i);
+				var temobj = $(this);
 				if ($(this).data('tab-index') == tabindex) {
 					temobj.addClass(opts.divshowcls);
 					temobj.show();
 				} else {
 					temobj.removeClass(opts.divshowcls);
+					temobj.hide();
 				}
 			});
 		});
