@@ -1,4 +1,12 @@
 <?php
+//表单生成原理
+//在调试模式下数据不使用缓存
+//在关闭调试后会把每次传进来的表单数据放进缓存里
+//放进缓存里的数据有
+//@$formstr 循环出业的表单字符串，格式为字符串
+//@initformjs 初始化表单的js      格式为字符串
+//@importjs  表单中需要导入的js文件 格式为数组(因为同样一个js文件可能会在其它地方的表单也要引用,这里只保存要导入的js文件次数)
+////////////////////////////////////////////////
 // array(
 // 	'field'   => 'sex',
 // 	'type'    => 'radio',
@@ -270,32 +278,39 @@ eot;
 <script type="text/plain" id="{$name}" name="{$name}" style="width:99%;height:150px;">[REPLACE_SETVALUE_{$name}]</script>
 eot;
 				$initformjs .= <<<eot
-//保存编辑器初始化数据
-var uescr{$name}='';
-var ue{$name} = UE.getEditor("{$name}",{
-    serverUrl:ainiku.ueupload,
-    initialFrameHeight:300,
-    imagePath:'',
-    focus: true
+!function(){
+	//保存编辑器初始化数据
+	var uescr{$name}='';
+	var ue{$name} = UE.getEditor("{$name}",{
+	    serverUrl:ainiku.ueupload,
+	    initialFrameHeight:300,
+	    imagePath:'',
+	    focus: true
 
-});
-ue{$name}.addListener('focus',function(editor){
-  uescr{$name}=ue{$name}.getContent();
-  });
-ue{$name}.addListener('blur',function(editor){
-  file.delEditorImg(uescr{$name},ue{$name}.getContent());
-  });
+	});
+	ue{$name}.addListener('focus',function(editor){
+	  uescr{$name}=ue{$name}.getContent();
+	  });
+	ue{$name}.addListener('blur',function(editor){
+	  file.delEditorImg(uescr{$name},ue{$name}.getContent());
+	  });
+}();
 eot;
 				break;
 
 			case 'picture':
 				///////////////////////////////////////////////////////////////////////////
 				$formjs['picture']++;
-				$tem_input = get_upload_picture_html($name, $setvalue);
+				$daarr     = get_upload_picture_html($name, $setvalue);
+				$tem_input = $daarr['str'];
+				$initformjs .= $daarr['js'];
 			case 'batchpicture':
 				///////////////////////////////////////////////////////////////////////////
 				$formjs['picture']++;
-				$tem_input = get_upload_picture_html($name, $setvalue, true);
+				// $tem_input = get_upload_picture_html($name, $setvalue, true);
+				$daarr     = get_upload_picture_html($name, $setvalue, true);
+				$tem_input = $daarr['str'];
+				$initformjs .= $daarr['js'];
 				break;
 
 				break;
@@ -313,11 +328,11 @@ eot;
 <select id="Province{$name}" class="form-control selarea"><option value="0">请选择--</option></select>
 <select id="city{$name}" class="form-control selarea"><option value="0">请选择--</option></select>
 <select id="area1{$name}" class="form-control selarea"><option value="0">请选择--</option></select>
-<script>
-$(function(){
-cityselect.create("ssq{$name},Province{$name},city{$name},area1{$name}");
-});
-</script>
+eot;
+				$initformjs .= <<<eot
+!function(){
+	cityselect.create("ssq{$name},Province{$name},city{$name},area1{$name}");
+}();
 eot;
 				break;
 			case 'attribute':
@@ -335,8 +350,11 @@ eot;
 </select>
 <div id="goodsattribute" style="  padding: 20px 0px 0px 20px;" class="">
 </div>
-<script>
-$(function(){
+
+
+eot;
+				$initformjs .= <<<eot
+!function(){
 	var goodstypeform=$('#goodstype_form');
 	goodstypeform.bind('propertychange change',function(){
 	var idd=$(this).val();
@@ -353,15 +371,15 @@ $(function(){
 	});
 	goodstypeform.val('[REPLACE_SETVALUE_{$name}]');
 	goodstypeform.change();
-});
-</script>
-
+}();
 eot;
 				break;
 			case 'cutpicture':
 				///////////////////////////////////////////////////////////////////////////
 				$formjs['cutpicture']++;
-				$tem_input = get_upload_picture_html($name, $setvalue);
+				$daarr     = get_upload_picture_html($name, $setvalue);
+				$tem_input = $daarr['str'];
+				$initformjs .= $daarr['js'];
 				break;
 			case 'custom':
 				$tem_input = get_custom_form($extra, $name, $setvalue);
@@ -382,12 +400,15 @@ eot;
 		}
 		F('_formcache/' . $md5key, $formstr);
 		F('_formcache/' . $md5key . '_json', $default_value);
-		F('_formcache/' . $md5key . '_js', $formjs);
+		F('_formcache/' . $md5key . '_importjs', $formjs);
+		F('_formcache/' . $md5key . '_initformjs', $initformjs);
 
 	}
 	//要引用的表单js
-	$formjs        = array_merge($formjs, F('_formcache/' . $md5key . '_js'));
 	$default_value = F('_formcache/' . $md5key . '_json');
+	$formjs        = array_merge($formjs, F('_formcache/' . $md5key . '_importjs'));
+	$initformjs    = F('_formcache/' . $md5key . '_initformjs');
+
 	//此表单的默认json字符串值
 	// $default_value = json_encode($default_value);
 	/**
@@ -451,7 +472,16 @@ eot;
 		$formjs['cutpicture'] = true;
 	}
 
-	$data = array_merge($default_value, $data);
+	$data       = array_merge($default_value, $data);
+	$initformjs = <<<eot
+<!--初始化表单js-->
+<script type="text/javascript">
+$(function(){
+{$initformjs}
+});
+</script>
+eot;
+	$formstr .= $formjsstr . $initformjs;
 	//替换成默认值
 	foreach ($data as $key => $value) {
 		//替换文本框的值
@@ -494,16 +524,8 @@ eot;
 	}
 	//替换掉隐藏类型的值
 	//替换掉没有默认值的
-	$formstr    = preg_replace("/\[REPLACE\_SETVALUE\_.*?\]/is", '', $formstr);
-	$initformjs = <<<eot
-<!--初始化表单js-->
-<script>
-$(function(){
-{$initformjs}
-});
-</script>
-eot;
-	return $formstr . $formjsstr . $initformjs;
+	$formstr = preg_replace("/\[REPLACE\_SETVALUE\_.*?\]/is", '', $formstr);
+	return $formstr;
 }
 
 function get_upload_picture_html($name, $setvalue, $muli = false, $filetype = false) {
@@ -609,7 +631,7 @@ window.uploadPicture{$name}=function(upfile, data){
       // $(that).removeClass('disabled').prop('disabled',false);
     },1500);
   }
-}
+};
 eot;
 		} else {
 			//上传成功后的函数
@@ -635,7 +657,7 @@ eot;
                // $(that).removeClass('disabled').prop('disabled',false);
             },1500);
         }
-    }
+    };
 eot;
 		}
 	}
@@ -651,76 +673,75 @@ eot;
 {$preimglist}
 </div>
 </div>
-<script type="text/javascript">
-$(function(){
-	//自动加载图片或附件预览
-	{$prejs}
-	if (window.applicationCache) {
-	   // 把原来的上传按钮去掉
-	  $('#upload_picture_{$name}').remove();
-	  $('#demohtml5upload{$name}btn').click(function(e) {
-	      var aaa=$(this).text();
-	      if(aaa=='展开'){
-		      $('#demohtml5upload{$name}').slideDown();
-		      $(this).html('收缩');
-	      }else{
-	        $(this).html('展开');
-	        $('#demohtml5upload{$name}').slideUp();
-	      }
-	  });
-	  // 初始化插件
-	  $("#demohtml5upload{$name}").zyUpload({
-	    parentsel   :'#demohtml5upload{$name}',
-	    width            :   "80%",                 // 宽度
-	    height           :   "auto",                 // 宽度
-	    itemWidth        :   "120px",                 // 文件项的宽度
-	    itemHeight       :   "100px",                 // 文件项的高度
-	    url              :   "{$fileuploadurl}",       // 上传文件的路径
-	    data             :{myname:'your name'},
-	    multiple         :   {$is_muli_upload},        // 是否可以多个文件上传
-	    dragDrop         :   true,                    // 是否可以拖动上传文件
-	    del              :   true,                    // 是否可以删除文件
-	    finishDel        :   true,            // 是否在上传文件完成后删除预览
-	    /* 外部获得的回调接口 */
-	    // 选择文件的回调方法
-	    onSelect: function(files, allFiles){},
-	    // 删除一个文件的回调方法
-	    onDelete: function(file, surplusFiles){},
-	    // 文件上传成功的回调方法
-	    onSuccess: function(file,response){uploadPicture{$name}(file,response);},
-	    //文件上传失败的回调方法
-	    onFailure: function(file){},
-	    // 上传完成的回调方法
-	    onComplete: function(responseInfo){}
-	  });
-
-    } else {
-	  //  alert("你的浏览器不支持HTML5");
-	  $('#demohtml5upload{$name}btn').remove();
-	  $('#demohtml5upload{$name}').remove();
-	    //上传图片
-	    /* 初始化上传插件 */
-	    $("#upload_picture_{$name}").uploadify({
-	        "height"          : 30,
-	        "swf"             : "{$static_dir}/uploadify/uploadify.swf",
-	        "fileObjName"     : "filelist",
-	        "buttonText"      : "{$upload_text}",
-	        "uploader"        : "{$fileuploadurl}",
-	        "width"           : 120,
-	        'removeTimeout'   : 1,
-	        'fileTypeExts'    : '*.jpg; *.png; *.gif;*.bmp;',
-	        "onUploadSuccess" : uploadPicture{$name},
-	        'onFallback' : function() {
-	            alert('未检测到兼容版本的Flash.');
-	        }
-	    });
-    }
-
-});
-{$uploadsuccessfunc}
-    </script>
 eot;
-	return $tem_input;
+	$initjs = <<<eot
+//自动加载图片或附件预览
+{$prejs}
+if (window.applicationCache) {
+   // 把原来的上传按钮去掉
+  $('#upload_picture_{$name}').remove();
+  $('#demohtml5upload{$name}btn').click(function(e) {
+      var aaa=$(this).text();
+      if(aaa=='展开'){
+	      $('#demohtml5upload{$name}').slideDown();
+	      $(this).html('收缩');
+      }else{
+        $(this).html('展开');
+        $('#demohtml5upload{$name}').slideUp();
+      }
+  });
+  // 初始化插件
+  $("#demohtml5upload{$name}").zyUpload({
+    parentsel   :'#demohtml5upload{$name}',
+    width            :   "80%",                 // 宽度
+    height           :   "auto",                 // 宽度
+    itemWidth        :   "120px",                 // 文件项的宽度
+    itemHeight       :   "100px",                 // 文件项的高度
+    url              :   "{$fileuploadurl}",       // 上传文件的路径
+    data             :{myname:'your name'},
+    multiple         :   {$is_muli_upload},        // 是否可以多个文件上传
+    dragDrop         :   true,                    // 是否可以拖动上传文件
+    del              :   true,                    // 是否可以删除文件
+    finishDel        :   true,            // 是否在上传文件完成后删除预览
+    /* 外部获得的回调接口 */
+    // 选择文件的回调方法
+    onSelect: function(files, allFiles){},
+    // 删除一个文件的回调方法
+    onDelete: function(file, surplusFiles){},
+    // 文件上传成功的回调方法
+    onSuccess: function(file,response){uploadPicture{$name}(file,response);},
+    //文件上传失败的回调方法
+    onFailure: function(file){},
+    // 上传完成的回调方法
+    onComplete: function(responseInfo){}
+  });
+
+} else {
+  //  alert("你的浏览器不支持HTML5");
+  $('#demohtml5upload{$name}btn').remove();
+  $('#demohtml5upload{$name}').remove();
+    //上传图片
+    /* 初始化上传插件 */
+    $("#upload_picture_{$name}").uploadify({
+        "height"          : 30,
+        "swf"             : "{$static_dir}/uploadify/uploadify.swf",
+        "fileObjName"     : "filelist",
+        "buttonText"      : "{$upload_text}",
+        "uploader"        : "{$fileuploadurl}",
+        "width"           : 120,
+        'removeTimeout'   : 1,
+        'fileTypeExts'    : '*.jpg; *.png; *.gif;*.bmp;',
+        "onUploadSuccess" : uploadPicture{$name},
+        'onFallback' : function() {
+            alert('未检测到兼容版本的Flash.');
+        }
+    });
+}
+
+eot;
+// {$uploadsuccessfunc}
+	// return $tem_input;
+	return ['str' => $tem_input, 'js' => $initjs . $uploadsuccessfunc];
 }
 
 /**
