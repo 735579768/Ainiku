@@ -101,19 +101,36 @@ $(function() {
     },
     //单击回复按钮
     huifuclick: function(obj, pid, id) {
-      $('#commentsform').remove();
+      // $('#commentsform').remove();
       var _t = $(obj);
       var dobj = _t.parents('dt').next();
-      ank.msgDialog({
+      // ank.msgDialog({
+      //   title: '留言回复:@' + _t.parents('span').children().eq(0).html(),
+      //   width: 450,
+      //   height: 'auto',
+      //   content: '',
+      //   cancel: function() {
+      //     $('#comments-form').append(commentsobj.formhtml);
+      //     //$('#comments-name').val(commentsobj.readCookie('ankc_homecomment_name'));
+      //     commentsobj.setliuyan();
+      //     commentsobj.initfocus();
+      //   }
+      // });
+      layer.open({
+        type: 1,
         title: '留言回复:@' + _t.parents('span').children().eq(0).html(),
-        width: 450,
-        height: 'auto',
-        content: '',
+        area: ['460px', 'auto'],
+        content: $('#comments-form'),
         cancel: function() {
-          $('#comments-form').append(commentsobj.formhtml);
+          // debugger;
+
+          // $('#comments-form').append(commentsobj.formhtml);
           //$('#comments-name').val(commentsobj.readCookie('ankc_homecomment_name'));
-          commentsobj.setliuyan();
-          commentsobj.initfocus();
+          // commentsobj.setliuyan();
+          // commentsobj.initfocus();
+        },
+        end: function() {
+          $('#comments-form').show();
         }
       });
       $('#dialog-conn').append(this.formhtml);
