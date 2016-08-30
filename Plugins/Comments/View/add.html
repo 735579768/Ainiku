@@ -24,16 +24,16 @@
     <label class="input-label">留言内容</label>
     <textarea name="content" id="comments-content" class="auto-label" data-msg="请输入留言内容" placeholder="留言内容"></textarea>
   </div>
-      <div class="form-section">
+      <div class="form-section form-verify">
     <label class="input-label">验证码</label>
-    <input type="text" name="verify" id="verifyimg" style="width:100px;" class="auto-label verifyinput" data-msg="请输入验证码" placeholder="验证码">
+    <input type="text" name="verify" id="verifyimg"  class="auto-label verifyinput" data-msg="请输入验证码" placeholder="验证码">
 <div id="verify" class="verifyimg" style="display:inline-block;">
     <img style="cursor:pointer; vertical-align:middle;" class="reloadverify"  id="verifyimg" alt="点击切换" onclick="this.src='{:U('Public/verify')}?random='+Math.random();" src="{:U('public/verify')}">
 
     </div>
 
   </div>
-  <div class="form-section" style="height:50px;">
+  <div class="form-section" style="height:50px;border:none;">
     <span class="email-notify">
     <input name="email_notify" value="1" type="checkbox" checked="checked" />有回复时邮件通知我
       </span> <div class="commentsbtn">

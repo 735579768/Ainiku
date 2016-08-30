@@ -23,12 +23,12 @@
 #comments-list .check-huifu{margin-left:20px;color:#969696;}
 #commentsform{width:auto;margin:10px;}
 #commentsform textarea:focus,#commentsform input:focus{border-color:#ff6700}
-#commentsform textarea,#commentsform input[type="text"]{border-radius:5px;display:block;outline:none;border:solid 1px #e0e0e0;height:30px;line-height:30px;padding:5px 10px;margin-top:10px;width:98%;}
+#commentsform textarea,#commentsform input[type="text"]{border:none;display:block;outline:none;height:30px;line-height:30px;padding:0px;width:100%;}
 #commentsform .verifyinput{width:100px;}
 #commentsform .verifyimg{position:absolute;top:-10px;left:130px;}
 #commentsform input:hover{border-color:#b0b0b0;}
-#commentsform textarea{height:50px;resize:none;line-height:20px;padding:10px;}
-#commentsform .form-section{position:relative;margin-top:15px;}
+#commentsform textarea{height:50px;resize:none;line-height:20px;padding:5px;}
+#commentsform .form-section{position:relative;margin-top:15px;border:solid 1px #e0e0e0;border-radius: 5px;padding:5px 10px;}
 #commentsform .form-section  label{background:#fff;height:20px;line-height:20px;position:absolute;left:10px;top:9px;color:#bbb;font-size:14px;}
 #commentsform .address-btn{margin-top:20px;}
 #commentsform .address-btn .btn{padding:6px 11px;width:130px;color:#fff!important;}
@@ -37,3 +37,5 @@
 .form-section select{padding:0px 0px 0px 10px;-webkit-appearance:none;-moz-appearance:none;appearance:none;border:solid 1px #e0e0e0;height:38px;line-height:38px;}
 #commentsform .commentsbtn{position:absolute;right:0px;top:0px;}
 #commentsform .email-notify{}
+#commentsform .form-verify{border:none;padding: 0px;}
+#commentsform .form-verify input{border:solid 1px #e0e0e0;padding: 5px 10px;border-radius: 5px;width:100px;}

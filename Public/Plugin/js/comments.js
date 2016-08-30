@@ -119,7 +119,7 @@ $(function() {
       layer.open({
         type: 1,
         title: '留言回复:@' + _t.parents('span').children().eq(0).html(),
-        area: ['460px', 'auto'],
+        area: ['450px', 'auto'],
         content: $('#comments-form'),
         cancel: function() {
           // debugger;
