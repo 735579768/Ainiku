@@ -100,8 +100,8 @@ class FileController extends AdminController {
 	// }
 	//图片管理
 	public function imglist() {
-		$starttime = strtotime(I('starttime'));
-		$endtime   = strtotime(I('endtime'));
+		$starttime = I('post.starttime', time_format(NOW_TIME));
+		$endtime   = I('post.endtime', time_format(NOW_TIME));
 		$field     = array(
 			'start' => array(
 				'field'   => 'starttime',
@@ -126,13 +126,17 @@ class FileController extends AdminController {
 		);
 		$this->assign('fieldarr', $field);
 		$this->assign('data', null);
-		$map = null;
-		if (!empty($starttime) && !empty($endtime)) {
-			$map = 'create_time > ' . $starttime . ' and ' . 'create_time < ' . $endtime;
-		} else if (!empty($starttime)) {
-			$map = 'create_time > ' . $starttime;
-		} else if (!empty($endtime)) {
-			$map = 'create_time < ' . $endtime;
+		$map       = null;
+		$starttime = strtotime($starttime);
+		$endtime   = strtotime($endtime);
+		if ($starttime != $endtime) {
+			if (!empty($starttime) && !empty($endtime)) {
+				$map = 'create_time > ' . $starttime . ' and ' . 'create_time < ' . $endtime;
+			} else if (!empty($starttime)) {
+				$map = 'create_time > ' . $starttime;
+			} else if (!empty($endtime)) {
+				$map = 'create_time < ' . $endtime;
+			}
 		}
 		$this->pages(array(
 			'model' => 'Picture',

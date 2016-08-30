@@ -168,8 +168,8 @@ eot;
 				$initformjs .= <<<eot
 !function(){
 	var dateobj=$('#datetime_{$name}');
-	var formstr='yyyy-mm-dd HH:mm:ss';
-	if(/\d{4}\-\d{2}\-\d{2}/ig.test(dateobj.val())){
+	var formstr='yyyy-mm-dd hh:ii:ss';
+	if(/^\d{4}\-\d{2}\-\d{2}$/ig.test(dateobj.val())){
 		formstr='yyyy-mm-dd';
 	}
 	dateobj.datetimepicker({
@@ -179,7 +179,6 @@ eot;
 	    autoclose:true
 	});
 }();
-</script>
 eot;
 				break;
 			case 'color':

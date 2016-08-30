@@ -1,7 +1,16 @@
 <?php
+/**
+ * 给图片添加水印
+ * @param  string $src_img    要添加水印的图片路径
+ * @param  string $water_img  水印图片路径
+ * @param  string $dest_img   添加好水印后的图片路径
+ * @param  string $water_text 文字水印
+ * @param  string $pos        水印位置
+ * @return [type]             返回 boolean类型,成功返回true,失败返回字符串
+ */
 function image_water($src_img = '', $water_img = '', $dest_img = '', $water_text = '', $pos = 'bottom_right') {
 	$isshuiyin = intval(C('SHUIYIN_ON'));
-	if ($isshuiyin === 0) {
+	if ($isshuiyin == 0) {
 		return true;
 	}
 	if (!is_file($src_img)) {

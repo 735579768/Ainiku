@@ -27,6 +27,7 @@ class IndexController extends CommonController {
 	 * @return [type]             [description]
 	 */
 	private function moveTableData($table_name) {
+		die('please set connect!');
 		$con_lc = 'mysql://root:123456@localhost:3306/oxisi';
 		$con_yc = 'mysql://root:123456@localhost:3306/yc_oxisi';
 		//转移用户表数据
