@@ -10,6 +10,7 @@ define('ACCESS_ROOT', true);
 define('APP_DEBUG', true);
 APP_DEBUG or define('BUILD_LITE_FILE', true);
 // 绑定访问Admin模块
+isset($_GET['m']) && define('BIND_MODULE', $_GET['m']);
 // define('BIND_MODULE', 'Home');
 //站点入口文件根路径
 define('SITE_PATH', str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']));
