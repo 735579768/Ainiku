@@ -541,6 +541,14 @@ eot;
 	return $formstr;
 }
 
+/**
+ * 生成上传图片的html和js
+ * @param  [type]  $name     表单name值
+ * @param  [type]  $setvalue 表单默认值
+ * @param  boolean $muli     是否可以多个文件上传
+ * @param  boolean $filetype 是否是附件上传
+ * @return [type]            返回一个数组html和初始化的js['str',='','js'=>'']
+ */
 function get_upload_picture_html($name, $setvalue, $muli = false, $filetype = false) {
 	$static_dir        = __STATIC__;
 	$upload_text       = $filetype ? '上传附件' : '上传图片';
