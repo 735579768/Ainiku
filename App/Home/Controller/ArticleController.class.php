@@ -6,7 +6,9 @@ defined("ACCESS_ROOT") || die("Invalid access");
 class ArticleController extends HomeController {
 	public function index($acate = null) {
 		$info = get_category($acate);
-		if (empty($info)) {$this->_empty();}
+		if (empty($info)) {
+			$this->error('没有此分类');
+		}
 
 		$tpl = empty($info['list_tpl']) ? 'index' : $info['list_tpl'];
 		$this->assign('category', $info);
@@ -14,14 +16,14 @@ class ArticleController extends HomeController {
 	}
 	function detail($article_id = null) {
 		if (empty($article_id)) {
-			$this->_empty();
+			$this->error('没有此文章');
 		}
 
 		$map['status']     = 1;
 		$map['article_id'] = $article_id;
 		$info              = M('Article')->where($map)->find();
 		if (empty($info)) {
-			$this->_empty();
+			$this->error('没有此文章');
 		}
 
 		$category = get_category($info['category_id']);

@@ -6,7 +6,7 @@ defined("ACCESS_ROOT") || die("Invalid access");
 class GoodsController extends HomeController {
 	public function index($gcate = '') {
 		$info = get_category($gcate);
-		if (empty($info)) {$this->_empty();}
+		if (empty($info)) {$this->error('没有此分类');}
 		$tpl = empty($info['list_tpl']) ? 'index' : $info['list_tpl'];
 		$this->assign('category', $info);
 		$this->pages([
