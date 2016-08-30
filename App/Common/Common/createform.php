@@ -356,12 +356,12 @@ eot;
 			case 'cutpicture':
 				///////////////////////////////////////////////////////////////////////////
 				$formjs['cutpicture']++;
-				$daarr     = get_upload_picture_html($name, $setvalue);
+				$daarr     = get_upload_picture_html($name, $set_replace_value);
 				$tem_input = $daarr['str'];
 				$initformjs .= $daarr['js'];
 				break;
 			case 'custom':
-				$tem_input = get_custom_form($extra, $name, $setvalue);
+				$tem_input = get_custom_form($extra, $name, $set_replace_value);
 				break;
 			case 'string':
 				$tem_input = <<<eot
