@@ -81,6 +81,8 @@ function create_form($fieldarr, $data = []) {
 			($type == 'string') && ($type = 'text');
 			//保存默认值
 			$default_value[$name] = ['type' => $type, 'value' => $setvalue];
+			//要替换的值字符串
+			$set_replace_value = "[REPLACE_SETVALUE_{$name}]";
 			//处理一些判断必填的
 			$is_require = $is_require ? '<span style="color:red;">(必填)</span>' : '';
 
@@ -115,7 +117,7 @@ eot;
 
 				$tem_input = <<<eot
 <div class="form-wrap">
-	<input type="text" {$yzstr}  class="form-control input-small {$yzclass}"  placeholder="请输入{$title}" name="{$name}" value="[REPLACE_SETVALUE_{$name}]" />
+	<input type="text" {$yzstr}  class="form-control input-small {$yzclass}"  placeholder="请输入{$title}" name="{$name}" value="{$set_replace_value}" />
 </div>
 eot;
 				break;
@@ -123,7 +125,7 @@ eot;
 				///////////////////////////////////////////////////////////////////////////
 				$tem_input = <<<eot
 <div class="form-wrap">
-	<input type="text"  class="form-control input-small {$yzclass}"  {$yzstr}     placeholder="请输入{$title}" name="{$name}" value="[REPLACE_SETVALUE_{$name}]" />
+	<input type="text"  class="form-control input-small {$yzclass}"  {$yzstr}     placeholder="请输入{$title}" name="{$name}" value="{$set_replace_value}" />
 </div>
 eot;
 				break;
@@ -131,7 +133,7 @@ eot;
 				///////////////////////////////////////////////////////////////////////////
 				$tem_input = <<<eot
 <div class="form-wrap">
-	<input type="password"  class="form-control input-small {$yzclass}"  {$yzstr}     placeholder="请输入{$title}" name="{$name}" value="[REPLACE_SETVALUE_{$name}]" />
+	<input type="password"  class="form-control input-small {$yzclass}"  {$yzstr}     placeholder="请输入{$title}" name="{$name}" value="{$set_replace_value}" />
 </div>
 eot;
 				break;
@@ -139,7 +141,7 @@ eot;
 				///////////////////////////////////////////////////////////////////////////
 				$tem_input = <<<eot
 <div class="form-wrap">
-<textarea  rows=1 cols=40 style='overflow:scroll;overflow-y:hidden;;overflow-x:hidden;' onfocus="file.autoHeight(this);" onblur="clearInterval(file.clock);"   class="form-control input-large {$yzclass}" {$yzstr}  placeholder="请输入{$title}"  name="{$name}">[REPLACE_SETVALUE_{$name}]</textarea>
+<textarea  rows=1 cols=40 style='overflow:scroll;overflow-y:hidden;;overflow-x:hidden;' onfocus="file.autoHeight(this);" onblur="clearInterval(file.clock);"   class="form-control input-large {$yzclass}" {$yzstr}  placeholder="请输入{$title}"  name="{$name}">{$set_replace_value}</textarea>
 </div>
 eot;
 				break;
@@ -147,7 +149,7 @@ eot;
 				///////////////////////////////////////////////////////////////////////////
 				$tem_input = <<<eot
 <div class="form-wrap">
-<textarea  rows=1 cols=40 style='overflow:scroll;overflow-y:hidden;;overflow-x:hidden;overflow-x:hidden;width:96%;' onfocus="file.autoHeight(this);" onblur="clearInterval(file.clock);"   class="form-control input-large {$yzclass}" {$yzstr}  placeholder="请输入{$title}"  name="{$name}">[REPLACE_SETVALUE_{$name}]</textarea>
+<textarea  rows=1 cols=40 style='overflow:scroll;overflow-y:hidden;;overflow-x:hidden;overflow-x:hidden;width:96%;' onfocus="file.autoHeight(this);" onblur="clearInterval(file.clock);"   class="form-control input-large {$yzclass}" {$yzstr}  placeholder="请输入{$title}"  name="{$name}">{$set_replace_value}</textarea>
 </div>
 eot;
 				break;
@@ -161,7 +163,7 @@ eot;
 				}
 				$tem_input = <<<eot
 <div class="form-wrap">
-	<input name="{$name}" id="datetime_{$name}" type="text" readonly class="form-control input-middle time" style="width:145px;" value="[REPLACE_SETVALUE_{$name}]" placeholder="请选择时间" />
+	<input name="{$name}" id="datetime_{$name}" type="text" readonly class="form-control input-middle time" style="width:145px;" value="{$set_replace_value}" placeholder="请选择时间" />
 </div>
 eot;
 				$initformjs .= <<<eot
@@ -185,7 +187,7 @@ eot;
 				///////////////////////////////////////////////////////////////////////////
 				$formjs['color']++;
 				$tem_input = <<<eot
-<input name="{$name}" type="text" class="selectcolor form-control input-small" value="[REPLACE_SETVALUE_{$name}]" />
+<input name="{$name}" type="text" class="selectcolor form-control input-small" value="{$set_replace_value}" />
 eot;
 				break;
 			case 'bool':
@@ -202,15 +204,6 @@ eot;
 				$optionstr = '';
 				foreach ($extra as $key => $val) {
 					$sel = '';
-					// if ($setvalue == $key) {
-					// 	$sel = 'selected';
-					// }
-					// if (isset($_REQUEST[$name])) {
-					// 	$se = I($name);
-					// 	if ($se == $key) {
-					// 		$sel = 'selected';
-					// 	}
-					// }
 					$optionstr .= <<<eot
 <option value="{$key}" {$sel}>{$val}</option>\n
 eot;
@@ -228,15 +221,6 @@ eot;
 				$sel      = '';
 				$radiostr = '';
 				foreach ($extra as $key => $val) {
-					// if ($setvalue == $key) {
-					// 	$sel = ' checked="checked" ';
-					// }
-					// if (isset($_REQUEST[$name])) {
-					// 	$se = I($name);
-					// 	if ($se == $key) {
-					// 		$sel = ' checked="checked" ';
-					// 	}
-					// }
 					$radiostr .= <<<eot
 <label class="form-radio">
   <input type="radio" name="{$name}" value="{$key}" {$sel} /><span>{$val}</span>
@@ -258,9 +242,6 @@ eot;
 				$checkstr = '';
 				$valuearr = explode(',', $setvalue);
 				foreach ($extra as $key => $val) {
-					// if (in_array($key, $valuearr)) {
-					// 	$sel = ' checked="checked" ';
-					// }
 					$checkstr = <<<eot
 <label class="form-checkbox">
 	<input type="checkbox" name="{$name}[]" value="{$key}"   {$sel}  />
@@ -275,7 +256,7 @@ eot;
 				$formjs['editor']++;
 				$tem_input = <<<eot
  <!--style给定宽度可以影响编辑器的最终宽度-->
-<script type="text/plain" id="{$name}" name="{$name}" style="width:99%;height:150px;">[REPLACE_SETVALUE_{$name}]</script>
+<script type="text/plain" id="{$name}" name="{$name}" style="width:99%;height:150px;">{$set_replace_value}</script>
 eot;
 				$initformjs .= <<<eot
 !function(){
@@ -301,21 +282,21 @@ eot;
 			case 'picture':
 				///////////////////////////////////////////////////////////////////////////
 				$formjs['picture']++;
-				$daarr     = get_upload_picture_html($name, $setvalue);
+				$daarr     = get_upload_picture_html($name, $set_replace_value);
 				$tem_input = $daarr['str'];
 				$initformjs .= $daarr['js'];
 				break;
 			case 'batchpicture':
 				///////////////////////////////////////////////////////////////////////////
 				$formjs['picture']++;
-				$daarr     = get_upload_picture_html($name, $setvalue, true);
+				$daarr     = get_upload_picture_html($name, $set_replace_value, true);
 				$tem_input = $daarr['str'];
 				$initformjs .= $daarr['js'];
 				break;
 			case 'file':
 				///////////////////////////////////////////////////////////////////////////
 				$formjs['picture']++;
-				$daarr     = get_upload_picture_html($name, $setvalue, false, true);
+				$daarr     = get_upload_picture_html($name, $set_replace_value, false, true);
 				$tem_input = $daarr['str'];
 				$initformjs .= $daarr['js'];
 				break;
@@ -324,7 +305,7 @@ eot;
 				$formjs['liandong']++;
 				$tem_input = <<<eot
 <style>select.selarea{ width:150px; overflow:hidden;}</style>
-<input type="hidden" id="ssq{$name}"  name="{$name}"  value="[REPLACE_SETVALUE_{$name}]" />
+<input type="hidden" id="ssq{$name}"  name="{$name}"  value="{$set_replace_value}" />
 <select id="Province{$name}" class="form-control selarea"><option value="0">请选择--</option></select>
 <select id="city{$name}" class="form-control selarea"><option value="0">请选择--</option></select>
 <select id="area1{$name}" class="form-control selarea"><option value="0">请选择--</option></select>
@@ -356,20 +337,20 @@ eot;
 				$initformjs .= <<<eot
 !function(){
 	var goodstypeform=$('#goodstype_form');
+	goodstypeform.val('{$set_replace_value}');
 	goodstypeform.bind('propertychange change',function(){
-	var idd=$(this).val();
-	var productid=$('#productid').val();
-	//productid产品的id在编辑表单里面首先用js写上这个变量值为当前产品的id
-		$.ajax({
-			'type':'POST',
-			'url':"{$url}",
-			'data':{goods_type_id:idd,mainid:productid},
-			'success': function(da){
-			$('#goodsattribute').html(da);
-			}
-		});
+		var idd=$(this).val();
+		var productid=$('#productid').val();
+		//productid产品的id在编辑表单里面首先用js写上这个变量值为当前产品的id
+			$.ajax({
+				'type':'POST',
+				'url':"{$url}",
+				'data':{goods_type_id:idd,mainid:productid},
+				'success': function(da){
+				$('#goodsattribute').html(da);
+				}
+			});
 	});
-	goodstypeform.val('[REPLACE_SETVALUE_{$name}]');
 	goodstypeform.change();
 }();
 eot;
@@ -388,7 +369,7 @@ eot;
 				///////////////////////////////////////////////////////////////////////////
 				$tem_input = <<<eot
 <div class="form-wrap">
-	<input type="text"  class="form-control input-large {$yzclass}" {$yzstr}   placeholder="请输入{$title}"  name="{$name}" value="[REPLACE_SETVALUE_{$name}]" />
+	<input type="text"  class="form-control input-large {$yzclass}" {$yzstr}   placeholder="请输入{$title}"  name="{$name}" value="{$set_replace_value}" />
 </div>
 eot;
 				break;
@@ -689,7 +670,7 @@ eot;
 <input type="file" name="file" id="upload_picture_{$name}"  style="display:none;">
 <a  id="demohtml5upload{$name}btn" class="btn  html5uploadbtn" style="margin-bottom:10px;"  href="javascript:;">展开</a>
 <div id="demohtml5upload{$name}" class="demo  html5upload"></div>
-<input type="hidden" name="{$name}" id="cover_id_{$name}" value="[REPLACE_SETVALUE_{$name}]"/>
+<input type="hidden" name="{$name}" id="cover_id_{$name}" value="{$setvalue}"/>
 <div id="uploadimg_{$name}" class="cl">
 
 </div>
