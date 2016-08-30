@@ -367,7 +367,7 @@ eot;
 			case 'string':
 				$tem_input = <<<eot
 <div class="form-wrap">
-	<input type="text"  class="form-control input-small {$yzclass}" {$yzstr}   placeholder="请输入{$title}"  name="{$name}" value="{$set_replace_value}" />
+	<input type="text"  class="form-control input-large {$yzclass}" {$yzstr}   placeholder="请输入{$title}"  name="{$name}" value="{$set_replace_value}" />
 </div>
 eot;
 				break;
@@ -375,7 +375,7 @@ eot;
 				///////////////////////////////////////////////////////////////////////////
 				$tem_input = <<<eot
 <div class="form-wrap">
-	<input type="text"  class="form-control input-large {$yzclass}" {$yzstr}   placeholder="请输入{$title}"  name="{$name}" value="{$set_replace_value}" />
+	<input type="text"  class="form-control input-small {$yzclass}" {$yzstr}   placeholder="请输入{$title}"  name="{$name}" value="{$set_replace_value}" />
 </div>
 eot;
 				break;

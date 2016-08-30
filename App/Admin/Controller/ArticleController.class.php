@@ -24,7 +24,7 @@ class ArticleController extends AdminController {
 		$field   = [$field, $field1];
 		$field[] = [
 			'field'   => 'title',
-			'type'    => 'string',
+			'type'    => 'text',
 			'name'    => 'title',
 			'title'   => '标题',
 			'note'    => '', //对标题的说明性文字
