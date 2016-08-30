@@ -9,19 +9,31 @@ class GoodsController extends AdminController {
 	 * @author 枫叶 <735579768@qq.com>
 	 */
 	public function index() {
-		$field          = get_model_attr('Goods', 'category_id');
-		$field['title'] = '分类';
-		$this->assign('fieldarr', $field);
+		//分类
+		$field             = get_model_attr('Goods', 'category_id');
+		$field['title']    = '分类';
+		$field['attrtype'] = 0;
+		$field['value']    = I('category_id', '0');
 
 		//附加属性
-		//$field1=Api('Model/GoodsModel');
 		$field1             = get_model_attr('Goods', 'position');
 		$field1['type']     = 'select';
 		$field1['title']    = '位置';
 		$field1['extra'][0] = '全部';
-		$field1['value']    = I('position');
-		$this->assign('fieldarr1', $field1);
+		$field1['attrtype'] = 0;
+		$field1['value']    = I('position', '0');
 
+		$field   = [$field, $field1];
+		$field[] = [
+			'field'   => 'title',
+			'type'    => 'string',
+			'name'    => 'title',
+			'title'   => '标题',
+			'note'    => '', //对标题的说明性文字
+			'value'   => I('title', ''),
+			'is_show' => 3,
+		];
+		$this->assign('fieldarr', $field);
 		$this->assign('data', null);
 		/* 查询条件初始化 */
 		$map           = array();

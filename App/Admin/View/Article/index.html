@@ -10,10 +10,7 @@
         </form>
         <div class="searchform">
             <form class="form-h form-group-h" action="{:U('')}" method="post">
-                {:get_form($fieldarr1,$data)} {:get_form($fieldarr,$data)}
-                <div class="form-group">
-                    <input name="title" type="text" value="{:I('title')}" class="form-control input-middle" placeholder="请输入标题" />
-                </div>
+                {:get_form($fieldarr,$data)}
                 <a class="sch-btn" href="javascript:;" id="search"><i class="btn-search"></i></a>
             </form>
         </div>

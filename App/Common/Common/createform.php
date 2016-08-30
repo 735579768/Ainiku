@@ -78,7 +78,6 @@ function create_form($fieldarr, $data = []) {
 			$data_err = isset($value['data_err']) ? $value['data_err'] : '';
 
 			($type == 'umeditor') && ($type = 'editor');
-			($type == 'string') && ($type = 'text');
 			//保存默认值
 			$default_value[$name] = ['type' => $type, 'value' => $setvalue];
 			//要替换的值字符串
@@ -364,6 +363,13 @@ eot;
 				break;
 			case 'custom':
 				$tem_input = get_custom_form($extra, $name, $setvalue);
+				break;
+			case 'string':
+				$tem_input = <<<eot
+<div class="form-wrap">
+	<input type="text"  class="form-control input-small {$yzclass}" {$yzstr}   placeholder="请输入{$title}"  name="{$name}" value="{$set_replace_value}" />
+</div>
+eot;
 				break;
 			default:
 				///////////////////////////////////////////////////////////////////////////
