@@ -7,29 +7,31 @@ class GoodsController extends HomeController {
 	public function index($gcate = '') {
 		$info = get_category($gcate);
 		if (empty($info)) {$this->_empty();}
-
 		$tpl = empty($info['list_tpl']) ? 'index' : $info['list_tpl'];
 		$this->assign('category', $info);
+		$this->pages([
+			'model' => 'Goods',
+			'rows'  => 10,
+		]);
 		$this->display($tpl);
-		$this->display();
 	}
-	function detail($goods_id) {
-		if (empty($article_id)) {
-			$this->_empty();
+	function detail($goods_id = '') {
+		if (empty($goods_id)) {
+			$this->error('产品不存在');
 		}
 
 		$map['status']   = 1;
 		$map['goods_id'] = $goods_id;
 		$info            = M('Goods')->where($map)->find();
 		if (empty($info)) {
-			$this->_empty();
+			$this->error('产品不存在');
 		}
 
 		$category = get_category($info['category_id']);
 		$tpl      = empty($category['detail_tpl']) ? 'detail' : $category['detail_tpl'];
 
 		M('Goods')->where("goods_id=$goods_id")->setInc('views');
-		$this->assign('ginfo', $info);
+		$this->assign('info', $info);
 		$this->assign('category', $category);
 		$this->display($tpl);
 	}

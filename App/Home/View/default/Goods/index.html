@@ -1,0 +1,8 @@
+<extend name="Public/base" />
+<block name="body">
+ <ul class="smimglist cl">
+<volist name="_list" id="vo">
+  <li class="smimglistitem bd"><a target="_blank" href="{:U('gdetail/'.$vo['goods_id'])}"><img  class="preload"  alt="{$vo.title}"  title="{$vo.title}" src="{$vo.pic|get_picture='thumbpath','90_80'}" /></a><a href="{:U('gdetail/'.$vo['goods_id'])}" target="_blank" title="{$vo.title}" class="imgtitle">{$vo.title}</a></li>
+</volist>
+</ul>
+</block>

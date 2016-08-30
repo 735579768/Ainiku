@@ -4,8 +4,8 @@ use Think\Controller;
 
 defined("ACCESS_ROOT") || die("Invalid access");
 class ArticleController extends HomeController {
-	public function index($cate = null) {
-		$info = get_category($cate);
+	public function index($acate = null) {
+		$info = get_category($acate);
 		if (empty($info)) {$this->_empty();}
 
 		$tpl = empty($info['list_tpl']) ? 'index' : $info['list_tpl'];

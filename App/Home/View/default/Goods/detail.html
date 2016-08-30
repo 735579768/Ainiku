@@ -1,0 +1,19 @@
+<extend name="Public/base" />
+<block name="body">
+<div class="arccon">
+<h2 class="a-title">{$info.title}</h2>
+<div class="a-note cl">
+<span>浏览:{$info.views}</span>
+<span>来源:<a href="http://www.ainiku.com">http://www.ainiku.com</a></span>
+<span>时间:{$info.create_time|time_format}</span>
+<span>作者:爱你酷</span>
+
+</div>
+<div class="a-con">
+<img src="{$info.pic|get_picture}" alt="">
+
+{$info['content']}
+
+</div>
+ </div>
+ </block>
