@@ -19,8 +19,9 @@ class QloginPlugin extends \Plugins\Plugin {
 		$this->display('content');
 	}
 	function qcon() {
-		$data = $this->getParam();
-		define('Q_CALLBACK', urlencode($data['callback'] . UP('Qlogin/qcallfunc')));
+		$data    = $this->getParam();
+		$callurl = $data['callback'] . '/' . UP('Qlogin/qcallfunc');
+		define('Q_CALLBACK', urlencode($callurl));
 		Vendor('QQLogin.API.qqlogin');
 		die();
 	}
