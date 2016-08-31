@@ -231,7 +231,6 @@ eot;
 				///////////////////////////////////////////////////////////////////////////
 				$tem_input = <<<eot
 <div class="controls">
-	<span style="display:none;"><input type="checkbox" name="{$name}[]" value="0"  /></span>
 	[REPLACE_CHECKBOX]
 </div>
 eot;
