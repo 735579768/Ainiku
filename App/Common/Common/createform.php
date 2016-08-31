@@ -69,7 +69,7 @@ function create_form($fieldarr, $data = []) {
 			$extra      = isset($value['extra']) ? $value['extra'] : [];
 			$setvalue   = isset($value['value']) ? $value['value'] : '';
 			$is_show    = isset($value['is_show']) ? $value['is_show'] : 3;
-			$is_require = isset($value['is_require']) ? $value['is_require'] : '0';
+			$is_require = isset($value['is_require']) ? true : false;
 
 			//验证表单
 			$data_reg = isset($value['data_reg']) ? $value['data_reg'] : '';
@@ -90,6 +90,10 @@ function create_form($fieldarr, $data = []) {
 			if ($data_reg) {
 				$yzstr   = " data-reg=\"{$data_reg}\" data-ts=\"{$data_ts}\" data-ok=\"{$data_ok}\" data-err=\"{$data_err}\"";
 				$yzclass = ' autoyz';
+			} else if ($is_require && !in_array($type, ['number', 'double'])) {
+				$data_reg = '^.+?$';
+				$yzstr    = " data-reg=\"{$data_reg}\" data-ts=\"此项为必填项\" data-ok=\"格式正确\" data-err=\"内容不能为空\"";
+				$yzclass  = ' autoyz';
 			}
 			//判断当前操作是add  edit
 			$is_add  = (strpos(strtolower(ACTION_NAME), 'add') === false) ? false : true;
@@ -113,7 +117,11 @@ eot;
 			switch ($type) {
 			case 'number':
 				///////////////////////////////////////////////////////////////////////////
-
+				if (!$data_reg) {
+					$data_reg = '^\d+?$';
+					$yzstr    = " data-reg=\"{$data_reg}\" data-ts=\"请输入整数\" data-ok=\"格式正确\" data-err=\"格式错误,请输入整数\"";
+					$yzclass  = ' autoyz';
+				}
 				$tem_input = <<<eot
 <div class="form-wrap">
 	<input type="text" {$yzstr}  class="form-control input-small {$yzclass}"  placeholder="请输入{$title}" name="{$name}" value="{$set_replace_value}" />
@@ -122,6 +130,12 @@ eot;
 				break;
 			case 'double':
 				///////////////////////////////////////////////////////////////////////////
+				///
+				if (!$data_reg) {
+					$data_reg = '^\d+?(\.\d{2})?$';
+					$yzstr    = " data-reg=\"{$data_reg}\" data-ts=\"请输入数字可带两位小数\" data-ok=\"格式正确\" data-err=\"格式错误\"";
+					$yzclass  = ' autoyz';
+				}
 				$tem_input = <<<eot
 <div class="form-wrap">
 	<input type="text"  class="form-control input-small {$yzclass}"  {$yzstr}     placeholder="请输入{$title}" name="{$name}" value="{$set_replace_value}" />
