@@ -278,7 +278,7 @@ function get_member($id = null, $field = null) {
 /*
  * 取用户组信息
  * */
-function get_membergroup($id = null, $field = null) {
+function get_member_group($id = null, $field = null) {
 	if (empty($id) || !is_numeric($id)) {
 		return '';
 	}
@@ -293,7 +293,7 @@ function get_membergroup($id = null, $field = null) {
 /*
  *返回用户分组列表
  */
-function get_membergroup_list() {
+function get_member_group_list() {
 	$membergroup = F('sys_membergroup_list');
 	if (empty($membergroup) || APP_DEBUG) {
 		$temlist = D('MemberGroup')->select();
