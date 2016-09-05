@@ -42,7 +42,7 @@ $(function() {
 			});
 			$(".ajax-href-del").bind("click", function() {
 				var _this = $(this);
-				layer.confirm('确认此操作吗?', {
+				parent.layer.confirm('确认此操作吗?', {
 						btn: ['确认', '取消']
 					},
 					function(index) {
@@ -57,7 +57,7 @@ $(function() {
 				// if (!confirm("确定此操作吗?")) return false;
 				var _this = $(this);
 
-				layer.confirm('确认此操作吗?', {
+				parent.layer.confirm('确认此操作吗?', {
 						btn: ['确认', '取消']
 					},
 					function(index) {
