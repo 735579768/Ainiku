@@ -51,6 +51,9 @@ function create_form($fieldarr, $data = []) {
 	$static_dir = __STATIC__;
 
 	$formstr = '';
+	if (!$fieldarr) {
+		return '';
+	}
 	// $formjsstr  = '';
 	$formstr = F('_formcache/' . $md5key);
 	if (empty($formstr) || APP_DEBUG) {

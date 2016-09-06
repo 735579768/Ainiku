@@ -31,7 +31,7 @@ dump($assets);*/
 		$iplist = extra_to_array($iplist);
 		if (!empty($iplist)) {
 			if (in_array($ip, $iplist)) {
-				die('ip is no access!');
+				die('ip is access denied!');
 			}
 
 		}
