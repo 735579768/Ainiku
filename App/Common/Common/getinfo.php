@@ -386,18 +386,21 @@ function get_model($model_id = '', $field = '') {
 	return empty($field) ? $data : $data[$field];
 }
 /**
- * 通过模型属性来返回一个状态文本
- * @return [type] [description]
+ * 返回一个对应的状态文本
+ * @param  string $status 状态数字
+ * @param  string $type   哪个类型的状态
+ * @return [type]         返回一个字符串
  */
-function get_status($val = '', $model_id = '', $field = 'status') {
-	if (empty($val)) {
-		return '';
-	} else {
-		$arr = get_model_attr($model_id, $field, 'extra');
-		//trace($arr);
-		return $arr[$val];
+function get_status($status = '', $type = '') {
+	if (!$status || !$type) {
+		return '--';
 	}
-
+	$arr = C('system_status');
+	$arr = $arr[$type];
+	if (!$arr) {
+		return '--';
+	}
+	return isset($arr[$status]) ? $arr[$status] : '--';
 }
 /**
  *取表单模型数据数组

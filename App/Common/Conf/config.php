@@ -3,7 +3,7 @@ defined("ACCESS_ROOT") || die("Invalid access");
 return array(
 	//'DEFAULT_MODULE'=>'Admin',
 	//'配置项'=>'配置值'
-	'LOAD_EXT_CONFIG'      => 'db_config,reg_config',
+	'LOAD_EXT_CONFIG'      => 'db_config,reg_config,status',
 	'TAGLIB_PRE_LOAD'      => 'Ainiku\\TagLib\\Article,Ainiku\\TagLib\\Ank',
 	'AUTOLOAD_NAMESPACE'   => array(
 		//自动加载扩展命名空间
