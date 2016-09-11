@@ -30,7 +30,7 @@ class ModelController extends AdminController {
 			$model = D('Model');
 			if ($model->create()) {
 				$result = $model->add();
-				if ($result !== false) {
+				if ($result) {
 					$this->addnewtable(I('post.table'));
 					$this->success(L('_ADD_SUCCESS_'), U('Modelattr/index', array('model_id' => $result)));
 				} else {

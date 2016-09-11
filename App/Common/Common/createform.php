@@ -493,7 +493,9 @@ eot;
 		$setvalue  = $value['value'];
 		$inputtype = $value['type'];
 		isset($data[$key]) && ($setvalue = $data[$key]);
-
+		if (!$setvalue) {
+			$setvalue = I($key);
+		}
 		$key   = preg_quote($key);
 		$value = preg_quote($setvalue);
 		$key   = str_replace('/', '\/', $key);
