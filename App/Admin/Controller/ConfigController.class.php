@@ -118,10 +118,14 @@ class ConfigController extends AdminController {
 			$data[$k]['name']    = 'config__' . $nme . '';
 			$data[$k]['note']    = $v['note'] . '。标识:' . $nme;
 			$data[$k]['is_show'] = 3;
-			if (!empty($v['extra']) && $v['type'] != 'custom') {
-				$data[$k]['extra'] = extra_to_array($v['extra']);
+			$redata              = parse_string_function($v['extra']);
+			if ($redata === false) {
+				if (!empty($v['extra']) && $v['type'] != 'custom') {
+					$data[$k]['extra'] = extra_to_array($v['extra']);
+				}
+			} else {
+				$data[$k]['extra'] = $redata;
 			}
-
 		}
 		// dump($data);
 		// die();

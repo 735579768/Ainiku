@@ -322,3 +322,23 @@ function get_table($tablename, $prefix = true) {
 	$tablename = preg_replace('/([A-Z]{1})/', '_$1', $tablename);
 	return $prefix ? strtolower(__DB_PREFIX__ . $tablename) : strtolower($tablename);
 }
+/**
+ * 取系统前台的主题列表
+ * @return [type] [description]
+ */
+function get_theme_list() {
+	$rearr = [];
+	$path  = APP_PATH . 'Home/View/';
+	$list  = get_dir_list($path);
+	foreach ($list as $key => $value) {
+		$filepath = $path . $value . '/tpl.ini';
+		if (file_exists($filepath)) {
+			$con           = file_get_contents($filepath);
+			$con           = json_decode($con, true);
+			$rearr[$value] = $con['name'];
+		} else {
+			$rearr[$value] = $value;
+		}
+	}
+	return $rearr;
+}

@@ -428,21 +428,12 @@ function get_model_attr($model_id = null, $field = null, $attr = null) {
 		$refield  = null;
 		foreach ($list as $key => $val) {
 			if (!empty($val['extra'])) {
-				if ($val['extranote'] === '1' || $val['extranote'] == 'func') {
-					//支持传参数
-					preg_match('/([a-zA-Z0-9_]+)(\=(.+))?/i', $val['extra'], $out);
-					$func = $out[1];
-					$para = isset($out[3]) ? $out[3] : '';
-					$para = str_replace("'", '', $para);
-					if (empty($para)) {
-						$list[$key]['extra'] = $func();
-					} else {
-						$list[$key]['extra'] = call_user_func_array($func, explode(',', $para));
-					}
-
-				} else {
+				$redata = parse_string_function($val['extra']);
+				if ($redata === false) {
 					//如果是数组格式就转化成数组
 					$list[$key]['extra'] = extra_to_array($val['extra']);
+				} else {
+					$list[$key]['extra'] = $redata;
 				}
 
 			}
@@ -463,6 +454,30 @@ function get_model_attr($model_id = null, $field = null, $attr = null) {
 		F('_modelform/' . $skey, $list);
 	}
 	return $relist;
+}
+/**
+ * 解析字符串函数
+ * @param  string $funcname [description]
+ * @return [type]           成功返回对象的数据,失败返回false
+ */
+function parse_string_function($funcname = '') {
+	$out = [];
+	if (preg_match('/([a-zA-Z0-9_]+)(\=(.+))?/i', $funcname, $out)) {
+		if (function_exists($out[1])) {
+			$func = $out[1];
+			$para = isset($out[3]) ? $out[3] : '';
+			$para = str_replace("'", '', $para);
+			if (empty($para)) {
+				return $func();
+			} else {
+				return call_user_func_array($func, explode(',', $para));
+			}
+		} else {
+			return false;
+		}
+	} else {
+		return false;
+	}
 }
 /**
  *解析extra字符串数据
