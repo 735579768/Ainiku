@@ -2,7 +2,7 @@
 <block name="right">
     <!--tool start-->
     <div class="btn-tool">
-        <form id="moveform" class="form-h form-group-h" action="{:U('Article/move')}" method="post">
+        <form id="moveform" class="form-h form-group-h form-tip-hidden" action="{:U('Article/move')}" method="post">
             <a href="{:U('Archive/add',array('model_id'=>$model['model_id']))}" class="btn btn-parmary">添加{$model['title']}</a>
             <a href="{:U('Archive/del',array('model_id'=>$model['model_id']))}" class="btn btn-danger Abatch">批量移到回收站</a>
             <input name="arcid" id="arcid" type="hidden" value="" />
@@ -11,7 +11,7 @@
             <a href="{:U('Archive/recycle',array('model_id'=>$model['model_id']))}" id="movearticle" class="btn btn-paimary">回收站</a>
         </form>
         <div class="searchform">
-            <form class="form-h form-group-h" action="{:U('')}" method="post">
+            <form class="form-h form-group-h form-tip-hidden" action="{:U('')}" method="post">
                 <div class="form-group">
                     <input name="title" type="text" value="{:I('title')}" class="form-control input-middle" placeholder="请输入标题" />
                 </div>

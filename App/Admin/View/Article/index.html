@@ -2,14 +2,14 @@
 <block name="right">
     <!--tool start-->
     <div class="btn-tool">
-        <form id="moveform" class="form-h form-group-h" action="{:U('Article/move')}" method="post">
+        <form id="moveform" class="form-h form-group-h form-tip-hidden" action="{:U('Article/move')}" method="post">
             <a href="{:U('Article/add',array('category_id'=>I('category_id')))}" class="btn btn-parmary">添加文章</a>
             <a href="{:U('Article/del')}" class="btn btn-danger klbatch">批量移到回收站</a>
             <input name="arcid" id="arcid" type="hidden" value="" />
             <a href="javascript:;" id="movearticle" class="btn btn-paimary">移动选中文档</a>
         </form>
         <div class="searchform">
-            <form class="form-h form-group-h" action="{:U('')}" method="post">
+            <form class="form-h form-group-h form-tip-hidden" action="{:U('')}" method="post">
                 {:get_form($fieldarr,$data)}
                 <a class="sch-btn" href="javascript:;" id="search"><i class="btn-search"></i></a>
             </form>

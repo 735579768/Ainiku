@@ -2,12 +2,12 @@
 <block name="right">
     <!--tool start-->
     <div class="btn-tool">
-        <form id="moveform" class="form-h form-group-h" action="{:U('Order/move')}" method="post">
+        <form id="moveform" class="form-h form-group-h form-tip-hidden" action="{:U('Order/move')}" method="post">
             <a href="{:U('Order/del')}" class="btn btn-danger klbatch">批量删除</a>
             <input name="arcid" id="arcid" type="hidden" value="" />
         </form>
         <div class="searchform">
-            <form class="form-h form-group-h" action="{:U('')}" method="post">
+            <form class="form-h form-group-h form-tip-hidden" action="{:U('')}" method="post">
                 {:get_form($orderstatus,$data)}
                 <div class="form-group">
                     <input name="order_sn" type="text" value="{:I('order_sn')}" class="form-control input-middle" placeholder="请输入订单号" />

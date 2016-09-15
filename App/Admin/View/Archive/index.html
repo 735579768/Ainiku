@@ -2,7 +2,7 @@
 <block name="right">
     <!--tool start-->
     <div class="btn-tool">
-        <form id="moveform" class="form-h form-group-h cl" action="{:U('Article/move')}" method="post">
+        <form id="moveform" class="form-h form-group-h form-tip-hidden cl" action="{:U('Article/move')}" method="post">
             <a href="{:U('Archive/add',array('model_id'=>$model['model_id']))}" class="btn btn-parmary">添加{$model['title']}</a>
             <eq name="ACTION_NAME" value="recycle">
                 <a href="{:U('Archive/huifu',array('model_id'=>$model['model_id']))}" class="btn btn-danger Abatch">批量恢复</a>
@@ -16,7 +16,7 @@
             <a href="javascript:;" id="movearticle" class="btn btn-paimary hide">移动选中{$model['title']}</a>
         </form>
         <notempty name="search_format">
-            <form class="form-h form-group-h searchform cl" action="{:U('')}" method="post">
+            <form class="form-h form-group-h form-tip-hidden searchform cl" action="{:U('')}" method="post">
                 <div class="form-group cl fl">
                     <div class="form-label fl">搜索{$search_format.title}:</div>
                     <div class="fl">

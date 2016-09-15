@@ -59,6 +59,7 @@ select.form-control{width: auto;display: inline-block;height: 30px; vertical-ali
 .form-group-h .form-label .form-tip{text-align:left;width:200px;padding:10px;word-break:break-all;color:#111;display:none;background:#ededed;position:absolute;left:50px;bottom:50px;border:solid 1px #ededed;z-index:9999999;box-shadow:2px 2px 8px #ccc;}
 .form-group-h .form-label .form-tip:before{content:'';position:absolute;left:20px;border-style:solid;width:0;height:0;border-left:20px solid transparent;border-right:20px solid transparent;border-top:20px solid #ededed;border-bottom:0px;bottom:-20px;}
 .form-h .form-group{display:inline-block;vertical-align:top;}
+.form-tip-hidden .form-label span{display: none!important;}
 
 /***表单长度***/
 .input-large{width:400px;}
