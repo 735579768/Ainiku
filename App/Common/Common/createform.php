@@ -796,7 +796,7 @@ function get_form($fieldarr, $data = []) {
 		$jc  = create_form($field['jc'], $data);
 		$kz  = create_form($field['kz'], $data);
 		$str = <<<eot
-<div class="tab">
+<div id="tab123" class="tab">
 	<ul class="tabnavblock cl">
 	    <li class="tabnav hover"><a href="javascript:;">基础</a></li>
 	    <li class="tabnav"><a href="javascript:;">扩展</a></li>
@@ -809,7 +809,7 @@ function get_form($fieldarr, $data = []) {
 </div>
 <script>
 $(function(){
-     $('.tab').mytab({navcls:'.tabnav',divcls:'.tabdiv',effect:'show',ev:'click',navhovercls:'hover'});
+     $('#tab123').mytab({navcls:'.tabnav',divcls:'.tabdiv',effect:'show',ev:'click',navhovercls:'hover'});
   });
 </script>
 eot;
