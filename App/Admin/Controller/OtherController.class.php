@@ -23,16 +23,16 @@ class OtherController extends AdminController {
 		$arr = array();
 		// $rutimepath = str_replace(MODULE_NAME . '/', '', RUNTIME_PATH);
 		//图片目录缓存
-		if ($type == 'data' || $type == 'all') {
-			$arr[] = del_allfile(STYLE_CACHE_DIR);
-			$arr[] = del_allfile(IMAGE_CACHE_DIR);
-		}
-//数据目录缓存
-		if ($type == 'run' || $type == 'all') {
-			$arr[] = del_allfile(RUNTIME_PATH);
-		}
+		// 		if ($type == 'data' || $type == 'all') {
+		// 			$arr[] = del_allfile(STYLE_CACHE_DIR);
+		// 			$arr[] = del_allfile(IMAGE_CACHE_DIR);
+		// 		}
+		// //数据目录缓存
+		// 		if ($type == 'run' || $type == 'all') {
+		// 			$arr[] = del_allfile(RUNTIME_PATH);
+		// 		}
 
-		// $arr[] = del_allfile('./Data/cache/');
+		$arr[] = del_allfile('./Data/cache/');
 		//运行时目录缓存
 		if (is_array($arr)) {
 			//统计缓存大小
