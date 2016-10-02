@@ -493,7 +493,7 @@ eot;
 		$setvalue  = $value['value'];
 		$inputtype = $value['type'];
 		isset($data[$key]) && ($setvalue = $data[$key]);
-		if (!$setvalue) {
+		if ($setvalue === '') {
 			$setvalue = I($key);
 		}
 		$key   = preg_quote($key);
