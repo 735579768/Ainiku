@@ -72,7 +72,7 @@ function create_form($fieldarr, $data = []) {
 			$extra      = isset($value['extra']) ? $value['extra'] : [];
 			$setvalue   = isset($value['value']) ? $value['value'] : '';
 			$is_show    = isset($value['is_show']) ? $value['is_show'] : 3;
-			$is_require = isset($value['is_require']) ? true : false;
+			$is_require = isset($value['is_require']) ? ($value['is_require'] ? true : false) : false;
 
 			//验证表单
 			$data_reg = isset($value['data_reg']) ? $value['data_reg'] : '';
