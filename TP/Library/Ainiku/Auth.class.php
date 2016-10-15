@@ -1,5 +1,6 @@
 <?php
 namespace Ainiku;
+
 class Auth {
 	//private $nodelist=null;
 	//private $accessnodelist=null;
