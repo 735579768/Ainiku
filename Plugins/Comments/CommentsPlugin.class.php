@@ -235,7 +235,7 @@ sql;
 
 		$model  = M('PluginComments');
 		$result = $model->where("id in ($id)")->delete();
-		if (result) {
+		if ($result) {
 			$this->success('已经彻底删除');
 		} else {
 			$this->error('操作失败');
@@ -248,7 +248,7 @@ sql;
 		}
 
 		$result = M('PluginComments')->where("1=1")->delete();
-		if (result) {
+		if ($result) {
 			$this->success('已经清空', U('index'));
 		} else {
 			$this->error('操作失败');
