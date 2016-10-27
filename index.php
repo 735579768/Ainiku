@@ -13,7 +13,7 @@ APP_DEBUG or define('BUILD_LITE_FILE', true);
 isset($_GET['m']) && define('BIND_MODULE', $_GET['m']);
 // define('BIND_MODULE', 'Home');
 //站点入口文件根路径
-define('SITE_PATH', trim(str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']), '/'));
+define('SITE_PATH', rtrim(str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']), '/'));
 
 //项目相对站点的子目录,结尾不要斜杠
 //默认项目目录结构跟入口文件在一个目录,如果项目结构被放在一个子目录里,这个地方需要设置
